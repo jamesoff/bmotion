@@ -50,19 +50,23 @@ proc bMotion_interbot_next_elect_do { channel } {
   }
   set bMotion_interbot_nextbot_score($channel) $myScore
   set bMotion_interbot_nextbot_nick($channel) $botnick
-  
+  bMotion_putloglev 3 * "bMotion: assuming I'm the nextbot until I find another"
   catch {
     set bots [chanlist $channel]
     foreach bot $bots {
       #not me you idiot
       if [isbotnick $bot] { continue }
+      bMotion_putloglev 4 * "bMotion: checking $bot for election in $channel"
       set handle [nick2hand $bot $channel]
+      bMotion_putloglev 4 * "bMotion: checking $bot's handle; $handle"
       if {[matchattr $handle b&K $channel] && [islinked $handle]} {
         bMotion_putloglev 2 * "bMotion: sending elect_initial to $bot for $channel"
         putbot $handle "bmotion elect_initial $channel $myScore"
       }
+      bMotion_putloglev 4 * "bMotion: checking $handle over" 
     }
   }
+  bMotion_putloglev 3 * "bMotion: election over"
 }
 
 proc bMotion_interbot_catch { bot cmd args } {
@@ -192,19 +196,27 @@ proc bMotion_interbot_me_next { channel } {
   global bMotion_interbot_nextbot_nick bMotion_interbot_nextbot_score botnick
 
   set channel [string tolower $channel]
-
+  set me 0 
+  ## /|\  KIS hack
   catch {
     if {$bMotion_interbot_nextbot_score($channel) < 0} {
+      bMotion_putloglev 4 * "bMotion: nextbot_score is <0, I'm not answering"
       return 0
     }
 
     if {$bMotion_interbot_nextbot_nick($channel) == $botnick} {
+      bMotion_putloglev 4 * "bMotion: nextbot_nick is me"
       bMotion_interbot_next_elect_do $channel
+      set me 1 
+      ## /|\ KIS hack
       return 1
     }
   }
+  bMotion_putloglev 4 * "bMotion: nextbot_nick is not me" 
   #if it's noone, the winning bot will force an election anyway
+  #return $me 
   return 0
+  ## /|\ KIS hack, was 0, hacked to $me to force single botnet workings
 }
 
 # send a fake event
