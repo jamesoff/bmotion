@@ -144,8 +144,7 @@ proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
   bMotion_flood_clear $nick
 }
 
-#generate the afro_<number> lists
-set afro_1 [list]
-for {set i 1000} {$i < 2000} {incr i 1} {
-  lappend afro_1 $i
+#set up the abstracts
+foreach letter [split "ABCDEFGHIJKLMNOPQRSTUVWXYZ1" {} ] {
+  bMotion_abstract_register "afro_$letter"
 }
