@@ -1,30 +1,17 @@
 # $Id$
-
 #
 
-
-
 ###############################################################################
-
 # This is a bMotion plugin
-
 # Copyright (C) James Michael Seward 2000-2002
-
 #
-
 # This program is covered by the GPL, please refer the to LICENCE file in the
-
 # distribution; further information can be found in the headers of the scripts
-
 # in the modules directory.
-
 ###############################################################################
-
 
 
 proc bMotion_module_extra_jeffk { line } {
-
-
   set line [string map -nocase {"hello" "helko" "n\'t" "ant" "sy" "sey" "is" "si"} $line]
   set line [string map -nocase {"like" "liek" "you" "yuo" "site" "siet" "body" "bodey"} $line]
   set line [string map -nocase {"taken" "taken" "ter" "tar" "make" "maek" "number" "%VAR{jeffk_number}"} $line]

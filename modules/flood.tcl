@@ -22,6 +22,9 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
+# init our counters
+bMotion_counter_init "flood" "checks"
+
 # We're going to track flooding PER NICK globally, not per channel
 # If someone's flooding us in one place, we'll handle it for all channels
 # to stop them being annoying
@@ -226,6 +229,7 @@ proc bMotion_flood_check { nick } {
   set r [rand 2]
   if {!($r < $chance)} {
     putlog "bMotion: FLOOD check on $nick"
+    bMotion_counter_incr "flood" "checks"
     return 1
   }
   return 0

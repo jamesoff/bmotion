@@ -22,6 +22,10 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
+# init our counters
+bMotion_counter_init "output" "lines"
+bMotion_counter_init "output" "irclines"
+
 proc pickRandom { list } {
   return [lindex $list [rand [llength $list]]]
 }
@@ -85,6 +89,8 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0}} {
   catch {
     if {$bMotionInfo(adminSilence,$channel) == 1} { return 0 }
   }
+
+  bMotion_counter_incr "output" "lines"
 
   set chance [rand 3]
   switch [rand 3] {
@@ -606,7 +612,6 @@ proc bMotionProcessQueue { } {
 
     #check if it needs to go to a bot
     if [regexp {([#!][^ ]+) %BOT\[(.+?)\] (.+)} $next matches channel cmd bot] {
-      putlog "yes"
       bMotion_putloglev 2 * "bMotion: matched 100% bot command for channel $channel -> $cmd"
       global bMotionQueue
       #bMotionQueueCheck
@@ -622,7 +627,11 @@ proc bMotionProcessQueue { } {
       }
       set done 1
     }
-    if {$done == 0} { puthelp $next }
+    if {$done == 0} { 
+      #output to irc
+      bMotion_counter_incr "output" "irclines"
+      puthelp $next 
+    }
     if {[llength $bMotionQueue] == 0} {
       bMotion_putloglev 1 * "bMotion: done queue"
       return 0

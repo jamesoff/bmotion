@@ -78,12 +78,20 @@ if {![info exists bMotion_abstract_contents]} {
   set bMotion_abstract_ondisk [list]
 }
 
+#init our counters
+bMotion_counter_init "abstracts" "faults"
+bMotion_counter_init "abstracts" "pageouts"
+bMotion_counter_init "abstracts" "gc"
+bMotion_counter_init "abstracts" "gets"
+
 # garbage collect the abstracts arrays
 proc bMotion_abstract_gc { } {
   global bMotion_abstract_contents bMotion_abstract_timestamps
   global bMotion_abstract_max_age bMotion_abstract_ondisk
 
   bMotion_putloglev 2 * "Garbage collecting abstracts..."
+
+  bMotion_counter_incr "abstracts" "gc"
 
   set abstracts [array names bMotion_abstract_contents]
   set limit [expr [clock seconds] - $bMotion_abstract_max_age]
@@ -98,6 +106,7 @@ proc bMotion_abstract_gc { } {
       unset bMotion_abstract_contents($abstract)
       set bMotion_abstract_timestamps($abstract) 0
       lappend bMotion_abstract_ondisk $abstract
+      bMotion_counter_incr "abstracts" "pageouts"
     }
   }
 
@@ -256,8 +265,11 @@ proc bMotion_abstract_get { abstract } {
     return ""
   }
 
+  bMotion_counter_incr "abstracts" "gets"
+
   if {$bMotion_abstract_timestamps($abstract) < [expr [clock seconds] - $bMotion_abstract_max_age]} {
     bMotion_putloglev d * "abstract $abstract has been unloaded, reloading..."
+    bMotion_counter_incr "abstracts" "faults"
     bMotion_abstract_load $abstract
   }
 

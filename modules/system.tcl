@@ -22,6 +22,9 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
+# init our counters
+bMotion_counter_init "system" "randomstuff"
+
 # this function cleans the CVS string to get the version out of it
 proc bMotionCleanCVSString { cvs } {
   if [regexp {\$[I][d].+?,(.+) Exp \$} $cvs matches core] {
@@ -46,6 +49,7 @@ bind ctcp - ACTION bMotion_event_action
 #bMotion IRC events
 bind pub - "!mood" pubm_moodhandler
 bind pub - "!bminfo" bMotionInfo
+bind pub - "!bmstats" bMotionStats
 bind msg m bmotion msg_bmotioncommand
 bind pub - !bmadmin bMotionAdminHandler
 
@@ -76,16 +80,23 @@ proc bMotionInfo {nick host handle channel text} {
   set status "botGender $bMotionInfo(gender)/$bMotionInfo(orientation) : balefire $bMotionInfo(balefire) : pokemon $bMotionInfo(pokemon) : timezone $timezone : randomStuff $bMotionInfo(minRandomDelay), $bMotionInfo(maxRandomDelay), $bMotionInfo(maxIdleGap) : botnicks $botnicks : melMode $bMotionSettings(melMode) : needI $bMotionSettings(needI)"
   if {$bMotionInfo(silence)} { set status "$status : silent (yes)" }
   putchan $channel $status
+  return 0
+}
 
-  #abstracts
+proc bMotionStats {nick host handle channel text} {  
+  global bMotionInfo botnicks bMotionSettings cvsinfo randomsinfo botnick
+  global bMotionVersion
+  if {(![regexp -nocase $botnick $text]) && ($text != "all")} { return 0 }
+  if {!([isvoice $nick] || [isop $nick]) || ($nick != "JamesOff")} { return 0 }
+
+
   global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age
   global bMotion_abstract_ondisk
 
   set mem [llength [array names bMotion_abstract_contents]]
   set disk [llength $bMotion_abstract_ondisk]
-  putchan $channel "abstracts: [expr $mem + $disk] total, $mem loaded, $disk on disk"
-
-  #facts
+  set faults [bMotion_counter_get "abstracts" "faults"]
+  set pageouts [bMotion_counter_get "abstracts" "pageouts"]
   global bMotionFacts
   set items [lsort [array names bMotionFacts]]
   set itemcount 0
@@ -94,10 +105,16 @@ proc bMotionInfo {nick host handle channel text} {
     incr itemcount
     incr factcount [llength $bMotionFacts($item)]
   }
-  putchan $channel "facts: $factcount facts about $itemcount items"
 
-  return 0
+  putchan $channel "abstracts: [expr $mem + $disk] total, $mem loaded, $disk on disk, $faults faults, $pageouts pageouts. [bMotion_counter_get abstracts gc] garbage collections, [bMotion_counter_get abstracts gets] fetches"
+  putchan $channel "facts: $factcount facts about $itemcount items"
+  putchan $channel "plugins fired: simple [bMotion_counter_get events simpleplugins], complex [bMotion_counter_get events complexplugins]"
+  putchan $channel "output: lines sent to output: [bMotion_counter_get output lines], lines sent to irc: [bMotion_counter_get output irclines]"
+  putchan $channel "system: randomness: [bMotion_counter_get system randomstuff]"
+  putchan $channel "flood: checks: [bMotion_counter_get flood checks]"
 }
+
+
 
 proc doRandomStuff {} {
   global bMotionInfo mood stonedRandomStuff bMotionSettings
@@ -110,7 +127,7 @@ proc doRandomStuff {} {
   set upperLimit [expr $bMotionInfo(maxRandomDelay) - $bMotionInfo(minRandomDelay)]
   set temp [expr [rand $upperLimit] + $bMotionInfo(minRandomDelay)]
   timer $temp doRandomStuff
-  bMotion_putloglev d * "bMotion: randomStuff next ($temp minutes)";
+  bMotion_putloglev d * "bMotion: randomStuff next ($temp minutes)"
 
 
   #not away
@@ -159,6 +176,7 @@ proc doRandomStuff {} {
   }
 
   #we didn't set ourselves away, let's do something random
+  bMotion_counter_incr "system" "randomstuff"
   foreach channel $bMotionInfo(randomChannels) {
     if {($timeNow - $bMotionLastEvent($channel)) < ($bMotionInfo(maxIdleGap) * 60)} {
       set saidChannels "$saidChannels $channel"

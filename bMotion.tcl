@@ -66,6 +66,12 @@ if {$bMotion_testing == 1} {
 }
 source "$bMotionModules/variables.tcl"
 
+# load counters
+if {$bMotion_testing == 1} {
+  putlog "... loading counters"
+}
+source "$bMotionModules/counters.tcl"
+
 #load new abstract system
 if {$bMotion_testing == 1} {
   putlog "... loading abstract system"

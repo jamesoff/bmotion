@@ -22,6 +22,11 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
+# register our counters
+bMotion_counter_init "events" "simpleplugins"
+bMotion_counter_init "events" "complexplugins"
+bMotion_counter_init "events" "lines"
+
 # call an irc event response plugin
 proc bMotionDoEventResponse { type nick host handle channel text } {
   bMotion_putloglev 4 * "entering bMotionDoEventResponse: $type $nick $host $handle $channel $text"
@@ -159,6 +164,8 @@ proc bMotion_event_main {nick host handle channel text} {
   if [regexp -nocase "\</?no$botnicks\>" $text] {return 0}
   if [regexp -nocase "\<no$botnicks\>" $text] {return 0}
 
+  bMotion_counter_incr "events" "lines"
+
   #don't let people break us
   if {![matchattr $handle n]} {
     if [regexp -nocase "%(pronoun|me|noun|colen|percent|VAR|\\|)" $text] {
@@ -204,6 +211,7 @@ proc bMotion_event_main {nick host handle channel text} {
     bMotion_flood_add $nick "" $text
     if [bMotion_flood_check $nick] { return 0 }
     set nick [bMotionGetRealName $nick $host]
+    bMotion_counter_incr "events" "simpleplugins"
     bMotionDoAction $channel $nick [pickRandom $response]
     return 0
   }
@@ -218,6 +226,7 @@ proc bMotion_event_main {nick host handle channel text} {
       if [bMotion_flood_check $nick] { return 0 }
 
       bMotion_putloglev 1 * "bMotion: `- running callback $callback"
+      bMotion_counter_incr "events" "complexplugins"
       set result [$callback $nick $host $handle $channel $text]
       set bMotionCache(lastPlugin) $callback
       if {$result == 1} {
