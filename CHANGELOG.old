@@ -1,0 +1,3512 @@
+
+RCS file: /var/lib/cvs/bmotion/bMotion.tcl,v
+Working file: bmotion/bMotion.tcl
+head: 1.15
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 15;	selected revisions: 15
+description:
+----------------------------
+revision 1.15
+date: 2002/11/23 13:20:15;  author: james;  state: Exp;  lines: +2 -2
+fixed deleted function o_O
+----------------------------
+revision 1.14
+date: 2002/11/23 13:00:16;  author: james;  state: Exp;  lines: +5 -3
+added bMotionRoot variable for location of script when rehashing
+----------------------------
+revision 1.13
+date: 2002/11/14 08:13:37;  author: james;  state: Exp;  lines: +45 -1
+more debug
+----------------------------
+revision 1.12
+date: 2002/11/03 21:49:50;  author: james;  state: Exp;  lines: +6 -6
+added flood module
+removed settings check before load
+moved timers into a universal function
+----------------------------
+revision 1.11
+date: 2002/09/30 13:47:12;  author: james;  state: Exp;  lines: +4 -2
+don't load settings file if it's already loaded
+----------------------------
+revision 1.10
+date: 2002/09/25 22:56:20;  author: james;  state: Exp;  lines: +5 -4
+don't display our tagline if we're loading in testing mode
+----------------------------
+revision 1.9
+date: 2002/09/19 16:53:43;  author: james;  state: Exp;  lines: +2 -2
+bold ^_^
+----------------------------
+revision 1.8
+date: 2002/08/14 23:11:17;  author: james;  state: Exp;  lines: +8 -1
+er... added a quote :)
+----------------------------
+revision 1.7
+date: 2002/08/14 06:27:47;  author: james;  state: Exp;  lines: +2 -1
+remember to load the plugin settings module :P
+----------------------------
+revision 1.6
+date: 2002/08/02 10:33:04;  author: james;  state: Exp;  lines: +22 -4
+Added support for testing mode
+Added wrapped function for putloglev (for testing)
+----------------------------
+revision 1.5
+date: 2002/07/30 15:50:56;  author: james;  state: Exp;  lines: +5 -1
+Added plugin code
+----------------------------
+revision 1.4
+date: 2002/07/23 13:22:10;  author: james;  state: Exp;  lines: +5 -2
+Updated modules path to work
+added friendship module
+----------------------------
+revision 1.3
+date: 2002/07/23 09:50:05;  author: james;  state: Exp;  lines: +5 -1
+I'm a moron :P
+----------------------------
+revision 1.2
+date: 2002/07/23 08:53:50;  author: james;  state: Exp;  lines: +10 -1
+Welcome to bMotion2 (sort of)
+----------------------------
+revision 1.1
+date: 2002/07/23 08:27:57;  author: james;  state: Exp;
+Welcome to bMotion2 (sort of)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/Attic/bMotionRandoms.tcl,v
+Working file: bmotion/bMotionRandoms.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+	start: 1.1.1.1
+	molsoft: 1.1.1
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.3
+date: 2002/07/23 08:53:50;  author: james;  state: dead;  lines: +2 -2
+Welcome to bMotion2 (sort of)
+----------------------------
+revision 1.2
+date: 2002/07/22 15:57:02;  author: james;  state: Exp;  lines: +3 -3
+sekrit
+----------------------------
+revision 1.1
+date: 2002/07/22 13:07:43;  author: james;  state: Exp;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2002/07/22 13:07:43;  author: james;  state: Exp;  lines: +0 -0
+Initial import.
+Changes from older version:
+Added interbot communications
+Added internal queuing
+Decreased onjoin greet chance slightly
+Cleared out a load out pointless "putlogs"
+Added meaningful putloglevs for d,1,2 levels
+Putlog now used just for alerts
+Dramitcally decreased sensitivity of caps checker
+Fixed the "run for the hills" handler
+Added "Good work" handler (similar to "exactly!")
+Upgrades to the who handler to allow "whose" to be handled differently
+Added new %stuff protection code to /me handler too
+Added !bmadmin parse ...
+Fixed the *me* problem
+Fixed %hishers to return "hers" not "her"
+Added getHisHer and %getHisHer
+Added remote bot selection stuff and queue handling functions
+Added random user selection stuff
+Improved error handling in loops
+Added %OWNER[] to add 's to things correctly
+Switched my dodgy InsertString code for a simple regsub :P
+Finally dumped old makeLeet proc
+Fixed infinite-%colen problem by removing & from list of allowed characters
+Added makePossessive proc for %OWNER
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/Attic/bMotionRandoms.tcl.bak,v
+Working file: bmotion/bMotionRandoms.tcl.bak
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+	start: 1.1.1.1
+	molsoft: 1.1.1
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.2
+date: 2002/07/23 08:53:49;  author: james;  state: dead;  lines: +2 -2
+Welcome to bMotion2 (sort of)
+----------------------------
+revision 1.1
+date: 2002/07/22 13:07:43;  author: james;  state: Exp;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2002/07/22 13:07:43;  author: james;  state: Exp;  lines: +0 -0
+Initial import.
+Changes from older version:
+Added interbot communications
+Added internal queuing
+Decreased onjoin greet chance slightly
+Cleared out a load out pointless "putlogs"
+Added meaningful putloglevs for d,1,2 levels
+Putlog now used just for alerts
+Dramitcally decreased sensitivity of caps checker
+Fixed the "run for the hills" handler
+Added "Good work" handler (similar to "exactly!")
+Upgrades to the who handler to allow "whose" to be handled differently
+Added new %stuff protection code to /me handler too
+Added !bmadmin parse ...
+Fixed the *me* problem
+Fixed %hishers to return "hers" not "her"
+Added getHisHer and %getHisHer
+Added remote bot selection stuff and queue handling functions
+Added random user selection stuff
+Improved error handling in loops
+Added %OWNER[] to add 's to things correctly
+Switched my dodgy InsertString code for a simple regsub :P
+Finally dumped old makeLeet proc
+Fixed infinite-%colen problem by removing & from list of allowed characters
+Added makePossessive proc for %OWNER
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/Attic/bMotionSettings.tcl,v
+Working file: bmotion/bMotionSettings.tcl
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+	start: 1.1.1.1
+	molsoft: 1.1.1
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.2
+date: 2002/07/23 08:53:49;  author: james;  state: dead;  lines: +0 -0
+Welcome to bMotion2 (sort of)
+----------------------------
+revision 1.1
+date: 2002/07/22 13:07:43;  author: james;  state: Exp;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2002/07/22 13:07:43;  author: james;  state: Exp;  lines: +0 -0
+Initial import.
+Changes from older version:
+Added interbot communications
+Added internal queuing
+Decreased onjoin greet chance slightly
+Cleared out a load out pointless "putlogs"
+Added meaningful putloglevs for d,1,2 levels
+Putlog now used just for alerts
+Dramitcally decreased sensitivity of caps checker
+Fixed the "run for the hills" handler
+Added "Good work" handler (similar to "exactly!")
+Upgrades to the who handler to allow "whose" to be handled differently
+Added new %stuff protection code to /me handler too
+Added !bmadmin parse ...
+Fixed the *me* problem
+Fixed %hishers to return "hers" not "her"
+Added getHisHer and %getHisHer
+Added remote bot selection stuff and queue handling functions
+Added random user selection stuff
+Improved error handling in loops
+Added %OWNER[] to add 's to things correctly
+Switched my dodgy InsertString code for a simple regsub :P
+Finally dumped old makeLeet proc
+Fixed infinite-%colen problem by removing & from list of allowed characters
+Added makePossessive proc for %OWNER
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/codeSize,v
+Working file: bmotion/codeSize
+head: 1.1
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 1;	selected revisions: 1
+description:
+----------------------------
+revision 1.1
+date: 2002/08/05 11:57:26;  author: james;  state: Exp;
+added to project (used by codesize admin plugin)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/Attic/dutchify.tcl,v
+Working file: bmotion/dutchify.tcl
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+	start: 1.1.1.1
+	molsoft: 1.1.1
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.2
+date: 2002/08/05 12:30:58;  author: james;  state: dead;  lines: +1 -1
+replaced by a complex plugin
+----------------------------
+revision 1.1
+date: 2002/07/22 13:07:43;  author: james;  state: Exp;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2002/07/22 13:07:43;  author: james;  state: Exp;  lines: +0 -0
+Initial import.
+Changes from older version:
+Added interbot communications
+Added internal queuing
+Decreased onjoin greet chance slightly
+Cleared out a load out pointless "putlogs"
+Added meaningful putloglevs for d,1,2 levels
+Putlog now used just for alerts
+Dramitcally decreased sensitivity of caps checker
+Fixed the "run for the hills" handler
+Added "Good work" handler (similar to "exactly!")
+Upgrades to the who handler to allow "whose" to be handled differently
+Added new %stuff protection code to /me handler too
+Added !bmadmin parse ...
+Fixed the *me* problem
+Fixed %hishers to return "hers" not "her"
+Added getHisHer and %getHisHer
+Added remote bot selection stuff and queue handling functions
+Added random user selection stuff
+Improved error handling in loops
+Added %OWNER[] to add 's to things correctly
+Switched my dodgy InsertString code for a simple regsub :P
+Finally dumped old makeLeet proc
+Fixed infinite-%colen problem by removing & from list of allowed characters
+Added makePossessive proc for %OWNER
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/leetReplacements.tcl,v
+Working file: bmotion/leetReplacements.tcl
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	start: 1.1.1.1
+	molsoft: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2002/07/22 13:07:44;  author: james;  state: Exp;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2002/07/22 13:07:44;  author: james;  state: Exp;  lines: +0 -0
+Initial import.
+Changes from older version:
+Added interbot communications
+Added internal queuing
+Decreased onjoin greet chance slightly
+Cleared out a load out pointless "putlogs"
+Added meaningful putloglevs for d,1,2 levels
+Putlog now used just for alerts
+Dramitcally decreased sensitivity of caps checker
+Fixed the "run for the hills" handler
+Added "Good work" handler (similar to "exactly!")
+Upgrades to the who handler to allow "whose" to be handled differently
+Added new %stuff protection code to /me handler too
+Added !bmadmin parse ...
+Fixed the *me* problem
+Fixed %hishers to return "hers" not "her"
+Added getHisHer and %getHisHer
+Added remote bot selection stuff and queue handling functions
+Added random user selection stuff
+Improved error handling in loops
+Added %OWNER[] to add 's to things correctly
+Switched my dodgy InsertString code for a simple regsub :P
+Finally dumped old makeLeet proc
+Fixed infinite-%colen problem by removing & from list of allowed characters
+Added makePossessive proc for %OWNER
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/randomword.tcl,v
+Working file: bmotion/randomword.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+	start: 1.1.1.1
+	molsoft: 1.1.1
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.3
+date: 2002/08/23 14:41:28;  author: james;  state: Exp;  lines: +0 -14
+moved !ick to plugin :)
+----------------------------
+revision 1.2
+date: 2002/08/12 18:59:22;  author: james;  state: Exp;  lines: +1 -35
+no message
+----------------------------
+revision 1.1
+date: 2002/07/22 13:07:44;  author: james;  state: Exp;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2002/07/22 13:07:44;  author: james;  state: Exp;  lines: +0 -0
+Initial import.
+Changes from older version:
+Added interbot communications
+Added internal queuing
+Decreased onjoin greet chance slightly
+Cleared out a load out pointless "putlogs"
+Added meaningful putloglevs for d,1,2 levels
+Putlog now used just for alerts
+Dramitcally decreased sensitivity of caps checker
+Fixed the "run for the hills" handler
+Added "Good work" handler (similar to "exactly!")
+Upgrades to the who handler to allow "whose" to be handled differently
+Added new %stuff protection code to /me handler too
+Added !bmadmin parse ...
+Fixed the *me* problem
+Fixed %hishers to return "hers" not "her"
+Added getHisHer and %getHisHer
+Added remote bot selection stuff and queue handling functions
+Added random user selection stuff
+Improved error handling in loops
+Added %OWNER[] to add 's to things correctly
+Switched my dodgy InsertString code for a simple regsub :P
+Finally dumped old makeLeet proc
+Fixed infinite-%colen problem by removing & from list of allowed characters
+Added makePossessive proc for %OWNER
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/randomwordList.tcl,v
+Working file: bmotion/randomwordList.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+	start: 1.1.1.1
+	molsoft: 1.1.1
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.3
+date: 2002/08/23 14:41:28;  author: james;  state: Exp;  lines: +0 -42
+moved !ick to plugin :)
+----------------------------
+revision 1.2
+date: 2002/08/12 18:59:23;  author: james;  state: Exp;  lines: +0 -46
+no message
+----------------------------
+revision 1.1
+date: 2002/07/22 13:07:44;  author: james;  state: Exp;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2002/07/22 13:07:44;  author: james;  state: Exp;  lines: +0 -0
+Initial import.
+Changes from older version:
+Added interbot communications
+Added internal queuing
+Decreased onjoin greet chance slightly
+Cleared out a load out pointless "putlogs"
+Added meaningful putloglevs for d,1,2 levels
+Putlog now used just for alerts
+Dramitcally decreased sensitivity of caps checker
+Fixed the "run for the hills" handler
+Added "Good work" handler (similar to "exactly!")
+Upgrades to the who handler to allow "whose" to be handled differently
+Added new %stuff protection code to /me handler too
+Added !bmadmin parse ...
+Fixed the *me* problem
+Fixed %hishers to return "hers" not "her"
+Added getHisHer and %getHisHer
+Added remote bot selection stuff and queue handling functions
+Added random user selection stuff
+Improved error handling in loops
+Added %OWNER[] to add 's to things correctly
+Switched my dodgy InsertString code for a simple regsub :P
+Finally dumped old makeLeet proc
+Fixed infinite-%colen problem by removing & from list of allowed characters
+Added makePossessive proc for %OWNER
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/Attic/ranjoins.tcl,v
+Working file: bmotion/ranjoins.tcl
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+	start: 1.1.1.1
+	molsoft: 1.1.1
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.2
+date: 2002/07/23 08:53:48;  author: james;  state: dead;  lines: +4 -1
+Welcome to bMotion2 (sort of)
+----------------------------
+revision 1.1
+date: 2002/07/22 13:07:44;  author: james;  state: Exp;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2002/07/22 13:07:44;  author: james;  state: Exp;  lines: +0 -0
+Initial import.
+Changes from older version:
+Added interbot communications
+Added internal queuing
+Decreased onjoin greet chance slightly
+Cleared out a load out pointless "putlogs"
+Added meaningful putloglevs for d,1,2 levels
+Putlog now used just for alerts
+Dramitcally decreased sensitivity of caps checker
+Fixed the "run for the hills" handler
+Added "Good work" handler (similar to "exactly!")
+Upgrades to the who handler to allow "whose" to be handled differently
+Added new %stuff protection code to /me handler too
+Added !bmadmin parse ...
+Fixed the *me* problem
+Fixed %hishers to return "hers" not "her"
+Added getHisHer and %getHisHer
+Added remote bot selection stuff and queue handling functions
+Added random user selection stuff
+Improved error handling in loops
+Added %OWNER[] to add 's to things correctly
+Switched my dodgy InsertString code for a simple regsub :P
+Finally dumped old makeLeet proc
+Fixed infinite-%colen problem by removing & from list of allowed characters
+Added makePossessive proc for %OWNER
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/Attic/ranjoins.tcl.bak,v
+Working file: bmotion/ranjoins.tcl.bak
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+	start: 1.1.1.1
+	molsoft: 1.1.1
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.2
+date: 2002/07/23 08:53:48;  author: james;  state: dead;  lines: +5 -2
+Welcome to bMotion2 (sort of)
+----------------------------
+revision 1.1
+date: 2002/07/22 13:07:44;  author: james;  state: Exp;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2002/07/22 13:07:44;  author: james;  state: Exp;  lines: +0 -0
+Initial import.
+Changes from older version:
+Added interbot communications
+Added internal queuing
+Decreased onjoin greet chance slightly
+Cleared out a load out pointless "putlogs"
+Added meaningful putloglevs for d,1,2 levels
+Putlog now used just for alerts
+Dramitcally decreased sensitivity of caps checker
+Fixed the "run for the hills" handler
+Added "Good work" handler (similar to "exactly!")
+Upgrades to the who handler to allow "whose" to be handled differently
+Added new %stuff protection code to /me handler too
+Added !bmadmin parse ...
+Fixed the *me* problem
+Fixed %hishers to return "hers" not "her"
+Added getHisHer and %getHisHer
+Added remote bot selection stuff and queue handling functions
+Added random user selection stuff
+Improved error handling in loops
+Added %OWNER[] to add 's to things correctly
+Switched my dodgy InsertString code for a simple regsub :P
+Finally dumped old makeLeet proc
+Fixed infinite-%colen problem by removing & from list of allowed characters
+Added makePossessive proc for %OWNER
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/modules/abstracts.tcl,v
+Working file: bmotion/modules/abstracts.tcl
+head: 1.25
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 25;	selected revisions: 25
+description:
+----------------------------
+revision 1.25
+date: 2002/11/18 23:28:58;  author: james;  state: Exp;  lines: +22 -2
+Added GPL header
+----------------------------
+revision 1.24
+date: 2002/11/14 08:13:20;  author: james;  state: Exp;  lines: +15 -345
+blah
+----------------------------
+revision 1.23
+date: 2002/11/03 22:03:52;  author: james;  state: Exp;  lines: +365 -2
+bleh
+----------------------------
+revision 1.22
+date: 2002/09/30 11:24:20;  author: james;  state: Exp;  lines: +4 -2
+added a confucious
+----------------------------
+revision 1.21
+date: 2002/09/29 14:21:25;  author: james;  state: Exp;  lines: +3 -19
+stuff moved to plugins
+----------------------------
+revision 1.20
+date: 2002/09/18 15:56:40;  author: james;  state: Exp;  lines: +6 -5
+new typos
+----------------------------
+revision 1.19
+date: 2002/09/18 10:59:10;  author: james;  state: Exp;  lines: +5 -111
+some abstracts moved to new plugins
+----------------------------
+revision 1.18
+date: 2002/09/13 16:00:04;  author: james;  state: Exp;  lines: +3 -3
+fixed wand
+----------------------------
+revision 1.17
+date: 2002/09/09 19:21:18;  author: james;  state: Exp;  lines: +2 -14
+arrs moved to plugin complex_bhar
+----------------------------
+revision 1.16
+date: 2002/09/04 15:55:37;  author: james;  state: Exp;  lines: +7 -2
+added some nnks
+----------------------------
+revision 1.15
+date: 2002/08/19 21:38:20;  author: james;  state: Exp;  lines: +10 -4
+misc updates
+----------------------------
+revision 1.14
+date: 2002/08/14 15:54:38;  author: james;  state: Exp;  lines: +3 -3
+fixed an error in an abstract
+----------------------------
+revision 1.13
+date: 2002/08/10 13:00:12;  author: james;  state: Exp;  lines: +12 -13
+fixed missing %s
+----------------------------
+revision 1.12
+date: 2002/08/09 22:21:08;  author: duds;  state: Exp;  lines: +36 -2
+Added new "Dude!" "Sweet!" autoreplies (see "Dude wheres my car" if you don't know), also made a minor update to the abstracts while i was at it. - Love n hugs Duds
+----------------------------
+revision 1.11
+date: 2002/08/09 13:14:28;  author: duds;  state: Exp;  lines: +3 -2
+Added a bodypart as a test to see if I can committ. Soon you will all see my awesome power£$^£$^
+----------------------------
+revision 1.10
+date: 2002/08/08 22:56:17;  author: james;  state: Exp;  lines: +5 -4
+missing a ] on sillyThings line
+----------------------------
+revision 1.9
+date: 2002/08/07 22:45:40;  author: james;  state: Exp;  lines: +105 -7
+a load of stuff from duds :)
+----------------------------
+revision 1.8
+date: 2002/08/01 15:43:21;  author: james;  state: Exp;  lines: +42 -11
+added yesnos, rehashes, hellos, and, er, something else :P
+----------------------------
+revision 1.7
+date: 2002/07/30 22:32:50;  author: james;  state: Exp;  lines: +10 -3
+changed green to yellow for roz
+added huks
+----------------------------
+revision 1.6
+date: 2002/07/30 15:53:46;  author: james;  state: Exp;  lines: +4 -2
+Added one line to each half of the confucious sayings
+----------------------------
+revision 1.5
+date: 2002/07/29 12:34:08;  author: james;  state: Exp;  lines: +121 -69
+LF in [list] not allowed :(
+----------------------------
+revision 1.4
+date: 2002/07/29 11:02:57;  author: james;  state: Exp;  lines: +999 -999
+updates from dan
+----------------------------
+revision 1.3
+date: 2002/07/29 09:26:41;  author: james;  state: Exp;  lines: +1062 -136
+re-laid out the file
+----------------------------
+revision 1.2
+date: 2002/07/23 15:50:39;  author: james;  state: Exp;  lines: +7 -2
+More friendship stuff
+----------------------------
+revision 1.1
+date: 2002/07/23 08:54:03;  author: james;  state: Exp;
+Welcome to bMotion2 (sort of)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/modules/events.tcl,v
+Working file: bmotion/modules/events.tcl
+head: 1.32
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 32;	selected revisions: 32
+description:
+----------------------------
+revision 1.32
+date: 2002/11/23 13:00:08;  author: james;  state: Exp;  lines: +3 -3
+added bMotionRoot variable for location of script when rehashing
+----------------------------
+revision 1.31
+date: 2002/11/18 23:52:41;  author: james;  state: Exp;  lines: +7 -3
+escape / into %slash in incoming lines
+----------------------------
+revision 1.30
+date: 2002/11/18 23:28:58;  author: james;  state: Exp;  lines: +20 -1
+Added GPL header
+----------------------------
+revision 1.29
+date: 2002/11/14 08:10:36;  author: james;  state: Exp;  lines: +12 -37
+moved away checking to plugin
+extra debug
+----------------------------
+revision 1.28
+date: 2002/11/03 22:04:18;  author: james;  state: Exp;  lines: +37 -2
+changs to nick handler
+----------------------------
+revision 1.27
+date: 2002/09/30 22:11:51;  author: james;  state: Exp;  lines: +5 -5
+updated for new language stuff
+----------------------------
+revision 1.26
+date: 2002/09/29 14:21:25;  author: james;  state: Exp;  lines: +3 -159
+stuff moved to plugins
+----------------------------
+revision 1.25
+date: 2002/09/26 15:54:31;  author: james;  state: Exp;  lines: +1 -9
+move * waves handler to plugin
+----------------------------
+revision 1.24
+date: 2002/09/25 14:12:30;  author: james;  state: Exp;  lines: +2 -2
+updated the regexp for parks
+----------------------------
+revision 1.23
+date: 2002/09/18 10:56:46;  author: james;  state: Exp;  lines: +7 -108
+moved more stuff to plugins
+disabled the all together handler
+fixed a typo in a debug line
+----------------------------
+revision 1.22
+date: 2002/09/15 23:01:46;  author: james;  state: Exp;  lines: +2 -33
+more stuff to plugins
+bots now clear the lastSpoke flag
+----------------------------
+revision 1.21
+date: 2002/09/09 23:08:43;  author: james;  state: Exp;  lines: +1 -115
+many things moved to plugins
+----------------------------
+revision 1.20
+date: 2002/09/09 14:07:26;  author: james;  state: Exp;  lines: +1 -51
+various bits moved from events.tcl to plugins
+----------------------------
+revision 1.19
+date: 2002/09/09 07:38:58;  author: james;  state: Exp;  lines: +10 -1
+debugging stuff trying to find the segfault :/
+----------------------------
+revision 1.18
+date: 2002/09/08 22:24:19;  author: james;  state: Exp;  lines: +4 -16
+moved hugs to plugins
+updated mode handler to use abstracts properly
+----------------------------
+revision 1.17
+date: 2002/09/04 15:55:19;  author: james;  state: Exp;  lines: +6 -2
+Added another J-flag check
+----------------------------
+revision 1.16
+date: 2002/08/19 21:38:57;  author: james;  state: Exp;  lines: +40 -21
+added action plugins
+----------------------------
+revision 1.15
+date: 2002/08/19 15:53:03;  author: james;  state: Exp;  lines: +1 -262
+removed hands stuff (plugin)
+----------------------------
+revision 1.14
+date: 2002/08/14 06:26:48;  author: james;  state: Exp;  lines: +1 -28
+moved hello handler to a plugin
+----------------------------
+revision 1.13
+date: 2002/08/11 13:51:51;  author: james;  state: Exp;  lines: +1 -10
+Go-down-on stuff moved to a plugin
+----------------------------
+revision 1.12
+date: 2002/08/08 22:55:50;  author: james;  state: Exp;  lines: +1 -107
+moved startrek stuff to a complex plugin
+----------------------------
+revision 1.11
+date: 2002/08/05 15:52:12;  author: james;  state: Exp;  lines: +11 -19
+complex plugins now stackable (return 1 to abort)
+moved opme trigger to complex plugin
+----------------------------
+revision 1.10
+date: 2002/08/05 11:54:30;  author: james;  state: Exp;  lines: +17 -2
+clean []s from nicks
+added call to complex plugins
+changed bahaviour of the hello handler
+----------------------------
+revision 1.9
+date: 2002/08/02 10:39:15;  author: james;  state: Exp;  lines: +58 -41
+Changed putloglev to bMotion_putloglev
+Added support for testing code before loading it
+----------------------------
+revision 1.8
+date: 2002/08/01 15:43:58;  author: james;  state: Exp;  lines: +2 -2
+rehashing now uses the rehashes abstract
+----------------------------
+revision 1.7
+date: 2002/07/31 11:02:40;  author: james;  state: Exp;  lines: +4 -1
+fix bug 0000043
+----------------------------
+revision 1.6
+date: 2002/07/30 22:32:21;  author: james;  state: Exp;  lines: +25 -109
+many events moved to simple plugins
+----------------------------
+revision 1.5
+date: 2002/07/30 18:45:31;  author: james;  state: Exp;  lines: +8 -1
+Added call to simple plugins
+----------------------------
+revision 1.4
+date: 2002/07/29 11:48:09;  author: james;  state: Exp;  lines: +10 -9
+Moved the *...* handler to the end to handle exceptions, not everything
+----------------------------
+revision 1.3
+date: 2002/07/23 13:20:03;  author: james;  state: Exp;  lines: +47 -4
+Added preliminary friendship stuff
+----------------------------
+revision 1.2
+date: 2002/07/23 09:46:06;  author: james;  state: Exp;  lines: +6 -6
+Syntax fixed to make it work :P
+----------------------------
+revision 1.1
+date: 2002/07/23 08:54:03;  author: james;  state: Exp;
+Welcome to bMotion2 (sort of)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/modules/events_support.tcl,v
+Working file: bmotion/modules/events_support.tcl
+head: 1.13
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 13;	selected revisions: 13
+description:
+----------------------------
+revision 1.13
+date: 2002/11/18 23:28:58;  author: james;  state: Exp;  lines: +20 -1
+Added GPL header
+----------------------------
+revision 1.12
+date: 2002/11/03 22:04:28;  author: james;  state: Exp;  lines: +0 -0
+bleh
+----------------------------
+revision 1.11
+date: 2002/09/15 23:01:08;  author: james;  state: Exp;  lines: +1 -14
+hug moved to plugin
+----------------------------
+revision 1.10
+date: 2002/08/29 13:28:53;  author: james;  state: Exp;  lines: +1 -18
+hands* support handlers moved to plugin
+----------------------------
+revision 1.9
+date: 2002/08/19 21:39:29;  author: james;  state: Exp;  lines: +1 -9
+moved coffee stuff to plugin
+----------------------------
+revision 1.8
+date: 2002/08/11 13:51:51;  author: james;  state: Exp;  lines: +1 -29
+Go-down-on stuff moved to a plugin
+----------------------------
+revision 1.7
+date: 2002/08/10 23:30:32;  author: james;  state: Exp;  lines: +2 -2
+Fixed the go-down-on trigger
+----------------------------
+revision 1.6
+date: 2002/08/08 22:55:50;  author: james;  state: Exp;  lines: +1 -91
+moved startrek stuff to a complex plugin
+----------------------------
+revision 1.5
+date: 2002/08/02 10:46:26;  author: james;  state: Exp;  lines: +4 -4
+Changed putloglev to bMotion_putloglev
+----------------------------
+revision 1.4
+date: 2002/08/01 15:44:55;  author: james;  state: Exp;  lines: +2 -1
+fix for bMotionGoDownOn when given crap after the nick
+----------------------------
+revision 1.3
+date: 2002/07/23 15:50:39;  author: james;  state: Exp;  lines: +11 -1
+More friendship stuff
+----------------------------
+revision 1.2
+date: 2002/07/23 13:20:39;  author: james;  state: Exp;  lines: +10 -6
+Added preliminary friendship stuff (hugs)
+----------------------------
+revision 1.1
+date: 2002/07/23 08:54:03;  author: james;  state: Exp;
+Welcome to bMotion2 (sort of)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/modules/flood.tcl,v
+Working file: bmotion/modules/flood.tcl
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.2
+date: 2002/11/18 23:28:58;  author: james;  state: Exp;  lines: +19 -1
+Added GPL header
+----------------------------
+revision 1.1
+date: 2002/11/03 22:02:28;  author: james;  state: Exp;
+added flood checking
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/modules/friendship.tcl,v
+Working file: bmotion/modules/friendship.tcl
+head: 1.9
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 9;	selected revisions: 9
+description:
+----------------------------
+revision 1.9
+date: 2002/11/18 23:28:58;  author: james;  state: Exp;  lines: +20 -1
+Added GPL header
+----------------------------
+revision 1.8
+date: 2002/11/03 22:04:46;  author: james;  state: Exp;  lines: +1 -1
+corrected error in set statement
+----------------------------
+revision 1.7
+date: 2002/09/16 15:32:20;  author: james;  state: Exp;  lines: +21 -3
+trying to stop that unknown user rubbish
+----------------------------
+revision 1.6
+date: 2002/08/19 21:40:18;  author: james;  state: Exp;  lines: +11 -1
+updates for the driftFriendship function
+----------------------------
+revision 1.5
+date: 2002/08/02 10:46:27;  author: james;  state: Exp;  lines: +7 -7
+Changed putloglev to bMotion_putloglev
+----------------------------
+revision 1.4
+date: 2002/07/29 11:48:59;  author: james;  state: Exp;  lines: +27 -3
+changed limit to 1 not 0
+added .bmotion friends command
+----------------------------
+revision 1.3
+date: 2002/07/23 15:50:39;  author: james;  state: Exp;  lines: +37 -1
+More friendship stuff
+----------------------------
+revision 1.2
+date: 2002/07/23 13:20:03;  author: james;  state: Exp;  lines: +7 -5
+Added preliminary friendship stuff
+----------------------------
+revision 1.1
+date: 2002/07/23 12:31:15;  author: james;  state: Exp;
+started friendship system
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/modules/interbot.tcl,v
+Working file: bmotion/modules/interbot.tcl
+head: 1.12
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 12;	selected revisions: 12
+description:
+----------------------------
+revision 1.12
+date: 2002/11/18 23:28:58;  author: james;  state: Exp;  lines: +20 -1
+Added GPL header
+----------------------------
+revision 1.11
+date: 2002/11/03 22:05:16;  author: james;  state: Exp;  lines: +8 -15
+changed error level of debug output
+removed timer code (now handed in system module)
+----------------------------
+revision 1.10
+date: 2002/09/30 22:12:15;  author: james;  state: Exp;  lines: +2 -3
+hopefully mix multiple timers problems
+----------------------------
+revision 1.9
+date: 2002/09/30 12:41:15;  author: james;  state: Exp;  lines: +2 -2
+corrected typo
+----------------------------
+revision 1.8
+date: 2002/09/27 16:04:08;  author: james;  state: Exp;  lines: +14 -4
+now we won't elect if we're away
+----------------------------
+revision 1.7
+date: 2002/09/26 15:35:05;  author: james;  state: Exp;  lines: +28 -20
+new timer handling stuff
+lowercase the channel before testing it :x
+----------------------------
+revision 1.6
+date: 2002/09/26 12:10:33;  author: james;  state: Exp;  lines: +80 -10
+bots now hold elections to see who should speak next on channels
+----------------------------
+revision 1.5
+date: 2002/09/25 22:57:42;  author: james;  state: Exp;  lines: +89 -24
+Start of implementation of new interbot stuff (who's next)
+new method for handling incoming bmotion commands off botnet as i was obviously on drugs when i wrote the previous code
+----------------------------
+revision 1.4
+date: 2002/08/02 10:46:27;  author: james;  state: Exp;  lines: +5 -5
+Changed putloglev to bMotion_putloglev
+----------------------------
+revision 1.3
+date: 2002/07/29 11:49:27;  author: james;  state: Exp;  lines: +7 -0
+interbot stuff now ignores the silence state
+----------------------------
+revision 1.2
+date: 2002/07/23 13:21:07;  author: james;  state: Exp;  lines: +2 -0
+Added "loaded" putloglev
+----------------------------
+revision 1.1
+date: 2002/07/23 08:54:03;  author: james;  state: Exp;
+Welcome to bMotion2 (sort of)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/modules/leet.tcl,v
+Working file: bmotion/modules/leet.tcl
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.4
+date: 2002/11/18 23:28:58;  author: james;  state: Exp;  lines: +20 -1
+Added GPL header
+----------------------------
+revision 1.3
+date: 2002/11/18 23:16:18;  author: james;  state: Exp;  lines: +7 -9
+fixed cvs ruining things
+----------------------------
+revision 1.2
+date: 2002/11/03 22:05:31;  author: james;  state: Exp;  lines: +9 -1
+bleh
+----------------------------
+revision 1.1
+date: 2002/07/23 08:54:03;  author: james;  state: Exp;
+Welcome to bMotion2 (sort of)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/modules/leet_settings.tcl,v
+Working file: bmotion/modules/leet_settings.tcl
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.2
+date: 2002/11/18 23:28:58;  author: james;  state: Exp;  lines: +19 -0
+Added GPL header
+----------------------------
+revision 1.1
+date: 2002/07/23 08:54:03;  author: james;  state: Exp;
+Welcome to bMotion2 (sort of)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/modules/mood.tcl,v
+Working file: bmotion/modules/mood.tcl
+head: 1.6
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 6;	selected revisions: 6
+description:
+----------------------------
+revision 1.6
+date: 2002/11/19 20:19:57;  author: james;  state: Exp;  lines: +9 -9
+fixed some tcl/cvs problems
+----------------------------
+revision 1.5
+date: 2002/11/18 23:28:58;  author: james;  state: Exp;  lines: +20 -1
+Added GPL header
+----------------------------
+revision 1.4
+date: 2002/11/18 23:16:24;  author: james;  state: Exp;  lines: +6 -4
+fixed cvs ruining things
+----------------------------
+revision 1.3
+date: 2002/11/03 22:05:52;  author: james;  state: Exp;  lines: +66 -1
+started implementing new mood routines
+----------------------------
+revision 1.2
+date: 2002/08/02 10:46:27;  author: james;  state: Exp;  lines: +5 -5
+Changed putloglev to bMotion_putloglev
+----------------------------
+revision 1.1
+date: 2002/07/23 08:54:03;  author: james;  state: Exp;
+Welcome to bMotion2 (sort of)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/modules/Attic/mood.tcl.bak,v
+Working file: bmotion/modules/mood.tcl.bak
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.2
+date: 2002/07/23 08:58:27;  author: james;  state: dead;  lines: +1 -1
+FUCKING .bak FILES£((*£$
+----------------------------
+revision 1.1
+date: 2002/07/23 08:54:03;  author: james;  state: Exp;
+Welcome to bMotion2 (sort of)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/modules/output.tcl,v
+Working file: bmotion/modules/output.tcl
+head: 1.24
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 24;	selected revisions: 24
+description:
+----------------------------
+revision 1.24
+date: 2002/11/23 13:13:56;  author: james;  state: Exp;  lines: +15 -3
+fixed deleted function o_O
+----------------------------
+revision 1.23
+date: 2002/11/18 23:52:56;  author: james;  state: Exp;  lines: +3 -1
+turn %slash into / just before output
+----------------------------
+revision 1.22
+date: 2002/11/18 23:28:58;  author: james;  state: Exp;  lines: +20 -1
+Added GPL header
+----------------------------
+revision 1.21
+date: 2002/11/03 22:06:25;  author: james;  state: Exp;  lines: +2 -2
+bleh
+----------------------------
+revision 1.20
+date: 2002/09/30 22:11:52;  author: james;  state: Exp;  lines: +2 -2
+updated for new language stuff
+----------------------------
+revision 1.19
+date: 2002/09/30 12:41:41;  author: james;  state: Exp;  lines: +4 -2
+fixed getRealName mistaking *nt* for the bot
+----------------------------
+revision 1.18
+date: 2002/09/29 14:21:45;  author: james;  state: Exp;  lines: +6 -5
+fix for typos engine errors, hopefully
+----------------------------
+revision 1.17
+date: 2002/09/27 16:02:08;  author: james;  state: Exp;  lines: +7 -3
+debug for typos problem
+----------------------------
+revision 1.16
+date: 2002/09/25 14:15:15;  author: james;  state: Exp;  lines: +7 -1
+updated bMotionGetRealName to work out if it's me
+----------------------------
+revision 1.15
+date: 2002/09/19 09:45:51;  author: james;  state: Exp;  lines: +17 -17
+Fixed
+Using new architecture to store typos and replay them
+----------------------------
+revision 1.14
+date: 2002/09/18 16:06:26;  author: james;  state: Exp;  lines: +15 -17
+COMPLETELY RUINED
+----------------------------
+revision 1.13
+date: 2002/09/18 15:56:22;  author: james;  state: Exp;  lines: +12 -5
+new typos stuff (broken)
+----------------------------
+revision 1.12
+date: 2002/09/18 15:19:20;  author: james;  state: Exp;  lines: +8 -14
+%SETTING added
+----------------------------
+revision 1.11
+date: 2002/09/08 21:56:52;  author: james;  state: Exp;  lines: +2 -2
+extra debugging
+----------------------------
+revision 1.10
+date: 2002/08/19 21:40:52;  author: james;  state: Exp;  lines: +7 -1
+added some debug stuff
+----------------------------
+revision 1.9
+date: 2002/08/14 15:56:03;  author: james;  state: Exp;  lines: +25 -148
+bMotionGetRealName should be more robust when called inside a plugin
+typosEngine moved to plugin
+tweak on output plugin loop
+----------------------------
+revision 1.8
+date: 2002/08/08 22:54:19;  author: james;  state: Exp;  lines: +4 -1
+stopped the next delay on the queue from getting too high :)
+----------------------------
+revision 1.7
+date: 2002/08/06 16:03:16;  author: james;  state: Exp;  lines: +17 -1
+preliminary output plugin support (unfinished but going home)
+----------------------------
+revision 1.6
+date: 2002/08/02 10:46:27;  author: james;  state: Exp;  lines: +28 -28
+Changed putloglev to bMotion_putloglev
+----------------------------
+revision 1.5
+date: 2002/08/01 17:53:04;  author: james;  state: Exp;  lines: +8 -4
+Tremendous failure in choosing a random bot (surprised it worked at all, in fact)
+Also optimised the picking bot routine a bit
+----------------------------
+revision 1.4
+date: 2002/08/01 15:49:25;  author: james;  state: Exp;  lines: +44 -8
+added %var{chance,abstract}
+added %STOP (internal)
+changed max q length to 15
+added actual typing delay code
+----------------------------
+revision 1.3
+date: 2002/07/31 11:03:12;  author: james;  state: Exp;  lines: +6 -2
+issues with one single matching user in bMotionChooseRandomUser
+----------------------------
+revision 1.2
+date: 2002/07/30 15:52:05;  author: james;  state: Exp;  lines: +2 -2
+CVS has a funny five minutes :P
+----------------------------
+revision 1.1
+date: 2002/07/23 08:54:02;  author: james;  state: Exp;
+Welcome to bMotion2 (sort of)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/modules/plugins.tcl,v
+Working file: bmotion/modules/plugins.tcl
+head: 1.17
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 17;	selected revisions: 17
+description:
+----------------------------
+revision 1.17
+date: 2002/11/18 23:28:58;  author: james;  state: Exp;  lines: +20 -1
+Added GPL header
+----------------------------
+revision 1.16
+date: 2002/11/03 22:06:35;  author: james;  state: Exp;  lines: +0 -0
+bleh
+----------------------------
+revision 1.15
+date: 2002/09/30 22:11:52;  author: james;  state: Exp;  lines: +63 -45
+updated for new language stuff
+----------------------------
+revision 1.14
+date: 2002/09/26 15:35:38;  author: james;  state: Exp;  lines: +75 -21
+can now specify which plugins should not be loaded by the bot in the config file
+----------------------------
+revision 1.13
+date: 2002/08/29 13:29:59;  author: james;  state: Exp;  lines: +7 -2
+added null plugin function so some plugins can register themselves but not do anything directly
+----------------------------
+revision 1.12
+date: 2002/08/19 21:42:08;  author: james;  state: Exp;  lines: +106 -6
+added action plugins
+----------------------------
+revision 1.11
+date: 2002/08/11 13:52:21;  author: james;  state: Exp;  lines: +36 -7
+Now checks to see if a plugin is being redefined
+----------------------------
+revision 1.10
+date: 2002/08/07 12:17:43;  author: james;  state: Exp;  lines: +35 -1
+added dependency checking support
+----------------------------
+revision 1.9
+date: 2002/08/06 16:02:51;  author: james;  state: Exp;  lines: +64 -7
+added output plugins
+----------------------------
+revision 1.8
+date: 2002/08/05 15:51:27;  author: james;  state: Exp;  lines: +6 -4
+complex plugins now stackable (return 1 to abort)
+----------------------------
+revision 1.7
+date: 2002/08/05 11:53:53;  author: james;  state: Exp;  lines: +47 -1
+added complex plugins
+----------------------------
+revision 1.6
+date: 2002/08/02 12:08:12;  author: james;  state: Exp;  lines: +49 -8
+Added admin plugins
+----------------------------
+revision 1.5
+date: 2002/08/02 10:46:27;  author: james;  state: Exp;  lines: +7 -7
+Changed putloglev to bMotion_putloglev
+----------------------------
+revision 1.4
+date: 2002/08/01 15:50:01;  author: james;  state: Exp;  lines: +2 -1
+added support for %botnicks in plugins
+----------------------------
+revision 1.3
+date: 2002/07/30 22:11:00;  author: james;  state: Exp;  lines: +12 -6
+tidy up and improve code
+----------------------------
+revision 1.2
+date: 2002/07/30 18:45:58;  author: james;  state: Exp;  lines: +10 -5
+Now it works ^_^
+----------------------------
+revision 1.1
+date: 2002/07/30 15:54:02;  author: james;  state: Exp;
+New file ... start of plugins code
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/modules/plugins_settings.tcl,v
+Working file: bmotion/modules/plugins_settings.tcl
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.4
+date: 2002/11/18 23:28:58;  author: james;  state: Exp;  lines: +19 -0
+Added GPL header
+----------------------------
+revision 1.3
+date: 2002/11/03 22:06:45;  author: james;  state: Exp;  lines: +1 -1
+bleh
+----------------------------
+revision 1.2
+date: 2002/08/12 23:01:12;  author: james;  state: Exp;  lines: +1 -1
+fixed the $id
+----------------------------
+revision 1.1
+date: 2002/08/12 19:22:02;  author: james;  state: Exp;
+new :)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/modules/settings.tcl,v
+Working file: bmotion/modules/settings.tcl
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.4
+date: 2002/11/18 23:28:58;  author: james;  state: Exp;  lines: +19 -0
+Added GPL header
+----------------------------
+revision 1.3
+date: 2002/11/03 22:06:57;  author: james;  state: Exp;  lines: +11 -43
+added comments
+----------------------------
+revision 1.2
+date: 2002/09/30 11:24:36;  author: james;  state: Exp;  lines: +42 -4
+added comments explaining settings
+----------------------------
+revision 1.1
+date: 2002/07/23 08:54:02;  author: james;  state: Exp;
+Welcome to bMotion2 (sort of)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/modules/system.tcl,v
+Working file: bmotion/modules/system.tcl
+head: 1.19
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 19;	selected revisions: 19
+description:
+----------------------------
+revision 1.19
+date: 2002/11/19 19:54:55;  author: james;  state: Exp;  lines: +17 -4
+cvs corrupted it again :(
+----------------------------
+revision 1.18
+date: 2002/11/18 23:28:58;  author: james;  state: Exp;  lines: +21 -2
+Added GPL header
+----------------------------
+revision 1.17
+date: 2002/11/03 22:07:23;  author: james;  state: Exp;  lines: +70 -3
+added number generator
+added universal timer function
+----------------------------
+revision 1.16
+date: 2002/09/30 22:11:52;  author: james;  state: Exp;  lines: +4 -3
+updated for new language stuff
+----------------------------
+revision 1.15
+date: 2002/09/27 16:02:47;  author: james;  state: Exp;  lines: +6 -2
+run an election after returning from away
+----------------------------
+revision 1.14
+date: 2002/09/25 22:56:46;  author: james;  state: Exp;  lines: +2 -5
+moved interbot binds to interbot.tcl
+----------------------------
+revision 1.13
+date: 2002/09/18 12:00:23;  author: james;  state: Exp;  lines: +8 -5
+bleh away system all fucked up
+fixed what must be a very long-standing bug in the set-back function too
+----------------------------
+revision 1.12
+date: 2002/09/17 22:43:11;  author: james;  state: Exp;  lines: +18 -7
+hopefully bot won't go away/back/away/back on idle channels now
+----------------------------
+revision 1.11
+date: 2002/09/16 14:48:01;  author: james;  state: Exp;  lines: +2 -11
+bMotionIsFriend moved to friendship module
+----------------------------
+revision 1.10
+date: 2002/08/29 13:29:11;  author: james;  state: Exp;  lines: +7 -3
+bMotionLike now more robust
+----------------------------
+revision 1.9
+date: 2002/08/02 16:36:34;  author: james;  state: Exp;  lines: +5 -28
+remove parse and friendship from .bmotion
+----------------------------
+revision 1.8
+date: 2002/08/02 12:08:41;  author: james;  state: Exp;  lines: +58 -36
+Added .bmadmin command (uses plugins)
+Added .bmhelp (lists plugins)
+----------------------------
+revision 1.7
+date: 2002/08/02 10:46:27;  author: james;  state: Exp;  lines: +9 -9
+Changed putloglev to bMotion_putloglev
+----------------------------
+revision 1.6
+date: 2002/08/01 16:06:11;  author: james;  state: Exp;  lines: +15 -3
+added .bmotion queue
+changed .bmotion flush queue to clear queue
+----------------------------
+revision 1.5
+date: 2002/07/31 11:03:32;  author: james;  state: Exp;  lines: +3 -3
+!bmadmin su was b0rked
+----------------------------
+revision 1.4
+date: 2002/07/29 11:49:58;  author: james;  state: Exp;  lines: +7 -2
+added call to friend list code
+----------------------------
+revision 1.3
+date: 2002/07/23 15:50:39;  author: james;  state: Exp;  lines: +13 -3
+More friendship stuff
+----------------------------
+revision 1.2
+date: 2002/07/23 13:21:35;  author: james;  state: Exp;  lines: +139 -105
+Code rearrange and tidyup
+----------------------------
+revision 1.1
+date: 2002/07/23 08:54:02;  author: james;  state: Exp;
+Welcome to bMotion2 (sort of)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/modules/variables.tcl,v
+Working file: bmotion/modules/variables.tcl
+head: 1.5
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 5;	selected revisions: 5
+description:
+----------------------------
+revision 1.5
+date: 2002/11/18 23:28:58;  author: james;  state: Exp;  lines: +20 -1
+Added GPL header
+----------------------------
+revision 1.4
+date: 2002/11/03 22:07:39;  author: james;  state: Exp;  lines: +1 -2
+added default language setting of en
+----------------------------
+revision 1.3
+date: 2002/09/30 22:11:52;  author: james;  state: Exp;  lines: +2 -1
+updated for new language stuff
+----------------------------
+revision 1.2
+date: 2002/08/10 23:30:09;  author: james;  state: Exp;  lines: +46 -38
+check for variables existence before reiniting them
+----------------------------
+revision 1.1
+date: 2002/07/23 08:54:02;  author: james;  state: Exp;
+Welcome to bMotion2 (sort of)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/action_complex.tcl,v
+Working file: bmotion/plugins/action_complex.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:11;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/11/03 21:50:32;  author: james;  state: Exp;  lines: +0 -0
+No change ?
+----------------------------
+revision 1.1
+date: 2002/09/30 12:40:54;  author: james;  state: Exp;
+new multilingual loaders for plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/action_simple.tcl,v
+Working file: bmotion/plugins/action_simple.tcl
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.4
+date: 2002/11/18 23:39:11;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.3
+date: 2002/11/03 21:50:47;  author: james;  state: Exp;  lines: +0 -0
+No change ?
+----------------------------
+revision 1.2
+date: 2002/09/30 22:10:40;  author: james;  state: Exp;  lines: +15 -12
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/30 12:40:54;  author: james;  state: Exp;
+new multilingual loaders for plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/admin.tcl,v
+Working file: bmotion/plugins/admin.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:11;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 13:38:00;  author: james;  state: Exp;  lines: +10 -1
+now load admin_* from main plugins dir so they can be lang independant
+----------------------------
+revision 1.1
+date: 2002/09/30 12:40:55;  author: james;  state: Exp;
+new multilingual loaders for plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/admin_flood.tcl,v
+Working file: bmotion/plugins/admin_flood.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:11;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/11/14 08:09:52;  author: james;  state: Exp;  lines: +0 -0
+blah
+----------------------------
+revision 1.1
+date: 2002/11/03 21:51:06;  author: james;  state: Exp;
+added flood protection
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/admin_language.tcl,v
+Working file: bmotion/plugins/admin_language.tcl
+head: 1.5
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 5;	selected revisions: 5
+description:
+----------------------------
+revision 1.5
+date: 2002/11/18 23:39:11;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.4
+date: 2002/11/03 21:51:23;  author: james;  state: Exp;  lines: +0 -0
+no change ?
+----------------------------
+revision 1.3
+date: 2002/09/30 22:22:24;  author: james;  state: Exp;  lines: +16 -8
+added use command
+----------------------------
+revision 1.2
+date: 2002/09/30 22:10:57;  author: james;  state: Exp;  lines: +2 -2
+updated for new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/30 13:38:33;  author: james;  state: Exp;
+plugin to work with languages
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/complex.tcl,v
+Working file: bmotion/plugins/complex.tcl
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.2
+date: 2002/11/18 23:39:11;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.1
+date: 2002/09/30 12:40:55;  author: james;  state: Exp;
+new multilingual loaders for plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/Attic/complex_hands.tcl,v
+Working file: bmotion/plugins/complex_hands.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/08/29 13:28:33;  author: james;  state: dead;  lines: +1 -1
+NNK
+----------------------------
+revision 1.2
+date: 2002/08/19 21:45:26;  author: james;  state: Exp;  lines: +3 -1
+new action plugins :)
+----------------------------
+revision 1.1
+date: 2002/08/19 15:51:48;  author: james;  state: Exp;
+UNFINISHED
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/output.tcl,v
+Working file: bmotion/plugins/output.tcl
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.2
+date: 2002/11/18 23:39:11;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.1
+date: 2002/09/30 12:40:55;  author: james;  state: Exp;
+new multilingual loaders for plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/simple.tcl,v
+Working file: bmotion/plugins/simple.tcl
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.2
+date: 2002/11/18 23:39:11;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.1
+date: 2002/09/30 12:40:55;  author: james;  state: Exp;
+new multilingual loaders for plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/Attic/action_complex.tcl,v
+Working file: bmotion/plugins/en/action_complex.tcl
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.2
+date: 2002/09/30 12:38:40;  author: james;  state: dead;  lines: +1 -1
+removed in favour of xxx_general.tcl
+----------------------------
+revision 1.1
+date: 2002/08/19 21:45:25;  author: james;  state: Exp;
+new action plugins :)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/action_complex_attack.tcl,v
+Working file: bmotion/plugins/en/action_complex_attack.tcl
+head: 1.6
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 6;	selected revisions: 6
+description:
+----------------------------
+revision 1.6
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.5
+date: 2002/11/03 21:56:34;  author: james;  state: Exp;  lines: +2 -1
+another type of attack added
+----------------------------
+revision 1.4
+date: 2002/09/30 22:09:46;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.3
+date: 2002/09/27 16:05:03;  author: james;  state: Exp;  lines: +5 -2
+more abstracts
+----------------------------
+revision 1.2
+date: 2002/09/26 12:10:06;  author: james;  state: Exp;  lines: +2 -1
+now uses new "which bot next" system ^^
+----------------------------
+revision 1.1
+date: 2002/09/25 14:20:58;  author: james;  state: Exp;
+new plugin that responds to other ppl getting attacked
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/action_complex_away.tcl,v
+Working file: bmotion/plugins/en/action_complex_away.tcl
+head: 1.5
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 5;	selected revisions: 5
+description:
+----------------------------
+revision 1.5
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.4
+date: 2002/11/03 21:56:54;  author: james;  state: Exp;  lines: +7 -1
+added me next handler
+----------------------------
+revision 1.3
+date: 2002/09/30 22:09:46;  author: james;  state: Exp;  lines: +3 -3
+new language stuff
+----------------------------
+revision 1.2
+date: 2002/09/18 14:30:11;  author: james;  state: Exp;  lines: +60 -58
+something strange going on ...
+----------------------------
+revision 1.1
+date: 2002/09/18 10:54:46;  author: james;  state: Exp;
+new plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/action_complex_hands.tcl,v
+Working file: bmotion/plugins/en/action_complex_hands.tcl
+head: 1.7
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 7;	selected revisions: 7
+description:
+----------------------------
+revision 1.7
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.6
+date: 2002/11/03 21:57:21;  author: james;  state: Exp;  lines: +16 -1
+added generic hands-handler
+learns new items
+----------------------------
+revision 1.5
+date: 2002/09/30 22:09:46;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.4
+date: 2002/09/08 21:54:12;  author: james;  state: Exp;  lines: +9 -1
+being handed a hug now calls the hug plugin (if available :)
+----------------------------
+revision 1.3
+date: 2002/08/29 13:27:55;  author: james;  state: Exp;  lines: +83 -196
+all done as a plugin now :)
+----------------------------
+revision 1.2
+date: 2002/08/29 11:41:59;  author: james;  state: Exp;  lines: +48 -23
+turned the tissues stuff to a proper plugin
+----------------------------
+revision 1.1
+date: 2002/08/19 21:45:25;  author: james;  state: Exp;
+new action plugins :)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/action_complex_hands_dildo.tcl,v
+Working file: bmotion/plugins/en/action_complex_hands_dildo.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:47;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/08/29 13:28:19;  author: james;  state: Exp;
+all done as a plugin now :)
+(needs a bit of tidying up)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/action_complex_hugs.tcl,v
+Working file: bmotion/plugins/en/action_complex_hugs.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:47;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/08 21:56:02;  author: james;  state: Exp;
+new hug handling plugin
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/action_complex_light.tcl,v
+Working file: bmotion/plugins/en/action_complex_light.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:47;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/18 10:54:46;  author: james;  state: Exp;
+new plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/action_complex_waves.tcl,v
+Working file: bmotion/plugins/en/action_complex_waves.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:47;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/26 15:56:48;  author: james;  state: Exp;
+new plugin
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/action_simple.tcl,v
+Working file: bmotion/plugins/en/action_simple.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/11/03 21:56:18;  author: james;  state: Exp;  lines: +2 -2
+added language modifier
+----------------------------
+revision 1.1
+date: 2002/08/19 21:45:25;  author: james;  state: Exp;
+new action plugins :)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/action_simple_general.tcl,v
+Working file: bmotion/plugins/en/action_simple_general.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:47;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/30 12:39:08;  author: james;  state: Exp;
+new version of old xxx.tcl (needed rename due to multilang arch)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/action_simple_squeeze.tcl,v
+Working file: bmotion/plugins/en/action_simple_squeeze.tcl
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.4
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.3
+date: 2002/09/30 22:09:48;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.2
+date: 2002/09/19 16:54:36;  author: james;  state: Exp;  lines: +2 -2
+added dutch for squeeze
+----------------------------
+revision 1.1
+date: 2002/09/11 23:48:25;  author: james;  state: Exp;
+new plugin
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/Attic/admin.tcl,v
+Working file: bmotion/plugins/en/admin.tcl
+head: 1.9
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 9;	selected revisions: 9
+description:
+----------------------------
+revision 1.9
+date: 2002/09/30 12:38:41;  author: james;  state: dead;  lines: +1 -1
+removed in favour of xxx_general.tcl
+----------------------------
+revision 1.8
+date: 2002/08/19 21:42:43;  author: james;  state: Exp;  lines: +11 -1
+added settings clear command
+----------------------------
+revision 1.7
+date: 2002/08/07 12:15:30;  author: james;  state: Exp;  lines: +1 -34
+moved plugins admin plugin to own file
+----------------------------
+revision 1.6
+date: 2002/08/06 16:02:35;  author: james;  state: Exp;  lines: +5 -4
+added output plugin support
+----------------------------
+revision 1.5
+date: 2002/08/05 12:46:27;  author: james;  state: Exp;  lines: +20 -3
+added dynamic file loading
+----------------------------
+revision 1.4
+date: 2002/08/05 11:56:22;  author: james;  state: Exp;  lines: +54 -5
+added codesize plugin
+added rehash plugin
+added default action for plugins plugin (list)
+removed debug code from plugins remove
+----------------------------
+revision 1.3
+date: 2002/08/04 23:03:37;  author: james;  state: Exp;  lines: +6 -8
+fixed removing a plugin at runtime (thanks to colen :)
+----------------------------
+revision 1.2
+date: 2002/08/02 16:37:50;  author: james;  state: Exp;  lines: +59 -6
+more admin plugins
+(remove doesn't work yet)
+----------------------------
+revision 1.1
+date: 2002/08/02 12:08:53;  author: james;  state: Exp;
+New :)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/admin_general.tcl,v
+Working file: bmotion/plugins/en/admin_general.tcl
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.4
+date: 2002/11/23 13:00:01;  author: james;  state: Exp;  lines: +3 -3
+added bMotionRoot variable for location of script when rehashing
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:48;  author: james;  state: Exp;  lines: +10 -10
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/30 12:39:08;  author: james;  state: Exp;
+new version of old xxx.tcl (needed rename due to multilang arch)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/admin_plugin.tcl,v
+Working file: bmotion/plugins/en/admin_plugin.tcl
+head: 1.10
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 10;	selected revisions: 10
+description:
+----------------------------
+revision 1.10
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.9
+date: 2002/11/03 21:52:01;  author: james;  state: Exp;  lines: +4 -3
+no change ?
+----------------------------
+revision 1.8
+date: 2002/09/30 22:09:48;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.7
+date: 2002/09/30 12:40:24;  author: james;  state: Exp;  lines: +9 -1
+added "info" command for plugins
+----------------------------
+revision 1.6
+date: 2002/09/19 16:56:19;  author: james;  state: Exp;  lines: +2 -2
+bold ^_^
+----------------------------
+revision 1.5
+date: 2002/08/29 11:41:37;  author: james;  state: Exp;  lines: +6 -2
+changed output for output plugins listing
+----------------------------
+revision 1.4
+date: 2002/08/19 21:43:31;  author: james;  state: Exp;  lines: +2 -3
+added action plugins to processing list
+----------------------------
+revision 1.3
+date: 2002/08/19 15:52:28;  author: james;  state: Exp;  lines: +7 -2
+shows counts for plugins
+----------------------------
+revision 1.2
+date: 2002/08/14 15:50:29;  author: james;  state: Exp;  lines: +17 -6
+updates to plugin listing code
+----------------------------
+revision 1.1
+date: 2002/08/07 12:15:50;  author: james;  state: Exp;
+moved plugins admin plugin to own file
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/Attic/complex.tcl,v
+Working file: bmotion/plugins/en/complex.tcl
+head: 1.5
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 5;	selected revisions: 5
+description:
+----------------------------
+revision 1.5
+date: 2002/09/30 12:38:41;  author: james;  state: dead;  lines: +1 -1
+removed in favour of xxx_general.tcl
+----------------------------
+revision 1.4
+date: 2002/08/12 19:21:20;  author: james;  state: Exp;  lines: +8 -3
+updated test plugins as needed
+----------------------------
+revision 1.3
+date: 2002/08/05 15:57:12;  author: james;  state: Exp;  lines: +24 -2
+added opme plugin
+added test2 plugin for testing stacking
+----------------------------
+revision 1.2
+date: 2002/08/05 12:46:27;  author: james;  state: Exp;  lines: +16 -2
+added dynamic file loading
+----------------------------
+revision 1.1
+date: 2002/08/05 11:55:11;  author: james;  state: Exp;
+new :)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_abbr.tcl,v
+Working file: bmotion/plugins/en/complex_abbr.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/11/13 07:47:26;  author: james;  state: Exp;  lines: +0 -0
+blah
+----------------------------
+revision 1.1
+date: 2002/11/03 21:57:41;  author: james;  state: Exp;
+new abbreviation plugin (thanks to lectique for idea)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_action_hands_dildo.tcl,v
+Working file: bmotion/plugins/en/complex_action_hands_dildo.tcl
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.2
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.1
+date: 2002/09/04 08:43:28;  author: james;  state: Exp;
+no message
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_afro.tcl,v
+Working file: bmotion/plugins/en/complex_afro.tcl
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.2
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.1
+date: 2002/11/13 11:52:20;  author: james;  state: Exp;
+Play the afronym game :)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_bhar.tcl,v
+Working file: bmotion/plugins/en/complex_bhar.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:48;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/09 19:20:20;  author: james;  state: Exp;
+moved from events.tcl to plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_blbl.tcl,v
+Working file: bmotion/plugins/en/complex_blbl.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:48;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/09 19:20:20;  author: james;  state: Exp;
+moved from events.tcl to plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_dutchify.tcl,v
+Working file: bmotion/plugins/en/complex_dutchify.tcl
+head: 1.5
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 5;	selected revisions: 5
+description:
+----------------------------
+revision 1.5
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +11 -1
+Added GPL header
+----------------------------
+revision 1.4
+date: 2002/09/30 22:09:49;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.3
+date: 2002/09/19 16:56:54;  author: james;  state: Exp;  lines: +3 -1
+translates honk
+----------------------------
+revision 1.2
+date: 2002/08/06 16:01:37;  author: james;  state: Exp;  lines: +2 -2
+oops, calling the wrong function :P
+----------------------------
+revision 1.1
+date: 2002/08/05 12:45:48;  author: james;  state: Exp;
+replacement for dutchify.tcl
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_eat.tcl,v
+Working file: bmotion/plugins/en/complex_eat.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:49;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/09 14:07:08;  author: james;  state: Exp;
+various bits moved from events.tcl to plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_fuckoff.tcl,v
+Working file: bmotion/plugins/en/complex_fuckoff.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:49;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/29 14:21:02;  author: james;  state: Exp;
+new plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_general.tcl,v
+Working file: bmotion/plugins/en/complex_general.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:49;  author: james;  state: Exp;  lines: +4 -4
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/30 12:39:08;  author: james;  state: Exp;
+new version of old xxx.tcl (needed rename due to multilang arch)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_hand.tcl,v
+Working file: bmotion/plugins/en/complex_hand.tcl
+head: 1.6
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 6;	selected revisions: 6
+description:
+----------------------------
+revision 1.6
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.5
+date: 2002/11/03 21:56:00;  author: james;  state: Exp;  lines: +2 -2
+changed to new nick-transformation method
+----------------------------
+revision 1.4
+date: 2002/09/30 22:09:50;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.3
+date: 2002/09/16 15:38:34;  author: james;  state: Exp;  lines: +4 -3
+fixed regexp for hand
+fixed dependency check for hug
+fixed missing global
+----------------------------
+revision 1.2
+date: 2002/09/15 23:00:43;  author: james;  state: Exp;  lines: +8 -4
+fixed return values
+use hug plugin for giving hugs
+----------------------------
+revision 1.1
+date: 2002/09/09 19:20:20;  author: james;  state: Exp;
+moved from events.tcl to plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_hello.tcl,v
+Working file: bmotion/plugins/en/complex_hello.tcl
+head: 1.5
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 5;	selected revisions: 5
+description:
+----------------------------
+revision 1.5
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.4
+date: 2002/09/30 22:09:50;  author: james;  state: Exp;  lines: +3 -3
+new language stuff
+----------------------------
+revision 1.3
+date: 2002/09/30 10:45:22;  author: james;  state: Exp;  lines: +1 -2
+oops ruined :P
+----------------------------
+revision 1.2
+date: 2002/09/27 16:06:06;  author: james;  state: Exp;  lines: +2 -1
+check for interbot_next
+----------------------------
+revision 1.1
+date: 2002/08/14 06:27:22;  author: james;  state: Exp;
+moved hello handlers out of events.tcl
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_hug.tcl,v
+Working file: bmotion/plugins/en/complex_hug.tcl
+head: 1.5
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 5;	selected revisions: 5
+description:
+----------------------------
+revision 1.5
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.4
+date: 2002/11/03 21:55:44;  author: james;  state: Exp;  lines: +2 -2
+changed to new nick-transformation method
+----------------------------
+revision 1.3
+date: 2002/09/30 22:09:50;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.2
+date: 2002/09/16 15:36:13;  author: james;  state: Exp;  lines: +3 -3
+fixed the function name/call
+----------------------------
+revision 1.1
+date: 2002/09/15 23:00:09;  author: james;  state: Exp;
+new (possibly broken)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_invader.tcl,v
+Working file: bmotion/plugins/en/complex_invader.tcl
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.2
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.1
+date: 2002/11/13 11:52:36;  author: james;  state: Exp;
+talk like invader zim (thanks to simsea)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_kill.tcl,v
+Working file: bmotion/plugins/en/complex_kill.tcl
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.4
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.3
+date: 2002/11/03 21:55:09;  author: james;  state: Exp;  lines: +2 -1
+fixed a global
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:50;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/29 14:21:03;  author: james;  state: Exp;
+new plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_love.tcl,v
+Working file: bmotion/plugins/en/complex_love.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:50;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/15 22:59:57;  author: james;  state: Exp;
+new
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_phonetic.tcl,v
+Working file: bmotion/plugins/en/complex_phonetic.tcl
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.2
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.1
+date: 2002/11/13 11:52:51;  author: james;  state: Exp;
+output phonetic lines (thanks to simsea)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_pokemon.tcl,v
+Working file: bmotion/plugins/en/complex_pokemon.tcl
+head: 1.5
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 5;	selected revisions: 5
+description:
+----------------------------
+revision 1.5
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.4
+date: 2002/11/13 11:53:06;  author: james;  state: Exp;  lines: +1 -0
+blah
+----------------------------
+revision 1.3
+date: 2002/09/30 22:09:51;  author: james;  state: Exp;  lines: +4 -4
+new language stuff
+----------------------------
+revision 1.2
+date: 2002/09/30 12:40:02;  author: james;  state: Exp;  lines: +2 -2
+attack plugin too enthuisiastic
+----------------------------
+revision 1.1
+date: 2002/09/29 14:21:03;  author: james;  state: Exp;
+new plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_re.tcl,v
+Working file: bmotion/plugins/en/complex_re.tcl
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.4
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.3
+date: 2002/09/30 22:09:51;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.2
+date: 2002/09/16 15:18:16;  author: james;  state: Exp;  lines: +2 -2
+repaired a tremendous error that made this trigger fire too much
+----------------------------
+revision 1.1
+date: 2002/09/09 14:07:08;  author: james;  state: Exp;
+various bits moved from events.tcl to plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_readings.tcl,v
+Working file: bmotion/plugins/en/complex_readings.tcl
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.4
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.3
+date: 2002/11/03 21:54:27;  author: james;  state: Exp;  lines: +8 -2
+added more responses
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:51;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/18 10:54:47;  author: james;  state: Exp;
+new plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_replicate.tcl,v
+Working file: bmotion/plugins/en/complex_replicate.tcl
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.4
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.3
+date: 2002/09/30 22:09:51;  author: james;  state: Exp;  lines: +3 -3
+new language stuff
+----------------------------
+revision 1.2
+date: 2002/09/09 19:20:48;  author: james;  state: Exp;  lines: +5 -10
+sod extra plugins :P
+----------------------------
+revision 1.1
+date: 2002/09/09 19:10:57;  author: james;  state: Exp;
+well it's at the working stage now, doing well :P
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_scrap.tcl,v
+Working file: bmotion/plugins/en/complex_scrap.tcl
+head: 1.11
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 11;	selected revisions: 11
+description:
+New plugin
+----------------------------
+revision 1.11
+date: 2002/11/20 19:24:08;  author: greg;  state: Exp;  lines: +49 -5
+Addition of many n0rty words.
+----------------------------
+revision 1.10
+date: 2002/11/20 13:46:37;  author: greg;  state: Exp;  lines: +66 -45
+Introduction of Switch Statement to attempt to fix output bug.
+----------------------------
+revision 1.9
+date: 2002/11/20 10:26:10;  author: greg;  state: Exp;  lines: +2 -2
+Yet more bugfixes.  Logical OR operations are || not |
+----------------------------
+revision 1.8
+date: 2002/11/20 10:08:51;  author: greg;  state: Exp;  lines: +1 -1
+More Bugfixes.
+Introduction of ? after first paramater in regexp.
+----------------------------
+revision 1.7
+date: 2002/11/20 10:03:19;  author: greg;  state: Exp;  lines: +6 -5
+Attempted bugfix.  Bracket problems
+----------------------------
+revision 1.6
+date: 2002/11/20 00:32:27;  author: greg;  state: Exp;  lines: +162 -9
+Attempted to indroduce [ adult ] as a possible switch
+Now syntax is : !scrap [ silly ] [ adult ] (in any order)
+Probably needs bugfixing
+Also introduced lots more words around
+Finally, created new output routine to classify whether one or both of the switches have been used.
+----------------------------
+revision 1.5
+date: 2002/11/19 22:47:40;  author: greg;  state: Exp;  lines: +13 -2
+Addition of a few extra words.
+Addition of "A " to the start of the phrase.  bMotion's english output handler will automagically correct the grammar for this.
+----------------------------
+revision 1.4
+date: 2002/11/19 20:39:09;  author: greg;  state: Exp;  lines: +1 -1
+Fix of typo.
+----------------------------
+revision 1.3
+date: 2002/11/19 20:30:16;  author: greg;  state: Exp;  lines: +16 -10
+Code Fix for %VAR not being random each time\nAddition of more words to various sections
+----------------------------
+revision 1.2
+date: 2002/11/19 20:11:10;  author: james;  state: Exp;  lines: +26 -24
+fixed some tcl problems
+----------------------------
+revision 1.1
+date: 2002/11/19 19:08:56;  author: greg;  state: Exp;
+New plugin
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_sex.tcl,v
+Working file: bmotion/plugins/en/complex_sex.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:51;  author: james;  state: Exp;  lines: +3 -3
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/08/11 13:50:40;  author: james;  state: Exp;
+Added with support for go-down-on
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_snicker.tcl,v
+Working file: bmotion/plugins/en/complex_snicker.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:52;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/29 14:21:03;  author: james;  state: Exp;
+new plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_sorry.tcl,v
+Working file: bmotion/plugins/en/complex_sorry.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:52;  author: james;  state: Exp;  lines: +3 -3
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/09 14:07:08;  author: james;  state: Exp;
+various bits moved from events.tcl to plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_sport.tcl,v
+Working file: bmotion/plugins/en/complex_sport.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:52;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/08/30 12:22:38;  author: james;  state: Exp;
+jum
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_startrek.tcl,v
+Working file: bmotion/plugins/en/complex_startrek.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:52;  author: james;  state: Exp;  lines: +5 -5
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/08/08 22:56:37;  author: james;  state: Exp;
+new plugin with startrek handlers
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_stupid.tcl,v
+Working file: bmotion/plugins/en/complex_stupid.tcl
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.4
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.3
+date: 2002/11/03 21:54:10;  author: james;  state: Exp;  lines: +2 -1
+fixed a global
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:53;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/29 14:21:03;  author: james;  state: Exp;
+new plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_supermarkets.tcl,v
+Working file: bmotion/plugins/en/complex_supermarkets.tcl
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.4
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.3
+date: 2002/09/30 22:09:53;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.2
+date: 2002/09/27 16:06:06;  author: james;  state: Exp;  lines: +2 -1
+check for interbot_next
+----------------------------
+revision 1.1
+date: 2002/09/15 22:59:49;  author: james;  state: Exp;
+new
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_taunt.tcl,v
+Working file: bmotion/plugins/en/complex_taunt.tcl
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.4
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.3
+date: 2002/11/03 21:53:59;  author: james;  state: Exp;  lines: +2 -1
+added flood protection
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:53;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/08/12 18:59:41;  author: james;  state: Exp;
+!taunt now a plugin
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_techsupport.tcl,v
+Working file: bmotion/plugins/en/complex_techsupport.tcl
+head: 1.5
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 5;	selected revisions: 5
+description:
+----------------------------
+revision 1.5
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.4
+date: 2002/11/03 21:53:29;  author: james;  state: Exp;  lines: +4 -2
+corrected a typo in the name
+----------------------------
+revision 1.3
+date: 2002/09/30 22:09:53;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.2
+date: 2002/09/13 12:08:51;  author: james;  state: Exp;  lines: +12 -2
+better abstracts
+----------------------------
+revision 1.1
+date: 2002/08/19 15:07:51;  author: james;  state: Exp;
+:)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_thanks.tcl,v
+Working file: bmotion/plugins/en/complex_thanks.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:53;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/09 14:07:08;  author: james;  state: Exp;
+various bits moved from events.tcl to plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_unf.tcl,v
+Working file: bmotion/plugins/en/complex_unf.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:54;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/09 19:20:21;  author: james;  state: Exp;
+moved from events.tcl to plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_want_catch.tcl,v
+Working file: bmotion/plugins/en/complex_want_catch.tcl
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.2
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.1
+date: 2002/11/13 11:53:20;  author: james;  state: Exp;
+learn new words
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/complex_watchout.tcl,v
+Working file: bmotion/plugins/en/complex_watchout.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:54;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/09 14:07:09;  author: james;  state: Exp;
+various bits moved from events.tcl to plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/Attic/output.tcl,v
+Working file: bmotion/plugins/en/output.tcl
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.4
+date: 2002/09/30 12:38:42;  author: james;  state: dead;  lines: +1 -1
+removed in favour of xxx_general.tcl
+----------------------------
+revision 1.3
+date: 2002/08/14 15:47:38;  author: james;  state: Exp;  lines: +11 -1
+remember to autoload output_*.tcl files :P
+----------------------------
+revision 1.2
+date: 2002/08/07 12:16:54;  author: james;  state: Exp;  lines: +16 -1
+added dependency check for dutchify plugin
+added leet output plugin
+----------------------------
+revision 1.1
+date: 2002/08/06 16:01:14;  author: james;  state: Exp;
+mmm... new
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/output_colloquial.tcl,v
+Working file: bmotion/plugins/en/output_colloquial.tcl
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.4
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.3
+date: 2002/09/30 22:09:54;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.2
+date: 2002/09/13 12:19:53;  author: james;  state: Exp;  lines: +7 -1
+randomly add a . to the end of a line sometimes
+----------------------------
+revision 1.1
+date: 2002/09/08 17:22:41;  author: james;  state: Exp;
+welcome to bmotion 2 :)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/output_english.tcl,v
+Working file: bmotion/plugins/en/output_english.tcl
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.4
+date: 2002/11/19 21:01:05;  author: james;  state: Exp;  lines: +5 -1
+now corrects "a error" to "an error" etc
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:54;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/25 14:20:23;  author: james;  state: Exp;
+new plugin that helps tidy up some english errors
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/output_general.tcl,v
+Working file: bmotion/plugins/en/output_general.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:55;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/30 12:39:08;  author: james;  state: Exp;
+new version of old xxx.tcl (needed rename due to multilang arch)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/output_typos.tcl,v
+Working file: bmotion/plugins/en/output_typos.tcl
+head: 1.8
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 8;	selected revisions: 8
+description:
+----------------------------
+revision 1.8
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.7
+date: 2002/09/30 22:09:55;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.6
+date: 2002/09/19 09:42:59;  author: james;  state: Exp;  lines: +9 -5
+Fixed
+Now uses the plugins settings architecture to store the errors
+----------------------------
+revision 1.5
+date: 2002/09/18 16:06:49;  author: james;  state: Exp;  lines: +22 -12
+COMPLETELY RUINED
+----------------------------
+revision 1.4
+date: 2002/09/18 10:44:49;  author: james;  state: Exp;  lines: +2 -2
+fixed the caps-typo correction
+----------------------------
+revision 1.3
+date: 2002/09/13 12:20:15;  author: james;  state: Exp;  lines: +6 -1
+randomly use capslock by accident
+----------------------------
+revision 1.2
+date: 2002/09/08 17:23:36;  author: james;  state: Exp;  lines: +2 -2
+added another typo
+----------------------------
+revision 1.1
+date: 2002/08/14 15:54:23;  author: james;  state: Exp;
+typos code is now a plugin
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/Attic/simple.tcl,v
+Working file: bmotion/plugins/en/simple.tcl
+head: 1.9
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 9;	selected revisions: 9
+description:
+----------------------------
+revision 1.9
+date: 2002/09/30 12:38:42;  author: james;  state: dead;  lines: +1 -1
+removed in favour of xxx_general.tcl
+----------------------------
+revision 1.8
+date: 2002/09/29 14:20:17;  author: james;  state: Exp;  lines: +1 -2
+return moved to pokemon plugin file
+----------------------------
+revision 1.7
+date: 2002/08/09 22:21:08;  author: duds;  state: Exp;  lines: +3 -1
+Added new "Dude!" "Sweet!" autoreplies (see "Dude wheres my car" if you don't know), also made a minor update to the abstracts while i was at it. - Love n hugs Duds
+----------------------------
+revision 1.6
+date: 2002/08/05 12:46:27;  author: james;  state: Exp;  lines: +12 -2
+added dynamic file loading
+----------------------------
+revision 1.5
+date: 2002/08/04 23:02:58;  author: james;  state: Exp;  lines: +2 -2
+added "rules" plugin
+----------------------------
+revision 1.4
+date: 2002/08/01 16:06:46;  author: james;  state: Exp;  lines: +4 -2
+added different url handler (images)
+added question-have handler
+----------------------------
+revision 1.3
+date: 2002/07/30 22:33:19;  author: james;  state: Exp;  lines: +18 -1
+added many competent plugins (from events.tcl)
+----------------------------
+revision 1.2
+date: 2002/07/30 18:46:08;  author: james;  state: Exp;  lines: +3 -2
+Now it works ^_^
+----------------------------
+revision 1.1
+date: 2002/07/30 15:51:32;  author: james;  state: Exp;
+New file (plugin code)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/simple_garion.tcl,v
+Working file: bmotion/plugins/en/simple_garion.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -0
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:55;  author: james;  state: Exp;  lines: +1 -1
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/08/05 12:46:46;  author: james;  state: Exp;
+new file to test simple file loading
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/simple_general.tcl,v
+Working file: bmotion/plugins/en/simple_general.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:55;  author: james;  state: Exp;  lines: +20 -21
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/30 12:39:08;  author: james;  state: Exp;
+new version of old xxx.tcl (needed rename due to multilang arch)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/simple_here.tcl,v
+Working file: bmotion/plugins/en/simple_here.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:55;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/08/29 10:48:39;  author: james;  state: Exp;
+new :)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/simple_ick.tcl,v
+Working file: bmotion/plugins/en/simple_ick.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:56;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/08/23 14:40:48;  author: james;  state: Exp;
+moved !ick to plugin :)
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/simple_list.tcl,v
+Working file: bmotion/plugins/en/simple_list.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:56;  author: james;  state: Exp;  lines: +3 -3
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/08/11 14:39:16;  author: james;  state: Exp;
+Taunts people using !list stuff wrong
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/simple_littlebit.tcl,v
+Working file: bmotion/plugins/en/simple_littlebit.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:56;  author: james;  state: Exp;  lines: +2 -2
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/29 14:21:03;  author: james;  state: Exp;
+new plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/simple_notbot.tcl,v
+Working file: bmotion/plugins/en/simple_notbot.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:56;  author: james;  state: Exp;  lines: +3 -3
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/29 14:21:04;  author: james;  state: Exp;
+new plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/en/simple_sneeze.tcl,v
+Working file: bmotion/plugins/en/simple_sneeze.tcl
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2002/11/18 23:39:24;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.2
+date: 2002/09/30 22:09:56;  author: james;  state: Exp;  lines: +3 -3
+new language stuff
+----------------------------
+revision 1.1
+date: 2002/09/18 10:54:47;  author: james;  state: Exp;
+new plugins
+=============================================================================
+
+RCS file: /var/lib/cvs/bmotion/plugins/nl/simple_general.tcl,v
+Working file: bmotion/plugins/nl/simple_general.tcl
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.2
+date: 2002/11/18 23:40:07;  author: james;  state: Exp;  lines: +10 -1
+Added GPL header
+----------------------------
+revision 1.1
+date: 2002/09/30 22:09:25;  author: james;  state: Exp;
+new .nl plugin
+=============================================================================
