@@ -20,7 +20,7 @@ proc bMotion_plugin_complex_action_balefires { nick host handle channel text } {
     if [regexp -nocase $botnicks $who] {
       bMotionDoAction $channel $nick "%VAR{balefired}"
       bMotionGetUnLonely
-      bMotionGetUnHappy
+      bMotionGetSad
       driftFriendship $nick -1
     } else {
       if {![onchan $who $channel]} { return 0 }
