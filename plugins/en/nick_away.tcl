@@ -16,6 +16,15 @@ bMotion_plugin_add_nick_action "away" "(away|sleep|gone|afk|zzz+|bed|slaap|w(o|e
 
 #someone's returned (fires on every nick change and checks for lack of away
 proc bMotion_plugins_nick_away { nick host handle channel newnick } {
+
+  #check we haven't already done something for this nick
+  if {$nick == [bMotion_plugins_settings_get "complex:away" "lastnick" $channel ""]} {
+    return 1
+  }
+
+  #save as newnick because if they do a /me next it'll be their new nick
+  bMotion_plugins_settings_set "complex:away" "lastnick" $channel "" $newnick
+
   #work
   if [regexp -nocase "w(o|e|3|0)rk" $newnick] {
     bMotionDoAction $channel $nick "%VAR{awayWorks}"
@@ -39,6 +48,15 @@ proc bMotion_plugins_nick_away { nick host handle channel newnick } {
 
 #someone's returned
 proc bMotion_plugins_nick_returned { nick host handle channel newnick } {
+
+  #check we haven't already done something for this nick
+  if {$nick == [bMotion_plugins_settings_get "complex:returned" "lastnick" $channel ""]} {
+    return 1
+  }
+
+  #save as newnick because if they do a /me next it'll be their new nick
+  bMotion_plugins_settings_set "complex:returned" "lastnick" $channel "" $newnick
+
   if {[regexp -nocase "(away|sleep|gone|afk|zzz+|bed|slaap|w(0|e|3|o)rk|school)" $nick] && 
        ![regexp -nocase "(away|sleep|gone|afk|slaap|w(0|e|3|o)rk|school)" $newnick]} {
     
