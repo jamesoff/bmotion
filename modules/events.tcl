@@ -116,14 +116,14 @@ proc bMotion_event_main {nick host handle channel text} {
   global loveresponses boreds upyourbums smiles
   global arrs botnick arrcachenick arrcachearr
   global bMotionLastEvent bMotionSettings botnicks bMotionCache bMotionInfo
-  global bMotionThisText  
+  global bMotionThisText bMotionOriginalInput
 
   if [matchattr $handle J] {
     return 0
   }
 
   #ignore other bots
-  if {[matchattr $handle b]} {
+  if {[matchattr $handle b] && (![matchattr $handle I])} {
     set bMotionCache($channel,last) 0
     return 0
   }
@@ -134,8 +134,9 @@ proc bMotion_event_main {nick host handle channel text} {
 
   bMotion_putloglev 4 * "bMotion: entering bMotion_event_main with nick: $nick host: $host handle: $handle chan: $channel text: $text"
 
-  set nick [bMotion_cleanNick $nick $handle]
+  #set nick [bMotion_cleanNick $nick $handle]
 
+  set bMotionOriginalInput $text
 
   #filter bold codes out
   regsub -all "\002" $text "" text
