@@ -13,7 +13,7 @@
 ###############################################################################
 
 bMotion_plugin_add_complex "smiley" {^[;:=]-?[)D>]$} 40 bMotion_plugin_complex_smiley "all"
-bMotion_plugin_add_complex "smiley2" {^([-^])-\1$} 40 bMotion_plugin_complex_smiley "all"
+bMotion_plugin_add_complex "smiley2" {^([\-^])[_-]*[\-^];*$} 40 bMotion_plugin_complex_smiley "all"
 bMotion_plugin_add_complex "smiley3" {^heh(ehe?)*$} 30 bMotion_plugin_complex_smiley "all"
 
 proc bMotion_plugin_complex_smiley { nick host handle channel text } {  
