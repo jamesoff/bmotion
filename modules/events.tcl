@@ -22,7 +22,6 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
-putlog "decaring onjoin"
 ## BEGIN onjoin handler
 proc bMotion_event_onjoin {nick host handle channel} {
   global bMotionCache welcomeBacks
@@ -63,7 +62,6 @@ proc bMotion_event_onjoin {nick host handle channel} {
 ## END onjoin
 
 
-putlog "decaring onpart"
 ## BEGIN onpart handler
 proc bMotion_event_onpart {nick uhost hand chan {msg ""}} {
   global bMotionCache
@@ -73,7 +71,6 @@ proc bMotion_event_onpart {nick uhost hand chan {msg ""}} {
 
 
 ## BEGIN onquit handler
-putlog "decaring onquit"
 proc bMotion_event_onquit {nick host handle channel reason} {
   global bMotionCache bMotionSettings bMotionInfo
 
@@ -93,7 +90,6 @@ proc bMotion_event_onquit {nick host handle channel reason} {
 ## END onquit
 
 # BEGIN main interactive
-putlog "decaring main"
 proc bMotion_event_main {nick host handle channel text} {
 
   bMotion_putloglev 4 * "bMotion: entering bMotion_event_main with $nick $host $handle $channel $text"
@@ -102,8 +98,15 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }
 
-  #remove []s from nick cos they break things (Minder[]...)
-  regsub -all {(\[|\])} $nick "" nick
+  #remove []s and \s from nick cos they break things (Minder[]...)
+  if [regexp {[\\\[\]]} $nick] {
+    if {$handle != ""} {
+      set nick handle
+    } else {
+      regsub -all {[\\\[\]]} $nick "" nick
+    }
+  }
+  #regsub -all {(\[|\])} $nick "" nick
 
   ## Global definitions ##
   global mood botnick greetings welcomes sorryoks
@@ -781,7 +784,6 @@ proc bMotion_event_main {nick host handle channel text} {
 
 
 ## BEGIN action event handler
-putlog "decaring action"
 proc bMotion_event_action {nick host handle dest keyword text} {
 
   bMotion_putloglev 4 * "bMotion: entering bMotion_event_action with $nick $host $handle $dest $keyword $text"
@@ -1075,7 +1077,6 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 }
 
 ### MODE HANDLER #############################################################
-putlog "decaring mode"
 proc bMotion_event_mode {nick host handle channel mode victim} {
 
   bMotion_putloglev 4 * "bMotion: entering bMotion_event_mode with $nick $host $handle $channel $mode $victim"
@@ -1101,7 +1102,6 @@ proc bMotion_event_mode {nick host handle channel mode victim} {
 
 
 #someone changed nick, check for an away "msg"
-putlog "decaring nick"
 proc bMotion_event_nick { nick host handle channel newnick } {
 
   if [matchattr $handle J] {
