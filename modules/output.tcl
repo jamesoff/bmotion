@@ -307,6 +307,16 @@ proc bMotionInterpolation2 { line } {
   }
 
   set loops 0
+  while {[regexp -nocase "%VERB\{(.*?)\}" $line matches BOOM]} {
+    incr loops
+    if {$loops > 10} {
+      putlog "bMotion: ALERT! looping too much in %VERB code with $line"
+      set line "/has a tremendous error while trying to sort something out :("
+    }
+    set line [bMotionInsertString $line "%VERB\{$BOOM\}" [bMotionMakeVerb $BOOM]]
+  }
+
+  set loops 0
   while {[regexp -nocase "%REPEAT\{(.+?)\}" $line matches BOOM]} {
     incr loops
     if {$loops > 10} {
@@ -779,6 +789,14 @@ proc bMotionMakeRepeat { text } {
 proc bMotion_strip_article { text } {
 		regsub "(an?|the|some) " $text "" text
 		return $text
+}
+
+proc bMotionMakeVerb { text } {
+  if [regexp -nocase "(s|x)$" $text matches letter] {
+    return $text
+  }
+  append text "s"
+  return $text
 }
 
 bMotion_putloglev d * "bMotion: output module loaded"

@@ -37,4 +37,4 @@ bMotion_abstract_register "failsafes_a"
 bMotion_abstract_batchadd "failsafes_a" [list "%VAR{rarrs}" "%REPEAT{3:7:m}" "%VAR{thanks}" "what" "/loves it" "/passes it on to %ruser" "/. o O ( ? )"]
 
 bMotion_abstract_register "failsafes_b"
-bMotion_abstract_batchadd "failsafes_b" [list "/%% %SETTING{complex:failsafe:last:nick:moo} back with %VAR{sillyThings}" "/%% %SETTING{complex:failsafe:last:nick:moo}" "/%VAR{sillyThings}{strip} %SETTING{complex:failsafe:last:nick:moo} in return"]
+bMotion_abstract_batchadd "failsafes_b" [list "/%% %SETTING{complex:failsafe:last:nick:moo} back with %VAR{sillyThings}" "/%% %SETTING{complex:failsafe:last:nick:moo}" "/%VERB{%VAR{sillyThings}{strip}} %SETTING{complex:failsafe:last:nick:moo} in return"]
