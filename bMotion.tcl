@@ -14,10 +14,14 @@ set bMotionRoot "scripts/bmotion"
 set bMotionModules "$bMotionRoot/modules"
 set bMotionPlugins "$bMotionRoot/plugins"
 
-
 if {![info exists bMotion_testing]} {
   putloglev d * "bMotion: bMotion_testing is not defined, setting to 0."
   set bMotion_testing 0
+}
+
+source "$bMotionRoot/VERSION"
+if {$bMotion_testing == 0} {
+  putlog "bMotion $bMotionVersion starting up..."
 }
 
 if {$bMotion_testing == 1} {
@@ -137,7 +141,7 @@ source "$bMotionModules/leet.tcl"
 bMotion_startTimers
 if {$bMotion_testing == 0} {
   set bMotionCache(rehash) ""
-  putlog "\002bMotion $cvsinfo AI online\002 (randoms file: $randomsVersion)"
+  putlog "\002bMotion $bMotionVersion AI online\002 :D"
 }
 
 # set this to 0 to stop showing the copyright
