@@ -1023,7 +1023,7 @@ bMotion_abstract_batchadd "goDowns" [list "/goes down on %%" "/goes slowly down 
 
 
 bMotion_abstract_register "bigranjoins"
-bMotion_abstract_batchadd "bigranjoins" [list "bhar" "r." "r %%" "a%REPEAT{3:8:r}" "boohar %%" "boom" "BOOM%colen" "BOOM!" "alors bof" "pop" "%%%colen" "%%!" ]
+bMotion_abstract_batchadd "bigranjoins" [list "bhar" "r." "r %%" "a%REPEAT{3:8:r}" "boohar %%" "boom" "BOOM%colen" "BOOM!" "alors bof" "pop" "%%%colen" "%%!" "%% %VAR{smiles}"]
 
 
 bMotion_abstract_register "randomGirness"
