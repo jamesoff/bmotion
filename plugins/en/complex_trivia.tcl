@@ -41,13 +41,82 @@ proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
     return 0
   }
 
+  catch {
+    killutimer [bMotion_plugins_settings_get "trivia" "timer" "" ""]
+    bMotion_putloglev d * "killed trivia retry timer"
+  }
+
   global bMotionOriginalInput
   # have to do this because bmotion contracts double spaces for us
   set text $bMotionOriginalInput
+  bMotion_plugins_settings_set "trivia" "hint" "" "" $text
 
   #definitely playing
   bMotion_putloglev 1 * "detected trivia hint: $text"
 
+  #don't guess first time round
+  #bMotion_plugin_complex_trivia_guess $nick $host $handle $channel $text
+
+  #instead start a short timer
+  set delay [expr [rand 15] + 2]
+  bMotion_putloglev d * "try trivia first again in $delay seconds"
+  bMotion_plugins_settings_set "trivia" "timer" "" "" [utimer $delay bMotion_plugin_complex_trivia_auto]
+
+}
+
+proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
+  global botnicks
+
+  bMotion_plugins_settings_set "trivia" "nick" "" "" ""
+  bMotion_plugins_settings_set "trivia" "channel" "" "" ""
+  catch {
+    killutimer [bMotion_plugins_settings_get "trivia" "timer" "" ""]
+    bMotion_putloglev d * "killed trivia retry timer"
+  }
+
+  #let's remember this answer
+  #putlog $text
+  if [regexp -nocase {(correct )?answer was ([^\.]+)\.} $text matches correct answer] {
+    if {$correct != ""} {
+      if {![rand 3]} {
+        bMotionDoAction $channel $nick "%VAR{bahs}"
+      }
+    }
+
+    #if my nick is in the line, i must have got it right
+    if [regexp -nocase "${botnicks}!" $text] {
+      bMotionDoAction $channel $nick "%VAR{trivia_wins}"
+    } else {
+      #my nick isn't, so is "correct" (someone else got it)
+      if {![regexp "correct answer" $text]} {
+        if {![rand 3]} {
+          bMotionDoAction $channel $nick "%VAR{trivia_loses}"
+        }
+      }
+    }
+
+    set words [split $answer " "]
+    foreach word $words {
+      if [regexp {([a-zA-Z1]+)} $word matches newword] {
+        set word $newword
+      }
+      set word [string tolower $word]
+      set firstletter [string toupper [string range $word 0 0]]
+      set full_array_name_for_upvar "afro_$firstletter"
+      #bMotion_putloglev d * "looking for $full_array_name_for_upvar"
+      #upvar #0 $full_array_name_for_upvar teh_variable
+      #if {[lsearch $teh_variable $word] == -1} {
+        #lappend teh_variable $word
+        #bMotion_putloglev d * "trivia: learning word $word"
+      #}
+      bMotion_abstract_add $full_array_name_for_upvar $word
+    }
+  }
+  bMotion_flood_clear $nick
+}
+
+proc bMotion_plugin_complex_trivia_guess { nick host handle channel text } {
+  set bMotionOriginalInput $text
 
   #remove {}s
   regsub -all {[\{\}]} $text " " text
@@ -115,39 +184,37 @@ proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
       bMotionDoAction $channel $nick $answer nothing 1
       putloglev d * "answered trivia with $answer"
       bMotion_plugins_settings_set "trivia" "last" "" "" $answer
+
+      #since we have an answer and it's different, let's have another guess shortly
+      bMotion_plugins_settings_set "trivia" "hint" "" "" $bMotionOriginalInput
+      bMotion_plugins_settings_set "trivia" "channel" "" "" $channel
+      set delay [expr [rand 15] + 10]
+      bMotion_putloglev d * "will try trivia again in $delay seconds"
+      bMotion_plugins_settings_set "trivia" "timer" "" "" [utimer $delay bMotion_plugin_complex_trivia_auto]
     } else {
       putloglev d * "skipped answering with $answer, same as last time"
     }
   }
 }
 
-proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
-  bMotion_plugins_settings_set "trivia" "nick" "" "" ""
-  bMotion_plugins_settings_set "trivia" "channel" "" "" ""
-  #let's remember this answer
-  #putlog $text
-  if [regexp -nocase {answer was ([^\.]+)\.} $text matches answer] {
-    set words [split $answer " "]
-    foreach word $words {
-      if [regexp {([a-zA-Z1]+)} $word matches newword] {
-        set word $newword
-      }
-      set word [string tolower $word]
-      set firstletter [string toupper [string range $word 0 0]]
-      set full_array_name_for_upvar "afro_$firstletter"
-      #bMotion_putloglev d * "looking for $full_array_name_for_upvar"
-      #upvar #0 $full_array_name_for_upvar teh_variable
-      #if {[lsearch $teh_variable $word] == -1} {
-        #lappend teh_variable $word
-        #bMotion_putloglev d * "trivia: learning word $word"
-      #}
-      bMotion_abstract_add $full_array_name_for_upvar $word
-    }
+proc bMotion_plugin_complex_trivia_auto { } {
+  set channel [bMotion_plugins_settings_get "trivia" "channel" "" ""]
+  if {$channel != ""} {
+    bMotion_putloglev d * "auto-guessing for trivia again..."
+    bMotion_plugin_complex_trivia_guess "" "" "" $channel [bMotion_plugins_settings_get "trivia" "hint" "" ""]
   }
-  bMotion_flood_clear $nick
 }
 
 #set up the abstracts
 foreach letter [split "ABCDEFGHIJKLMNOPQRSTUVWXYZ1" {} ] {
   bMotion_abstract_register "afro_$letter"
 }
+
+bMotion_abstract_register "bahs"
+bMotion_abstract_batchadd "bahs" [list "dang" "blast" "i was close %VAR{unsmiles}" "%colen" "curse you %%" "blah" "bleh" "damnit" "S%REPEAT{1:4:O} CLOSE" "no fair, %ruser told me the wrong answer %VAR{unsmiles}"]
+
+bMotion_abstract_register "trivia_wins"
+bMotion_abstract_batchadd "trivia_wins" [list "%VAR{harhars}" "own3d" "PWND!" "yes!" "w%REPEAT{3:6:o}!" "go %me, go %me!" "whe%REPEAT{3:7:e}" "muhar" "winnar!" "in your face, %ruser!"]
+
+bMotion_abstract_register "trivia_loses"
+bMotion_abstract_batchadd "trivia_loses" [list "hey stop copying me %VAR{unsmiles}" "i was going to say that next" "hay you're cheating %VAR{unsmiles}" "you're in league with the bot, i know it" "that's not the right answer; the right answer is obviously %VAR{sillyThings}" "feh"]
