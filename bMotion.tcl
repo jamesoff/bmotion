@@ -11,7 +11,7 @@
 #						(www.bash.org)
 
 
-set bMotionRoot "scripts/bmotion"
+set bMotionRoot "scripts/bmotion-cvs"
 set bMotionModules "$bMotionRoot/modules"
 set bMotionPlugins "$bMotionRoot/plugins"
 
@@ -76,17 +76,17 @@ if {$bMotion_testing == 1} {
 }
 source "$bMotionModules/counters.tcl"
 
-#load new abstract system
-if {$bMotion_testing == 1} {
-  putlog "... loading abstract system"
-}
-source "$bMotionModules/abstract.tcl"
-
 # load settings
 if {$bMotion_testing == 1} {
   putlog "... loading settings"
 }
 source "$bMotionModules/settings.tcl"
+
+#load new abstract system
+if {$bMotion_testing == 1} {
+  putlog "... loading abstract system"
+}
+source "$bMotionModules/abstract.tcl"
 
 #try to load a file for this bot
 catch {
