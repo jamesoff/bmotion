@@ -1,6 +1,17 @@
 bMotion CHANGELOG
 -----------------
 
+2002/12/12
+v0.0.3
+
++ bMotion filters out metacharacters from nicks by replacing with their handle
+  (if the user doesn't have a user record, it just removes the characters)
++ Put the flood checking code back in after cvs, er, ate it some time ago
+* %NUMBER{} works again
+- Removed some of the putlogs bMotion did during startup, because
+   a) they were spelled wrong
+   b) they weren't needed
+
 2002/11/28
 v0.0.2
 
