@@ -9,16 +9,16 @@
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or 
+# the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
 #
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 # General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License 
-# along with this program; if not, write to the Free Software 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
@@ -53,6 +53,7 @@ bind pub - "!bmstats" bMotionStats
 bind msg - bmotion msg_bmotioncommand
 bind pub - !bmadmin bMotionAdminHandler
 bind pub - !bmotion bMotionAdminHandler2
+bind pub - .bmotion bMotionAdminHandler2
 
 #DCC commands
 bind dcc m mood moodhandler
@@ -71,12 +72,12 @@ foreach chan $bMotionInfo(randomChannels) {
 }
 
 
-proc bMotionInfo {nick host handle channel text} {  
+proc bMotionInfo {nick host handle channel text} {
   global bMotionInfo botnicks bMotionSettings cvsinfo randomsinfo botnick
   global bMotionVersion
   if {(![regexp -nocase $botnick $text]) && ($text != "all")} { return 0 }
   if {!([isvoice $nick] || [isop $nick]) || ($nick != "JamesOff")} { return 0 }
-  set timezone [clock format [clock seconds] -format "%Z"]  
+  set timezone [clock format [clock seconds] -format "%Z"]
   putchan $channel "I am running bMotion $bMotionVersion under TCL [info patchlevel]."
   set status "botGender $bMotionInfo(gender)/$bMotionInfo(orientation) : balefire $bMotionInfo(balefire) : pokemon $bMotionInfo(pokemon) : timezone $timezone : randomStuff $bMotionInfo(minRandomDelay), $bMotionInfo(maxRandomDelay), $bMotionInfo(maxIdleGap) : botnicks $botnicks : melMode $bMotionSettings(melMode) : needI $bMotionSettings(needI)"
   if {$bMotionInfo(silence)} { set status "$status : silent (yes)" }
@@ -84,7 +85,7 @@ proc bMotionInfo {nick host handle channel text} {
   return 0
 }
 
-proc bMotionStats {nick host handle channel text} {  
+proc bMotionStats {nick host handle channel text} {
   global bMotionInfo botnicks bMotionSettings cvsinfo randomsinfo botnick
   global bMotionVersion
   if {(![regexp -nocase $botnick $text]) && ($text != "all")} { return 0 }
@@ -143,7 +144,7 @@ proc doRandomStuff {} {
     }
   }
   bMotion_putloglev 1 * "bMotion: most recent: $mostRecent .. timenow $timeNow .. gap [expr $bMotionInfo(maxIdleGap) * 10]"
-  
+
   set idleEnough 0
 
   if {($timeNow - $mostRecent) > ([expr $bMotionInfo(maxIdleGap) * 10])} {
@@ -170,7 +171,7 @@ proc doRandomStuff {} {
   }
 
   #not idle
-  
+
   #set back if away
   if {$bMotionInfo(away) == 1} {
     bMotionSetRandomBack
@@ -191,7 +192,7 @@ proc doRandomStuff {} {
 
 proc bMotionSaySomethingRandom {channel} {
   global randomStuff stonedRandomStuff randomStuffMale randomStuffFemale mood bMotionInfo
-  
+
   if [rand 2] {
     bMotionDoAction $channel "" "%VAR{randomStuff}"
   }
@@ -436,7 +437,7 @@ proc bMotion_dcc_help { handle idx arg } {
   putidx $idx "Commands available: (Some may not be accessible by you)\r"
 
   set cmds ""
-  
+
   global bMotion_plugins_admin
   set s [array startsearch bMotion_plugins_admin]
   while {[set key [array nextelement bMotion_plugins_admin $s]] != ""} {
@@ -468,7 +469,7 @@ proc dcc_bmotioncommand { handle idx arg } {
     putserv "AWAY"
     putidx $idx "No longer silent."
     set bMotionInfo(silence) 0
-    set bMotionInfo(away) 0    
+    set bMotionInfo(away) 0
     return 1
   }
 
@@ -478,7 +479,7 @@ proc dcc_bmotioncommand { handle idx arg } {
       putidx $idx "ok\n"
       return 1
   }
- 
+
   return 1
 }
 
@@ -538,7 +539,7 @@ proc bMotionAdminHandler2 {nick host handle channel text} {
   } err
   if {($err != "") && ($err != 0)} {
     putlog "bMotion: ALERT! Callback failed for !bmotion: $callback: $err"
-  }  
+  }
 }
 
 proc bMotion_putadmin { text } {
@@ -611,7 +612,7 @@ proc bMotionAdminHandler {nick host handle channel text} {
   if [regexp -nocase "$botnicks leet (on|off)" $text blah pop toggle] {
 
     if {$toggle == "off"} {
-      putlog "bMotion: Leet mode off by $nick"     
+      putlog "bMotion: Leet mode off by $nick"
       set bMotionInfo(leet) 0
       bMotionDoAction $channel $nick "/stops talking like a retard."
       return 0
@@ -628,14 +629,14 @@ proc bMotionAdminHandler {nick host handle channel text} {
   if [regexp -nocase "$botnicks dutch (on|off)" $text blah pop toggle] {
 
     if {$toggle == "off"} {
-      putlog "bMotion: Dutch mode off by $nick"     
+      putlog "bMotion: Dutch mode off by $nick"
       set bMotionInfo(dutch) 0
       bMotionDoAction $channel $nick "/stops talking like a European."
       return 0
     }
 
     if {$toggle == "on"} {
-      putlog "bMotion: Dutch mode on by $nick"      
+      putlog "bMotion: Dutch mode on by $nick"
       bMotionDoAction $channel $nick "/snapt wel nederlands"
       set bMotionInfo(dutch) 1
     }
@@ -708,7 +709,7 @@ proc msg_bmotioncommand { nick host handle cmd } {
   } err
   if {($err != "") && ($err != 0)} {
     putlog "bMotion: ALERT! Callback failed for !bmotion: $callback"
-  }  
+  }
 }
 
 # Time stuff
@@ -778,7 +779,7 @@ proc bMotion_get_number { num } {
   }
 }
 
-proc bMotion_startTimers { } { 
+proc bMotion_startTimers { } {
   global mooddrifttimer
 	if  {![info exists mooddrifttimer]} {
 		timer 10 driftmood
@@ -808,7 +809,7 @@ proc bMotion_cleanNick { nick { handle "" } } {
   #have we STILL got illegal chars?
   if {[regexp {[\\\[\]\{\}]} $nick]} {
     return [string map { \[ "_" \] "_" \{ "_" \} "_" } $nick]
-  }  
+  }
   return $nick
 }
 
@@ -833,16 +834,16 @@ proc bMotion_setting_get { setting } {
   if {$val != ""} {
 	  return $val
   }
-  
+
   bMotion_putloglev 3 * "setting '$setting' doesn't exist in bMotionSettings, trying bMotionInfo..."
   catch {
     set val $bMotionInfo($setting)
   }
   if {$val != ""} {
 	  return $val
-  
+
   }
-  
+
   bMotion_putloglev 3 * "nope, not there either, returning nothing"
   return ""
 }
