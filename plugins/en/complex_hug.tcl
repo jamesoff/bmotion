@@ -18,7 +18,7 @@ proc bMotion_plugin_complex_hug { nick host handle channel text } {
   global botnicks
   if [regexp -nocase "^$botnicks hug (.+)" $text matches bn item] {
     bMotion_plugin_complex_hug_do $channel $item $host
-    return 0
+    return 1
   }
 }
 

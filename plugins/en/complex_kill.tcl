@@ -22,9 +22,10 @@ proc bMotion_plugin_complex_kill { nick host handle channel text } {
     global kills
     if [regexp -nocase "with (.+)" $details ming1 weapon] {
       bMotionDoAction $channel $who "/kills $who with $weapon"
-      return 0
+      return 1
     }
     global kills
     bMotionDoAction $channel $who "%VAR{kills}"
+    return 1
   }
 }
