@@ -537,12 +537,6 @@ proc bMotion_event_main {nick host handle channel text} {
     bMotionDoAction $channel "" [pickRandom $blindings]
   }
 
-  if [regexp -nocase {^[!\"£\$%\^&\*\(\)\@\#]{3,}} $text] {
-    if [rand 2] {
-      bMotionDoAction $channel $nick [bMotionGetColenChars]
-    }
-  }
-
   if [regexp -nocase "^zzz+$" $text] {
     if [rand 2] {
       global handcoffees
