@@ -53,8 +53,12 @@ proc bMotion_queue_run { } {
     if {$sec < 1} {
       #time to output this
       bMotion_putloglev 4 * "queue: NOW $target :$content"
-      if [regexp {^@([^@]+)@(.+)} $content matches bot text] {
-        bMotionSendSayChan $target $text $bot
+      if [regexp {^@([^@]+)?@(.+)} $content matches bot text] {
+        if {$bot == ""} {
+          putlog "bMotion: WARNING - tried to send text to a null bot o_O"
+        } else {
+          bMotionSendSayChan $target $text $bot
+        }
       } else {
         puthelp "PRIVMSG $target :$content"
       }
