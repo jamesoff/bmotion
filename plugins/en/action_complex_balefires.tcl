@@ -13,16 +13,17 @@
 
 bMotion_plugin_add_action_complex "balefires" "^balefires" 100 bMotion_plugin_complex_action_balefires "en"
 
-proc bMotion_plugin_complex_action_balefires { nick host handle channel text } {  
+proc bMotion_plugin_complex_action_balefires { nick host handle channel text } {
+	global botnicks
   if [regexp -nocase "^balefires (.+)" $text ming who] {
     global bMotionInfo
     if [regexp -nocase $botnicks $who] {
-      bMotionDoAction $dest $nick "%VAR{balefired}"
+      bMotionDoAction $channel $nick "%VAR{balefired}"
       bMotionGetUnLonely
       bMotionGetUnHappy
       driftFriendship $nick -1
     } else {
-      if {![onchan $who $dest]} { return 0 }
+      if {![onchan $who $channel]} { return 0 }
       if {$bMotionInfo(balefire) != 1} { return 0 }
       putserv "PRIVMSG $who :Sorry, you stopped existing a few minutes ago. Please sit down and be quiet until you are woven into the pattern again."
     }
