@@ -124,4 +124,4 @@ bMotion_diagnostic_channel2
 
 bMotion_putloglev d * "Diagnostics complete."
 
-bind time - "30 * * * *" bMotion_abstract_auto
+bind time - "30 * * * *" bMotion_diagnostic_auto
