@@ -86,7 +86,7 @@ set colloq_shouldhave {
   "should of"
 }
 
-set colloq_shouldhave {
+set colloq_shouldhavenot {
   "shouldnt've"
   "shouldn't of"
   "shouldnt of"
