@@ -86,7 +86,8 @@ proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
       if [regexp {[A-Z1]} $firstletter] {
         bMotion_putloglev 1 * "looking for a $firstletter word..."
         set upvar_name "afro_$firstletter"
-        upvar #0 $upvar_name wordlist
+        #upvar #0 $upvar_name wordlist
+        set wordlist [bMotion_abstract_all $upvar_name]
         #find a matching word
         set candidates [list]
         foreach word $wordlist {
@@ -131,12 +132,13 @@ proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
       set word [string tolower $word]
       set firstletter [string toupper [string range $word 0 0]]
       set full_array_name_for_upvar "afro_$firstletter"
-      bMotion_putloglev d * "looking for $full_array_name_for_upvar"
-      upvar #0 $full_array_name_for_upvar teh_variable
-      if {[lsearch $teh_variable $word] == -1} {
-        lappend teh_variable $word
-        bMotion_putloglev d * "trivia: learning word $word"
-      }
+      #bMotion_putloglev d * "looking for $full_array_name_for_upvar"
+      #upvar #0 $full_array_name_for_upvar teh_variable
+      #if {[lsearch $teh_variable $word] == -1} {
+        #lappend teh_variable $word
+        #bMotion_putloglev d * "trivia: learning word $word"
+      #}
+      bMotion_abstract_add $full_array_name_for_upvar $word
     }
   }
   bMotion_flood_clear $nick
