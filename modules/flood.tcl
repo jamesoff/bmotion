@@ -194,4 +194,28 @@ proc bMotion_flood_get { nick } {
   return $flood
 }
 
+proc bMotion_flood_check { nick } {
+  set flood [bMotion_flood_get $nick]
+  set chance 2
+  if {$flood > 25} {
+    #sendnote "bMotion" "JamesOff" "bMotion added an ignore on $nick for half an hour"
+    set ignorehost [maskhost $host]
+    newignore $ignorehost "bMotion" "Flooding bmotion" 30
+    #puthelp "NOTICE $nick :Sorry, you're flooding bMotion too much. I'll be ignoring you for a bit."
+    set chance -1
+  }
+  if {$flood > 15} {
+    set chance -1
+  }
+  if {$flood > 7} {
+    set chance 1
+  }
+  set r [rand 2]
+  if {!($r < $chance)} {
+    putlog "bMotion: FLOOD check on $nick"
+    return 1
+  }
+  return 0
+}
+
 bind time - "* * * * *" bMotion_flood_tick

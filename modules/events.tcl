@@ -160,6 +160,7 @@ proc bMotion_event_main {nick host handle channel text} {
   set response [bMotion_plugin_find_simple $text $bMotionInfo(language)]
   if {$response != ""} {
     bMotion_flood_add $nick "" $text
+    if [bMotion_flood_check $nick] { return 0 }
     set nick [bMotionGetRealName $nick $host]
     bMotionDoAction $channel $nick [pickRandom $response]
     return 0
@@ -171,28 +172,7 @@ proc bMotion_event_main {nick host handle channel text} {
     #set nick [bMotionGetRealName $nick $host]
     foreach callback $response {
       bMotion_flood_add $nick $callback $text
-      set flood [bMotion_flood_get $nick]
-      #putlog "flood = $flood"
-      set chance 2
-      if {$flood > 25} {
-        sendnote "bMotion" "JamesOff" "bMotion added an ignore on $nick for half an hour"
-        set ignorehost [maskhost $host]
-        newignore $ignorehost "bMotion" "Flooding bmotion" 30
-        #puthelp "NOTICE $nick :Sorry, you're flooding bMotion too much. I'll be ignoring you for a bit."
-        set chance -1
-      }
-      if {$flood > 15} {
-        set chance -1
-      }
-      if {$flood > 7} {
-        set chance 1
-      }
-      set r [rand 2]
-      #putlog "chance = $chance, rand = $r"
-      if {!($r < $chance)} {
-        putlog "bMotion: FLOOD check on $nick"
-        return 0
-      }
+      if [bMotion_flood_check $nick] { return 0 }
    
       bMotion_putloglev 1 * "bMotion: matched complex plugin, running callback $callback"
       set result [$callback $nick $host $handle $channel $text]
