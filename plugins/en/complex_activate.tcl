@@ -12,7 +12,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_complex "activate" "(activate|increase power to)" 100 bMotion_plugin_complex_activate "en"
+bMotion_plugin_add_complex "z-activate" "(activate|increase power to)" 100 bMotion_plugin_complex_activate "en"
 
 proc bMotion_plugin_complex_activate { nick host handle channel text } {
   global botnicks
