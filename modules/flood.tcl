@@ -164,7 +164,7 @@ proc bMotion_flood_undo { nick } {
     return 0
   }
 
-  incr val -1
+  #incr val -1
 
   if [validuser $nick] {
     set handle $nick
