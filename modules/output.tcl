@@ -240,6 +240,32 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
   return $line
 }
 
+proc bMotionInterpolation2 { line } {
+
+  #owners
+  set loops 0
+  while {[regexp -nocase "%OWNER\{(.+?)\}" $line matches BOOM]} {
+    incr loops
+    if {$loops > 10} {
+      putlog "bMotion: ALERT! looping too much in %OWNER code with $line"
+      set line "/has a tremendous error while trying to sort something out :("
+    }
+    set line [bMotionInsertString $line "%OWNER\{$BOOM\}" [bMotionMakePossessive $BOOM]]
+  }
+
+  set loops 0
+  while {[regexp -nocase "%REPEAT\{(.+?)\}" $line matches BOOM]} {
+    incr loops
+    if {$loops > 10} {
+      putlog "bMotion: ALERT! looping too much in %REPEAT code with $line"
+      set line "/has a tremendous error while trying to sort something out :("
+    }
+    set line [bMotionInsertString $line "%REPEAT\\\{$BOOM\\\}" [bMotionMakeRepeat $BOOM]]
+  }
+
+  return $line
+}
+
 proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0}} {
   global mood botnick bMotionInfo sillyThings bMotionCache
 
@@ -276,26 +302,7 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0}} {
   putloglev 3 * "bMotion: remote bot nick = $rbot"
   set line [bMotionInsertString $line "%rbot" $rbot]
 
-  #owners
-  set loops 0
-  while {[regexp -nocase "%OWNER\{(.+?)\}" $line matches BOOM]} {
-    incr loops
-    if {$loops > 10} {
-      putlog "bMotion: ALERT! looping too much in %OWNER code with $line"
-      set line "/has a tremendous error while trying to sort something out :("
-    }
-    set line [bMotionInsertString $line "%OWNER\{$BOOM\}" [bMotionMakePossessive $BOOM]]
-  }
-
-  set loops 0
-  while {[regexp -nocase "%REPEAT\{(.+?)\}" $line matches BOOM]} {
-    incr loops
-    if {$loops > 10} {
-      putlog "bMotion: ALERT! looping too much in %REPEAT code with $line"
-      set line "/has a tremendous error while trying to sort something out :("
-    }
-    set line [bMotionInsertString $line "%REPEAT\\\{$BOOM\\\}" [bMotionMakeRepeat $BOOM]]
-  }
+  set line [bMotionInterpolation2 $line]
 
   #if it's a bot , put it on the queue with no more processing
   if [regexp -nocase {%(BOT)\[(.+?)\]} $line matches botcmd cmd] {
