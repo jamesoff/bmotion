@@ -54,6 +54,7 @@ set bMotion_stats_port 1337
 ### (stop editing here, but feel free to review :)
 
 set bMotion_stats_latest ""
+set bMotion_stats_time 0
 
 proc bMotion_stats_send { } {
 	bMotion_putloglev 4 * "bMotion_stats_send"
@@ -209,11 +210,12 @@ proc bMotion_stats_handler { idx text } {
 	return 0
 }
 
-proc bMotion_stats_check { force } {
-	bMotion_putloglev 4 * "bMotion_stats_check ($force)"
-	global bMotionModules bMotion_stats_id bMotion_stats_key
-
+proc bMotion_stats_load { } {
+	global bMotionModules bMotion_stats_id bMotion_stats_time
+	
 	set line ""
+	
+	set bMotion_stats_time 0
 
 	catch {
 		set fileHandle [open "$bMotionModules/stats.txt" "r"]
@@ -221,9 +223,26 @@ proc bMotion_stats_check { force } {
 	}
 
 	if {$line != ""} {
-		set ts $line
+		set bMotion_stats_time $line
+		set bMotion_stats_id [gets $fileHandle]
+		set bMotion_stats_key [gets $fileHandle]
+	}
+	
+	catch {
+		close $fileHandle
+	}
+}
+
+proc bMotion_stats_check { force } {
+	bMotion_putloglev 4 * "bMotion_stats_check ($force)"
+	global bMotionModules bMotion_stats_id bMotion_stats_key
+	global bMotion_stats_time
+
+	bMotion_stats_load
+
+	if {$bMotion_stats_time > 0} {	
 		set now [clock seconds]
-		set diff [expr $now - $ts]
+		set diff [expr $now - $bMotion_stats_time]
 		if {$force || ($diff > 604800)} {
 			putlog "bMotion: last stats run was $diff seconds ago, resending..."
 			#one week difference
@@ -231,7 +250,6 @@ proc bMotion_stats_check { force } {
 			set bMotion_stats_key [gets $fileHandle]
 			bMotion_stats_send
 		}
-		close $fileHandle
 	} else {
 		#no file
 		putlog "bMotion: new installation, need to send stats/check version..."
@@ -294,6 +312,9 @@ proc bMotion_stats_version_cmp { } {
 proc bMotion_stats_admin { handle { arg "" } } {
 	global bMotion_stats_key bMotion_stats_id
 	global bMotion_stats_enabled bMotion_stats_version
+	global bMotion_stats_time
+	
+	bMotion_stats_load
 	
 	if {($arg == "stats") || ($arg == "status")} {
 		bMotion_putadmin "Stats module:"
@@ -315,12 +336,18 @@ proc bMotion_stats_admin { handle { arg "" } } {
 			bMotion_putadmin "  no id is stored"
 		}
 		
+		if {$bMotion_stats_time > 0} {
+			bMotion_putadmin "  last stats run was [expr [clock seconds] - $bMotion_stats_time] seconds ago"
+		} else {
+			bMotion_putadmin "  last stats run never or unknown"
+		}
+		
 		#find our bind and delete it from the timeline
 		set binds [binds time]
 		foreach bind $binds {
 			if {[lindex $bind 4] == "bMotion_stats_auto"} {
 				#this is us
-				bMotion_putadmin "  next stats run at [lindex [lindex $bind 2] 0]:[lindex [lindex $bind 2] 1]"
+				bMotion_putadmin "  next stats run at [lindex [lindex $bind 2] 1]:[lindex [lindex $bind 2] 0]"
 			}
 		}
 		
