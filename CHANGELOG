@@ -10,6 +10,7 @@ bMotion CHANGELOG
 * fixed [ 726241 ] Techsupport does not use elections
 + added new abstract management system
 * tidied up code in trivia plugin
++ added feature request [ 727005 ] courtmarital... with a kick. settings for it are in the complex_startrek plugin file
 
 2003/04/13
 v0.0.6

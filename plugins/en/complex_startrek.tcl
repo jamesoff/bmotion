@@ -17,6 +17,13 @@ bMotion_plugin_add_complex "st-decloak" "^%botnicks decloak$" 100 "bMotion_plugi
 bMotion_plugin_add_complex "st-fire" "^%botnicks fire " 100 "bMotion_plugin_complex_startrek_fire" "en"
 bMotion_plugin_add_complex "st-courtmartial" "^%botnicks courtmartial " 100 "bMotion_plugin_complex_startrek_courtmartial" "en"
 
+#change the last value in the line below to 1 to make a guilty person get kicked
+#and to 0 to not kick (SECURITY IMPLICATIONS!)
+bMotion_plugins_settings_set "complex:startrek" "kick" "active" "" "0"
+
+#this is the kick message used
+bMotion_plugins_settings_set "complex:startrek" "kick" "message" "" "Guilty!"
+
 #cloak
 proc bMotion_plugin_complex_startrek_cloak { nick host handle channel text } {
   global bMotionInfo
@@ -169,6 +176,10 @@ proc bMotionDoBrig {} {
     if {$bMotionInfo(banzaiModeBrig) == 1} {
       if {[llength $bMotionInfo(brigGuilty)] > 0} {
         bMotionDoAction $channel $bMotionInfo(brigGuilty) "Congraturation go to big winner who are %%. Well done! Riches beyond your wildest dreams are yours to taking!"
+      }
+      if {[bMotion_plugins_settings_get "complex:startrek" "kick" "active" ""] == 1} {
+        set msg [bMotion_plugins_settings_set "complex:startrek" "kick" "message" ""]
+        puthelp "KICK $channel $nick :$message"
       }
     }
   } else {
