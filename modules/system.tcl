@@ -621,5 +621,26 @@ proc bMotion_startTimers { } {
 	}
 }
 
+proc bMotion_cleanNick { nick { handle "" } } {
+  #attempt to clean []s etc out of nicks
+
+  if {![regexp {[\\\[\]\{\}]} $nick]} {
+    return $nick
+  }
+
+  if {($handle == "") || ($handle == "*")} {
+    set handle [nick2hand $nick]
+  }
+
+  if {($handle != "") && ($handle != "*")} {
+    set nick $handle
+  }
+
+  #have we STILL got illegal chars?
+  if {[regexp {[\\\[\]\{\}]} $nick]} {
+    return [string map { \[ "_" \] "_" \{ "_" \} "_" } $nick]
+  }  
+  return $nick
+}
 
 bMotion_putloglev d * "bMotion: system module loaded"
