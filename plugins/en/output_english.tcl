@@ -19,6 +19,8 @@ bMotion_plugin_add_output "english" bMotion_plugin_output_english 1 "en"
 #
 
 proc bMotion_plugin_output_english { channel line } {
+  set line [string trim $line]
+
   # me at start of line is WRONG
   #
   # me ___s --> /me
@@ -37,6 +39,17 @@ proc bMotion_plugin_output_english { channel line } {
 
   #"a" before a vowel needs to be "an"
   regsub -nocase -all {[[:<:]](a) ([aeiou].+)[[:>:]]} $line {\1n \2} line
+
+  if {[rand 100] > 60} {
+    #captials at start, . at end
+    if [regexp {^([a-z])(.+)} $line matches first rest] {
+      set line "[string toupper $first]$rest"
+    }
+
+    if [regexp {[a-zA-Z0-9]$} $line] {
+      append line "."
+    }
+  }
 
   return $line
 }
