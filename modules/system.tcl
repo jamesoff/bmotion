@@ -675,4 +675,21 @@ proc bMotion_uncolen { line } {
   return $line
 }
 
+#
+# get a setting
+#
+proc bMotion_setting_get { setting } {
+  global bMotionSettings
+  global bMotionInfo
+  catch {
+    return bMotionSettings($setting)
+  }
+  bMotion_putloglev d * "setting '$setting' doesn't exist in bMotionSettings, trying bMotionInfo..."
+  catch {
+    return bMotionInfo($setting)
+  }
+  bMotion_putloglev d * "nope, not there either, returning nothing"
+  return ""
+}
+
 bMotion_putloglev d * "bMotion: system module loaded"
