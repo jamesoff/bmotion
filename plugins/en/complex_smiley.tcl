@@ -36,6 +36,8 @@ proc bMotion_plugin_complex_smiley { nick host handle channel text } {
 proc bMotion_plugin_complex_smiley2 { nick host handle channel text } {
   global mood
 
+  if {![bMotion_interbot_me_next $channel]} { return 0 }
+
   if {$mood(happy) < 0} {
     return 0
   }
