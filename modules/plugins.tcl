@@ -63,7 +63,7 @@ proc bMotion_plugin_add_simple { id match chance response language} {
     }
   }
   if [bMotion_plugin_check_allowed "simple:$id"] {
-    set bMotion_plugins_simple($id) "${match}¦${chance}¦$response¦$language"
+    set bMotion_plugins_simple($id) "${match}¦${chance}¦${response}¦${language}"
     bMotion_putloglev 2 * "bMotion: added simple plugin: $id"
     append plugins "$id,"
     return 1
@@ -113,7 +113,7 @@ proc bMotion_plugin_add_admin { id match flags callback language } {
   }
 
   if [bMotion_plugin_check_allowed "admin:$id"] {
-    set bMotion_plugins_admin($id) "${match}¦${flags}¦$callback¦$language"
+    set bMotion_plugins_admin($id) "${match}¦${flags}¦${callback}¦${language}"
     bMotion_putloglev 2 * "bMotion: added admin plugin: $id"
     append plugins "$id,"
     return 1
@@ -157,7 +157,7 @@ proc bMotion_plugin_add_complex { id match chance callback language } {
     }
   }
   if [bMotion_plugin_check_allowed "complex:$id"] {
-    set bMotion_plugins_complex($id) "${match}¦$chance¦$callback¦$language"
+    set bMotion_plugins_complex($id) "${match}¦${chance}¦${callback}¦${language}"
     bMotion_putloglev 2 * "bMotion: added complex plugin: $id"
     append plugins "$id,"
     return 1
@@ -206,7 +206,7 @@ proc bMotion_plugin_add_output { id callback enabled language } {
     }
   }
   if [bMotion_plugin_check_allowed "output:$id"] {
-    set bMotion_plugins_output($id) "$callback¦$enabled¦$language"
+    set bMotion_plugins_output($id) "${callback}¦${enabled}¦$language"
     bMotion_putloglev 2 * "bMotion: added output plugin: $id"
     append plugins "$id,"
     return 1
@@ -249,7 +249,7 @@ proc bMotion_plugin_add_action_simple { id match chance response language } {
     }
   }
   if [bMotion_plugin_check_allowed "action_simple:$id"] {
-    set bMotion_plugins_action_simple($id) "${match}¦${chance}¦$response¦$language"
+    set bMotion_plugins_action_simple($id) "${match}¦${chance}¦${response}¦$language"
     bMotion_putloglev 2 * "bMotion: added simple action plugin: $id"
     append plugins "$id,"
     return 1
@@ -297,7 +297,7 @@ proc bMotion_plugin_add_action_complex { id match chance callback language } {
     }
   }
   if [bMotion_plugin_check_allowed "action_complex:$id"] {
-    set bMotion_plugins_action_complex($id) "${match}¦$chance¦$callback¦$language"
+    set bMotion_plugins_action_complex($id) "${match}¦${chance}¦${callback}¦${language}"
     bMotion_putloglev 2 * "bMotion: added complex action plugin: $id"
     append plugins "$id,"
     return 1
