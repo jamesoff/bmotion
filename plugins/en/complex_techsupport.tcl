@@ -36,6 +36,8 @@ set tech_software {
   "vmware"
   "the internet"
 }
+bMotion_abstract_register "tech_software"
+bMotion_abstract_batchadd "tech_software" $tech_software
 
 set tech_answer {
   "I just bought %VAR{tech_software} and I can't get it to %VAR{tech_problem}, I've tried %VAR{tech_tries} and it still won't work"
@@ -43,6 +45,8 @@ set tech_answer {
   "I hear you do books by %VAR{answerWhos}, can you sell me one?"
   "I need a bit of software to %VAR{tech_functions} %VAR{sillyThings}"
 }
+bMotion_abstract_register "tech_answer"
+bMotion_abstract_batchadd "tech_answer" $tech_answer
 
 set tech_problem {
   "install"
@@ -55,6 +59,8 @@ set tech_problem {
   "download pornography"
   "connect"
 }
+bMotion_abstract_register "tech_problem"
+bMotion_abstract_batchadd "tech_problem" $tech_problem
 
 set tech_tries {
   "sacrificing my boss"
@@ -67,6 +73,8 @@ set tech_tries {
   "running it on my Mac"
   "rebooting"
 }
+bMotion_abstract_register "tech_tries"
+bMotion_abstract_batchadd "tech_tries" $tech_tries
 
 set tech_functions {
   "virus-scan"
@@ -77,3 +85,5 @@ set tech_functions {
   "update"
   "audit"
 }
+bMotion_abstract_register "tech_functions"
+bMotion_abstract_batchadd "tech_functions" $tech_functions
