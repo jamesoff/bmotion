@@ -29,7 +29,7 @@ if {$bMotion_testing == 1} {
 proc bMotion_putloglev { level star text } {
   global bMotion_testing
   if {$bMotion_testing == 0} {
-    putloglev $level $star $text
+    putloglev $level $star "($level) $text
   }
 }
 
