@@ -496,7 +496,7 @@ proc bMotionAdminHandler2 {nick host handle channel text} {
     set botnicks "($botnick|$bMotionSettings(botnicks)) ?"
   }
 
-  if {![regexp -nocase "^($botnicks)|all (.+)" $text matches blah blah2 blah3 cmd]} {
+  if {![regexp -nocase "^($botnicks|all) (.+)" $text matches yarr bn cmd]} {
     #not me
     return 0
   }
