@@ -20,7 +20,9 @@ proc bMotion_plugin_complex_activate { nick host handle channel text } {
     if {($bot != "") || ([bMotion_interbot_me_next $channel] && [rand 2])} {
       set item [bMotion_uncolen $item]
       set item [string trim $item]
-      regsub "(.+)\.$" $item {\1} item
+      if [string match "*." $item] {
+        regsub "(.+)\.$" $item {\1} item
+      }
       bMotionDoAction $channel $item "%VAR{activateses}"
     }
     return 1
