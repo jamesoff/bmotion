@@ -9,16 +9,16 @@
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or 
+# the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
 #
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 # General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License 
-# along with this program; if not, write to the Free Software 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
@@ -33,7 +33,7 @@ proc bMotionDoEventResponse { type nick host handle channel text } {
   set response [bMotion_plugin_find_irc_event $text $type $bMotionInfo(language)]
   if {[llength $response] > 0} {
     foreach callback $response {
-      bMotion_flood_add $nick $callback $text 
+      bMotion_flood_add $nick $callback $text
       if [bMotion_flood_check $nick] { return 0 }
 
       bMotion_putloglev 1 * "bMotion: matched irc event plugin, running callback $callback"
@@ -130,7 +130,7 @@ proc bMotion_event_main {nick host handle channel text} {
 
   if {[lsearch $bMotionInfo(randomChannels) [string tolower $channel]] == -1} {
     return 0
-  }  
+  }
 
   bMotion_putloglev 4 * "bMotion: entering bMotion_event_main with nick: $nick host: $host handle: $handle chan: $channel text: $text"
 
@@ -152,18 +152,18 @@ proc bMotion_event_main {nick host handle channel text} {
 
   ## Update the channel idle tracker ##
   set bMotionLastEvent($channel) [clock seconds]
-  
+
   #ignore lines with <nobotnick> tags
-  if [regexp -nocase "\</?no$botnicks\>" $text] {return 0}  
+  if [regexp -nocase "\</?no$botnicks\>" $text] {return 0}
   if [regexp -nocase "\<no$botnicks\>" $text] {return 0}
 
   #don't let people break us
-  if {![matchattr $handle n]} { 
+  if {![matchattr $handle n]} {
     if [regexp -nocase "%(pronoun|me|noun|colen|percent|VAR|\\|)" $text] {
       regsub -all "%" $text "%percent" text
-    }    
+    }
   }
-  regsub -all "/" $text "%slash" text  
+  regsub -all "/" $text "%slash" text
 
   ## If this isn't just a smiley of some kind, trim smilies
   if {[string length $text] >= ([string length $botnick] + 4)} {
@@ -179,7 +179,7 @@ proc bMotion_event_main {nick host handle channel text} {
 
 
   ## Update the last-talked flag for the join system
-  bMotion_plugins_settings_set "system:join" "lasttalk" "channel" "" 0 
+  bMotion_plugins_settings_set "system:join" "lasttalk" "channel" "" 0
 
   set bMotionThisText $text
 
@@ -213,7 +213,7 @@ proc bMotion_event_main {nick host handle channel text} {
     foreach callback $response {
       bMotion_flood_add $nick $callback $text
       if [bMotion_flood_check $nick] { return 0 }
-   
+
       bMotion_putloglev 1 * "bMotion: matched complex plugin, running callback $callback"
       set result [$callback $nick $host $handle $channel $text]
       set bMotionCache(lastPlugin) $callback
@@ -377,7 +377,7 @@ proc bMotion_event_main {nick host handle channel text} {
   if {$bMotionSettings(needI) == 1} {
     if {![matchattr $handle I]} {return 0}
   }
-  
+
   ## kill [with item]
   ## --> kill [with item]
   ## /kill
@@ -552,14 +552,14 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }
 
-} 
+}
 ## END main events
 
 
 
 ## BEGIN action event handler
 proc bMotion_event_action {nick host handle dest keyword text} {
-  
+
   global botnick mood rarrs smiles unsmiles botnicks bMotionCache bMotionSettings bMotionInfo
   set channel $dest
 
@@ -588,7 +588,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
   regsub -all "  +" $text " " text
 
   #ignore lines with <nobotnick> tags
-  if [regexp -nocase "\</?no$botnicks\>" $text] {return 0}  
+  if [regexp -nocase "\</?no$botnicks\>" $text] {return 0}
   if [regexp -nocase "\<no$botnicks\>" $text] {return 0}
 
   #check for someone breaking the loop of lastSpoke
@@ -746,7 +746,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
       if [rand 2] {
         bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $wankhelps]
       }
-      
+
     }
     return 0
   }
@@ -821,7 +821,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
       driftFriendship $nick -1
     }
     return 0
-  }    
+  }
 
   if [regexp -nocase "^(falls asleep on|dozes off on|snoozes on|sleeps on) $botnicks" $text] {
     if [bMotionLike $nick $host] {
@@ -866,7 +866,7 @@ proc bMotion_event_mode {nick host handle channel mode victim} {
 
     #check to see if i was opped before
     if [wasop $botnick $channel] { return 0 }
-      
+
 	  bMotionDoAction $channel "" "%VAR{thanks}"
 		return 0
   }
