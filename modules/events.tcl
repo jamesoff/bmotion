@@ -181,7 +181,7 @@ proc bMotion_event_main {nick host handle channel text} {
 
 
   ## Update the last-talked flag for the join system
-  bMotion_plugins_settings_set "system:join" "lasttalk" "channel" "" 0
+  bMotion_plugins_settings_set "system:join" "lasttalk" $channel "" 0
 
   set bMotionThisText $text
 
