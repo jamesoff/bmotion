@@ -382,7 +382,7 @@ set aiis {
   "keepin' it real"
   "iz wikkid"
   "wikkid stylin' of da wikkid!"
-  "/is hangin with his crew
+  "/is hangin with his crew"
   "Respect ma blingbling"
   "kickin it down with da home boy posse"
   "That is so last week"
