@@ -13,8 +13,9 @@ proc bMotionDoJokeAnswer {} {
 	
 	# coordinate with the joke
 	set answer [ lindex $jokeReplies $index ]
-	# parse the answer line
-	while { [string first "%n" $answer] != -1 } {
+	
+	# parse relational nouns 
+	while { [string first "%r" $answer] != -1 } {
 		set ind [string first "¦" $bits]
 		if { $ind == -1 } {
 			bMotionDoAction $channel $nick "%VAR{lostPlot}"
@@ -32,8 +33,13 @@ proc bMotionDoJokeAnswer {} {
 		if { $object == "" } {
 			set object [pickRandom $bMotion_abstract_contents(sillyThings)]
 		}
-
 		
+		regsub "%r" $answer $object answer
+	}
+
+	# parse non-relational
+	while { [string first "%n" $answer] != -1 } {
+		set object [pickRandom $bMotion_abstract_contents(sillyThings)]
 		regsub "%n" $answer $object answer
 	}
 

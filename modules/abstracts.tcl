@@ -879,12 +879,17 @@ set typoFix {
 #  "basingstoke"
 #}
 
+# %n is random noun
 set jokeForms {
   "what's the difference between %n and %n?"
+  "what do you get when you cross %n and %n?"
 }
 
+# %r is relational
+# %n is random noun
 set jokeReplies {
-  "one's %n and the other's %n"
+  "one's %r and the other's %r"
+  "%n!"
 }
 
 bMotion_abstract_register "lostPlot"
