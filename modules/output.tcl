@@ -94,7 +94,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0}} {
   } 
 
   #choose a remote bot
-  if [regexp -nocase "%bot" $text] {
+  if [regexp -nocase "%r?bot" $text] {
     set thisBot [bMotionChooseRandomBot $channel]
     bMotion_putloglev d * "bMotion: Chosen bot $thisBot"
     set bMotionCache(remoteBot) $thisBot
