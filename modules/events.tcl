@@ -73,7 +73,7 @@ proc bMotion_event_onjoin {nick host handle channel} {
 
 ## BEGIN onpart handler
 proc bMotion_event_onpart {nick host handle channel {msg ""}} {
-  bMotion_putloglev 4 * "entering bmotion_event_onpart: $nick $host $handle $channel $msg"
+  bMotion_putloglev 3 * "entering bmotion_event_onpart: $nick $host $handle $channel $msg"
   global bMotionCache
 
   set bMotionCache(lastLeft) $nick
@@ -81,7 +81,7 @@ proc bMotion_event_onpart {nick host handle channel {msg ""}} {
   #TODO: Fix this? Passing a cleaned nick around can break things
   set nick [bMotion_cleanNick $nick $handle]
 
-  set result [bMotionDoEventResponse "part" $nick $host $handle $channel $msg ]
+  set result [bMotionDoEventResponse "part" $nick $host $handle $channel $msg]
 }
 ## END onpart
 
@@ -164,11 +164,18 @@ proc bMotion_event_main {nick host handle channel text} {
   }
   regsub -all "/" $text "%slash" text  
 
+  ## If this isn't just a smiley of some kind, trim smilies
+  if {[string length $text] >= ([string length $botnick] + 4)} {
+    regsub -all -nocase {[;:=]-?[)D>]} $text "" text
+    regexp -all {([\-^])_*[\-^];*} $text "" text
+  }
+
   ## Trim ##
   set text [string trim $text]
 
   ## Dump double+ spaces #
   regsub -all "  +" $text " " text
+
 
   ## Update the last-talked flag for the join system
   bMotion_plugins_settings_set "system:join" "lasttalk" "channel" "" 0 
