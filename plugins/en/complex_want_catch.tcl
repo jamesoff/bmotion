@@ -24,7 +24,7 @@ proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
     #that's a negative lookahead ---^
     bMotion_flood_undo $nick
     bMotion_abstract_add "sillyThings" $item
-    if {[rand 10] > 8} {
+    if {[rand 100] > 95} {
     	bMotionDoAction $channel "" "%VAR{gotone}"
     }
 	}
