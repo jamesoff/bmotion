@@ -12,7 +12,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_action_complex "light" "^((lights?)|(sets fire to) %botnicks)|sets %botnicks (alight|on fire)" 100 bMotion_plugin_complex_action_light "en"
+bMotion_plugin_add_action_complex "light" "^((lights?)|(sets fire to) %botnicks)|(sets %botnicks (alight|on fire))" 100 bMotion_plugin_complex_action_light "en"
 
 proc bMotion_plugin_complex_action_light { nick host handle channel text } {  
   bMotionDoAction $channel $nick "%VAR{burns}"

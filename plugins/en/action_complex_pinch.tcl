@@ -16,7 +16,6 @@ bMotion_plugin_add_action_complex "pinch" "^(steals|pinches|theives|removes) %bo
 
 proc bMotion_plugin_complex_action_pinch { nick host handle channel text } {  
   global botnicks
-  putlog "pop"
   if [regexp -nocase "(steals|pinches|theives|removes) ${botnicks}'?s (.+)" $text matches action object] {
     # TODO: check $object and $action (e.g. pinches arse)
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{stolens}"
