@@ -12,7 +12,6 @@
 # in the modules directory.
 ###############################################################################
 
-
 bMotion_plugin_add_complex "question" {[?>/]$} 100 bMotion_plugin_complex_question "en"
 
 proc bMotion_plugin_complex_question { nick host handle channel text } {
@@ -22,11 +21,13 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
   regsub {(.+)[>\/]$} $text {\1?} text
 
   ## What question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? what('?s)?(.+)" $text matches botn s question] ||
-       [regexp -nocase "^what('?s)? (.*) $botnicks ?\\?" $text matches s question botn] } {
-    if [regexp -nocase {what('s| is) ([^ ]+)\\??} $text matches ignore term] {
+  if { [regexp -nocase "what('?s)?(.+)" $text matches s question] ||
+       [regexp -nocase "what('?s)? (.*)\\?" $text matches s question] } {
+    set term ""
+    if [regexp -nocase {what('s| is| was) ([^ ]+)\\??} $text matches ignore term] {
       set question "is $term"
     }
+    if {($term == "") && (![bMotionTalkingToMe $text])} { return 0 }
     bMotion_plugin_complex_question_what $nick $channel $host $question
     return 1
   }
@@ -102,7 +103,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
 }
 
 proc bMotion_plugin_complex_question_what { nick channel host question } {
-    global bMotionInfo bMotionFacts
+    global bMotionInfo bMotionFacts bMotionOriginalInput
     #see if we know the answer to it
     if {$question != ""} {
       if [regexp -nocase {[[:<:]]a/?s/?l[[:>:]]} $question] {
@@ -121,9 +122,19 @@ proc bMotion_plugin_complex_question_what { nick channel host question } {
         set term [string map {"?" ""} $term]
         catch {
           set term [string tolower $term]
-          putlog "looking for what,$term"
+          #putlog "looking for what,$term"
           set answers $bMotionFacts(what,$term)
-          putlog $answers
+          #putlog $answers
+          if {[llength $answers] > 0} {
+            #putlog "answers SI KNOWN"
+            if {![bMotionTalkingToMe $bMotionOriginalInput]} {
+              #putlog "not directly talking to me"
+              if [rand 3] {
+                #putlog "not answering nyer"
+                return 1
+              }
+            }
+          }
           bMotionDoAction $channel [pickRandom $answers] "%VAR{question_what_fact_wrapper}"
           return 1
         } err
