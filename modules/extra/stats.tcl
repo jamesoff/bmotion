@@ -56,6 +56,7 @@ set bMotion_stats_port 1337
 set bMotion_stats_latest ""
 
 proc bMotion_stats_send { } {
+	bMotion_putloglev 4 * "bMotion_stats_send"
 	global bMotion_stats_server bMotion_stats_port
 	global bMotion_stats_enabled bMotion_stats_version
 	global bMotion_stats_latest
@@ -74,16 +75,18 @@ proc bMotion_stats_send { } {
 }
 
 proc bMotion_stats_code { text } {
+	bMotion_putloglev 4 * "bMotion_stats_code ($text)"
 	set code ""
 	regexp {^([0-9]+) } $text match code
 	return $code
 }
 
 proc bMotion_stats_handler { idx text } {
+	bMotion_putloglev 4 * "bMotion_stats_handler ($idx, $text)"
 	global bMotion_stats_id bMotion_stats_key
 	global bMotion_stats_send bMotionVersion
 	global bMotion_stats_version bMotion_stats_enabled
-	global bMotion_stats_latest
+	global bMotion_stats_latest owner
 
 	if {$text == ""} {
 		putlog "bMotion: stats server disconnected me"
@@ -165,8 +168,11 @@ proc bMotion_stats_handler { idx text } {
 	if {$code == 256} {
 		bMotion_putloglev 1 * "got version update: $text"
 		regexp "latest version is (.+)" $text matches bMotion_stats_latest
+		bMotion_stats_write
 		global owner
-		storenote "bMotion" $owner "A new version of bMotion is available ($bMotionVersion < $bMotion_stats_latest)" -1
+		catch {
+			storenote "bMotion" $owner "A new version of bMotion is available ($bMotionVersion < $bMotion_stats_latest)" -1
+		}
 		bMotion_stats_version_cmp
 		if {$bMotion_stats_enabled == 0} {
 			#we're only doing version checking
@@ -204,6 +210,7 @@ proc bMotion_stats_handler { idx text } {
 }
 
 proc bMotion_stats_check { force } {
+	bMotion_putloglev 4 * "bMotion_stats_check ($force)"
 	global bMotionModules bMotion_stats_id bMotion_stats_key
 
 	set line ""
@@ -227,12 +234,13 @@ proc bMotion_stats_check { force } {
 		close $fileHandle
 	} else {
 		#no file
-		putlog "bMotion: need to send stats/check version..."
+		putlog "bMotion: new installation, need to send stats/check version..."
 		bMotion_stats_send
 	}
 }
 
 proc bMotion_stats_write { } {
+	bMotion_putloglev 4 * "bMotion_stats_write"
 	global bMotion_stats_id bMotion_stats_key bMotionModules
 	set fileHandle [open "$bMotionModules/stats.txt" "w"]
 
@@ -243,6 +251,7 @@ proc bMotion_stats_write { } {
 }
 
 proc bMotion_stats_delbind { } {
+	bMotion_putloglev 4 * "bMotion_stats_delbind"
 	#find our bind and delete it from the timeline
 	set binds [binds time]
 	foreach bind $binds {
@@ -254,10 +263,12 @@ proc bMotion_stats_delbind { } {
 }
 
 proc bMotion_stats_auto { minute hour day month year } {
+	bMotion_putloglev 4 * "bMotion_stats_auto ($minute $hour $day $month $year)"
 	bMotion_stats_check 0
 }
 
 proc bMotion_stats_version_cmp { } {
+	bMotion_putloglev 4 * "bMotion_stats_version_cmp"
 	global bMotionVersion
 	global bMotion_stats_latest
 
