@@ -54,7 +54,6 @@ if {![info exists bMotionInfo]} {
   set bMotionInfo(clothing) 5 
 }
 
-if {![info exists bMotionCache]} {
   set bMotionCache(away) ""
   set bMotionCache(lastGreeted) ""
   set bMotionCache(lastHows) ""
@@ -69,7 +68,8 @@ if {![info exists bMotionCache]} {
   set bMotionCache(remoteBot) ""
   set bMotionCache(randomUser) ""
   set bMotionCache(lastPlugin) ""
-}
+
+  set bMotionCache(last_simple) ""
 
 #this is set later
 set botnicks ""
