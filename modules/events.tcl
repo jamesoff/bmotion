@@ -122,13 +122,15 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }
 
+  set channel [string tolower $channel]
+
   #ignore other bots
   if {[matchattr $handle b] && (![matchattr $handle I])} {
     set bMotionCache($channel,last) 0
     return 0
   }
 
-  if {[lsearch $bMotionInfo(randomChannels) [string tolower $channel]] == -1} {
+  if {[lsearch $bMotionInfo(randomChannels) $channel] == -1} {
     return 0
   }
 
