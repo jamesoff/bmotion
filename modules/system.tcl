@@ -71,11 +71,13 @@ foreach chan $bMotionInfo(randomChannels) {
 }
 
 
-proc bMotionInfo {nick host handle channel text} {
-  global bMotionInfo botnicks bMotionSettings cvsinfo randomsinfo
+proc bMotionInfo {nick host handle channel text} {  
+  global bMotionInfo botnicks bMotionSettings cvsinfo randomsinfo botnick
+  if {![regexp $botnick $text]} { return 0 }
   set timezone [clock format [clock seconds] -format "%Z"]  
   set status "I am running bMotion under TCL [info patchlevel]: botGender $bMotionInfo(gender)/$bMotionInfo(orientation) : balefire $bMotionInfo(balefire) : pokemon $bMotionInfo(pokemon) : timezone $timezone : randomStuff $bMotionInfo(minRandomDelay), $bMotionInfo(maxRandomDelay), $bMotionInfo(maxIdleGap) : botnicks $botnicks : melMode $bMotionSettings(melMode) : needI $bMotionSettings(needI) : cvs $cvsinfo : randoms $randomsinfo"
   if {$bMotionInfo(silence)} { set status "$status : silent (yes)" }
+  append status " : www.bmotion.net"
   putchan $channel $status
 }
 
