@@ -26,13 +26,13 @@
 
 
 
-bMotion_plugin_add_action_complex "zzz-failsafe" {^[^ s]+s %botnicks} 100 bMotion_plugin_complex_action_failsafe "en"
+bMotion_plugin_add_action_complex "zzz-failsafe" {^(.+?)s %botnicks} 100 bMotion_plugin_complex_action_failsafe "en"
 
 
 
 proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
 
-  regexp {^([^ s]+)s } $text matches verb
+  regexp {^(.+?)s } $text matches verb
 
   if {$verb == ""} {
     return 1
@@ -43,4 +43,4 @@ proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
 
 
 bMotion_abstract_register "failsafes"
-bMotion_abstract_batchadd "failsafes" [list "%VAR{rarrs}" "%REPEAT{3:7:m} %%" "%VAR{thanks}"]
+bMotion_abstract_batchadd "failsafes" [list "%VAR{rarrs}" "%REPEAT{3:7:m} %%" "%VAR{thanks}" "i do love a good %%ing"]
