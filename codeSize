@@ -1,5 +1,0 @@
-# codeSize script for bMotion
-# $Id$
-#
-wc `find $1 -name "*.tcl"` | grep total
-
