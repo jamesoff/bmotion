@@ -21,9 +21,11 @@ bMotion_plugin_add_admin "parse" "^parse"            n       "bMotion_plugin_adm
 bMotion_plugin_add_admin "friends" "^friends(hip)?"  n       "bMotion_plugin_admin_friends" "any"
 bMotion_plugin_add_admin "unbind votes" "^unbind votes" n    "bMotion_plugin_admin_unbindVotes" "any"
 bMotion_plugin_add_admin "codesize" "^codesize"          n       "bMotion_plugin_admin_codesize" "any"
-bMotion_plugin_add_admin "rehash" "^rehash"          n       "bMotion_plugin_admin_rehash" "any"
-bMotion_plugin_add_admin "reload" "^reload"          n       "bMotion_plugin_admin_reload" "any"
+bMotion_plugin_add_management "rehash" "^rehash"          n       bMotion_plugin_management_rehash "any"
+bMotion_plugin_add_management "reload" "^reload"          n       bMotion_plugin_management_reload "any"
 bMotion_plugin_add_admin "settings_clear" "^settings clear" n bMotion_plugin_admin_settings_clear "any"
+
+bMotion_plugin_add_management "global" "^global" n bMotion_plugin_management_global
 
 #################################################################################################################################
 # Declare plugin functions
@@ -137,7 +139,7 @@ proc bMotion_plugin_admin_codesize { handle idx { arg "" } } {
   return 0
 }
 
-proc bMotion_plugin_admin_rehash { handle idx { arg "" } } {
+proc bMotion_plugin_management_rehash { handle } {
   global bMotionCache bMotion_testing bMotionRoot
 
   #check we're not going to die
@@ -149,15 +151,17 @@ proc bMotion_plugin_admin_rehash { handle idx { arg "" } } {
 
   if {$msg != ""} {
     putlog "bMotion: FATAL: Cannot rehash due to error: $msg"
+    bMotion_putadmin "Cannot rehash due to error: $msg"
     return 0
   } else {
     bMotion_putloglev d * "bMotion: New code ok, rehashing..."
+    bMotion_putadmin "Rehashing..."
     set bMotion_testing 0
     rehash
   }
 }
 
-proc bMotion_plugin_admin_reload { handle idx { arg "" } } {
+proc bMotion_plugin_management_reload { handle } {
   global bMotionCache bMotion_testing bMotionRoot
 
   #check we're not going to die
@@ -169,9 +173,11 @@ proc bMotion_plugin_admin_reload { handle idx { arg "" } } {
 
   if {$msg != ""} {
     putlog "bMotion: FATAL: Cannot reload due to error: $msg"
+    bMotion_putadmin "Cannot reload due to error: $msg"
     return 0
   } else {
     bMotion_putloglev d * "bMotion: New code ok, reloading..."
+    bMotion_putadmin "Reloading bMotion..."
     set bMotion_testing 0
     source "$bMotionRoot/bMotion.tcl"
   }
@@ -184,4 +190,28 @@ proc bMotion_plugin_admin_settings_clear { handle idx { arg "" } } {
     set bMotion_plugins_settings(dummy,setting,channel,nick) "dummy"
   }
   putidx $idx "Cleared plugins settings array\r"
+}
+
+proc bMotion_plugin_management_global { handle { text "" } } {
+  global bMotionGlobal
+
+  if [string match -nocase "off" $text] {
+    bMotion_putadmin "globally disabling bmotion"
+    set bMotionGlobal 0
+    return 0
+  }
+
+  if [string match -nocase "on" $text] {
+    bMotion_putadmin "globally enabling bmotion"
+    set bMotionGlobal 1
+    return 0
+  }
+
+  if {$bMotionGlobal == 0} {
+    bMotion_putadmin "bMotion is currently disabled"
+  } else {
+    bMotion_putadmin "bMotion is currently enabled"
+  }
+  bMotion_putadmin "use: global off|on"
+  return 0
 }

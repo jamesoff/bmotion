@@ -13,7 +13,6 @@
 ###############################################################################
 
 bMotion_plugin_add_action_complex "fuck" "((s(e|3)x(o|0)r(s|z|5))|(fluffles)|fucks|paalt|shags|paalt|fondles|ravages|rapes|spanks|kisses|zoent) %botnicks" 100 bMotion_plugin_complex_action_fucks "en"
-
 proc bMotion_plugin_complex_action_fucks { nick host handle channel text } {
   global botnicks
 	if [regexp -nocase "((s(e|3)x(o|0)r(s|z|5))|(fluffles)|fucks|paalt|shags|paalt|fondles|ravages|rapes|spanks|kisses|zoent) $botnicks" $text] {
@@ -21,18 +20,18 @@ proc bMotion_plugin_complex_action_fucks { nick host handle channel text } {
       driftFriendship $nick -5
       frightened $nick $channel
       return 1
-    }
-    if [bMotionLike $nick $host] {
+    }    
+		if [bMotionLike $nick $host] {
       driftFriendship $nick 4
       bMotionDoAction $channel %% "%VAR{rarrs}"
       bMotionGetHappy
       bMotionGetHappy
       bMotionGetHorny
       bMotionGetUnLonely
-    } else {
-      frightened $nick $channel
-      driftFriendship $nick -1
-    }
+    } else {      
+			frightened $nick $channel
+      driftFriendship $nick -1    
+	}
 		return 1
 	}
 }

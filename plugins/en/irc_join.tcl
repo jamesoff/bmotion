@@ -31,7 +31,9 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
   set greetings [bMotion_abstract_all "ranjoins"]
 
   if {$handle != "*"} {
-    set greetings [concat $greetings [bMotion_abstract_all "insult_joins"]]
+    if {![rand 10]} {
+      set greetings [concat $greetings [bMotion_abstract_all "insult_joins"]]
+    }
     if {$nick == $bMotionCache(lastLeft)} {
       set greetings [bMotion_abstract_all "welcomeBacks"]
       set bMotionCache(lastLeft) ""
