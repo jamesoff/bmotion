@@ -182,10 +182,9 @@ proc bMotionRandomTime {channel nick} {
 }
 
 proc bMotionRandomQuestion {channel} {
-  global sillyThings
 
-  set silly1 [pickRandom $sillyThings]
-  set silly2 [pickRandom $sillyThings]
+  set silly1 [bMotion_abstract_get "sillyThings"]
+  set silly2 [bMotion_abstract_get "sillyThings"]
 
   bMotionDoAction $channel "" "$silly1 or $silly2?"
   return 0

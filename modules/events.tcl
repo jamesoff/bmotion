@@ -717,7 +717,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
   }
 
   if [regexp -nocase "(kicks|smacks|twats|injures|beats up|punches|hits|thwaps|slaps|pokes|kills|destroys) ${botnicks}" $text] {
-    global mood sillyThings
+    global mood
     incr mood(happy) -1
     incr mood(lonely) -1
     driftFriendship $nick -2
@@ -725,7 +725,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
       frightened $nick $dest
       return 0
     }
-    bMotionDoAction $dest $nick "/smacks %% back with [pickRandom $sillyThings]"
+    bMotionDoAction $dest $nick "/smacks %% back with %VAR{sillyThings}"
     set bMotionCache(lastEvil) $nick
     return 0
   }

@@ -70,10 +70,7 @@ proc bMotion_plugin_complex_action_hands { nick host handle channel text } {
     bMotionDoAction $channel $item "%VAR{hand_generic}"
     
     #we'll add it to our random things list for this session too
-    global sillyThings
-    if {[lsearch $sillyThings $item] == -1} {
-      lappend sillyThings $item
-    }
+    bMotion_abstract_add "sillyThings" $item
   } 
   #end of "hands" handler
 }

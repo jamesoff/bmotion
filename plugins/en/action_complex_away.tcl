@@ -16,82 +16,98 @@ bMotion_plugin_add_action_complex "away" "^(is )?away" 40 bMotion_plugin_complex
 bMotion_plugin_add_action_complex "back" "^((is )?back)|(has returned)" 40 bMotion_plugin_complex_action_back "en"
 
 # abstracts
-set goodnights {
-  "night"
-  "nn"
-  "night %%"
-  "sleep well"
-  "goodnight :)"
-  "night :)"
-  "g'night"
-  "sleep well %%"
-  "nn %%"
-  "don't have really bad dreams about a nasty man coming to strangle you in your bed"
-}
+bMotion_abstract_register "goodnights"
+#set goodnights {
+#  "night"
+#  "nn"
+#  "night %%"
+#  "sleep well"
+#  "goodnight :)"
+#  "night :)"
+#  "g'night"
+#  "sleep well %%"
+#  "nn %%"
+#  "don't have really bad dreams about a nasty man coming to strangle you in your bed"
+#}
+#bMotion_abstract_batchadd "goodnights" $goodnights
 
-set cyas {
-  "l8r"
-  "l8r"
-  "cya"
-  "cya"
-  "cya l8r"
-  "cya l8r"
-  "bye"
-  "byebye"
-  "/waves"
-  "you still here?"
-  "quand vous retournez, apporter les tartes!"
-}
+#set cyas {
+#  "l8r"
+#  "l8r"
+#  "cya"
+#  "cya"
+#  "cya l8r"
+#  "cya l8r"
+#  "bye"
+#  "byebye"
+#  "/waves"
+#  "you still here?"
+#  "quand vous retournez, apporter les tartes!"
+#}
+bMotion_abstract_register "cyas"
+#bMotion_abstract_batchadd "cyas" $cyas
 
-set welcomeBacks {
-  "re"
-  "wb"
-  "welcome back"
-  "welcome back"
-  "hey"
-  "hi"
-  "%REPEAT{4:7:bl}"
-  "pop"
-}
+#set welcomeBacks {
+#  "re"
+#  "wb"
+#  "welcome back"
+#  "welcome back"
+#  "hey"
+#  "hi"
+#  "%REPEAT{4:7:bl}"
+#  "pop"
+#}
+bMotion_abstract_register "welcomeBacks"
+#bMotion_abstract_batchadd "welcomeBacks" $welcomeBacks
 
-set joinins {
-  "~rarr~"
-  "~oof~"
-  "ooh, can I come?"
-  "can I join in?"
-  "wahey-waterproof"
-  ":)"
-  "have fun ~rarr~"
-}
+#set joinins {
+#  "~rarr~"
+#  "~oof~"
+#  "ooh, can I come?"
+#  "can I join in?"
+#  "wahey-waterproof"
+#  ":)"
+#  "have fun ~rarr~"
+#}
+bMotion_abstract_register "joinins"
+#bMotion_abstract_batchadd "joinins" $joinins
 
-set goodMornings {
-  "Morning %%"
-  "good morning %%"
-}
+#set goodMornings {
+#  "Morning %%"
+#  "good morning %%"
+#}
+bMotion_abstract_register "goodMornings"
+#bMotion_abstract_batchadd "goodMornings" $goodMornings
 
-set autoAways {
-  "oh, so we're not interesting enough?%|%bot[50,obviously not]"
-  "o, bye then"
-  "bored? fine, we'll have fun without you ;)"
-  "bored? fine, we'll have fun without you ;)%|%bot[50,¬VAR{rarrs}]"
-  "fine, leave your computer, see if i care"
-  "damnit! I WAS TALKING TO YOU!"
-  "yea, go away, you don't care"
-  "auto away my arse"
-  "Great! Time to talk behind your back!%|So what do you guys really think about %%"
-}
+#set autoAways {
+#  "oh, so we're not interesting enough?%|%bot[50,obviously not]"
+#  "o, bye then"
+#  "bored? fine, we'll have fun without you ;)"
+#  "bored? fine, we'll have fun without you ;)%|%bot[50,¬VAR{rarrs}]"
+#  "fine, leave your computer, see if i care"
+#  "damnit! I WAS TALKING TO YOU!"
+#  "yea, go away, you don't care"
+#  "auto away my arse"
+#  "Great! Time to talk behind your back!%|So what do you guys really think about %%"
+#}
+bMotion_abstract_register "autoAways"
+#bMotion_abstract_batchadd "autoAways" $autoAways
 
-set awayWorks {
-  "hf %%"
-  "have fun %%"
-  "have a nice day %% :)"
-}
+#set awayWorks {
+#  "hf %%"
+#  "have fun %%"
+#  "have a nice day %% :)"
+#}
+bMotion_abstract_register "awayWorks"
+#bMotion_abstract_batchadd "awayWorks" $awayWorks
 
-set goodlucks {
-  "GL"
-  "good luck :)"
-  "good luck"
-}
+#set goodlucks {
+#  "GL"
+#  "good luck :)"
+#  "good luck"
+#}
+bMotion_abstract_register "goodlucks"
+#bMotion_abstract_batchadd "goodlucks" $goodlucks
 
 
 proc bMotion_plugin_complex_action_away { nick host handle channel text } {

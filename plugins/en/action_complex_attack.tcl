@@ -34,3 +34,5 @@ set attack_responses {
   "%SETTING{complex:attacks:who:_:_} is immune to '%SETTING{complex:attacks:item:_:_}'"
   "%SETTING{complex:attacks:who:_:_} absorbs the damage and gains %SETTING{complex:attacks:score:_:_} HP!"
 }
+bMotion_abstract_register "attack_responses"
+bMotion_abstract_batchadd "attack_responses" $attack_responses
