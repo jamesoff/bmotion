@@ -32,10 +32,10 @@ proc bMotion_plugin_admin_test { handle idx args } {
 }
 
 proc bMotion_plugin_admin_status { handle idx args } {
-  global bMotionInfo botnicks bMotionSettings cvsinfo randomsinfo bMotionQueue
+  global bMotionInfo botnicks bMotionSettings bMotionVersion randomsinfo bMotionQueue
   set timezone [clock format [clock seconds] -format "%Z"]
 
-  putidx $idx "I am running bMotion $cvsinfo\r"
+  putidx $idx "I am running bMotion $bMotionVersion\r"
   putidx $idx "Using randoms file $randomsinfo\r"
   putidx $idx "My gender is $bMotionInfo(gender), and I am $bMotionInfo(orientation)\r"
   putidx $idx "Respond to everything is $bMotionInfo(balefire) (1 = on)\r"
@@ -51,8 +51,6 @@ proc bMotion_plugin_admin_status { handle idx args } {
 
 proc bMotion_plugin_admin_queue { handle idx { args "" }} {
   global bMotionQueue
-
-  #if {$args == "{}"} { set args "" }
 
   if {$args == ""} {
     #display queue
