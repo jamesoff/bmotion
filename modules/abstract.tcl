@@ -56,6 +56,8 @@
 #   bMotion_abstract_all(abstract): return the list of all elements from an abstract
 #   bMotion_abstract_delete(abstract, index): delete from an abstract. The change is immediately
 #                                             written to disk
+#   bMotion_abstract_load(abstract): cache the abstract list in memory from disk
+#   bMotion_abstract_save(abstract): saves the cached version to disk
 #
 # Admin plugin to be loaded (but not from this module):
 #   !bmadmin abstract (add|list|view|del(ete)?|cache|gc) ...
@@ -99,13 +101,87 @@ proc bMotion_abstract_register { abstract } {
   set bMotion_abstract_timestamps($abstract) [clock seconds]
 
   #load any existing abstracts
+  if [file exists "$bMotionModules/abstracts/${abstract}.txt"] {
+    bMotion_abstract_load $abstract
+  } else {
+    #file doesn't exist - create an empty one
+    set fileHandle [open "$bMotionModules/abstracts/${abstract}.txt" "w"]
+    puts $fileHandle " "
+  }
+
+  if {$fileHandle} {
+    close $fileHandle
+  }
+}
+
+proc bMotion_abstract_load { abstract } {
+  global bMotion_abstract_contents bMotion_abstract_timestamps
+
+  if {![file exists "$bMotionModules/abstracts/${abstract}.txt"]} {
+    return
+  }
+
+  #set timestamp to now
+  set bMotion_abstract_timestamps($abstract) [clock seconds]
+
   catch {
     set fileHandle [open "$bMotionModules/abstracts/${abstract}.txt" "r"]
     set line ""
     while [gets $fileHandle line] {
-      if {[lsearch -exact $bMotion_abstract_contents($abstract)] > -1} {
+      if {[lsearch -exact $bMotion_abstract_contents($abstract) $line] > -1} {
         lappend bMotion_abstract_contents($abstract) $line
       }
     }
   }
+
+  if {$fileHandle} {
+    close $fileHandle
+  }
+}
+
+proc bMotion_abstract_add { abstract text } {
+  global bMotion_abstract_contents bMotion_abstract_timestamps
+
+  if {[lsearch -exact $bMotion_abstract_contents($abstract) $text] > -1} {
+    lappend bMotion_abstract_contents($abstract) $text
+  }
+  bMotion_abstract_save $abstract
+}
+
+proc bMotion_abstract_save { abstract } {
+  global bMotion_abstract_contents 
+
+  catch {
+    set fileHandle [open "$bMotionModules/abstracts/${abstract}.txt" "w"]
+    foreach abstract $bMotion_abstract_contents($abstract) {
+      puts $fileHandle $abstract
+    }
+    close $fileHandle
+  }
+}
+
+proc bMotion_abstract_all { abstract } {
+  global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age
+
+  if {$bMotion_abstract_timestamps($abstract) < [expr [clock seconds] - $bMotion_abstract_max_age]} {
+    bMotion_abstract_load $abstract
+  }
+
+  return $bMotion_abstract_contents($abstract)
+}
+
+proc bMotion_abstract_get { abstract } {
+  global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age
+
+  if {$bMotion_abstract_timestamps($abstract) < [expr [clock seconds] - $bMotion_abstract_max_age]} {
+    bMotion_abstract_load $abstract
+  }
+
+  return [lindex $bMotion_abstract_contents($abstract) [rand [llength $bMotion_abstract_contents($abstract)]]]
+}
+
+proc bMotion_abstract_delete { abstract index } {
+  global bMotion_abstract_contents 
+
+  set bMotion_abstract_contents($abstract) [lreplace $bMotion_abstract_contents($abstract) $index $index]
 }
