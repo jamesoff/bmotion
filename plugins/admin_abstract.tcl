@@ -55,6 +55,12 @@ proc bMotion_plugin_admin_abstract { handle idx { arg "" }} {
     return 0
   }
 
+  if [regexp -nocase {info (.+)} $arg matches name] {
+    set result [bMotion_abstract_all $name]
+    putidx $idx "Abstract $name has [llength $result] items.\r"
+    return 0
+  }
+
   #all else fails, list help
   putidx $idx ".bmadmin abstract \[show|gc|status\]\r"
   return 0
