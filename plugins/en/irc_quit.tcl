@@ -12,6 +12,7 @@
 
 
 proc bMotion_plugins_irc_default_quit { nick host handle channel text } { 
+  putlog "irc_default_quit $nick $host $handle $channel $text"
 
   #has something happened since we last spoke?
   set lasttalk [bMotion_plugins_settings_get "system:join" "lasttalk" $channel ""]
@@ -19,7 +20,8 @@ proc bMotion_plugins_irc_default_quit { nick host handle channel text } {
   #if 1, we greeted someone last
   #if 0, someone has said something since
   if {$lasttalk == 1} {
-    bMotion_putloglev 2 d "dropping depart for $nick on $channel because it's too idle"
+    #bMotion_putloglev 2 d "dropping depart for $nick on $channel because it's too idle"
+    putlog "dropping depart for $nick on $channel because it's too idle"
     return 0
   }
 
@@ -30,8 +32,8 @@ proc bMotion_plugins_irc_default_quit { nick host handle channel text } {
   return 0
 }
 
-bMotion_plugin_add_irc_event "default quit" "quit" ".*" 40 "bMotion_plugins_irc_default_quit" "en"
-bMotion_plugin_add_irc_event "default part" "part" ".*" 40 "bMotion_plugins_irc_default_quit" "en"
+bMotion_plugin_add_irc_event "default quit" "quit" ".*" 25 "bMotion_plugins_irc_default_quit" "en"
+bMotion_plugin_add_irc_event "default part" "part" ".*" 25 "bMotion_plugins_irc_default_quit" "en"
 
 bMotion_abstract_register "departs"
 bMotion_abstract_batchadd "departs" [list "what a strange person" "i'm going to miss them" "nooo! come back! %VAR{unsmiles}" "hey! I was talking to you!" "what a nice man"]
