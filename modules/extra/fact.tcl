@@ -86,6 +86,16 @@ proc bMotion_facts_auto_save { min hr a b c } {
   bMotion_facts_save
 }
 
+proc bMotion_facts_forget_all { fact } {
+  global bMotionFacts bMotionModules
+
+  #drop the array element
+  unset bMotionFacts($fact)
+
+  #resave to delete
+  bMotion_facts_save
+}
+
 # save facts every hour
 bind time - "01 * * * *" bMotion_facts_auto_save
 
