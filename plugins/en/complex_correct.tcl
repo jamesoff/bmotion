@@ -15,7 +15,7 @@
 bMotion_plugin_add_complex "correct-of" "(must|should) of" 30 bMotion_plugin_complex_correct "en"
 
 proc bMotion_plugin_complex_correct { nick host handle channel text } {
-  if {![bMotion_interbot_me_next $channel]} { return 0 }
+  #if {![bMotion_interbot_me_next $channel]} { return 0 }
 
   if [regexp -nocase "(must|should) of" $text matches nnk] {
     bMotionDoAction $channel $nnk "%VAR{shouldhaves}"
@@ -26,6 +26,6 @@ proc bMotion_plugin_complex_correct { nick host handle channel text } {
 set shouldhaves {
   "\"%% have\" %VAR{smiles}"
   "%% what?"
-  "\"%% HAVE, %% HAVE\""
+  "%% HAVE, %% HAVE"
   "s/of/have/"
 }
