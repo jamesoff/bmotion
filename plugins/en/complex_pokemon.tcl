@@ -14,7 +14,7 @@
 
 bMotion_plugin_add_complex "attack" "^%botnicks,?:? (use (your )?)?(.+) attack" 100 bMotion_plugin_complex_attack "en"
 bMotion_plugin_add_complex "chooseyou" "^%botnicks:?,? i choose you(,? ?(.+))?" 100 bMotion_plugin_complex_chooseyou "en"
-bMotion_plugin_add_simple "pokemon_return" "^${botnicks},?:? return" 100 [list "/returns to %%'s pokeball"] "en"
+bMotion_plugin_add_simple "pokemon_return" "^${botnicks},?:? return!?^" 100 [list "/returns to %%'s pokeball"] "en"
 
 proc bMotion_plugin_complex_attack { nick host handle channel text } {
   global botnicks botnick mood
