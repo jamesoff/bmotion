@@ -86,6 +86,10 @@ proc bMotion_interbot_catch { bot cmd args } {
     "elect_reply" {
       bMotion_interbot_next_incoming_reply $bot $params
     }
+
+    "fake_event" {
+      bMotion_interbot_fake_catch $bot $params
+    }
   }
 
   return 0
@@ -209,6 +213,24 @@ proc bMotion_interbot_me_next { channel } {
   }
   #if it's noone, the winning bot will force an election anyway
   return 0
+}
+
+# send a fake event
+proc bMotion_interbot_fake_event { botnick channel fromnick line } {
+  if {[matchattr $botnick b&K $channel] && [islinked $botnick]} {
+    putbot $botnick "bmotion fake_event $channel $fromnick $line"
+    return 1
+  }
+}
+
+# catch the fake event
+proc bMotion_interbot_fake_catch { bot params } {
+  bMotion_putloglev 1 * "Incoming fake event from $bot: $params"
+  regexp {([^ ]+) ([^ ]+) (.+)} $params matches channel fromnick line
+  #proc bMotion_event_main {nick host handle channel text}
+  putlog $line
+  bMotion_event_main $fromnick "fake@fake.com" $fromnick $channel $line
+  return 1
 }
 
 #interbot stuff
