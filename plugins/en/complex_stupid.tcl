@@ -26,7 +26,7 @@
 
 
 
-bMotion_plugin_add_complex "stupid" "(stupid|idiot|imbecile|incompetent|loser|luser) bot" 100 bMotion_plugin_complex_stupid "en"
+bMotion_plugin_add_complex "stupid" "(useless|stupid|idiot|imbecile|incompetent|loser|luser) bot" 100 bMotion_plugin_complex_stupid "en"
 
 
 
