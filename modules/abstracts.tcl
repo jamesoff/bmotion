@@ -889,7 +889,7 @@ set jokeForms {
 # %n is random noun
 set jokeReplies {
   "one's %r and the other's %r"
-  "%n!"
+  "%r with %r!"
 }
 
 bMotion_abstract_register "lostPlot"
