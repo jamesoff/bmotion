@@ -60,7 +60,9 @@ proc bMotion_queue_run { } {
           bMotionSendSayChan $target $text $bot
         }
       } else {
-        puthelp "PRIVMSG $target :$content"
+        if {$content != ""} {
+          puthelp "PRIVMSG $target :$content"
+        }
       }
     } else {
       #put it back into queue

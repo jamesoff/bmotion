@@ -405,6 +405,11 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
     }
   }
 
+  #make sure the line wasn't set to blank by a plugin (may be trying to block output)
+  if {($line == "") || [regexp "^ +$" $line]} {
+    return 0
+  }
+
   #check if this line matches the last line said on IRC
   global bMotionThisText
   if [string match -nocase $bMotionThisText $line] {
