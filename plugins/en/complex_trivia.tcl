@@ -81,7 +81,7 @@ proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
       bMotion_putloglev 2 * "processing hint $hint"
       set firstletter [string range $hint 0 0]
       if {$firstletter == "."} {
-        set firstletter [pickRandom [split "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" {}]]
+        set firstletter [pickRandom [split "ABCDEFGHIJKLMNOPQRSTUVWXYZ" {}]]
       }
       if [regexp {[A-Z]} $firstletter] {
         bMotion_putloglev 1 * "looking for a $firstletter word..."
@@ -138,4 +138,10 @@ proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
     }
   }
   bMotion_flood_clear $nick
+}
+
+#generate the afro_<number> lists
+set afro_1 [list]
+for {set i 1000} {$i < 2000} {incr i 1} {
+  lappend afro_1 $i
 }
