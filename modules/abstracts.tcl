@@ -1377,7 +1377,47 @@ bMotion_abstract_batchadd "balefired" [list "/vanishes from the continuum" "/cea
 
 bMotion_abstract_register "randomStuff"
 bMotion_abstract_batchadd "randomStuff" [list "I'm a doctor not %VAR{sillyThings}" "pika pika!" "pikachu!" "pika...CHUUUU!!! *ZZZAAP*" "*boing*" "moo." "BOOM" "BLAM" "Knickers.%|%BOT\[¬VAR{rarrs}\]" "/goes for coffee" "bof" "alors" "bhar" "arrrr.." "elbow." 	"gorilla" "*yawn*" "*spangle*" "brb" "lalalala.. ow! I stubbed my toe :(%|%bot\[50,¬VAR{awwws}\]" "lum de dum de dum..." "/twiddles thumbs" "boom" "Look over there!" "bleh" "/puts on some banging house tunes" "zut alors" "alors bof" "groogle arrhar" "brb, loo" 	"brb, sex" "uNF" "~rarr~" "~oof~" "Oops, I've ruined it." "Buttock Crunchies" "D'oh!" "setty mings lalalala" "pika" "Are you local?" "We'll have no trouble here" "Resistance is futile, you will be assimilated" "Resistance is futile, you will be 0wn3d" "Assimilation is futile, you will be resi... D'OH!" "I *didn't*" 	"waCHOO *sniff*%|%BOT\[¬VAR{blessyous}\]" "blblblblblbl" "/assimilates the channel" "We are the B0rg. You will be 4551m1la70r3d." "wheeeee" "We are the Borg. Lower your shields and surrender your ship." "h%REPEAT{3:8:n}" "did you see that.." "You are the weakest link, goodbye." "Computer, deactivate iguana." "kerPOW" "kerSPLAT" "KAZAM" "kazOO" "yaZOO" 	"spam, spam, spam, spam, spam, spam..." "Oh my god! There's an axe in my head.%|%BOT\[¬VAR{pullsOut}\]" "Mon dieu! Il y a une hache dans ma tete.%|%BOT\[¬VAR{pullsOut}\]" "ghay'cha'! nachwIjDaq betleH tu'lu'!%|%BOT\[¬VAR{pullsOut}\]" "Deus Meus! Securis in capite meo est.%|%BOT\[¬VAR{pullsOut}\]" "ALL YOUR BASE ARE BELONG TO US" "For great justice." "nostril" "%REPEAT{2:7:bl}" "wh%REPEAT{3:8:e}" "h%REPEAT{3:10:e} FUN" "ah bof" "I didn't!" "shh, sekrit" "SSSH SEKRIT" 	"SILENCE%colen" "pop" "cabbages" "penguin" "cheese" "mmm chicken" "blimey" "crikey" "hoorah" "pie pie pie pie" "fantastic" "ho ho" "har har" "deary me" "m00se" 	"llama" "frogs" "knickers" "bob" "kenneth" "nigel" "is everyone thooper?" "super" "thooper" "lashings of ginger beer" ]
-
+bMotion_abstract_batchadd "randomStuff" {
+  "There are clowns living under my bed."
+  "What's it going to take to get you into this car?"
+  "Was I snoring again?"
+  "I think it's starting to work."
+  "Does it hurt when I do this?"
+  "Come on down, you're only going to hurt yourself."
+  "It's a bird, it's a plane, it's... no, it's a bird after all."
+  "It's a %VAR{sillyThings}, it's a plane, no... it's a bird."
+  "It tasted like butter."
+  "Are those real handcuffs?"
+  "Oh good, Captain Adventure has arrived."
+  "I'm running off with the mailman."
+  "It's not my fault, it just exploded."
+  "You are SO fired."
+  "I'm sweating like a pig!"
+  "Please stay seated until the ride has stopped."
+  "Don't touch that. It's dirty."
+  "My underwear is too tight %VAR{unsmiles}"
+  "Stop staring at the monkeys%colen"
+  "I can't reach this itch $VAR{unsmiles}"
+  "That is the weirdest smell ever."
+  "There's nothing sexier than %VAR{sillyThings}"
+  "I feel like I'm about to vomit everywhere."
+  "Waiter, my soup's got %VAR{sillyThings} in it."
+  "I look good in hot pants."
+  "I just have a thing about toes."
+  "Oh boy, my subscription is running out."
+  "I think it's getting bigger."
+  "Blondes DO have more fun!"
+  "That's a funny little cigarette."
+  "mmm... cheesy"
+  "Assume the position%colen"
+  "Chicks can't resist me."
+  "Stop wiggling for a minute."
+  "I didn't touch it."
+  "You have something in your nose."
+  "this reminds me of my wedding night"
+  "my zipper's stuck %VAR{unsmiles}"
+  "is this going to be on the test?"
+}
 
 bMotion_abstract_register "wrong_infoline"
 bMotion_abstract_batchadd "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline" ]
@@ -1452,4 +1492,33 @@ bMotion_abstract_batchadd "stonedRandomStuff" [list "wheeeeeeee" "wheeeee..." "h
 
 bMotion_abstract_register "gollums"
 bMotion_abstract_batchadd "gollums" [list "Foolishness!" "Stupid fat hobbit!" "We hates the fat hobbit! Him and his pots and pans and ropes." "Thieves. Thieves all!" "Stupid hobbit. Talking to himself like that. Not answering himself." "Yes. Sleep sweet sleep with our precious!" "Filthy little thief playing with our precious!" "If only fat hobbit would go away for a moment, we could go to master and take the precious away from him." "No! Must not take away our precious!" "We miss the song of the precious. We miss it. We wants it back!" "Everyone wants my precious. It's not fair! It's ours!" "Shiny, shiny." ]
+
+bMotion_abstract_register "blairisms"
+bMotion_abstract_batchadd "blairisms" {
+  "%VAR{blairadj} %VAR{blairparts}, %VAR{blairadj} %VAR{blairparts}, %VAR{blairadj} %VAR{blairparts}."
+}
+
+bMotion_abstract_register "blairadj"
+bMotion_abstract_batchadd "blairadj" {
+  "caring"
+  "concerned"
+  "confident"
+  "worried"
+  "surprised"
+  "please-vote-for-me"
+}
+
+bMotion_abstract_register "blairparts"
+bMotion_abstract_batchadd "blairparts" {
+  "hand gesture"
+  "knees"
+  "hairline"
+  "hair"
+  "teeth"
+  "suit"
+  "nose"
+  "eyes"
+  "stance"
+  "stare"
+}
 
