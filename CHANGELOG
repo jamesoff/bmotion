@@ -5,6 +5,7 @@ bMotion CHANGELOG
 + = added
 - = removed
 
+*  Kevin           moved the handling of jms' (real) wellbeing code into an extra module, and referenced it from complex question
 *  James           fixed spelling error in name of onjoin plugin
 *  James           fixed onjoin plugin to use new abstracts system
 *  Kevin           moved some question handling into the complex question handler from other places so as not to break "how're you" with generic "how" questions
