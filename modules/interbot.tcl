@@ -186,16 +186,6 @@ proc bMotionCatchSayChan { bot params } {
   return 0
 }
 
-
-if {![info exists bMotion_interbot_nextbot_score]} {
-  # init the nextbot array for each channel
-
-  foreach chan $bMotionInfo(randomChannels) {
-    set bMotion_interbot_nextbot_score($chan) "-1"
-    set bMotion_interbot_nextbot_nick($chan) ""
-  }
-}
-
 # Check if we're due to talk next on the channel
 # if yes, then force an election for that channel immediately afterwards
 proc bMotion_interbot_me_next { channel } {
@@ -234,6 +224,13 @@ proc bMotion_interbot_fake_catch { bot params } {
   bMotion_event_main $fromnick "fake@fake.com" $fromnick $channel $line
   return 1
 }
+
+#call an election when we start/rehash
+foreach chan $bMotionInfo(randomChannels) {
+  set bMotion_interbot_nextbot_score($chan) "-1"
+  set bMotion_interbot_nextbot_nick($chan) ""
+}
+bMotion_interbot_next_elect
 
 #interbot stuff
 bind bot I "bmotion" bMotion_interbot_catch
