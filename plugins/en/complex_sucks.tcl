@@ -31,7 +31,10 @@ bMotion_plugin_add_complex "sucks" {sucks?$} 30 bMotion_plugin_complex_sucks "en
 
 proc bMotion_plugin_complex_sucks { nick host handle channel text } {
 
-  if [regexp -nocase {([^ ]+) ((is|si) (teh|the)? )?sucks?} $text matches item] {
+  if [regexp -nocase {([^ ]+) ((is|si|==) (teh|the)? )?sucks?} $text matches item] {
+    if {$item == "=="} {
+      return 0
+    }
     bMotionDoAction $channel $item "%VAR{sucks}"
   }
 }
