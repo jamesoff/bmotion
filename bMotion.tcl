@@ -47,6 +47,12 @@ if {$bMotion_testing == 1} {
 }
 source "$bMotionModules/variables.tcl"
 
+#load new abstract system
+if {$bMotion_testing == 1} {
+  putlog "... loading abstract system"
+}
+source "$bMotionModules/abstract.tcl"
+
 # load abstracts file (formerly randoms)
 if {$bMotion_testing == 1} {
   putlog "... loading abstracts"
