@@ -15,4 +15,5 @@ For 0.0.8
 For the distant future
 ----------------------
 
-* complex abstract history
+* event history tracking
+* fact learning (and use in responses)
