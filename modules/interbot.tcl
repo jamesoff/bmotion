@@ -1,6 +1,5 @@
 # bMotion - interbot stuff
 #
-
 # $Id$#
 #
 
