@@ -35,6 +35,11 @@
 # Going over 7 will make the bot ignore 50% of what you would trigger
 # Going over 15 cuts you out completely
 
+# Message levels: 
+#   log: Flood checks
+#     d: flood ticks
+#     2: flood additions/subtractions
+
 if {![info exists bMotion_flood_info]} {
   set bMotion_flood_info(_) 0
   set bMotion_flood_last(_) ""
@@ -68,7 +73,7 @@ proc bMotion_flood_tick { min hr a b c } {
     }
   }
   if {$stats != ""} {
-    bMotion_putloglev 2 * "bMotion: flood tick: $stats"
+    bMotion_putloglev d * "bMotion: flood tick: $stats"
   }
 }
 
@@ -113,7 +118,7 @@ proc bMotion_flood_add { nick { callback "" } { text "" } } {
     set flood $bMotion_flood_info($handle)
   }
   incr flood $val
-  bMotion_putloglev 1 * "bMotion: flood added $val to $nick, now $flood"
+  bMotion_putloglev 2 * "bMotion: flood added $val to $nick, now $flood"
   set bMotion_flood_info($handle) $flood
   set bMotion_flood_undo $val
 }
@@ -137,7 +142,7 @@ proc bMotion_flood_remove { nick } {
   if {$flood < 0} {
     return 0
   }
-  bMotion_putloglev 1 * "bMotion: flood removed 1 from $nick, now $flood"
+  bMotion_putloglev 2 * "bMotion: flood removed 1 from $nick, now $flood"
   set bMotion_flood_info($handle) $flood
 }
 
@@ -173,7 +178,7 @@ proc bMotion_flood_undo { nick } {
   set bMotion_flood_info($handle) $flood
   set bMotion_flood_lasttext($handle) ""
   set bMotion_flood_undo 1
-  bMotion_putloglev 1 * "bMotion: undid flood from $nick, now $flood"
+  bMotion_putloglev 2 * "bMotion: undid flood from $nick, now $flood"
   return 0
 }
 
