@@ -212,6 +212,13 @@ proc bMotion_flood_get { nick } {
 }
 
 proc bMotion_flood_check { nick } {
+
+  if { [bMotion_setting_get "disableFloodChecks"] != "" } {
+    if { [bMotion_setting_get "disableFloodChecks"] == 1 } {
+      return 0
+    }  
+  }  
+
   bMotion_putloglev 3 * "checking flood for $nick"
   set flood [bMotion_flood_get $nick]
   set chance 2

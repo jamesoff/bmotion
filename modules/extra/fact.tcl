@@ -11,10 +11,18 @@
 ###############################################################################
 
 # maximum number of things about which facts can be known
-set bMotion_facts_max_items 500
+if { [bMotion_setting_get "factsMaxItems"] != "" } {
+  set bMotion_facts_max_items [bMotion_setting_get "factsMaxItems"]
+} else {
+  set bMotion_facts_max_items 500
+}  
 
 # maximum number of facts to know about an item
-set bMotion_facts_max_facts 20
+if { [bMotion_setting_get "factsMaxFacts"] != "" } {
+  set bMotion_facts_max_facts [bMotion_setting_get "factsMaxFacts"]
+} else {
+  set bMotion_facts_max_facts 20
+}  
 
 # initialise
 if {![info exists bMotionFacts]} {

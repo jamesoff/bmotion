@@ -82,12 +82,6 @@ if {$bMotion_testing == 1} {
 }
 source "$bMotionModules/settings.tcl"
 
-#load new abstract system
-if {$bMotion_testing == 1} {
-  putlog "... loading abstract system"
-}
-source "$bMotionModules/abstract.tcl"
-
 #try to load a file for this bot
 catch {
   if {${botnet-nick} != ""} {
@@ -101,6 +95,12 @@ if {$bMotion_testing == 1} {
   putlog "... loading system"
 }
 source "$bMotionModules/system.tcl"
+
+#load new abstract system
+if {$bMotion_testing == 1} {
+  putlog "... loading abstract system"
+}
+source "$bMotionModules/abstract.tcl"
 
 # load output functions
 if {$bMotion_testing == 1} {

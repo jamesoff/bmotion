@@ -67,9 +67,17 @@
 # The abstracts will be stored in ./abstracts/<language>/<abstract name>.txt in the bMotion directory. The 
 # fileformat is simply one per line.
 
-#
-set bMotion_abstract_max_age 300
-set bMotion_abstract_max_number 600
+if { [bMotion_setting_get "abstractMaxAge"] != "" } {
+  set bMotion_abstract_max_age [bMotion_setting_get "abstractMaxAge"]
+} else {
+  set bMotion_abstract_max_age 300
+}  
+
+if { [bMotion_setting_get "abstractMaxNumber"] != "" } {
+  set bMotion_abstract_max_number [bMotion_setting_get "abstractMaxNumber"]
+} else {
+  set bMotion_abstract_max_number 600
+}  
 
 # initialise the arrays
 

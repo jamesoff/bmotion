@@ -100,3 +100,26 @@ set bMotionSettings(ignorefacts) "is online"
 
 # seconds per character in line
 set bMotionSettings(typingSpeed) 0.05
+
+# whether to disable flood checks that would prevent a malicious user 
+# from triggering plugins over and over again
+#
+# WARNING: Disable flood checks at your own risk! Nobody except for 
+# yourself will be responsible for any resulting negative effects,
+# including, but not limited to nausea, dizziness, G-lines and rabid
+# wolverine attacks.
+set bMotionSettings(disableFloodChecks) 0
+
+# amount of time (in seconds) before loaded abstracts are purged from
+# memory and written to disk
+set bMotionSettings(abstractMaxAge) 300
+
+# maximum number of items to keep per abstract
+set bMotionSettings(abstractMaxNumber) 600
+
+# maximum number of things about which facts can be known
+set bMotionSettings(factsMaxItems) 500
+
+# maximum number of facts to know about an item
+set bMotionSettings(factsMaxFacts) 20
+
