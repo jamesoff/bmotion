@@ -31,6 +31,12 @@ set bMotionInfo(orientation) "straight"
 # regexp is ok, but don't use brackets!
 set bMotionSettings(botnicks) "nt|bots|the bots"
 
+# does the bot like 'kinky' stuff (e.g. see action_complex:fucks)
+set bMotionSettings(kinky) 0
+
+# greet people we don't know when they join the channel?
+set bMotionSettings(friendly) 0
+
 
 ## BEHAVIOUR STUFF
 
@@ -88,4 +94,3 @@ set bMotionSettings(languages) "en,nl"
 
 # default language to use
 set bMotionInfo(language) "en"
-
