@@ -14,21 +14,20 @@
 
 bMotion_plugin_add_complex "fact" {[[:<:]](is|was|=|am)[[:>:]]} 100 bMotion_plugin_complex_fact "en"
 
-if {![info exists bMotionFacts]} {
-  set bMotionFacts(what,bmotion) [list "a very nice script"]
-}
-
 proc bMotion_plugin_complex_fact { nick host handle channel text } {
   global bMotionFacts
   if {[string range $text end end] == "?"} { return 0 }
-  if [regexp -nocase {[[:<:]]([^ ]+) (is|was|=|am) ([^.,;:]+)} $text matches item blah fact] {
+  if [regexp -nocase {[[:<:]]([^ ]+) ?(is|was|==?|am) ?([^.,;:]+)} $text matches item blah fact] {
     set item [string tolower $item]
-    if {$item == "i"} {
-      set item $nick
-    }
     if [regexp "(what|which|have|it|that|when|where|there|then|this)" $item] {
       return 0
     }
+    if {$item == "i"} {
+      set item [string tolower $nick]
+    }
+    regsub {[[:<:]]me[[:>:]]} $fact $nick fact
+    regsub {[[:<:]]my[[:>:]]} $fact "%OWNER{$nick}" fact
+    set fact [string trim $fact]
     putlog "fact: $item == $fact"
     lappend bMotionFacts(what,$item) $fact
   }
