@@ -34,6 +34,10 @@ proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
     bMotion_flood_undo $nick
     bMotion_abstract_add "sillyThings" $item
   }
+	
+	if {[rand 100] > 97} {
+		bMotionDoAction $channel "" "mm%REPEAT{1:5:m}, %VAR{sillyThings}{strip}"
+	}
 }
 
 proc bMotion_plugin_complex_noun_catcher { nick host handle channel text } {
