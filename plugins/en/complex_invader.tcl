@@ -17,7 +17,7 @@
 proc bMotion_plugin_complex_invader_duty { nick host handle channel text } {
 	global randomDootie
 	if { ![bMotion_interbot_me_next $channel] } {
-		return 0 
+		return 0
 	}
 	bMotionDoAction $channel "" "%VAR{randomDootie}"
 
@@ -35,7 +35,7 @@ proc bMotion_plugin_complex_invader_zim { nick host handle channel text } {
 		return 0
 	}
 	bMotionDoAction $channel "" "%VAR{randomZimness}"
-	
+
 	#log this action
 	bMotion_putloglev d * "bMotion: (invader:zim) $nick invoked the wrath of invader $botnick"
 	return 1
@@ -46,11 +46,11 @@ proc bMotion_plugin_complex_invader_zim { nick host handle channel text } {
 # general Gir moments, will respond with suitably insane Gir comment
 proc bMotion_plugin_complex_invader_gir { nick host handle channel text } {
 	global randomGirness botnick
-	if { ![bMotion_interbot_me_next $channel] } { 
-		return 0 
+	if { ![bMotion_interbot_me_next $channel] } {
+		return 0
 	}
 	bMotionDoAction $channel "" "%VAR{randomGirness}"
-	
+
 	#log this action
 	bMotion_putloglev d * "bMotion: (invader:gir) i like dootie"
 	return 1
@@ -59,10 +59,10 @@ proc bMotion_plugin_complex_invader_gir { nick host handle channel text } {
 
 # bMotion_plugin_complex_invader_nick
 proc bMotion_plugin_complex_invader_nick { nick host handle channel newnick } {
-	if { ![bMotion_interbot_me_next $channel]} { 
+	if { ![bMotion_interbot_me_next $channel]} {
 		return 0
 	}
-  
+
 	# check we haven't already done something for this nick
 	if { $nick == [bMotion_plugins_settings_get "complex:returned" "lastnick" $channel ""] } {
 		return 0
@@ -83,7 +83,7 @@ proc bMotion_plugin_complex_invader_nick { nick host handle channel newnick } {
 
 # random zimlike phrases
 bMotion_abstract_register "randomZimness"
-set randomZimness {
+bMotion_abstract_batchadd "randomZimness" {
 	"yes, my tallest!"
 	"how can you have an operation impending doom 2 without me?"
 	"doom. doooom."
@@ -177,8 +177,11 @@ set randomZimness {
 	"DESTRUCTION IS NICE%colen"
 	"the taste of human annihilation grows stronger in my amazing head"
 	"people of earth! prepare to meet the mighty foot of my planet"
-	"well... yes... i'm an unstoppable death machine" ]
-bMotion_abstract_batchadd "randomZimness" [list "i congratulate you in recognising my superiority and choosing me to be your love pig!"
+	"well... yes... i'm an unstoppable death machine"
+	}
+
+bMotion_abstract_batchadd "randomZimness" {
+	"i congratulate you in recognising my superiority and choosing me to be your love pig!"
 	"your magical love adventure begins now"
 	"now cry... CRY like you've never cried...... before"
 	"you're after my robot bee%colen"
@@ -218,7 +221,7 @@ bMotion_abstract_batchadd "randomZimness" [list "i congratulate you in recognisi
 
 # random girlike phrases
 bMotion_abstract_register "randomGirness"
-set randomGirness {
+bMotion_abstract_batchadd "randomGirness" {
 	"i don't know... weee hoo hoo hoo!"
 	"I'm gonna sing the doom song now... dooom doom doom"
 	"that's my favourite show"
@@ -281,7 +284,7 @@ set randomGirness {
 
 # random "duty" responses... inevitable Gir
 bMotion_abstract_register "randomDootie"
-set randomDootie {
+bMotion_abstract_batchadd "randomDootie" {
 	"dootie %VAR{smiles}"
 	"doootie dootie dooootie dootie"
 	"i like dootie"
@@ -294,7 +297,7 @@ set randomDootie {
 
 # random zim/gir name change responses
 bMotion_abstract_register "randomZimNameChange"
-set randomZimNameChange {
+bMotion_abstract_batchadd "randomZimNameChange" {
 	"master, where did you go? I can't see you"
 	"master?"
 	"where'd my moose go?"
@@ -310,7 +313,7 @@ bMotion_plugin_add_complex "invader(duty)" "duty|doo+(t|d)(ie|y)" 20 "bMotion_pl
 # "zim" plugin responds to "invade or invasion" "zim" "mwahahaha or hahaha" "victory for" "how dare" "you dare"
 bMotion_plugin_add_complex "invader(zim)" "zim|inva(de|sion)|((mwa)?ha(ha)+)|(victory for)|((you|how) dare)" 20 "bMotion_plugin_complex_invader_zim" "en"
 
-# "gir" plugin responds to "gir" "whooo or wooo" "chicken" "doom" "piggy", now with new improved "finally! 
+# "gir" plugin responds to "gir" "whooo or wooo" "chicken" "doom" "piggy", now with new improved "finally!
 bMotion_plugin_add_complex "invader(gir)" "w(h)?oo+|chicken|gir(!+| )|doo+m|piggy|finally!" 20 "bMotion_plugin_complex_invader_gir" "en"
 
 # nick change response
