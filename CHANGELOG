@@ -9,8 +9,6 @@ bMotion CHANGELOG
 *  James           fixed spelling error in name of onjoin plugin
 *  James           fixed onjoin plugin to use new abstracts system
 *  Kevin           moved some question handling into the complex question handler from other places so as not to break "how're you" with generic "how" questions
-+  Kevin           added a "how're you?" handler
-+  Kevin           added a "do you want/need" handler
 *  James           changed CHANGELOG format now that other people are actively coding
 *  Shruuf          bMotion now supports !-channels as wells as #-channels
 *  James           hugging the bot will make it happier and hornier
@@ -21,10 +19,21 @@ bMotion CHANGELOG
 *  James           some improvements to learning new words
 *  James           stop output_pinky from modifying short lines
 *  James           fixed a couple of typos in abstracts
+*  James           hopefully fixed [ 662782 ] Occasional No Such User errors
+*  James           changed !bminfo to give better information, and only be available to +ov users
+*  James           fixed complex_trivia to skip output plugins
+*  James           bMotion now learns new away messages it sees people use
+
++  Kevin           added a "how're you?" handler
++  Kevin           added a "do you want/need" handler
 +  James           added fact learning!
 +  Kevin           added fact-fetching plugin
 +  James           added new abstract management system and started changing over to it
 +  James           added complex_correct plugin to correct the error "should|must of" to "have"
++  James           added some automatic diagnostics on times at 30 mins past the hour
++  James           added friendship drifting so you have to be nice to the bot to stay friends
++  James           added a plugin to catch uncaught actions on the bot and make it respond
+
 -  James           removed some of the mood-based random output because it doesn't fit with new code for now
 
 
