@@ -14,8 +14,7 @@
 ###############################################################################
 
 #                        name   regexp               flags   callback
-bMotion_plugin_add_admin "test" "^test"              n       "bMotion_plugin_admin_test" "any"
-bMotion_plugin_add_admin "status" "^(status|info)"     t       "bMotion_plugin_admin_status" "any"
+bMotion_plugin_add_management "status" "^(status|info)"     t       "bMotion_plugin_management_status" "any"
 bMotion_plugin_add_admin "queue" "^queue"            n       "bMotion_plugin_admin_queue" "any"
 bMotion_plugin_add_admin "parse" "^parse"            n       "bMotion_plugin_admin_parse" "any"
 bMotion_plugin_add_admin "friends" "^friends(hip)?"  n       "bMotion_plugin_admin_friends" "any"
@@ -30,25 +29,17 @@ bMotion_plugin_add_management "global" "^global" n bMotion_plugin_management_glo
 #################################################################################################################################
 # Declare plugin functions
 
-proc bMotion_plugin_admin_test { handle idx args } {
-  putidx $idx "test: $handle $args"
-}
+proc bMotion_plugin_management_status { handle { args "" } } {
+  global bMotionInfo botnicks bMotionSettings bMotionVersion
 
-proc bMotion_plugin_admin_status { handle idx args } {
-  global bMotionInfo botnicks bMotionSettings bMotionVersion randomsinfo bMotionQueue
-  set timezone [clock format [clock seconds] -format "%Z"]
-
-  putidx $idx "I am running bMotion $bMotionVersion\r"
-  putidx $idx "Using randoms file $randomsinfo\r"
-  putidx $idx "My gender is $bMotionInfo(gender), and I am $bMotionInfo(orientation)\r"
-  putidx $idx "Respond to everything is $bMotionInfo(balefire) (1 = on)\r"
-  putidx $idx "Current pokemon is $bMotionInfo(pokemon)\r"
-  putidx $idx "Random stuff happens at least every $bMotionInfo(minRandomDelay), at most every $bMotionInfo(maxRandomDelay), and not if channel quiet for more than $bMotionInfo(maxIdleGap) (mins)\r"
-  putidx $idx "My botnicks are $botnicks ('.bmotion redo botnicks' to update)\r"
-  putidx $idx "melMode $bMotionSettings(melMode) (1 = on)\r"
-  putidx $idx "needI $bMotionSettings(needI) (1 = on)\r"
-  if {$bMotionInfo(silence)} { putidx $idx "Running silent\r" }    
-  putidx $idx "Current queue size is [llength $bMotionQueue]\r"
+  bMotion_putadmin "I am running bMotion $bMotionVersion"
+  bMotion_putadmin "My gender is $bMotionInfo(gender), and I am $bMotionInfo(orientation)"
+  bMotion_putadmin "Random stuff happens at least every [bMotion_setting_get minRandomDelay], at most every [bMotion_setting_get maxRandomDelay], and not if channel quiet for more than [bMotion_setting_get maxIdleGap] (mins)"
+  bMotion_putadmin "My botnicks are /$botnicks/"
+  if [bMotion_setting_get silence] {
+  	bMotion_putadmin "Running silent"
+  }
+  bMotion_putadmin "Current queue size is [bMotion_queue_size]"
   return 0
 }
 
@@ -110,7 +101,7 @@ proc bMotion_plugin_admin_unbindVotes { handle idx arg } {
 
 proc bMotion_plugin_admin_codesize { handle idx { arg "" } } {
   #get codesize for bMotion
-  
+
   global bMotionRoot bMotionModules bMotionPlugins
   set scriptName "[pwd]/$bMotionRoot/codeSize"
 
@@ -126,7 +117,7 @@ proc bMotion_plugin_admin_codesize { handle idx { arg "" } } {
   }
 
   bMotion_putloglev 2 * "bMotion: codeSize script is $scriptName"
-  
+
   set modules_output [exec $scriptName $bMotionModules]
   set plugins_output [exec $scriptName $bMotionPlugins]
   regexp {([[:digit:]]+) +[[:digit:]]+ +[[:digit:]]+ total} $modules_output matches modules
