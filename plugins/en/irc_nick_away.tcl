@@ -19,7 +19,7 @@ proc bMotion_plugins_nick_away { nick host handle channel newnick } {
 
   #check we haven't already done something for this nick
   if {$nick == [bMotion_plugins_settings_get "complex:away" "lastnick" $channel ""]} {
-    return 0 
+    return 0
   }
 
   #save as newnick because if they do a /me next it'll be their new nick
@@ -28,7 +28,7 @@ proc bMotion_plugins_nick_away { nick host handle channel newnick } {
   #work
   if [regexp -nocase "w(o|e|3|0)rk" $newnick] {
     bMotionDoAction $channel $nick "%VAR{awayWorks}"
-    return 0
+    return 1
   }
 
   #sleep
@@ -38,11 +38,11 @@ proc bMotion_plugins_nick_away { nick host handle channel newnick } {
       if [rand 2] {return 0}
       bMotionDoAction $channel $nick "*hugs*"
     }
-    return 0
+    return 1
   }
 
   bMotionDoAction $channel $nick "%VAR{cyas}"
-  return 0
+  return 1
 }
 
 
@@ -66,13 +66,13 @@ proc bMotion_plugins_nick_returned { nick host handle channel newnick } {
     #if they came back from sleep, it's morning
     if [regexp -nocase "(sleep|bed|zzz+|slaap)" $nick] {
       bMotionDoAction $channel $newnick "%VAR{goodMornings}"
-      return 0
+      return 1
     }
 
     bMotionDoAction $channel $newnick "%VAR{welcomeBacks}"
-    return 0
+    return 1
   }
 
   #we didn't match an away nick for their old nick, so let other nick plugins fire
-  return 1
+  return 0
 }
