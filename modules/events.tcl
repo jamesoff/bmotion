@@ -35,6 +35,22 @@ proc bMotionDoEventResponse { type nick host handle channel text } {
     return 0
   }
 
+  if [matchattr $handle J] {
+    return 0
+  }
+
+  set channel [string tolower $channel]
+
+  #ignore other bots
+  if {[matchattr $handle b] && (![matchattr $handle I])} {
+    set bMotionCache($channel,last) 0
+    return 0
+  }
+
+  if {[lsearch $bMotionInfo(randomChannels) $channel] == -1} {
+    return 0
+  }
+
   bMotion_putloglev 4 * "entering bMotionDoEventResponse: $type $nick $host $handle $channel $text"
   if { ![regexp -nocase "nick|join|quit|part|split" $type] } {
     return 0
