@@ -1,0 +1,12 @@
+/is blown off feet by force of %%'s statement%|%bot[50,¬VAR{picksUp}]
+/falls over%|%bot[50,¬VAR{picksUp}]
+/is blown away by force of %%'s statement%|%bot[50,¬VAR{picksUp}]
+ow my eyes :(
+/blinks
+:O
+o_O
+:o
+blimey
+crumbs
+i say
+lordy
