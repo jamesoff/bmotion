@@ -207,9 +207,9 @@ proc bMotion_abstract_load { abstract } {
         set needReSave 1
       }
       incr count
-      if {[expr $count % 200] == 0} {
-        putlog "  still loading abstract $abstract: $count ..."
-      }
+      #if {[expr $count % 200] == 0} {
+        #putlog "  still loading abstract $abstract: $count ..."
+      #}
     }
     set line [gets $fileHandle]
   }
