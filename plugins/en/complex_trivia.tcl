@@ -83,7 +83,7 @@ proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
       if {$firstletter == "."} {
         set firstletter [pickRandom [split "ABCDEFGHIJKLMNOPQRSTUVWXYZ" {}]]
       }
-      if [regexp {[A-Z]} $firstletter] {
+      if [regexp {[A-Z1]} $firstletter] {
         bMotion_putloglev 1 * "looking for a $firstletter word..."
         set upvar_name "afro_$firstletter"
         upvar #0 $upvar_name wordlist
@@ -124,12 +124,13 @@ proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
   if [regexp -nocase {answer was ([^\.]+)\.} $text matches answer] {
     set words [split $answer " "]
     foreach word $words {
-      if [regexp {([a-zA-Z]+)} $word matches newword] {
+      if [regexp {([a-zA-Z1]+)} $word matches newword] {
         set word $newword
       }
       set word [string tolower $word]
       set firstletter [string toupper [string range $word 0 0]]
       set full_array_name_for_upvar "afro_$firstletter"
+      bMotion_putloglev d * "looking for $full_array_name_for_upvar"
       upvar #0 $full_array_name_for_upvar teh_variable
       if {[lsearch $teh_variable $word] == -1} {
         lappend teh_variable $word
