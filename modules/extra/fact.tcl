@@ -48,7 +48,7 @@ proc bMotion_facts_load { } {
       if {[lsearch -exact $bMotionFacts($item) $fact] == -1} {
         lappend bMotionFacts($item) $fact
       } else {
-        bMotion_putloglev 2 * "dropping duplicate fact $fact for item $item"
+        bMotion_putloglev 4 * "dropping duplicate fact $fact for item $item"
         set needReSave 1
       }
     }

@@ -161,7 +161,7 @@ proc bMotion_abstract_load { abstract } {
       if {[lsearch -exact $bMotion_abstract_contents($abstract) $line] == -1} {
         lappend bMotion_abstract_contents($abstract) $line
       } else {
-        bMotion_putloglev d * "dropping duplicate $line for abstract $abstract"
+        bMotion_putloglev 4 * "dropping duplicate $line for abstract $abstract"
         set needReSave 1
       }
     }
