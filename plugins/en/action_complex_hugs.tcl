@@ -16,9 +16,11 @@ bMotion_plugin_add_action_complex "hugs" "^(hugs|snuggles|huggles|knuffelt) %bot
 
 proc bMotion_plugin_complex_action_hugs { nick host handle channel text } {  
   bMotionGetUnLonely
+  bMotionGetHappy
   if [bMotionLike $nick $host] {
     bMotionDoAction $channel "" "%VAR{rarrs}"
     driftFriendship $nick 3
+    bMotionGetHorny
   } else {
     bMotionDoAction $channel "" "%VAR{smiles}"
     driftFriendship $nick 2
