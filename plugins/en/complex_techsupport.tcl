@@ -14,7 +14,9 @@
 
 proc bMotion_plugin_complex_techs { nick host handle channel text } {
   bMotion_flood_undo $nick
-  bMotionDoAction $channel $nick "%%: %VAR{tech_answer}"
+  if [bMotion_interbot_me_next $channel] {
+    bMotionDoAction $channel $nick "%%: %VAR{tech_answer}"
+  }
   return 1
 }
 
