@@ -13,13 +13,13 @@
 ###############################################################################
 
 #[@   fluffy] ===== Question 1807/12605  =====
-bMotion_plugin_add_complex "trivia1" {^===== Question .+ =====$} 100 bMotion_plugin_complex_trivia_1 "en"
+bMotion_plugin_add_complex "trivia1" {\[category: .+\] \[question id: .+\]} 100 bMotion_plugin_complex_trivia_1 "en"
 
 #[@   fluffy] Hint: _ _ _ _ _ _ _ _ _
-bMotion_plugin_add_complex "trivia2" {^Hint:} 50 bMotion_plugin_complex_trivia_2 "en"
+bMotion_plugin_add_complex "trivia2" {^Hint(:| \[)} 100 bMotion_plugin_complex_trivia_2 "en"
 
 #[      zeal] Name The Year: Calvin Coolidge, 30th US President, died.
-bMotion_plugin_add_complex "trivia4" "^Name the year:" 100 bMotion_plugin_complex_trivia_4 "en"
+bMotion_plugin_add_complex "trivia4" {^[\t ]*Name the year:} 100 bMotion_plugin_complex_trivia_4 "en"
 
 # [@   fluffy] Show 'em how it's done Bel! The answer was DARLING.
 bMotion_plugin_add_complex "trivia3" ".+ The (correct )?answer was.+" 100 bMotion_plugin_complex_trivia_3 "en"
@@ -34,7 +34,7 @@ proc bMotion_plugin_complex_trivia_1 { nick host handle channel text } {
   bMotion_plugins_settings_set "trivia" "channel" "" "" $channel
   bMotion_plugins_settings_set "trivia" "type" "" "" ""
   bMotion_plugins_settings_set "trivia" "played" "" "" 0
-  bMotion_putloglev 2 * "Detected start of trivia round"
+  bMotion_putloglev 1 * "Detected start of trivia round"
   bMotion_flood_clear $nick
 }
 
@@ -153,7 +153,7 @@ proc bMotion_plugin_complex_trivia_guess { nick host handle channel text } {
   regsub -all {[\{\}]} $text " " text
 
   #extract the hint
-  regexp {^Hint: ([_ A-Z])+} $text matches hinttext
+  regexp {^Hint(:| \[.+ of .+\]:) ([_ A-Z])+} $text matches hinttext
   catch {
     if {$hinttext == ""} {
       return 1
