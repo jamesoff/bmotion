@@ -18,8 +18,10 @@ proc bMotion_plugin_admin_abstract { handle idx { arg "" }} {
   if [regexp -nocase {show ([^ ]+)} $arg matches name] {
     set result [bMotion_abstract_all $name]
     putidx $idx "Abstract $name has [llength $result] items.\r"
+    set i 0
     foreach a $result {
-      putidx $idx $a
+      putidx $idx "$i: $a"
+      incr i
     }
     return 0
   }
@@ -58,6 +60,12 @@ proc bMotion_plugin_admin_abstract { handle idx { arg "" }} {
   if [regexp -nocase {info (.+)} $arg matches name] {
     set result [bMotion_abstract_all $name]
     putidx $idx "Abstract $name has [llength $result] items.\r"
+    return 0
+  }
+
+  if [regexp -nocase {delete (.+) (.+)} $arg matches name index] {
+    putidx $idx "Deleting element $index from abstract $name...\r"
+    bMotion_abstract_delete $name $index
     return 0
   }
 
