@@ -875,8 +875,8 @@ proc bMotion_event_nick { nick host handle channel newnick } {
     return 0
   }
 
-  set nick [bMotion_cleanNick $nick $handle]^
-  set newnick [bMotion_cleanNick $newnick $handle]^
+  set nick [bMotion_cleanNick $nick $handle]
+  set newnick [bMotion_cleanNick $newnick $handle]
 
   set result [bMotionDoEventResponse "nick" $nick $host $handle $channel $newnick ]
 }
