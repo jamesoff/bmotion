@@ -36,18 +36,22 @@ proc bMotion_plugin_complex_hand { nick host handle channel text } {
     return 1
   }
 
-  set whom [bMotionGetRealName $who]
+  # me -> user's real name
+  if [string match -nocase "me" $who] {
+    set whom [bMotionGetRealName $nick]
+  } else {
+    set whom [bMotionGetRealName $who]
+  }  
 
   #your -> his/her
   if [string match -nocase "your *" $item] {
     set item "[getHisHers] [string range $item 5 end]"
   }
-
-  if [string match -nocase "something" $item] {
-    set item "%VAR{sillyThings}"
-  } elseif [string match -nocase "something." $item]{
+  
+  if [string match -nocase "something*" $item] {
     set item "%VAR{sillyThings}"
   }
+  
   bMotion_putloglev d * "bMotion: Handed $whom $item on $channel (from $nick)"
   bMotionDoAction $channel $nick "/gives $whom $item"
   bMotionGetUnLonely
