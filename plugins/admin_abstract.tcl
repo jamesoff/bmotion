@@ -12,15 +12,15 @@
 # in the modules directory.
 ###############################################################################
 
-proc bMotion_plugin_admin_abstract { handle idx { arg "" }} {
+proc bMotion_plugin_admin_abstract { handle { arg "" }} {
 
   #abstract show <name>
   if [regexp -nocase {show ([^ ]+)} $arg matches name] {
     set result [bMotion_abstract_all $name]
-    putidx $idx "Abstract $name has [llength $result] items.\r"
+    bMotion_putadmin "Abstract $name has [llength $result] items."
     set i 0
     foreach a $result {
-      putidx $idx "$i: $a"
+      bMotion_putadmin "$i: $a"
       incr i
     }
     return 0
@@ -28,7 +28,7 @@ proc bMotion_plugin_admin_abstract { handle idx { arg "" }} {
 
   #abstract gc
   if [regexp -nocase {gc} $arg matches] {
-    putidx $idx "Garbage collecting...\r"
+    bMotion_putadmin "Garbage collecting..."
     bMotion_abstract_gc
     return 0
   }
@@ -43,36 +43,36 @@ proc bMotion_plugin_admin_abstract { handle idx { arg "" }} {
     set disk 0
 
     set handles [array names bMotion_abstract_contents]
-    putidx $idx "bMotion abstract info info:\r"
+    bMotion_putadmin "bMotion abstract info info:\r"
     foreach handle $handles {      
       set diff [expr [clock seconds]- $bMotion_abstract_timestamps($handle)]
-      putidx $idx "$handle: [llength [bMotion_abstract_all $handle]] items, $diff seconds since used"
+      bMotion_putadmin "$handle: [llength [bMotion_abstract_all $handle]] items, $diff seconds since used"
       incr mem
     }
     foreach handle $bMotion_abstract_ondisk {
-      putidx $idx "$handle: on disk"
+      bMotion_putadmin "$handle: on disk"
       incr disk
     }
-    putidx $idx "[expr $mem + $disk] total abstracts, $mem loaded, $disk on disk"
+    bMotion_putadmin "[expr $mem + $disk] total abstracts, $mem loaded, $disk on disk"
     return 0
   }
 
   if [regexp -nocase {info (.+)} $arg matches name] {
     set result [bMotion_abstract_all $name]
-    putidx $idx "Abstract $name has [llength $result] items.\r"
+    bMotion_putadmin "Abstract $name has [llength $result] items.\r"
     return 0
   }
 
   if [regexp -nocase {delete (.+) (.+)} $arg matches name index] {
-    putidx $idx "Deleting element $index from abstract $name...\r"
+    bMotion_putadmin "Deleting element $index from abstract $name...\r"
     bMotion_abstract_delete $name $index
     return 0
   }
 
   #all else fails, list help
-  putidx $idx ".bmadmin abstract \[show|gc|status\]\r"
+  bMotion_putadmin ".bmadmin abstract \[show|gc|status\]\r"
   return 0
 }
 
 # register the plugin
-bMotion_plugin_add_admin "abstract" "^abstract" n "bMotion_plugin_admin_abstract" "any"
+bMotion_plugin_add_management "abstract" "^abstract" n "bMotion_plugin_admin_abstract" "any"
