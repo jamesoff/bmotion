@@ -1,4 +1,4 @@
-set leet(a) { "a" "@" "4" }
+set leet(a) { "a" "@" "4" ">"}
 set leet(b) { "b" "8" }
 set leet(c) { "c" }
 set leet(d) { "d" }
