@@ -6,6 +6,9 @@ bMotion CHANGELOG
 - = removed
 
 
+*  Kevin           moved some question handling into the complex question handler from other places so as not to break "how're you" with generic "how" questions
++  Kevin           added a "how're you?" handler
++  Kevin           added a "do you want/need" handler
 *  James           changed CHANGELOG format now that other people are actively coding
 *  Shruuf          bMotion now supports !-channels as wells as #-channels
 *  James           hugging the bot will make it happier and hornier
