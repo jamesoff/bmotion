@@ -30,7 +30,7 @@ bMotion_counter_init "events" "lines"
 # call an irc event response plugin
 proc bMotionDoEventResponse { type nick host handle channel text } {
   #check our global toggle
-  global bMotionGlobal
+  global bMotionGlobal bMotionInfo
   if {$bMotionGlobal == 0} {
     return 0
   }
