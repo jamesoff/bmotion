@@ -210,6 +210,17 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
     set line [bMotionInsertString $line "%SETTING{$settingString}" $var]
   }
   
+  set loops 0
+  while {[regexp "%NUMBER\{(.+?)\}" $line matches numberString]} {
+    set var [bMotion_get_number [rand $numberString]]
+    incr loops
+    if {$loops > 10} {
+      putlog "bMotion: ALERT! looping too much in %NUMBER code with $line"
+      set line "/has a tremendous error while trying to think of a number :("
+    }
+    set line [bMotionInsertString $line "%NUMBER\\{$numberString\\}" $var]
+  }
+
   set line [bMotionInsertString $line "%%" $nick]
   set line [bMotionInsertString $line "%pronoun" [getPronoun]]
   set line [bMotionInsertString $line "%me" $botnick]
@@ -327,7 +338,7 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0}} {
     set plugins [bMotion_plugin_find_output $bMotionInfo(language)]
     if {[llength $plugins] > 0} {
       foreach callback $plugins {
-        bMotion_putloglev d * "bMotion: output plugin: $callback..."
+        bMotion_putloglev 1 * "bMotion: output plugin: $callback..."
         catch {
           set result [$callback $channel $line]
         } err
