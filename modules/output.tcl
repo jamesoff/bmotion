@@ -183,6 +183,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0}} {
 }
 
 proc bMotionDoInterpolation { line nick moreText { channel "" } } {
+  bMotion_putloglev 3 * "bMotionDoInterpolation: line = $line, nick = $nick, moreText = $moreText, channel = $channel"
   global botnick bMotionCache
 
   set line [bMotionInsertString $line "%noun" "%VAR{sillyThings}"]
@@ -272,6 +273,7 @@ proc bMotionInterpolation2 { line } {
 }
 
 proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0}} {
+  bMotion_putloglev 3 * "bMotionDoInterpolation: channel = $channel, nick = $nick, line = $line, moreText = $moreText, noTypo = $noTypo"
   global mood botnick bMotionInfo bMotionCache
 
   #choose a new bot?
