@@ -72,9 +72,9 @@ proc bMotion_plugin_add_simple { id match chance response language} {
 ## Find a simple plugin
 proc bMotion_plugin_find_simple { text lang } {
   global bMotion_plugins_simple botnicks
-  set s [array startsearch bMotion_plugins_simple]
+  set s [lsort [array names bMotion_plugins_simple]]
 
-  while {[set key [array nextelement bMotion_plugins_simple $s]] != ""} {
+  foreach key $s {
     if {$key == "dummy"} { continue }
     set val $bMotion_plugins_simple($key)
     set blah [split $val "¦"]
@@ -87,13 +87,11 @@ proc bMotion_plugin_find_simple { text lang } {
       if [regexp -nocase $rexp $text] {
         set c [rand 100]
         if {$chance > $c} {
-          array donesearch bMotion_plugins_simple $s
           return $response
         }
       }
     }
   }
-  array donesearch bMotion_plugins_simple $s 
   return ""
 }
 
@@ -168,10 +166,10 @@ proc bMotion_plugin_add_complex { id match chance callback language } {
 ## Find a complex plugin plugin
 proc bMotion_plugin_find_complex { text lang } {
   global bMotion_plugins_complex botnicks
-  set s [array startsearch bMotion_plugins_complex]
+  set s [lsort [array names bMotion_plugins_complex]]
   set result [list]
 
-  while {[set key [array nextelement bMotion_plugins_complex $s]] != ""} {
+  foreach key $s {
     if {$key == "dummy"} { continue }
     set val $bMotion_plugins_complex($key)
     set blah [split $val "¦"]
@@ -189,7 +187,6 @@ proc bMotion_plugin_find_complex { text lang } {
       }
     }
   }
-  array donesearch bMotion_plugins_complex $s
   return $result
 }
 
@@ -262,9 +259,9 @@ proc bMotion_plugin_add_action_simple { id match chance response language } {
 ## Find a simple action plugin
 proc bMotion_plugin_find_action_simple { text lang } {
   global bMotion_plugins_action_simple botnicks
-  set s [array startsearch bMotion_plugins_action_simple]
+  set s [lsort [array names bMotion_plugins_action_simple]]
 
-  while {[set key [array nextelement bMotion_plugins_action_simple $s]] != ""} {
+  foreach key $s {
     if {$key == "dummy"} { continue }
     set val $bMotion_plugins_action_simple($key)
     set blah [split $val "¦"]
@@ -277,13 +274,11 @@ proc bMotion_plugin_find_action_simple { text lang } {
       if [regexp -nocase $rexp $text] {
         set c [rand 100]
         if {$chance > $c} {
-          array donesearch bMotion_plugins_action_simple $s
           return $response
         }
       }
     }
   }
-  array donesearch bMotion_plugins_action_simple $s 
   return ""
 }
 
@@ -311,10 +306,10 @@ proc bMotion_plugin_add_action_complex { id match chance callback language } {
 ## Find a complex action plugin plugin
 proc bMotion_plugin_find_action_complex { text lang } {
   global bMotion_plugins_action_complex botnicks
-  set s [array startsearch bMotion_plugins_action_complex]
+  set s [lsort [array names bMotion_plugins_action_complex]]
   set result [list]
 
-  while {[set key [array nextelement bMotion_plugins_action_complex $s]] != ""} {
+  foreach key $s {
     if {$key == "dummy"} { continue }
     set val $bMotion_plugins_action_complex($key)
     set blah [split $val "¦"]
@@ -332,7 +327,6 @@ proc bMotion_plugin_find_action_complex { text lang } {
       }
     }
   }
-  array donesearch bMotion_plugins_action_complex $s
   return $result
 }
 
