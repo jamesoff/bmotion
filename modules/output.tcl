@@ -250,7 +250,7 @@ proc bMotionInterpolation2 { line } {
 
   #owners
   set loops 0
-  while {[regexp -nocase "%OWNER\{(.+?)\}" $line matches BOOM]} {
+  while {[regexp -nocase "%OWNER\{(.*?)\}" $line matches BOOM]} {
     incr loops
     if {$loops > 10} {
       putlog "bMotion: ALERT! looping too much in %OWNER code with $line"
