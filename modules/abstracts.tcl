@@ -1048,7 +1048,19 @@ set answerWheres {
 
 
 
+set answerWellbeing {
 
+    "fine thanks"
+
+    "much better now"
+
+    "not now, I'm 'busy'. mmmmmm."
+
+    "so much better now I've got %VAR{sillyThings}"
+
+    "oh the pain, the pain, the....I'm fine thanks"
+    "I'm not bad thanks, how're you?"
+}
 
 set answerWhens {
 
