@@ -403,7 +403,9 @@ set scrap_adult_qualities_t {
   "well rounded"
   "slinky"
   "slender"
-  "slim"
+  "slim"  
+  "voluptuous"
+  "bound"
 
   "minging"
   "doggish"
@@ -436,7 +438,10 @@ set scrap_adult_adjectives_t {
   "masturbating"
   "shagging"
   "fucking"
-  "screwing"
+  "screwing"  
+  "bulging"
+  "tight"
+  "loose"
 
   "pole dancing"
   "stripping"
@@ -447,6 +452,8 @@ set scrap_adult_power_adjectives_t {
   "love juice powered"
   "sweat powered"
   "motion powered"
+  "grunt powered"
+  "cum powered"
 }
 
 set scrap_adult_construction_t {
@@ -464,6 +471,22 @@ set scrap_adult_construction_t {
   "suction pump"
   "sheep"
   "rump"
+  "penis"
+  "cunt"
+  "tit"
+  "arse"
+  "tongue"
+  "lip"
+  "mouth" 
+  "teenager"
+  "prostitute"
+  "rent-boy"
+  "whore"
+  "wench"
+  "bitch"
+  "mistress" 
+  "box"
+  "dominatrix"
 }
 
 #create the big lists :)
