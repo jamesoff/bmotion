@@ -98,17 +98,21 @@ set goodlucks {
 
 proc bMotion_plugin_complex_action_away { nick host handle channel text } {
 
+  #elections!
+  if {![bMotion_interbot_me_next $channel]} { return 0 }
+  
   #check we haven't already done something for this nick
   if {$nick == [bMotion_plugins_settings_get "complex:away" "lastnick" $channel ""]} {
     return 1
   }
 
-  #save as newnick because if they do a /me next it'll be their new nick
-  bMotion_plugins_settings_set "complex:away" "lastnick" $channel "" $newnick
-
   if {![bMotion_interbot_me_next $channel]} {
     return 1
   }
+
+  #save as newnick because if they do a /me next it'll be their new nick
+  bMotion_plugins_settings_set "complex:away" "lastnick" $channel "" $newnick
+  
   #autoaway
   if [regexp -nocase "(auto( |-)?away|idle)" $text] {
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{autoAways}"
@@ -152,17 +156,20 @@ proc bMotion_plugin_complex_action_away { nick host handle channel text } {
 
 proc bMotion_plugin_complex_action_back { nick host handle channel text } {
 
+  if {![bMotion_interbot_me_next $channel]} { return 0 }
+
   #check we haven't already done something for this nick
   if {$nick == [bMotion_plugins_settings_get "complex:returned" "lastnick" $channel ""]} {
+    return 1
+  }
+
+  if {![bMotion_interbot_me_next $channel]} {
     return 1
   }
 
   #save as newnick because if they do a /me next it'll be their new nick
   bMotion_plugins_settings_set "complex:returned" "lastnick" $channel "" $newnick
 
-  if {![bMotion_interbot_me_next $channel]} {
-    return 1
-  }
   #let's do some cool stuff
   #if they came back from sleep, it's morning
   if [regexp -nocase "(sleep|regenerating|bed|zzz)" $text] {
