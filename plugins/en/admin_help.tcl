@@ -56,9 +56,70 @@ proc bMotion_plugin_management_help { handle { args "" } } {
   			bMotion_putadmin "  .bmotion flood show <nick>"
   			bMotion_putadmin "    show score for <nick> (case sensitive)"
   			bMotion_putadmin "  .bmotion flood set <nick> <value>"
-  			bMotion_putadmin "     set score for <nick> to <value>"
+  			bMotion_putadmin "    set score for <nick> to <value>"
   		}
-  		default {
+  		"abstract" {
+  			bMotion_putadmin "Manage the abstracts subsystem:"
+  			bMotion_putadmin "  .bmotion abstract status"
+  			bMotion_putadmin "    display summary of abstracts (lots of output)!"
+  			bMotion_putadmin "  .bmotion abstract gc"
+  			bMotion_putadmin "    trigger a garbage collection"
+  			bMotion_putadmin "  .bmotion abstract show <name>"
+  			bMotion_putadmin "    show contents of abstract <name>"
+  		}
+  		"status" {
+  			bMotion_putadmin "Show a summary of bMotion's status."
+  		}
+  		"global" {
+  			bMotion_putadmin "Switch bMotion on and off everywhere:"
+  			bMotion_putadmin "  .bmotion global off"
+  			bMotion_putadmin "    disable bMotion"
+  			bMotion_putadmin "  .bmotion global on"
+  			bMotion_putadmin "    enable bMotion"
+  		}
+  		"lang" {
+  			bMotion_putadmin "Switch languages:"
+  			bMotion_putadmin "  .bmotion lang"
+  			bMotion_putadmin "    show available and current language"
+  			bMotion_putadmin "  .bmotion lang add <lang>"
+  			bMotion_putadmin "    add a language"
+  			bMotion_putadmin "  .bmotion lang remove <lang>"
+  			bMotion_putadmin "    unload a language"
+  			bMotion_putadmin "  .bmotion lang use <lang>"
+  			bMotion_putadmin "    switch active language"
+  		}
+  		"fact" {
+  			bMotion_putadmin "Manage the fact subsystem:"
+  			bMotion_putadmin "  .bmotion fact status"
+  			bMotion_putadmin "    Show a summary of facts (lots of output!)"
+  			bMotion_putadmin "  .bmotion fact show <type> <key>"
+  			bMotion_putadmin "    Show defined values for <key>"
+  			bMotion_putadmin "    Currently <type> is only 'what'"
+  		}
+  		"plugin" {
+  			bMotion_putadmin "Manage plugins:"
+  			bMotion_putadmin "  .bmotion plugin list \[<search terms>\]"
+  			bMotion_putadmin "    List all plugins. If optional search terms are given,"
+  			bMotion_putadmin "    list is filtered. Can potentially generate lots of output"
+  			bMotion_putadmin "  .bmotion plugin remove <type> <name>"
+  			bMotion_putadmin "    Unload a plugin. (To reload, rehash)."
+  			bMotion_putadmin "  .bmotion plugin enable <type> <name>"
+  			bMotion_putadmin "    Enable a plugin. Currently only output type supports this."
+  			bMotion_putadmin "  .bmotion plugin disable <type> <name>"
+  			bMotion_putadmin "    Disable a plugin. Currently only output type supports this."
+  			bMotion_putadmin "  .bmotion plugin info <type> <name>"
+  			bMotion_putadmin "    Display internal information for plugin. This won't mean much"
+  			bMotion_putadmin "    unless you know how bMotion plugins are defined."
+  		}
+  		"reload" {
+  			bMotion_putadmin "Reload bMotion without rehashing bot. Will be quicker than rehashing"
+  			bMotion_putadmin "but will generate ALERTs which you should ignore."
+  		}
+  		"rehash" {
+  			bMotion_putadmin "Safely rehash the bot. bMotion will check to make sure there are no"
+  			bMotion_putadmin "problems with loading the script and then rehash."
+  		}
+   		default {
   			bMotion_putadmin "I seem to have misplaced my help for that command."
   		}
   	}
