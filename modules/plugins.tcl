@@ -201,13 +201,14 @@ proc bMotion_plugin_find_management { text } {
 }
 
 #find a management plugin's help callback
-proc bMotion_plugin_find_management { name } {
+proc bMotion_plugin_find_management_help { name } {
   global bMotion_plugins_management
   set s [array startsearch bMotion_plugins_management]
 
   while {[set key [array nextelement bMotion_plugins_management $s]] != ""} {
     if {$key == "dummy"} { continue }
     if [string match -nocase $name $key] {
+    	set blah [split $val "¦"]
   	  set helpcallback [lindex $blah 3]
   	  array donesearch bMotion_plugins_management $s
 	    return $hellcallback
