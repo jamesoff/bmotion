@@ -108,6 +108,25 @@ proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
 	return 1 
 }
 
+# %n is random noun
+set jokeForms {
+  "what's the difference between %n and %n?"
+  "what do you get when you cross %n and %n?"
+  "what do you think you could do with %n?"
+  "how do you make %n?"
+  "did you hear the one about %n?"
+}
+
+# %r is relational
+# %n is random noun
+set jokeReplies {
+  "one's %r and the other's %r"
+  "%r with %r!"
+  "become %r"
+  "use %r"
+  "it was %r"
+}
+
 # register the invoke a joke callback
 bMotion_plugin_add_complex "joker" "^!joke" 100 "bMotion_plugin_complex_invoke_joke" "en"
 

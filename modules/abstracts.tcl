@@ -869,21 +869,6 @@ set typoFix {
   "-typo"
 }
 
-# %n is random noun
-set jokeForms {
-  "what's the difference between %n and %n?"
-  "what do you get when you cross %n and %n?"
-  "what do you think you could do with %n?"
-}
-
-# %r is relational
-# %n is random noun
-set jokeReplies {
-  "one's %r and the other's %r"
-  "%r with %r!"
-  "become %r"
-}
-
 bMotion_abstract_register "lostPlot"
 set lostPlot {
   "I've forgotten the rest"
