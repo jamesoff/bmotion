@@ -21,7 +21,7 @@ proc bMotion_plugin_complex_sosyour {nick host handle channel text} {
   	return 1
   }
 
-	if [regexp -nocase "^($botnicks\[:, \]+)?(it'?s|it is|you'?re|s?he'?s|they'?re) (a|the) (\[a-z\]+)\[.!\]?$" $text matches botnickused bn article noun] {
+	if [regexp -nocase "^($botnicks\[:, \]+)?(it'?s|it is|you'?re|s?he'?s|they'?re) (a|the) (\[a-z\]+)\[.!\]?$" $text matches botnickused bn thing article noun] {
     if {$botnickused == ""} {
 			if {[rand 100] < 95} {
 				return 0
