@@ -68,7 +68,7 @@ proc bMotion_question_wellbeing { nick channel host } {
 
     if {[string length $moodString] == [string length "I'm feeling  :)"]} {
 	global feelings
-	set moodString [pickRandom $feelings]
+	set moodString [bMotion_abstract_get "feelings"]
     }
     
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%%: $moodString"
