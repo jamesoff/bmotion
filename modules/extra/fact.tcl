@@ -3,16 +3,25 @@
 # $Id$
 
 ###############################################################################
+
 # This is a bMotion plugin
+
 # Copyright (C) James Michael Seward 2000-2002
+
 #
+
 # This program is covered by the GPL, please refer the to LICENCE file in the
+
 # distribution; further information can be found in the headers of the scripts
+
 # in the modules directory.
+
 ###############################################################################
+
 
 # initialise
 if {![info exists bMotionFacts]} {
+
   set bMotionFacts(what,bmotion) [list "a very nice script"]
 }
 
@@ -39,7 +48,7 @@ proc bMotion_facts_load { } {
       if {[lsearch -exact $bMotionFacts($item) $fact] == -1} {
         lappend bMotionFacts($item) $fact
       } else {
-        bMotion_putloglev 1 * "dropping duplicate fact $fact for item $item"
+        bMotion_putloglev 2 * "dropping duplicate fact $fact for item $item"
         set needReSave 1
       }
     }
