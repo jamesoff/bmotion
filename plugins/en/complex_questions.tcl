@@ -32,6 +32,14 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
     return 1
   }
 
+  bMotion_putloglev 3 * "Checking question for wellbeing"
+  ## wellbeing question targeted at me
+  if { [regexp -nocase "^$botnicks,?:? how( a|')?re (you|ya)" $text] ||
+       [regexp -nocase "^how( a|')?re (you|ya).*$botnicks ?\\?" $text] } {
+    bMotion_plugin_complex_question_wellbeing $nick $channel $host
+    return 1
+  }
+
   bMotion_putloglev 3 * "Checking question for 'with/at/against'"
   ## With/at/against who question targeted at me
   if { [regexp -nocase "^$botnicks,?:? (with|at|against|by) who" $text ma mb prop] ||
@@ -175,13 +183,19 @@ proc bMotion_plugin_complex_question_what { nick channel host question } {
 }
 
 proc bMotion_plugin_complex_question_when { nick channel host } {
-    bMotion_putloglev 2 * "$nick When question"
+  bMotion_putloglev 2 * "$nick When question"
   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWhens}"
   return 1
 }
 
+proc bMotion_plugin_complex_question_wellbeing { nick channel host } {
+  bMotion_putloglev 2 * "$nick wellbeing question"
+  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWellbeing}"
+  return 1
+}
+
 proc bMotion_plugin_complex_question_with { nick channel host prop } {
-    bMotion_putloglev 2 * "$nick with question"
+  bMotion_putloglev 2 * "$nick with question"
   set answer "$prop %VAR{answerWithWhos}"
   bMotionDoAction $channel [bMotionGetRealName $nick $host] $answer
   return 1
