@@ -5,6 +5,37 @@ bMotion CHANGELOG
 + = added
 - = removed
 
+2003/04/13
+v0.0.6
+
++ added initial self-diagnostics (more to come)
++ now uses an irc event plugin to handle joins/parts/etc [simsea]
++ added 3rd party modules support (i.e. for API for plugins)
++ added complex_activate plugin
++ added function to clean stuff like "(*&$(" off the end of a line
+*   `- dutchify is now a module called by the relavent plugins
+* nick-change handling done by irc event plugins [simsea]
+* join-handling done by irc event plugins [simsea]
+* away handling done by irc event (nick) plugins
+* updated question handler
+* fixed typos not giving corrections ("-space" etc)
+* new (less enthusiastic) nick washing code
+* fixed an abstract not being parsed (%himherself)
+* away-responses now use elections
+* away-responses shouldn't fire on both nick and /me announcements for the 
+  same person
+* fixed enabling/disabling output plugins breaking them until .rehash
+* added better behaviour to the hello plugin
+* various updates to the invader zim plugin, including reduced probabilities
+* complex_scrap got broken at some point, correct version re-added [matryx]
+* trigger a smile on "<botnick> :)"
+* fixed a typo for the dutch plugin definition
+* added a new typo
+* fixed the complex_sneeze abstracts
+- no more needI binds
+
+2003/01/12
+v0.0.5
 * optimised events.tcl a bit to be more efficient
 * switched the way bMotion represents its version to make it more consistent for
   proper releases etc
