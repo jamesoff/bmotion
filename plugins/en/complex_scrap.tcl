@@ -127,9 +127,6 @@ proc bMotion_plugin_complex_scrap { nick host handle channel text } {
 
 
     bMotionDoAction $channel "" $output
-
-    #undo the flood protection
-    bMotion_flood_undo $nick
   }
 }
 
