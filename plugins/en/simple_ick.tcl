@@ -67,6 +67,7 @@ set ick_females {
   "Holly Valence"
   "Jade of Big Brother"
   "Davina McCall"
+  "Cath 2's mum"
 }
 
 set ick_wraps { 
