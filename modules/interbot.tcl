@@ -1,5 +1,6 @@
 # bMotion - interbot stuff
 #
+
 # $Id$#
 #
 
@@ -151,11 +152,6 @@ proc bMotion_interbot_next_incoming_reply { bot params } {
 }
 
 proc bMotionSendSayChan { channel  text thisBot} {
-  #global bMotionAvailableBots
-  #global bMotionCache
-
-  #set thisBot $bMotionCache(remoteBot)
-
   #replace all ¬ with %
   set text [bMotionInsertString $text "¬" "%"]
   bMotion_putloglev 1 * "bMotion: pushing command say ($channel $text) to $thisBot"
@@ -170,22 +166,26 @@ proc bMotionSendSayChan { channel  text thisBot} {
 
 proc bMotionCatchSayChan { bot params } {
   global bMotionInfo
-
-  #bMotion_putloglev d * "bMotion: got command $function ($params) from $bot"
-
-  regexp {(\[#!\][^ ]+) (.+)} $params matches channel txt
   global bMotionQueueTimer
-  if {$bMotionQueueTimer == 0} {
-    set bMotionQueueTimer 1
-    utimer 4 bMotionProcessQueue
-  }
-  if {$bMotionInfo(silence) == 1} {
-    set bMotionInfo(silence) 2
-  }
-  bMotionDoAction $channel $bot $txt
-  bMotion_putloglev 1 * "bMotion: done say command from $bot"
-  if {$bMotionInfo(silence) == 2} {
-    set bMotionInfo(silence) 1
+
+  bMotion_putloglev 4 * "bMotion: bMotionCatchSayChan $bot $params"
+
+  if [regexp {([#!][^ ]+) (.+)} $params matches channel txt] {
+  
+    if {$bMotionQueueTimer == 0} {
+      set bMotionQueueTimer 1
+      utimer 4 bMotionProcessQueue
+    }
+    if {$bMotionInfo(silence) == 1} {
+      set bMotionInfo(silence) 2
+    }
+    bMotionDoAction $channel $bot $txt
+    bMotion_putloglev 1 * "bMotion: done say command from $bot"
+    if {$bMotionInfo(silence) == 2} {
+      set bMotionInfo(silence) 1
+    }
+  } else {
+    putlog "bMotion ALERT! Error unwrapping command !say $params! from $bot"
   }
   return 0
 }
