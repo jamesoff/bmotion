@@ -86,6 +86,7 @@ proc bMotion_plugin_admin_plugins { handle idx { arg "" }} {
     set arrayName "bMotion_plugins_$t"
     upvar #0 $arrayName cheese
     set plugins [array names cheese]
+    set plugins [lsort $plugins]
     set a "\002$t\002: "
     set count 0
     foreach n $plugins {
