@@ -26,7 +26,7 @@
 
 
 
-bMotion_plugin_add_simple "sneeze" "^(\\*?hatsjoe\\*?|wachoo|\\*sneezes?\\*)" 60 "%VAR{bless_yous}" "en"
+bMotion_plugin_add_simple "sneeze" "^(\\*?hatsjoe\\*?|wachoo|\\*sneezes?\\*|\\*?atcho{2,6}\\*?)" 60 "%VAR{bless_yous}" "en"
 
 bMotion_plugin_add_action_simple "sneeze" "^sneezes" 60 "%VAR{bless_yous}" "en"
 
@@ -50,17 +50,17 @@ set bless_yous {
 
   "good thing I bought this haz-mat suit"
 
-  "rogue bogey!"
+  "Rogue bogey!"
     
   "/ducks"
   
   "/hides behind %ruser"   
   
-  "great. now I'm gonna get a cold"
+  "Great. Now I'm gonna get a cold %VAR{unsmiles}"
   
-  "eek. don't give it to me"
+  "Eek. Don't give it to me"
   
-  "%% - i recommend %VAR{sillyThings}"
+  "%% - I recommend %VAR{sillyThings}"
 }
 
 
