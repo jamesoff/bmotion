@@ -98,7 +98,7 @@ proc bMotion_plugin_complex_startrek_fire { nick host handle channel text } {
 proc bMotion_plugin_complex_startrek_courtmartial { nick host handle channel text } {
   global botnicks bMotionInfo
   if [regexp -nocase "$botnicks courtmartial (.+?)( with banzai)?" $text pop frogs who banzai] {
-    if [regexp -nocase $botnicks $who] {
+    if [regexp -nocase "\[\[:<:\]\]$botnicks\[\[:>:\]\]" $who] {
       bMotionDoAction $channel "" "Duh."
       return 0
     }
