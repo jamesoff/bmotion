@@ -25,6 +25,9 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 
   global botnick mood
   set chance [rand 10]
+
+  set greetings [bMotion_abstract_all "ranjoins"]
+
   if {$handle != "*"} {
     set greetings [concat $greetings [bMotion_abstract_all "insult_joins"]]
     if {$nick == $bMotionCache(lastLeft)} {
@@ -35,7 +38,7 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
     incr mood(lonely) -1
   } else {
     #don't greet people we don't know
-    if {![bMotion_setting_get "friendly"]} {
+    if {[bMotion_setting_get "friendly"] != 1} {
       return 0
     }
   }
