@@ -212,15 +212,16 @@ proc bMotion_event_main {nick host handle channel text} {
   set response [bMotion_plugin_find_complex $text $bMotionInfo(language)]
   if {[llength $response] > 0} {
     #set nick [bMotionGetRealName $nick $host]
+    bMotion_putloglev 1 * "going to run plugins: $response"
     foreach callback $response {
       bMotion_flood_add $nick $callback $text
       if [bMotion_flood_check $nick] { return 0 }
 
-      bMotion_putloglev 1 * "bMotion: matched complex plugin, running callback $callback"
+      bMotion_putloglev 1 * "bMotion: `- running callback $callback"
       set result [$callback $nick $host $handle $channel $text]
       set bMotionCache(lastPlugin) $callback
       if {$result == 1} {
-        bMotion_putloglev 2 * "bMotion: $callback returned 1, breaking out..."
+        bMotion_putloglev 2 * "bMotion:    `-$callback returned 1, breaking out..."
         break
       }
     }
