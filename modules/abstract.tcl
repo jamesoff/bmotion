@@ -195,6 +195,7 @@ proc bMotion_abstract_add { abstract text {save 1} } {
       puts $fileHandle $text
       close $fileHandle
     }
+    return
   }
 
   if {[lsearch -exact $bMotion_abstract_contents($abstract) $text] == -1} {
