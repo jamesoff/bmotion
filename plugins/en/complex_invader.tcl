@@ -16,6 +16,7 @@
 # bMotion responds with some suitably random dootie phrase
 proc bMotion_plugin_complex_invader_duty { nick host handle channel text } {
 	global randomDootie
+  if {![bMotion_interbot_me_next $channel]} { return 0 }
 	bMotionDoAction $channel "" "%VAR{randomDootie}"
 
 	# log this action 
@@ -27,6 +28,7 @@ proc bMotion_plugin_complex_invader_duty { nick host handle channel text } {
 # general Invader Zim moments. will respond with random Invader Zim statement
 proc bMotion_plugin_complex_invader_zim { nick host handle channel text } {
 	global randomZimness botnick
+  if {![bMotion_interbot_me_next $channel]} { return 0 }
 	bMotionDoAction $channel "" "%VAR{randomZimness}"
 	
 	#log this action
@@ -38,6 +40,7 @@ proc bMotion_plugin_complex_invader_zim { nick host handle channel text } {
 # general Gir moments, will respond with suitably insane Gir comment
 proc bMotion_plugin_complex_invader_gir { nick host handle channel text } {
 	global randomGirness botnick
+  if {![bMotion_interbot_me_next $channel]} { return 0 }
 	bMotionDoAction $channel "" "%VAR{randomGirness}"
 	
 	#log this action
@@ -50,6 +53,7 @@ proc bMotion_plugin_complex_invader_nick { nick host handle channel newnick } {
 	#global randomZimNameChange
 	#set nickresponse [ pickRandom $randomZimNameChange ]
 	#return $nickresponse 
+  if {![bMotion_interbot_me_next $channel]} { return 0 }
   bMotionDoAction $channel $nick "%VAR{randomZimNameChange}"
   return 1
 }

@@ -17,8 +17,7 @@ bMotion_plugin_add_complex "blbl" "bl{2,}" 50 bMotion_plugin_complex_blbl "en"
 proc bMotion_plugin_complex_blbl { nick host handle channel text } {
     bMotionGetHorny
     bMotionGetHappy
-    global bMotionInfo
-    if {$bMotionInfo(balefire) != 1} { return 0 }
+    if {![bMotion_interbot_me_next $channel]} { return 0 }
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{rarrs}"
     return 1
   }
