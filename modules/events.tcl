@@ -101,10 +101,14 @@ proc bMotion_event_main {nick host handle channel text} {
   #remove []s and \s from nick cos they break things (Minder[]...)
   if [regexp {[\\\[\]]} $nick] {
     if {$handle != ""} {
+      #frist try the handle
       set nick $handle
-    } else {
-      regsub -all {[\\\[\]]} $nick "" nick
     }
+  }
+
+  # try again in case we have []s in the handle
+  if [regexp {[\\\[\]]} $nick] {   
+    regsub -all {[\\\[\]]} $nick "" nick
   }
   #regsub -all {(\[|\])} $nick "" nick
 
