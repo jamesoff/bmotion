@@ -27,10 +27,12 @@ bMotion_counter_init "output" "lines"
 bMotion_counter_init "output" "irclines"
 
 proc pickRandom { list } {
+	bMotion_putloglev 5 * "pickRandom ($list)"
   return [lindex $list [rand [llength $list]]]
 }
 
 proc getPronoun {} {
+	bMotion_putloglev 5 * "getPronoun"
   global bMotionInfo
   if {$bMotionInfo(gender) == "male"} { return "himself" }
   if {$bMotionInfo(gender) == "female"} { return "herself" }
@@ -38,6 +40,7 @@ proc getPronoun {} {
 }
 
 proc getHisHers {} {
+	bMotion_putloglev 5 * "getHisHers"
   global bMotionInfo
   if {$bMotionInfo(gender) == "male"} { return "his" }
   if {$bMotionInfo(gender) == "female"} { return "hers" }
@@ -45,6 +48,7 @@ proc getHisHers {} {
 }
 
 proc getHisHer {} {
+	bMotion_putloglev 5 * "getHisHer"
   global bMotionInfo
   if {$bMotionInfo(gender) == "male"} { return "his" }
   if {$bMotionInfo(gender) == "female"} { return "her" }
@@ -53,6 +57,7 @@ proc getHisHer {} {
 
 
 proc getHeShe {} {
+	bMotion_putloglev 5 * "getHeShe"
   global bMotionInfo
   if {$bMotionInfo(gender) == "male"} { return "he" }
   if {$bMotionInfo(gender) == "female"} { return "she" }
@@ -61,6 +66,7 @@ proc getHeShe {} {
 
 
 proc mee {channel action {urgent 0} } {
+	bMotion_putloglev 5 * "mee ($channel, $action, $urgent)"
   set channel [chandname2name $channel]
   if {$urgent} {
     bMotion_queue_add_now $channel "\001ACTION $action\001"
@@ -72,7 +78,7 @@ proc mee {channel action {urgent 0} } {
 
 ## bMotionDoAction ###########################################################
 proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
-  bMotion_putloglev 4 * "bMotion: bMotionDoAction($channel,$nick,$text,$moreText,$noTypo)"
+  bMotion_putloglev 5 * "bMotionDoAction($channel,$nick,$text,$moreText,$noTypo)"
   global bMotionInfo bMotionCache
   set bMotionCache($channel,last) 1
   set bMotionCache(typos) 0
@@ -176,7 +182,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 }
 
 proc bMotionDoInterpolation { line nick moreText { channel "" } } {
-  bMotion_putloglev 3 * "bMotionDoInterpolation: line = $line, nick = $nick, moreText = $moreText, channel = $channel"
+  bMotion_putloglev 5 * "bMotionDoInterpolation: line = $line, nick = $nick, moreText = $moreText, channel = $channel"
   global botnick bMotionCache
 
   if [string match "*%noun*" $line] {
@@ -294,7 +300,7 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 }
 
 proc bMotionInterpolation2 { line } {
-
+	bMotion_putloglev 5 * "bMotionInterpolation2 ($line)"
   #owners
   set loops 0
   while {[regexp -nocase "%OWNER\{(.*?)\}" $line matches BOOM]} {
@@ -330,7 +336,7 @@ proc bMotionInterpolation2 { line } {
 }
 
 proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
-  bMotion_putloglev 3 * "bMotionSayLine: channel = $channel, nick = $nick, line = $line, moreText = $moreText, noTypo = $noTypo"
+  bMotion_putloglev 5 * "bMotionSayLine: channel = $channel, nick = $nick, line = $line, moreText = $moreText, noTypo = $noTypo"
   global mood botnick bMotionInfo bMotionCache
 
   set line [bMotionInterpolation2 $line]
@@ -443,6 +449,7 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 }
 
 proc bMotionInsertString {line swapout toInsert} {
+	bMotion_putloglev 5 * "bMotionInsertString ($line, $swapout, $toInsert)"
   set loops 0
   set inputLine $line
   while {[regexp $swapout $line]} {
@@ -458,6 +465,7 @@ proc bMotionInsertString {line swapout toInsert} {
 }
 
 proc bMotionGetColenChars {} {
+	bMotion_putloglev 5 * "bMotionGetColenChars"
   set randomChar "!£$%^*@#~"
 
   set randomChars [split $randomChar {}]
@@ -478,6 +486,7 @@ proc bMotionGetColenChars {} {
 }
 
 proc makeSmiley { mood } {
+	bMotion_putloglev 5 * "makeSmiley"
   if {$mood > 30} {
     return ":D"
   }
@@ -500,6 +509,7 @@ proc makeSmiley { mood } {
 #    Attempt to clean a nickname up to a proper name
 #
 proc bMotionWashNick { nick } {
+	bMotion_putloglev 5 * "bMotionWashNick ($nick)"
   #remove leading
   regsub {^[|`_\[]+} $nick "" nick
 
@@ -510,7 +520,7 @@ proc bMotionWashNick { nick } {
 }
 
 proc OLDbMotionGetRealName { nick { host "" }} {
-  bMotion_putloglev 4 * "bMotion: bMotionGetRealName($nick,$host)"
+  bMotion_putloglev 5 * "bMotion: OLDbMotionGetRealName($nick,$host)"
 
   #is it me?
   global botnicks
@@ -548,7 +558,7 @@ proc OLDbMotionGetRealName { nick { host "" }} {
 }
 
 proc bMotionGetRealName { nick { host "" }} {
-  bMotion_putloglev 3 * "bMotion: bMotionGetRealName($nick,$host)"
+  bMotion_putloglev 5 * "bMotion: bMotionGetRealName($nick,$host)"
 
   if {$nick == ""} {
     return ""
@@ -586,6 +596,7 @@ proc bMotionGetRealName { nick { host "" }} {
 }
 
 proc bMotionTransformNick { target nick {host ""} } {
+	bMotion_putloglev 5 * "bMotionTransformNick($target, $nick, $host)"
   set newTarget [bMotionTransformTarget $target $host]
   if {$newTarget == "me"} {
     set newTarget $nick
@@ -594,6 +605,7 @@ proc bMotionTransformNick { target nick {host ""} } {
 }
 
 proc bMotionTransformTarget { target {host ""} } {
+	bMotion_putloglev 5 * "bMotionTransformTarget($target, $host)"
   global botnicks
   if {$target != "me"} {
     set t [bMotionGetRealName $target $host]
@@ -623,7 +635,7 @@ proc bMotionTransformTarget { target {host ""} } {
 #   * friend, enemy - pick by if we're friends
 #   * prev - return previously chosen user/bot
 proc bMotion_choose_random_user { channel bot condition } {
-	bMotion_putloglev 4 * "entering bMotion_choose_random_user ($channel, $bot, $condition)"
+	bMotion_putloglev 5 * "bMotion_choose_random_user ($channel, $bot, $condition)"
   global bMotionCache
   set users [chanlist $channel]
   set acceptable [list]
@@ -751,6 +763,7 @@ proc bMotion_choose_random_user { channel bot condition } {
 }
 
 proc bMotionMakePossessive { text { altMode 0 }} {
+	bMotion_putloglev 5 * "bMotionMakePossessive ($text, $altMode)"
   if {$text == ""} {
     return "someone's"
   }
@@ -776,6 +789,7 @@ proc bMotionMakePossessive { text { altMode 0 }} {
 }
 
 proc bMotionMakeRepeat { text } {
+	bMotion_putloglev 5 * "bMotionMakeRepeat ($text)"
   if [regexp {([0-9]+):([0-9]+):(.+)} $text matches min max repeat] {
     set diff [expr $max - $min]
     if {$diff < 1} {
@@ -790,11 +804,13 @@ proc bMotionMakeRepeat { text } {
 }
 
 proc bMotion_strip_article { text } {
+	bMotion_putloglev 5 * "bMotion_strip_article ($text)"
 		regsub "(an?|the|some) " $text "" text
 		return $text
 }
 
 proc bMotionMakeVerb { text } {
+	bMotion_putloglev 5 * "bMotionMakeVerb ($text)"
   if [regexp -nocase "(s|x)$" $text matches letter] {
     return $text
   }

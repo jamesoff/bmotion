@@ -9,16 +9,16 @@
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or 
+# the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
 #
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 # General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License 
-# along with this program; if not, write to the Free Software 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
@@ -64,20 +64,20 @@
 #
 # NOTE: This module should be loaded before plugins as they will need it to register abstracts
 #
-# The abstracts will be stored in ./abstracts/<language>/<abstract name>.txt in the bMotion directory. The 
+# The abstracts will be stored in ./abstracts/<language>/<abstract name>.txt in the bMotion directory. The
 # fileformat is simply one per line.
 
 if { [bMotion_setting_get "abstractMaxAge"] != "" } {
   set bMotion_abstract_max_age [bMotion_setting_get "abstractMaxAge"]
 } else {
   set bMotion_abstract_max_age 300
-}  
+}
 
 if { [bMotion_setting_get "abstractMaxNumber"] != "" } {
   set bMotion_abstract_max_number [bMotion_setting_get "abstractMaxNumber"]
 } else {
   set bMotion_abstract_max_number 600
-}  
+}
 
 # initialise the arrays
 
@@ -96,6 +96,7 @@ bMotion_counter_init "abstracts" "gets"
 
 # garbage collect the abstracts arrays
 proc bMotion_abstract_gc { } {
+	bMotion_putloglev 5 * "bMotion_abstract_gc"
   global bMotion_abstract_contents bMotion_abstract_timestamps
   global bMotion_abstract_max_age bMotion_abstract_ondisk
   global bMotionInfo bMotion_abstract_languages
@@ -130,6 +131,7 @@ proc bMotion_abstract_gc { } {
 }
 
 proc bMotion_abstract_register { abstract } {
+	bMotion_putloglev 5 * "bMotion_abstract_register ($abstract)"
   global bMotion_abstract_contents bMotion_abstract_timestamps
   global bMotionModules bMotion_testing bMotion_loading
   global bMotionInfo bMotion_abstract_languages
@@ -158,10 +160,11 @@ proc bMotion_abstract_register { abstract } {
 
   if {[info exists fileHandle]} {
     close $fileHandle
-  }  
+  }
 }
 
 proc bMotion_abstract_load { abstract } {
+	bMotion_putloglev 5 * "bMotion_abstract_load ($abstract)"
   global bMotion_abstract_contents bMotion_abstract_timestamps
   global bMotionModules bMotion_abstract_ondisk
   global bMotion_loading bMotion_testing
@@ -221,6 +224,7 @@ proc bMotion_abstract_load { abstract } {
 }
 
 proc bMotion_abstract_add { abstract text {save 1} } {
+	bMotion_putloglev 5 * "bMotion_abstract_add ($abstract, $text, $save)"
   global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age
   global bMotionModules bMotionInfo
   set lang $bMotionInfo(language)
@@ -254,6 +258,7 @@ proc bMotion_abstract_add { abstract text {save 1} } {
 }
 
 proc bMotion_abstract_save { abstract } {
+	bMotion_putloglev 5 * "bMotion_abstract_save"
   global bMotion_abstract_contents
   global bMotionModules bMotion_testing bMotion_loading
   global bMotion_abstract_max_number bMotionInfo bMotion_abstract_languages
@@ -299,6 +304,7 @@ proc bMotion_abstract_save { abstract } {
 }
 
 proc bMotion_abstract_all { abstract } {
+	bMotion_putloglev 5 * "bMotion_abstract_all ($abstract)"
   global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age
 
   if {$bMotion_abstract_timestamps($abstract) < [expr [clock seconds] - $bMotion_abstract_max_age]} {
@@ -309,6 +315,7 @@ proc bMotion_abstract_all { abstract } {
 }
 
 proc bMotion_abstract_get { abstract } {
+	bMotion_putloglev 5 * "bMotion_abstract_get ($abstract)"
   global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age
 
   bMotion_putloglev 2 * "getting abstract $abstract"
@@ -331,7 +338,8 @@ proc bMotion_abstract_get { abstract } {
 }
 
 proc bMotion_abstract_delete { abstract index } {
-  global bMotion_abstract_contents 
+	bMotion_putloglev 5 * "bMotion_abstract_delete ($abstract, $index)"
+  global bMotion_abstract_contents
 
   set bMotion_abstract_contents($abstract) [lreplace $bMotion_abstract_contents($abstract) $index $index]
   bMotion_abstract_save $abstract
@@ -377,7 +385,7 @@ proc bMotion_abstract_revive_language { } {
   global bMotion_abstract_contents
 
   set lang $bMotionInfo(language)
-  
+
   bMotion_putloglev 2 * "bMotion: reviving language ($lang) abstracts"
   set languages [split $bMotionSettings(languages) ","]
   # just check if it's ok to use this language
@@ -389,7 +397,7 @@ proc bMotion_abstract_revive_language { } {
   }
   if { $ok != 1 } {
     bMotion_putloglev 2 * "bMotion: language not found, cannot revive"
-    return -1 
+    return -1
   }
   # if the default abstracts exists, use it first
   if { [file exists "$bMotionModules/abstracts/$lang/abstracts.tcl"] } {
