@@ -15,7 +15,7 @@
 ###############################################################################
 
 #                         name  regexp            %  responses
-bMotion_plugin_add_simple "wrongsmiley" {^L\($} 60 [list "taunt" "fail" "WORST. SMILEY. EVER." "try realigning you fingers for that one" "E_SMILEY"] "en"
+bMotion_plugin_add_simple "wrongsmiley" {^L\($} 60 [list "taunt" "fail" "WORST. SMILEY. EVER." "try realigning your fingers for that one" "E_SMILEY"] "en"
 
 bMotion_plugin_add_simple "bisto" "^ahhh+$" 10 "Bisto!" "en"
 bMotion_plugin_add_simple "thinkso" "^(no, )?i do(n't| not) think so" 10 [list "Mr Negative" "I DO think so." "and what would you know?"] "en"
