@@ -23,25 +23,27 @@ proc bMotion_plugin_management_help { handle { args "" } } {
   global bMotion_plugins_management
 
   if {$args == ""} {
-	bMotion_putadmin "You can run bMotion commands from DCC with .bmotion COMMAND,"
-	bMotion_putadmin "  from a channel with .bmotion BOTNICK COMMAND, and from a"
-	bMotion_putadmin "  query with the bot with .bmotion COMMAND."
-  bMotion_putadmin "Loaded bMotion Admin Commands:"
-  set line ""
-  foreach plugin $bMotion_plugins_management {
-  	append line "$plugin "
-  	if {[string length $line] > 50} {
-  		bMotion_putadmin "  $line"
-  		set line ""
-  	}
-  }
-  if {$line != ""} {
-  	bMotion_putadmin "  $line"
-  }
+		bMotion_putadmin "You can run bMotion commands from DCC with .bmotion COMMAND,"
+		bMotion_putadmin "  from a channel with .bmotion BOTNICK COMMAND, and from a"
+		bMotion_putadmin "  query with the bot with .bmotion COMMAND."
+	  bMotion_putadmin "Loaded bMotion Admin Commands:"
+	  set line ""
+	  set s [array startsearch bMotion_plugins_management]
+	  while {[set key [array nextelement bMotion_plugins_management $s]] != ""} {
+	  	append line "$key "
+	  	if {[string length $line] > 50} {
+	  		bMotion_putadmin "  $line"
+	  		set line ""
+	  	}
+	  }
+	  if {$line != ""} {
+	  	bMotion_putadmin "  $line"
+	  }
+	  array donesearch bMotion_plugins_management $s
 
-  bMotion_putadmin "Help is available for some plugis; run .bmotion help COMMAND"
-  bMotion_putadmin "  for more information."
-  return 1
+	  bMotion_putadmin "Help is available for some plugis; run .bmotion help COMMAND"
+	  bMotion_putadmin "  for more information."
+	  return 1
   } else {
   	switch $arg {
   		default {
