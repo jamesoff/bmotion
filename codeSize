@@ -1,0 +1,2 @@
+wc `find $1 -name "*.tcl"` | grep total
+

@@ -1,0 +1,192 @@
+README for bMotion
+------------------
+
+http://bmotion.sourceforge.net
+
+Thanks for trying out bMotion... if you encounter problems please 
+check the bug tracker on sourceforge before reporting them. The
+bugtracker is the best place to report problems.
+
+You can also get limited assistance from #bmotion on EFNet -- note
+I do this in my spare time so if I'm not around to help, don't take
+it personally :) Perhaps a community of other people who can help
+will spring up.
+
+There's also a sourceforge mailing list you may want to join for
+discussing bMotion (as well as a low-traffic announements list).
+
+Below are the instructions for installing bMotion, taken from the manual.
+The full manual (currently a work in progress) is available from:
+
+http://bmotion.sourceforge.net/docs/bMotion.pdf
+
+Have fun!
+
+James "Off" Seward
+Developer, bMotion
+
+---------------------------------------------------------------------
+HOW TO INSTALL
+
+(This assumes a working knowledge of eggdrop. If you're having problems
+installing due to problems with eggdrop or your configuration, please
+take them to the proper place rather than bringing them to me :)
+
+You'll need the following:
+
+* bMotion's code 
+* An eggdrop, already set up and working. (If you don't know 
+how to do this, or what I'm talking about, stop reading right here.) 
+* A cup of 
+coffee
+
+To get the latest bMotion release source, download it from 
+http://bmotion.sourceforge.net
+
+If you're feeling daring, you can run the CVS code. The CVS version is always 
+the latest version, but it may have half-complete features and may even crash 
+your bot (however, I'm not in the habit of knowingly commiting code that kills 
+eggdrop to CVS... after all, it's what my bot runs).
+
+
+
+Installing the files
+
+Once you have your bMotion code, eggdrop, and coffee do the following:
+
+Put the bmotion...tar.gz file in your eggdrop's scripts directory (usually 
+.../scripts). Run tar zxvf bmotion...tar.gz (substituting the proper filename). 
+This extracts the bMotion code to .../scripts/bmotion/. If you want to move the 
+code somewhere else, do so now. Change into the bmotion directory, and edit 
+bMotion.tcl with your favourite editor. The first two lines of code should look 
+like this:
+
+set bMotionModules “scripts/bmotion/modules” set bMotionPlugins 
+“scripts/bmotion/plugins”
+
+
+
+If you put bmotion somewhere else, edit these two variables to match. Close and 
+save the file.
+
+Now change into the modules directory. Fire up your editor and open settings.tcl 
+This file contains (brace yourself) all the settings for bMotion. You WILL want 
+to change these, so pay attention:
+
+set bMotionInfo(gender) “male” This sets the bot's gender. Choose from “male” or 
+“female”
+
+set bMotionInfo(balefire) 1 A somewhat traditionally-named setting. This 
+determines if the bot responds to things not directly addressed to it that you 
+wouldn't want more than one bot to answer. If you have only one bMotion bot on a 
+channel, set it to 1, else set it to 0 on all but one of the bots.
+
+set bMotionInfo(randomChannels) { “#molsoft” “#ags” “#exeter” “#namcoarcade” 
+“#startrek” } This is the list of the channels bMotion should be active on. If 
+the bot's on a channel not listed here, it will ignore all bMotion 
+commands/events there. Putting a channel in here that the bot isn't on will 
+likely cause TCL to strop, so get it right. Remember, bMotion can be annoying, 
+so only put it in channels where you have the right to, and where it will be 
+welcome.
+
+set bMotionInfo(orientation) “straight” Set the bot's sexual orientation. Choose 
+“straight”, “bi”, “gay”, or “lesbian”
+
+set bMotionSettings(needI) 1 Set this to one to require users to have the global 
+I (that's capital i) flag for most of bMotion to respond to them. This flag 
+isn't used much now anyway. Set it to 0 to have the bot treat all users equally.
+
+set bMotionSettings(melMode) 0 Set this to 1 to make the bot ignore its morals 
+and sleep with anyone, regardless of gender or orientation.
+
+set bMotionSettings(botnicks) “nt|bots|the bots” This is an important one. It 
+defines the names your bot understands as referring to itself. (My bot is called 
+NoTopic, so the first field is nt). List all the names it should respond to, 
+separating them with a | (shift-\ on my keyboard). Case doesn't matter. Don't 
+use parentheses — ( and ). You don't need to include the bot's IRC nick, it will 
+always respond to that.
+
+set bMotionSettings(typos) 7 A factor affecting how many typos the bot should 
+make. 100 will make the bot make typos almost continuously, 0 will stop it. 
+(This is used by the output_typos plugin. See the section on Managing bMotion 
+for more information about turning plugins on and off.)
+
+set bMotionSettings(colloq) 10 A factor affecting how much the bot will use 
+(English) colloquialisms (common expressions). Values are 0 to 100 as above.
+
+set bMotionSettings(noPlugin) “simple:huk,complex:wb” If you don't want bMotion 
+to load a plugin ever, but don't want to delete the file, list them here using 
+<type>:<name>. You can list more than one by separating them with commas. See 
+the Managing bMotion chapter for more information.
+
+
+
+set bMotionInfo(minRandomDelay) 20 set bMotionInfo(maxRandomDelay) 120 These two 
+settings control how often the bot does random things (like going “lalala” and 
+stuff). The first sets the minimum length of the gap between events, and the 
+latter sets the longest delay. bMotion will pick a value between the two. These 
+values are both in minutes.
+
+set bMotionInfo(maxIdleGap) 45 This setting stops the bot talking to itself. 
+During bMotion's early days, it was common for it to chatter (“lalala”) to 
+itself overnight even though everyone else in the channel was idle. If there has 
+been no activity on a channel for more than this many minutes, bMotion will keep 
+quiet (or set itself away until people start talking again).
+
+set bMotionInfo(brigDelay) 30 This is the number of seconds someone should be 
+kept in the brig before being tried by the courtmartial plugin.
+
+set bMotionSettings(leetRandom) 0.5 How often the bot should say something in 
+1337-speak randomly. Values are 0-100.
+
+set bMotionSettings(languages) “en,nl” set bMotionInfo(language) “en” Choose the 
+languages bMotion thinks it can speak. Changing these won't actually make the 
+bot speak a different language; they change which plugins it loads. Currently, 
+bMotion ships with just English plugins (and about 2 Dutch ones). Don't change 
+this unless you know you have other languages available. See the Managing 
+bMotion chapter for more information.
+
+Save and close settings.tcl
+
+Back up to your eggdrop directory and open your bot's config file. Scroll to the 
+end section where the source ... statements are to load scripts, and add:
+
+source scripts/bmotion/bMotion.tcl
+
+(If you put bMotion somewhere else, adjust this.)
+
+Save and close the configuration file.
+
+Optional bMotion saves some information about users in the userfile, and you may 
+want to set/edit these directly (indeed, you'll need to make this change in 
+order to take advantage of the feature in bMotion).
+
+Change to your scripts directory, and open userinfo.tcl (the filename may be 
+slightly different).
+
+Find the line that looks like this: set userinfo-fields “URL BF GF IRL EMAIL DOB 
+PHONE ICQ”
+
+Add “GENDER IRL” to the list. Save the file. 
+(End optional section).
+
+
+Ok. Now for the important bit. Rehash your bot (/msg <botnick> rehash 
+<password>, or .rehash on the partyline). If all goes well, you should see 
+something like:
+
+[21:13] bMotion v 1.19 2002/11/19 19:54:55 james AI online (randoms file: $Id: 
+abstracts.tcl,v 1.25 2002/11/18 23:28:58 james Exp $)
+
+...as your bot starts up.
+
+If you get an error, refer to the currently non-existent Troubleshooting 
+section. (Sorry, until I get feedback on what goes wrong for people I can't 
+really write that bit.)
+
+If you do require assistance, try me in #bmotion on EFNet. Don't ask for help in 
+any of my other channels because I shall taunt you.
+
+To check it's working, try typing .bmadmin status on the partyline.
+
+Drink the coffee.
