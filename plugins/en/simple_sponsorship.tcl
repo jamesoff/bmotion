@@ -11,7 +11,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_simple "sponsorship1" "(testicles|cock|stimulation|vibrate|rabbit|bunny|buzz|bandit|butt|anal|vibrator|norty|naughty)" 25 [list "%VAR{sponsorship_christel}"] "en"
+bMotion_plugin_add_simple "sponsorship1" {[[:<:]](testicles|cock|stimulation|vibrate|rabbit|bunny|buzz|bandit|butt|anal|vibrator|norty|naughty)[[:>:]]} 10 [list "%VAR{sponsorship_christel}"] "en"
 
 
 bMotion_abstract_register "sponsorship_christel"
@@ -31,8 +31,8 @@ bMotion_abstract_batchadd "sponsorship_christel" {
 
 bMotion_abstract_register "christel_sendme"
 bMotion_abstract_batchadd "christel_sendme" {
-  "%BOT[50,i'm in a bare suit]"
-  "%BOT[50,/looks at %pronoun toes]"
-  "%BOT[50,wow that stuff's amazing... er, so i've heard, anyway]"
-  "%BOT[50,i'll buy some!]"
+  "%BOT[i'm in a bare suit]"
+  "%BOT[/looks at %pronoun toes]"
+  "%BOT[wow that stuff's amazing... er, so i've heard, anyway]"
+  "%BOT[i'll buy some!]"
 }
