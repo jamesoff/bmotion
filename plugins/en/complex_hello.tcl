@@ -45,6 +45,10 @@ proc bMotion_plugin_complex_hello { nick host handle channel text } {
   } else {
     set greeting "%VAR{greetings}"
   }
+
+  # get random nick from realnames
+  set nick [bMotionGetRealName $nick]
+
   bMotionDoAction $channel $nick $greeting
   return 1
 }
