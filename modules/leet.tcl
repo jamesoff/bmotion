@@ -9,16 +9,16 @@
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or 
+# the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
 #
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 # General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License 
-# along with this program; if not, write to the Free Software 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
@@ -40,8 +40,6 @@ proc bMotionLeetChannel {nick host handle channel text} {
 proc makeLeet { line } {
   return "Warning! Call to old makeLeet."
 }
-
-
 
 proc makeLeet2 {line} {
   global leet bMotionInfo
@@ -67,8 +65,6 @@ proc makeLeet2 {line} {
   if [rand 2] { regsub -nocase -all "hacking" $line "hax0ring" line }
   if [rand 2] { regsub -nocase -all "skills" $line "skillz" line }
 
-  
-
   #...cked -> x0r3d
   if [rand 2] { regsub -nocase -all {[[:<:]](\w+?)?cked[[:>:]]} $line {\1x0r3d} line }
 
@@ -76,7 +72,7 @@ proc makeLeet2 {line} {
   if [rand 2] { regsub -nocase -all {[[:<:]](\w+?)?cker(s|z)?[[:>:]]} $line {\1x0r\2} line }
 
   #[constonant]ed -> 0r3d
-  if [rand 2] { regsub -nocase -all {***:(\w+[^aeiouy])ed[[:>:]]} $line {\10r3d} line }  
+  if [rand 2] { regsub -nocase -all {***:(\w+[^aeiouy])ed[[:>:]]} $line {\10r3d} line }
 
   #...s --> ...z
   if [rand 2] { regsub -nocase -all {(\w+)s[[:>:]]} $line {\1z} line }
@@ -86,14 +82,11 @@ proc makeLeet2 {line} {
 
   #...f -> ...oph
   if [rand 2] { regsub -nocase -all {(\w+?)f+[[:>:]]} $line {\1ph} line }
-
-
- if [rand 2] { set line [string map -nocase { ROFL roflmaolozz!!111 loser lossarzz!! hehe HUHEHUHEHEHUEHUEH ike iek ter tar ife ief hah hehue ule lue ota oat ver var is si ome oem ame aem oe eo aid iad ers ars erz arz per par nic nix aye aey ade aed ite eit} $line ] }
- if [rand 2] { set line [string map -nocase { he eh re er ea ae hi ih or ro ip pi ho oh in ni lol lo!lololololzz! ! !!!111111 ir ri ou uo ha ah ui iu ig gi } $line ] }
-
+  if [rand 2] { set line [string map -nocase { ROFL roflmaolozz!!111 loser lossarzz!! hehe HUHEHUHEHEHUEHUEH ike iek ter tar ife ief hah hehue ule lue ota oat ver var is si ome oem ame aem oe eo aid iad ers ars erz arz per par nic nix aye aey ade aed ite eit} $line ] }
+  if [rand 2] { set line [string map -nocase { he eh re er ea ae hi ih or ro ip pi ho oh in ni lol lo!lololololzz! ! !!!111111 ir ri ou uo ha ah ui iu ig gi } $line ] }
   set letters [split [string tolower $line] {}]
   set line ""
- 
+
   set alphabet [split "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" {}]
 
   foreach letter $letters {
@@ -108,12 +101,13 @@ proc makeLeet2 {line} {
       set newChar [string toupper $newChar]
     } else {
       set newChar [string tolower $newChar]
-    }     
+    }
     set line "$line$newChar"
   }
 
   return $line
 }
+
 #end of makeleet2
 
 proc leetPrivate {nick host handle arg} {
