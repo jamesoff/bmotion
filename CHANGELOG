@@ -5,6 +5,13 @@ bMotion CHANGELOG
 + = added
 - = removed
 
+*  James           changed the failsafe plugin to have (slightly) more intelligent responses
+*  James           updated light plugin to trigger correctly
++  James           added .bmadmin abstract delete <abstract> <index>
++  James           added function in extra/fact.tcl to make bMotion forget everything about an item
+
+v0.0.8
+
 *  Kevin           moved the handling of jms' (real) wellbeing code into an extra module, and referenced it from complex question
 *  James           fixed spelling error in name of onjoin plugin
 *  James           fixed onjoin plugin to use new abstracts system
