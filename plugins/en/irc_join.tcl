@@ -11,9 +11,9 @@
 ###############################################################################
 
 
-bMotion_plugin_add_irc_event "default join" "join" ".*" 80 "bMotion_plugins_irc_deafult_join" "en"
+bMotion_plugin_add_irc_event "default join" "join" ".*" 80 "bMotion_plugins_irc_default_join" "en"
 
-proc bMotion_plugins_irc_deafult_join { nick host handle channel text } { 
+proc bMotion_plugins_irc_default_join { nick host handle channel text } { 
 
   #has something happened since we last greeted?
   set lasttalk [bMotion_plugins_settings_get "system:join" "lasttalk" $channel ""]
@@ -25,14 +25,14 @@ proc bMotion_plugins_irc_deafult_join { nick host handle channel text } {
     return 0
   }
 
-  global ranjoins bigranjoins botnick mood
+  global botnick mood
   set chance [rand 10]
-  set greetings $ranjoins
+  set greetings [bMotion_abstract_all "ranjoins"]
   if {$chance > 8} {
     if [matchattr $handle I] {
-      set greetings [concat $greetings $bigranjoins]
+      set greetings [concat $greetings [bMotion_abstract_all "bigranjoins"]
       if {$nick == $bMotionCache(lastLeft)} {
-        set greetings $welcomeBacks
+        set greetings [bMotion_abstract_all "welcomeBacks"]
         set bMotionCache(lastLeft) ""
       }
       incr mood(happy)
