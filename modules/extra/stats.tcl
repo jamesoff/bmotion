@@ -211,7 +211,7 @@ proc bMotion_stats_handler { idx text } {
 }
 
 proc bMotion_stats_load { } {
-	global bMotionModules bMotion_stats_id bMotion_stats_time
+	global bMotionModules bMotion_stats_id bMotion_stats_time bMotion_stats_key
 	
 	set line ""
 	
