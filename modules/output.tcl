@@ -82,7 +82,9 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0}} {
   }
 
   if {$bMotionInfo(silence) == 1} { return 0 }
-  if {$bMotionInfo(adminSilence,$channel) == 1} { return 0 }
+  catch {
+    if {$bMotionInfo(adminSilence,$channel) == 1} { return 0 }
+  }
 
   set chance [rand 3]
   switch [rand 3] {
