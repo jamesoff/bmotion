@@ -109,15 +109,6 @@ proc bMotion_event_onquit {nick host handle channel reason} {
 
 # BEGIN main interactive
 proc bMotion_event_main {nick host handle channel text} {
-
-  bMotion_putloglev 4 * "bMotion: entering bMotion_event_main with $nick $host $handle $channel $text"
-
-  if [matchattr $handle J] {
-    return 0
-  }
-
-  set nick [bMotion_cleanNick $nick $handle]
-
   ## Global definitions ##
   global mood botnick greetings welcomes sorryoks
   global loveresponses boreds upyourbums smiles
@@ -125,9 +116,24 @@ proc bMotion_event_main {nick host handle channel text} {
   global bMotionLastEvent bMotionSettings botnicks bMotionCache bMotionInfo
   global bMotionThisText  
 
-  if {[lsearch $bMotionInfo(randomChannels) [string tolower $channel]] == -1} {
+  if [matchattr $handle J] {
     return 0
   }
+
+  #ignore other bots
+  if {[matchattr $handle b]} {
+    set bMotionCache($channel,last) 0
+    return 0
+  }
+
+  if {[lsearch $bMotionInfo(randomChannels) [string tolower $channel]] == -1} {
+    return 0
+  }  
+
+  bMotion_putloglev 4 * "bMotion: entering bMotion_event_main with $nick $host $handle $channel $text"
+
+  set nick [bMotion_cleanNick $nick $handle]
+
 
   #filter bold codes out
   regsub -all "\002" $text "" text
@@ -144,12 +150,6 @@ proc bMotion_event_main {nick host handle channel text} {
   ## Update the channel idle tracker ##
   set bMotionLastEvent($channel) [clock seconds]
   
-  #ignore other bots
-  if {[matchattr $handle b]} {
-    set bMotionCache($channel,last) 0
-    return 0
-  }
-
   #ignore lines with <nobotnick> tags
   if [regexp -nocase "\</?no$botnicks\>" $text] {return 0}  
   if [regexp -nocase "\<no$botnicks\>" $text] {return 0}
@@ -261,8 +261,8 @@ proc bMotion_event_main {nick host handle channel text} {
   ## /Reload config files
 
   if [regexp -nocase "${botnicks}:? what ver(sion )?(of )?bmotion are you (running|using)\\?" $text] {
-    global randomsinfo cvsinfo
-    bMotionDoAction $channel $nick "I'm running bMotion $cvsinfo (randoms file $randomsinfo)"
+    global bMotionVersion
+    bMotionDoAction $channel $nick "I'm running bMotion $bMotionVersion (http://bmotion.sf.net)"
     return 0
   }
 
@@ -519,114 +519,6 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }
 
-  #ouch (now a simple plugin)
-
-  ## What question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? what('?s)?(.+)" $text matches botn s question] ||
-       [regexp -nocase "^what('?s)? .* $botnicks ?\\?" $text matches s question botn] } {
-    bMotion_putloglev d * "bMotion: $nick asked me a what question"
-
-    #see if we know the answer to it
-    if {$question != ""} {
-      if [regexp -nocase {[[:<:]]a/?s/?l[[:>:]]} $question] {
-        set age [expr [rand 20] + 13]
-        global bMotionInfo
-        bMotionDoAction $channel $nick "%%: $age/$bMotionInfo(gender)/%VAR{locations}"
-        return 0
-      }
-    }
-
-    global answerWhats
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $answerWhats]
-    return 0
-  }
-
-  ## With/at/against who question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? (with|at|against|by) who" $text ma mb prop] ||
-       [regexp -nocase "^(with|at|against|by) who .* $botnicks ?\\?" $text ma prop ma] } {
-    bMotion_putloglev d * "bMotion: $nick asked me a with/at/against who question ($prop)"
-    global answerWithWhos
-    set randomans [pickRandom $answerWithWhos]
-    set answer "$prop $randomans"
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] $answer
-    return 0
-  }
-
-  ## Who question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? who(se)? " $text matches bot owner] ||
-       [regexp -nocase "^who(se)? .* $botnicks ?\\?" $text matches owner] } {
-    bMotion_putloglev d * "bMotion: $nick asked me a who$owner question"
-    
-    if {$owner == "se"} {
-      set line [bMotionMakePossessive [bMotionDoInterpolation "%VAR{answerWhos}" "" "" ""] 1]
-    } else {
-      set line "%VAR{answerWhos}"
-    }
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] "$line"
-    return 0
-  }
-
-  ## Why question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? why" $text] ||
-       [regexp -nocase "why.* $botnicks ?\\?" $text] } {
-    bMotion_putloglev d * "bMotion: $nick asked me a why question"
-    global answerWhys
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $answerWhys]
-    return 0
-  }
-
-  ## Where question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? where" $text] ||
-       [regexp -nocase "^where .* $botnicks ?\\?" $text] } {
-    bMotion_putloglev d * "bMotion: $nick asked me a where question"
-    global answerWheres
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $answerWheres]
-    return 0
-  }
-
-  ## How many question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? how ?many" $text] ||
-       [regexp -nocase "^how ?many .* $botnicks ?\\?" $text] } {
-    bMotion_putloglev d * "bMotion: $nick asked me a how many question"
-    global answerHowmanys
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $answerHowmanys]
-    return 0
-  }
-
-  ## When question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? (when|what time)" $text] ||
-       [regexp -nocase "^(when|what time) .* $botnicks ?\\?" $text] } {
-    bMotion_putloglev d * "bMotion: $nick asked me a when question"
-    global answerWhens
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $answerWhens]
-    return 0
-  }
-
-  ## How question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? how" $text] ||
-       [regexp -nocase "^how .* $botnicks ?\\?" $text] } {
-    bMotion_putloglev d * "bMotion: $nick asked me a how question"
-    global answerHows
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $answerHows]
-    return 0
-  }
-
-  # me .... ?
-  if [regexp -nocase "^${botnicks}:?,? (.+)\\?$" $text ming ming2 question] {
-    global randomReplies
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $randomReplies]
-    return 0
-  }
-
-  # ... me?
-  if [regexp -nocase "${botnicks}\\?$" $text bhar ming what] {
-    if { [rand 2] == 1 } {
-      global randomReplies
-      bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $randomReplies]
-      return 0
-    }
-  }
-
   if [regexp -nocase "^hn{3,}$" $text] {
     global botnick blindings
 	  if [rand 2] {return 0}
@@ -660,15 +552,9 @@ proc bMotion_event_main {nick host handle channel text} {
 
 ## BEGIN action event handler
 proc bMotion_event_action {nick host handle dest keyword text} {
-
-  bMotion_putloglev 4 * "bMotion: entering bMotion_event_action with $nick $host $handle $dest $keyword $text"
-
+  
   global botnick mood rarrs smiles unsmiles botnicks bMotionCache bMotionSettings bMotionInfo
   set channel $dest
-
-  if {[lsearch $bMotionInfo(randomChannels) [string tolower $channel]] == -1} {
-    return 0
-  }
 
   if [matchattr $handle J] {
     return 0
@@ -678,6 +564,13 @@ proc bMotion_event_action {nick host handle dest keyword text} {
   if {[matchattr $handle b]} {
     return 0
   }
+
+  if {[lsearch $bMotionInfo(randomChannels) [string tolower $channel]] == -1} {
+    return 0
+  }
+
+  bMotion_putloglev 4 * "bMotion: entering bMotion_event_action with $nick $host $handle $dest $keyword $text"
+
 
   set nick [bMotion_cleanNick $nick $handle]
 
@@ -852,15 +745,15 @@ proc bMotion_event_action {nick host handle dest keyword text} {
   }
 
 
-  if [regexp -nocase "(steals|pinches|theives|removes) ${botnicks}'?s (.+)" $text ming action object] {
-    # TODO: check $object and $action (e.g. pinches arse)
-    global stolens
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $stolens]
-    bMotionGetSad
-    set bMotionCache(lastEvil) $nick
-    driftFriendship $nick -1
-    return 0
-  }
+  #if [regexp -nocase "(steals|pinches|theives|removes) ${botnicks}'?s (.+)" $text ming action object] {
+  #  # TODO: check $object and $action (e.g. pinches arse)
+  #  global stolens
+  #  bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $stolens]
+  #  bMotionGetSad
+  #  set bMotionCache(lastEvil) $nick
+  #  driftFriendship $nick -1
+  #  return 0
+  #}
 
   ## bites
   #if [regexp -nocase "(bites|licks) $botnicks" $text] {
