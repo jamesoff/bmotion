@@ -212,9 +212,9 @@ proc bMotion_stats_handler { idx text } {
 
 proc bMotion_stats_load { } {
 	global bMotionModules bMotion_stats_id bMotion_stats_time bMotion_stats_key
-	
+
 	set line ""
-	
+
 	set bMotion_stats_time 0
 
 	catch {
@@ -222,12 +222,16 @@ proc bMotion_stats_load { } {
 		set line [gets $fileHandle]
 	}
 
+	if {$line == ""} {
+		return
+	}
+
 	if {$line != ""} {
 		set bMotion_stats_time $line
 		set bMotion_stats_id [gets $fileHandle]
 		set bMotion_stats_key [gets $fileHandle]
 	}
-	
+
 	catch {
 		close $fileHandle
 	}
@@ -240,7 +244,7 @@ proc bMotion_stats_check { force } {
 
 	bMotion_stats_load
 
-	if {$bMotion_stats_time > 0} {	
+	if {$bMotion_stats_time > 0} {
 		set now [clock seconds]
 		set diff [expr $now - $bMotion_stats_time]
 		if {$force || ($diff > 604800)} {
@@ -313,9 +317,9 @@ proc bMotion_stats_admin { handle { arg "" } } {
 	global bMotion_stats_key bMotion_stats_id
 	global bMotion_stats_enabled bMotion_stats_version
 	global bMotion_stats_time
-	
+
 	bMotion_stats_load
-	
+
 	if {($arg == "stats") || ($arg == "status")} {
 		bMotion_putadmin "Stats module:"
 		if {$bMotion_stats_enabled} {
@@ -323,25 +327,25 @@ proc bMotion_stats_admin { handle { arg "" } } {
 		} else {
 			bMotion_putadmin "  sending stats: no"
 		}
-		
+
 		if {$bMotion_stats_version} {
 			bMotion_putadmin "  checking version: yes"
 		} else {
 			bMotion_putadmin "  checking version: no"
 		}
-		
+
 		if {$bMotion_stats_key != ""} {
 			bMotion_putadmin "  id: $bMotion_stats_id (key: $bMotion_stats_key)"
 		} else {
 			bMotion_putadmin "  no id is stored"
 		}
-		
+
 		if {$bMotion_stats_time > 0} {
 			bMotion_putadmin "  last stats run was [expr [clock seconds] - $bMotion_stats_time] seconds ago"
 		} else {
 			bMotion_putadmin "  last stats run never or unknown"
 		}
-		
+
 		#find our bind and delete it from the timeline
 		set binds [binds time]
 		foreach bind $binds {
@@ -350,10 +354,10 @@ proc bMotion_stats_admin { handle { arg "" } } {
 				bMotion_putadmin "  next stats run at [lindex [lindex $bind 2] 1]:[lindex [lindex $bind 2] 0]"
 			}
 		}
-		
+
 		return 0
 	}
-	
+
 	if {($arg == "check") || ($arg == "go")} {
 		bMotion_putadmin "checking stats are up to date..."
 		bMotion_stats_check 0
