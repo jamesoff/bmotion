@@ -726,7 +726,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
       frightened $nick $dest
       return 0
     }
-    bMotionDoAction $dest $nick "/smacks %% back with %VAR{sillyThings}"
+    bMotionDoAction $dest $nick "/%VAR{smacks} %% back with %VAR{sillyThings}"
     set bMotionCache(lastEvil) $nick
     return 0
   }
