@@ -16,7 +16,7 @@ set jokeInfo ""
 
 # tell a random answer callback
 proc bMotionDoJokeAnswer {} {
-	global jokeInfo jokeReplies bMotion_abstract_contents bMotionFacts
+	global jokeInfo jokeReplies bMotionFacts
 
 	# if we're not telling a joke, what are we doing here?
 	if { $jokeInfo == "" } { return 0 }
@@ -44,7 +44,7 @@ proc bMotionDoJokeAnswer {} {
 			}
 		} err
 		if { $object == "" } {
-			set object [pickRandom $bMotion_abstract_contents(sillyThings)]
+			set object [bMotion_abstract_get "sillyThings"]
 		}
 		
 		regsub "%r" $answer $object answer
@@ -52,7 +52,7 @@ proc bMotionDoJokeAnswer {} {
 
 	# parse non-relational
 	while { [string first "%n" $answer] != -1 } {
-		set object [pickRandom $bMotion_abstract_contents(sillyThings)]
+		set object [bMotion_abstract_get "sillyThings"]
 		regsub "%n" $answer $object answer
 	}
 
@@ -88,7 +88,7 @@ proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
 	# instead of one for each occurance. That might be expected behaviour, so we'll
 	# just do it here instead.
 	while { [string first "%n" $joke] != -1 } {
-		set object [pickRandom $bMotion_abstract_contents(sillyThings)]
+		set object [bMotion_abstract_get "sillyThings"]
 		regsub "%n" $joke $object joke
 		set jokeInfo "$jokeInfo$object¦"
 	}
