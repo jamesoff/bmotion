@@ -27,7 +27,7 @@ bMotion_plugin_add_complex "trivia3" ".+ The (correct )?answer was.+" 100 bMotio
 proc bMotion_plugin_complex_trivia_1 { nick host handle channel text } {
   bMotion_plugins_settings_set "trivia" "nick" "" "" $nick
   bMotion_plugins_settings_set "trivia" "channel" "" "" $channel
-  bMotion_putloglev d * "detected start of trivia round"
+  bMotion_putloglev 2 * "Detected start of trivia round"
   bMotion_flood_clear $nick
 }
 
@@ -44,11 +44,11 @@ proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
   global bMotionOriginalInput
   # have to do this because bmotion contracts double spaces for us
   set text $bMotionOriginalInput
-  
-  #definitely playing
-  bMotion_putloglev d * "detected start of trivia round: $text"
 
-  
+  #definitely playing
+  bMotion_putloglev 1 * "detected trivia hint: $text"
+
+
   #remove {}s
   regsub -all {[\{\}]} $text " " text
 
@@ -61,7 +61,6 @@ proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
   }
   set hinttext [string range $text 6 end]
   set text [string trim $text]
-  bMotion_putloglev d * "Hint text is $hinttext"
 
   #split if needed
   regsub -all { ([_A-Z])} $hinttext "\\1" hinttext
@@ -69,7 +68,7 @@ proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
   #turn _s to .s to make a regexp
   regsub -all "_" $hinttext "." hinttext
 
-  bMotion_putloglev 1 * "contracted hint is $hinttext"
+  bMotion_putloglev 2 * "contracted hint is $hinttext"
 
   set hintlist [split $hinttext " "]
   set answer ""
@@ -79,11 +78,10 @@ proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
   foreach hint $hintlist {
     set hint [string trim $hint]
     if {$hint != ""} {
-      bMotion_putloglev 1 * "processing hint $hint"
+      bMotion_putloglev 2 * "processing hint $hint"
       set firstletter [string range $hint 0 0]
       if {$firstletter == "."} {
         set firstletter [pickRandom [split "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" {}]]
-        putlog "making up a firstletter... $firstletter"
       }
       if [regexp {[A-Z]} $firstletter] {
         bMotion_putloglev 1 * "looking for a $firstletter word..."
@@ -92,15 +90,12 @@ proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
         #find a matching word
         set candidates [list]
         foreach word $wordlist {
-          #bMotion_putloglev 1 * "trying $word"
           if [regexp -nocase "^${hint}$" $word] {
-            bMotion_putloglev 1 * "$word is acceptable"
             lappend candidates $word
           }
         }
         if {[llength $candidates] > 0} {
           append answer "[pickRandom $candidates] "
-          bMotion_putloglev 1 * "answer is currently $answer"
           incr elements
         }
       }
@@ -109,9 +104,11 @@ proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
       incr elementcount -1
     }
   }
-  putlog "elements: $elements, elementcount: $elementcount"
-  if {$elements == $elementcount} {
+  #putlog "elements: $elements, elementcount: $elementcount"
+  if {($elements == $elementcount) && ($answer != [bMotion-plugins_settings_get "trivia" "last" "" ""])} {
     bMotionDoAction $channel $nick $answer
+    putloglev d * "answered trivia with $answer"
+    bMotion_plugins_settings_set "trivia" "last" "" "" $answer
   }
 }
 
@@ -119,7 +116,7 @@ proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
   bMotion_plugins_settings_set "trivia" "nick" "" "" ""
   bMotion_plugins_settings_set "trivia" "channel" "" "" ""
   #let's remember this answer
-  putlog $text
+  #putlog $text
   if [regexp -nocase {answer was ([^\.]+)\.} $text matches answer] {
     set words [split $answer " "]
     foreach word $words {
@@ -132,7 +129,7 @@ proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
       upvar #0 $full_array_name_for_upvar teh_variable
       if {[lsearch $teh_variable $word] == -1} {
         lappend teh_variable $word
-        bMotion_putloglev d * "Learning word $word"
+        bMotion_putloglev d * "trivia: learning word $word"
       }
     }
   }
