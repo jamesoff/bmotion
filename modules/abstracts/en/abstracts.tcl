@@ -1289,7 +1289,7 @@ bMotion_abstract_batchadd "randomStuff" {
   "Does it hurt when I do this?"
   "Come on down, you're only going to hurt yourself."
   "It's a bird, it's a plane, it's... no, it's a bird after all."
-  "It's a %VAR{sillyThings}, it's a plane, no... it's a bird."
+  "It's a %VAR{sillyThings}{strip}, it's a plane, no... it's a bird."
   "It tasted like butter."
   "Are those real handcuffs?"
   "Oh good, Captain Adventure has arrived."
@@ -1301,7 +1301,7 @@ bMotion_abstract_batchadd "randomStuff" {
   "Don't touch that. It's dirty."
   "My underwear is too tight %VAR{unsmiles}"
   "Stop staring at the monkeys%colen"
-  "I can't reach this itch $VAR{unsmiles}"
+  "I can't reach this itch %VAR{unsmiles}"
   "That is the weirdest smell ever."
   "There's nothing sexier than %VAR{sillyThings}"
   "I feel like I'm about to vomit everywhere."
@@ -1322,6 +1322,7 @@ bMotion_abstract_batchadd "randomStuff" {
   "my zipper's stuck %VAR{unsmiles}"
   "is this going to be on the test?"
   "my %VAR{bodypart} is hurting %VAR{unsmiles}"
+  "%VAR{hexStart} %VAR{hexMiddle} %VAR{hexEnd}"
 }
 
 bMotion_abstract_batchadd "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline" "/snigger" "wait, that's not right..." ]
