@@ -13,6 +13,8 @@
 
 proc bMotion_plugins_irc_default_join { nick host handle channel text } { 
 
+  global bMotionCache
+
   #has something happened since we last greeted?
   set lasttalk [bMotion_plugins_settings_get "system:join" "lasttalk" $channel ""]
 
@@ -34,8 +36,8 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
       set greetings [bMotion_abstract_all "welcomeBacks"]
       set bMotionCache(lastLeft) ""
     }
-    incr mood(happy)
-    incr mood(lonely) -1
+    bMotionGetHappy
+    bMotionGetUnLonely
   } else {
     #don't greet people we don't know
     if {[bMotion_setting_get "friendly"] != 1} {

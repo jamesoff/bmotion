@@ -97,9 +97,7 @@ proc bMotion_event_onquit {nick host handle channel reason} {
 
   set nick [bMotion_cleanNick $nick $handle]
 
-  if {$bMotionSettings(needI) == 1} {
-    set bMotionCache(lastLeft) $nick
-  }
+  set bMotionCache(lastLeft) $nick
 
   if {$bMotionInfo(brig) != ""} {
     #check if that person was in the brig
