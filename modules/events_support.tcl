@@ -222,7 +222,7 @@ proc cum {channel nick} {
 
 proc frightened {nick channel} {
 
-  global frightens unsmiles mood
+  global mood
 
   bMotionDoAction $channel $nick "%VAR{frightens} %VAR{unsmiles}"
 
