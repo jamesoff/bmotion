@@ -220,6 +220,11 @@ proc pubm_moodhandler {nick host handle channel text} {
   if {![matchattr $handle n]} {
     return 0
   }
+  
+  global botnick
+  
+  bMotionDoAction $channel $nick "%%: Please use .bmotion $botnick mood"
+  return 0
 
 
   global mood botnick
@@ -258,6 +263,43 @@ proc pubm_moodhandler {nick host handle channel text} {
     }
   }
   checkmood "" ""
+}
+
+# management command
+proc bMotion_mood_admin { handle { arg "" } } {
+	global mood
+	
+	if {($arg == "") || ($arg == "status")} {
+		#output our mood
+		bMotion_putadmin "Current mood status:"
+		foreach moodtype {happy horny lonely electricity stoned} {
+			bMotion_putadmin "  $moodtype: $mood($moodtype)"
+		}
+		return 0
+	}
+	
+	if {$arg == "drift"} {
+		bMotion_putadmin "Drifting mood values..."
+		driftmood
+		return 0
+	}
+	
+	if {[regexp -nocase {set ([^ ]+) ([0-9]+)} $arg matches moodname moodval]} {
+		if {!([lsearch -inline {happy horny lonely electricity stoned} $moodname] == $moodname)} {
+			bMotion_putadmin "Unknown mood type '$moodname'"
+			return 0
+		}
+		set mood($moodname) $moodval
+		bMotion_putadmin "Mood '$moodname' changed to $moodval"
+		return 0
+	}
+	
+	bMotion_putadmin "use: mood \[status|drift|set <type> <value>\]"
+	return 0
+}
+
+if {$bMotion_testing == 0} {
+	bMotion_plugin_add_management "mood" "^mood" n bMotion_mood_admin "any"
 }
 
 #add some default moods
