@@ -12,8 +12,10 @@
 # in the modules directory.
 ###############################################################################
 
+set currentlang $bMotionInfo(language)
 set languages [split $bMotionSettings(languages) ","]
 foreach language $languages {
+  set bMotionInfo(language) $language
   bMotion_putloglev 2 * "bMotion: loading irc event plugins language = $language"
   set files [glob -nocomplain "$bMotionPlugins/$language/irc_*.tcl"]
   foreach f $files {
@@ -23,3 +25,5 @@ foreach language $languages {
     }
   }
 }
+set bMotionInfo(language) $currentlang
+unset currentlang

@@ -64,7 +64,7 @@
 #
 # NOTE: This module should be loaded before plugins as they will need it to register abstracts
 #
-# The abstracts will be stored in ./abstracts/<abstract name>.txt in the bMotion directory. The 
+# The abstracts will be stored in ./abstracts/<language>/<abstract name>.txt in the bMotion directory. The 
 # fileformat is simply one per line.
 
 #
@@ -75,6 +75,7 @@ set bMotion_abstract_max_number 600
 
 if {![info exists bMotion_abstract_contents]} {
   set bMotion_abstract_contents(dummy) ""
+  set bMotion_abstract_languages(dummy) "en"
   set bMotion_abstract_timestamps(dummy) 1
   set bMotion_abstract_ondisk [list]
 }
@@ -89,6 +90,8 @@ bMotion_counter_init "abstracts" "gets"
 proc bMotion_abstract_gc { } {
   global bMotion_abstract_contents bMotion_abstract_timestamps
   global bMotion_abstract_max_age bMotion_abstract_ondisk
+  global bMotionInfo bMotion_abstract_languages
+  set lang $bMotionInfo(language)
 
   bMotion_putloglev 2 * "Garbage collecting abstracts..."
 
@@ -101,10 +104,11 @@ proc bMotion_abstract_gc { } {
   set expiredCount 0
 
   foreach abstract $abstracts {
-    if {($bMotion_abstract_timestamps($abstract) < $limit) && ($bMotion_abstract_timestamps($abstract) > 0)} {
+    if {($bMotion_abstract_timestamps($abstract) < $limit) && ($bMotion_abstract_timestamps($abstract) > 0) || $bMotion_abstract_languages($abstract) != $lang } {
       append expiredList "$abstract "
       incr expiredCount
       unset bMotion_abstract_contents($abstract)
+      unset bMotion_abstract_languages($abstract)
       set bMotion_abstract_timestamps($abstract) 0
       lappend bMotion_abstract_ondisk $abstract
       bMotion_counter_incr "abstracts" "pageouts"
@@ -120,19 +124,27 @@ proc bMotion_abstract_gc { } {
 proc bMotion_abstract_register { abstract } {
   global bMotion_abstract_contents bMotion_abstract_timestamps
   global bMotionModules bMotion_testing bMotion_loading
+  global bMotionInfo bMotion_abstract_languages
 
   #set timestamp to now
   set bMotion_abstract_timestamps($abstract) [clock seconds]
+  set lang $bMotionInfo(language)
 
   #load any existing abstracts
-  if [file exists "[pwd]/$bMotionModules/abstracts/${abstract}.txt"] {
+  if [file exists "[pwd]/$bMotionModules/abstracts/$lang/${abstract}.txt"] {
     bMotion_abstract_load $abstract
   } else {
+    # check that the language directory exists while we're at it
+    set dir "$bMotionModules/abstracts/$lang"
+    if { ![file exists $dir] } {
+      [file mkdir "$bMotionModules/abstracts/$lang"]
+    }
     #file doesn't exist - create an empty one
     #create blank array for it
     set bMotion_abstract_contents($abstract) [list]
+    set bMotion_abstract_languages($abstract) "$lang"
     bMotion_putloglev 1 * "Creating new abstract file for $abstract"
-    set fileHandle [open "[pwd]/$bMotionModules/abstracts/${abstract}.txt" "w"]
+    set fileHandle [open "[pwd]/$bMotionModules/abstracts/$lang/${abstract}.txt" "w"]
     puts $fileHandle " "
   }
 
@@ -145,15 +157,18 @@ proc bMotion_abstract_load { abstract } {
   global bMotion_abstract_contents bMotion_abstract_timestamps
   global bMotionModules bMotion_abstract_ondisk
   global bMotion_loading bMotion_testing
+  global bMotionInfo bMotion_abstract_languages
+  set lang $bMotionInfo(language)
 
-  bMotion_putloglev 1 * "Attempting to load $bMotionModules/abstracts/${abstract}.txt"
+  bMotion_putloglev 1 * "Attempting to load $bMotionModules/abstracts/$lang/${abstract}.txt"
 
-  if {![file exists "$bMotionModules/abstracts/${abstract}.txt"]} {
+  if {![file exists "$bMotionModules/abstracts/$lang/${abstract}.txt"]} {
     return
   }
 
   #create blank array for it
   set bMotion_abstract_contents($abstract) [list]
+  set bMotion_abstract_languages($abstract) "$lang"
 
   #set timestamp to now
   set bMotion_abstract_timestamps($abstract) [clock seconds]
@@ -166,7 +181,7 @@ proc bMotion_abstract_load { abstract } {
   set index [lsearch -exact $bMotion_abstract_ondisk $abstract]
   set bMotion_abstract_ondisk [lreplace $bMotion_abstract_ondisk $index $index]
 
-  set fileHandle [open "$bMotionModules/abstracts/${abstract}.txt" "r"]
+  set fileHandle [open "$bMotionModules/abstracts/$lang/${abstract}.txt" "r"]
   set line [gets $fileHandle]
   set needReSave 0
   set count 0
@@ -199,7 +214,8 @@ proc bMotion_abstract_load { abstract } {
 
 proc bMotion_abstract_add { abstract text {save 1} } {
   global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age
-  global bMotionModules
+  global bMotionModules bMotionInfo
+  set lang $bMotionInfo(language)
 
   bMotion_putloglev 2 * "Adding '$text' to abstract '$abstract'"
 
@@ -211,7 +227,7 @@ proc bMotion_abstract_add { abstract text {save 1} } {
 
     bMotion_putloglev 2 * "updating abstracts '$abstract' on disk"
     if {$save} {
-      set fileHandle [open "[pwd]/$bMotionModules/abstracts/${abstract}.txt" "a+"]
+      set fileHandle [open "[pwd]/$bMotionModules/abstracts/$lang/${abstract}.txt" "a+"]
       puts $fileHandle $text
       close $fileHandle
     }
@@ -222,7 +238,7 @@ proc bMotion_abstract_add { abstract text {save 1} } {
     lappend bMotion_abstract_contents($abstract) $text
     if {$save} {
       bMotion_putloglev 2 * "updating abstracts '$abstract' on disk and in memory"
-      set fileHandle [open "[pwd]/$bMotionModules/abstracts/${abstract}.txt" "a+"]
+      set fileHandle [open "[pwd]/$bMotionModules/abstracts/$lang/${abstract}.txt" "a+"]
       puts $fileHandle $text
       close $fileHandle
     }
@@ -232,7 +248,13 @@ proc bMotion_abstract_add { abstract text {save 1} } {
 proc bMotion_abstract_save { abstract } {
   global bMotion_abstract_contents
   global bMotionModules bMotion_testing bMotion_loading
-  global bMotion_abstract_max_number
+  global bMotion_abstract_max_number bMotionInfo bMotion_abstract_languages
+  set lang $bMotionInfo(language)
+
+  if {$lang != $bMotion_abstract_languages($abstract) } {
+    bMotion_putloglev 1 * "Did not save '$abstract' to disk (wrong language)"
+    return 0
+  }
 
   set tidy 0
   set count 0
@@ -245,7 +267,7 @@ proc bMotion_abstract_save { abstract } {
 
   bMotion_putloglev 1 * "Saving abstracts '$abstract' to disk"
 
-  set fileHandle [open "[pwd]/$bMotionModules/abstracts/${abstract}.txt" "w"]
+  set fileHandle [open "[pwd]/$bMotionModules/abstracts/$lang/${abstract}.txt" "w"]
   set number [llength $bMotion_abstract_contents($abstract)]
   if {$number > $bMotion_abstract_max_number} {
     putlog "Abstract $abstract has too many elements ($number > $bMotion_abstract_max_number), tidying up"
@@ -319,4 +341,97 @@ proc bMotion_abstract_batchadd { abstract stuff } {
   bMotion_abstract_save $abstract
 }
 
+# flush all of the abstracts to disk
+# this was created for changing languages on the fly. If you're using this
+# for some other reason, then you might want to be sure.
+proc bMotion_abstract_flush { } {
+  global bMotionInfo bMotion_abstract_contents
+  global bMotion_abstract_languages
+  set lang $bMotionInfo(language)
+  set abstracts [array names bMotion_abstract_contents]
+  foreach abstract $abstracts {
+    set storedLang $bMotion_abstract_languages($abstract)
+    if { $abstract != "dummy" && $storedLang == $lang } {
+      bMotion_abstract_save $abstract
+      unset bMotion_abstract_contents($abstract)
+      unset bMotion_abstract_languages($abstract)
+    }
+  }
+  set bMotion_abstract_contents(dummy) ""
+  set bMotion_abstract_languages(dummy) ""
+  set bMotion_abstract_timestamps(dummy) 1
+  set bMotion_abstract_ondisk [list]
+}
+
+# this loads language abstracts for the current language in bMotionInfo
+proc bMotion_abstract_revive_language { } {
+  global bMotionSettings bMotionInfo bMotionModules
+  global bMotion_abstract_contents
+
+  set lang $bMotionInfo(language)
+  
+  bMotion_putloglev 2 * "bMotion: reviving language ($lang) abstracts"
+  set languages [split $bMotionSettings(languages) ","]
+  # just check if it's ok to use this language
+  set ok 0
+  foreach language $languages {
+    if { $lang == $language } {
+      set ok 1
+    }
+  }
+  if { $ok != 1 } {
+    bMotion_putloglev 2 * "bMotion: language not found, cannot revive"
+    return -1 
+  }
+  # if the default abstracts exists, use it first
+  if { [file exists "$bMotionModules/abstracts/$lang/abstracts.tcl"] } {
+    catch {
+      source "$bMotionModules/abstracts/$lang/abstracts.tcl"
+    }
+  } else {
+    bMotion_putloglev 2 * "bMotion: language default abstracts not found"
+  }
+  # then we need to load any others
+  set files [glob -nocomplain "$bMotionModules/abstracts/$lang/*.txt"]
+  if { [llength $files] == 0} {
+    return 0
+  }
+  foreach f $files {
+    set pos [expr [string last "/" $f] + 1]
+    set dot [expr [string last ".txt" $f] - 1]
+    set abstract [string range $f $pos $dot]
+    bMotion_putloglev 2 * "checking $abstract"
+    set len 0
+    catch { set len [llength $bMotion_abstract_contents($abstract)] } val
+    if { $val != "$len" } {
+      bMotion_abstract_load $abstract
+    }
+  }
+}
+
+# this is to update people from the old abstracts to the new abstracts.
+# it only needs to be run once, and should be removed afterwards
+proc bMotion_abstract_check {  } {
+  global bMotionInfo bMotionModules
+  set lang $bMotionInfo(language)
+  set dir "$bMotionModules/abstracts/$lang"
+  if { ![file exists $dir] } {
+    [file mkdir $dir]
+  }
+  set files [glob -nocomplain "$bMotionModules/abstracts/*.txt"]
+  if { [llength $files] == 0} {
+    return 0
+  }
+  foreach f $files {
+    catch {
+      [file rename -force -- $f "${dir}/"]
+    }
+  }
+}
+
 bind time - "* * * * *" bMotion_abstract_auto_gc
+
+# the check has to be run to update old systems
+bMotion_abstract_check
+# we have to revive at least one language
+bMotion_abstract_revive_language

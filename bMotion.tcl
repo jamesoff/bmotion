@@ -82,12 +82,6 @@ if {$bMotion_testing == 1} {
 }
 source "$bMotionModules/abstract.tcl"
 
-# load abstracts file (formerly randoms)
-if {$bMotion_testing == 1} {
-  putlog "... loading abstracts"
-}
-source "$bMotionModules/abstracts.tcl"
-
 # load settings
 if {$bMotion_testing == 1} {
   putlog "... loading settings"

@@ -133,18 +133,8 @@ bMotion_abstract_register "shocked"
 bMotion_abstract_register "randomAways"
 bMotion_abstract_register "silences"
 
-set stolens {
-  "Hey NO :(%|That's mine%|/sulks at %%"
-  "heeeeyyyy%|:("
-  "bah%|/steals it back"
-  "/smacks %%"
-  "hey no, that's *MINE*"
-  "nnk"
-  
-  "what the?"
-  
-  "Stop! Thief!"
-}
+bMotion_abstract_register "stolens"
+bMotion_abstract_batchadd "stolens" [ list "Hey NO :(%|That's mine%|/sulks at %%" "heeeeyyyy%|:(" "bah%|/steals it back" "/smacks %%" "hey no, that's *MINE*" "nnk" "what the?" "Stop! Thief!" ]
 
 set fuckOffs {
   "Not now, I'm not in the mood for him"

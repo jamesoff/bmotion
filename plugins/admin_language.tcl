@@ -14,8 +14,13 @@
 
 proc bMotion_plugin_management_language { handle { arg "" }} {
   global bMotionSettings
+  global bMotionInfo
 
   if [regexp -nocase {remove (.+)} $arg matches lang] {
+    if { $lang == $bMotionInfo(language) } {
+      bMotion_putadmin "Cannot remove current language"
+      return 0
+    }
     bMotion_putadmin "Removing language $lang..."
     set langs [split $bMotionSettings(languages) ","]
     set newlangs [list]
@@ -38,6 +43,13 @@ proc bMotion_plugin_management_language { handle { arg "" }} {
   }
 
   if [regexp -nocase {add (.+)} $arg matches lang] {
+    set langs [split $bMotionSettings(languages) ","]
+    foreach language $langs {
+      if {$lang == $language} {
+        bMotion_putadmin "Cannot add language already in list"
+	return 0
+      }
+    }
     bMotion_putadmin "Adding language $lang..."
     append bMotionSettings(languages) ",$lang"
     bMotion_putadmin "bMotion: new languages are $bMotionSettings(languages) ... rehash to load"
@@ -47,8 +59,12 @@ proc bMotion_plugin_management_language { handle { arg "" }} {
   if [regexp -nocase {use (.+)} $arg matches lang] {
     bMotion_putadmin "Switching languages to $lang..."
     if [regexp $lang $bMotionSettings(languages)] {
-      global bMotionInfo
+      # step 1: flush the abstracts
+      bMotion_abstract_flush
+      # step 2: change the language in info
       set bMotionInfo(language) $lang
+      # step 3: load the new abstracts
+      bMotion_abstract_revive_language
     } else {
       bMotion_putadmin "Error! Language $lang not loaded"
     }

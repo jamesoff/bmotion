@@ -12,8 +12,10 @@
 # in the modules directory.
 ###############################################################################
 
+set currentlang $bMotionInfo(language)
 set languages [split $bMotionSettings(languages) ","]
 foreach language $languages {
+  set bMotionInfo(language) $language
   bMotion_putloglev 2 * "bMotion: loading admin plugins language = $language"
   set files [glob -nocomplain "$bMotionPlugins/$language/admin_*.tcl"]
   foreach f $files {
@@ -23,6 +25,8 @@ foreach language $languages {
     }
   }
 }
+set bMotionInfo(language) $currentlang
+unset currentlang
 
 # load default admin stuff regardless
 set files [glob -nocomplain "$bMotionPlugins/admin_*.tcl"]
