@@ -32,6 +32,7 @@ v0.0.7
 + added complex_woot
 + implemented [ 747502 ] Public Away Option (added new settings to settings file)
 + bMotion gains a jeffk output plugin...
++ ... and a pinky and the brain output plugin (enabled by default)
 
 - don't announce that !mood isn't available any more
 
