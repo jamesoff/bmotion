@@ -1,0 +1,12 @@
+bhar
+r.
+r %%
+a%REPEAT{3:8:r}
+boohar %%
+boom
+BOOM%colen
+BOOM!
+alors bof
+pop
+%%%colen
+%%!
