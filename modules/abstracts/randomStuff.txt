@@ -127,3 +127,4 @@ You know, I haven't talked to %ruser in a while. How are ya mate?
 %REPEAT{3:6:m} les tartes
 %REPEAT{3:6:m} 1.5 pie
 If only I was 20 years younger
+%VAR{hexStart} %VAR{hexMiddle} %VAR{hexEnd}

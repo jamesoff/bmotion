@@ -1,0 +1,26 @@
+Disabled+++
+Occurance+++
+Portal Opening+++
+Detected+++
+: Reinstall Syrup+++
+snack break+++
+-(Why Not Take This Time To Register Your Purchase)+++
+=Error %REPEAT{3:6:%NUMBER{100}}+++
+%REPEAT{3:12:?}+++
+Warning : Excess %VAR{sillyThings}
+Data Lost+++
+: Redo From Start+++
+- Please Reboot Universe+++
+Aknowledgment+++
+Ended+++
+-If Problem Persists Contact The Creator+++
+-Could Not Complete Destiny+++
+-no sufficient sentient life forms+++
+Technological Change+++
+-Access Completely And Indefinitely Denied+++
+-Query+++
++++          
+Waaaaah!+++       
+Divide By Cucumber Error+++
+: Error - Division By Moonlight+++     
+Defragment Anthill+++                 
