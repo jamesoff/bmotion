@@ -202,7 +202,7 @@ proc bMotion_interbot_me_next { channel } {
 
   set channel [string tolower $channel]
 
-  if [bMotion_setting_get "bitlbee"] {
+  if {[bMotion_setting_get "bitlbee"] == "1"} {
     return 1
   }
 
@@ -272,7 +272,14 @@ proc bMotion_interbot_link { botname via } {
 # Catches a HAY from another bot, replies with a SUP
 proc bMotion_interbot_hay { bot channels } {
   #we've met another bmotion bot, we need to tell it what channels we're on
-  global bMotion_interbot_otherbots
+  global bMotion_interbot_otherbots network
+	if [regexp -nocase {(.+) network:(.+)} $channels matches chans nw] {
+		if {[string tolower $nw] != [string tolower $network]} {
+			bMotion_putloglev 2 * "Ignoring HAY from bot on wrong network (me: $network; $bot: $nw)"
+			return
+		}
+		set channels $chans
+	}
   set bMotion_interbot_otherbots($bot) $channels
   putlog "bMotion: Met bMotion bot $bot on channels $channels"
   putbot $bot "bmotion SUP [bMotion_setting_get randomChannels]"
@@ -297,12 +304,12 @@ set bMotion_interbot_otherbots(dummy) ""
 # Broadcasts a HAY to see who's around
 proc bMotion_interbot_resync { } {
   #let's find out who's on the botnet
-  global bMotion_interbot_otherbots
+  global bMotion_interbot_otherbots network
   unset bMotion_interbot_otherbots
   set bMotion_interbot_otherbots(dummy) ""
 
   putloglev d * "bMotion: Resyncing with botnet for bMotion bots"
-  putallbots "bmotion HAY [bMotion_setting_get randomChannels]"
+  putallbots "bmotion HAY [bMotion_setting_get randomChannels] ($network)"
   utimer [expr [rand 900] + 300] bMotion_interbot_resync
 }
 
