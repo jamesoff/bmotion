@@ -13,6 +13,9 @@ bMotion CHANGELOG
 + added feature request [ 727005 ] courtmarital... with a kick. settings for it are in the complex_startrek plugin file
 * moved colen-chars handler to plugin
 + added output_pinky plugin
+* added [ 749777 ] specify time for shutting up
++ taught the trivia plugin to guess dates too
+* fixed long-standing "Tcl error [bMotion_event_action]: can't read "newnick": no such variable" error after 2am inspriation
 
 2003/04/13
 v0.0.6
