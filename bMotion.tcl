@@ -149,6 +149,17 @@ if {$bMotion_testing == 1} {
 }
 source "$bMotionModules/queue.tcl"
 
+# load plugins
+if {$bMotion_testing == 1} {
+  putlog "... loading plugins"
+}
+source "$bMotionModules/plugins.tcl"
+
+if {$bMotion_testing == 1} {
+  putlog "... loading plugin settings"
+}
+source "$bMotionModules/plugins_settings.tcl"
+
 ### That's everything but the plugins stuff loaded. Now load extra modules
 bMotion_putloglev d * "looking for 3rd party modules..."
 set files [lsort [glob -nocomplain "$bMotionModules/extra/*.tcl"]]
@@ -161,16 +172,7 @@ foreach f $files {
 
 ### Done, load the plugins:
 
-# load plugins
-if {$bMotion_testing == 1} {
-  putlog "... loading plugins"
-}
-source "$bMotionModules/plugins.tcl"
 
-if {$bMotion_testing == 1} {
-  putlog "... loading plugin settings"
-}
-source "$bMotionModules/plugins_settings.tcl"
 
 #load local abstracts
 catch {
