@@ -411,7 +411,7 @@ set phaserFires {
   "/fires several shots from the forward phaser banks, disabling %%"
   "/fires several shots from the forward phaser banks, destroying %%%|/flies out through the explosion in an impressive bit of piloting (not to mention rendering :)"
   "/accidentally activates the wrong system and replicates a small tree"
-  "/misses a gear and stalls%|Oops%|%bot[50,¬VAR{ruins}]"
+  "/misses a gear and stalls%|Oops%|%bot\[50,¬VAR{ruins}\]"
   "/uses attack pattern alpha, spiralling towards %%, firing all phaser banks%|* %% is blown to pieces as %me flies off into the middle distance"
   "/anchors %% to a small asteriod, paints a target on their upper hull, and fires a full phaser blast at them"
   "/rolls over, flying over %% upside down, firing the dorsal phaser arrays on the way past"
@@ -424,7 +424,7 @@ set phaserFires {
 set torpedoFires {
   "/fires a volley of torpedos at %%"
   "/breaks into a roll and fires torpedos from dorsal and ventral launchers in sequence"
-  "/breaks into a roll and ties itself in a knot%|Damn.%|%bot[50,¬VAR{ruins}]"
+  "/breaks into a roll and ties itself in a knot%|Damn.%|%bot\[50,¬VAR{ruins}\]"
   "System failure: TSC error"
   "/flies past %% and fires a full spread of torpedos from the aft launchers"
   "/heads directly for %%, firing a full spread of torpedos from the forward lauchers%|/flies out through the wreakage"
@@ -592,8 +592,8 @@ set randomReplies {
   "someone set up us the bomb"
   "we get signal"
   "nothing"
-  "panties%|%BOT[¬VAR{rarrs}]"
-  "moist knickers%|%BOT[¬VAR{rarrs}]"
+  "panties%|%BOT\[¬VAR{rarrs}\]"
+  "moist knickers%|%BOT\[¬VAR{rarrs}\]"
   "what do you think?"
   "i can't tell you that"
   "it wasn't me"
@@ -688,7 +688,7 @@ set randomReplies {
   "that depends. Who's asking?"
   "the answer lies in the stars%|bugger off there and find it"
   "%rbot knows"
-  "If only I hadn't used up all my lifelines%|%bot[50,you can have one of mine]%|no thanks, don't know where it's been"
+  "If only I hadn't used up all my lifelines%|%bot\[50,you can have one of mine\]%|no thanks, don't know where it's been"
 }
 
 set feelings {
@@ -1051,7 +1051,7 @@ bMotion_abstract_batchadd "rarrs" [list "~rarr~" "~oof~" "uNf" "*uNf" "*squeaky*
 
 
 bMotion_abstract_register "sorryoks"
-bMotion_abstract_batchadd "sorryoks" [list "ok" "that's ok" "alright then" "i forgive you" "/spanks %%%|%BOT[¬VAR{rarrs}]" "That's ok then. I suppose. Don't think this makes me like you again though" ]
+bMotion_abstract_batchadd "sorryoks" [list "ok" "that's ok" "alright then" "i forgive you" "/spanks %%%|%BOT\[¬VAR{rarrs}\]" "That's ok then. I suppose. Don't think this makes me like you again though" ]
 
 
 bMotion_abstract_register "loveresponses"
@@ -1100,7 +1100,7 @@ bMotion_abstract_batchadd "aiis" [list "wikkid" "aii" "aiiiii" "innit" "respect"
 
 
 bMotion_abstract_register "randomStuffFemale"
-bMotion_abstract_batchadd "randomStuffFemale" [list "This one time, at band camp, I put a flute..." "Does my arse look big in this?" "Does my bum look big in this?" "*ping*%|Did it just get cold in here?" "Do you know how we keep warm in Russia?%|... we play chess." "I kinda like thongs" "I wonder what happens when I put that in here...%|oooooooh!" "/plays with herself" "That ain't my belly button" "This one time, at band camp, I put %noun..." "/considers breast implants%|%PICKUSER\[female\]%|%BOT[¬PICKUSER\[female\]¬|/feels up ¬¬ to check¬|true, they aren't as good as ¬ruser's¬|/feels up ¬ruser's breasts¬|mmmm ¬VAR{smiles}]" "/considers sexchange operation%|%PICKUSER[male]%|/looks at %ruser%|Maybe not" "%PICKUSER\[female\]%|It's good to be female isn't it %ruser" ]
+bMotion_abstract_batchadd "randomStuffFemale" [list "This one time, at band camp, I put a flute..." "Does my arse look big in this?" "Does my bum look big in this?" "*ping*%|Did it just get cold in here?" "Do you know how we keep warm in Russia?%|... we play chess." "I kinda like thongs" "I wonder what happens when I put that in here...%|oooooooh!" "/plays with herself" "That ain't my belly button" "This one time, at band camp, I put %noun..." "/considers breast implants%|%PICKUSER\[female\]%|%BOT\[¬PICKUSER\[female\]¬|/feels up ¬¬ to check¬|true, they aren't as good as ¬ruser's¬|/feels up ¬ruser's breasts¬|mmmm ¬VAR{smiles}\]" "/considers sexchange operation%|%PICKUSER[male]%|/looks at %ruser%|Maybe not" "%PICKUSER\[female\]%|It's good to be female isn't it %ruser" ]
 
 
 bMotion_abstract_register "PROM"
@@ -1264,7 +1264,7 @@ bMotion_abstract_batchadd "awayWorks" [list "hf %%" "have fun %%" "have a nice d
 
 
 bMotion_abstract_register "frightens"
-bMotion_abstract_batchadd "frightens" [list "eek!%|%bot[50,¬VAR{awwws}]" "o_O" "erk" "bah" "oh no b-" "crikey%|%bot[50,¬VAR{awwws}]" "blimey%|%bot[50,¬VAR{awwws}]" "gosh" "crumbs%|%bot[50,¬VAR{awwws}]" "yof" "ohmigod!" ]
+bMotion_abstract_batchadd "frightens" [list "eek!%|%bot\[50,¬VAR{awwws}\]" "o_O" "erk" "bah" "oh no b-" "crikey%|%bot\[50,¬VAR{awwws}\]" "blimey%|%bot\[50,¬VAR{awwws}\]" "gosh" "crumbs%|%bot\[50,¬VAR{awwws}\]" "yof" "ohmigod!" ]
 
 
 bMotion_abstract_register "blinding"
@@ -1272,7 +1272,7 @@ bMotion_abstract_batchadd "blinding" [list ]
 
 
 bMotion_abstract_register "autoAways"
-bMotion_abstract_batchadd "autoAways" [list "oh, so we're not interesting enough?%|%bot[50,obviously not]" "o, bye then" "bored? fine, we'll have fun without you ;)" "bored? fine, we'll have fun without you ;)%|%bot[50,¬VAR{rarrs}]" "fine, leave your computer, see if i care" "damnit! I WAS TALKING TO YOU!" "yea, go away, you don't care" "auto away my arse" "Great! Time to talk behind your back!%|So what do you guys really think about %%" ]
+bMotion_abstract_batchadd "autoAways" [list "oh, so we're not interesting enough?%|%bot\[50,obviously not\]" "o, bye then" "bored? fine, we'll have fun without you ;)" "bored? fine, we'll have fun without you ;)%|%bot\[50,¬VAR{rarrs}\]" "fine, leave your computer, see if i care" "damnit! I WAS TALKING TO YOU!" "yea, go away, you don't care" "auto away my arse" "Great! Time to talk behind your back!%|So what do you guys really think about %%" ]
 
 
 bMotion_abstract_register "tech_functions"
@@ -1292,11 +1292,11 @@ bMotion_abstract_batchadd "sillyThings" [list "12 year old black metal kids" "14
 
 
 bMotion_abstract_register "blownAways"
-bMotion_abstract_batchadd "blownAways" [list "/is blown off feet by force of %%'s statement%|%bot[50,¬VAR{picksUp}]" "/falls over%|%bot[50,¬VAR{picksUp}]" "/is blown away by force of %%'s statement%|%bot[50,¬VAR{picksUp}]" "ow my eyes :(" "/blinks" ":O" "o_O" ":o" "blimey" "crumbs" "i say" "lordy" ]
+bMotion_abstract_batchadd "blownAways" [list "/is blown off feet by force of %%'s statement%|%bot\[50,¬VAR{picksUp}\]" "/falls over%|%bot\[50,¬VAR{picksUp}\]" "/is blown away by force of %%'s statement%|%bot\[50,¬VAR{picksUp}\]" "ow my eyes :(" "/blinks" ":O" "o_O" ":o" "blimey" "crumbs" "i say" "lordy" ]
 
 
 bMotion_abstract_register "shocked"
-bMotion_abstract_batchadd "shocked" [list "!" "!!!" "crikey" "blimey" "crumbs" "yikes" "wow" "boom" "marmalade" ":O" ":o" "ooh 'eck" "i say%|%BOT[what do you say?]%|I say, %VAR{ers}...%|%VAR{randomStuff}." "%colen" "O_O" 	"A%REPEAT{4:7:R}GH!" ]
+bMotion_abstract_batchadd "shocked" [list "!" "!!!" "crikey" "blimey" "crumbs" "yikes" "wow" "boom" "marmalade" ":O" ":o" "ooh 'eck" "i say%|%BOT\[what do you say?\]%|I say, %VAR{ers}...%|%VAR{randomStuff}." "%colen" "O_O" 	"A%REPEAT{4:7:R}GH!" ]
 
 
 bMotion_abstract_register "randomAways"
@@ -1348,7 +1348,7 @@ bMotion_abstract_batchadd "balefired" [list "/vanishes from the continuum" "/cea
 
 
 bMotion_abstract_register "randomStuff"
-bMotion_abstract_batchadd "randomStuff" [list "I'm a doctor not %VAR{sillyThings}" "pika pika!" "pikachu!" "pika...CHUUUU!!! *ZZZAAP*" "*boing*" "moo." "BOOM" "BLAM" "Knickers.%|%BOT[¬VAR{rarrs}]" "/goes for coffee" "bof" "alors" "bhar" "arrrr.." "elbow." 	"gorilla" "*yawn*" "*spangle*" "brb" "lalalala.. ow! I stubbed my toe :(%|%bot[50,¬VAR{awwws}]" "lum de dum de dum..." "/twiddles thumbs" "boom" "Look over there!" "bleh" "/puts on some banging house tunes" "zut alors" "alors bof" "groogle arrhar" "brb, loo" 	"brb, sex" "uNF" "~rarr~" "~oof~" "Oops, I've ruined it." "Buttock Crunchies" "D'oh!" "setty mings lalalala" "pika" "Are you local?" "We'll have no trouble here" "Resistance is futile, you will be assimilated" "Resistance is futile, you will be 0wn3d" "Assimilation is futile, you will be resi... D'OH!" "I *didn't*" 	"waCHOO *sniff*%|%BOT[¬VAR{blessyous}]" "blblblblblbl" "/assimilates the channel" "We are the B0rg. You will be 4551m1la70r3d." "wheeeee" "We are the Borg. Lower your shields and surrender your ship." "h%REPEAT{3:8:n}" "did you see that.." "You are the weakest link, goodbye." "Computer, deactivate iguana." "kerPOW" "kerSPLAT" "KAZAM" "kazOO" "yaZOO" 	"spam, spam, spam, spam, spam, spam..." "Oh my god! There's an axe in my head.%|%BOT[¬VAR{pullsOut}]" "Mon dieu! Il y a une hache dans ma tete.%|%BOT[¬VAR{pullsOut}]" "ghay'cha'! nachwIjDaq betleH tu'lu'!%|%BOT[¬VAR{pullsOut}]" "Deus Meus! Securis in capite meo est.%|%BOT[¬VAR{pullsOut}]" "ALL YOUR BASE ARE BELONG TO US" "For great justice." "nostril" "%REPEAT{2:7:bl}" "wh%REPEAT{3:8:e}" "h%REPEAT{3:10:e} FUN" "ah bof" "I didn't!" "shh, sekrit" "SSSH SEKRIT" 	"SILENCE%colen" "pop" "cabbages" "penguin" "cheese" "mmm chicken" "blimey" "crikey" "hoorah" "pie pie pie pie" "fantastic" "ho ho" "har har" "deary me" "m00se" 	"llama" "frogs" "knickers" "bob" "kenneth" "nigel" "is everyone thooper?" "super" "thooper" "lashings of ginger beer" ]
+bMotion_abstract_batchadd "randomStuff" [list "I'm a doctor not %VAR{sillyThings}" "pika pika!" "pikachu!" "pika...CHUUUU!!! *ZZZAAP*" "*boing*" "moo." "BOOM" "BLAM" "Knickers.%|%BOT\[¬VAR{rarrs}\]" "/goes for coffee" "bof" "alors" "bhar" "arrrr.." "elbow." 	"gorilla" "*yawn*" "*spangle*" "brb" "lalalala.. ow! I stubbed my toe :(%|%bot\[50,¬VAR{awwws}\]" "lum de dum de dum..." "/twiddles thumbs" "boom" "Look over there!" "bleh" "/puts on some banging house tunes" "zut alors" "alors bof" "groogle arrhar" "brb, loo" 	"brb, sex" "uNF" "~rarr~" "~oof~" "Oops, I've ruined it." "Buttock Crunchies" "D'oh!" "setty mings lalalala" "pika" "Are you local?" "We'll have no trouble here" "Resistance is futile, you will be assimilated" "Resistance is futile, you will be 0wn3d" "Assimilation is futile, you will be resi... D'OH!" "I *didn't*" 	"waCHOO *sniff*%|%BOT\[¬VAR{blessyous}\]" "blblblblblbl" "/assimilates the channel" "We are the B0rg. You will be 4551m1la70r3d." "wheeeee" "We are the Borg. Lower your shields and surrender your ship." "h%REPEAT{3:8:n}" "did you see that.." "You are the weakest link, goodbye." "Computer, deactivate iguana." "kerPOW" "kerSPLAT" "KAZAM" "kazOO" "yaZOO" 	"spam, spam, spam, spam, spam, spam..." "Oh my god! There's an axe in my head.%|%BOT\[¬VAR{pullsOut}\]" "Mon dieu! Il y a une hache dans ma tete.%|%BOT\[¬VAR{pullsOut}\]" "ghay'cha'! nachwIjDaq betleH tu'lu'!%|%BOT\[¬VAR{pullsOut}\]" "Deus Meus! Securis in capite meo est.%|%BOT\[¬VAR{pullsOut}\]" "ALL YOUR BASE ARE BELONG TO US" "For great justice." "nostril" "%REPEAT{2:7:bl}" "wh%REPEAT{3:8:e}" "h%REPEAT{3:10:e} FUN" "ah bof" "I didn't!" "shh, sekrit" "SSSH SEKRIT" 	"SILENCE%colen" "pop" "cabbages" "penguin" "cheese" "mmm chicken" "blimey" "crikey" "hoorah" "pie pie pie pie" "fantastic" "ho ho" "har har" "deary me" "m00se" 	"llama" "frogs" "knickers" "bob" "kenneth" "nigel" "is everyone thooper?" "super" "thooper" "lashings of ginger beer" ]
 
 
 bMotion_abstract_register "wrong_infoline"
@@ -1408,11 +1408,11 @@ bMotion_abstract_batchadd "kills" [list "/stabs %%" "/phasers %%" "/nukes %%" "/
 
 
 bMotion_abstract_register "insult_joins"
-bMotion_abstract_batchadd "insult_joins" [list "%ruser: yeah, %% does suckOH HI %%!" "[%%] I'm a %VAR{PROM}%|%VAR{wrong_infoline}" "[%%] I love %ruser%|%VAR{wrong_infoline}" ]
+bMotion_abstract_batchadd "insult_joins" [list "%ruser: yeah, %% does suckOH HI %%!" "\[%%\] I'm a %VAR{PROM}%|%VAR{wrong_infoline}" "\[%%\] I love %ruser%|%VAR{wrong_infoline}" ]
 
 
 bMotion_abstract_register "pullsOut"
-bMotion_abstract_batchadd "pullsOut" [list "/pulls it out%|%bot[50,¬VAR{wahey}]" ]
+bMotion_abstract_batchadd "pullsOut" [list "/pulls it out%|%bot\[50,¬VAR{wahey}\]" ]
 
 
 bMotion_abstract_register "goodMornings"
