@@ -33,8 +33,7 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
     }
     incr mood(happy)
     incr mood(lonely) -1
-  }
-else {
+  } else {
     #don't greet people we don't know
     if {![bMotion_setting_get "friendly"]} {
       return 0
