@@ -13,58 +13,118 @@
 
 #
 # Causes the bot to give a basic description of a "scrapheap-challenge" type vehicle / construction
-# Syntax : !scrap [ silly ]
+# Syntax : !scrap [ silly ] [ adult ]
 #
 # Output : [Quality] [Adjective [Adjective2]] [Power] Construction
 # E.g. "Bent" "Steam Driven" "Barge"
 #
 # Silly switch will introduce strange descriptions, such as a "greasy lunar powered blamanche"
+# Adult switch will introduce norty descriptions / devices.
 #
 
 
 proc bMotion_plugin_complex_scrap { nick host handle channel text } {
-  if [regexp -nocase "^!scrap( silly| xxx)?$" $text blah silly] {
+
+  if [regexp -nocase "^!scrap( silly| adult| xxx)?( silly| adult| xxx)?$" $text blah silly1 silly2] {
+
     # output from output_english.tcl automatically corrects bad grammar of "a " followed by a vowel.
-    set output "A ";
+    set output "A "
+
+    set outputtype 0
+    if {($silly1 == " silly") || ($silly2 == " silly")} {
+      set outputtype [expr $outputtype + 1]
+    }
+    if {($silly1 == " adult") || ($silly2 == " adult") || ($silly1 == " xxx") || ($silly2 == " xxx")} {
+      set outputtype [expr $outputtype + 2]
+    }
+
+# outputtype = 0 <-- regular output    
+# outputtype = 1 <-- silly output    
+# outputtype = 2 <-- adult output    
+# outputtype = 3 <-- silly adult output    
+
     # quality
     if [rand 2] {
-      if {$silly != ""} {
-        append output "%VAR{scrap_silly_qualities} "
-      } else {
-        append output "%VAR{scrap_qualities} "
+      switch -exact $outputtype {
+        0 {
+          append output "%VAR{scrap_qualities} "
+        }
+        1 {
+          append output "%VAR{scrap_silly_qualities} "
+        }
+        2 {
+          append output "%VAR{scrap_adult_qualities} "
+        }
+        3 {
+          append output "%VAR{scrap_silly_adult_qualities} "
+        }
       }
     }
 
     # adjectives
     if [rand 2] {
-      if {$silly != ""} {
-        append output "%VAR{scrap_silly_adjectives} "
-        if [rand 2] {
-          append output "%VAR{scrap_silly_adjectives2} "
+      switch -exact $outputtype {
+        0 {
+          append output "%VAR{scrap_adjectives} "
+          if [rand 2] {
+            append output "%VAR{scrap_adjectives2} "
+          }
         }
-      } else {
-        append output "%VAR{scrap_adjectives} "
-        if [rand 2] {
-          append output "%VAR{scrap_adjectives2} "
+        1 {
+          append output "%VAR{scrap_silly_adjectives} "
+          if [rand 2] {
+            append output "%VAR{scrap_silly_adjectives2} "
+          }
+        }
+        2 {
+          append output "%VAR{scrap_adult_adjectives} "
+          if [rand 2] {
+            append output "%VAR{scrap_adult_adjectives2} "
+          }
+        }
+        3 {
+          append output "%VAR{scrap_silly_adult_adjectives} "
+          if [rand 2] {
+            append output "%VAR{scrap_silly_adult_adjectives2} "
+          }
         }
       }
     }
 
     # power
     if [rand 2] {
-      if {$silly != ""} {
-        append output "%VAR{scrap_silly_power_adjectives} "
-      } else {
-        append output "%VAR{scrap_power_adjectives} "
+      switch -exact $outputtype {
+        0 {
+          append output "%VAR{scrap_power_adjectives} "
+        }
+        1 {
+          append output "%VAR{scrap_silly_power_adjectives} "
+        }
+        2 {
+          append output "%VAR{scrap_adult_power_adjectives} "
+        }
+        3 {
+          append output "%VAR{scrap_silly_adult_power_adjectives} "
+        }
       }
     }
 
     # construction
-    if {$silly != ""} {
-      append output "%VAR{scrap_silly_construction}"
-    } else {
-      append output "%VAR{scrap_construction}"
+    switch -exact $outputtype {
+      0 {
+        append output "%VAR{scrap_construction} "
+      }
+      1 {
+        append output "%VAR{scrap_silly_construction} "
+      }
+      2 {
+        append output "%VAR{scrap_adult_construction} "
+      }
+      3 {
+        append output "%VAR{scrap_silly_adult_construction} "
+      }
     }
+
 
     bMotionDoAction $channel "" $output
 
@@ -110,6 +170,7 @@ set scrap_qualities {
 set scrap_adjectives {
   "broken down"
   "greasy"
+  "dirty"
   "bent"
   "blunt"
   "rusty"
@@ -132,6 +193,7 @@ set scrap_adjectives {
   "layered"
   "over-tuned"
   "mamoth"
+  "oscillating"
   "tiny"
   "small"
   "medium sized"
@@ -151,6 +213,9 @@ set scrap_adjectives {
   "creek crossing"
   "ditch digging"
   "rough riding"
+  "remote controlled"
+  "fully automatic"
+  "semi automatic"
 }
 
 set scrap_power_adjectives {
@@ -170,6 +235,10 @@ set scrap_power_adjectives {
   "electronic"
   "biological"
   "unpowered"
+  "spring loaded"
+  "winched"
+  "chain driven"
+  "pressurised"
 }
 
 set scrap_construction {
@@ -187,7 +256,7 @@ set scrap_construction {
   "train"
   "railroad racer"
   "tug"
-  "automatic rifle"
+  "rifle"
   "air cannon"
   "drag racer"
   "liquid transporter"
@@ -204,8 +273,11 @@ set scrap_construction {
   "monster truck"
   "grenade launcher"
   "golf-ball-driver"
+  "satellite"
   "go kart"
   "scooter"
+  "bunker"
+  "pillbox"
   "4X4"
   "landing craft"
   "dodgem"
@@ -214,6 +286,18 @@ set scrap_construction {
   "wagon"
   "bus"
   "APC"
+  "rocket"
+  "keyboard"
+  "projector"
+  "fan"
+  "sword"
+  "shield"
+  "sledge"
+  "lorry"
+  "truck"
+  "catapult"
+  "missile"
+  "gyroscope"
 }
 
 set scrap_silly_qualities_t {
@@ -221,16 +305,34 @@ set scrap_silly_qualities_t {
   "strange"
   "bizzare"
   "alien"
+  "mysterious"
+  "elven"
+  "orcish"
+  "goblinoid"
+  "magical"
 }
 
 set scrap_silly_adjectives_t {
   "spotty"
+  "funny"
   "furry"
+  "wobbly"
+  "bouncy"
+  "cuddly"
+  "cute"
+  "sweet"
+  "ugly"
+  "multi-coloured"
+  "anti -"
   "inflatable"
+  "virtual"
 
   "mighty morphing"
   "wacky racing"
   "rib tickling"
+  "thigh slapping"
+  "artificially intelligent"
+  "manic mining"
 }
 
 set scrap_silly_power_adjectives_t {
@@ -240,6 +342,8 @@ set scrap_silly_power_adjectives_t {
   "soul powered"
   "%ruser powered"
   "%VAR{sillyThings} driven"
+  "pure evil"
+  "plasma powered"
 }
 
 set scrap_silly_construction_t {
@@ -253,10 +357,113 @@ set scrap_silly_construction_t {
   "mega zord"
   "turbo mega power zord"
   "transformer"
-  "beany baby"
+  "beanie baby"
   "unicycle"
   "baby"
   "welly wanger"
+  "football"
+  "website"
+  "server"
+  "daemon"
+  "imp"
+  "angel"
+  "ATAT"
+  "star destroyer"
+  "starship"
+  "space station"
+  "probe"
+  "%ruser"
+  "megaphone"
+  "postbox"
+  "starbase"
+  "rabbit"
+  "cartoon character"
+  "prom dress"
+  "hula skirt"
+  "dunce's cap"
+  "crown"
+  "coktail machine"
+  "beer keg"
+  "action hero"
+  "taunt"
+  "teleporter"
+  "phaser"
+  "disruptor"
+  "beam of light"
+  "quark"
+  "neutrino"
+  "tachyon"
+  "postcard"
+  "printing press"
+  "cash printing machine"
+}
+
+set scrap_adult_qualities_t {
+  "well formed"
+  "well rounded"
+  "slinky"
+  "slender"
+  "slim"
+
+  "minging"
+  "doggish"
+}
+
+set scrap_adult_adjectives_t {
+  "norty"
+  "vary norty"
+  "sexy"
+  "horny"
+  "firm"
+  "supple"
+  "sticky"
+  "moist"
+  "wet"
+  "sweaty"
+  "hot"
+  "steamy"
+  "licking"
+  "tight"
+  "curvy"
+  "undulating"
+  "girating"
+  "shafting"
+  "vibrating"
+  "lubricating"
+  "tasty"
+  "fondling"
+  "cuddling"
+  "masturbating"
+  "shagging"
+  "fucking"
+  "screwing"
+
+  "pole dancing"
+  "stripping"
+}
+
+set scrap_adult_power_adjectives_t {
+  "jiz powered"
+  "love juice powered"
+  "sweat powered"
+  "motion powered"
+}
+
+set scrap_adult_construction_t {
+  "dildo"
+  "love doll"
+  "vibrator"
+  "whip"
+  "melon"
+  "shaft"
+  "girator"
+  "stroking device"
+  "n0rty bits"
+  "nipple tweaker"
+  "underwear"
+  "suction pump"
+  "sheep"
+  "rump"
 }
 
 #create the big lists :)
@@ -265,6 +472,18 @@ set scrap_silly_power_adjectives [concat $scrap_power_adjectives $scrap_silly_po
 set scrap_silly_adjectives [concat $scrap_adjectives $scrap_silly_adjectives_t]
 set scrap_silly_construction [concat $scrap_construction $scrap_silly_construction_t]
 
+set scrap_adult_qualities [concat $scrap_qualities $scrap_adult_qualities_t]
+set scrap_adult_power_adjectives [concat $scrap_power_adjectives $scrap_adult_power_adjectives_t]
+set scrap_adult_adjectives [concat $scrap_adjectives $scrap_adult_adjectives_t]
+set scrap_adult_construction [concat $scrap_construction $scrap_adult_construction_t]
+
+set scrap_silly_adult_qualities [concat $scrap_qualities $scrap_silly_qualities_t]
+set scrap_silly_adult_power_adjectives [concat $scrap_power_adjectives $scrap_silly_power_adjectives_t]
+set scrap_silly_adult_adjectives [concat $scrap_adjectives $scrap_silly_adjectives_t]
+set scrap_silly_adult_construction [concat $scrap_construction $scrap_silly_construction_t]
+
 #duplicate for second adjectives
 set scrap_silly_adjectives2 $scrap_silly_adjectives
+set scrap_adult_adjectives2 $scrap_adult_adjectives
+set scrap_silly_adult_adjectives2 $scrap_silly_adult_adjectives
 set scrap_adjectives2 $scrap_adjectives
