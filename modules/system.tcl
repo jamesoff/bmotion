@@ -68,12 +68,35 @@ foreach chan $bMotionInfo(randomChannels) {
 
 proc bMotionInfo {nick host handle channel text} {  
   global bMotionInfo botnicks bMotionSettings cvsinfo randomsinfo botnick
-  if {![regexp -nocase $botnick $text]} { return 0 }
+  global bMotionVersion
+  if {(![regexp -nocase $botnick $text]) && ($text != "all")} { return 0 }
+  if {!([isvoice $nick] || [isop $nick]) || ($nick != "JamesOff")} { return 0 }
   set timezone [clock format [clock seconds] -format "%Z"]  
-  set status "I am running bMotion under TCL [info patchlevel]: botGender $bMotionInfo(gender)/$bMotionInfo(orientation) : balefire $bMotionInfo(balefire) : pokemon $bMotionInfo(pokemon) : timezone $timezone : randomStuff $bMotionInfo(minRandomDelay), $bMotionInfo(maxRandomDelay), $bMotionInfo(maxIdleGap) : botnicks $botnicks : melMode $bMotionSettings(melMode) : needI $bMotionSettings(needI) : cvs $cvsinfo : randoms $randomsinfo"
+  putchan $channel "I am running bMotion $bMotionVersion under TCL [info patchlevel]."
+  set status "botGender $bMotionInfo(gender)/$bMotionInfo(orientation) : balefire $bMotionInfo(balefire) : pokemon $bMotionInfo(pokemon) : timezone $timezone : randomStuff $bMotionInfo(minRandomDelay), $bMotionInfo(maxRandomDelay), $bMotionInfo(maxIdleGap) : botnicks $botnicks : melMode $bMotionSettings(melMode) : needI $bMotionSettings(needI)"
   if {$bMotionInfo(silence)} { set status "$status : silent (yes)" }
-  append status " : www.bmotion.net"
   putchan $channel $status
+
+  #abstracts
+  global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age
+  global bMotion_abstract_ondisk
+
+  set mem [llength [array names bMotion_abstract_contents]]
+  set disk [llength $bMotion_abstract_ondisk]
+  putchan $channel "abstracts: [expr $mem + $disk] total, $mem loaded, $disk on disk"
+
+  #facts
+  global bMotionFacts
+  set items [lsort [array names bMotionFacts]]
+  set itemcount 0
+  set factcount 0
+  foreach item $items {
+    incr itemcount
+    incr factcount [llength $bMotionFacts($item)]
+  }
+  putchan $channel "facts: $factcount facts about $itemcount items"
+
+  return 0
 }
 
 proc doRandomStuff {} {
