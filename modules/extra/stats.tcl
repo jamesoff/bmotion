@@ -290,6 +290,46 @@ proc bMotion_stats_version_cmp { } {
 	}
 }
 
+### these are our admin commands
+proc bMotion_stats_admin { handle { args "" } } {
+	global bMotion_stats_key bMotion_stats_id
+	global bMotion_stats_enabled bMotion_stats_version
+	
+	if {($arg == "stats") || ($arg == "status")} {
+		bMotion_putadmin "Stats module:"
+		if {$bMotion_stats_enabled} {
+			bMotion_putadmin "  sending stats: yes"
+		} else {
+			bMotion_putadmin "  sending stats: no"
+		}
+		
+		if {$bMotion_stats_version} {
+			bMotion_putadmin "  checking version: yes"
+		} else {
+			bMotion_putadmin "  checking version: no"
+		}
+		
+		if {$bMotion_stats_key != ""} {
+			bMotion_putadmin "  id: $bMotion_stats_id (key: $bMotion_stats_key)"
+		} else {
+			bMotion_putadmin "  no id is stored"
+		}
+		
+		#find our bind and delete it from the timeline
+		set binds [binds time]
+		foreach bind $binds {
+			if {[lindex $bind 4] == "bMotion_stats_auto"} {
+				#this is us
+				bMotion_putadmin "  next stats run at [lindex $bind 0]:[lindex $bind 1]"
+			}
+		}
+		
+		return 0
+	}
+}
+
+bMotion_plugin_add_management "stats" "^stats" n bMotion_stats_admin "any"
+
 #init
 set bMotion_stats_id ""
 set bMotion_stats_key ""
