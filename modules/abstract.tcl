@@ -159,9 +159,13 @@ proc bMotion_abstract_load { abstract } {
 }
 
 proc bMotion_abstract_add { abstract text {save 1} } {
-  global bMotion_abstract_contents bMotion_abstract_timestamps
+  global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age
 
   bMotion_putloglev 1 * "Adding '$text' to abstract '$abstract'"
+
+  if {$bMotion_abstract_timestamps($abstract) < [expr [clock seconds] - $bMotion_abstract_max_age]} {
+    bMotion_abstract_load $abstract
+  }
 
   if {[lsearch -exact $bMotion_abstract_contents($abstract) $text] == -1} {
     lappend bMotion_abstract_contents($abstract) $text
