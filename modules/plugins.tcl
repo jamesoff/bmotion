@@ -134,7 +134,7 @@ proc bMotion_plugin_find_admin { text lang } {
     set flags [lindex $blah 1]
     set callback [lindex $blah 2]
     set language [lindex $blah 3]
-    if {[string match $lang $language] || ($language == "any")} {
+    if {[string match $lang $language] || ($language == "any")|| ($language == "all")} {
       if [regexp -nocase $rexp $text] {
         array donesearch bMotion_plugins_admin $s
         return "${flags}¦$callback"
@@ -180,10 +180,11 @@ proc bMotion_plugin_find_complex { text lang } {
     set chance [lindex $blah 1]
     set callback [lindex $blah 2]
     set language [lindex $blah 3]
-    if {[string match $lang $language] || ($language == "any")} {
+    if {[string match $lang $language] || ($language == "any") || ($language == "all")} {
     set rexp [bMotionInsertString $rexp "%botnicks" "${botnicks}"]
       if [regexp -nocase $rexp $text] {
         set c [rand 100]
+        bMotion_putloglev 4 * "matched complex:$key"
         if {$chance > $c} {
           lappend result $callback
         }
@@ -226,7 +227,7 @@ proc bMotion_plugin_find_output { lang } {
     set callback [lindex $blah 0]
     set enabled [lindex $blah 1]
     set language [lindex $blah 2]
-    if {[string match $lang $language] || ($language == "any")} {
+    if {[string match $lang $language] || ($language == "any")|| ($language == "all")} {
       if {$enabled == 1} {
         lappend result $callback
       }
@@ -272,7 +273,7 @@ proc bMotion_plugin_find_action_simple { text lang } {
     set chance [lindex $blah 1]
     set response [lindex $blah 2]
     set language [lindex $blah 3]
-    if {[string match $lang $language] || ($language == "any")} {
+    if {[string match $lang $language] || ($language == "any")|| ($language == "all")} {
       set rexp [bMotionInsertString $rexp "%botnicks" "${botnicks}"]
       if [regexp -nocase $rexp $text] {
         set c [rand 100]
@@ -320,7 +321,7 @@ proc bMotion_plugin_find_action_complex { text lang } {
     set chance [lindex $blah 1]
     set callback [lindex $blah 2]
     set language [lindex $blah 3]
-    if {[string match $language $lang] || ($language == "any")} {
+    if {[string match $language $lang] || ($language == "any")|| ($language == "all")} {
       set rexp [bMotionInsertString $rexp "%botnicks" "${botnicks}"]
       if [regexp -nocase $rexp $text] {
         set c [rand 100]
@@ -432,7 +433,7 @@ proc bMotion_plugin_find_nick_action { text lang } {
     set chance [lindex $blah 1]
     set callback [lindex $blah 2]
     set language [lindex $blah 3]
-    if {[string match $language $lang] || ($language == "any")} {
+    if {[string match $language $lang] || ($language == "any") || ($language == "all")} {
       if [regexp -nocase $rexp $text] {
         set c [rand 100]
         if {$chance > $c} {
@@ -485,7 +486,7 @@ bMotion_putloglev d * "(one moment...)\r"
 foreach t {simple complex admin output action_simple action_complex nick_action} {
   set arrayName "bMotion_plugins_$t"
   upvar #0 $arrayName cheese
-  set plugins [array names cheese]
+  set plugins [lsort [array names cheese]]
   set output "$t: "
   foreach n $plugins {
     if {$n != "dummy"} {
