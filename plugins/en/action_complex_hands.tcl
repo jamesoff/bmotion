@@ -53,7 +53,7 @@ proc bMotion_plugin_complex_action_hands { nick host handle channel text } {
 
     #spliff
     if [regexp -nocase "(spliff|joint|bong|pipe|dope|gear|pot)" $item] {
-      bMotion_plugin_complex_action_hands_spliff $channel $nick
+      bMotion_plugin_complex_action_hands_spliff $channel $nick $handle
       return 1
     }
 
@@ -209,7 +209,7 @@ proc bMotion_plugin_complex_action_hands_pie { channel nick } {
 
 ##### SPLIFF
 
-proc bMotion_plugin_complex_action_hands_spliff { channel nick } {
+proc bMotion_plugin_complex_action_hands_spliff { channel nick handle } {
   global mood
   if {![matchattr $handle I]} {
     putserv "NOTICE $nick :Sorry, I don't know you well enough to take stuff like that off you."
