@@ -13,6 +13,7 @@
 ###############################################################################
 
 bMotion_plugin_add_complex "fuckoff" "^fuck off,?;? %botnicks" 90 bMotion_plugin_complex_fuckoff "en"
+bMotion_plugin_add_complex "fuckyou" "fuck you" 100 bMotion_plugin_complex_fuckyou "en"
 
 proc bMotion_plugin_complex_fuckoff { nick host handle channel text } {
   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{fuckOffs}"
@@ -23,3 +24,15 @@ proc bMotion_plugin_complex_fuckoff { nick host handle channel text } {
   return 1
 }
 
+proc bMotion_plugin_complex_fuckyou { nick host handle channel text } {
+  if {![bMotionTalkingToMe $text]} { return 0 }
+  bMotionDoAction $channel "" "%VAR{fuckYous}"
+  bMotionGetLonely
+  bMotionGetSad
+  driftFriendship $nick -3
+  return 1
+
+}
+
+bMotion_abstract_register "fuckYous"
+bMotion_abstract_batchadd "fuckYous" [list "stfu" "shut up, you %VAR{PROM}" "eh fuck you buddy" "lalala not listening"]
