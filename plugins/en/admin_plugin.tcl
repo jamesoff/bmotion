@@ -57,11 +57,12 @@ proc bMotion_plugin_admin_plugins { handle idx { arg "" }} {
       set blah [split $details "¦"]
       set callback [lindex $blah 0]
       set enabled [lindex $blah 1]
+      set language [lindex $blah 2]
       if {$enabled == 0} {
         putidx $idx "... it's already disabled.\r"
         return 0
       }
-      set bMotion_plugins_output($id) "$callback¦0"
+      set bMotion_plugins_output($id) "$callback¦0¦$language"
       putlog "bMotion: INFO: Output plugin $id disabled"
       return 0
     }
