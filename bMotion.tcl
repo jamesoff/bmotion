@@ -48,6 +48,13 @@ if {$bMotion_testing == 1} {
   putlog "... loading abstracts"
 }
 source "$bMotionModules/abstracts.tcl"
+#try to load a file for this bot
+catch {
+  if {${botnet-nick} != ""} {
+    source "$bMotionModules/abstracts_${botnet-nick}.tcl"
+    bMotion_putloglev d * "loaded abstracts for this bot from abstracts_${botnet-nick}.tcl"
+  }
+}
 
 # load settings
 if {$bMotion_testing == 1} {
@@ -58,7 +65,7 @@ source "$bMotionModules/settings.tcl"
 catch {
   if {${botnet-nick} != ""} {
     source "$bMotionModules/settings_${botnet-nick}.tcl"
-    putlog "... also loaded settings for this bot from settings_${botnet-nick}.tcl"
+    bMotion_putloglev d * "loaded settings for this bot from settings_${botnet-nick}.tcl"
   }
 }
 
