@@ -19,6 +19,16 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
   global botnicks bMotionFacts
 
   regsub {(.+)[>\/]$} $text {\1?} text
+
+  bMotion_putloglev 3 * "Checking question for wellbeing"
+  ## wellbeing question targeted at me
+  if { [regexp -nocase "^$botnicks,?:? how( a|')?re (you|ya)" $text] ||
+       [regexp -nocase "^how( a|')?re (you|ya).*$botnicks ?\\?" $text] ||
+       [regexp -nocase "${botnicks}?:? ?(how('?s|z) it going|hoe gaat het|what'?s up|'?sup|how are you),?( ${botnicks})?\\?" $text]} {
+      bMotion_question_wellbeing $nick $channel $host
+      return 1
+  }
+    
   bMotion_putloglev 3 * "Checking question for 'what'"
   ## What question targeted at me
   if { [regexp -nocase "what('?s)?(.+)" $text matches s question] ||
@@ -32,14 +42,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
     return 1
   }
 
-  bMotion_putloglev 3 * "Checking question for wellbeing"
-  ## wellbeing question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? how( a|')?re (you|ya)" $text] ||
-       [regexp -nocase "^how( a|')?re (you|ya).*$botnicks ?\\?" $text] ||
-       [regexp -nocase "${botnicks}?:? ?(how('?s|z) it going|hoe gaat het|what'?s up|'?sup|how are you),?( ${botnicks})?\\?" $text]} {
-    bMotion_question_wellbeing $nick $channel $host
-    return 1
-  }
+
   
     
   bMotion_putloglev 3 * "Checking question for 'with/at/against'"
