@@ -296,7 +296,7 @@ proc bMotion_plugin_complex_question_with { nick channel host prop } {
 proc bMotion_plugin_complex_question_who { nick channel host owner } {
     bMotion_putloglev 2 * "$nick who question"
   if {$owner == "se"} {
-    set line "%OWNER[%VAR{answerWhos}]"
+    set line "%OWNER{%VAR{answerWhos}}"
   } else {
     set line "%VAR{answerWhos}"
   }
