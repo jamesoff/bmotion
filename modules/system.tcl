@@ -204,24 +204,28 @@ proc bMotionTalkingToMe { text } {
   return 0
 }
 
+## bMotionSilence ############################################################
+# Makes the bot shut up
+##############################################################################
 proc bMotionSilence {nick host channel} {
-  # We've been told to shut up :(
-  # Let's be silent for 5 minutes
-  global bMotionInfo silenceAways
+  global bMotionInfo silenceAways bMotionSettings
   if {$bMotionInfo(silence) == 1} {
     #I already am :P
     putserv "NOTICE $nick :I already am silent :P"
     return 0
   }
-  timer 5 bMotionUnSilence
-  putlog "bMotion: Was told to be silent for 5 minutes by $nick in $channel"
+  timer $bMotionSettings(silenceTime) bMotionUnSilence
+  putlog "bMotion: Was told to be silent for $bMotionSettings(silenceTime) minutes by $nick in $channel"
   set awayStuff [pickRandom $silenceAways]
   bMotionDoAction $channel $nick $awayStuff
-  putserv "AWAY :bbi5 ($nick $channel)"
+  putserv "AWAY :afk ($nick $channel)"
   set bMotionInfo(silence) 1
   set bMotionInfo(away) 1
 }
 
+## bMotionUnSilence ##########################################################
+# Undoes the shut up command
+##############################################################################
 proc bMotionUnSilence {} {
   # Timer for silence expires
   putserv "AWAY"
