@@ -691,4 +691,4 @@ proc bMotionMakePossessive { text { altMode 0 }} {
 }
 
 
-bMotion_putloglev d * "bMotion: events module loaded"
+bMotion_putloglev d * "bMotion: output module loaded"
