@@ -34,7 +34,7 @@ set random_crap_type {
 }
 
 proc bMotion_plugin_complex_crap { nick host handle channel text } {
-	bMotion_flood_undo $nick
+	#bMotion_flood_undo $nick
 
 	# regexp -nocase "^!crap (.+)" $text matches command text
 
