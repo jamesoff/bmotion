@@ -1474,6 +1474,8 @@ bMotion_abstract_batchadd "attack_responses" [list "%% attacks %SETTING{complex:
 bMotion_abstract_register "randomZimNameChange"
 bMotion_abstract_batchadd "randomZimNameChange" [list "master, where did you go? I can't see you" "master?" "where'd my moose go?" "we have no time for these games%colen" "watch out for the moose" ]
 
+bMotion_abstract_register "randomWrongConsoleReply"
+bMotion_abstract_batchadd "randomWrongConsoleReply" [list "yay! %% can't get it right" "why don't you tell us your password as well?" "try the other window" "try `rm -rf /' as root" "Would you like a hand?" "idiot." "haha" ]
 
 bMotion_abstract_register "locations"
 bMotion_abstract_batchadd "locations" [list "England" "US" "california" "indiana" "the moon" "australia" "holland" "norway" "bosnia" "russia" "canada" "toronto" "amsterdam" "mars" "exeter" 	"london" "new york" "basingstoke" ]
