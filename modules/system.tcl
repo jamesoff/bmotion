@@ -56,7 +56,7 @@ bind pub - !bmotion bMotionAdminHandler2
 
 #DCC commands
 bind dcc m mood moodhandler
-bind dcc m bmotion* dcc_bmotioncommand
+bind dcc m bmotion* bMotion_dcc_command
 bind dcc m bmadmin* bMotion_dcc_command
 bind dcc m bmhelp bMotion_dcc_help
 
@@ -350,6 +350,51 @@ proc getHour {} {
 
 proc bMotion_dcc_command { handle idx arg } {
   global bMotionInfo
+
+  set cmd $arg
+
+  bMotion_plugins_settings_set "admin" "type" "" "" "dcc"
+  bMotion_plugins_settings_set "admin" "idx" "" "" $idx
+
+  putlog "bMotion command from $handle in DCC: $cmd"
+  set nfo [bMotion_plugin_find_management $cmd]
+
+  if {$nfo == ""} {
+    bMotion_putadmin "what"
+    return 1
+  }
+
+  set blah [split $nfo "¦"]
+  set flags [lindex $blah 0]
+  set callback [lindex $blah 1]
+
+  if {![matchattr $handle $flags]} {
+    bMotion_putadmin "What? You need more flags :)"
+    return 1
+  }
+
+  bMotion_putloglev d * "bMotion: management callback matched, calling $callback"
+
+  #strip the first command
+  regexp {[^ ]+( .+)?} $cmd {\1} arg
+
+  #run the callback :)
+  set arg [join $arg]
+  set arg [string trim $arg]
+
+  catch {
+    if {$arg == ""} {
+      $callback $handle
+    } else {
+      $callback $handle $arg
+    }
+  } err
+  if {($err != "") && ($err != 0)} {
+    putlog "bMotion: ALERT! Callback failed for !bmotion: $callback: $err"
+  } else {
+    return 0
+  }
+
   bMotion_putloglev 2 * "bMotion: admin command $arg from $handle"
   set info [bMotion_plugin_find_admin $arg $bMotionInfo(language)]
   if {$info == ""} {
@@ -503,8 +548,6 @@ proc bMotion_putadmin { text } {
     return 0
   }
 
-  putlog $output
-
   if {$output == "dcc"} {
     set idx [bMotion_plugins_settings_get "admin" "idx" "" ""]
     putidx $idx $text
@@ -630,7 +673,6 @@ proc msg_bmotioncommand { nick host handle cmd } {
   bMotion_plugins_settings_set "admin" "type" "" "" "irc"
   bMotion_plugins_settings_set "admin" "target" "" "" $nick
 
-  #putlog "bMotion command from $nick in $channel: $cmd"
   regsub "(bmotion )" $cmd "" cmd
   set nfo [bMotion_plugin_find_management $cmd]
 
