@@ -1,6 +1,28 @@
 bMotion CHANGELOG
 -----------------
 
+* = changed/fixed
++ = added
+- = removed
+
+* tidied up code a bit
+- no longer tracking chanmood, because it was rubbish
+* smileys now handled by a plugin (new regexps included)
+* New routine to clean []s in nicks, should be more reliable
++ Clean nicks for all entry points, not just event_main
+* bMotion won't greet someone if nothing else has been said since it greeted 
+  last
++ bMotion looks for modules/settings_<botnet-nick>.tcl too (and loads it after
+  settings.tcl). You can use this to prevent overwriting your bot's settings
+  when installing a new version of the code, and also to run more than one
+  bot off the same installation of bMotion.
+  For this to work, you MUST define the botnet-nick setting in your eggdrop's
+  config file. Remember that it will be case sensitive, so if I have my botnet
+  nick set to "NoTopic" the file has to be settings_NoTopic.tcl
++ same as above for abstracts.tcl (if you want to augment an existing one,
+  use lappend not set (man lappend for more info)   
+
+
 2003/01/03
 v0.0.4
 
