@@ -214,8 +214,8 @@ proc bMotion_interbot_me_next { channel } {
   }
   bMotion_putloglev 4 * "bMotion: nextbot_nick is not me" 
   #if it's noone, the winning bot will force an election anyway
-  #return $me 
-  return 0
+  return $me 
+  #return 0
   ## /|\ KIS hack, was 0, hacked to $me to force single botnet workings
 }
 
