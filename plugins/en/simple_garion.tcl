@@ -8,4 +8,4 @@
 ###############################################################################
 
 
-bMotion_plugin_add_simple "rules" "^%botnicks rules$" 100 "%VAR{thanks}" "en"
+bMotion_plugin_add_simple "rules" "^%botnicks (rocks|owns|rules)$" 100 "%VAR{thanks}" "en"

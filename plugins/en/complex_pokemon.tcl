@@ -46,7 +46,7 @@ proc bMotion_plugin_complex_attack { nick host handle channel text } {
           return 1
         }
         incr mood(electricity) -3
-        bMotionDoAction $channel $nick "pikaaa.... CHUUUUU"
+        bMotionDoAction $channel $nick "pikaaa.... CH%REPEAT{3:6:U}"
         if {$who == ""} { bMotionDoAction $channel $nick "/fires [getHisHer] <notopic>thunder$actualAttack</notopic>!" } else {
           bMotionDoAction $channel $who "/fires [getHisHer] <notopic>thunder$actualAttack</notopic> at %%"
         }
@@ -72,7 +72,7 @@ proc bMotion_plugin_complex_attack { nick host handle channel text } {
           return 1
         }
         incr mood(electricity) -2
-        bMotionDoAction $channel $nick "pikaaa.... CHUUUUU"
+        bMotionDoAction $channel $nick "pikaaa.... CH%REPEAT{3:6:U}"
         if {$who == ""} { bMotionDoAction $channel $nick "/fires [getHisHer] lightning attack!" } else {
           bMotionDoAction $channel $who "/fires [getHisHer] lightning attack at %%"
         }

@@ -227,7 +227,7 @@ proc bMotion_plugin_complex_action_hands_spliff { channel nick handle } {
 # abstracts
 set hand_generic {
   "%VAR{thanks}"
-  "mmm %%"
+  "%REPEAT{3:6:m} %%"
   "Do I want this?"
   "Just what I've always wanted %VAR{smiles}"
 }

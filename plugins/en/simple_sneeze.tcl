@@ -21,9 +21,9 @@ set bless_yous {
   "bless you"
   "Bless you"
   "/hands %% a tissue"
-  "eww%|*wipe*"
+  "e%REPEAT{2:5:w}%|*wipe*"
   "hehe, someone must be talking about you %VAR{smiles}"
-  "good thing I bought this haz-met suit"
+  "good thing I bought this haz-mat suit"
 }
 
 set blessyous $bless_yous

@@ -50,9 +50,8 @@ set welcomeBacks {
   "welcome back"
   "hey"
   "hi"
-  "bllblblbl"
+  "%REPEAT{4:7:bl}"
   "pop"
-  "they're back. I'm so happy!"
 }
 
 set joinins {
@@ -77,7 +76,6 @@ set autoAways {
   "bored? fine, we'll have fun without you ;)%|%bot[50,¬VAR{rarrs}]"
   "fine, leave your computer, see if i care"
   "damnit! I WAS TALKING TO YOU!"
-  "%%"
   "yea, go away, you don't care"
   "auto away my arse"
   "Great! Time to talk behind your back!%|So what do you guys really think about %%"

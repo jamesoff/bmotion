@@ -24,8 +24,8 @@ proc bMotion_plugin_complex_action_light { nick host handle channel text } {
 set burns {
   "/burns%|%bot[50,¬VAR{extinguishes}]"
   "*flames*%|%bot[50,¬VAR{extinguishes}]"
-  "BOOM"
-  "boom"
+  "B%REPEAT{2:5:O}M"
+  "b%REPEAT{2:5:o}m"
   "BLAM"
   "pop"
   "/goes up in flames%|%bot[50,¬VAR{extinguishes}]"

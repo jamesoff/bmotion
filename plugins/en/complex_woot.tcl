@@ -26,6 +26,6 @@ set woots {
   "%REPEAT{3:7} %%"
   "\\o/ %%"
   "hurrah"
-  "wh%REPEAR{3:7:e} %%"
+  "wh%REPEAT{3:7:e} %%"
   "%VAR{smiles}"
 }
