@@ -10,19 +10,23 @@
 # <unSlider> procyan: no, there are a bunch of people who dont know tcl/tk but are writing apps for it anyway
 #						(www.bash.org)
 
+
 set bMotionRoot "scripts/bmotion"
 set bMotionModules "$bMotionRoot/modules"
 set bMotionPlugins "$bMotionRoot/plugins"
+
 
 if {![info exists bMotion_testing]} {
   putloglev d * "bMotion: bMotion_testing is not defined, setting to 0."
   set bMotion_testing 0
 }
 
+
 source "$bMotionRoot/VERSION"
 if {$bMotion_testing == 0} {
   putlog "bMotion $bMotionVersion starting up..."
 }
+
 
 if {$bMotion_testing == 1} {
   putlog "bMotion: INFO: Code loading in testing mode"
@@ -89,6 +93,7 @@ if {$bMotion_testing == 1} {
   putlog "... loading settings"
 }
 source "$bMotionModules/settings.tcl"
+
 #try to load a file for this bot
 catch {
   if {${botnet-nick} != ""} {
@@ -144,8 +149,13 @@ if {$bMotion_testing == 1} {
 }
 source "$bMotionModules/flood.tcl"
 
-### That's everything but the plugins stuff loaded. Now load extra modules
+# load queue code
+if {$bMotion_testing == 1} {
+  putlog "... loading queue"
+}
+source "$bMotionModules/queue.tcl"
 
+### That's everything but the plugins stuff loaded. Now load extra modules
 bMotion_putloglev d * "looking for 3rd party modules..."
 set files [lsort [glob -nocomplain "$bMotionModules/extra/*.tcl"]]
 foreach f $files {
@@ -191,6 +201,7 @@ catch {
 }
 
 # Ignition!
+
 bMotion_startTimers
 if {$bMotion_testing == 0} {
   set bMotionCache(rehash) ""
@@ -199,6 +210,9 @@ if {$bMotion_testing == 0} {
 
 set bMotion_loading 0
 set bMotion_testing 0
+
+bMotion_diagnostic_utimers
+bMotion_diagnostic_timers
 
 # set this to 0 to stop showing the copyright
 # DO NOT DISTRIBUTE THIS FILE IF THE VARIABLE IS SET TO 0
