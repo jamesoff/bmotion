@@ -1,6 +1,1078 @@
 bMotion CHANGELOG
 -----------------
 
+v0.0.9
+2004-09-19 15:04  james
+
+	* modules/leet.tcl: fixed line breaks
+
+2004-09-19 15:04  james
+
+	* leetReplacements.tcl, randomword.tcl, randomwordList.tcl: these
+	  don't belong here
+
+2004-09-19 15:02  james
+
+	* modules/extra/: randomword.tcl, randomwordList.tcl: these should
+	  go here
+
+2004-09-19 14:58  james
+
+	* plugins/en/: admin_general.tcl, admin_help.tcl, admin_plugin.tcl:
+	  these don't belong here
+
+2004-09-19 14:57  james
+
+	* plugins/: admin_general.tcl, admin_help.tcl, admin_plugin.tcl:
+	  these belong here
+
+2004-09-19 14:55  james
+
+	* plugins/en/complex_taunt.tcl: use bMotion_interbot_me_next to
+	  make sure only one bot taunts
+
+2004-09-17 23:23  james
+
+	* plugins/en/action_complex_smacks.tcl: now with added fun
+
+2004-09-17 22:59  james
+
+	* plugins/en/action_complex_smacks.tcl: new stuff
+
+2004-09-17 14:12  james
+
+	* modules/system.tcl: fixed bmotion commands
+
+2004-09-17 13:43  james
+
+	* plugins/en/complex_invader.tcl: something very screwed up with
+	  the abstracts here
+
+2004-09-17 13:42  james
+
+	* modules/: abstract.tcl, output.tcl: mucho debugging (send
+	  function calls to level 5)
+
+2004-09-09 20:56  james
+
+	* modules/output.tcl: prevent rand breaking stuff hopefully
+
+2004-09-09 20:55  james
+
+	* modules/system.tcl: prevent rand breaking stuff hopefully
+	  optimise bMotionAdmin2 remove dead code
+
+2004-09-09 20:55  james
+
+	* modules/plugins.tcl: whoops
+
+2004-09-09 20:54  james
+
+	* plugins/en/admin_help.tcl: call the right proc, dumbass
+
+2004-09-09 20:53  james
+
+	* plugins/en/admin_help.tcl: use management help callback
+
+2004-09-09 20:32  james
+
+	* modules/: mood.tcl, system.tcl: no more chan mood tracking (cos
+	  it was rubbish)
+
+2004-09-09 10:18  james
+
+	* modules/extra/fact.tcl: experimental management plugin
+
+2004-09-09 10:17  james
+
+	* modules/plugins.tcl: experimental help callback support
+
+2004-09-09 10:15  james
+
+	* modules/mood.tcl: added help management callback
+
+2004-09-08 16:20  james
+
+	* modules/mood.tcl: added mood management command to replace !mood
+
+2004-09-08 16:19  james
+
+	* modules/events.tcl: use eggdrop 1.6.17's striptags command
+
+2004-09-08 15:54  james
+
+	* bMotion.tcl: load mood module after plugins
+
+2004-09-07 23:04  james
+
+	* modules/extra/stats.tcl: added check admin command
+
+2004-09-07 22:59  james
+
+	* bMotion.tcl: try a different loading order
+
+2004-09-07 22:59  james
+
+	* modules/extra/stats.tcl: fix load of key
+
+2004-09-07 22:54  james
+
+	* modules/extra/stats.tcl: load in separate function
+
+2004-09-07 22:47  james
+
+	* modules/extra/stats.tcl: lalala
+
+2004-09-07 22:44  james
+
+	* modules/extra/stats.tcl: whoops
+
+2004-09-07 22:41  james
+
+	* modules/extra/stats.tcl: added stats admin command
+
+2004-09-07 12:03  shruuf
+
+	* modules/output.tcl, plugins/en/action_complex_failsafe.tcl:
+	  Added new interpolation %VERB{} which tries to turn a word into a
+	  verb Fixed the improper verb problem ("NoTopic storm Shruuf in
+	  return")
+
+2004-09-06 12:56  shruuf
+
+	* modules/abstracts/en/abstracts.tcl:
+	  Fixed a typo and added Hex messages to randomStuff
+
+2004-09-06 12:34  shruuf
+
+	* plugins/en/complex_hand.tcl:
+	  Small fix for "give me a hug": "me" is translated to the user's
+	  nick
+
+2004-09-05 20:20  james
+
+	* plugins/en/action_complex_smacks.tcl: fixed mood errors again :P
+
+2004-09-05 20:09  james
+
+	* modules/extra/stats.tcl: write (mostly empty) stats.txt file on
+	  rehash if only doing version check
+
+2004-09-05 19:55  james
+
+	* modules/diagnostics.tcl: tcl sucks
+
+2004-09-05 19:46  james
+
+	* modules/events.tcl: missing a global definition
+
+2004-09-05 19:45  james
+
+	* modules/diagnostics.tcl: detect incorrect syntax in settings
+
+2004-09-05 17:30  james
+
+	* modules/extra/jeffk.tcl: disabled the %REPEAT lines that break
+
+2004-09-05 17:22  james
+
+	* modules/extra/stats.tcl: new stats module hooray
+
+2004-09-05 11:34  shruuf
+
+	* bMotion.tcl, modules/abstract.tcl, modules/flood.tcl,
+	  modules/settings.tcl, modules/extra/fact.tcl:
+	  Added setting to disable flood checks Added setting to control
+	  the number of abstract items, facts and fact items to keep
+
+2004-09-04 22:53  james
+
+	* plugins/en/complex_startrek.tcl: fixed the error with it not
+	  working first time the bot loads changed wording for votes to
+	  bets for clarity
+
+2004-09-04 21:15  james
+
+	* modules/events_support.tcl, modules/variables.tcl,
+	  plugins/en/action_complex_pinch.tcl,
+	  plugins/en/complex_sorry.tcl,
+	  plugins/fr/action_complex_pinch.tcl: fix some variable errors
+
+2004-09-04 21:11  james
+
+	* plugins/en/admin_general.tcl, modules/extra/stats.tcl,
+	  plugins/en/admin_help.tcl, plugins/en/simple_sponsorship.tcl:
+	  upgraded all old admin plugins to management ones
+
+2004-09-04 20:39  james
+
+	* plugins/en/admin_general.tcl: more upgrades
+
+2004-09-04 20:29  james
+
+	* modules/queue.tcl: added flush command
+
+2004-09-04 20:28  james
+
+	* plugins/en/admin_general.tcl: upgraded queue management stuff
+
+2004-09-04 20:22  james
+
+	* plugins/admin_flood.tcl: drop the bmadmin version
+
+2004-09-04 20:21  james
+
+	* plugins/en/complex_afro.tcl: no afro admin plugin
+
+2004-09-04 20:15  james
+
+	* plugins/en/admin_help.tcl: lots more help
+
+2004-09-04 20:15  james
+
+	* plugins/en/admin_plugin.tcl: help was listing an invalid command
+
+2004-09-04 20:02  james
+
+	* plugins/en/admin_help.tcl: added some help
+
+2004-09-04 19:58  james
+
+	* plugins/en/admin_help.tcl: oh yeah
+
+2004-09-04 19:58  james
+
+	* plugins/en/admin_help.tcl: sigh
+
+2004-09-04 19:49  james
+
+	* plugins/en/admin_help.tcl: did i mention i hate tcl arrays?
+
+2004-09-04 19:48  james
+
+	* plugins/en/admin_help.tcl: new help plugin
+
+2004-09-04 19:47  james
+
+	* modules/system.tcl: be more helpful when someone runs an unknown
+	  command
+
+2004-09-04 19:33  james
+
+	* modules/system.tcl: allow .bmotion as well as !bmotion on IRC
+
+2004-09-03 16:05  james
+
+	* plugins/en/action_complex_smacks.tcl: fixed trigger regexp taunt
+	  people using troutslaps
+
+2004-09-03 11:41  james
+
+	* modules/events.tcl: don't run event plugins for channels we're
+	  not active in!
+
+2004-09-01 23:18  james
+
+	* modules/abstracts/en/abstracts.tcl: added some missing abstracts
+	  :)
+
+2004-09-01 22:22  james
+
+	* plugins/en/complex_hand.tcl: patch from Shruuf
+
+2004-09-01 22:11  james
+
+	* modules/extra/promswear.tcl: more words(*&$£&(*
+
+2004-09-01 22:10  james
+
+	* plugins/en/complex_stupid.tcl: added 'useless' as a trigger
+
+2004-09-01 21:42  james
+
+	* plugins/en/complex_thants.tcl: new plugin: thants
+
+2004-09-01 21:38  james
+
+	* plugins/en/complex_chomp.tcl: new plugin: chomp
+
+2004-08-27 22:30  james
+
+	* modules/extra/fact.tcl, plugins/en/action_complex_balefires.tcl,
+	  plugins/en/action_complex_hides.tcl,
+	  plugins/en/action_complex_hops.tcl,
+	  plugins/en/action_complex_makes.tcl,
+	  plugins/en/action_complex_saton.tcl,
+	  plugins/en/action_complex_sleeps.tcl,
+	  plugins/en/action_complex_smacks.tcl,
+	  plugins/en/action_complex_snickers.tcl,
+	  plugins/en/action_complex_throwsbot.tcl,
+	  plugins/en/complex_fact.tcl, plugins/en/complex_shocked.tcl,
+	  plugins/en/complex_snap.tcl, plugins/en/complex_xmas.tcl,
+	  plugins/en/irc_quit.tcl: sync with my development version
+
+2004-08-27 19:56  james
+
+	* plugins/admin_abstract.tcl: use management-style plugins instead
+
+2004-08-24 16:16  jamesoff
+
+	* modules/events.tcl: fixed not stripping smileys right
+
+2004-08-24 16:07  jamesoff
+
+	* modules/plugins.tcl: some more debug
+
+2004-08-24 16:01  jamesoff
+
+	* modules/output.tcl: added {strip} to %VAR to remove a preceeding
+	  article
+
+2004-06-07 19:14  jamesoff
+
+	* plugins/en/: complex_want_catch.tcl, simple_general.tcl: fixed
+	  mmm properly added "got one" to want catcher
+
+2004-06-07 19:11  jamesoff
+
+	* plugins/en/complex_questions.tcl: added stuff from sid
+
+2004-06-07 19:11  jamesoff
+
+	* plugins/en/simple_sirclive.tcl: new
+
+2004-06-07 19:10  jamesoff
+
+	* plugins/en/complex_want_catch.tcl: fixed linebreaks fixed chance
+	  of mmm firing
+
+2004-06-07 19:07  jamesoff
+
+	* plugins/en/action_complex_failsafe.tcl: much bettar
+
+2004-06-07 18:03  jamesoff
+
+	* modules/output.tcl: fixed user selection
+
+2004-05-18 23:13  jamesoff
+
+	* plugins/en/complex_trivia.tcl: works with my triviaengine script
+
+2004-05-16 20:54  simsea
+
+	* modules/abstracts/en/abstracts.tcl: fixed the missing abstracts
+	  problem. The reason it broke could possibly have been moving the
+	  abstracts.tcl file further in the tree, but the solution seems to
+	  be declaring the abstract as global before adding to it
+
+	  i.e.
+
+	  global famousMice set famousMice {   "Mickey"   "Minny"
+	  "Mortimer"   "Stewart Little" }
+
+	  note: this only applies to those abstracts that are not the new
+	  style bMotion abstracts
+
+2004-04-07 19:08  jamesoff
+
+	* bMotion.tcl: need to load variables.tcl before abstract.tcl now
+
+2004-04-07 13:02  shuelsmann
+
+	* plugins/en/: complex_getfact.tcl, complex_goodwork.tcl,
+	  complex_hand.tcl, complex_wins.tcl:
+	  Made regexp in complex_getfact.tcl more flexible.
+
+	  Fixed regexp in complex_goodwork.tcl and added "good job".
+
+	  Made complex_hand.tcl more tolerant towards people who end all
+	  their lines in a period (now accepts both "something" and
+	  "something.").
+
+	  Un-broke complex_wins.tcl.
+
+2004-03-29 19:47  simsea
+
+	* plugins/fr/action_complex_pinch.tcl: oops
+
+2004-03-29 19:46  simsea
+
+	* modules/abstracts/fr/abstracts.tcl,
+	  plugins/fr/action_complex_pinch.tcl: one french plugin
+
+2004-03-29 19:38  simsea
+
+	* bMotion.tcl, modules/abstract.tcl, modules/abstracts.tcl,
+	  modules/abstracts/en/abstracts.tcl, plugins/action_complex.tcl,
+	  plugins/admin.tcl, plugins/admin_language.tcl,
+	  plugins/complex.tcl, plugins/irc_event.tcl, plugins/simple.tcl:
+	  language pack framework stuff /me prays it doesn't break
+	  everything
+
+2004-03-28 15:11  jamesoff
+
+	* plugins/en/admin_general.tcl: updated status to management type
+
+2004-03-28 15:09  jamesoff
+
+	* modules/queue.tcl: added queue size function
+
+2004-03-27 17:57  jamesoff
+
+	* plugins/en/action_complex_hands.tcl: fixed catching regexp
+
+2004-03-27 17:53  jamesoff
+
+	* modules/: output.tcl, queue.tcl: drop blank output
+
+2004-03-27 17:52  jamesoff
+
+	* plugins/en/output_fix.tcl: fixed pickuser filter
+
+2004-03-27 10:52  jamesoff
+
+	* plugins/admin_language.tcl: changed to management plugin
+
+2004-03-26 13:52  jamesoff
+
+	* plugins/en/output_fix.tcl: fix broken abstracts
+
+2004-03-24 11:50  simsea
+
+	* plugins/en/complex_summon.tcl: greg asked for it, so the summon
+	  script PRIVMSGs as well as NOTICEs just in case people have weird
+	  clients that NOTICE in the same window ;-p
+
+2004-03-23 15:25  jamesoff
+
+	* plugins/en/output_colloquial.tcl: added incorrect use of
+	  dis/anti/im etc
+
+2004-03-22 23:20  jamesoff
+
+	* modules/queue.tcl: don't send boken output to irc if interbot
+	  fails
+
+2004-03-21 23:15  jamesoff
+
+	* README: fixed line breaks
+
+2004-03-19 16:14  simsea
+
+	* modules/abstracts.tcl, plugins/en/complex_joker.tcl: remove the
+	  joker abstracts from abstracts.tcl and moved them into the plugin
+	  aslo added a couple of joke forms
+
+2004-03-19 11:06  simsea
+
+	* plugins/en/complex_invader.tcl,
+	  plugins/en/complex_wrong_console.tcl, modules/abstracts.tcl: 1.
+	  fixed greg's inevitable typos 2. removed plugin abstracts for
+	  wrong console and invader from abstracts.tcl 3. put them back
+	  into the plugin files where they should have been in the first
+	  place. I think the invader one did, but then kev moved and now,
+	  i've	  put it back.	4. also, add a wrong_console response
+
+2004-03-17 23:16  jamesoff
+
+	* plugins/: admin_fact.tcl, admin_flood.tcl: change to management
+	  plugin not admin
+
+2004-03-17 23:13  jamesoff
+
+	* modules/interbot.tcl: new interbot stuff including dynamic
+	  discovery
+
+2004-03-17 23:13  jamesoff
+
+	* modules/queue.tcl: new queue system
+
+2004-03-17 23:12  jamesoff
+
+	* modules/output.tcl: fixed line breaks
+
+2004-03-17 23:11  jamesoff
+
+	* modules/system.tcl: added support for !bmotion and management
+	  plugins (still in progress)
+
+2004-03-17 23:10  jamesoff
+
+	* modules/plugins.tcl: don't run the same simple plugin twice in a
+	  row
+
+2004-03-17 23:08  jamesoff
+
+	* modules/variables.tcl: hopefully fixed some variable declaration
+	  problems added a new variable
+
+2004-03-17 23:07  jamesoff
+
+	* bMotion.tcl: fixed line breaks
+
+2004-03-17 20:36  jamesoff
+
+	* plugins/en/: action_complex_away_learn.tcl,
+	  action_complex_fucks.tcl, action_complex_hands.tcl,
+	  action_complex_pinch.tcl, action_simple.tcl,
+	  action_simple_general.tcl, action_simple_squeeze.tcl,
+	  admin_general.tcl, admin_plugin.tcl, complex_startrek.tcl,
+	  complex_wrong_console.tcl, irc_join.tcl, simple_garion.tcl,
+	  simple_general.tcl, simple_here.tcl, simple_hnn.tcl,
+	  simple_list.tcl, simple_littlebit.tcl, simple_notbot.tcl,
+	  simple_rocket.tcl, simple_sneeze.tcl, simple_sponsorship.tcl,
+	  simple_zzz.tcl: fixed linebreaks
+
+2004-03-16 15:24  devmatryx
+
+	* modules/abstracts.tcl: Bugfix due to my incompetence
+
+2004-03-11 15:42  devmatryx
+
+	* modules/abstracts.tcl: Lots of Gollum sayings :D
+
+2004-03-11 15:28  devmatryx
+
+	* modules/abstracts.tcl: More abstracts, yesses, nos, bodyparts,
+	  misc.
+
+2004-03-11 15:08  jamesoff
+
+	* modules/abstracts.tcl: fixed missing quote
+
+2004-03-11 14:53  jamesoff
+
+	* modules/abstracts.tcl: corrected french :P
+
+2004-03-11 14:23  simsea
+
+	* plugins/en/complex_wrong_console.tcl, modules/abstracts.tcl: more
+	  bmotion abuse from simsea.  this is for those of us who forget
+	  which window we're typing in and let off an ls or mv command
+	  before we see that we've just typed it in the channel
+
+2004-03-09 14:26  jamesoff
+
+	* modules/abstracts.tcl: fixed linebreaks changed silly_things to
+	  sillyThings
+
+2004-03-09 10:31  devmatryx
+
+	* modules/abstracts.tcl: Bugfix on last commit.
+
+2004-03-09 10:23  devmatryx
+
+	* modules/abstracts.tcl: Added a bunch of things to all sorts of
+	  abstracts.
+
+2004-03-01 10:57  jamesoff
+
+	* plugins/en/complex_trivia.tcl: fixed probabilities don't be
+	  annoyed if we didn't play at all
+
+2004-03-01 10:54  jamesoff
+
+	* plugins/en/complex_startrek.tcl: fixed unbind of votes
+
+2004-03-01 10:53  jamesoff
+
+	* plugins/en/action_complex_fucks.tcl: fixed return value
+
+2004-03-01 10:51  jamesoff
+
+	* plugins/en/action_complex_failsafe.tcl: fixed linebreaks
+
+2004-03-01 10:50  jamesoff
+
+	* plugins/en/action_complex_away_learn.tcl: fixed
+	  missing-first-letter bug
+
+2004-03-01 10:47  jamesoff
+
+	* modules/settings.tcl: added typing speed
+
+2004-03-01 10:46  jamesoff
+
+	* modules/system.tcl: tidied up code (deleted old functions) tidied
+	  up comments fixed settings_get
+
+2004-03-01 10:45  jamesoff
+
+	* modules/queue.tcl: new outout queue
+
+2004-03-01 10:44  jamesoff
+
+	* modules/output.tcl: new outout queue new parsing of %ruser, %bot,
+	  %rbot
+
+2004-03-01 10:43  jamesoff
+
+	* modules/interbot.tcl: all new and shiny!
+
+2004-03-01 10:43  jamesoff
+
+	* modules/friendship.tcl: fixed line breaks fixed invalid variable
+
+2004-03-01 10:40  jamesoff
+
+	* bMotion.tcl: added queue module
+
+2004-02-15 13:43  jamesoff
+
+	* modules/extra/fact.tcl: auto-tidy up if too many facts
+
+2004-02-15 13:42  jamesoff
+
+	* modules/abstracts.tcl: relayouted added blairisms (not used yet)
+
+2004-02-15 13:40  jamesoff
+
+	* modules/output.tcl: some debug and stuff
+
+2004-02-15 13:38  jamesoff
+
+	* modules/abstract.tcl: delete abstracts when there are too many
+
+2004-01-07 09:06  jamesoff
+
+	* plugins/en/simple_sponsorship.tcl: fixed abstracts fixed regexp
+	  lowered probability
+
+2004-01-07 08:54  jamesoff
+
+	* plugins/en/simple_sponsorship.tcl: new
+
+2004-01-06 15:19  jamesoff
+
+	* modules/settings.tcl, plugins/en/complex_fact.tcl: added
+	  "ignorefacts" setting
+
+2004-01-06 15:18  jamesoff
+
+	* modules/system.tcl: whoops, bmotion_setting_get was ruined
+
+2004-01-06 01:01  jamesoff
+
+	* modules/extra/fact.tcl: removed timestamps
+
+2004-01-06 00:46  jamesoff
+
+	* plugins/en/simple_rocket.tcl: moved team rocket to plugins
+
+2004-01-06 00:44  jamesoff
+
+	* modules/abstracts.tcl: colen suggestions :D
+
+2004-01-06 00:43  jamesoff
+
+	* modules/events.tcl: moved team rocket to plugins
+
+2004-01-06 00:11  jamesoff
+
+	* plugins/en/irc_quit.tcl: don't do anything if the quit looks like
+	  an error
+
+2004-01-06 00:08  jamesoff
+
+	* plugins/en/complex_trivia.tcl: make some of our responses
+	  slightly less likely
+
+2004-01-06 00:05  jamesoff
+
+	* plugins/en/complex_questions.tcl: try to remove timestamps
+
+2004-01-05 23:40  jamesoff
+
+	* plugins/en/simple_garion.tcl: now you can tell it bmotion rocks
+	  too
+
+2004-01-05 23:39  jamesoff
+
+	* plugins/en/simple_general.tcl: use %VAR{FRENCH} finally
+
+2004-01-05 23:35  jamesoff
+
+	* plugins/en/complex_snap.tcl: ignore short lines use
+	  interbot_me_next
+
+2004-01-03 19:32  jamesoff
+
+	* modules/extra/fact.tcl, plugins/en/complex_fact.tcl: added
+	  timestamps to auto-expire facts
+
+2004-01-03 18:44  jamesoff
+
+	* modules/events.tcl: moved from legacy code (finally!)
+
+2004-01-03 18:35  jamesoff
+
+	* plugins/en/: action_complex_attack.tcl,
+	  action_complex_balefires.tcl, action_complex_hides.tcl,
+	  action_complex_hops.tcl, action_complex_makes.tcl,
+	  action_complex_saton.tcl, action_complex_sleeps.tcl,
+	  action_complex_smacks.tcl, action_complex_snickers.tcl,
+	  action_complex_throwsbot.tcl, complex_goodwork.tcl,
+	  complex_xmas.tcl, simple_hnn.tcl, simple_zzz.tcl: moved from
+	  legacy code (finally!)
+
+2004-01-03 17:57  jamesoff
+
+	* modules/: events.tcl, variables.tcl: added global on/off toggle
+
+2004-01-03 17:56  jamesoff
+
+	* modules/: plugins.tcl, system.tcl: added management plugin type
+
+2004-01-03 17:46  jamesoff
+
+	* modules/output.tcl: added global on/off toggle
+
+2004-01-03 17:45  jamesoff
+
+	* modules/interbot.tcl: fixed [ 835749 ] fails to parse text
+	  between linked bots
+
+2004-01-03 14:16  jamesoff
+
+	* plugins/en/complex_shocked.tcl: fixed wrongly named proc
+
+2003-12-16 12:42  simsea
+
+	* plugins/en/complex_joker.tcl: accidentally returned a 1 instead
+	  of a 0
+
+2003-12-16 12:09  simsea
+
+	* plugins/en/complex_summon.tcl: yay! summoning plugin
+
+	  responds to !summon person as per the norm in #exeter. Will be
+	  insulting if you screw it up ;-P also as per #exeter norm
+
+2003-12-16 12:07  simsea
+
+	* plugins/en/complex_joker.tcl: added interbot thingy to stop lots
+	  of the buggers telling jokes at the same time! simple and crude
+	  :-x
+
+2003-11-27 14:22  devmatryx
+
+	* plugins/en/simple_sneeze.tcl: Addition of 'atchoo' with optional
+	  *s around, and between 2 and 6 'o's after as a trigger
+
+2003-11-27 13:41  devmatryx
+
+	* plugins/en/simple_sneeze.tcl: Addition of some 'bless you'
+	  phrases.
+
+2003-11-26 09:34  jamesoff
+
+	* modules/: mood.tcl, system.tcl: fix [ 823829 ] missing element in
+	  array - bMotionCache(LOLcount) disabled the lol stuff since it
+	  never worked right anyway
+
+2003-11-26 09:33  jamesoff
+
+	* plugins/en/irc_join.tcl, modules/events.tcl: fix [ 846625 ] No
+	  such variable (lastLeft)
+
+2003-11-25 16:07  jamesoff
+
+	* plugins/en/: irc_join.tcl, irc_quit.tcl: fixed coding errors
+
+2003-11-25 16:06  jamesoff
+
+	* modules/abstract.tcl, modules/events.tcl, modules/flood.tcl,
+	  modules/counters.tcl, modules/output.tcl, modules/system.tcl,
+	  modules/extra/jeffk.tcl, bMotion.tcl: added counters
+
+2003-11-25 09:45  jamesoff
+
+	* plugins/en/irc_join.tcl: broken if statement
+
+2003-11-25 09:44  jamesoff
+
+	* plugins/en/complex_trivia.tcl: spot year questions and handle
+	  from the word go stop auto-guessing after 4 tries (stops it
+	  getting carried away)
+
+2003-11-23 23:55  jamesoff
+
+	* plugins/en/: irc_join.tcl, irc_quit.tcl: use friendly setting
+	  reduce chance of firing
+
+2003-11-23 23:55  jamesoff
+
+	* plugins/en/complex_snap.tcl: try to make more sense
+
+2003-11-23 23:53  jamesoff
+
+	* plugins/en/: action_complex_fucks.tcl,
+	  action_complex_inserts.tcl: moved from legacy code
+
+2003-11-23 23:52  jamesoff
+
+	* modules/extra/fact.tcl: reports progress while loading facts
+
+2003-11-23 23:52  jamesoff
+
+	* modules/system.tcl: added bMotion_setting_get
+
+2003-11-23 23:51  jamesoff
+
+	* modules/settings.tcl: added setting kinky added setting friendly
+
+2003-11-23 23:51  jamesoff
+
+	* modules/events_support.tcl: updated frightens to not load
+	  variables that don't exist any more
+
+2003-11-23 23:50  jamesoff
+
+	* modules/events.tcl: moved some legacy action handlers to plugins
+
+2003-11-23 23:49  jamesoff
+
+	* modules/abstracts.tcl: added to bigranjoins
+
+2003-11-23 23:48  jamesoff
+
+	* modules/abstract.tcl: don't load abstracts in testing mode report
+	  on abstract load progress
+
+2003-11-23 23:47  jamesoff
+
+	* bMotion.tcl: added bMotion_loading variable to track when the
+	  script is starting up
+
+2003-11-22 01:45  jamesoff
+
+	* modules/flood.tcl: flood_undo now undoes all of the flood
+	  settings
+
+2003-11-22 01:44  jamesoff
+
+	* modules/events.tcl: fixed major error that broke onjoin and
+	  onquit plugins
+
+2003-11-22 01:44  jamesoff
+
+	* plugins/en/irc_join.tcl: now working
+
+2003-11-22 01:43  jamesoff
+
+	* plugins/en/output_typos.tcl: apply typos per word not per line
+
+2003-11-22 01:42  jamesoff
+
+	* plugins/en/simple_general.tcl: moved shocked to complex plugin
+
+2003-11-22 01:41  jamesoff
+
+	* plugins/en/complex_trivia.tcl: more responses
+
+2003-11-22 01:41  jamesoff
+
+	* plugins/en/irc_quit.tcl: whee working
+
+2003-11-22 01:41  jamesoff
+
+	* plugins/en/complex_shocked.tcl: don't be shocked at ourselves
+
+2003-11-22 00:18  jamesoff
+
+	* plugins/en/irc_quit.tcl: new plugin
+
+2003-11-22 00:17  jamesoff
+
+	* plugins/en/simple_general.tcl: some new stuff
+
+2003-11-22 00:17  jamesoff
+
+	* plugins/en/simple_ick.tcl: new words
+
+2003-11-22 00:16  jamesoff
+
+	* plugins/en/: complex_snap.tcl, complex_trivia.tcl: don't trip
+	  flood so much
+
+2003-11-22 00:15  jamesoff
+
+	* plugins/en/complex_questions.tcl: fixed things to work the way i
+	  should have written them first time round
+
+2003-11-22 00:14  jamesoff
+
+	* plugins/en/action_complex_failsafe.tcl: try better to fix verbs
+
+2003-11-22 00:13  jamesoff
+
+	* modules/system.tcl: better debug for bMotionTalkingToMe
+
+2003-11-22 00:13  jamesoff
+
+	* modules/: abstract.tcl, extra/fact.tcl: change loglevel used on
+	  load
+
+2003-11-14 14:17  jamesoff
+
+	* plugins/en/complex_snap.tcl: new plugin
+
+2003-11-14 12:04  jamesoff
+
+	* plugins/en/simple_general.tcl: added "seven" plugin
+
+2003-11-14 12:03  jamesoff
+
+	* plugins/en/complex_trivia.tcl: slowed down initial guess to make
+	  things a bit fairer be upset when someone else gets the answer
+
+2003-11-14 11:28  jamesoff
+
+	* modules/diagnostics.tcl: no change
+
+2003-11-13 19:22  simsea
+
+	* modules/abstracts.tcl: [no log message]
+
+2003-11-12 19:17  simsea
+
+	* modules/abstracts.tcl: [no log message]
+
+2003-11-12 19:06  simsea
+
+	* plugins/en/complex_joker.tcl: [no log message]
+
+2003-11-06 11:14  simsea
+
+	* plugins/en/complex_joker.tcl: [no log message]
+
+2003-11-06 11:10  simsea
+
+	* modules/abstracts.tcl, plugins/en/complex_joker.tcl: [no log
+	  message]
+
+2003-11-06 01:18  simsea
+
+	* modules/abstracts.tcl, plugins/en/complex_joker.tcl: [no log
+	  message]
+
+2003-11-06 00:36  simsea
+
+	* plugins/en/complex_joker.tcl, modules/abstracts.tcl: [no log
+	  message]
+
+2003-11-02 18:47  jamesoff
+
+	* plugins/en/complex_wins.tcl: new plugin from legacy
+
+2003-11-02 18:47  jamesoff
+
+	* plugins/en/action_complex_failsafe.tcl: improved types of
+	  response
+
+2003-11-02 18:46  jamesoff
+
+	* modules/interbot.tcl: enabled kevin's hack
+
+2003-11-02 18:45  jamesoff
+
+	* modules/events.tcl: moved "wins" to plugin
+
+2003-11-02 00:05  kevdadrum
+
+	* modules/abstracts.tcl, plugins/en/complex_gollum.tcl: moved
+	  gollum abstract from abstracts to gollum :)
+
+2003-10-24 16:52  kevdadrum
+
+	* modules/interbot.tcl: OK, hackie hacky ahoyness, I've commented
+	  out the hacks, but with it in, this should work better without a
+	  botnet. I don't know how this'd work on a large botnet tbh, but I
+	  suppose it does. Someone please look at this
+
+2003-10-24 15:23  kevdadrum
+
+	* plugins/en/complex_gollum.tcl: putlogs put in gollum
+
+2003-10-24 15:10  kevdadrum
+
+	* plugins/en/complex_gollum.tcl: more gollumssses
+
+2003-10-24 15:10  kevdadrum
+
+	* modules/abstracts.tcl: gollums in abstracts
+
+2003-10-24 14:57  kevdadrum
+
+	* CHANGELOG: Just the changelog
+
+2003-10-24 14:56  kevdadrum
+
+	* plugins/en/complex_gollum.tcl: More Gollum.  Precious
+
+2003-10-23 20:43  uid130916
+
+	* plugins/en/output_gollum.tcl: beginnings of a gollum plugin
+
+2003-10-22 17:49  kevdadrum
+
+	* plugins/en/complex_scrap.tcl: fixed a 'bug' in complex scrap; all
+	  plugins should obey the flood protection
+
+2003-10-22 13:37  kevdadrum
+
+	* CHANGELOG, modules/extra/question.tcl,
+	  plugins/en/complex_questions.tcl: Not much, just a little to make
+	  bmotion rude to you if you ask where something is and it dislikes
+	  you
+
+2003-10-22 00:21  jamesoff
+
+	* CHANGELOG: wheee
+
+2003-10-22 00:18  jamesoff
+
+	* modules/extra/fact.tcl: added forget_all function to make bMotion
+	  forget everything it knows about an item
+
+2003-10-22 00:18  jamesoff
+
+	* modules/output.tcl: better debugging and error handling for
+	  %SETTING code
+
+2003-10-22 00:17  jamesoff
+
+	* plugins/admin_abstract.tcl: added delete command
+
+2003-10-22 00:16  jamesoff
+
+	* plugins/en/action_complex_light.tcl: made regexps less sensitive
+
+2003-10-21 16:27  kevdadrum
+
+	* modules/extra/question.tcl: question handler for feelings check
+	  now cares (a little) about if bmotion likes you
+
+2003-10-21 10:03  kevdadrum
+
+	* plugins/en/complex_invader.tcl: minor change to invader so
+	  bmotion might respond to `finally!' dootie
+
+2003-10-02 16:50  jamesoff
+
+	* plugins/en/complex_fact.tcl: changed learning rules slightly
+
+2003-10-01 09:32  jamesoff
+
+	* modules/events_support.tcl: fixed everything else to use new
+	  abstracts too
+
+2003-10-01 09:30  jamesoff
+
+	* modules/events_support.tcl: fixed frightens to use new abstracts
+
+----
+
 * = changed/fixed
 + = added
 - = removed
@@ -14,7 +1086,6 @@ bMotion CHANGELOG
 +  James           added function in extra/fact.tcl to make bMotion forget everything about an item
 
 v0.0.8
-
 *  Kevin           moved the handling of jms' (real) wellbeing code into an extra module, and referenced it from complex question
 *  James           fixed spelling error in name of onjoin plugin
 *  James           fixed onjoin plugin to use new abstracts system
@@ -33,7 +1104,6 @@ v0.0.8
 *  James           changed !bminfo to give better information, and only be available to +ov users
 *  James           fixed complex_trivia to skip output plugins
 *  James           bMotion now learns new away messages it sees people use
-
 +  Kevin           added a "how're you?" handler
 +  Kevin           added a "do you want/need" handler
 +  James           added fact learning!
@@ -43,7 +1113,6 @@ v0.0.8
 +  James           added some automatic diagnostics on times at 30 mins past the hour
 +  James           added friendship drifting so you have to be nice to the bot to stay friends
 +  James           added a plugin to catch uncaught actions on the bot and make it respond
-
 -  James           removed some of the mood-based random output because it doesn't fit with new code for now
 
 
