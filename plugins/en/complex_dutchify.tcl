@@ -11,7 +11,7 @@
 ###############################################################################
 
 proc bMotion_plugin_complex_dutchify {nick host handle channel text} {
-  bMotionDoAction $channel $nick [bMotion_module_extra_dutchify $text] 
+  bMotionDoAction $channel $nick "$nick: [bMotion_module_extra_dutchify $text]"
 }
 
 bMotion_plugin_add_complex "dutchify" "^!nl" 100 "bMotion_plugin_complex_dutchify" "en"
