@@ -185,6 +185,11 @@ proc bMotion_event_main {nick host handle channel text} {
   regsub -all "\022" $text "" text
   regsub -all "\037" $text "" text
   regsub -all "\003\[0-9\]+(,\[0-9+\])?" $text "" text
+  
+  #try stripcodes (eggdrop 1.6.17+)
+  catch {
+  	set text [stripcodes $text]
+  }
 
   #first, check botnicks (this is to get round empty-nick-on-startup
   if {$botnicks == ""} {
@@ -322,24 +327,19 @@ proc bMotion_event_main {nick host handle channel text} {
   }
   ## /Reload config files
 
-  if [regexp -nocase "${botnicks}:? what ver(sion )?(of )?bmotion are you (running|using)\\?" $text] {
-    global bMotionVersion
-    bMotionDoAction $channel $nick "I'm running bMotion $bMotionVersion (http://bmotion.sf.net)"
-    return 0
-  }
-
-  ## ignore channels that aren't in the randoms list ##
-  if {[lsearch $bMotionInfo(randomChannels) [string tolower $channel]] == -1} {
-    return 0
-  }
-
   ####whole-line matches
 
   ## tell the names we have
   if [regexp -nocase "${botnicks}:?,? say my names?(,? bitch)?" $text] {
+  	if {($handle == "*") || ($handle == "")}  {
+  		#no handle = no saving IRL
+  		 bMotionDoAction $channel $nick "%%: Sorry, you aren't in my userfile so I can't store an IRL name for you."
+  		 return 0
+  	}
+  	
     set realnames [getuser $handle XTRA irl]
     if {$realnames == ""} {
-      bMotionDoAction $channel $nick "Ah you must be %%." "" 1
+      bMotionDoAction $channel $nick "Ah you must be %%. (You have not set any IRL names.)" "" 1
     } else {
       bMotionDoAction $channel $nick "Your IRL name(s) are:\002 %2 \002" $realnames 1
     }
