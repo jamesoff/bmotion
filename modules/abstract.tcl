@@ -88,13 +88,21 @@ proc bMotion_abstract_gc { } {
   set abstracts [array names bMotion_abstract_contents]
   set limit [expr [clock seconds] - $bMotion_abstract_max_age]
 
+  set expiredList ""
+  set expiredCount 0
+
   foreach abstract $abstracts {
     if {($bMotion_abstract_timestamps($abstract) < $limit) && ($bMotion_abstract_timestamps($abstract) > 0)} {
-      bMotion_putloglev d * "abstract $abstract has expired"
+      append expiredList "$abstract "
+      incr expiredCount
       unset bMotion_abstract_contents($abstract)
       set bMotion_abstract_timestamps($abstract) 0
       lappend bMotion_abstract_ondisk $abstract
     }
+  }
+
+  if {$expiredList != ""} {
+    bMotion_putloglev d * "expired $expiredCount abstracts: $expiredList"
   }
 }
 
@@ -144,10 +152,15 @@ proc bMotion_abstract_load { abstract } {
 
   set fileHandle [open "$bMotionModules/abstracts/${abstract}.txt" "r"]
   set line [gets $fileHandle]
+  set needReSave 0
+
   while {![eof $fileHandle]} {
     if {$line != ""} {
       if {[lsearch -exact $bMotion_abstract_contents($abstract) $line] == -1} {
         lappend bMotion_abstract_contents($abstract) $line
+      } else {
+        bMotion_putloglev d * "dropping duplicate $line for abstract $abstract"
+        set needReSave 1
       }
     }
     set line [gets $fileHandle]
@@ -156,22 +169,41 @@ proc bMotion_abstract_load { abstract } {
   if {[info exists fileHandle]} {
     close $fileHandle
   }
+
+  if {$needReSave} {
+    bMotion_abstract_save $abstract
+  }
 }
 
 proc bMotion_abstract_add { abstract text {save 1} } {
   global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age
+  global bMotionModules
 
   bMotion_putloglev 1 * "Adding '$text' to abstract '$abstract'"
 
   if {$bMotion_abstract_timestamps($abstract) < [expr [clock seconds] - $bMotion_abstract_max_age]} {
-    bMotion_abstract_load $abstract
+    #bMotion_abstract_load $abstract
+    #new more efficient way
+    # - append it to the file regardless
+    # - it can be filtered on load
+
+    bMotion_putloglev 1 * "updating abstracts '$abstract' on disk"
+    if {$save} {
+      set fileHandle [open "[pwd]/$bMotionModules/abstracts/${abstract}.txt" "a+"]
+      puts $fileHandle $text
+      close $fileHandle
+    }
+    return 1
   }
 
   if {[lsearch -exact $bMotion_abstract_contents($abstract) $text] == -1} {
     lappend bMotion_abstract_contents($abstract) $text
-  }
-  if {$save} {
-    bMotion_abstract_save $abstract
+    if {$save} {
+      bMotion_putloglev 1 * "updating abstracts '$abstract' on disk and in memory"
+      set fileHandle [open "[pwd]/$bMotionModules/abstracts/${abstract}.txt" "a+"]
+      puts $fileHandle $text
+      close $fileHandle
+    }
   }
 }
 
