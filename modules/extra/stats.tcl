@@ -295,9 +295,14 @@ proc bMotion_stats_version_cmp { } {
 	#explode latest
 	regexp {([0-9]+)\.([0-9]+)\.([0-9]+)} $bMotion_stats_latest matches lat_maj lat_min lat_rev
 
+	bMotion_putloglev 1 * "parsed my version to $my_maj $my_min $my_rev"
+	bMotion_putloglev 1 * "parsed latest to $lat_maj $lat_min $lat_rev"
+
 	#multiply
 	set my_version [expr $my_maj * 100 + $my_min * 10 + $my_rev]
 	set lat_version [expr $lat_maj * 100 + $lat_min * 10 + $lat_rev]
+
+	bMotion_putloglev 1 * "calculated versions are $my_version and $lat_version"
 
 	#compare!
 	if {$lat_version > $my_version} {
