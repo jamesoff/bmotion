@@ -56,7 +56,7 @@ set bMotionInfo(balefire) 1
 set bMotionSettings(useAway) 1
 
 # channels to run in (lower case please)
-set bMotionInfo(randomChannels) { "#molsoft" "#ags" "#exeter" "#namcoarcade" "#startrek" }
+set bMotionInfo(randomChannels) { "#molsoft" }
 
 # channels to not announce our away status in (lower case)
 set bMotionSettings(noAwayFor) { "#irssi" }
@@ -97,3 +97,6 @@ set bMotionInfo(language) "en"
 
 # regexp to stop learning of facts
 set bMotionSettings(ignorefacts) "is online"
+
+# seconds per character in line
+set bMotionSettings(typingSpeed) 0.05
