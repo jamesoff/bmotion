@@ -15,6 +15,7 @@
 bMotion_plugin_add_complex "snap" "." 100 bMotion_plugin_complex_snap "en"
 
 proc bMotion_plugin_complex_snap { nick host handle channel text } {
+  bMotion_flood_undo $nick
   if {($text == [bMotion_plugins_settings_get "complex:snap" $channel "" "text"]) &&
       ($nick != [bMotion_plugins_settings_get "complex:snap" $channel "" "nick"])} {
         if [rand 3] {

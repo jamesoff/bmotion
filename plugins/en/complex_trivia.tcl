@@ -41,6 +41,8 @@ proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
     return 0
   }
 
+  bMotion_flood_clear $nick
+
   catch {
     killutimer [bMotion_plugins_settings_get "trivia" "timer" "" ""]
     bMotion_putloglev d * "killed trivia retry timer"
@@ -217,4 +219,4 @@ bMotion_abstract_register "trivia_wins"
 bMotion_abstract_batchadd "trivia_wins" [list "%VAR{harhars}" "own3d" "PWND!" "yes!" "w%REPEAT{3:6:o}!" "go %me, go %me!" "whe%REPEAT{3:7:e}" "muhar" "winnar!" "in your face, %ruser!"]
 
 bMotion_abstract_register "trivia_loses"
-bMotion_abstract_batchadd "trivia_loses" [list "hey stop copying me %VAR{unsmiles}" "i was going to say that next" "hay you're cheating %VAR{unsmiles}" "you're in league with the bot, i know it" "that's not the right answer; the right answer is obviously %VAR{sillyThings}" "feh"]
+bMotion_abstract_batchadd "trivia_loses" [list "hey stop copying me %VAR{unsmiles}" "i was going to say that next" "hay you're cheating %VAR{unsmiles}" "you're in league with the bot, i know it" "that's not the right answer; the right answer is obviously '%VAR{sillyThings}'" "feh" "*cough*google*cough*"]
