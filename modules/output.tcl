@@ -185,7 +185,8 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 
   set loops 0
   bMotion_putloglev 4 * "doing VAR processing"
-  while {[regexp "%VAR\{(.+?)\}" $line matches BOOM]} {
+  while {[regexp {%VAR\{([^\}]+)\}(\{strip\})?} $line matches BOOM clean]} {
+  	#putlog "var: clean = $clean"
     global $BOOM
     incr loops
     if {$loops > 10} {
@@ -194,19 +195,18 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
     }
     #see if we have a new-style abstract available
     set newText [bMotion_abstract_get $BOOM]
+    set replacement ""
     if {$newText == ""} {
       #insert old style
       set var [subst $$BOOM]
-      #set line [bMotionInsertString $line "%VAR\{$BOOM\}" [pickRandom $var]]
-      bMotion_putloglev 1 * "before1: $line"
-      regsub "%VAR\{$BOOM\}" $line [pickRandom $var] line
-      bMotion_putloglev 1 * "after1: $line"
+      set replacement [pickRandom $var]
     } else {
-      #set line [bMotionInsertString $line "%VAR\{$BOOM\}" $newText]
-      bMotion_putloglev 1 * "before2: $line"
-      regsub "%VAR\{$BOOM\}" $line $newText line
-      bMotion_putloglev 1 * "after2: $line"
+    	set replacement $newText
     }
+    if {$clean != ""} {
+    	set replacement [bMotion_strip_article $replacement]
+    }
+    regsub "%VAR\{$BOOM\}$clean" $line $replacement line
     if [string match "*%noun*" $line] {
       set line [bMotionInsertString $line "%noun" "%VAR{sillyThings}"]
     }
@@ -774,6 +774,11 @@ proc bMotionMakeRepeat { text } {
     return $repstring
   }
   return ""
+}
+
+proc bMotion_strip_article { text } {
+		regsub "(an?|the|some) " $text "" text
+		return $text
 }
 
 bMotion_putloglev d * "bMotion: output module loaded"
