@@ -14,16 +14,28 @@
 # bMotion_plugin_complex_wrong_console
 proc bMotion_plugin_complex_wrong_console { nick host handle channel text } {
 	global randomWrongConsoleReply botnick
-  if {![bMotion_interbot_me_next $channel]} { return 0 }
+	if {![bMotion_interbot_me_next $channel]} { 
+		return 0
+	}
 	bMotionDoAction $channel "" "%VAR{randomWrongConsoleReply}"
 	
 	#log this action
 	bMotion_putloglev d * "bMotion: (wrong console(tm)) $nick couldn't remember which window to type in"
+	return 1
 }
 # end bMotion_plugin_complex_wrong_console
 
 # random wrong console responses
 bMotion_abstract_register "randomWrongConsoleReply"
+set randomWrongConsoleReply {
+	"yay! %% can't get it right"
+	"why don't you tell us your password as well?"
+	"try the other window"
+	"try 'rm -rf /' as root"
+	"Would you like a hand?"
+	"idiot."
+	"%% is t3h l337 h4x0R!"
+}
 
 # callbacks
 # "specific" typos
