@@ -14,15 +14,19 @@
 
 #[ AfrObawt] The afronym for this round is AGNUE. You have 60 seconds.
 bMotion_plugin_add_complex "afro1" {^.he afr(o|0)nym for this round is[^A-Z]*[A-Z]+} 100 bMotion_plugin_complex_afro_1 "en"
+bMotion_plugin_add_complex "afro1a" {^Acro for this round:[^A-Z]*[A-Z]+} 100 bMotion_plugin_complex_afro_1a "en"
 
 #1651.13 [ AfrObawt] Answers for Round 10
 bMotion_plugin_add_complex "afro2" {^Answers for round [0-9]+} 100 bMotion_plugin_complex_afro_2 "en"
+bMotion_plugin_add_complex "afro2a" "^Current Acros:" 100 bMotion_plugin_complex_afro_2 "en"
 
 #1651.13 [ AfrObawt] 1. AShalimas grew numb under elJames
 bMotion_plugin_add_complex "afro3" {^[0-9]+\. .+} 100 bMotion_plugin_complex_afro_3 "en"
+bMotion_plugin_add_complex "afro3a" {^.[0-9]+.} 100 bMotion_plugin_complex_afro_3a "en"
 
 # -=5 Seconds! =-
-bMotion_plugin_add_complex "afro4" "5 seconds" 100 bMotion_plugin_complex_afro_4 "en"
+bMotion_plugin_add_complex "afro4" "^5 seconds" 100 bMotion_plugin_complex_afro_4 "en"
+bMotion_plugin_add_complex "afro4a" "^1st vote received!" 100 bMotion_plugin_complex_afro_4 "en"
 
 proc bMotion_plugin_complex_afro_1 { nick host handle channel text } {
 
@@ -49,6 +53,15 @@ proc bMotion_plugin_complex_afro_1 { nick host handle channel text } {
 
   bMotion_flood_undo $nick
 
+}
+
+proc bMotion_plugin_complex_afro_1a { nick host handle channel text } {
+  putlog "hi!"
+  regexp -nocase {^Acro for this round[^A-Z]*([A-Z]+)} $text matches afronym
+  bMotion_plugin_complex_afro_1 $nick $host $handle $channel "The afronym for this round is $afronym"
+  putlog "passing $afronym"
+  return 1
+  bMotion_flood_undo $nick
 }
 
 proc bMotion_plugin_complex_afro_answer { } {
@@ -94,6 +107,15 @@ proc bMotion_plugin_complex_afro_3 { nick host handle channel text } {
   }
 }
 
+proc bMotion_plugin_complex_afro_3a { nick host handle channel text } {
+  #putlog "hi! $text"
+  if [regexp -nocase {^.([0-9]+).[^A-Z]+(.+)} $text matches number acro] {
+    bMotion_plugin_complex_afro_3 $nick $host $handle $channel "$number. $acro"
+    bMotion_flood_clear $nick
+    return 1
+  }
+}
+
 proc bMotion_plugin_complex_afro_4 { nick host handle channel text } {
   #send our vote
 
@@ -105,7 +127,7 @@ proc bMotion_plugin_complex_afro_4 { nick host handle channel text } {
   set answers [string trim [bMotion_plugins_settings_get "afro" "answers" $channel $nick]]
   set answerList [split $answers " "]
 
-  bMotion_flood_undo $nick
+  bMotion_flood_clear $nick
 
   #putlog "choosing from $answers ... $answerList"
 
@@ -128,20 +150,20 @@ proc bMotion_plugin_complex_afro_4 { nick host handle channel text } {
 
 #word list
 
-set afro_A { "aardvark" "arse" "arrange" }
+set afro_A { "aardvark" "arse" "arrange" "american" }
 set afro_B { "balloon" "breasts" }
 set afro_C { "cheese" "cow" "cock" "chicken" "cup" "cupcake" }
-set afro_D { "dog" "dick" }
-set afro_E { "elephant" "enormous" }
+set afro_D { "dog" "dick" "doughnuts" "donkey" "dinner" "diner" }
+set afro_E { "elephant" "enormous" "eggs" }
 set afro_F { "fish" "fudge" "fuck" "fsck" "fucking" "fridge" }
 set afro_G { "goat" "green" "gang" "gong" "glass" "grapefruit" }
 set afro_H { "hippo" "horny" "honk" "hooters" }
-set afro_I { "igloo" "iceage" "is"}
-set afro_J { "jam" "jump" "jumper" }
+set afro_I { "igloo" "iceage" "is" "intelligent" "idiot" }
+set afro_J { "jam" "jump" "jumper" "jealous" "juice" }
 set afro_K { "kite" "kinky" }
 set afro_L { "llama" "lemon" "lift" "long" "lovely" }
 set afro_M { "moose" "moo" "ming" "mouth" }
-set afro_N { "noodle" "noise" "nice" "nerd" }
+set afro_N { "noodle" "noise" "nice" "nerd" "new"}
 set afro_O { "orange" "opium" "optional" }
 set afro_P { "peas" "parents" "pornography" "pies" }
 set afro_Q { "quote" "quickly" "quick" }
@@ -151,6 +173,6 @@ set afro_T { "teapot" "toss" "timothy" }
 set afro_U { "undone" "upsidedown" "uber" }
 set afro_V { "violet" "veal" "very" }
 set afro_W { "wiggle" "wobble" "wank" }
-set afro_X { "xray" "xrated" }
+set afro_X { "xray" "xrated" "xylophone" }
 set afro_Y { "yellow" "yank" }
-set afro_Z { "zebra" }
+set afro_Z { "zebra" "zeus" }
