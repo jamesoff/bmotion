@@ -83,6 +83,7 @@ proc bMotion_diagnostic_timers { } {
     if {[lsearch $seentimers $t_function] >= 0} {
       putlog "bMotion: A level 4 diagnostic has found a duplicate timer $t_name for $t_function ... removing"
       #remove timer
+      killtimer $t_name
     } else {
       #add to seen list
       lappend seentimers $t_function
@@ -104,6 +105,7 @@ proc bMotion_diagnostic_utimers { } {
     if {[lsearch $seentimers $t_function] >= 0} {
       putlog "bMotion: A level 4 diagnostic has found a duplicate utimer $t_name for $t_function ... removing"
       #remove timer
+      killutimer $t_name
     } else {
       #add to seen list
       lappend seentimers $t_function
