@@ -69,6 +69,7 @@
 
 #
 set bMotion_abstract_max_age 300
+set bMotion_abstract_max_number 600
 
 # initialise the arrays
 
@@ -231,6 +232,11 @@ proc bMotion_abstract_add { abstract text {save 1} } {
 proc bMotion_abstract_save { abstract } {
   global bMotion_abstract_contents
   global bMotionModules bMotion_testing bMotion_loading
+  global bMotion_abstract_max_number
+
+  set tidy 0
+  set count 0
+  set drop_count 0
 
   #don't save if we're starting up else we'll lose saved stuff
   if {$bMotion_testing} {
@@ -240,8 +246,24 @@ proc bMotion_abstract_save { abstract } {
   bMotion_putloglev 1 * "Saving abstracts '$abstract' to disk"
 
   set fileHandle [open "[pwd]/$bMotionModules/abstracts/${abstract}.txt" "w"]
+  set number [llength $bMotion_abstract_contents($abstract)]
+  if {$number > $bMotion_abstract_max_number} {
+    putlog "Abstract $abstract has too many elements ($number > $bMotion_abstract_max_number), tidying up"
+    set tidy 1
+  }
   foreach a $bMotion_abstract_contents($abstract) {
+    if {$tidy} {
+      if {[rand 100] < 10} {
+        bMotion_putloglev d * "Dropped '$a' from abstract $abstract"
+        incr drop_count
+        continue
+      }
+    }
     puts $fileHandle $a
+    incr count
+  }
+  if {$tidy} {
+    putlog "Abstract $abstract now has $count elements ($drop_count fewer)"
   }
   close $fileHandle
 }
