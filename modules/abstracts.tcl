@@ -117,7 +117,7 @@ set smiles {
   "=]"
   "=D"
   "^_^"
-  "#-)"
+  "-_-"
 }
 
 set unsmiles {
