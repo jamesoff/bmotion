@@ -16,7 +16,7 @@ bMotion_plugin_add_action_complex "hands" "(hands|gives) %botnicks " 100 bMotion
 
 proc bMotion_plugin_complex_action_hands { nick host handle channel text } {
   global botnicks
-	if {[regexp -nocase "(hands|gives) $botnicks (a|an|the|some)? (.+)" $text bling act bot preposition item]} {
+	if {[regexp -nocase "(hands|gives) $botnicks (a|an|the|some)? ?(.+)" $text bling act bot preposition item]} {
 	  bMotion_putloglev d * "bMotion: Got handed !$item! by $nick in $channel"
 
     #Coffee
