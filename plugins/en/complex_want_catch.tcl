@@ -15,7 +15,7 @@
 ###############################################################################
 
 bMotion_plugin_add_complex "want-catch" "i (want|need) (.+)" 100 bMotion_plugin_complex_want_catcher "en"
-bMotion_plugin_add_complex "mmm-catch" "^mmm+ (.+)" 100 bMotion_plugin_complex_mmm_catcher "en"
+bMotion_plugin_add_complex "mmm-catch" "^mm+ (.+)" 100 bMotion_plugin_complex_mmm_catcher "en"
 bMotion_plugin_add_complex "noun-catch" {[[:<:]](?:a|an|the) ([[:alpha:]]+)} 100 bMotion_plugin_complex_noun_catcher "en"
 
 proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
@@ -30,13 +30,13 @@ proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
 }
 
 proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
-  if [regexp -nocase "^mmm+ (.+?) " $text matches item] {
+  if [regexp -nocase "^mm+ (.+)" $text matches item] {
     bMotion_flood_undo $nick
     bMotion_abstract_add "sillyThings" $item
-  }
 	
-	if {[rand 100] > 97} {
-		bMotionDoAction $channel "" "mm%REPEAT{1:5:m}, %VAR{sillyThings}{strip}"
+		if {[rand 100] > 85} {
+			bMotionDoAction $channel $item "%VAR{betters}"
+		}
 	}
 }
 
@@ -70,4 +70,7 @@ proc bMotion_plugin_complex_noun_catcher { nick host handle channel text } {
 }
 
 bMotion_abstract_register "gotone"
-bMotion_abstract_batchadd "gotone" [list "I've already got one%|%BOT[are you sure?]%|yes yes, it's very nice" "I already have one of those."]
+bMotion_abstract_batchadd "gotone" [list "I've already got one%|%BOT\[are you sure?\]%|yes yes, it's very nice" "I already have one of those."]
+
+bMotion_abstract_register "betters"
+bMotion_abstract_batchadd "betters" [list "mm%REPEAT{1:5:m}, %VAR{sillyThings}{strip}" "%VAR{sillyThings}{strip} > %%" "%% < %VAR{sillyThings}{strip}"]
