@@ -16,7 +16,7 @@
 proc bMotion_plugin_output_pinky { channel line } {
   if {[rand 100] > 95} {
     set line [string trim $line]
-    if {![regexp "[.!?]$" $line]} {
+    if {![regexp {[.!?]$} $line]} {
       append line "."
     }
     append line " %VAR{narfs}"
