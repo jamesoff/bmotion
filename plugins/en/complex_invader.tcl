@@ -94,8 +94,8 @@ bMotion_plugin_add_complex "invader(duty)" "duty|doo+(t|d)(ie|y)" 20 "bMotion_pl
 # "zim" plugin responds to "invade or invasion" "zim" "mwahahaha or hahaha" "victory for" "how dare" "you dare"
 bMotion_plugin_add_complex "invader(zim)" "zim|inva(de|sion)|((mwa)?ha(ha)+)|(victory for)|((you|how) dare)" 20 "bMotion_plugin_complex_invader_zim" "en"
 
-# "gir" plugin responds to "gir" "whooo or wooo" "chicken" "doom" "piggy"
-bMotion_plugin_add_complex "invader(gir)" "w(h)?oo+|chicken|gir(!+| )|doo+m|piggy" 20 "bMotion_plugin_complex_invader_gir" "en"
+# "gir" plugin responds to "gir" "whooo or wooo" "chicken" "doom" "piggy", now with new improved "finally!
+bMotion_plugin_add_complex "invader(gir)" "w(h)?oo+|chicken|gir(!+| )|doo+m|piggy|finally!" 20 "bMotion_plugin_complex_invader_gir" "en"
 
 # nick change response
 bMotion_plugin_add_irc_event "invader(nick)" "nick" ".*" 5 "bMotion_plugin_complex_invader_nick" "en"
