@@ -159,61 +159,22 @@ proc moodTimerStart {} {
 
 ## moodHander: DCC .mood
 proc moodhandler {handle idx arg} {
-  global mood
-  putidx $idx "My current mood is $mood(happy) $mood(horny) $mood(lonely) $mood(electricity) $mood(stoned): happy horny lonely electricity stoned"
-  if {$arg != ""} {
-    if {$arg == "drift"} {
-      driftmood
-      return 0
-    }
-    set moodtype [lindex $arg 0]
-    set moodsetting [lindex $arg 1]
-    set mood($moodtype) $moodsetting
-    putlog "bMotion: Mood($moodtype) changed to $moodsetting by $handle"
-  }
-  checkmood "" ""
+  #global mood
+  #putidx $idx "My current mood is $mood(happy) $mood(horny) $mood(lonely) $mood(electricity) $mood(stoned): happy horny lonely electricity stoned"
+  #if {$arg != ""} {
+  #  if {$arg == "drift"} {
+  #    driftmood
+  #    return 0
+  #  }
+  #  set moodtype [lindex $arg 0]
+  #  set moodsetting [lindex $arg 1]
+  #  set mood($moodtype) $moodsetting
+  #  putlog "bMotion: Mood($moodtype) changed to $moodsetting by $handle"
+  #}
+  #checkmood "" ""
+  putidx $idx "Please use .bmotion mood"
 }
 
-
-## pubm_moodHandler: !mood
-proc pubm_moodhandler {nick host handle channel text} {
-  global mood botnick
-  set text [string trim $text]
-  if [regexp -nocase "^${botnick}$" $text] {
-    set ming "Mood: "
-    foreach r {happy horny lonely electricity stoned} {
-      append ming " $r=$mood($r) "
-    }
-    global bMotionCache
-    append ming " chanmood=[makeSmiley $bMotionCache($channel,mood)]"
-    bMotionDoAction $channel "" $ming
-    return 0
-  }
-
-  if [regexp -nocase "^$botnick (.+)" $text args] {
-    if {[matchattr $handle m]} {
-      if {$args == "drift"} {
-        driftmood
-        return 0
-      }
-      set moodtype [lindex $args 1]
-      set moodsetting [lindex $args 2]
-			if {[catch {expr $moodsetting}]} {
-			  putserv "PRIVMSG $nick :Fewl, that's not right."
-			  return 0
-		  }
-      set mood($moodtype) $moodsetting
-      putlog "bMotion: Mood($moodtype) changed to $moodsetting by $handle"
-      mee $channel "undergoes mood swing"
-      return 0
-    } else {
-      bMotionDoAction $channel "" "No."
-      putlog "bMotion: $nick tried mood $args on $channel and failed."
-      return 0
-    }
-  }
-  checkmood "" ""
-}
 
 ## pubm_moodHandler: !mood
 proc pubm_moodhandler {nick host handle channel text} {
@@ -225,44 +186,42 @@ proc pubm_moodhandler {nick host handle channel text} {
   
   bMotionDoAction $channel $nick "%%: Please use .bmotion $botnick mood"
   return 0
-
-
-  global mood botnick
-  set text [string trim $text]
-  if [regexp -nocase "^${botnick}$" $text] {
-    set ming "Mood: "
-    foreach r {happy horny lonely electricity stoned} {
-      append ming " $r=$mood($r) "
-    }
-    global bMotionCache
-    append ming " chanmood=[makeSmiley $bMotionCache($channel,mood)]"
-    bMotionDoAction $channel "" $ming
-    return 0
-  }
-
-  if [regexp -nocase "^$botnick (.+)" $text args] {
-    if {[matchattr $handle m]} {
-      if {$args == "drift"} {
-        driftmood
-        return 0
-      }
-      set moodtype [lindex $args 1]
-      set moodsetting [lindex $args 2]
-			if {[catch {expr $moodsetting}]} {
-			  putserv "PRIVMSG $nick :Fewl, that's not right."
-			  return 0
-		  }
-      set mood($moodtype) $moodsetting
-      putlog "bMotion: Mood($moodtype) changed to $moodsetting by $handle"
-      mee $channel "undergoes mood swing"
-      return 0
-    } else {
-      bMotionDoAction $channel "" "No."
-      putlog "bMotion: $nick tried mood $args on $channel and failed."
-      return 0
-    }
-  }
-  checkmood "" ""
+#  global mood botnick
+#  set text [string trim $text]
+#  if [regexp -nocase "^${botnick}$" $text] {
+#    set ming "Mood: "
+#    foreach r {happy horny lonely electricity stoned} {
+#      append ming " $r=$mood($r) "
+#    }
+#    global bMotionCache
+#    append ming " chanmood=[makeSmiley $bMotionCache($channel,mood)]"
+#    bMotionDoAction $channel "" $ming
+#    return 0
+#  }
+#
+#  if [regexp -nocase "^$botnick (.+)" $text args] {
+#    if {[matchattr $handle m]} {
+#      if {$args == "drift"} {
+#        driftmood
+#        return 0
+#      }
+#      set moodtype [lindex $args 1]
+#      set moodsetting [lindex $args 2]
+#			if {[catch {expr $moodsetting}]} {
+#			  putserv "PRIVMSG $nick :Fewl, that's not right."
+#			  return 0
+#		  }
+#      set mood($moodtype) $moodsetting
+#      putlog "bMotion: Mood($moodtype) changed to $moodsetting by $handle"
+#      mee $channel "undergoes mood swing"
+#      return 0
+#    } else {
+#      bMotionDoAction $channel "" "No."
+#      putlog "bMotion: $nick tried mood $args on $channel and failed."
+#      return 0
+#    }
+#  }
+#  checkmood "" ""
 }
 
 # management command
@@ -298,8 +257,19 @@ proc bMotion_mood_admin { handle { arg "" } } {
 	return 0
 }
 
+# management help callback
+proc bMotion_mood_admin_help { } {
+	bMotion_putadmin "Controls the mood system:"
+	bMotion_putadmin "  .bmotion mood [status]"
+	bMotion_putadmin "    View a list of all moods and their values"
+	bMotion_putadmin "  .bmotion mood set <name> <value>"
+	bMotion_putadmin "    Set mood <name> to <value>. The neutral value is usually 0. Max/min is (-)30."
+	bMotion_putadmin "  .bmotion mood drift"
+	bMotion_putadmin "    Runs a mood tick."
+}
+
 if {$bMotion_testing == 0} {
-	bMotion_plugin_add_management "mood" "^mood" n bMotion_mood_admin "any"
+	bMotion_plugin_add_management "mood" "^mood" n bMotion_mood_admin "any" bMotion_mood_admin_help
 }
 
 #add some default moods
