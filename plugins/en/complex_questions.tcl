@@ -15,11 +15,11 @@
 bMotion_plugin_add_complex "question" {[?>/]$} 100 bMotion_plugin_complex_question "en"
 
 proc bMotion_plugin_complex_question { nick host handle channel text } {
-
+  bMotion_putloglev 2 * "Question handler triggerred"
   global botnicks bMotionFacts
 
   regsub {(.+)[>\/]$} $text {\1?} text
-
+  bMotion_putloglev 3 * "Checking question for 'what'"
   ## What question targeted at me
   if { [regexp -nocase "what('?s)?(.+)" $text matches s question] ||
        [regexp -nocase "what('?s)? (.*)\\?" $text matches s question] } {
@@ -32,6 +32,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
     return 1
   }
 
+  bMotion_putloglev 3 * "Checking question for 'with/at/against'"
   ## With/at/against who question targeted at me
   if { [regexp -nocase "^$botnicks,?:? (with|at|against|by) who" $text ma mb prop] ||
        [regexp -nocase "^(with|at|against|by) who .* $botnicks ?\\?" $text ma prop ma] } {
@@ -39,6 +40,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
     return 1
   }
 
+  bMotion_putloglev 3 * "Checking question for 'who'"
   ## Who question targeted at me
   if { [regexp -nocase "^$botnicks,?:? who(se|'s)? " $text matches bot owner] ||
        [regexp -nocase "^who(se|'s)? .* $botnicks ?\\?" $text matches owner] } {
@@ -46,13 +48,15 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
     return 1
   }
 
+  bMotion_putloglev 3 * "Checking question for 'want'"
   ## Want question targetted at me
   if { [regexp -nocase "^$botnicks,?:? do you (need|want) (a|these|this|some|the|those|that)" $text] ||
         [regexp -nocase "^do you (want|need) (a|these|this|some|the|those|that) .* $botnicks ?\\?" $text] } {
       bMotion_plugin_complex_question_want $nick $channel $host
       return 1
   }
-  
+
+  bMotion_putloglev 3 * "Checking question for 'why'"
   ## Why question targeted at me
   if { [regexp -nocase "^$botnicks,?:? why" $text] ||
        [regexp -nocase "why.* $botnicks ?\\?" $text] } {
@@ -60,6 +64,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
     return 1
   }
 
+  bMotion_putloglev 3 * "Checking question for 'where'"
   ## Where question targeted at me
   if { [regexp -nocase "^$botnicks,?:? where" $text] ||
        [regexp -nocase "^where .* $botnicks ?\\?" $text] } {
@@ -67,6 +72,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
     return 1
   }
 
+  bMotion_putloglev 3 * "Checking question for 'how many'"
   ## How many question targeted at me
   if { [regexp -nocase "^$botnicks,?:? how ?many" $text] ||
        [regexp -nocase "^how ?many .* $botnicks ?\\?" $text] } {
@@ -74,6 +80,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
     return 1
   }
 
+  bMotion_putloglev 3 * "Checking question for 'when'"
   ## When question targeted at me
   if { [regexp -nocase "^$botnicks,?:? (when|what time)" $text] ||
        [regexp -nocase "^(when|what time) .* $botnicks ?\\?" $text] } {
@@ -81,6 +88,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
     return 1
   }
 
+  bMotion_putloglev 3 * "Checking question for 'how'"
   ## How question targeted at me
   if { [regexp -nocase "^$botnicks,?:? how" $text] ||
        [regexp -nocase "^how .* $botnicks ?\\?" $text] } {
@@ -88,14 +96,24 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
     return 1
   }
 
+  bMotion_putloglev 3 * "Checking question for some general questions"    
+  # some other random responses, handled here rather than simple_general so as not to break other code  
+    if [regexp -nocase  "^${botnicks}:?,? do(n'?t)? you (like|want|find .+ attractive|get horny|(find|think) .+ (is ?)horny|have|keep)" $text] {
+    bMotion_putloglev 2 * "$nick general question"
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{yesnos}"
+    return 1
+  }
+    
   # me .... ?
   if [regexp -nocase "^${botnicks}:?,? (.+)\\?$" $text ming ming2 question] {
+    bMotion_putloglev 2 * "$nick final question catch"
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{randomReplies}"
     return 1
   }
 
   # ... me?
   if [regexp -nocase "${botnicks}\\?$" $text bhar ming what] {
+    bMotion_putloglev 2 * "$nick very final question catch"
     if { [rand 2] == 1 } {
       bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{randomReplies}"
       return 1
@@ -103,6 +121,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
   }
 
   if [bMotionTalkingToMe $text] {
+    bMotion_putloglev 2 * "$nick talkingtome catch"
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{randomReplies}"
     return 1
   }
@@ -110,6 +129,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
 }
 
 proc bMotion_plugin_complex_question_what { nick channel host question } {
+    bMotion_putloglev 2 * "$nick what is $question question"
     global bMotionInfo bMotionFacts bMotionOriginalInput
     #see if we know the answer to it
     if {$question != ""} {
@@ -155,17 +175,20 @@ proc bMotion_plugin_complex_question_what { nick channel host question } {
 }
 
 proc bMotion_plugin_complex_question_when { nick channel host } {
+    bMotion_putloglev 2 * "$nick When question"
   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWhens}"
   return 1
 }
 
 proc bMotion_plugin_complex_question_with { nick channel host prop } {
+    bMotion_putloglev 2 * "$nick with question"
   set answer "$prop %VAR{answerWithWhos}"
   bMotionDoAction $channel [bMotionGetRealName $nick $host] $answer
   return 1
 }
 
 proc bMotion_plugin_complex_question_who { nick channel host owner } {
+    bMotion_putloglev 2 * "$nick who question"
   if {$owner == "se"} {
     set line "%OWNER[%VAR{answerWhos}]"
   } else {
@@ -176,26 +199,31 @@ proc bMotion_plugin_complex_question_who { nick channel host owner } {
 }
 
 proc bMotion_plugin_complex_question_want { nick channel host } {
+    bMotion_putloglev 2 * "$nick Want/need question"
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{question_want_reply_wrapper}"
     return 1
 }
 
 proc bMotion_plugin_complex_question_why { nick channel host } {
+    bMotion_putloglev 2 * "$nick why question"
   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWhys}"
   return 1
 }
 
 proc bMotion_plugin_complex_question_where { nick channel host } {
+    bMotion_putloglev 2 * "$nick where question"
   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWheres}"
   return 1
 }
 
 proc bMotion_plugin_complex_question_many { nick channel host } {
+    bMotion_putloglev 2 * "$nick how many question"
   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowmanys}"
   return 1
 }
 
 proc bMotion_plugin_complex_question_how { nick channel host } {
+    bMotion_putloglev 2 * "$nick how question"
   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHows}"
   return 1
 }
