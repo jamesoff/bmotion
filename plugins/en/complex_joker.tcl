@@ -1,3 +1,16 @@
+# simsea's Invoke-A-Joke plugin
+#    - based on an idea from sitting in the pub with JamesOff
+# $Id$
+#
+###############################################################################
+# This is a bMotion plugin
+# Copyright (C) Andrew Payne 2000-2003
+#
+# This program is covered by the GPL, please refer the to LICENCE file in the
+# distribution; further information can be found in the headers of the scripts
+# in the modules directory.
+###############################################################################
+
 # tell a random joke plugin
 set jokeInfo ""
 
