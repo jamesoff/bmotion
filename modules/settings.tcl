@@ -20,28 +20,66 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
+## PERSONALITY STUFF
+# male or female
 set bMotionInfo(gender) "male"
-set bMotionInfo(balefire) 1
-set bMotionInfo(randomChannels) { "#molsoft" "#ags" "#exeter" "#namcoarcade" "#startrek" }
-#set bMotionInfo(randomChannels) { "#molsoft" }
+
+# straight, gay, or bi
 set bMotionInfo(orientation) "straight"
-#set bMotionInfo(orientation) "bi"
-set bMotionSettings(needI) 1
-set bMotionSettings(melMode) 0
+
+# list of nicks to respond to, separate with the | character
+# regexp is ok, but don't use brackets!
 set bMotionSettings(botnicks) "nt|bots|the bots"
+
+
+## BEHAVIOUR STUFF
+
+# set to 1 to skip the gender/orientation checks
+set bMotionSettings(melMode) 0
+
+# talk to everyone (this setting is being phased out)
+set bMotionSettings(needI) 1
+
+# respond to everything (rather than just stuff directly said to us)
+# this setting is being phased out
+# if you have a bot by itself, set to 1
+# if you have more than one bot running bmotion, set one of them to 1 and all others to 0
+set bMotionInfo(balefire) 1
+
+# channels to run in (lower case please)
+set bMotionInfo(randomChannels) { "#molsoft" "#ags" "#exeter" "#namcoarcade" "#startrek" }
+
+
+## SYSTEM SETTINGS
+
+# percent of typos (output:typos plugin)
 set bMotionSettings(typos) 7
+
+# percent of colloqualisms (output:colloq plugin)
 set bMotionSettings(colloq) 10
+
+# percent of leet changes (output:leet plugin)
+set bMotionSettings(leetRandom) 0.5
+
+# plugins we shouldn't load
 set bMotionSettings(noPlugin) "simple:huk,complex:wb"
-#minutes
+
+# minimum delay (mins) between random lines
 set bMotionInfo(minRandomDelay) 20
+
+# maximum delay (mins) between random lines
 set bMotionInfo(maxRandomDelay) 120
 
 # if nothing's happened on this channel for this much time, don't say something
 set bMotionInfo(maxIdleGap) 45
 set bMotionInfo(brigDelay) 30
 
-set bMotionSettings(leetRandom) 0.5
+# number of minutes to be silent when told to shut up
+set bMotionSettings(silenceTime) 5
 
+# languages to expect for plugins
 set bMotionSettings(languages) "en,nl"
+
+# default language to use
 set bMotionInfo(language) "en"
 
