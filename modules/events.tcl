@@ -24,6 +24,7 @@
 
 # call an irc event response plugin
 proc bMotionDoEventResponse { type nick host handle channel text } {
+  bMotion_putloglev 4 * "entering bMotionDoEventResponse: $type $nick $host $handle $channel $text"
   if { ![regexp -nocase "nick|join|quit|part|split" $type] } {
     return 0
   }
@@ -72,11 +73,14 @@ proc bMotion_event_onjoin {nick host handle channel} {
 
 ## BEGIN onpart handler
 proc bMotion_event_onpart {nick host handle channel {msg ""}} {
+  bMotion_putloglev 4 * "entering bmotion_event_onpart: $nick $host $handle $channel $msg"
   global bMotionCache
 
+  set bMotionCache(lastLeft) $nick
+
+  #TODO: Fix this? Passing a cleaned nick around can break things
   set nick [bMotion_cleanNick $nick $handle]
 
-  set bMotionCache(lastLeft) $nick
   set result [bMotionDoEventResponse "part" $nick $host $handle $channel $msg ]
 }
 ## END onpart
