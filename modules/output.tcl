@@ -154,10 +154,11 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0}} {
     bMotion_putloglev 2 * "bMotion: typosDone (multipart) is !$typosDone!"
     if {$typosDone != ""} {
       bMotion_plugins_settings_set "output:typos" "typosDone" "" "" ""
-      bMotion_plugins_settings_set "output:typos" "typos" "" "" ""      
       if [rand 2] {
         bMotionDoAction $channel "" "%VAR{typoFix}" "" 1
       }
+      bMotion_plugins_settings_set "output:typos" "typos" "" "" ""      
+      
 
     }
     return 0
@@ -168,10 +169,10 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0}} {
   bMotion_putloglev 2 * "bMotion: typosDone is !$typosDone!"
   if {$typosDone != ""} {
     bMotion_plugins_settings_set "output:typos" "typosDone" "" "" ""
-    bMotion_plugins_settings_set "output:typos" "typos" "" "" ""    
     if [rand 2] {
       bMotionDoAction $channel "" "%VAR{typoFix}" "" 1
     }
+    bMotion_plugins_settings_set "output:typos" "typos" "" "" ""        
   }
 
   return 0
