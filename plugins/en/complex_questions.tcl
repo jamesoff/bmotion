@@ -34,7 +34,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
   if { [regexp -nocase "what('?s)?(.+)" $text matches s question] ||
        [regexp -nocase "what('?s)? (.*)\\?" $text matches s question] } {
     set term ""
-    if [regexp -nocase {what('s| is| was) ([^ ]+)\\??} $text matches ignore term] {
+    if [regexp -nocase {what(\'?s| is| was) ([^ ]+)} $text matches ignore term] {
       set question "is $term"
     }
     if {($term == "") && (![bMotionTalkingToMe $text])} { return 0 }
@@ -144,7 +144,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
 }
 
 proc bMotion_plugin_complex_question_what { nick channel host question } {
-    bMotion_putloglev 2 * "$nick what is $question question"
+    bMotion_putloglev 2 * "$nick what !$question! question"
     global bMotionInfo bMotionFacts bMotionOriginalInput
     #see if we know the answer to it
     if {$question != ""} {
@@ -160,21 +160,21 @@ proc bMotion_plugin_complex_question_what { nick channel host question } {
         return 1
       }
       #let's try to process this with facts
-      if [regexp -nocase {is (an?|the )?([^ ]+)} $question ignore ignore2 term] {
+      if [regexp -nocase {is ((an?|the) )?([^ ]+)} $question ignore ignore3 ignore2 term] {
         set term [string map {"?" ""} $term]
         catch {
           set term [string tolower $term]
-          #putlog "looking for what,$term"
+          bMotion_putloglev 1 * "looking for what,$term"
           set answers $bMotionFacts(what,$term)
           #putlog $answers
           if {[llength $answers] > 0} {
-            #putlog "answers SI KNOWN"
+            bMotion_putloglev 1 * "I know answers for what,$term"
             if {![bMotionTalkingToMe $bMotionOriginalInput]} {
-              #putlog "not directly talking to me"
-              if [rand 3] {
-                #putlog "not answering nyer"
+              bMotion_putloglev 1 * "I wasn't asked directly"
+              if [rand 5] {
                 return 1
               }
+              bMotion_putloglev 1 * "... but I shall answer anyway."
             }
           }
           bMotionDoAction $channel [pickRandom $answers] "%VAR{question_what_fact_wrapper}"
@@ -186,7 +186,11 @@ proc bMotion_plugin_complex_question_what { nick channel host question } {
       }
     }
     #generic answer to what
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWhats}"
+    if [bMotionTalkingToMe $bMotionOriginalInput] {
+      bMotion_putloglev 2 * "Talking to me, so using generic answer"
+      bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWhats}"
+      return 1
+    }
 }
 
 proc bMotion_plugin_complex_question_when { nick channel host } {
