@@ -357,7 +357,6 @@ proc bMotion_dcc_command { handle idx arg } {
   bMotion_plugins_settings_set "admin" "type" "" "" "dcc"
   bMotion_plugins_settings_set "admin" "idx" "" "" $idx
 
-  putlog "bMotion command from $handle in DCC: $cmd"
   set nfo [bMotion_plugin_find_management $cmd]
 
   if {$nfo == ""} {
@@ -508,7 +507,7 @@ proc bMotionAdminHandler2 {nick host handle channel text} {
   set nfo [bMotion_plugin_find_management $cmd]
 
   if {$nfo == ""} {
-    bMotion_putadmin "what"
+    bMotion_putadmin "Unknown command (try .bmotion help)"
     return 1
   }
 
@@ -678,7 +677,7 @@ proc msg_bmotioncommand { nick host handle cmd } {
   set nfo [bMotion_plugin_find_management $cmd]
 
   if {$nfo == ""} {
-    bMotion_putadmin "what"
+    bMotion_putadmin "Unknown command (try .bmotion help)"
     return 1
   }
 
