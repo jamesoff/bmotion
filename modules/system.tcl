@@ -638,4 +638,12 @@ proc bMotion_cleanNick { nick { handle "" } } {
   return $nick
 }
 
+#
+# clean out $£(($ off the end
+#
+proc bMotion_uncolen { line } {
+  regsub -all {([!\"\£\$\%\^\&\*\(\)\#\@]{3,})} $line "" line
+  return $line
+}
+
 bMotion_putloglev d * "bMotion: system module loaded"
