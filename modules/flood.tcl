@@ -123,6 +123,12 @@ proc bMotion_flood_add { nick { callback "" } { text "" } } {
   set bMotion_flood_undo $val
 }
 
+proc bMotion_flood_clear { nick } {
+  global bMotion_flood_info bMotion_flood_last
+  set bMotion_flood_info($nick) 0
+  set bMotion_flood_last($nick) ""
+}
+
 proc bMotion_flood_remove { nick } {
   global bMotion_flood_info 
   set val 1
@@ -202,17 +208,17 @@ proc bMotion_flood_get { nick } {
 proc bMotion_flood_check { nick } {
   set flood [bMotion_flood_get $nick]
   set chance 2
-  if {$flood > 25} {
+  if {$flood > 35} {
     #sendnote "bMotion" "JamesOff" "bMotion added an ignore on $nick for half an hour"
     set ignorehost [maskhost $host]
     newignore $ignorehost "bMotion" "Flooding bmotion" 30
     #puthelp "NOTICE $nick :Sorry, you're flooding bMotion too much. I'll be ignoring you for a bit."
     set chance -1
   }
-  if {$flood > 15} {
+  if {$flood > 25} {
     set chance -1
   }
-  if {$flood > 7} {
+  if {$flood > 15} {
     set chance 1
   }
   set r [rand 2]
