@@ -8,7 +8,7 @@
 #
 # <Procyan> is there like 1 person on earth that knows tcl/tk and is writing all of the apps?
 # <unSlider> procyan: no, there are a bunch of people who dont know tcl/tk but are writing apps for it anyway
-#
+#						(www.bash.org)
 
 set bMotionRoot "scripts/bmotion"
 set bMotionModules "$bMotionRoot/modules"
@@ -120,4 +120,14 @@ bMotion_startTimers
 if {$bMotion_testing == 0} {
   set bMotionCache(rehash) ""
   putlog "\002bMotion $cvsinfo AI online\002 (randoms file: $randomsVersion)"
+}
+
+# set this to 0 to stop showing the copyright
+# DO NOT DISTRIBUTE THIS FILE IF THE VARIABLE IS SET TO 0
+set bMotion_show_copyright 1
+
+if {$bMotion_show_copyright == 1} {
+  putlog "bMotion is Copyright (C) 2002 James Seward. bMotion comes with ABSOLUTELY NO WARRANTY; 
+  putlog "This is free software, and you are welcome to redistribute it under certain conditions. 
+  putlog "See the COPYRIGHT file for details. You can edit bMotion.tcl to hide this message once you have read it."
 }
