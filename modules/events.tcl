@@ -132,7 +132,7 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }  
 
-  bMotion_putloglev 4 * "bMotion: entering bMotion_event_main with $nick $host $handle $channel $text"
+  bMotion_putloglev 4 * "bMotion: entering bMotion_event_main with nick: $nick host: $host handle: $handle chan: $channel text: $text"
 
   set nick [bMotion_cleanNick $nick $handle]
 
