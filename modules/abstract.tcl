@@ -64,3 +64,48 @@
 #
 # The abstracts will be stored in ./abstracts/<abstract name>.txt in the bMotion directory. The 
 # fileformat is simply one per line.
+
+#
+set bMotion_abstract_max_age 300
+
+# initialise the arrays
+
+if {![info exists bMotion_abstract_contents]} {
+  set bMotion_abstract_contents(dummy) ""
+  set bMotion_abstract_timestamps(dummy) 1
+}
+
+# garbage collect the abstracts arrays
+proc bMotion_abstract_gc { } {
+  global bMotion_abstract_contents bMotion_abstract_timestamps
+  global bMotion_abstract_max_age
+
+  set abstracts [array names $bMotion_abstract_contents]
+  set limit [expr [clock seconds] - $bMotion_abstract_max_age]
+
+  foreach abstract $abstract {
+    if {($bMotion_abstract_timestamps($abstract) < $limit) && ($bMotion_abstract_timestamps($abstract) > 0)} {
+      bMotion_putloglev d * "abstract $abstract has expired"
+      unset bMotion_abstract_contents($abstract)
+      set bMotion_abstract_timestamps($abstract) 0
+    }
+  }
+}
+
+proc bMotion_abstract_register { abstract } {
+  global bMotion_abstract_contents bMotion_abstract_timestamps
+
+  #set timestamp to now
+  set bMotion_abstract_timestamps($abstract) [clock seconds]
+
+  #load any existing abstracts
+  catch {
+    set fileHandle [open "$bMotionModules/abstracts/${abstract}.txt" "r"]
+    set line ""
+    while [gets $fileHandle line] {
+      if {[lsearch -exact $bMotion_abstract_contents($abstract)] > -1} {
+        lappend bMotion_abstract_contents($abstract) $line
+      }
+    }
+  }
+}
