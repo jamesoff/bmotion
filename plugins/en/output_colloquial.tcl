@@ -19,15 +19,15 @@ bMotion_plugin_add_output "colloq" bMotion_plugin_output_colloq 1 "en"
 #
 proc bMotion_plugin_output_colloq { channel line } {
   global bMotionSettings
-  
+
   set colloq_rate $bMotionSettings(colloq)
   set oldLine $line
-  
-  if [bMotion_plugin_output_colloq_chance $colloq_rate] { 
+
+  if [bMotion_plugin_output_colloq_chance $colloq_rate] {
     regsub -all -nocase "should( have|\'ve| of)" $line "%VAR{colloq_shouldhave}" line
   }
 
-  if [bMotion_plugin_output_colloq_chance $colloq_rate] { 
+  if [bMotion_plugin_output_colloq_chance $colloq_rate] {
     regsub -all -nocase "shouldn't( have|\'ve| of)" $line "%VAR{colloq_shouldhavenot}" line
   }
 
@@ -40,14 +40,12 @@ proc bMotion_plugin_output_colloq { channel line } {
     regsub -all -nocase "cheap" $line "cheep" line
     regsub -all -nocase "seam" $line "seem" line
     regsub -all -nocase "mean" $line "meen" line
-
   }
 
   if [bMotion_plugin_output_colloq_chance $colloq_rate] {
     regsub -all -nocase "exactly" $line "exactily" line
     regsub -all -nocase "separate" $line "seperate" line
     regsub -all -nocase "definitely" $line "definately" line
-
   }
 
   if [bMotion_plugin_output_colloq_chance $colloq_rate] {
@@ -64,6 +62,18 @@ proc bMotion_plugin_output_colloq { channel line } {
       append line "."
     }
   }
+
+  #let's break some words
+  global colloq_negative
+  set newLine ""
+  set words [split $line { }]
+  foreach word $words {
+    if {[bMotion_plugin_output_colloq_chance $colloq_rate]} {
+      regsub -nocase {[[:<:]](dis|anti|un|im)} $word [pickRandom $colloq_negative] word
+    }
+    append newLine "$word "
+  }
+  set line $newLine
 
   #don't waste time updating if the line didn't change
   if {$line == $oldLine} {
@@ -100,4 +110,11 @@ set colloq_you {
 
 set colloq_your {
   "ur"
+}
+
+set colloq_negative {
+  "dis"
+  "un"
+  "anti"
+  "im"
 }
