@@ -16,12 +16,11 @@
 #                        name   regexp               flags   callback
 bMotion_plugin_add_management "status" "^(status|info)"     t       bMotion_plugin_management_status "any"
 bMotion_plugin_add_management "queue" "^queue"            n       bMotion_plugin_management_queue "any"
-bMotion_plugin_add_admin "parse" "^parse"            n       bMotion_plugin_admin_parse "any"
+bMotion_plugin_add_management "parse" "^parse"            n       bMotion_plugin_management_parse "any"
 bMotion_plugin_add_management "friends" "^friends(hip)?"  n       bMotion_plugin_management_friends "any"
 bMotion_plugin_add_management "rehash" "^rehash"          n       bMotion_plugin_management_rehash "any"
 bMotion_plugin_add_management "reload" "^reload"          n       bMotion_plugin_management_reload "any"
-bMotion_plugin_add_admin "settings_clear" "^settings clear" n bMotion_plugin_admin_settings_clear "any"
-
+bMotion_plugin_add_management "settings" "^settings" n bMotion_plugin_management_settings "any"
 bMotion_plugin_add_management "global" "^global" n bMotion_plugin_management_global
 
 #################################################################################################################################
@@ -46,7 +45,7 @@ proc bMotion_plugin_management_queue { handle { args "" }} {
 
   if {$args == ""} {
     #display queue
-    bMotion_putadmin "Queue size: [bMotion_queue_size] lines"
+    bMotion_putadmin "Queue size: [expr [bMotion_queue_size] - 1] lines"
 	  foreach item $bMotion_queue {
 	    set sec [lindex $item 0]
 	    set target [lindex $item 1]
@@ -63,11 +62,35 @@ proc bMotion_plugin_management_queue { handle { args "" }} {
   }
 }
 
-proc bMotion_plugin_admin_parse { handle idx arg } {
-  if [regexp -nocase {(\[#!\][^ ]+)( (.+))} $arg matches channel pom txt] {
-    bMotionDoAction $channel "" $txt
-    putlog "bMotion: Parsed text from DCC chat"
-  }
+proc bMotion_plugin_management_parse { handle { arg "" } } {
+	if {$arg == ""} {
+		bMotion_putadmin "You must supply something to parse"
+		return 0
+	}
+
+	set output [bMotion_plugins_settings_get "admin" "type" "" ""]
+	set target [bMotion_plugins_settings_get "admin" "target" "" ""]
+
+	if {$output == ""} {
+		return 0
+	}
+
+	if {($output == "dcc") || (![string match "#*" $target])} {
+		#command syntax should be:
+		# .bmotion parse #channel output
+		if [regexp -nocase {(#[^ ]+) (.+)} $arg matches chan parse] {
+			bMotionDoAction $chan "somenick" "\[parse\] $parse"
+			bMotion_putadmin "Sent '$parse' to $chan"
+			return 0
+		}
+	}
+
+	putlog "Parsing '$arg', requested in $target"
+
+	#we've been requested from a channel
+	puthelp $target
+	bMotionDoAction $target "somenick" $arg
+	return 0
 }
 
 proc bMotion_plugin_management_friends { handle { arg "" } } {
@@ -131,13 +154,25 @@ proc bMotion_plugin_management_reload { handle } {
   }
 }
 
-proc bMotion_plugin_admin_settings_clear { handle idx { arg "" } } {
+proc bMotion_plugin_management_settings { handle { arg "" } } {
   global bMotion_plugins_settings
-  if {![info exists bMotion_plguins_settings]} {
-    unset bMotion_plugins_settings
-    set bMotion_plugins_settings(dummy,setting,channel,nick) "dummy"
+
+  if {$arg == "clear"} {
+  	if {![info exists bMotion_plugins_settings]} {
+    	unset bMotion_plugins_settings
+    	set bMotion_plugins_settings(dummy,setting,channel,nick) "dummy"
+  	}
+  	bMotion_putadmin "Cleared plugins settings array"
+  	return 0
   }
-  putidx $idx "Cleared plugins settings array\r"
+
+  if {$arg == "list"} {
+  	set s [array startsearch bMotion_plugins_settings]
+  	while {[set key [array nextelement bMotion_plugins_settings $s]] != ""} {
+  		bMotion_putadmin "$key = $bMotion_plugins_settings($key)"
+   	}
+  	array donesearch bMotion_plugins_settings $s
+  }
 }
 
 proc bMotion_plugin_management_global { handle { text "" } } {

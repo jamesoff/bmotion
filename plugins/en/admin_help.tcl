@@ -25,7 +25,7 @@ proc bMotion_plugin_management_help { handle { args "" } } {
   if {$args == ""} {
 		bMotion_putadmin "You can run bMotion commands from DCC with .bmotion COMMAND,"
 		bMotion_putadmin "  from a channel with .bmotion BOTNICK COMMAND, and from a"
-		bMotion_putadmin "  query with the bot with .bmotion COMMAND."
+		bMotion_putadmin "  query with the bot with bmotion COMMAND."
 	  bMotion_putadmin "Loaded bMotion Admin Commands:"
 	  set line ""
 	  set s [array startsearch bMotion_plugins_management]
@@ -44,7 +44,7 @@ proc bMotion_plugin_management_help { handle { args "" } } {
 	  }
 	  array donesearch bMotion_plugins_management $s
 
-	  bMotion_putadmin "Help is available for some plugis; run .bmotion help COMMAND"
+	  bMotion_putadmin "Help is available for some plugins; run .bmotion help COMMAND"
 	  bMotion_putadmin "  for more information."
 	  return 0
   } else {
@@ -118,6 +118,30 @@ proc bMotion_plugin_management_help { handle { args "" } } {
   		"rehash" {
   			bMotion_putadmin "Safely rehash the bot. bMotion will check to make sure there are no"
   			bMotion_putadmin "problems with loading the script and then rehash."
+  		}
+  		"friends" {
+  			bMotion_putadmin "Lists bMotion's friendships"
+  		}
+  		"settings" {
+  			bMotion_putadmin "Handles internal bMotion settings (not configuration)"
+  			bMotion_putadmin "  .bmotion settings list"
+  			bMotion_putadmin "    List all settings stored by bMotion. This can be a lot of output."
+  			bMotion_putadmin "  .bmotion settings clear"
+  			bMotion_putadmin "    Clears the settings array."
+  		}
+  		"queue" {
+  			bMotion_putadmin "Interact with the bMotion queue"
+  			bMotion_putadmin "  .bmotion queue"
+  			bMotion_putadmin "    List the contents of bMotion's output queue"
+  			bMotion_putadmin "  .bmotion queue flush"
+  			bMotion_putadmin "    Clear the bMotion output queue"
+  		}
+  		"parse" {
+  			bMotion_putadmin "Make bMotion parse some text as a test"
+  			bMotion_putadmin "  .bmotion parse \[<channel>\] <text>"
+  			bMotion_putadmin "    If this command is issued from a query or the partyline,"
+  			bMotion_putadmin "    you must give the channel to send output to. Requests from"
+  			bMotion_putadmin "    a query or the partyline have '\[parse\]' prefixed."
   		}
    		default {
   			bMotion_putadmin "I seem to have misplaced my help for that command."
