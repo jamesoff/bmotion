@@ -455,14 +455,7 @@ proc bMotion_event_main {nick host handle channel text} {
   }
   ## /team rocket
 
-  if [regexp -nocase "^${botnicks}(:?) (wins|exactly|precisely|perfect|nice one)\.?!?$" $text] {
-    global harhars
-    bMotionDoAction $channel $nick [pickRandom $harhars]
-    bMotionGetHappy
-    bMotionGetUnLonely
-    driftFriendship $nick 1
-    return 0
-  }
+
 
   if [regexp -nocase "^(well done|good(work|show)),? ${botnicks}\.?$" $text] {
     bMotionDoAction $channel $nick "%VAR{harhars}"
