@@ -12,11 +12,11 @@
 # in the modules directory.
 ###############################################################################
 
-proc bMotion_plugin_admin_language { handle idx { arg "" }} {
+proc bMotion_plugin_management_language { handle { arg "" }} {
   global bMotionSettings
 
   if [regexp -nocase {remove (.+)} $arg matches lang] {
-    putidx $idx "Removing language $lang...\r"
+    bMotion_putadmin "Removing language $lang..."
     set langs [split $bMotionSettings(languages) ","]
     set newlangs [list]
     foreach language $langs {
@@ -32,25 +32,25 @@ proc bMotion_plugin_admin_language { handle idx { arg "" }} {
 
     set bMotionSettings(languages) $newlangstring
 
-    putidx $idx "bMotion: new languages are $newlangstring ... rehash to load"
+    bMotion_putadmin "bMotion: new languages are $newlangstring ... rehash to load"
 
     return 0
   }
 
   if [regexp -nocase {add (.+)} $arg matches lang] {
-    putidx $idx "Adding language $lang...\r"
+    bMotion_putadmin "Adding language $lang..."
     append bMotionSettings(languages) ",$lang"
-    putidx $idx "bMotion: new languages are $bMotionSettings(languages) ... rehash to load"
+    bMotion_putadmin "bMotion: new languages are $bMotionSettings(languages) ... rehash to load"
     return 0
   }
 
   if [regexp -nocase {use (.+)} $arg matches lang] {
-    putidx $idx "Switching languages to $lang..."
+    bMotion_putadmin "Switching languages to $lang..."
     if [regexp $lang $bMotionSettings(languages)] {
       global bMotionInfo
       set bMotionInfo(language) $lang
     } else {
-      putidx $idx "Error! Language $lang not loaded"
+      bMotion_putadmin "Error! Language $lang not loaded"
     }
     return 0
   }
@@ -61,9 +61,9 @@ proc bMotion_plugin_admin_language { handle idx { arg "" }} {
     append langs "$lang  "
   }
   global bMotionInfo
-  putidx $idx "$langs\r"
-  putidx $idx "Current language is $bMotionInfo(language)\r"
+  bMotion_putadmin "$langs"
+  bMotion_putadmin "Current language is $bMotionInfo(language)"
 }
 
 # register the plugin
-bMotion_plugin_add_admin "lang" "^lang(uage)?" n "bMotion_plugin_admin_language" "any"
+bMotion_plugin_add_management "lang" "^lang(uage)?" n "bMotion_plugin_management_language" "any"
