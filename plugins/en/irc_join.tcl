@@ -11,8 +11,6 @@
 ###############################################################################
 
 
-bMotion_plugin_add_irc_event "default join" "join" ".*" 80 "bMotion_plugins_irc_default_join" "en"
-
 proc bMotion_plugins_irc_default_join { nick host handle channel text } { 
 
   #has something happened since we last greeted?
@@ -28,24 +26,30 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
   global botnick mood
   set chance [rand 10]
   set greetings [bMotion_abstract_all "ranjoins"]
-  if {$chance > 8} {
-    if [matchattr $handle I] {
-      set greetings [concat $greetings [bMotion_abstract_all "bigranjoins"]
-      if {$nick == $bMotionCache(lastLeft)} {
-        set greetings [bMotion_abstract_all "welcomeBacks"]
-        set bMotionCache(lastLeft) ""
-      }
-      incr mood(happy)
-      incr mood(lonely) -1
+  if {$handle != "*"} {
+    set greetings [concat $greetings [bMotion_abstract_all "bigranjoins"]]
+    set greetings [concat $greetings [bMotion_abstract_all "insult_joins"]]
+    if {$nick == $bMotionCache(lastLeft)} {
+      set greetings [bMotion_abstract_all "welcomeBacks"]
+      set bMotionCache(lastLeft) ""
     }
-
-    #set nick [bMotion_cleanNick $nick $handle]
-
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $greetings]
-    set bMotionCache(lastGreeted) $nick
-    bMotion_plugins_settings_set "system:join" "lasttalk" $channel "" 1
+    incr mood(happy)
+    incr mood(lonely) -1
   }
+
+  #set nick [bMotion_cleanNick $nick $handle]
+
+  bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $greetings]
+  set bMotionCache(lastGreeted) $nick
+  bMotion_plugins_settings_set "system:join" "lasttalk" $channel "" 1
 
   return 0
 }
 
+bMotion_plugin_add_irc_event "default join" "join" ".*" 75 "bMotion_plugins_irc_default_join" "en"
+
+bMotion_abstract_register "insult_joins"
+bMotion_abstract_batchadd "insult_joins" [list "%ruser: yeah, %% does suckOH HI %%!" "\[%%\] I'm a %VAR{PROM}%|%VAR{wrong_infoline}" "\[%%\] I love %ruser%|%VAR{wrong_infoline}"]
+
+bMotion_abstract_register "wrong_infoline"
+bMotion_abstract_batchadd "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline"]
