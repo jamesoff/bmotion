@@ -78,7 +78,7 @@ proc bMotion_facts_auto_save { min hr a b c } {
 }
 
 # save facts every hour
-bind time - "1 * * * *" bMotion_facts_auto_save
+bind time - "01 * * * *" bMotion_facts_auto_save
 
 # load facts at startup
 catch {
