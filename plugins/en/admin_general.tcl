@@ -110,15 +110,31 @@ proc bMotion_plugin_admin_unbindVotes { handle idx arg } {
 proc bMotion_plugin_admin_codesize { handle idx { arg "" } } {
   #get codesize for bMotion
   
-  set modules_output [exec scripts/codeSize ./scripts/modules]
-  set plugins_output [exec scripts/codeSize ./scripts/plugins]
+  global bMotionRoot bMotionModules bMotionPlugins
+  set scriptName "[pwd]/$bMotionRoot/codeSize"
+
+  #check the script is present and executable
+  if {![file exists $scriptName]} {
+    putidx $idx "bMotion: ERROR: Can't find supporting script $scriptName!"
+    return 0
+  }
+
+  if {![file executable $scriptName]} {
+    putidx $idx "bMotion: ERROR: $scriptName is not executable :("
+    return 0
+  }
+
+  bMotion_putloglev 2 * "bMotion: codeSize script is $scriptName"
+  
+  set modules_output [exec $scriptName $bMotionModules]
+  set plugins_output [exec $scriptName $bMotionPlugins]
   regexp {([[:digit:]]+) +[[:digit:]]+ +[[:digit:]]+ total} $modules_output matches modules
   regexp {([[:digit:]]+) +[[:digit:]]+ +[[:digit:]]+ total} $plugins_output matches plugins
-  regexp {([[:digit:]]+) +[[:digit:]]+ +[[:digit:]]+ \./scripts/bMotion\.tcl} [exec wc ./scripts/bMotion.tcl] matches loader
+  regexp {([[:digit:]]+) +[[:digit:]]+ +[[:digit:]]+ .+bMotion\.tcl} [exec wc $bMotionRoot/bMotion.tcl] matches loader
 
   set total [expr $modules + $plugins + $loader]
 
-  putidx $idx "bMotion: codesize: $loader in loader, $modules in modules, $plugins in plugins, $total in total\r"
+  putidx $idx "bMotion: codesize: $loader in stub, $modules in modules, $plugins in plugins, $total in total\r"
   return 0
 }
 
