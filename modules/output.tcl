@@ -216,9 +216,15 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
     if {$newText == ""} {
       #insert old style
       set var [subst $$BOOM]
-      set line [bMotionInsertString $line "%VAR\{$BOOM\}" [pickRandom $var]]
+      #set line [bMotionInsertString $line "%VAR\{$BOOM\}" [pickRandom $var]]
+      bMotion_putloglev 1 * "before1: $line"
+      regsub "%VAR\{$BOOM\}" $line [pickRandom $var] line
+      bMotion_putloglev 1 * "after1: $line"
     } else {      
-      set line [bMotionInsertString $line "%VAR\{$BOOM\}" $newText]
+      #set line [bMotionInsertString $line "%VAR\{$BOOM\}" $newText]
+      bMotion_putloglev 1 * "before2: $line"
+      regsub "%VAR\{$BOOM\}" $line $newText line
+      bMotion_putloglev 1 * "after2: $line"
     }
     if [string match "*%noun*" $line] {
       set line [bMotionInsertString $line "%noun" "%VAR{sillyThings}"]
