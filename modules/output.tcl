@@ -464,7 +464,7 @@ proc bMotionWashNick { nick } {
   return $nick
 }
 
-proc bMotionGetRealName { nick { host "" }} {
+proc OLDbMotionGetRealName { nick { host "" }} {
   bMotion_putloglev 4 * "bMotion: bMotionGetRealName($nick,$host)"
 
   #is it me?
@@ -499,6 +499,39 @@ proc bMotionGetRealName { nick { host "" }} {
     return [bMotionWashNick $nick]
   }
   putloglev 2 * "bMotion: found $handle, IRLs are $realname"
+  return [pickRandom $realname]
+}
+
+proc bMotionGetRealName { nick { host "" }} {
+  bMotion_putloglev 3 * "bMotion: bMotionGetRealName($nick,$host)"
+
+  if {$nick == ""} {
+    return ""
+  }
+
+  #is it me?
+  if [isbotnick $nick] {
+    return "me"
+  }
+
+  set handle [nick2hand $nick]
+  if {$handle == "*"} {
+    #not in bot
+    bMotion_putloglev 2 * "bMotion: no match, using nick"
+    #return [bMotionWashNick $nick]
+    return $nick
+  }
+
+  bMotion_putloglev 2 * "bMotion: $nick is handle $handle"
+
+  # found a user, now get their real name
+  set realname [getuser $handle XTRA irl]
+  if {$realname == ""} {
+    #not set
+    bMotion_putlogleg 2 * "no IRL set, using nick"
+    return $nick
+  }
+  putloglev 2 * "bMotion: IRLs for $handle are $realname"
   return [pickRandom $realname]
 }
 
@@ -592,59 +625,69 @@ proc bMotionQueueCheck { { initialDelay 2 } } {
 }
 
 proc bMotionChooseRandomUser { channel { conditions ""}} {
-  bMotion_putloglev 2 * "bMotion: looking for a $conditions user"
   global botnick
+  bMotion_putloglev 2 * "bMotion: looking for a $conditions user"
+
   set users [chanlist $channel]
   if {[llength $users] < 2} {
     return $botnick
   }
 
   set userslist [list]
+
   foreach user $users {
+    if [isbotnick $user] {
+      continue
+    }
+
     set handle [nick2hand $user]
     if [matchattr $handle b] {
       continue
     }
+
     if {$conditions != ""} {
       if [string match -nocase [getuser $handle XTRA gender] $conditions] {
         lappend userslist $user
-        bMotion_putloglev 1 * "bMotion: accepting user $handle for gender $conditions"
+        bMotion_putloglev 2 * "bMotion:  `- accepting nick $nick for gender $conditions"
       } else {
         if {($conditions == "like") && [bMotionLike $user [getchanhost $user]]} {
           lappend userslist $user
         } else {
-          bMotion_putloglev 2 * "bMotion: rejecting $handle on gender" 
+          bMotion_putloglev 2 * "bMotion:  `- rejecting nick $nick on gender" 
         }
       }
     } else {
       lappend userslist $user
     }
   }
-  bMotion_putloglev 1 * "bMotion: found [llength $userslist] users in $channel, $userslist"
+
+  bMotion_putloglev 1 * "bMotion: found [llength $userslist] suitable users in $channel, $userslist"
+
+  #abort if no users
   set users $userslist
   if {[llength $users] == 0} {
     return ""
   }
 
+  #pass thru with first user if that's the only one
   if {[llength $users] == 1} {
     return [lindex $users 0]
   }
 
-  set ruser $botnick
-  while {$ruser == $botnick} {
-    set ruser [lindex $users [rand [llength $users]]]
-  }
-  return $ruser
+  return [pickRandom $users]
 }
 
 proc bMotionChooseRandomBot { channel { conditions "" }} {
-  bMotion_putloglev 1 * "bMotion: checking $channel"
   global botnick bMotionInfo
+  bMotion_putloglev 1 * "bMotion: checking $channel for bots"
+  
   set bots [chanlist $channel]
   set botslist [list] 
+
   foreach bot $bots {
     if [isbotnick $bot] { continue }
     set handle [nick2hand $bot $channel]
+
     bMotion_putloglev 1 * "bMotion: checking $bot ($handle)"
     if [matchattr [nick2hand $bot $channel] b&K $channel] {
       if {$conditions != ""} {
@@ -669,11 +712,7 @@ proc bMotionChooseRandomBot { channel { conditions "" }} {
     return ""
   }
 
-  set rbot $botnick
-  while {$rbot == $botnick} {
-    set rbot [lindex $bots [rand [llength $bots]]]
-  }
-  return $rbot
+  return [pickRandom $bots]
 }
 
 proc bMotionMakePossessive { text { altMode 0 }} {
