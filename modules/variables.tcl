@@ -52,6 +52,7 @@ if {![info exists bMotionInfo]} {
   set bMotionInfo(silence) 0
   set bMotionInfo(away) 0
   set bMotionInfo(clothing) 5 
+  set bMotionInfo(lastPlugin) ""
 }
 
 if {![info exists bMotionCache]} {

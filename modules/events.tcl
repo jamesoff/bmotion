@@ -216,6 +216,7 @@ proc bMotion_event_main {nick host handle channel text} {
    
       bMotion_putloglev 1 * "bMotion: matched complex plugin, running callback $callback"
       set result [$callback $nick $host $handle $channel $text]
+      set bMotionInfo(lastPlugin) $callback
       if {$result == 1} {
         bMotion_putloglev 2 * "bMotion: $callback returned 1, breaking out..."
         break
