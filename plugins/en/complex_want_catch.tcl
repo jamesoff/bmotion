@@ -15,7 +15,7 @@
 ###############################################################################
 
 bMotion_plugin_add_complex "want-catch" "i (want|need) (.+)" 100 bMotion_plugin_complex_want_catcher "en"
-bMotion_plugin_add_complex "mmm-catch" "^mmm+ (.+)" 30 bMotion_plugin_complex_mmm_catcher "en"
+bMotion_plugin_add_complex "mmm-catch" "^mmm+ (.+)" 100 bMotion_plugin_complex_mmm_catcher "en"
 bMotion_plugin_add_complex "noun-catch" {[[:<:]](?:a|an|the) ([[:alpha:]]+)} 100 bMotion_plugin_complex_noun_catcher "en"
 
 proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
@@ -23,7 +23,10 @@ proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
     #that's a negative lookahead ---^
     bMotion_flood_undo $nick
     bMotion_abstract_add "sillyThings" $item
-  }
+    if {[rand 10] > 8} {
+    	bMotionDoAction $channel "" "%VAR{gotone}"
+    }
+	}
 }
 
 proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
@@ -61,3 +64,6 @@ proc bMotion_plugin_complex_noun_catcher { nick host handle channel text } {
     bMotion_abstract_add "sillyThings" "$prefix $item"
   }
 }
+
+bMotion_abstract_register "gotone"
+bMotion_abstract_batchadd "gotone" [list "I've already got one%|%BOT[are you sure?]%|yes yes, it's very nice" "I already have one of those."]
