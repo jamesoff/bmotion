@@ -39,6 +39,14 @@ You'll need the following:
 how to do this, or what I'm talking about, stop reading right here.) 
 * A cup of coffee
 
+Version requirements:
+* eggdrop 1.6.x (where x is reasonably high)
+* TCL 8.3 or better
+
+(bMotion may work to a varying degree on older versions, but you'll get
+errors probably. If you're using older versions (check .status) then
+I strongly recommend you upgrade.)
+
 To get the latest bMotion release source, download it from 
 http://bmotion.sourceforge.net
 
@@ -46,7 +54,6 @@ If you're feeling daring, you can run the CVS code. The CVS version is always
 the latest version, but it may have half-complete features and may even crash 
 your bot (however, I'm not in the habit of knowingly commiting code that kills 
 eggdrop to CVS... after all, it's what my bot runs).
-
 
 
 Installing the files
@@ -63,9 +70,14 @@ like this:
 set bMotionModules "scripts/bmotion/modules"
 set bMotionPlugins "scripts/bmotion/plugins"
 
-
 If you put bmotion somewhere else, edit these two variables to match. Close and 
 save the file.
+
+(bMotion will try to load customised versions of certain files (see the manual for
+more on customising), and the settings file is one of them. For easier upgrades,
+copy modules/settings.tcl to modules/settings_BOTNETNICK.tcl (where BOTNETNICK is
+the value from the 'set botnetnick ...' line in your eggdrop's config). Edit that
+file instead of settings.tcl below.)
 
 Now change into the modules directory. Fire up your editor and open settings.tcl 
 This file contains (brace yourself) all the settings for bMotion. You WILL want 
@@ -202,5 +214,7 @@ If you do require assistance, try me in #bmotion on EFNet. Don't ask for help in
 any of my other channels because I shall taunt you.
 
 To check it's working, try typing .bmadmin status on the partyline.
+
+You can also do "!bmadmin <botnick> parse hello" in a channel and it should say hello.
 
 Drink the coffee.
