@@ -175,6 +175,19 @@ proc bMotion_event_main {nick host handle channel text} {
 
   set bMotionThisText $text
 
+  #if we spoke last, add "$botnick: " if it's not in the line
+  if {![regexp -nocase $botnicks $text] && $bMotionCache($channel,last)} {
+    set text "${botnick}: $text"
+  }
+
+  #check for someone breaking the loop of lastSpoke
+  if {[regexp -nocase "(i'm not talking to|not) you" $text] && $bMotionCache($channel,last)} {
+    bMotionDoAction $channel $nick "oh"
+    set bMotionCache($channel,last) 0
+    return 0
+  }
+  set bMotionCache($channel,last) 0
+
   ## Run the simple plugins ##
   set response [bMotion_plugin_find_simple $text $bMotionInfo(language)]
   if {$response != ""} {
@@ -203,17 +216,6 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }
 
-  #if we spoke last, add "$botnick: " if it's not in the line
-  if {![regexp -nocase $botnicks $text] && $bMotionCache($channel,last)} {
-    set text "${botnick}: $text"
-  }
-
-  #check for someone breaking the loop of lastSpoke
-  if [regexp -nocase "${botnicks}:? (i'm not talking to|not) you" $text] {
-    bMotionDoAction $channel $nick "oh"
-    set bMotionCache($channel,last) 0
-  }
-  set bMotionCache($channel,last) 0
 
   #Check for all caps
   regsub -all {[^A-Za-z]} $text "" textChars
