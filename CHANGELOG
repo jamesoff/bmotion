@@ -5,6 +5,9 @@ bMotion CHANGELOG
 + = added
 - = removed
 
+2003/08/03
+v0.0.7
+
 * fixed [ 680856 ] irc_nick_away plugin returns wrong values
 * fixed [ 729155 ] $nick error
 * fixed [ 726241 ] Techsupport does not use elections
@@ -30,6 +33,7 @@ bMotion CHANGELOG
 + implemented [ 747502 ] Public Away Option (added new settings to settings file)
 + bMotion gains a jeffk output plugin...
 
+- don't announce that !mood isn't available any more
 
 2003/04/13
 v0.0.6
