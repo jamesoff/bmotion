@@ -38,6 +38,7 @@ proc bMotion_facts_load { } {
   set line [gets $fileHandle]
 
   set needResave 0
+  set count 0
 
   while {![eof $fileHandle]} {
     if {$line != ""} {
@@ -51,6 +52,11 @@ proc bMotion_facts_load { } {
         bMotion_putloglev 4 * "dropping duplicate fact $fact for item $item"
         set needReSave 1
       }
+      incr count
+      if {[expr $count % 1000] == 0} {
+        putlog "  still loading facts: $count ..."
+      }
+      
     }
     set line [gets $fileHandle]
   }
@@ -101,6 +107,10 @@ bind time - "01 * * * *" bMotion_facts_auto_save
 
 # load facts at startup
 catch {
-  bMotion_putloglev d * "autoloading facts..."
-  bMotion_facts_load
+  if {$bMotion_loading == 1} {
+    bMotion_putloglev d * "autoloading facts..."
+    bMotion_facts_load
+  }
 }
+
+putlog "loaded fact module"
