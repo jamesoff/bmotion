@@ -237,17 +237,17 @@ set question_what_fact_wrapper {
 }
 
 set question_want_reply_wrapper {
-  "Why? I've got %VAR{sillyThings}"
-  "With %VAR{sillyThings} I have no need for anything else"
-  "Ooh yes please, I've had %VAR{sillyThings} for so long it's boring me"
-  "Will it feel as good as %VAR{sillyThings} from %ruser"
+  "Why? I've got %VAR{sillyThings}!"
+  "With %VAR{sillyThings} I have no need for anything else."
+  "Ooh yes please, I've had %VAR{sillyThings} for so long it's boring me."
+  "Will it feel as good as %VAR{sillyThings} from %ruser?"
   "Hell yes, %ruser's given me %VAR{sillyThings} and I can't wait to get away from it!"
-  "I don't know, %VAR{sillyThings} from %ruser just %VAR{fellOffs}"
-  "Yes, %VAR{confuciousStart} %VAR{confuciousEnd}"
-  "No, %VAR{confuciousStart} %VAR{confuciousEnd}"
+  "I don't know, %VAR{sillyThings} from %ruser just %VAR{fellOffs}."
+  "Yes, %VAR{confuciousStart} %VAR{confuciousEnd}."
+  "No, %VAR{confuciousStart} %VAR{confuciousEnd}."
   "Can I have a %VAR{chocolates} too?"
-  "Yes please, I left %VAR{sillyThings} in %VAR{answerWheres}"
-  "Not until %VAR{answerWhens}"
-  "Yes please, the Borg Queen offered me %VAR{trekNouns} and I only got %VAR{sillyThings}"
-  "%VAR{sweet}"
+  "Yes please, I left %VAR{sillyThings} in %VAR{answerWheres}."
+  "Not until %VAR{answerWhens}."
+  "Yes please, the Borg Queen offered me %VAR{trekNouns} and I only got %VAR{sillyThings}."
+  "%VAR{sweet}."
 }
