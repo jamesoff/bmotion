@@ -25,3 +25,5 @@ set bless_yous {
   "hehe, someone must be talking about you %VAR{smiles}"
   "good thing I bought this haz-met suit"
 }
+
+set blessyous $bless_yous
