@@ -32,9 +32,12 @@ if {$bMotion_testing == 1} {
 
 proc bMotion_putloglev { level star text } {
   global bMotion_testing
-  if {![string match -nocase "bMotion: *" $text]} {
-    set text "bMotion: $text"
+  regsub "bMotion:" $text "" text
+  set text2 ""
+  if {$level != "d"} {
+    set text2 [string repeat " " $level]
   }
+  set text "bMotion:$text2 $text"
 
   if {$bMotion_testing == 0} {
     putloglev $level $star "($level)$text"
