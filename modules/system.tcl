@@ -401,7 +401,7 @@ proc bMotion_dcc_command { handle idx arg } {
   bMotion_putloglev 2 * "bMotion: admin command $arg from $handle"
   set info [bMotion_plugin_find_admin $arg $bMotionInfo(language)]
   if {$info == ""} {
-    putidx $idx "What? You need .bmhelp!"
+    putidx $idx "Unknown command (or error). Try .bmotion help"
     return 1
   }
 
@@ -436,19 +436,8 @@ proc bMotion_dcc_command { handle idx arg } {
 }
 
 proc bMotion_dcc_help { handle idx arg } {
-  putidx $idx "Commands available: (Some may not be accessible by you)\r"
-
-  set cmds ""
-
-  global bMotion_plugins_admin
-  set s [array startsearch bMotion_plugins_admin]
-  while {[set key [array nextelement bMotion_plugins_admin $s]] != ""} {
-    if {$key == "dummy"} { continue }
-    append cmds "$key     "
-  }
-
-  putidx $idx "$cmds\r"
-  array donesearch bMotion_plugins_admin $s
+  putidx $idx "Please use .bmotion help"
+  return 0
 }
 
 proc dcc_bmotioncommand { handle idx arg } {
