@@ -19,7 +19,7 @@ bMotion_plugin_add_output "fix" bMotion_plugin_output_fix 1 "all"
 #
 proc bMotion_plugin_output_fix { channel line } {
   regsub -nocase {\$var} $line "%VAR" line
-  regsub -nocase {%pickuser[^%]+%\|} $line "" line
+  regsub -nocase {%pickuser\[[^]]+\]} $line "" line
   set line [bMotionDoInterpolation $line "" "" $channel]
   return $line
 }
