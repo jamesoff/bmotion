@@ -146,6 +146,10 @@ proc bMotion_flood_undo { nick } {
   set val $bMotion_flood_undo
 
   #don't knock off the whole value
+  if {$val <= 1} {
+    return 0
+  }
+
   incr val -1
 
   if [validuser $nick] {
@@ -191,5 +195,3 @@ proc bMotion_flood_get { nick } {
 }
 
 bind time - "* * * * *" bMotion_flood_tick
-
-#TODO: overnight, clear the array of 0-value elements
