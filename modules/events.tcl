@@ -333,26 +333,11 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }
 
-  ## happy xmas
-  ## --> and to you too
-  if {[regexp -nocase "(merry|happy|have a good) (xmas|christmas|chrismas|newyear|new year) $botnicks" $text]} {
-    incr mood(happy) 1
-    incr mood(lonely) -1
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] ":) merry christmas and happy new year %%"
-    set bMotionCache(lastDoneFor) $nick
-    driftFriendship $nick 3
-    return 0
-  }
-
   ###################################### +I people only ###################################################
 
   if {$bMotionSettings(needI) == 1} {
     if {![matchattr $handle I]} {return 0}
   }
-
-  ## kill [with item]
-  ## --> kill [with item]
-  ## /kill
 
   ## shut up
   if [regexp -nocase "^${botnicks}:?,? (silence|shut up|be quiet|go away)" $text] {
@@ -367,17 +352,6 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }
   ## /shutup
-
-  ##fuck off
-
-  ## attack
-
-
-  ## choose you
-
-  ## return (now a simple plugin)
-
-  ## i didn't (now a simple plugin)
 
   ## team rocket :D
   if [regexp -nocase "^Prepare for trouble!?$" $text] {
@@ -487,29 +461,6 @@ proc bMotion_event_main {nick host handle channel text} {
   }
   ## /team rocket
 
-
-
-  if [regexp -nocase "^(well done|good(work|show)),? ${botnicks}\.?$" $text] {
-    bMotionDoAction $channel $nick "%VAR{harhars}"
-    bMotionGetHappy
-    bMotionGetUnLonely
-    driftFriendship $nick 1
-    return 0
-  }
-
-  if [regexp -nocase "^hn{3,}$" $text] {
-    global botnick blindings
-	  if [rand 2] {return 0}
-    bMotionDoAction $channel "" [pickRandom $blindings]
-  }
-
-  if [regexp -nocase "^zzz+$" $text] {
-    if [rand 2] {
-      global handcoffees
-      bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $handcoffees]
-    }
-  }
-
   ## This is the clever bit. If the text is "*blah blah blah*" reinject it into bMotion as an action ##
   if [regexp {^\*(.+)\*$} $text blah action] {
     bMotion_putloglev 1 * "Unhandled *$action* by $nick in $channel... redirecting to action handler"
@@ -600,63 +551,6 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 
   ## LEGACY CODE STARTS HERE
 
-  if [regexp -nocase "balefires (.+)" $text ming who] {
-    global bMotionInfo
-    if [regexp -nocase $botnicks $who] {
-      global balefired
-      bMotionDoAction $dest $nick [pickRandom $balefired]
-      incr mood(lonely) -1
-      incr mood(happy) -1
-      driftFriendship $nick -1
-    } else {
-      if {![onchan $who $dest]} { return 0 }
-      if {$bMotionInfo(balefire) != 1} { return 0 }
-      putserv "PRIVMSG $who :Sorry, you stopped existing a few minutes ago. Please sit down and be quiet until you are woven into the pattern again."
-    }
-    return 0
-  }
-
-  if [regexp -nocase "makes $botnicks (.+)" $text ming ming2 details] {
-    global mood bMotionInfo
-    if {![bMotionLike $nick $host]} {
-      frightened $nick $dest
-      return 0
-    }
-    if [regexp -nocase "(come|cum)" $details] {
-      if {![bMotionLike $nick $host]} {
-        frightened $nick $dest
-        driftFriendship $nick -2
-        return 0
-      }
-      if {$bMotionInfo(gender) == "male"} {
-        bMotionDoAction $dest $nick "/cums over %%"
-        bMotionDoAction $dest $nick "ahhh... thanks, I needed that"
-        incr mood(happy) 2
-        incr mood(horny) -1
-        driftFriendship $nick 2
-        return 0
-      }
-      bMotionDoAction $dest $nick "~oof~ :D"
-      incr mood(happy) 2
-      incr mood(horny) -1
-      driftFriendship $nick 2
-    }
-  }
-
-  if [regexp -nocase "(kicks|smacks|twats|injures|beats up|punches|hits|thwaps|slaps|pokes|kills|destroys) ${botnicks}" $text] {
-    global mood
-    incr mood(happy) -1
-    incr mood(lonely) -1
-    driftFriendship $nick -2
-    if [rand 2] {
-      frightened $nick $dest
-      return 0
-    }
-    bMotionDoAction $dest $nick "/%VAR{smacks} %% back with %VAR{sillyThings}"
-    set bMotionCache(lastEvil) $nick
-    return 0
-  }
-
   ## KatieStar ;)
 
   if [string match -nocase "anal sex" $text] {
@@ -680,106 +574,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
     return 0
   }
 
-
-  #if [regexp -nocase "(steals|pinches|theives|removes) ${botnicks}'?s (.+)" $text ming action object] {
-  #  # TODO: check $object and $action (e.g. pinches arse)
-  #  global stolens
-  #  bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $stolens]
-  #  bMotionGetSad
-  #  set bMotionCache(lastEvil) $nick
-  #  driftFriendship $nick -1
-  #  return 0
-  #}
-
-  ## bites
-  #if [regexp -nocase "(bites|licks) $botnicks" $text] {
-  #  global lovesits
-  #  if [bMotionLike $nick $host] {
-  #    bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $lovesits]
-  #    bMotionGetHorny
-  #    bMotionGetHappy
-  #    driftFriendship $nick 1
-  #  } else {
-  #    frightened $nick $dest
-  #    driftFriendship $nick -1
-  #  }
-  #  return 0
-  #}
-
-  ## snickers
-  if [regexp -nocase "^snicker(s)?" $text ming pop] {
-    global chocolates
-    if [rand 2] {
-      set response [pickRandom $chocolates]
-      set response "/$response$pop"
-      bMotionDoAction $channel $nick $response
-    }
-    return 0
-  }
-
-  ##hide behind
-  if [regexp -nocase "hides behind $botnicks" $text] {
-    global hiddenBehinds
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $hiddenBehinds]
-    bMotionGetUnLonely
-    bMotionGetHappy
-    return 0
-  }
-
-  ##sat on
-  if [regexp -nocase "sits on $botnicks" $text] {
-    global satOns
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $satOns]
-    bMotionGetSad
-    bMotionGetUnLonely
-    driftFriendship $nick -1
-    return 0
-  }
-
-  ## hops into lap
-  if [regexp -nocase "hops (in|on)to ${botnicks}'?s lap" $text] {
-    global rarrs
-    if [bMotionLike $nick $host] {
-      bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $rarrs]
-      bMotionGetHorny
-      bMotionGetHappy
-      bMotionGetUnLonely
-      driftFriendship $nick 1
-    } else {
-      frightened $nick $channel
-      driftFriendship $nick -1
-    }
-    return 0
-  }
-
-  if [regexp -nocase "^(falls asleep on|dozes off on|snoozes on|sleeps on) $botnicks" $text] {
-    if [bMotionLike $nick $host] {
-      global rarrs
-      bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $rarrs]
-      bMotionGetHorny
-      bMotionGetHappy
-      bMotionGetUnLonely
-      driftFriendship $nick 1
-    } else {
-      frightened $nick $channel
-      bMotionGetUnHappy
-      driftFriendship $nick -1
-    }
-    return 0
-  }
-
-  ##throws bot at
-  if [regexp -nocase "(throws|chucks|lobs|fires|launches|ejects|pushes) $botnicks (at|to|though|out of|out|off|into) (.+)" $text matches verb botn pop target] {
-    if [regexp -nocase "^${botnicks}$" $target] {
-      bMotionDoAction $channel "" "hmm"
-      return 0
-    }
-    global thrownAts
-    bMotionDoAction $channel $target [pickRandom $thrownAts]
-    bMotionGetUnLonely
-    driftFriendship $nick -1
-    return 0
-  }
+#end of action handler
 }
 
 ### MODE HANDLER #############################################################
