@@ -53,3 +53,4 @@ set get_fact_intros {
 bMotion_abstract_register "get_fact_intros"
 bMotion_abstract_batchadd "get_fact_intros" $get_fact_intros
 unset get_fact_intros
+
