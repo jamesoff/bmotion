@@ -26,6 +26,6 @@ proc bMotion_plugin_complex_correct { nick host handle channel text } {
 set shouldhaves {
   "\"%% have\" %VAR{smiles}"
   "%% what?"
-  "\"%% HAVE, %% HAVE\"
+  "\"%% HAVE, %% HAVE\""
   "s/of/have/"
 }
