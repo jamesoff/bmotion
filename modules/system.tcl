@@ -33,32 +33,27 @@ set cvsinfo [bMotionCleanCVSString {$Id$}]
 set randomsinfo [bMotionCleanCVSString $randomsVersion]
 
 #Set up the binds
-bind msg m bmotion msg_bmotioncommand
+
+#General IRC events
 bind join - *!*@* bMotion_event_onjoin
 bind mode - * bMotion_event_mode
-#bind pub - "!sites" interactive:lamersites
-bind pub - !bmadmin bMotionAdminHandler
 bind pubm - * bMotion_event_main
+bind sign - * bMotion_event_onquit
+bind nick - * bMotion_event_nick
+bind part - * bMotion_event_onpart
+bind ctcp - ACTION bMotion_event_action
+
+#bMotion IRC events
+bind pub - "!mood" pubm_moodhandler
+bind pub - "!bminfo" bMotionInfo
+bind msg m bmotion msg_bmotioncommand
+bind pub - !bmadmin bMotionAdminHandler
+
+#DCC commands
 bind dcc m mood moodhandler
 bind dcc m bmotion* dcc_bmotioncommand
 bind dcc m bmadmin* bMotion_dcc_command
 bind dcc m bmhelp bMotion_dcc_help
-bind sign - *!*@* bMotion_event_onquit
-bind nick - * bMotion_event_nick
-
-if {$bMotionSettings(needI) == 1} {
-  ## binds for +I mode
-  bind part I *!*@* bMotion_event_onpart
-  bind pub I "!mood" pubm_moodhandler
-  bind ctcp I ACTION bMotion_event_action
-  bind pub I "!bminfo" bMotionInfo
-} else {
-  ## everyone can do stuff
-  bind part - *!*@* bMotion_event_onpart
-  bind pub - "!mood" pubm_moodhandler
-  bind ctcp - ACTION bMotion_event_action
-  bind pub - "!bminfo" bMotionInfo
-}
 
 foreach chan $bMotionInfo(randomChannels) {
   set bMotionLastEvent($chan) [clock seconds]
