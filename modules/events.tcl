@@ -22,10 +22,34 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
+# call an irc event response plugin
+proc bMotionDoEventResponse { type nick host handle channel text } {
+  if { ![regexp -nocase "nick|join|quit|part|split" $type] } {
+    return 0
+  }
+
+  global bMotionInfo
+  set response [bMotion_plugin_find_irc_event $text $type $bMotionInfo(language)]
+  if {[llength $response] > 0} {
+    foreach callback $response {
+      bMotion_flood_add $nick $callback $text 
+      if [bMotion_flood_check $nick] { return 0 }
+
+      bMotion_putloglev 1 * "bMotion: matched irc event plugin, running callback $callback"
+      set result [$callback $nick $host $handle $channel $text ]
+      if {$result == 1} {
+        bMotion_putloglev 2 * "bMotion: $callback returned 1, breaking out..."
+        break
+      }
+      return 1
+    }
+    return 0
+  }
+  return 0
+}
+
 ## BEGIN onjoin handler
 proc bMotion_event_onjoin {nick host handle channel} {
-  global bMotionCache welcomeBacks
-
   #ignore me
   if [isbotnick $nick] {
     return 0
@@ -41,36 +65,7 @@ proc bMotion_event_onjoin {nick host handle channel} {
     return 0
   }
 
-  set nick [bMotion_cleanNick $nick $handle]
-
-  #has something happened since we last greeted?
-  set lasttalk [bMotion_plugins_settings_get "system:join" "lasttalk" $channel ""]
-
-  #if 1, we greeted someone last
-  #if 0, someone has said something since
-  if {$lasttalk == 1} {
-    bMotion_putloglev 2 d "dropping greeting for $nick on $channel because it's too idle"
-    return 0
-  }
-
-  global ranjoins bigranjoins botnick mood
-  set chance [rand 10]
-  set greetings $ranjoins
-  if {$chance > 8} {
-    if [matchattr $handle I] {
-      set greetings [concat $greetings $bigranjoins]
-      if {$nick == $bMotionCache(lastLeft)} {
-        set greetings $welcomeBacks
-        set bMotionCache(lastLeft) ""
-      }
-      incr mood(happy)
-      incr mood(lonely) -1
-    }
-
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $greetings]
-    set bMotionCache(lastGreeted) $nick
-    bMotion_plugins_settings_set "system:join" "lasttalk" $channel "" 1
-  }
+  set result [bMotionDoEventResponse "join" $nick $host $handle $channel "" ]
 }
 ## END onjoin
 
@@ -82,6 +77,7 @@ proc bMotion_event_onpart {nick uhost hand chan {msg ""}} {
   set nick [bMotion_cleanNick $nick $handle]
 
   set bMotionCache(lastLeft) $nick
+  set result [bMotionDoEventResponse "part" $nick $host $handle $channel $msg ]
 }
 ## END onpart
 
@@ -96,21 +92,23 @@ proc bMotion_event_onquit {nick host handle channel reason} {
     set bMotionCache(lastLeft) $nick
   }
 
-  if {$bMotionInfo(brig) == ""} { return 0 }
-
-  #check if that person was in the brig
-  regexp -nocase "(.+)@(.+)" $bMotionInfo(brig) pop brigNick brigChannel
-  if [string match -nocase $nick $brigNick] {
-    set bMotionInfo(brig) ""
-    bMotionDoAction $brigChannel "" "Curses! They escaped from the brig."
+  if {$bMotionInfo(brig) != ""} {
+    #check if that person was in the brig
+    regexp -nocase "(.+)@(.+)" $bMotionInfo(brig) pop brigNick brigChannel
+    if [string match -nocase $nick $brigNick] {
+      set bMotionInfo(brig) ""
+      bMotionDoAction $brigChannel "" "Curses! They escaped from the brig."
+      return 0
+    }
   }
+  set result [bMotionDoEventResponse "quit" $nick $host $handle $channel $reason ]
 }
 ## END onquit
 
 # BEGIN main interactive
 proc bMotion_event_main {nick host handle channel text} {
   ## Global definitions ##
-  global mood botnick greetings welcomes sorryoks
+  global mood botnick gretings welcomes sorryoks
   global loveresponses boreds upyourbums smiles
   global arrs botnick arrcachenick arrcachearr
   global bMotionLastEvent bMotionSettings botnicks bMotionCache bMotionInfo
@@ -165,7 +163,7 @@ proc bMotion_event_main {nick host handle channel text} {
   ## Trim ##
   set text [string trim $text]
 
-  ## Dump double+ spaces ##
+  ## Dump double+ spaces #
   regsub -all "  +" $text " " text
 
   ## Update the last-talked flag for the join system
@@ -873,32 +871,14 @@ proc bMotion_event_mode {nick host handle channel mode victim} {
 
 #someone changed nick, check for an away "msg"
 proc bMotion_event_nick { nick host handle channel newnick } {
-
   if [matchattr $handle J] {
     return 0
   }
 
-  set nick [bMotion_cleanNick $nick $handle]
-  set nick [bMotion_cleanNick $newnick $handle]
+  set nick [bMotion_cleanNick $nick $handle]^
+  set newnick [bMotion_cleanNick $newnick $handle]^
 
-  global bMotionInfo
-  ## Run the nick action plugins ##
-  set response [bMotion_plugin_find_nick_action $newnick $bMotionInfo(language)]
-  if {[llength $response] > 0} {
-    foreach callback $response {
-      bMotion_flood_add $nick $callback $newnick
-      if [bMotion_flood_check $nick] { return 0 }
-   
-      bMotion_putloglev 1 * "bMotion: matched nick change plugin, running callback $callback"
-      set result [$callback $nick $host $handle $channel $newnick ]
-      if {$result == 1} {
-        bMotion_putloglev 2 * "bMotion: $callback returned 1, breaking out..."
-        break
-      }
-    }
-    return 0
-  }
-
+  set result [bMotionDoEventResponse "nick" $nick $host $handle $channel $newnick ]
 }
 #end of nick handler
 

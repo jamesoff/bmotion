@@ -46,9 +46,9 @@ set bMotion_plugins_action_simple(dummy) "none"
 if [info exists bMotion_plugins_action_complex] { unset bMotion_plugins_action_complex }
 set bMotion_plugins_action_complex(dummy) "none"
 
-## nick action plugins
-if [info exists bMotion_plugins_nick_action] { unset bMotion_plugins_nick_action }
-set bMotion_plugins_nick_action(dummy) "none"
+## irc_event plugins
+if [info exists bMotion_plugins_irc_event] { unset bMotion_plugins_irc_event }
+set bMotion_plugins_irc_event(dummy) "none"
 
 ##############################################################################################################################
 ## Load a simple plugin
@@ -400,45 +400,56 @@ proc bMotion_plugin_check_allowed { name } {
 ################################################################################
 
 ## dev: simsea
-## Load a nick change response plugin
-proc bMotion_plugin_add_nick_action { id match chance callback language } {
-  global bMotion_plugins_nick_action plugins bMotion_testing
+## Load an irc event response plugin
+proc bMotion_plugin_add_irc_event { id type match chance callback language } {
+  if {![regexp -nocase "nick|join|quit|part|split" $type]} {
+    putlog "bMotion: ALERT! IRC Event plugin $id has an invalid type $type"
+    return 0
+  }
+  global bMotion_plugins_irc_event plugins bMotion_testing
   if {$bMotion_testing == 0} {
     catch {
-      set test $bMotion_plugins_nick_action($id)
-      putlog "bMotion: ALERT! Nick action plugin $id is defined more than once"
+      set test $bMotion_plugins_irc_event($id)
+      putlog "bMotion: ALERT! IRC Event plugin $id is defined more than once"
       return 0
     }
   }
-  if [bMotion_plugin_check_allowed "nick:$id"] {
-    set bMotion_plugins_nick_action($id) "${match}¦$chance¦$callback¦$language"
-    bMotion_putloglev 2 * "bMotion: added nick action plugin: $id"
+  if [bMotion_plugin_check_allowed "irc:$id"] {
+    set bMotion_plugins_irc_event($id) "$type¦${match}¦$chance¦$callback¦$language"
+    bMotion_putloglev 2 * "bMotion: added IRC event plugin: $id"
     append plugins "$id,"
     return 1
   }
-  bMotion_putloglev d * "bMotion: ignoring disallowed plugin nick:$id"
+  bMotion_putloglev d * "bMotion: ignoring disallowed plugin irc:$id"
 
 }
 
-## Find a nick change response plugin plugin
-proc bMotion_plugin_find_nick_action { text lang } {
-  global bMotion_plugins_nick_action botnicks
-  set s [lsort [array names bMotion_plugins_nick_action]]
+## Find an IRC Event response plugin plugin
+proc bMotion_plugin_find_irc_event { text type lang } {
+  if {![regexp -nocase "nick|join|quit|part|split" $type]} {
+    putlog "bMotion: IRC Event search type $type is invalid"
+    return 0
+  }
+  global bMotion_plugins_irc_event botnicks
+  set s [lsort [array names bMotion_plugins_irc_event]]
   set result [list]
 
   foreach key $s {
     if {$key == "dummy"} { continue }
-    set val $bMotion_plugins_nick_action($key)
+    set val $bMotion_plugins_irc_event($key)
     set blah [split $val "¦"]
-    set rexp [lindex $blah 0]
-    set chance [lindex $blah 1]
-    set callback [lindex $blah 2]
-    set language [lindex $blah 3]
-    if {[string match $language $lang] || ($language == "any") || ($language == "all")} {
-      if [regexp -nocase $rexp $text] {
-        set c [rand 100]
-        if {$chance > $c} {
-          lappend result $callback
+    set etype [lindex $blah 0]
+    set rexp [lindex $blah 1]
+    set chance [lindex $blah 2]
+    set callback [lindex $blah 3]
+    set language [lindex $blah 4]
+    if {[string match $type $etype]} {
+      if {[string match $language $lang] || ($language == "any") || ($language == "all")} {
+        if [regexp -nocase $rexp $text] {
+          set c [rand 100]
+          if {$chance > $c} {
+            lappend result $callback
+          }
         }
       }
     }
@@ -479,12 +490,12 @@ catch { source "$bMotionPlugins/action_simple.tcl" }
 ## Load the complex action plugins
 catch { source "$bMotionPlugins/action_complex.tcl" }
 
-## Load the nick plugins
-catch { source "$bMotionPlugins/nick.tcl" }
+## Load the irc event plugins
+catch { source "$bMotionPlugins/irc_event.tcl" }
 
 bMotion_putloglev d * "Installed bMotion plugins: (some may be inactive)\r"
 bMotion_putloglev d * "(one moment...)\r"
-foreach t {simple complex admin output action_simple action_complex nick_action} {
+foreach t {simple complex admin output action_simple action_complex irc_event} {
   set arrayName "bMotion_plugins_$t"
   upvar #0 $arrayName cheese
   set plugins [lsort [array names cheese]]

@@ -50,19 +50,16 @@ proc bMotion_plugin_complex_invader_gir { nick host handle channel text } {
 
 # bMotion_plugin_complex_invader_nick
 proc bMotion_plugin_complex_invader_nick { nick host handle channel newnick } {
-	#global randomZimNameChange
-	#set nickresponse [ pickRandom $randomZimNameChange ]
-	#return $nickresponse 
-  if {![bMotion_interbot_me_next $channel]} { return 0 }
+  if {![bMotion_interbot_me_next $channel]} { return 1 }
   
   #check we haven't already done something for this nick
   if {$nick == [bMotion_plugins_settings_get "complex:returned" "lastnick" $channel ""]} {
-    return 1
+    return 0
   }
 
   #check we haven't already done something for this nick
   if {$nick == [bMotion_plugins_settings_get "complex:away" "lastnick" $channel ""]} {
-    return 1
+    return 0
   }
 
   #save as newnick because if they do a /me next it'll be their new nick
@@ -73,7 +70,7 @@ proc bMotion_plugin_complex_invader_nick { nick host handle channel newnick } {
   bMotion_plugins_settings_set "complex:returned" "lastnick" $channel "" $newnick
   
   bMotionDoAction $channel $nick "%VAR{randomZimNameChange}"
-  return 1
+  return 0
 }
 # end bMotion_plugin_complex_invader_nick
 
@@ -262,6 +259,8 @@ set randomZimNameChange {
 	"master where did you go? I can't see you"
 	"master?"
 	"where'd my moose go?"
+	"we have no time for these games%colen"
+	"watch out for the moose"
 }
 
 # callbacks
@@ -276,5 +275,5 @@ bMotion_plugin_add_complex "invader(zim)" "zim|inva(de|sion)|((mwa)?ha(ha)+)|(vi
 bMotion_plugin_add_complex "invader(gir)" "w(h)?oo+|chicken|gir(!+| )|doo+m|piggy" 20 "bMotion_plugin_complex_invader_gir" "en"
 
 # nick change response
-bMotion_plugin_add_nick_action "invader(nick)" ".*" 20 "bMotion_plugin_complex_invader_nick" "en"
+bMotion_plugin_add_irc_event "invader(nick)" "nick" ".*" 20 "bMotion_plugin_complex_invader_nick" "en"
 
