@@ -46,9 +46,18 @@ proc bMotion_plugin_management_help { handle { args "" } } {
 
 	  bMotion_putadmin "Help is available for some plugis; run .bmotion help COMMAND"
 	  bMotion_putadmin "  for more information."
-	  return 1
+	  return 0
   } else {
   	switch $args {
+  		"flood" {
+  			bMotion_putadmin "Manage the flood protection system:"
+  			bMotion_putadmin "  .bmotion flood status"
+  			bMotion_putadmin "    show all tracked flood scores"
+  			bMotion_putadmin "  .bmotion flood show <nick>"
+  			bMotion_putadmin "    show score for <nick> (case sensitive)"
+  			bMotion_putadmin "  .bmotion flood set <nick> <value>"
+  			bMotion_putadmin "     set score for <nick> to <value>"
+  		}
   		default {
   			bMotion_putadmin "I seem to have misplaced my help for that command."
   		}
