@@ -11,8 +11,8 @@
 ###############################################################################
 
 
-bMotion_plugin_add_irc_event "returned" "nick" ".*" 40 "bMotion_plugins_nick_returned" "en"
-bMotion_plugin_add_irc_event "away" "nick" "(away|sleep|gone|afk|zzz+|bed|slaap|w(o|e|3|0)rk)" 40 "bMotion_plugins_nick_away" "en"
+bMotion_plugin_add_irc_event "returned" "nick" ".*" 10 "bMotion_plugins_nick_returned" "en"
+bMotion_plugin_add_irc_event "away" "nick" "(away|sleep|gone|afk|zzz+|bed|slaap|w(o|e|3|0)rk)" 10 "bMotion_plugins_nick_away" "en"
 
 #someone's returned (fires on every nick change and checks for lack of away
 proc bMotion_plugins_nick_away { nick host handle channel newnick } {
