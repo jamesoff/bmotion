@@ -47,6 +47,7 @@ proc bMotion_plugin_complex_summon { nick host handle channel text } {
 				regsub "%%" $msg $nick msg
 				# notify
 				puthelp "NOTICE $name :$msg"
+				puthelp "PRIVMSG $name :$msg"
 			}
 			return 1
 		}
