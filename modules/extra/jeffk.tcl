@@ -17,21 +17,21 @@ proc bMotion_module_extra_jeffk { line } {
   set line [string map -nocase {"taken" "taken" "ter" "tar" "make" "maek" "number" "%VAR{jeffk_number}"} $line]
   set line [string map -nocase {"name" "naem" "ll" "l" "ly" "ley"} $line]
   set line [string map -nocase {"ble" "bal" "word" "wrod" "inter" "intar" "lay" "alay" "luck" "luick" "here" "hear"} $line]
-  set line [string map {"!" "%REPEAT{1:5:!}%REPEAT{0:2:1}"} $line]
-  set line [string map {"?" "%REPEAT{1:5:?}%REPEAT{0:2:/}"} $line]
+  set line [string map {"!" "%REPEAT{2:5:!}%REPEAT{1:2:1}"} $line]
+  set line [string map {"?" "%REPEAT{2:5:?}%REPEAT{1:2:/}"} $line]
   
-  if {![rand 4]} {
+  if {![rand 8]} {
     append line " %VAR{jeffk_ends}"
   }
 
   set line [bMotionDoInterpolation $line "" "" ""]
   set line [bMotionInterpolation2 $line]
 
-  if {![rand 5]} {
+  if {![rand 6]} {
     set line [string toupper $line]
   }
 
-  if {![rand 4]} {
+  if {![rand 10]} {
     append line " %VAR{jeffk_ends}"
     set line [bMotionDoInterpolation $line "" "" ""]
   }
