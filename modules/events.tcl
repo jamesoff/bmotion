@@ -142,10 +142,6 @@ proc bMotion_event_main {nick host handle channel text} {
   }
 
   ## Update the channel idle tracker ##
-  set bMotionOldIdle 0
-  catch {
-    set bMotionOldIdle [expr [clock seconds] - $bMotionLastEvent($channel)]
-  }
   set bMotionLastEvent($channel) [clock seconds]
   
   #ignore other bots
@@ -270,24 +266,6 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }
 
-  #check for a smiley
-  global bMotionCache
-  if [regexp {[8|:|;|=][-|o|O]?([\)D\(C])} $text bling mouth] {
-    if {$mouth == ")"} {
-      incr bMotionCache($channel,mood) 5
-    }
-    if {$mouth == "D"} {
-      incr bMotionCache($channel,mood) 7
-    }
-
-    if {$mouth == "("} {
-      incr bMotionCache($channel,mood) -5
-    }
-    if {$mouth == "C"} {
-      incr bMotionCache($channel,mood) -7
-    }
-  }
-
   ## ignore channels that aren't in the randoms list ##
   if {[lsearch $bMotionInfo(randomChannels) [string tolower $channel]] == -1} {
     return 0
@@ -307,41 +285,6 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }
 
-  ##opme --> kick ;) (now a complex plugin)
-
-
-  ##url (now a simple plugin)
-
-  ## ali g (now a simple plugin)
-
-  ## wassssup (now a simple plugin)
-     
-  ## oops (now a simple plugin)
-
-  ## shock (now a simple plugin)
-
-  ## bof (now a simple plugin)
-
-  ## alors (now a simple plugin)
-
-  ## moo
-  ## --> moo (now a simple plugin)
-  
-  ## eat
-  ## --> /me eats ...
-  ## --> go down on
-  ## /eat
-
-  ## go down on
-  ## --> go down on
-
-  ## hello  
-  ## --> hello back
-  ## /hello
-
-  ## watch out
-  ## --> eek|hide|runs
-
   ## happy xmas
   ## --> and to you too
   if {[regexp -nocase "(merry|happy|have a good) (xmas|christmas|chrismas|newyear|new year) $botnicks" $text]} {
@@ -352,83 +295,6 @@ proc bMotion_event_main {nick host handle channel text} {
     driftFriendship $nick 3
     return 0
   }
-
-  ##thank you
-  ## --> you're welcome
-
-
-  ## sorry
-  ## --> that's ok
-
-  ## welcome back
-  ## --> thanks
-
-  ##love
-  ## /love
-
-  ##uNF
-
-  ##blblblbl
-  ## /blblblbl
-
-  ##bhar etc
-  ## /bhar etc
-
-  ## :)
-  if {[regexp "^(((:|;|=)(\\\)|]|D))|hehe|heh|wheee+)$" $text]} {
-	  if {$botnick == $nick} {return 0}
-		if {$mood(happy) < 0} {
-			return 0
-		}
-
-    global bMotionLastEvent
-    if {($bMotionOldIdle > 300) || ($mood(lonely) < 1)} {
- 			if {[rand 10] > 6} {
-    	  bMotionDoAction $channel "" [pickRandom $smiles]
-      }
-	  }
-    bMotionGetHappy
-    bMotionGetUnLonely
-		checkmood $nick $channel
-		return 0
-	}
-
-  ## :( (now a simple plugin)
-
-  ## replicate
-  ## /replicate
-
-  ## hand
-  ## /hand
-
-  ##supermarkets
-
-  #hug
-
-  ## readings
-
-  ## transforms (now a simple plugin)
-
-  ## all together
-  #if [regexp -nocase "(.+) all together.?$" $text ming bhar] {
-  #  #set bhar [string range $text 0 [expr [string first $text "all together"] - 2]]
-  #  bMotionDoAction $channel [bMotionGetRealName $nick $host] "$bhar."
-  #  return 0
-  #}
-
-
-  ## stupid bot(s)
-
-
-  ## sneeze
-
-  ## little bit
-
-  ## is a bot
-
-  ## are you a bot|is a bot?
- 
-  ## snickers
 
   if [regexp -nocase "${botnicks}?:? ?(how('?s|z) it going|hoe gaat het|what'?s up|'?sup|how are you),?( ${botnicks})?\\?" $text] {
     global mood
