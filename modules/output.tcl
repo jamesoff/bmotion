@@ -223,6 +223,7 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 
   set line [bMotionInsertString $line "%%" $nick]
   set line [bMotionInsertString $line "%pronoun" [getPronoun]]
+  set line [bMotionInsertString $line "%himherself" [getPronoun]]
   set line [bMotionInsertString $line "%me" $botnick]
   set line [bMotionInsertString $line "%noun" [pickRandom $sillyThings]]
   set line [bMotionInsertString $line "%colen" [bMotionGetColenChars]]
