@@ -99,7 +99,7 @@ proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
   #putlog $text
   if [regexp -nocase {(correct )?answer was ([^\.]+)\.} $text matches correct answer] {
     if {$correct != ""} {
-      if {![rand 3]} {
+      if {![rand 10]} {
         bMotionDoAction $channel $nick "%VAR{bahs}"
       }
     }
@@ -110,7 +110,7 @@ proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
     } else {
       #my nick isn't, so is "correct" (someone else got it)
       if {![regexp "correct answer" $text]} {
-        if {![rand 3]} {
+        if {![rand 10]} {
           bMotionDoAction $channel $nick "%VAR{trivia_loses}"
         }
       }
@@ -189,7 +189,6 @@ proc bMotion_plugin_complex_trivia_guess { nick host handle channel text } {
       if [regexp {[A-Z1]} $firstletter] {
         bMotion_putloglev 1 * "looking for a $firstletter word..."
         set upvar_name "afro_$firstletter"
-        #upvar #0 $upvar_name wordlist
         set wordlist [bMotion_abstract_all $upvar_name]
         #find a matching word
         set candidates [list]
