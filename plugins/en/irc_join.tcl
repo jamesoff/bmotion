@@ -46,7 +46,7 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
   return 0
 }
 
-bMotion_plugin_add_irc_event "default join" "join" ".*" 75 "bMotion_plugins_irc_default_join" "en"
+bMotion_plugin_add_irc_event "default join" "join" ".*" 60 "bMotion_plugins_irc_default_join" "en"
 
 bMotion_abstract_register "insult_joins"
 bMotion_abstract_batchadd "insult_joins" [list "%ruser: yeah, %% does suckOH HI %%!" "\[%%\] I'm a %VAR{PROM}%|%VAR{wrong_infoline}" "\[%%\] I love %ruser%|%VAR{wrong_infoline}"]
