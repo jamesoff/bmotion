@@ -27,7 +27,7 @@ proc bMotion_plugin_complex_action_smacks { nick host handle channel text } {
       frightened $nick $channel
       return 1
     }
-    bMotionDoAction $channel $nick "/%VAR{smacks} %% back with %VAR{sillyThings}"
+    bMotionDoAction $channel $nick "%VAR{slapped}"
     return 1
   }
 }
@@ -40,4 +40,29 @@ bMotion_abstract_batchadd "trouts" {
 	"omg noob"
 	"n00b"
 	"%VAR{goAways} noob"
+}
+
+bMotion_abstract_register "slapped"
+bMotion_abstract_batchadd "slapped" {
+	"ow hey! that was my %VAR{count} %VAR{bodyparts} %VAR{unsmiles}"
+	"ow! that was my %VAR{count} %VAR{bodyparts} %VAR{unsmiles}"
+	"they took my squeezing arm!%|WHY MY SQUEEZING ARM?!?%|WHHHYYYYY?"
+	"/%VAR{smacks} %% back with %VAR{sillyThings}"
+	"/%VAR{smacks} %% back with %ruser"
+	"ow! my %VAR{bodyparts}!"
+	"ow! my %VAR{bodyparts}! that was my %VAR{counts} one"
+	"arrgh my %VAR{bodyparts}! now i only have %NUMBER{50} left"
+
+}
+
+bMotion_abstract_register "counts"
+bMotion_abstract_batchadd "counts" {
+	"last"
+	"penultimate"
+	"2nd-to-last"
+	"only"
+	"backup"
+	"spare"
+	"most important"
+	"least relavant"
 }
