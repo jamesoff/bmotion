@@ -12,7 +12,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_complex "sosyour" "you're (a|the) \[^ \]+$" 100 bMotion_plugin_complex_sosyour "en"
+bMotion_plugin_add_complex "sosyour" "(it'?s|it is|you'?re|s?he'?s|they'?re) (a|the) \[^ \]+$" 100 bMotion_plugin_complex_sosyour "en"
 
 proc bMotion_plugin_complex_sosyour {nick host handle channel text} {
 	global botnicks
@@ -21,7 +21,7 @@ proc bMotion_plugin_complex_sosyour {nick host handle channel text} {
   	return 1
   }
 
-	if [regexp -nocase "^($botnicks\[:, \]+)?you're (a|the) (\[a-z\]+)\[.!\]?$" $text matches botnickused bn article noun] {
+	if [regexp -nocase "^($botnicks\[:, \]+)?(it'?s|it is|you'?re|s?he'?s|they'?re) (a|the) (\[a-z\]+)\[.!\]?$" $text matches botnickused bn article noun] {
     if {$botnickused == ""} {
 			if {[rand 100] < 95} {
 				return 0
