@@ -85,3 +85,6 @@ set bMotionQueue [list]
 set bMotionQueueTimer 0
 
 set bMotionThisText ""
+
+#0 for off
+set bMotionGlobal 1

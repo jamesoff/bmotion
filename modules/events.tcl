@@ -29,6 +29,12 @@ bMotion_counter_init "events" "lines"
 
 # call an irc event response plugin
 proc bMotionDoEventResponse { type nick host handle channel text } {
+  #check our global toggle
+  global bMotionGlobal
+  if {$bMotionGlobal == 0} {
+    return 0
+  }
+
   bMotion_putloglev 4 * "entering bMotionDoEventResponse: $type $nick $host $handle $channel $text"
   if { ![regexp -nocase "nick|join|quit|part|split" $type] } {
     return 0
@@ -78,6 +84,13 @@ proc bMotion_event_onjoin {nick host handle channel} {
 
 ## BEGIN onpart handler
 proc bMotion_event_onpart {nick host handle channel {msg ""}} {
+
+  #check our global toggle
+  global bMotionGlobal
+  if {$bMotionGlobal == 0} {
+    return 0
+  }
+
   bMotion_putloglev 3 * "entering bmotion_event_onpart: $nick $host $handle $channel $msg"
   global bMotionCache
 
@@ -94,6 +107,12 @@ proc bMotion_event_onpart {nick host handle channel {msg ""}} {
 ## BEGIN onquit handler
 proc bMotion_event_onquit {nick host handle channel reason} {
   global bMotionCache bMotionSettings bMotionInfo
+
+  #check our global toggle
+  global bMotionGlobal
+  if {$bMotionGlobal == 0} {
+    return 0
+  }
 
   set nick [bMotion_cleanNick $nick $handle]
 
@@ -114,6 +133,12 @@ proc bMotion_event_onquit {nick host handle channel reason} {
 
 # BEGIN main interactive
 proc bMotion_event_main {nick host handle channel text} {
+  #check our global toggle
+  global bMotionGlobal
+  if {$bMotionGlobal == 0} {
+    return 0
+  }
+
   ## Global definitions ##
   global mood botnick gretings welcomes sorryoks
   global loveresponses boreds upyourbums smiles
@@ -500,6 +525,12 @@ proc bMotion_event_main {nick host handle channel text} {
 ## BEGIN action event handler
 proc bMotion_event_action {nick host handle dest keyword text} {
 
+  #check our global toggle
+  global bMotionGlobal
+  if {$bMotionGlobal == 0} {
+    return 0
+  }
+
   global botnick mood rarrs smiles unsmiles botnicks bMotionCache bMotionSettings bMotionInfo
   set dest [channame2dname $dest]
   set channel $dest
@@ -754,6 +785,12 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 ### MODE HANDLER #############################################################
 proc bMotion_event_mode {nick host handle channel mode victim} {
 
+  #check our global toggle
+  global bMotionGlobal
+  if {$bMotionGlobal == 0} {
+    return 0
+  }
+
   bMotion_putloglev 4 * "bMotion: entering bMotion_event_mode with $nick $host $handle $channel $mode $victim"
 
   global botnick
@@ -778,6 +815,13 @@ proc bMotion_event_mode {nick host handle channel mode victim} {
 
 #someone changed nick, check for an away "msg"
 proc bMotion_event_nick { nick host handle channel newnick } {
+
+  #check our global toggle
+  global bMotionGlobal
+  if {$bMotionGlobal == 0} {
+    return 0
+  }
+
   if [matchattr $handle J] {
     return 0
   }
