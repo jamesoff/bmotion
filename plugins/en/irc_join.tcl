@@ -26,7 +26,7 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
   }
 
 	#we must also see if we're next to greet
-	if {![bMotion_interbot_next $channel]} {
+	if {![bMotion_interbot_me_next $channel]} {
 		return 1
 	}
 	
