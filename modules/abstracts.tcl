@@ -1164,7 +1164,7 @@ bMotion_abstract_batchadd "makeItSos" [list "/makes it so" "/goes to warp" "/fir
 
 
 bMotion_abstract_register "french1"
-bMotion_abstract_batchadd "french1" [list "est-ce que je peut" "je prend" "je vais au" "ou sont les toilettes" "on m'a" "je vais manger" "bounjour" ]
+bMotion_abstract_batchadd "french1" [list "est-ce que je peux" "je prend" "je vais au" "ou sont les toilettes" "on m'a" "je vais manger" "bonjour" ]
 
 
 bMotion_abstract_register "french2"
