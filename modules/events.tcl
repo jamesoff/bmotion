@@ -312,69 +312,6 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }
 
-  if [regexp -nocase "${botnicks}?:? ?(how('?s|z) it going|hoe gaat het|what'?s up|'?sup|how are you),?( ${botnicks})?\\?" $text] {
-    global mood
-    driftFriendship $nick 2
-
-    if {![bMotionTalkingToMe $text]} { return 0 }
-
-    if {$bMotionCache(lastHows) != $nick} {
-      set moodString "I'm feeling "
-      set moodIndex 0
-      if {$mood(lonely) > 5} {
-        append moodString "a bit lonely"
-        incr moodIndex -2
-      }
-
-      if {$mood(horny) > 2} {
-        if {[string length $moodString] > 13} {
-          append moodString ", "
-        }
-        append moodString "a little horny"
-        incr moodIndex 2
-      }
-
-      if {$mood(happy) > 3} {
-        if {[string length $moodString] > 13} {
-          append moodString ", "
-        }
-        append moodString "happy"
-        incr moodIndex 1
-      }
-
-      if {$mood(happy) < 0} {
-        if {[string length $moodString] > 13} {
-          append moodString ", "
-        }
-        append moodString "sad"
-        incr moodIndex -3
-      }
-
-      if {$mood(stoned) > 5} {
-        if {[string length $moodString] > 13} {
-          append moodString ", "
-        }
-        append moodString "stoned off my tits"
-        incr moodIndex 2
-      }
-
-      if {$moodIndex >= 0} {
-        append moodString " :)"
-      } else {
-        append moodString " :("
-      }
-
-      if {[string length $moodString] == [string length "I'm feeling  :)"]} {
-        global feelings
-        set moodString [pickRandom $feelings]
-      }
-
-      bMotionDoAction $channel [bMotionGetRealName $nick $host] "%%: $moodString"
-      return 0
-    }
-    return 0
-  }
-
   ###################################### +I people only ###################################################
 
   if {$bMotionSettings(needI) == 1} {
