@@ -164,6 +164,7 @@ proc bMotionSetRandomAway {} {
   set awayReason [pickRandom $randomAways]
   foreach channel $bMotionInfo(randomChannels) {
     if {[lsearch $bMotionSettings(noAwayFor) $channel] == -1} {
+
       bMotionDoAction $channel $awayReason "/is away: %%"
     }
   }
@@ -182,6 +183,7 @@ proc bMotionSetRandomBack {} {
   set bMotionInfo(silence) 0
   foreach channel $bMotionInfo(randomChannels) {
     if {[lsearch $bMotionSettings(noAwayFor) $channel] == -1} {
+
       bMotionDoAction $channel "" "/is back"
     }
   }
@@ -584,6 +586,7 @@ proc smileyhandler {} {
  }
 
 proc bMotion_get_number { num } {
+  return [expr [rand $num] + 1]
   set hundred ""
   set ten ""
   set len [string length $num]
