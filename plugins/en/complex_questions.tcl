@@ -13,12 +13,14 @@
 ###############################################################################
 
 
-bMotion_plugin_add_complex "question" {\?$} 100 bMotion_plugin_complex_question "en"
+bMotion_plugin_add_complex "question" {[?>/]$} 100 bMotion_plugin_complex_question "en"
 
 proc bMotion_plugin_complex_question { nick host handle channel text } {
 
   global botnicks
-
+    
+  regsub {(.+)[>\/]$} $text {\1?} text
+  
   ## What question targeted at me
   if { [regexp -nocase "^$botnicks,?:? what('?s)?(.+)" $text matches botn s question] ||
        [regexp -nocase "^what('?s)? .* $botnicks ?\\?" $text matches s question botn] } {
@@ -49,8 +51,8 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
   }
 
   ## Who question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? who(se)? " $text matches bot owner] ||
-       [regexp -nocase "^who(se)? .* $botnicks ?\\?" $text matches owner] } {
+  if { [regexp -nocase "^$botnicks,?:? who(se|'s)? " $text matches bot owner] ||
+       [regexp -nocase "^who(se|'s)? .* $botnicks ?\\?" $text matches owner] } {
     bMotion_putloglev 1 * "bMotion: $nick asked me a who$owner question"
     
     if {$owner == "se"} {
