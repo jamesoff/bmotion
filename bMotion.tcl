@@ -11,7 +11,7 @@
 #						(www.bash.org)
 
 
-set bMotionRoot "scripts/bmotion-cvs"
+set bMotionRoot "scripts/bmotion"
 set bMotionModules "$bMotionRoot/modules"
 set bMotionPlugins "$bMotionRoot/plugins"
 
