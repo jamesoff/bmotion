@@ -9,16 +9,16 @@
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or 
+# the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
 #
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 # General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License 
-# along with this program; if not, write to the Free Software 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
@@ -87,7 +87,7 @@ proc bMotion_queue_get_delay { } {
 # Adds some output to the queue
 proc bMotion_queue_add { target content {delay 0} } {
   global bMotion_queue
-  
+
   #calculate line delay
   set delay [expr $delay == 0 ? [bMotion_queue_get_delay] : $delay]
   bMotion_putloglev 1 * "queuing output '$content' for '$target' with ${delay}s delay"
@@ -115,6 +115,14 @@ proc bMotion_queue_callback { } {
   if {[llength $bMotion_queue] > 0} {
     bMotion_queue_run
   }
+}
+
+# bMotion_queue_size
+#
+# Get the size of the queue in an implementation-independent fashion
+proc bMotion_queue_size { } {
+	global bMotion_queue
+	return [llength bMotion_queue]
 }
 
 # init timer
