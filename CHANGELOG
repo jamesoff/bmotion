@@ -5,7 +5,23 @@ bMotion CHANGELOG
 + = added
 - = removed
 
-+ added complex_correct plugin to correct the error "should|must of" to "have"
+
+*  James           changed CHANGELOG format now that other people are actively coding
+*  Shruuf          bMotion now supports !-channels as wells as #-channels
+*  James           hugging the bot will make it happier and hornier
+*  James           don't repeatedly wave back if repeatedly waved at
+*  James           moved newer activate plugin to end of plugins list because it was interrupting the startrek one
+*  James           set complex_readings to break out after triggering
+*  Greg            added more words to complex_scrap
+*  James           some improvements to learning new words
+*  James           stop output_pinky from modifying short lines
+*  James           fixed a couple of typos in abstracts
++  James           added fact learning!
++  Kevin           added fact-fetching plugin
++  James           added new abstract management system and started changing over to it
++  James           added complex_correct plugin to correct the error "should|must of" to "have"
+-  James           removed some of the mood-based random output because it doesn't fit with new code for now
+
 
 2003/08/03
 v0.0.7
@@ -43,7 +59,7 @@ v0.0.6
 
 + added initial self-diagnostics (more to come)
 + now uses an irc event plugin to handle joins/parts/etc [simsea]
-+ added 3rd party modules support (i.e. for API for plugins)
++ added 3rd party modules support (i.e. for API for plugins) 
 + added complex_activate plugin
 + added function to clean stuff like "(*&$(" off the end of a line
 *   `- dutchify is now a module called by the relavent plugins
