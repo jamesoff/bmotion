@@ -111,7 +111,7 @@ proc bMotion_plugin_complex_action_away { nick host handle channel text } {
   }
 
   #save as newnick because if they do a /me next it'll be their new nick
-  bMotion_plugins_settings_set "complex:away" "lastnick" $channel "" $newnick
+  bMotion_plugins_settings_set "complex:away" "lastnick" $channel "" $nick
   
   #autoaway
   if [regexp -nocase "(auto( |-)?away|idle)" $text] {
@@ -168,7 +168,7 @@ proc bMotion_plugin_complex_action_back { nick host handle channel text } {
   }
 
   #save as newnick because if they do a /me next it'll be their new nick
-  bMotion_plugins_settings_set "complex:returned" "lastnick" $channel "" $newnick
+  bMotion_plugins_settings_set "complex:returned" "lastnick" $channel "" $nick
 
   #let's do some cool stuff
   #if they came back from sleep, it's morning
