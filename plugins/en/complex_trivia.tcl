@@ -106,7 +106,7 @@ proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
   }
   #putlog "elements: $elements, elementcount: $elementcount"
   if {($elements == $elementcount)} {
-    if {$answer != [bMotion-plugins_settings_get "trivia" "last" "" ""]} {
+    if {$answer != [bMotion_plugins_settings_get "trivia" "last" "" ""]} {
       bMotionDoAction $channel $nick $answer
       putloglev d * "answered trivia with $answer"
       bMotion_plugins_settings_set "trivia" "last" "" "" $answer
