@@ -16,7 +16,7 @@ bMotion_plugin_add_complex "hand" "^%botnicks:?,? (please )?(pass|hand|give) (.+
 
 proc bMotion_plugin_complex_hand { nick host handle channel text } {
   global botnicks
-  regexp -nocase "^${botnicks}:?,? (please )?(pass|hand|give) (.+)" $text ming blah1 blah2 blah2 details
+  regexp -nocase "^${botnicks}:?,? (please )?(pass|hand|give) (.+)" $text matches botn please verb details
   set who [string trim [string range $details 0 [string first " " $details]]]
   set item [string range $details [expr [string first " " $details] + 1] [string length $details]]
 
@@ -36,7 +36,7 @@ proc bMotion_plugin_complex_hand { nick host handle channel text } {
     return 1
   }
 
-  set whom [bMotionTransformNick $who $nick $host]
+  set whom [bMotionGetRealName $who]
 
   #your -> his/her
   if [string match -nocase "your *" $item] {
