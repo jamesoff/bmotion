@@ -150,6 +150,14 @@ if {$bMotion_testing == 1} {
 }
 source "$bMotionModules/leet.tcl"
 
+# load diagnostics
+catch {
+  if {$bMotion_testing == 1} {
+    putlog "... loading self-diagnostics"
+  }
+  source "$bMotionModules/diagnostics.tcl"
+}
+
 # Ignition!
 bMotion_startTimers
 if {$bMotion_testing == 0} {
