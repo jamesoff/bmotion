@@ -184,7 +184,7 @@ proc bMotionSetRandomAway {} {
   #set myself away with a random message
   global randomAways bMotionInfo bMotionSettings
 
-  set awayReason [pickRandom $randomAways]
+  set awayReason [bMotion_abstract_get "randomAways"]
   foreach channel $bMotionInfo(randomChannels) {
     if {[lsearch $bMotionSettings(noAwayFor) $channel] == -1} {
       bMotionDoAction $channel $awayReason "/is away: %%"
