@@ -12,7 +12,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_complex "thants" {^(([^aeiou]+)[aeiuo][a-z]+) (you )?([^aeiou]*([aeiuo][a-z]+))$} 5 bMotion_plugin_complex_thants "en"
+bMotion_plugin_add_complex "thants" {^(([^aeiou]+)[aeiuo][a-z]+) (you )?([^aeiou]*([aeiuo][a-z]+))$} 2 bMotion_plugin_complex_thants "en"
 
 proc bMotion_plugin_complex_thants { nick host handle channel text } {
 
