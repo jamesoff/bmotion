@@ -116,6 +116,9 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
     }
   }
 
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{randomReplies}"
-  return 1
+  if [bMotionTalkingToMe $text] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{randomReplies}"
+    return 1
+  }
+  return 0
 }
