@@ -5,6 +5,8 @@ bMotion CHANGELOG
 + = added
 - = removed
 
++ added complex_correct plugin to correct the error "should|must of" to "have"
+
 2003/08/03
 v0.0.7
 
