@@ -64,6 +64,13 @@ proc bMotion_plugin_output_typos { channel line } {
   set newLine ""
   set typochance [expr $bMotionSettings(typos) / 2]
   foreach char $chars {
+    if [string match -nocase "l" $char] { 
+      if {[rand 1000] < $typochance} { 
+        append newLine ";l"
+        bMotion_plugin_output_typos_adderror "" "-;"
+        continue 
+      }
+    }    
     if [string match -nocase "a" $char] { 
       if {[rand 1000] < $typochance} { 
         append newLine "sa"
