@@ -26,8 +26,8 @@
 
 
 
-bMotion_plugin_add_action_complex "zzz-failsafe" {^(.+?)s %botnicks} 100 bMotion_plugin_complex_action_failsafe "en"
 
+bMotion_plugin_add_action_complex "zzz-failsafe" {^(.+?)s %botnicks} 100 bMotion_plugin_complex_action_failsafe "en"
 
 
 proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
