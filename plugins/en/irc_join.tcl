@@ -25,6 +25,11 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
     return 0
   }
 
+	#we must also see if we're next to greet
+	if {![bMotion_interbot_next $channel]} {
+		return 1
+	}
+	
   global botnick mood
   set chance [rand 10]
 
