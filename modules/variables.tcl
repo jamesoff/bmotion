@@ -52,7 +52,6 @@ if {![info exists bMotionInfo]} {
   set bMotionInfo(silence) 0
   set bMotionInfo(away) 0
   set bMotionInfo(clothing) 5 
-  set bMotionInfo(lastPlugin) ""
 }
 
 if {![info exists bMotionCache]} {
@@ -69,6 +68,7 @@ if {![info exists bMotionCache]} {
   set bMotionCache(typoFix) ""
   set bMotionCache(remoteBot) ""
   set bMotionCache(randomUser) ""
+  set bMotionCache(lastPlugin) ""
 }
 
 #this is set later
