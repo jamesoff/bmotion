@@ -706,6 +706,7 @@ set feelings {
   "minging"
   "positively jade-like"
   "like John's mum on a Thursday night"
+  "bonza"
 }
 bMotion_abstract_batchadd "feelings" $feelings
 unset feelings
@@ -1051,7 +1052,7 @@ bMotion_abstract_batchadd "smacks" [list "smacks" "cuff" "hits" "pats" "slaps" "
 
 
 bMotion_abstract_register "ranjoins"
-bMotion_abstract_batchadd "ranjoins" [list "hey %%" "hi %%" "hi there %%" "hi yo~" "Good Morning %%" "%% you're looking especially shagworthy today" ]
+bMotion_abstract_batchadd "ranjoins" [list "hey %%" "hi %%" "hi there %%" "hi yo~" "Good Morning %%" "%% you're looking especially shagworthy today" "hay %%" "sup %%" "hay %% whats goin on" "lol l@@k its %%" "GENTLEMEN! BEHOLD!" "shh %%, it's quiet time now" "%% ._." "wilkommen %%" "uh oh, it's %%" "ieks, %%" "welcome to our next contestant, %%!"]
 
 
 bMotion_abstract_register "smiles"
@@ -1411,7 +1412,7 @@ bMotion_abstract_batchadd "unsmiles" [list ":(" ";(" ":O" ":\[" ":<" "=(" "=\[" 
 
 
 bMotion_abstract_register "ruins"
-bMotion_abstract_batchadd "ruins" [list "Incompetence." "INCOMPETENCE%colen" "YOU INCOMPETENT FOOL!" "You've ruined it." "That's torn it." ":P" "I spy incompetence." "Idiot." "heh" "\"great\"" "\"well done\"" "\"Good\" job." "\"Good\" work." "plonker" "you plonker" 	"fool" "taunt!" "cretin" "moron" "Jade!" ]
+bMotion_abstract_batchadd "ruins" [list "Incompetence." "INCOMPETENCE%colen" "YOU INCOMPETENT FOOL!" "You've ruined it." "That's torn it." ":P" "I spy incompetence." "Idiot." "heh" "\"great\"" "\"well done\"" "\"Good\" job." "\"Good\" work." "plonker" "you plonker" 	"fool" "taunt!" "cretin" "moron" "Jade!" "\"Bonza.\""]
 
 
 bMotion_abstract_register "hexStart"
