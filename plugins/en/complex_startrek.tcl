@@ -130,7 +130,7 @@ proc bMotion_plugin_complex_startrek_courtmartial { nick host handle channel tex
     bMotionDoAction $channel $who "/throws %% in the brig to await charges"
     utimer $bMotionInfo(brigDelay) bMotionDoBrig
     if {$bMotionInfo(banzaiModeBrig) == 1} {
-      utimer [expr $bMotionInfo(brigDelay) / 2] bMotionBanzaiBrigMidBet
+      utimer [expr $bMotionInfo(brigDelay) / 2 + 7] bMotionBanzaiBrigMidBet
     }
     return 0
   }
