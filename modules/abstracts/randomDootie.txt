@@ -1,8 +1,0 @@
-dootie %VAR{smiles}
-doootie dootie dooootie dootie
-i like dootie
-ooooooooooOOOOOooooo dootie
-weee hoo hooo hooo! dootie
-dooo-tie. dooo-tie. dooo-tie. dooo-tie. dooo-tie
-dootie is my friend
-you said dootie %VAR{smiles}

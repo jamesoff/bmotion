@@ -1,7 +1,0 @@
-re
-wb
-welcome back
-hey
-hi
-%REPEAT{4:7:bl}
-pop

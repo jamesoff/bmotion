@@ -1,5 +1,0 @@
-/takes a drag
-/lights up
-/has a puff
-/smokes :)
-/partakes of herbal refreshment
