@@ -11,10 +11,10 @@
 ###############################################################################
 
 bMotion_abstract_register "prom_first"
-bMotion_abstract_batchadd "prom_first" [list "arse" "cack" "piss" "shit" "fuck" "turd" "minge" "crap" "vadge" "shat" "clit" "cum" "wank" "flid"]
+bMotion_abstract_batchadd "prom_first" [list "arse" "cack" "piss" "shit" "fuck" "turd" "minge" "crap" "vadge" "shat" "clit" "cum" "wank" "flid" "quim" "jizz" "cream" "pube" "spank"]
 
 bMotion_abstract_register "prom_second"
-bMotion_abstract_batchadd "prom_second" [list "puma" "whistle" "shaver" "glass" "flute" "rifle" "flower" "desk" "curtain" "wheel" "door" "coin" "speaker" "lamp" "radio" "twix" "action" "account" "pump" "tea" "pot" "square" "robe" "apple" "cave" "lantern" "drawer" "card" "pants"]
+bMotion_abstract_batchadd "prom_second" [list "puma" "whistle" "shaver" "glass" "flute" "rifle" "flower" "desk" "curtain" "wheel" "door" "coin" "speaker" "lamp" "radio" "twix" "action" "account" "pump" "tea" "pot" "square" "robe" "apple" "cave" "lantern" "drawer" "card" "pants" "bible" "lighthouse" "chair" "stairs" "emperor" "bank"]
 
 bMotion_abstract_register "PROM"
 bMotion_abstract_add "PROM" "%VAR{prom_first}-%VAR{prom_second}"
