@@ -224,6 +224,8 @@ proc bMotion_plugin_management_fact_help { } {
 }
 
 # register the plugin
-bMotion_plugin_add_management "fact" "^fact" n "bMotion_plugin_management_fact" "any" bMotion_plugin_management_fact_help
+if {$bMotion_testing == 0} {
+	bMotion_plugin_add_management "fact" "^fact" n "bMotion_plugin_management_fact" "any" bMotion_plugin_management_fact_help
+}
 
 putlog "loaded fact module"
