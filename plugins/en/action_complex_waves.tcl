@@ -15,8 +15,20 @@
 bMotion_plugin_add_action_complex "waves" "waves (at|to) %botnicks" 100 bMotion_plugin_complex_action_waves "en"
 
 proc bMotion_plugin_complex_action_waves { nick host handle channel text } {
-  bMotionDoAction $channel "" "/waves back"
-  bMotionGetUnLonely
-  driftFriendship $nick 1
-  return 0
+  set lastGreeted [bMotion_plugins_settings_get "complex:wave" "lastGreeted" $channel ""]
+
+  if {$lastGreeted != $handle} {
+    bMotionDoAction $channel "" "/waves back"
+    bMotion_plugins_settings_set "complex:wave" "lastGreeted" $channel "" $handle
+    bMotionGetUnLonely
+    driftFriendship $nick 1
+  } else {
+    if [rand 2] {
+      bMotionDoAction $channel "" "%VAR{waveTooMuch}"
+    }
+  }
+  return 1
 }
+
+bMotion_abstract_register "waveTooMuch"
+bMotion_abstract_batchadd "waveTooMuch" [list "What." "Are you practicing to be the Queen or something?" "..."]
