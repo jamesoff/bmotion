@@ -18,7 +18,9 @@ bMotion CHANGELOG
 * fixed long-standing "Tcl error [bMotion_event_action]: can't read "newnick": no such variable" error after 2am inspriation
 + added support for %REPEAT in abstracts: %REPEAT{mincount:maxcount:text} will repeat text a random number of times in the given range
 *   `- updated some abstracts to use %REPEAT{} (e.g. "wh%REPEAT{3:6:e}")
-
+* track most recent complex plugin fired
+* complex_smilies refuses to fire twice in a row
++ added complex_woot
 
 2003/04/13
 v0.0.6
