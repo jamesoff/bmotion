@@ -114,6 +114,25 @@ if {$bMotion_testing == 1} {
 }
 source "$bMotionModules/friendship.tcl"
 
+# load anti-flood code
+if {$bMotion_testing == 1} {
+  putlog "... loading flood"
+}
+source "$bMotionModules/flood.tcl"
+
+### That's everything but the plugins stuff loaded. Now load extra modules
+
+bMotion_putloglev d * "looking for 3rd party modules..."
+set files [lsort [glob -nocomplain "$bMotionModules/extra/*.tcl"]]
+foreach f $files {
+  bMotion_putloglev 1 * "loading module: $f"
+  catch {
+    source $f
+  }
+}
+
+### Done, load the plugins:
+
 # load plugins
 if {$bMotion_testing == 1} {
   putlog "... loading plugins"
@@ -124,12 +143,6 @@ if {$bMotion_testing == 1} {
   putlog "... loading plugin settings"
 }
 source "$bMotionModules/plugins_settings.tcl"
-
-# load anti-flood code
-if {$bMotion_testing == 1} {
-  putlog "... loading flood"
-}
-source "$bMotionModules/flood.tcl"
 
 # load other bits
 if {$bMotion_testing == 1} {
