@@ -60,7 +60,7 @@ proc bMotion_module_extra_dutchify_makeDutch_multiWord { line } {
 
 proc bMotion_module_extra_dutchify_makeDutch { line } {
   # these are mainly one-word replacements
-  set line [string map -nocase { cow koe moron debiel retard retaar shit poep piece stukje movie film outer buitenste space ruimte} $line]
+  set line [string map -nocase { cow koe moron debiel retard retaar shit poep piece stukje movie film space ruimte} $line]
 
   # then the more simple ones
   set line [bMotion_module_extra_dutchify_single_word_replace_list {
@@ -68,11 +68,12 @@ proc bMotion_module_extra_dutchify_makeDutch { line } {
     the de  at in  on op  and en  has heeft  yes ja  how hoe  who wie  they zij
     do doe  air lucht  fuck neuk  miss mis  kiss kus  she zij  to naar
     with met  your jouw  like als  would zou  be zijn  if als  fail faal
-    attempt poging  prospectless kansloos  {(air)?plane} {vliegtuig}
-    rather nogal  shall zal
+    attempt poging  {(air)?plane} {vliegtuig}  not niet
+    rather nogal  shall zal  as als  but maar  outer buitenste  inner binnenste
   } $line]
 
-  set line [string map -nocase { question vraag chicken kip hello hoi line lijn my mijn have heb nice leuke name naam stolen gestolen want wil must moet yes ja thanks dank something iets} $line ]
+  set line [string map -nocase { question vraag chicken kip hello hoi line lijn my mijn have heb nice leuke name naam stolen gestolen want wil must moet yes ja thanks dank something iets because omdat prospectless kansloos } $line ]
+  set line [string map -nocase { everyone iedereen bunch boel vulnerability kwetsbaarheid problem probleem } $line ]
   set line [string map -nocase { small kleine wrong fout tea thee cosy muts morning morgen that dat too ook also ook does doet middle midden therefore dus perhaps misschien maybe misschien tree BOOM$(* } $line]
   set line [string map -nocase { licking likken for voor fucking palen dictionary woordenboek dutch nederlands cool koel} $line]
 
@@ -96,7 +97,7 @@ proc bMotion_module_extra_dutchify_makeDutch { line } {
   set line [string map -nocase { under onder behind achter before voor } $line]
 
   #panique
-  set line [string map -nocase { not niet talk praten book boek pencil potlood rubber condoom theacup theekopje boat boot } $line]
+  set line [string map -nocase { talk praten book boek pencil potlood rubber condoom theacup theekopje boat boot } $line]
 
   return $line
 }
@@ -112,7 +113,7 @@ proc bMotion_module_extra_dutchify_deBrittify {text} {
 
   # special case, we don't plural or possesive form (sp?) to be substituted
   # this will fail with 'has' instead of 'is'
-  regsub -all -nocase {[[:<:]](she|he|that)'s[[:>:]]} $text {\1 is} text
+  regsub -all -nocase {[[:<:]](she|he|it|that)'s[[:>:]]} $text {\1 is} text
 
   return $text
 }
