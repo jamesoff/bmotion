@@ -937,25 +937,31 @@ set rehashes {
 }
 
 set bodypart {
+  "toe"
   "foot"
+  "ankle"
+  "leg"
+  "knee"
+  "groin"
+  "bum"
+  "stomach"
+  "chest" 
+  "back"
+  "throat"
   "arm"
+  "hand"
+  "finger"
+  "thumb"
+  "nail"
   "head"
   "ear"
   "nose"
   "nostril"
   "eyeball"
-  "fingernail"
   "clothes"
-  
   "tooth"
-  
   "tongue"
-  
   "mouth"
-  
-  "hand"
-  
-  "leg"
 }
 
 set dude {
@@ -1300,7 +1306,7 @@ bMotion_abstract_batchadd "awayWorks" [list "hf %%" "have fun %%" "have a nice d
 
 
 bMotion_abstract_register "frightens"
-bMotion_abstract_batchadd "frightens" [list "eek!%|%bot\[50,¬VAR{awwws}\]" "o_O" "erk" "bah" "oh no b-" "crikey%|%bot\[50,¬VAR{awwws}\]" "blimey%|%bot\[50,¬VAR{awwws}\]" "gosh" "crumbs%|%bot\[50,¬VAR{awwws}\]" "yof" "ohmigod!" ]
+bMotion_abstract_batchadd "frightens" [list "eek!%|%bot\[50,¬VAR{awwws}\]" "o_O" "erk" "bah" "oh no b-" "crikey%|%bot\[50,¬VAR{awwws}\]" "blimey%|%bot\[50,¬VAR{awwws}\]" "gosh" "crumbs%|%bot\[50,¬VAR{awwws}\]" "yof" "ohmigod!" "erp!" ]
 
 
 bMotion_abstract_register "blinding"
@@ -1320,11 +1326,10 @@ bMotion_abstract_batchadd "sucks" [list "%% = %VAR{PROM}" ]
 
 
 bMotion_abstract_register "yeses"
-bMotion_abstract_batchadd "yeses" [list "Yes." "yes" "yes." "mais oui" "oui" "but of course" "hai" "ja" "absolutement" "yup" "and you don't even have lots of forms to fill in" "mmm" "nononononono*%|*=yes"]
-
+bMotion_abstract_batchadd "yeses" [list "Yes." "yes" "yes." "mais oui" "oui" "but of course" "hai" "ja" "absolutement" "yup" "and you don't even have lots of forms to fill in" "mmm" "true" "nononononono*%|*=yes" "unquestionably" "amen" "undoubtedly" "affirmative" "all right" "yea" "yep" "aye" "exactly" "definitely" "indubitably" "naturally" "of course" "/nods" "*nod*"] 
 
 bMotion_abstract_register "sillyThings"
-bMotion_abstract_batchadd "sillyThings" [list "12 year old black metal kids" "14 US dollars" "1.5 pie" "20 minutes till lunch" "5 litres of Halfords 10W-40" "5 pints" "99 bicycle clips" "a 12-inch pianist" "a 1.44MB floppy disk" "a 1979 Aston Martin" "a 7MB Flash movie" "AA" "a backup" "a badger" "a bag" 	"a bagette" "a bank" "a barbecue" "a bath" "a baton" "a bazooka" "a beach" "a beard" "a beast" "a bed" "Aberystwyth" "a better computer" "a big stick with nails in it" "a bike" "a bird" 	"a biscuit tin" "a blanket" "a bloke" "a bog wallness" "a boiler" "a boob" "a book" "a bookshelf" "a bookstore" "a boot" "a bot" "a bottle" "a bottom" "a box" "a boy" 	"a branch" "a brick" "a bridge" "a broken CD case" "a brother" "a brownie" "a bucket" "a budget" "a building" "a bullet" "a bunker" "a bus" "a business" "a button" "a cab" 	"a camara" "a camera" "a candidate" "a can of coke" "a can of diet coke (bleh)" "a capital" "a Cappucino" "a captain" "a car" "a car park" "a carrot" "a cartoon" "a case" "a cassette" "a cassette deck" 	"a cat" "a catflap" "a cd wallet" "a ceiling" "a cellar" "a certain" "a chain" "a champion" "a channel" "a chat" "a chatterbot" "a cheque" "a choir" "a Christian" "a chum" 	"a cinema" "a circus" "a client" "a clock" "a clothes peg" "a clown" "a coffee pot" "a company" "a compiler" "a complete central heating system" ]
+bMotion_abstract_batchadd "sillyThings" [list "12 year old black metal kids" "14 US dollars" "1.5 pie" "20 minutes till lunch" "5 litres of Halfords 10W-40" "5 pints" "99 bicycle clips" "a 12-inch pianist" "a 1.44MB floppy disk" "a 1979 Aston Martin" "a 7MB Flash movie" "AA" "a backup" "a badger" "a bag" "a bagette" "a bank" "a barbecue" "a bath" "a baton" "a bazooka" "a beach" "a beard" "a beast" "a bed" "Aberystwyth" "a better computer" "a big stick with nails in it" "a bike" "a bird" 	"a biscuit tin" "a blanket" "a bloke" "a bog wallness" "a boiler" "a boob" "a book" "a bookshelf" "a bookstore" "a boot" "a bot" "a bottle" "a bottom" "a box" "a boy" 	"a branch" "a brick" "a bridge" "a broken CD case" "a brother" "a brownie" "a bucket" "a budget" "a building" "a bullet" "a bunker" "a bus" "a business" "a button" "a cab" 	"a camara" "a camera" "a candidate" "a can of coke" "a can of diet coke (bleh)" "a capital" "a Cappucino" "a captain" "a car" "a car park" "a carrot" "a cartoon" "a case" "a cassette" "a cassette deck" 	"a cat" "a catflap" "a cd wallet" "a ceiling" "a cellar" "a certain" "a chain" "a champion" "a channel" "a chat" "a chatterbot" "a cheque" "a choir" "a Christian" "a chum" 	"a cinema" "a circus" "a client" "a clock" "a clothes peg" "a clown" "a coffee pot" "a company" "a compiler" "a complete central heating system" ]
 
 
 bMotion_abstract_register "blownAways"
@@ -1348,7 +1353,7 @@ bMotion_abstract_batchadd "mingreplies" [list "not as much as you though" "yeah?
 
 
 bMotion_abstract_register "nos"
-bMotion_abstract_batchadd "nos" [list "no." "no" "No." "No" "certainly not" "don't be so silly" "nope" "negative" "nup" "nada" "nein" "no siree bob" "maybe where you come from" "yesyesyesyesyesyes*%|*=no" ]
+bMotion_abstract_batchadd "nos" [list "no." "no" "No." "No" "certainly not" "don't be so silly" "nope" "negative" "nup" "nada" "nein" "no siree bob" "maybe where you come from" "yesyesyesyesyesyes*%|*=no" "nnnk" "/shakes head" "*shakes head*]
 
 
 bMotion_abstract_register "tech_software"
@@ -1372,11 +1377,11 @@ bMotion_abstract_batchadd "FRENCH" [list "%VAR{french1} %VAR{french2} %VAR{frenc
 
 
 bMotion_abstract_register "hellos"
-bMotion_abstract_batchadd "hellos" [list "hello" "hey" "hi" ]
+bMotion_abstract_batchadd "hellos" [list "hello" "hey" "hi" "howdy" "greets" ]
 
 
 bMotion_abstract_register "cyas"
-bMotion_abstract_batchadd "cyas" [list "l8r" "cya" "cya l8r" "bye" "byebye" "/waves" "you still here?" "quand vous retournez, apporter les tartes!" "talk to you later" "when you coming back?" ]
+bMotion_abstract_batchadd "cyas" [list "l8r" "cya" "cya l8r" "bye" "byebye" "/waves" "you still here?" "quand vous retournez, apporter les tartes!" "talk to you later" "when you coming back?" "adieu" "toodle-oo" "ciao" "cheerio"]
 
 
 bMotion_abstract_register "balefired"
@@ -1425,10 +1430,11 @@ bMotion_abstract_batchadd "randomStuff" {
   "this reminds me of my wedding night"
   "my zipper's stuck %VAR{unsmiles}"
   "is this going to be on the test?"
+  "my %VAR{bodypart} is hurting %VAR{unsmiles}"
 }
 
 bMotion_abstract_register "wrong_infoline"
-bMotion_abstract_batchadd "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline" "wait, that's not right..." ]
+bMotion_abstract_batchadd "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline" "/snigger" "wait, that's not right..." ]
 
 
 bMotion_abstract_register "randomStuffMale"
@@ -1440,15 +1446,15 @@ bMotion_abstract_batchadd "welcomeBacks" [list "re" "wb" "welcome back" "hey" "h
 
 
 bMotion_abstract_register "tech_problem"
-bMotion_abstract_batchadd "tech_problem" [list "install" "work" "stop being purple" "stop rendering pictures of %VAR{sillyThings}" "connect to the network" "stop telling me 'you are too stupid to use this software'" "make the tea" "download pornography" "connect" ]
+bMotion_abstract_batchadd "tech_problem" [list "switch on" "open" "execute" "run" "emit sound" "install" "work" "stop being purple" "stop rendering pictures of %VAR{sillyThings}" "connect to the network" "stop telling me 'you are too stupid to use this software'" "make the tea" "download pornography" "connect" ]
 
 
 bMotion_abstract_register "lols"
-bMotion_abstract_batchadd "lols" [list "lol" "cbsl" "hehe" "%REPEAT{2:5:ha}" "muwa%REPEAT{2:5:ha}" "heh" ":D" "rofl" "socl" "heheh" ":))" ":)" ]
+bMotion_abstract_batchadd "lols" [list "lol" "cbsl" "hehe" "%REPEAT{2:5:ha}" "muwa%REPEAT{2:5:ha}" "heh" ":D" "rofl" "socl" "heheh" ":))" ":)" "LOL" "/laughs" "/chuckles" "/smirks" ]
 
 
 bMotion_abstract_register "noneOfYourBusiness"
-bMotion_abstract_batchadd "noneOfYourBusiness" [list "none of your business. shut up." "none of your business" "shut up" "you keep out of this" "it's sekrit" "Yes." "It's a secret." "I don't care." ]
+bMotion_abstract_batchadd "noneOfYourBusiness" [list "none of your business. shut up." "none of your business" "shut up" "you keep out of this" "it's sekrit" "Yes." "It's a secret." "I don't care." "I'm not telling you" ]
 
 
 bMotion_abstract_register "joinins"
@@ -1460,7 +1466,7 @@ bMotion_abstract_batchadd "unsmiles" [list ":(" ";(" ":O" ":\[" ":<" "=(" "=\[" 
 
 
 bMotion_abstract_register "ruins"
-bMotion_abstract_batchadd "ruins" [list "Incompetence." "INCOMPETENCE%colen" "YOU INCOMPETENT FOOL!" "You've ruined it." "That's torn it." ":P" "I spy incompetence." "Idiot." "heh" "\"great\"" "\"well done\"" "\"Good\" job." "\"Good\" work." "plonker" "you plonker" 	"fool" "taunt!" "cretin" "moron" "Jade!" "\"Bonza.\""]
+bMotion_abstract_batchadd "ruins" [list "Incompetence." "INCOMPETENCE%colen" "YOU INCOMPETENT FOOL!" "You've ruined it." "That's torn it." ":P" "I spy incompetence." "Idiot." "heh" "\"great\"" "\"well done\"" "\"Good\" job." "\"Good\" work." "plonker" "you plonker" "muppet" "idiot" "fool" "taunt!" "cretin" "moron" "Jade!" "\"Bonza.\""]
 
 
 bMotion_abstract_register "hexStart"
@@ -1478,7 +1484,7 @@ bMotion_abstract_register "randomWrongConsoleReply"
 bMotion_abstract_batchadd "randomWrongConsoleReply" [list "yay! %% can't get it right" "why don't you tell us your password as well?" "try the other window" "try 'rm -rf /' as root" "Would you like a hand?" "idiot." "haha"]
 
 bMotion_abstract_register "locations"
-bMotion_abstract_batchadd "locations" [list "England" "US" "california" "indiana" "the moon" "australia" "holland" "norway" "bosnia" "russia" "canada" "toronto" "amsterdam" "mars" "exeter" 	"london" "new york" "basingstoke" ]
+bMotion_abstract_batchadd "locations" [list "England" "US" "california" "indiana" "the moon" "australia" "holland" "norway" "bosnia" "russia" "canada" "toronto" "amsterdam" "mars" "exeter" "london" "new york" "basingstoke" "mordor" "middle earth" "the heart of the world" "bree" ]
 
 
 bMotion_abstract_register "kills"
