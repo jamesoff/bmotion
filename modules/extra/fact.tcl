@@ -15,14 +15,14 @@ if { [bMotion_setting_get "factsMaxItems"] != "" } {
   set bMotion_facts_max_items [bMotion_setting_get "factsMaxItems"]
 } else {
   set bMotion_facts_max_items 500
-}  
+}
 
 # maximum number of facts to know about an item
 if { [bMotion_setting_get "factsMaxFacts"] != "" } {
   set bMotion_facts_max_facts [bMotion_setting_get "factsMaxFacts"]
 } else {
   set bMotion_facts_max_facts 20
-}  
+}
 
 # initialise
 if {![info exists bMotionFacts]} {
@@ -56,16 +56,16 @@ proc bMotion_facts_load { } {
         bMotion_putloglev 4 * "dropping duplicate fact $fact for item $item"
         set needReSave 1
       }
-      
+
       incr count
-      
+
       if {[expr $count % 1000] == 0} {
-        
+
       putlog "  still loading facts: $count ..."
-      
+
       }
-      
-    
+
+
     }
     set line [gets $fileHandle]
   }
@@ -86,7 +86,7 @@ proc bMotion_facts_save { } {
 
   set tidy 0
   set tidyfact 0
-  set count 0 
+  set count 0
 
   bMotion_putloglev 1 * "Saving facts to $bMotionModules/facts/facts.txt"
 
@@ -184,25 +184,25 @@ proc bMotion_plugin_management_fact { handle { arg "" }} {
     bMotion_putadmin "Total: $factcount facts about $itemcount items"
     return 0
   }
-  
+
   if [regexp -nocase {list (.+)} $arg matches re] {
   	bMotion_putadmin "Items matching /$re/:"
   	bMotion_putadmin "  <not implemented yet>"
   	return 0
   }
-  
+
   if [regexp -nocase {purge (.+)} $arg matches re] {
   	bMotion_putadmin "Deleting items matching /$re/:"
   	bMotion_putadmin "  <not implemented yet>"
   	return 0
   }
-  
+
   if [regexp -nocase {delete ([^ ]+) (.+)} $arg matches item re] {
   	bMotion_putadmin "Deleting facts matching /$re/ from item $item:"
   	bMotion_putadmin "  <not implemented yet>"
   	return 0
   }
-  
+
   #all else fails, list help
   bMotion_putadmin {use: fact [show <type> <name>|status]}
   return 0
@@ -215,12 +215,12 @@ proc bMotion_plugin_management_fact_help { } {
 	bMotion_putadmin "  .bmotion fact show <type> <key>"
 	bMotion_putadmin "    Show defined values for <key>"
 	bMotion_putadmin "    Currently <type> is only 'what'"
-	bMotion_putadmin "  .bmotion fact list <regexp>"
-	bMotion_putadmin "    List all items matching the regexp"
-	bMotion_putadmin "  .bmotion fact purge <regexp>"
-	bMotion_putadmin "    Deletes ALL facts known about ALL mataching items"
-	bMotion_putadmin "  .bmotion fact delete <item> <regexp>"
-	bMotion_putadmin "    Deletes all matching facts about <item>"
+	#bMotion_putadmin "  .bmotion fact list <regexp>"
+	#bMotion_putadmin "    List all items matching the regexp"
+	#bMotion_putadmin "  .bmotion fact purge <regexp>"
+	#bMotion_putadmin "    Deletes ALL facts known about ALL mataching items"
+	#bMotion_putadmin "  .bmotion fact delete <item> <regexp>"
+	#bMotion_putadmin "    Deletes all matching facts about <item>"
 }
 
 # register the plugin
