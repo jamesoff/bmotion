@@ -19,7 +19,6 @@ bMotion_plugin_add_admin "queue" "^queue"            n       "bMotion_plugin_adm
 bMotion_plugin_add_admin "parse" "^parse"            n       "bMotion_plugin_admin_parse" "any"
 bMotion_plugin_add_admin "friends" "^friends(hip)?"  n       "bMotion_plugin_admin_friends" "any"
 bMotion_plugin_add_admin "unbind votes" "^unbind votes" n    "bMotion_plugin_admin_unbindVotes" "any"
-bMotion_plugin_add_admin "codesize" "^codesize"          n       "bMotion_plugin_admin_codesize" "any"
 bMotion_plugin_add_management "rehash" "^rehash"          n       bMotion_plugin_management_rehash "any"
 bMotion_plugin_add_management "reload" "^reload"          n       bMotion_plugin_management_reload "any"
 bMotion_plugin_add_admin "settings_clear" "^settings clear" n bMotion_plugin_admin_settings_clear "any"
@@ -43,24 +42,24 @@ proc bMotion_plugin_management_status { handle { args "" } } {
   return 0
 }
 
-proc bMotion_plugin_admin_queue { handle idx { args "" }} {
-  global bMotionQueue
+proc bMotion_plugin_management_queue { handle { args "" }} {
+  global bMotion_queue
 
   if {$args == ""} {
     #display queue
-    putidx $idx "Queue size: [llength $bMotionQueue]\r";
-    set i 0
-    foreach item $bMotionQueue {
-      putidx $idx "$i: $item\r"
-      incr i
+    bMotion_putadmin "Queue size: [bMotion_queue_size] lines"
+	  foreach item $bMotion_queue {
+	    set sec [lindex $item 0]
+	    set target [lindex $item 1]
+	    set content [lindex $item 2]
+	    bMotion_putadmin "Delay $sec sec, target $target: $content"
     }
     return 0
   }
 
   if [regexp -nocase "clear|flush|delete|reset" $args] {
-    putidx $idx "Flushing queue...\r";
-    global bMotionQueue
-    set bMotionQueue [list]
+    bMotion_putadmin "Flushing queue..."
+    bMotion_queue_flush
     return 0
   }
 }
@@ -98,37 +97,6 @@ proc bMotion_plugin_admin_unbindVotes { handle idx arg } {
   putidx $idx "ok\r"
 }
 
-
-proc bMotion_plugin_admin_codesize { handle idx { arg "" } } {
-  #get codesize for bMotion
-
-  global bMotionRoot bMotionModules bMotionPlugins
-  set scriptName "[pwd]/$bMotionRoot/codeSize"
-
-  #check the script is present and executable
-  if {![file exists $scriptName]} {
-    putidx $idx "bMotion: ERROR: Can't find supporting script $scriptName!"
-    return 0
-  }
-
-  if {![file executable $scriptName]} {
-    putidx $idx "bMotion: ERROR: $scriptName is not executable :("
-    return 0
-  }
-
-  bMotion_putloglev 2 * "bMotion: codeSize script is $scriptName"
-
-  set modules_output [exec $scriptName $bMotionModules]
-  set plugins_output [exec $scriptName $bMotionPlugins]
-  regexp {([[:digit:]]+) +[[:digit:]]+ +[[:digit:]]+ total} $modules_output matches modules
-  regexp {([[:digit:]]+) +[[:digit:]]+ +[[:digit:]]+ total} $plugins_output matches plugins
-  regexp {([[:digit:]]+) +[[:digit:]]+ +[[:digit:]]+ .+bMotion\.tcl} [exec wc $bMotionRoot/bMotion.tcl] matches loader
-
-  set total [expr $modules + $plugins + $loader]
-
-  putidx $idx "bMotion: codesize: $loader in stub, $modules in modules, $plugins in plugins, $total in total\r"
-  return 0
-}
 
 proc bMotion_plugin_management_rehash { handle } {
   global bMotionCache bMotion_testing bMotionRoot
