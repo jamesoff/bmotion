@@ -57,7 +57,7 @@ proc bMotion_interbot_next_elect_do { channel } {
       #not me you idiot
       if [isbotnick $bot] { continue }
       set handle [nick2hand $bot $channel]
-      if [matchattr $handle b&K $channel] {
+      if {[matchattr $handle b&K $channel] && [islinked $handle]} {
         bMotion_putloglev 2 * "bMotion: sending elect_initial to $bot for $channel"
         putbot $handle "bmotion elect_initial $channel $myScore"
       }
@@ -151,8 +151,13 @@ proc bMotionSendSayChan { channel  text thisBot} {
   #replace all ¬ with %
   set text [bMotionInsertString $text "¬" "%"]
   bMotion_putloglev 1 * "bMotion: pushing command say ($channel $text) to $thisBot"
-  putbot $thisBot "bmotion say $channel $text"
-  return $thisBot
+  if [islinked $thisBot] {
+    putbot $thisBot "bmotion say $channel $text"
+    return $thisBot
+  } else {
+    putlog "bMotion: ALERT! Trying to talk to bot $thisBot, but it isn't linked"
+    return ""
+  }
 }
 
 proc bMotionCatchSayChan { bot params } {
