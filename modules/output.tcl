@@ -299,14 +299,14 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0}} {
 
   #safe to do these here
   #try to get sensible names
-  set uhost [getchanhost $bMotionCache(randomUser)]
-  set ruser [bMotionGetRealName $bMotionCache(randomUser) $uhost]
+  #set uhost [getchanhost $bMotionCache(randomUser)]
+  set ruser [bMotionGetRealName $bMotionCache(randomUser)]
   set line [bMotionInsertString $line "%ruser" $ruser]
 
-  set uhost [getchanhost $bMotionCache(remoteBot)]
-  putloglev 3 * "bMotion: remote bothost = $uhost"
-  set rbot [bMotionGetRealName $bMotionCache(remoteBot) $uhost]
-  putloglev 3 * "bMotion: remote bot nick = $rbot"
+  #set uhost [getchanhost $bMotionCache(remoteBot)]
+  #putloglev 3 * "bMotion: remote bothost = $uhost"
+  set rbot [bMotionGetRealName $bMotionCache(remoteBot)]
+  #putloglev 3 * "bMotion: remote bot nick = $rbot"
   set line [bMotionInsertString $line "%rbot" $rbot]
 
   set line [bMotionInterpolation2 $line]
@@ -718,6 +718,10 @@ proc bMotionChooseRandomBot { channel { conditions "" }} {
 }
 
 proc bMotionMakePossessive { text { altMode 0 }} {
+  if {$text == ""} {
+    return "someone's"
+  }
+
   if {$text == "me"} {
     if {$altMode == 1} {
       return "mine"
