@@ -125,6 +125,12 @@ proc bMotion_abstract_gc { } {
   if {$expiredList != ""} {
     bMotion_putloglev d * "expired $expiredCount abstracts: $expiredList"
   }
+
+  if {[llength [array names bMotion_abstract_contents]] == 0} {
+    bMotion_putloglev d * "abstracts array is empty, de-allocating"
+    unset bMotion_abstract_contents
+    set bMotion_abstract_contents(dummy) ""
+  }
 }
 
 proc bMotion_abstract_register { abstract } {
@@ -215,7 +221,6 @@ proc bMotion_abstract_add { abstract text {save 1} } {
       puts $fileHandle $text
       close $fileHandle
     }
-    return 1
   }
 
   if {[lsearch -exact $bMotion_abstract_contents($abstract) $text] == -1} {
