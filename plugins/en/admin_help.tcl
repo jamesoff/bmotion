@@ -137,7 +137,7 @@ proc bMotion_plugin_management_help { handle { args "" } } {
   		}
    		default {
    			#no pre-defined help, see if there's a callback for it
-   			set callback [bMotion_plugin_find_management $args]
+   			set callback [bMotion_plugin_find_management_help $args]
    			if {$callback != ""} {
    				set result [$callback]
    			} else {
