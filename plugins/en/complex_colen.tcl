@@ -15,6 +15,9 @@
 bMotion_plugin_add_complex "colen" {^[!\"£\$%\^&\*\(\)\@\#]{3,}} 40 bMotion_plugin_complex_colen "all"
 
 proc bMotion_plugin_complex_colen { nick host handle channel text } {
+  if [regexp "^\*\*\*" $text] {
+    return 0
+  }
   if [bMotion_interbot_me_next $channel] {
     bMotionDoAction $channel $nick [bMotionGetColenChars]
   }
