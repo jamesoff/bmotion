@@ -37,10 +37,10 @@ proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
   if {$verb == ""} {
     return 1
   }
-
+  bMotion_plugins_settings_set "complex:failsafe" "last" "nick" "moo" [bMotionGetRealName $nick]
   bMotionDoAction $channel $verb "%VAR{failsafes}"
 }
 
 
 bMotion_abstract_register "failsafes"
-bMotion_abstract_batchadd "failsafes" [list "%VAR{rarrs}" "%REPEAT{3:7:m} %%" "%VAR{thanks}" "i do love a good %%ing"]
+bMotion_abstract_batchadd "failsafes" [list "%VAR{rarrs}" "%REPEAT{3:7:m} %%" "%VAR{thanks}" "i do love a good %%ing" "/%%s %SETTING{complex:failsafe:last:nick:moo} back with %VAR{sillyThings}"]
