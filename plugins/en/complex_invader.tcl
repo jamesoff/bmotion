@@ -47,9 +47,11 @@ proc bMotion_plugin_complex_invader_gir { nick host handle channel text } {
 
 # bMotion_plugin_complex_invader_nick
 proc bMotion_plugin_complex_invader_nick { nick host handle channel newnick } {
-	global randomZimNameChange
-	set nickresponse [ pickRandom $randomZimNameChange ]
-	return $nickresponse 
+	#global randomZimNameChange
+	#set nickresponse [ pickRandom $randomZimNameChange ]
+	#return $nickresponse 
+  bMotionDoAction $channel $nick "%VAR{randomZimNameChange}"
+  return 1
 }
 # end bMotion_plugin_complex_invader_nick
 
