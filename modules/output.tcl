@@ -191,6 +191,7 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
   }
 
   set loops 0
+  bMotion_putloglev 4 * "doing VAR processing"
   while {[regexp "%VAR\{(.+?)\}" $line matches BOOM]} {
     global $BOOM
     incr loops
@@ -213,7 +214,9 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
   }
 
   set loops 0
+  bMotion_putloglev 4 * "doing SETTING processing"
   while {[regexp "%SETTING\{(.+?)\}" $line matches settingString]} {
+    set var ""
     if [regexp {([^:]+:[^:]+):([^:]+):([^:]+):([^:]+)} $settingString matches plugin setting ch ni] {
       set var [bMotion_plugins_settings_get $plugin $setting $ch $ni]
     }
@@ -222,10 +225,15 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
       putlog "bMotion: ALERT! looping too much in %SETTING code with $line"
       set line "/has a tremendous error while trying to infer the meaning of life :("
     }
+    if {$var == ""} {
+      putlog "bMotion: ALERT! couldn't find setting $settingString (dropping output)"
+      return ""
+    }
     set line [bMotionInsertString $line "%SETTING{$settingString}" $var]
   }
   
   set loops 0
+  bMotion_putloglev 4 * "doing NUMBER processing"
   while {[regexp "%NUMBER\{(.+?)\}" $line matches numberString]} {
     set var [bMotion_get_number [rand $numberString]]
     incr loops
@@ -236,6 +244,7 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
     set line [bMotionInsertString $line "%NUMBER\\{$numberString\\}" $var]
   }
 
+  bMotion_putloglev 4 * "doing misc interpolation processing"
   set line [bMotionInsertString $line "%%" $nick]
   set line [bMotionInsertString $line "%pronoun" [getPronoun]]
   set line [bMotionInsertString $line "%himherself" [getPronoun]]
@@ -248,6 +257,8 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
   set line [bMotionInsertString $line "%percent" "%"]
   #ruser moved
   #rbot moved
+
+  bMotion_putloglev 4 * "bMotionDoInterpolation returning: $line"
   return $line
 }
 
