@@ -131,18 +131,22 @@ proc bMotion_module_extra_dutchify_grammar {line} {
       set subword ""
       regexp {(\w{3,})ed[[:>:]]} $word discard subword
 
-      # ..i(ed) -> ..y
-      regsub -nocase {(\w+)i[[:>:]]} $subword {\1y} subword
+	  if {[string length $subword] > 0} {
+        # ..i(ed) -> ..y
+        regsub -nocase {(\w+)i[[:>:]]} $subword {\1y} subword
 
-      set subword [bMotion_module_extra_dutchify_verb_replace $subword]
-      if {[regexp {(t|k|f|s|ch|p)} [string index $subword end]]} {
-        if {[regexp {[^t]} [string index $subword end]]} {
-          append new_line "ge${subword}t"
+        set subword [bMotion_module_extra_dutchify_verb_replace $subword]
+        if {[regexp {(t|k|f|s|ch|p)} [string index $subword end]]} {
+          if {[regexp {[^t]} [string index $subword end]]} {
+            append new_line "ge${subword}t"
+          } else {
+            append new_line "ge${subword}"
+          }
         } else {
-          append new_line "ge${subword}"
+          append new_line "ge${subword}d"
         }
       } else {
-        append new_line "ge${subword}d"
+        append new_line $word
       }
     }
     set line $new_line
