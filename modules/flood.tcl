@@ -118,6 +118,9 @@ proc bMotion_flood_add { nick { callback "" } { text "" } } {
     set flood $bMotion_flood_info($handle)
   }
   incr flood $val
+  if {$flood > 40} {
+    set flood 40
+  }
   bMotion_putloglev 2 * "bMotion: flood added $val to $nick, now $flood"
   set bMotion_flood_info($handle) $flood
   set bMotion_flood_undo $val
