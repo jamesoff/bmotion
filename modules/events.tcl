@@ -236,7 +236,7 @@ proc bMotion_event_main {nick host handle channel text} {
         [regexp ".+!{4,}" $text]} {
     global blownAways
     if {[rand 60] >= 55} {
-      bMotionDoAction $channel $nick [pickRandom $blownAways]
+      bMotionDoAction $channel $nick "%VAR{blownAways}"
       return 0
     }
   }
