@@ -14,7 +14,6 @@
 bMotion_plugin_add_irc_event "default join" "join" ".*" 80 "bMotion_plugins_irc_deafult_join" "en"
 
 proc bMotion_plugins_irc_deafult_join { nick host handle channel text } { 
-  set nick [bMotion_cleanNick $nick $handle]
 
   #has something happened since we last greeted?
   set lasttalk [bMotion_plugins_settings_get "system:join" "lasttalk" $channel ""]
@@ -39,6 +38,8 @@ proc bMotion_plugins_irc_deafult_join { nick host handle channel text } {
       incr mood(happy)
       incr mood(lonely) -1
     }
+
+    #set nick [bMotion_cleanNick $nick $handle]
 
     bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $greetings]
     set bMotionCache(lastGreeted) $nick
