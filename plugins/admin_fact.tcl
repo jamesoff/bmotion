@@ -12,17 +12,17 @@
 # in the modules directory.
 ###############################################################################
 
-proc bMotion_plugin_admin_fact { handle idx { arg "" }} {
+proc bMotion_plugin_management_fact { handle { arg "" }} {
 
   global bMotionFacts
 
   #fact show <type> <name>
   if [regexp -nocase {show ([^ ]+) ([^ ]+)} $arg matches t name] {
     set known $bMotionFacts($t,$name)
-    putidx $idx "Known '$t' facts about: $name"
+    bMotion_putadmin "Known '$t' facts about: $name"
     set count 0
     foreach fact $known {
-      putidx $idx "$count: $fact"
+      bMotion_putadmin "$count: $fact"
       incr count
     }
     return 0
@@ -33,20 +33,20 @@ proc bMotion_plugin_admin_fact { handle idx { arg "" }} {
     set items [lsort [array names bMotionFacts]]
     set itemcount 0
     set factcount 0
-    putidx $idx "Known facts:"
+    #bMotion_putadmin "Known facts:"
     foreach item $items {
-      putidx $idx "$item ([llength $bMotionFacts($item)])"
+      #bMotion_putadmin "$item ([llength $bMotionFacts($item)])"
       incr itemcount
       incr factcount [llength $bMotionFacts($item)]
     }
-    putidx $idx "Total: $factcount facts about $itemcount items"
+    bMotion_putadmin "Total: $factcount facts about $itemcount items"
     return 0
   }
 
   #all else fails, list help
-  putidx $idx ".bmadmin fact \[show|status\]\r"
+  bMotion_putadmin {use: fact [show <type> <name>|status]}
   return 0
 }
 
 # register the plugin
-bMotion_plugin_add_admin "fact" "^fact" n "bMotion_plugin_admin_fact" "any"
+bMotion_plugin_add_management "fact" "^fact" n "bMotion_plugin_management_fact" "any"
