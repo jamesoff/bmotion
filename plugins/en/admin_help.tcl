@@ -53,6 +53,6 @@ proc bMotion_plugin_management_help { handle { args "" } } {
   			bMotion_putadmin "I seem to have misplaced my help for that command."
   		}
   	}
-  	return 1
+  	return 0
   }
 }
