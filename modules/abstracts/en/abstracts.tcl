@@ -9,16 +9,16 @@
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 
-# the Free Software Foundation; either version 2 of the License, or 
+# the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
 #
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 # General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License 
-# along with this program; if not, write to the Free Software 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
@@ -858,7 +858,7 @@ set bodypart {
   "groin"
   "bum"
   "stomach"
-  "chest" 
+  "chest"
   "back"
   "throat"
   "arm"
@@ -1247,7 +1247,7 @@ bMotion_abstract_batchadd "tech_functions" [list "virus-scan" "validate" "manage
 
 bMotion_abstract_batchadd "sucks" [list "%% = %VAR{PROM}" ]
 
-bMotion_abstract_batchadd "yeses" [list "Yes." "yes" "yes." "mais oui" "oui" "but of course" "hai" "ja" "absolutement" "yup" "and you don't even have lots of forms to fill in" "mmm" "true" "nononononono*%|*=yes" "unquestionably" "amen" "undoubtedly" "affirmative" "all right" "yea" "yep" "aye" "exactly" "definitely" "indubitably" "naturally" "of course" "/nods" "*nod*"] 
+bMotion_abstract_batchadd "yeses" [list "Yes." "yes" "yes." "mais oui" "oui" "but of course" "hai" "ja" "absolutement" "yup" "and you don't even have lots of forms to fill in" "mmm" "true" "nononononono*%|*=yes" "unquestionably" "amen" "undoubtedly" "affirmative" "all right" "yea" "yep" "aye" "exactly" "definitely" "indubitably" "naturally" "of course" "/nods" "*nod*"]
 
 bMotion_abstract_batchadd "sillyThings" [list "12 year old black metal kids" "14 US dollars" "1.5 pie" "20 minutes till lunch" "5 litres of Halfords 10W-40" "5 pints" "99 bicycle clips" "a 12-inch pianist" "a 1.44MB floppy disk" "a 1979 Aston Martin" "a 7MB Flash movie" "AA" "a backup" "a badger" "a bag" "a bagette" "a bank" "a barbecue" "a bath" "a baton" "a bazooka" "a beach" "a beard" "a beast" "a bed" "Aberystwyth" "a better computer" "a big stick with nails in it" "a bike" "a bird" 	"a biscuit tin" "a blanket" "a bloke" "a bog wallness" "a boiler" "a boob" "a book" "a bookshelf" "a bookstore" "a boot" "a bot" "a bottle" "a bottom" "a box" "a boy" 	"a branch" "a brick" "a bridge" "a broken CD case" "a brother" "a brownie" "a bucket" "a budget" "a building" "a bullet" "a bunker" "a bus" "a business" "a button" "a cab" 	"a camara" "a camera" "a candidate" "a can of coke" "a can of diet coke (bleh)" "a capital" "a Cappucino" "a captain" "a car" "a car park" "a carrot" "a cartoon" "a case" "a cassette" "a cassette deck" 	"a cat" "a catflap" "a cd wallet" "a ceiling" "a cellar" "a certain" "a chain" "a champion" "a channel" "a chat" "a chatterbot" "a cheque" "a choir" "a Christian" "a chum" 	"a cinema" "a circus" "a client" "a clock" "a clothes peg" "a clown" "a coffee pot" "a company" "a compiler" "a complete central heating system" ]
 
@@ -1384,5 +1384,174 @@ bMotion_abstract_batchadd "blairparts" {
   "eyes"
   "stance"
   "stare"
+}
+
+bMotion_abstract_register "answerIsyours"
+bMotion_abstract_batchadd "answerIsyours" {
+  "omg yes"
+  "yes!%|%VAR{randomGirness}"
+}
+
+bMotion_abstract_register "answerDidyous"
+bMotion_abstract_batchadd "answerDidyous" {
+  "yarr %VAR{smiles}"
+  "yes but i have a %VAR{chocolates} stuck in my %VAR{bodypart}"
+  "how could i when i had %ruser %VAR{dVerbs}ing %VAR{answerWheres}"
+  "ja aber jetzt kann ich Deutsches nur sprechen"
+  "yes and i'm gonna do it again %VAR{answerWhens} %VAR{answerWheres}"
+  "yes but i'd rather %VAR{punishments} than do it again!"
+  "yeah %VAR{oops} %VAR{smiles}"
+  "yarr%|%VAR{randomZimness}"
+  "%VAR{lols} %VAR{smiles} %colen%|/%VAR{smacks} himself in the %VAR{bodypart}"
+  "no i spent my time contemplating how i %VAR{smacked} %ruser in the %VAR{bodypart}"
+  "yes but i wish i'd gone %VAR{dNouns}-%VAR{dVerbs}ing %VAR{smiles}"
+}
+
+bMotion_abstract_register "answerDoyous"
+bMotion_abstract_batchadd "answerDoyous" {
+  "normally"
+  "always %VAR{rarrs}"
+  "i do%|despite having no %VAR{bodypart}"
+  "i did till my %VAR{bodypart} %VAR{fellOffs} :("
+  "does it mean i get pie?"
+  "yahyahayayahayahahayh%colen"
+  "indeed i do%|%VAR{randomZimness}"
+  "yarr or i would be %VAR{smacked} with %rusers %VAR{bodypart}!"
+  "omg yes"
+  "any chance i get %VAR{rarrs}%|%VAR{randomGirness}"
+}
+
+bMotion_abstract_register "answerWhathaves"
+bMotion_abstract_batchadd "answerWhathaves" {
+  "%VAR{dVerbs}ing my %VAR{bodypart}"
+}
+
+bMotion_abstract_register "answerHaveyous"
+bMotion_abstract_batchadd "answerHaveyous" {
+   "yeah on my %VAR{bodypart}"
+   "just this minute actually%|%VAR{randomGirness}"
+   "we don't like to talk about that anymore %VAR{rarrs}"
+   "not since %ruser %VAR{smacked} my %VAR{bodypart}"
+   "i can't remember%|%VAR{randomZimness}"
+   "hell yeah"
+   "omg yes"
+   "%VAR{lols} %VAR{yesnos}!"
+}
+
+bMotion_abstract_register "answerWillyous"
+bMotion_abstract_batchadd "answerWillyous" {
+   "certainly%|do you like my %VAR{bodypart}?"
+   "of course!%|%VAR{randomGirness}"
+   "hand me a %VAR{dNouns} and i'll give it a bash :D"
+   "can't wait%|%VAR{randomZimness}"
+   "okie dokie"
+   "omg yes"
+   "can %ruser watch?"
+   "ok but you have to hold my %VAR{bodypart}"
+   "will you %VAR{dVerbs} my %VAR{bodypart}?"
+}
+
+bMotion_abstract_register "answerWouldyous"
+bMotion_abstract_batchadd "answerWouldyous" {
+   "i'd sooner have my %VAR{bodypart} my %VAR{smacked}!"
+   "i'd do anything"
+   "in a flash!"
+   "love to%|%VAR{randomZimness}"
+   "only if %ruser can watch"
+   "if i had any arms i would%|:("
+   "if my %VAR{bodypart} would stop %VAR{dVerbs}ing"
+}
+
+bMotion_abstract_register "answerAreyous"
+bMotion_abstract_batchadd "answerAreyous" {
+   "yes%|wait! i mean no"
+   "%ruser made me"
+   "yes and i wont stop till my %VAR{bodypart} bounces off!"
+   "i was feeling horny"
+   "yeah want a go? :)"
+   "only because my %VAR{dNouns} %VAR{fellOffs}"
+}
+
+bMotion_abstract_register "answerCanyous"
+bMotion_abstract_batchadd "answerCanyous" {
+   "no%|not even if you %VAR{dVerbs} my %VAR{dNouns}"
+   "certainly%|%VAR{randomGirness}"
+   "never!%VAR{randomZimness}"
+   "sure%|%VAR{dSEnds}"
+   "i'd love to! :)"
+   "just show me where to sign %VAR{rarrs}"
+   "yeah no prob boss"
+   "but i have no ARMS... NO ARMS%colen%|/runs away"
+}
+
+bMotion_abstract_register "dVerbs"
+bMotion_abstract_batchadd "dVerbs" {
+  "grab" "feel" "touch" "rake" "rub" "touch" "eat" "smoke"
+	"fry" "swing" "dribble" "kick" "ride" "throw" "fly" "wiggle"
+	"shoot" "shine" "fold" "eject" "swing from" "sniff" "wipe"
+	"sew" "wriggle" "waggle" "wiggle" "wet" "dip" "flash" "rinse"
+	"gargle"  "snort" "lick" "taste" "shit on" "crap on" "tickle" "wedge"
+	"suck"  "stew" "bake" "ice" "post" "sit on" "burn" "singe"
+	"moisten" "de-flower" "fondle" "poke" "bury" "fetch" "find" "trample"
+}
+
+bMotion_abstract_register "dNouns"
+bMotion_abstract_batchadd "dNouns" {
+  "face" "clock" "tree" "bike" "torch" "spanner" "handle" "toilet paper" "nails"
+  "rivets" "lolipop" "stick" "todger" "stiffy" "winkie" "socks" "shoe" "underpants"
+  "knickers" "thong" "keys" "bits" "nubbin" "worm" "napkin" "willy-warmer" "sheets"
+  "pillow" "toilet" "bath" "tampon" "waffle iron" "toaster" "kettle" "mouse" "pasty"
+  "spatula" "elbow" "crotch" "urinal" "barking spider" "sphincter" "asophagus"
+  "throat" "tongue" "eyeball"
+}
+
+bMotion_abstract_register "dSEnds"
+bMotion_abstract_batchadd "dSEnds" {
+  "getting rather good at it too"
+  "i'm still trying to get better at it tho"
+  "i can do it %NUMBER{1000} times per second now"
+  "i do it every day"
+  "i'm crap tho"
+  "it takes skills you see"
+  "it ain't hard"
+  "its piss"
+  "a monkey could do it"
+}
+
+bMotion_abstract_register "smacked"
+bMotion_abstract_batchadd "smacked" {
+	"smacked" "cuffed" "hit" "patted" "slapped" "socked" "spanked" "chopped" "clouted" "punched"
+	"annihilated" "axed" "butcherd" "crushed" "damaged" "defaced" "eradicated" "erased" "exterminated"
+	"extinguished" "leveled" "liquidated" "maimed" "mutilated" "nuked" "nullified" "quashed" "ravished"
+	"razed" "ruined" "sabotaged" "shatterd" "smashed" "snuffed out" "stamped out"
+}
+
+bMotion_abstract_register "yesresps"
+bMotion_abstract_batchadd "yesresps" {
+	"no %%" "oh no it isn't %VAR{smiles}" "nope %VAR{smiles}" "rubbish %VAR{smiles}"
+	"i think not, fool %VAR{smiles}" "wrong!" "nmm%colen" "thingy" "omg"
+}
+
+bMotion_abstract_register "noresps"
+bMotion_abstract_batchadd "noresps" {
+	"tis" "oh yes it is %VAR{smiles}" "wrong!" "rubbish %VAR{smiles}"
+	"nonsense%colen" "i don't read your jibbering %VAR{smiles}"
+	"well cover me with %VAR{chocolates} and %VAR{dVerbs} my %VAR{bodypart}!"
+}
+
+bMotion_abstract_register "sound"
+bMotion_abstract_add "sound" "%VAR{sounds} %VAR{sounds} %VAR{sounds} %VAR{sounds} %VAR{sounds} %VAR{sounds}"
+bMotion_abstract_add "sound" "%VAR{sounds} %VAR{sounds} %VAR{sounds} %|oh! excuse me"
+bMotion_abstract_add "sound" "%VAR{sounds} %VAR{sounds}%|/giggles"
+bMotion_abstract_add "sound" "%VAR{sounds} %VAR{sounds}"
+
+bMotion_abstract_register "sounds"
+bMotion_abstract_batchadd "sounds" {
+	"click-click!" "klackety" "feep-feep" "*eeeem*" "honk honk!" "uh-uh-uh" "whommm" "eep"
+	"glop" "splish-splash-woah" "FOOM" "CLACK" "hiccup" "hee-haw" "splatter" "slap slap"
+	"arrg splutter" "aww" "*kaw*" "ZAP" "fweeee" "sploosh" "snip!"
+	"pap" "*choo choo choo*" "chuff!" "slip-beeeeeee" "smack" "oook-oook" "gah"
+	"gibber" "goo" "harrumph" "whip" "bzz-bzz-bzz-bzz" "splutter" "tweet tweet"
+	"ock" "wobble wobble!" "slash!"
 }
 
