@@ -31,12 +31,12 @@ proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
 }
 
 proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
-  if [regexp -nocase {^mm+(,. )*(.+)(\+{2})?} $text matches item] {
+  if [regexp -nocase {^mm+(,. )*(.+)(\+{2})?} $text matches discard1 item] {
     bMotion_flood_undo $nick
     bMotion_abstract_add "sillyThings" $item
 	
 		if {[rand 100] > 85} {
-			bMotionDoAction $channel $item "%VAR{betters}"
+				bMotionDoAction $channel $item "%VAR{betters}"
 		}
 	}
 }
@@ -74,4 +74,4 @@ bMotion_abstract_register "gotone"
 bMotion_abstract_batchadd "gotone" [list "I've already got one%|%BOT\[are you sure?\]%|yes yes, it's very nice" "I already have one of those."]
 
 bMotion_abstract_register "betters"
-bMotion_abstract_batchadd "betters" [list "mm%REPEAT{1:5:m}, %VAR{sillyThings}{strip}" "%VAR{sillyThings}{strip} > %%" "%% < %VAR{sillyThings}{strip}"]
+bMotion_abstract_batchadd "betters" [list "mm%REPEAT{1:5:m}, %VAR{sillyThings}{strip}" "%VAR{sillyThings}{strip} > %%" "%% < %VAR{sillyThings}{strip}" "%%++"]
