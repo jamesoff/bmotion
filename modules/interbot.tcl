@@ -203,7 +203,7 @@ proc bMotion_interbot_me_next { channel } {
 
   set channel [string tolower $channel]
 
-  catch
+  catch {
     if {$bMotion_interbot_nextbot_score($channel) < 0} {
       return 0
     }
