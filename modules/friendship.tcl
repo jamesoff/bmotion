@@ -152,11 +152,16 @@ proc setFriendship { nick friendship } {
 
   if {($handle == "*") || ($handle == "")} {
 
-    bMotion_putloglev 1 * "bMotion: couldn't find a handle for $nick to set friendship."
+    #perhaps it was already a handle
+    if {![validuser $nick]} {
+      bMotion_putloglev 1 * "bMotion: couldn't find a handle for $nick to set friendship."
 
-    return 50
+      return 50
 
+    }
+    set handle $nick
   }
+
 
 
   if {$friendship > 100} {
@@ -283,6 +288,28 @@ proc bMotionIsFriend { nick } {
 }    
 
 
+proc bMotion_friendship_tick { min hr a b c } {
+  bMotion_putloglev 3 * "bMotion_friendship_tick"
+
+  bMotion_putloglev d * "friendship tick"
+
+  set users [userlist]
+  foreach user $users {
+    set f [getuser $user XTRA friend]
+    if {$f != ""} {
+      bMotion_putloglev 4 * "$user is $f"
+      if {$f > 60} {
+        setuser $user XTRA friend [expr $f - 1]
+      }
+
+      if {$f < 40} {
+        setuser $user XTRA friend [expr $f + 1]
+      }
+    }
+  }
+}
+
+bind time - "00 * * * *" bMotion_friendship_tick
 
 bMotion_putloglev d * "bMotion: friendship module loaded"
 
