@@ -14,10 +14,23 @@ bMotion_plugin_add_complex "wins" "^${botnicks}(:?) (wins|exactly|precisely|perf
 
 proc bMotion_plugins_complex_wins { nick host handle channel text } {
   if [regexp -nocase "^${botnicks}(:?) (wins|exactly|precisely|perfect|nice one)\.?!?$" $text] {
-    bMotionDoAction $channel $nick "%VAR{notopic says yarrrrYARRRR bibble squeak. give me a welshman to nibble on"
+    bMotionDoAction $channel $nick "%VAR{wins}"
     bMotionGetHappy
     bMotionGetUnLonely
     driftFriendship $nick 1
     return 0
   }
 }
+
+set wins {
+  "victory for %me%colen"
+  "this victory strengthens the soul of %me!"
+  "%VAR{harhars}"
+  "%VAR{thanks}"
+  "wh%REPEAT{2:6:e}! do I get %VAR{sillyThings} now?"
+}
+
+bMotion_abstract_register "wins"
+bMotion_abstract_batchadd "wins" $wins
+unset $wins
+

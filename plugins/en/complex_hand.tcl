@@ -45,6 +45,8 @@ proc bMotion_plugin_complex_hand { nick host handle channel text } {
 
   if [string match -nocase "something" $item] {
     set item "%VAR{sillyThings}"
+  } elseif [string match -nocase "something." $item]{
+    set item "%VAR{sillyThings}"
   }
   bMotion_putloglev d * "bMotion: Handed $whom $item on $channel (from $nick)"
   bMotionDoAction $channel $nick "/gives $whom $item"

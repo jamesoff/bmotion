@@ -24,7 +24,7 @@
 ###############################################################################
 
 
-bMotion_plugin_add_complex "goodwork" "^(well done|good(work|show)),? %botnicks\.?$" 100 bMotion_plugin_complex_goodwork
+bMotion_plugin_add_complex "goodwork" "^(well done|good (work|show|job)),? %botnicks\.?$" 100 bMotion_plugin_complex_goodwork
 
 proc bMotion_plugin_complex_goodwork { nick host handle channel text } {
   bMotionDoAction $channel $nick "%VAR{harhars}"
