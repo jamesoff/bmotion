@@ -46,7 +46,7 @@ proc bMotion_plugin_output_english { channel line } {
       set line "[string toupper $first]$rest"
     }
 
-    if [regexp {[a-zA-Z0-9]$} $line] {
+    if [regexp -nocase {^[a-z].*[a-z0-9]$} $line] {
       append line "."
     }
   }
