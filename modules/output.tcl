@@ -530,7 +530,7 @@ proc bMotionGetRealName { nick { host "" }} {
   set realname [getuser $handle XTRA irl]
   if {$realname == ""} {
     #not set
-    bMotion_putlogleg 2 * "no IRL set, using nick"
+    bMotion_putloglev 2 * "no IRL set, using nick"
     return $nick
   }
   putloglev 2 * "bMotion: IRLs for $handle are $realname"
