@@ -13,7 +13,7 @@
 
 bMotion_plugin_add_action_complex "hops" "^hops (in|on)to %botnicks'?s lap" 100 bMotion_plugin_complex_action_hops "en"
 
-proc bMotion_plugin_complex_action_makes { nick host handle channel text } {
+proc bMotion_plugin_complex_action_hops { nick host handle channel text } {
   if [bMotionLike $nick $host] {
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{rarrs}"
     bMotionGetHorny
