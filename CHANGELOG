@@ -7,6 +7,9 @@ bMotion CHANGELOG
 
 * fixed [ 680856 ] irc_nick_away plugin returns wrong values
 * fixed [ 729155 ] $nick error
+* fixed [ 726241 ] Techsupport does not use elections
++ added new abstract management system
+* tidied up code in trivia plugin
 
 2003/04/13
 v0.0.6
