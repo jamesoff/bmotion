@@ -211,10 +211,7 @@ proc bMotion_plugin_complex_action_hands_pie { channel nick } {
 
 proc bMotion_plugin_complex_action_hands_spliff { channel nick handle } {
   global mood
-  if {![matchattr $handle I]} {
-    putserv "NOTICE $nick :Sorry, I don't know you well enough to take stuff like that off you."
-    return 1
-  }
+
   driftFriendship $nick 1
   bMotion_putloglev 1 * "bMotion: ... and it's mind-altering drugs! WOOHOO!"
   bMotion_putloglev 1 * "bMotion: ...... wheeeeeeeeeeeeeeeeeeeeeeeeeeeeeee...."
