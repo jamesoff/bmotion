@@ -186,7 +186,9 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
   bMotion_putloglev 3 * "bMotionDoInterpolation: line = $line, nick = $nick, moreText = $moreText, channel = $channel"
   global botnick bMotionCache
 
-  set line [bMotionInsertString $line "%noun" "%VAR{sillyThings}"]
+  if [string match "*%noun*" $line] {
+    set line [bMotionInsertString $line "%noun" "%VAR{sillyThings}"]
+  }
 
   set loops 0
   while {[regexp "%VAR\{(.+?)\}" $line matches BOOM]} {
@@ -204,6 +206,9 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
     } else {
       #insert old style
       set line [bMotionInsertString $line "%VAR\{$BOOM\}" $newText]
+    }
+    if [string match "*%noun*" $line] {
+      set line [bMotionInsertString $line "%noun" "%VAR{sillyThings}"]
     }
   }
 
