@@ -185,10 +185,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0}} {
 proc bMotionDoInterpolation { line nick moreText { channel "" } } {
   global botnick bMotionCache
 
-  #drop out immediately if this is a %BOT
-  #if [regexp -nocase "^%BOT" $line] {
-  #  return $line
-  #}
+  set line [bMotionInsertString $line "%noun" "%VAR{sillyThings}"]
 
   set loops 0
   while {[regexp "%VAR\{(.+?)\}" $line matches BOOM]} {
@@ -237,7 +234,6 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
   set line [bMotionInsertString $line "%pronoun" [getPronoun]]
   set line [bMotionInsertString $line "%himherself" [getPronoun]]
   set line [bMotionInsertString $line "%me" $botnick]
-  set line [bMotionInsertString $line "%noun" [bMotion_abstract_get "sillyThings"]]
   set line [bMotionInsertString $line "%colen" [bMotionGetColenChars]]
   set line [bMotionInsertString $line "%hishers" [getHisHers]]
   set line [bMotionInsertString $line "%heshe" [getHeShe]]
