@@ -170,10 +170,6 @@ proc bMotion_stats_handler { idx text } {
 		bMotion_putloglev 1 * "got version update: $text"
 		regexp "latest version is (.+)" $text matches bMotion_stats_latest
 		bMotion_stats_write
-		global owner
-		catch {
-			storenote "bMotion" $owner "A new version of bMotion is available ($bMotionVersion < $bMotion_stats_latest)" -1
-		}
 		bMotion_stats_version_cmp
 		if {$bMotion_stats_enabled == 0} {
 			#we're only doing version checking
@@ -307,6 +303,11 @@ proc bMotion_stats_version_cmp { } {
 	#compare!
 	if {$lat_version > $my_version} {
 		putlog "NEW VERSION OF bMOTION AVAILABLE: $bMotion_stats_latest"
+		global owner
+		catch {
+			storenote "bMotion" $owner "A new version of bMotion is available ($bMotionVersion < $bMotion_stats_latest)" -1
+		}
+
 	}
 }
 
