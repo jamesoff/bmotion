@@ -8,19 +8,28 @@ bMotion CHANGELOG
 * fixed [ 680856 ] irc_nick_away plugin returns wrong values
 * fixed [ 729155 ] $nick error
 * fixed [ 726241 ] Techsupport does not use elections
-+ added new abstract management system
 * tidied up code in trivia plugin
-+ added feature request [ 727005 ] courtmarital... with a kick. settings for it are in the complex_startrek plugin file
 * moved colen-chars handler to plugin
-+ added output_pinky plugin
 * added [ 749777 ] specify time for shutting up
-+ taught the trivia plugin to guess dates too
 * fixed long-standing "Tcl error [bMotion_event_action]: can't read "newnick": no such variable" error after 2am inspriation
-+ added support for %REPEAT in abstracts: %REPEAT{mincount:maxcount:text} will repeat text a random number of times in the given range
-*   `- updated some abstracts to use %REPEAT{} (e.g. "wh%REPEAT{3:6:e}")
 * track most recent complex plugin fired
 * complex_smilies refuses to fire twice in a row
+* fixed [ 772777 ] /action hands <bot> a <whatever> | bot replies via NOTICE
+*   `- no longer check for +I to take drugs of someone, let flood checking handle abuse
+* fixed [ 774721 ] botnicks check can break in courtmartial
+* fixed [ 782346 ] Can't read bMotionInfo(adminSilence,CHANNEL)
+* changed probability of the away plugin firing
+* diagnostic output goes to putlog not loglev d
+
++ added feature request [ 727005 ] courtmarital... with a kick. settings for it are in the complex_startrek plugin file
++ added output_pinky plugin
++ taught the trivia plugin to guess dates too
++ added support for %REPEAT in abstracts: %REPEAT{mincount:maxcount:text} will repeat text a random number of times in the given range
+*   `- updated some abstracts to use %REPEAT{} (e.g. "wh%REPEAT{3:6:e}")
 + added complex_woot
++ implemented [ 747502 ] Public Away Option (added new settings to settings file)
++ bMotion gains a jeffk output plugin...
+
 
 2003/04/13
 v0.0.6
