@@ -140,9 +140,7 @@ proc bMotion_event_main {nick host handle channel text} {
   }
 
   ## Global definitions ##
-  global mood botnick gretings welcomes sorryoks
-  global loveresponses boreds upyourbums smiles
-  global arrs botnick arrcachenick arrcachearr
+  global mood botnick
   global bMotionLastEvent bMotionSettings botnicks bMotionCache bMotionInfo
   global bMotionThisText bMotionOriginalInput
 
@@ -164,11 +162,9 @@ proc bMotion_event_main {nick host handle channel text} {
 
   bMotion_putloglev 4 * "bMotion: entering bMotion_event_main with nick: $nick host: $host handle: $handle chan: $channel text: $text"
 
-  #set nick [bMotion_cleanNick $nick $handle]
-
   set bMotionOriginalInput $text
 
-  #filter bold codes out
+  #filter bold, etc codes out
   regsub -all "\002" $text "" text
   regsub -all "\022" $text "" text
   regsub -all "\037" $text "" text
@@ -180,12 +176,13 @@ proc bMotion_event_main {nick host handle channel text} {
     set botnicks "($botnick|$bMotionSettings(botnicks)) ?"
   }
 
+  #does this look like a paste?
+  if [regexp -nocase {^[0-9\[<(@+%]} $text] {
+    return 0
+  }
+
   ## Update the channel idle tracker ##
   set bMotionLastEvent($channel) [clock seconds]
-
-  #ignore lines with <nobotnick> tags
-  if [regexp -nocase "\</?no$botnicks\>" $text] {return 0}
-  if [regexp -nocase "\<no$botnicks\>" $text] {return 0}
 
   bMotion_counter_incr "events" "lines"
 
@@ -208,7 +205,6 @@ proc bMotion_event_main {nick host handle channel text} {
 
   ## Dump double+ spaces #
   regsub -all "  +" $text " " text
-
 
   ## Update the last-talked flag for the join system
   bMotion_plugins_settings_set "system:join" "lasttalk" $channel "" 0
@@ -257,7 +253,6 @@ proc bMotion_event_main {nick host handle channel text} {
         break
       }
     }
-    return 0
   }
 
 
@@ -281,30 +276,33 @@ proc bMotion_event_main {nick host handle channel text} {
     putlog "bMotion: $nick asked me to rehash in $channel"
     global bMotionCache bMotion_testing bMotionRoot
 
-    #check we're not going to die
-    catch {
-      bMotion_putloglev d * "bMotion: Testing new code..."
-      set bMotion_testing 1
-      source "$bMotionRoot/bMotion.tcl"
-    } msg
+    if [matchattr $handle m] {
+      #check we're not going to die
+      catch {
+        bMotion_putloglev d * "bMotion: Testing new code..."
+        set bMotion_testing 1
+        source "$bMotionRoot/bMotion.tcl"
+      } msg
 
-    if {$msg != ""} {
-      putlog "bMotion: FATAL: Cannot rehash due to error: $msg"
-      putserv "NOTICE $nick :FATAL: Cannot rehash: $msg"
-      putchan $channel "A tremendous error occurred!"
-      return 0
-    } else {
-      bMotion_putloglev d * "bMotion: New code ok, rehashing..."
-      set bMotionCache(rehash) $channel
-      set bMotion_testing 0
-      if {[matchattr $handle m]} {
-        putchan $channel [bMotionDoInterpolation "%VAR{rehashes}" "" ""]
-        rehash
+      if {$msg != ""} {
+        putlog "bMotion: FATAL: Cannot rehash due to error: $msg"
+        putserv "NOTICE $nick :FATAL: Cannot rehash: $msg"
+        putchan $channel "A tremendous error occurred!"
         return 0
+      } else {
+        bMotion_putloglev d * "bMotion: New code ok, rehashing..."
+        set bMotionCache(rehash) $channel
+        set bMotion_testing 0
+        if {[matchattr $handle m]} {
+          putchan $channel [bMotionDoInterpolation "%VAR{rehashes}" "" ""]
+          rehash
+          return 0
+        }
       }
+    } else {
+      bMotionDoAction $channel $nick "I think not."
+      return 0
     }
-    bMotionDoAction $channel $nick "I think not."
-    return 0
   }
   ## /Reload config files
 
@@ -352,114 +350,6 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }
   ## /shutup
-
-  ## team rocket :D
-  if [regexp -nocase "^Prepare for trouble!?$" $text] {
-    if {$bMotionInfo(balefire) != 1} { return 0 }
-    if {$bMotionCache(teamRocket) != ""} {
-      if {$bMotionCache(teamRocket) != $nick} {
-        putserv "NOTICE $nick :Sorry, I'm already performing the Team Rocket chant with $bMotionCache(teamRocket)"
-        return 0
-      }
-      putserv "NOTICE $nick :Sorry, I'm already performing the Team Rocket chant with $bMotionCache(teamRocket)"
-      return 0
-    }
-    set bMotionCache(teamRocket) $nick
-    timer 3 { bMotionEndTeamRocket }
-    bMotionDoAction $channel $nick "...and make it double"
-    return 0
-  }
-
-  if [regexp -nocase "^\.*and make it double!?$" $text] {
-    if {$bMotionInfo(balefire) != 1} { return 0 }
-    if {$bMotionCache(teamRocket) != $nick} {
-      putserv "NOTICE $nick :Sorry, I'm already performing the Team Rocket chant with $bMotionCache(teamRocket)"
-      return 0
-    }
-    if {$bMotionCache(teamRocket) == ""} {
-      return 0
-    }
-    bMotionDoAction $channel $nick "To unite all people within our nation"
-    return 0
-  }
-
-  if [regexp -nocase "^To protect the world from devastation!?$" $text] {
-    if {$bMotionInfo(balefire) != 1} { return 0 }
-    if {$bMotionCache(teamRocket) != $nick} {
-      putserv "NOTICE $nick :Sorry, I'm already performing the Team Rocket chant with $bMotionCache(teamRocket)"
-      return 0
-    }
-    if {$bMotionCache(teamRocket) == ""} {
-      return 0
-    }
-    bMotionDoAction $channel $nick "To unite all people within our nation"
-    return 0
-  }
-
-  if [regexp -nocase "^To unite all people within our nation!?$" $text] {
-    if {$bMotionInfo(balefire) != 1} { return 0 }
-    if {$bMotionCache(teamRocket) != $nick} {
-      putserv "NOTICE $nick :Sorry, I'm already performing the Team Rocket chant with $bMotionCache(teamRocket)"
-      return 0
-    }
-    if {$bMotionCache(teamRocket) == ""} {
-      return 0
-    }
-    bMotionDoAction $channel $nick "to denounce the evil of truth and love"
-    return 0
-  }
-
-  if [regexp -nocase "^to denounce the evils? of truth and love!?$" $text] {
-    if {$bMotionInfo(balefire) != 1} { return 0 }
-    if {$bMotionCache(teamRocket) != $nick} {
-      putserv "NOTICE $nick :Sorry, I'm already performing the Team Rocket chant with $bMotionCache(teamRocket)"
-      return 0
-    }
-    if {$bMotionCache(teamRocket) == ""} {
-      return 0
-    }
-    bMotionDoAction $channel $nick "to extend our reach to the stars above"
-    return 0
-  }
-
-  if [regexp -nocase "^to extend our reach to the stars above!?$" $text] {
-    if {$bMotionInfo(balefire) != 1} { return 0 }
-    if {$bMotionCache(teamRocket) != $nick} {
-      putserv "NOTICE $nick :Sorry, I'm already performing the Team Rocket chant with $bMotionCache(teamRocket)"
-      return 0
-    }
-    if {$bMotionCache(teamRocket) == ""} {
-      return 0
-    }
-    bMotionDoAction $channel $nick "Jessie"
-    return 0
-  }
-
-  if [regexp -nocase "^(jessie|$nick)!?$" $text] {
-    if {$bMotionInfo(balefire) != 1} { return 0 }
-    if {$bMotionCache(teamRocket) != $nick} {
-      return 0
-    }
-    if {$bMotionCache(teamRocket) == ""} {
-      return 0
-    }
-    bMotionDoAction $channel $nick "Jame.. er, $botnick"
-    return 0
-  }
-
-  if [regexp -nocase "^team rocket blast off at the speed of light!?$" $text] {
-    if {$bMotionInfo(balefire) != 1} { return 0 }
-    if {$bMotionCache(teamRocket) != $nick} {
-      putserv "NOTICE $nick :Sorry, I'm already performing the Team Rocket chant with $bMotionCache(teamRocket)"
-    }
-    if {$bMotionCache(teamRocket) == ""} {
-      return 0
-    }
-    bMotionDoAction $channel $nick "Surrender now or prepare to fight!"
-    set bMotionCache(teamRocket) ""
-    return 0
-  }
-  ## /team rocket
 
   ## This is the clever bit. If the text is "*blah blah blah*" reinject it into bMotion as an action ##
   if [regexp {^\*(.+)\*$} $text blah action] {
