@@ -153,7 +153,7 @@ proc bMotion_plugin_complex_question_what { nick channel host question } {
         return 1
       }
       #let's try to process this with facts
-      if [regexp -nocase {is ([^ ]+)} $question ignore term] {
+      if [regexp -nocase {is (an?|the )?([^ ]+)} $question ignore ignore2 term] {
         set term [string map {"?" ""} $term]
         catch {
           set term [string tolower $term]
