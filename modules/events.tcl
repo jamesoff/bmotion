@@ -521,15 +521,6 @@ proc bMotion_event_main {nick host handle channel text} {
 
   #ouch (now a simple plugin)
 
-  if [regexp -nocase {[[:<:]]a/?s/?l[[:>:]]} $text] {
-    if {[bMotionTalkingToMe $text] || [rand 2]} {
-      set age [expr [rand 20] + 13]
-      global bMotionInfo
-      bMotionDoAction $channel $nick "%%: $age/$bMotionInfo(gender)/%VAR{locations}"
-      return 0
-    }
-  }
-
   ## What question targeted at me
   if { [regexp -nocase "^$botnicks,?:? what('?s)?(.+)" $text matches botn s question] ||
        [regexp -nocase "^what('?s)? .* $botnicks ?\\?" $text matches s question botn] } {
