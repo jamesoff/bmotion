@@ -20,7 +20,7 @@ proc bMotion_plugin_complex_action_smacks { nick host handle channel text } {
   		bMotionDoAction $channel $nick "%VAR{trouts}"
   		return 1
   	}
-    bMotionGetUnHappy
+    bMotionGetSad
     bMotionGetUnLonely
     driftFriendship $nick -2
     if [rand 2] {
