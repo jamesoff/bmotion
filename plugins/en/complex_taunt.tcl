@@ -17,8 +17,11 @@ bMotion_plugin_add_complex "taunt" "^!taunt" 100 bMotion_plugin_complex_taunt "e
 proc bMotion_plugin_complex_taunt {nick host handle channel text} {
   global randomTauntPrefixes randomTauntSuffixes botnick
 
-  set prefix ""
+  if {![bMotion_interbot_me_next $channel]} {
+  	return 1
+  }
 
+  set prefix ""
   regsub -nocase "!taunt " $text "" text
 
   if [regexp -nocase $botnick $text] {
@@ -26,7 +29,6 @@ proc bMotion_plugin_complex_taunt {nick host handle channel text} {
   }
 
   if [regexp "(.+)" $text] {
-    
     #check for plural
     if {[string index $text end] == "s"} {
       set plural "s"
@@ -42,59 +44,114 @@ proc bMotion_plugin_complex_taunt {nick host handle channel text} {
   }
 
   bMotionDoAction $channel "" "$prefix [pickRandom $randomTauntPrefixes] [pickRandom $randomTauntSuffixes]$plural"
-  bMotion_flood_undo $nick
+  #bMotion_flood_undo $nick
   return 0
+
 }
+
+
+
 
 
 ### and our abstracts...
 
+
+
 set randomTauntPrefixes {
+
   "idiot"
+
   "stupid"
+
   "minging"
+
   "incompetent"
+
   "foolish"
+
   "silly"
+
   "prancing"
+
   "dancing"
+
   "buffoonesque"
+
   "horizontally-enhanced"
+
   "special"
+
   "Welsh"
+
   "Northern"
+
   "Southern"
+
   "fishguts"
+
   "imbecile"
+
   "credulous"
+
   "cretinous"
+
   "naughty"
+
   "disreputable"
+
   "absurd"
+
   "capricious"
+
   "lemon-flavoured"
+
 }
 
+
+
 set randomTauntSuffixes {
+
   "fool"
+
   "idiot"
+
   "buffoon"
+
   "mingbeast"
+
   "incompetent"
+
   "loser"
+
   "monstar"
+
   "foo'"
+
   "woolhead"
+
   "kenneth"
+
   "taunt"
+
   "individual"
+
   "failure"
+
   "imbecile"
+
   "cretin"
+
   "chap"
+
   "waste of space"
+
   "joker"
+
   "drone"
+
   "sailor"
+
   "moron"
+
 }
+
