@@ -16,7 +16,7 @@
 bMotion_plugin_add_complex "trivia1" {^===== Question .+ =====$} 100 bMotion_plugin_complex_trivia_1 "en"
 
 #[@   fluffy] Hint: _ _ _ _ _ _ _ _ _
-bMotion_plugin_add_complex "trivia2" {^Hint:} 85 bMotion_plugin_complex_trivia_2 "en"
+bMotion_plugin_add_complex "trivia2" {^Hint:} 50 bMotion_plugin_complex_trivia_2 "en"
 
 #[      zeal] Name The Year: Calvin Coolidge, 30th US President, died.
 bMotion_plugin_add_complex "trivia4" "^Name the year:" 100 bMotion_plugin_complex_trivia_4 "en"
@@ -33,6 +33,7 @@ proc bMotion_plugin_complex_trivia_1 { nick host handle channel text } {
   bMotion_plugins_settings_set "trivia" "nick" "" "" $nick
   bMotion_plugins_settings_set "trivia" "channel" "" "" $channel
   bMotion_plugins_settings_set "trivia" "type" "" "" ""
+  bMotion_plugins_settings_set "trivia" "played" "" "" 0
   bMotion_putloglev 2 * "Detected start of trivia round"
   bMotion_flood_clear $nick
 }
@@ -110,7 +111,7 @@ proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
     } else {
       #my nick isn't, so is "correct" (someone else got it)
       if {![regexp "correct answer" $text]} {
-        if {![rand 10]} {
+        if {(![rand 10]) && [bMotion_plugins_settings_get "trivia" "type" "" ""]} {
           bMotionDoAction $channel $nick "%VAR{trivia_loses}"
         }
       }
@@ -217,6 +218,7 @@ proc bMotion_plugin_complex_trivia_guess { nick host handle channel text } {
       bMotionDoAction $channel $nick $answer nothing 1
       putloglev d * "answered trivia with $answer"
       bMotion_plugins_settings_set "trivia" "last" "" "" $answer
+      bMotion_plugins_settings_set "trivia" "played" "" "" 1
 
       #since we have an answer and it's different, let's have another guess shortly
       bMotion_plugins_settings_set "trivia" "hint" "" "" $bMotionOriginalInput
