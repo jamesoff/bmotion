@@ -19,7 +19,8 @@ proc bMotion_plugin_complex_snap { nick host handle channel text } {
   if {($text == [bMotion_plugins_settings_get "complex:snap" $channel "" "text"]) &&
       ($nick != [bMotion_plugins_settings_get "complex:snap" $channel "" "nick"])} {
         if [rand 3] {
-          bMotionDoAction $channel "" "%VAR{snaps}"
+          set othernick [bMotion_plugins_settings_get "complex:snap" $channel "" "nick"]
+          bMotionDoAction $channel $nick "%VAR{snaps}" $othernick
           bMotion_plugins_settings_set "complex:snap" $channel "" "text" ""
           bMotion_plugins_settings_set "complex:snap" $channel "" "nick" ""
         }
@@ -29,4 +30,4 @@ proc bMotion_plugin_complex_snap { nick host handle channel text } {
 }
 
 bMotion_abstract_register "snaps"
-bMotion_abstract_batchadd "snaps" [list "o snap" "SNAP" "SNAP!"]
+bMotion_abstract_batchadd "snaps" [list "o snap" "SNAP" "SNAP!" "/wins %% and %2"]
