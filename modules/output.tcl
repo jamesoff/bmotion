@@ -287,6 +287,15 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0}} {
     set line [bMotionInsertString $line "%OWNER\{$BOOM\}" [bMotionMakePossessive $BOOM]]
   }
 
+  set loops 0
+  while {[regexp -nocase "%REPEAT\{(.+?)\}" $line matches BOOM]} {
+    incr loops
+    if {$loops > 10} {
+      putlog "bMotion: ALERT! looping too much in %REPEAT code with $line"
+      set line "/has a tremendous error while trying to sort something out :("
+    }
+    set line [bMotionInsertString $line "%REPEAT\\\{$BOOM\\\}" [bMotionMakeRepeat $BOOM]]
+  }
 
   #if it's a bot , put it on the queue with no more processing
   if [regexp -nocase {%(BOT)\[(.+?)\]} $line matches botcmd cmd] {
@@ -676,5 +685,15 @@ proc bMotionMakePossessive { text { altMode 0 }} {
   return "$text's"
 }
 
+proc bMotionMakeRepeat { text } {
+  if [regexp {([0-9]+):([0-9]+):(.+)} $text matches min max repeat] {
+    set diff [expr $max - $min]
+    set count [rand $diff]
+    set repstring [string repeat $repeat $count]
+    append repstring [string repeat $repeat $min]
+    return $repstring
+  }
+  return ""
+}
 
 bMotion_putloglev d * "bMotion: output module loaded"
