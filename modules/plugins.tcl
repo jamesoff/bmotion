@@ -324,6 +324,7 @@ proc bMotion_plugin_find_action_complex { text lang } {
     if {[string match $language $lang] || ($language == "any")|| ($language == "all")} {
       set rexp [bMotionInsertString $rexp "%botnicks" "${botnicks}"]
       if [regexp -nocase $rexp $text] {
+        bMotion_putloglev 4 * "matched: $key"
         set c [rand 100]
         if {$chance > $c} {
           lappend result $callback
