@@ -17,13 +17,16 @@ bMotion_plugin_add_complex "question" {[?>/]$} 100 bMotion_plugin_complex_questi
 
 proc bMotion_plugin_complex_question { nick host handle channel text } {
 
-  global botnicks
+  global botnicks bMotionFacts
 
   regsub {(.+)[>\/]$} $text {\1?} text
 
   ## What question targeted at me
   if { [regexp -nocase "^$botnicks,?:? what('?s)?(.+)" $text matches botn s question] ||
        [regexp -nocase "^what('?s)? (.*) $botnicks ?\\?" $text matches s question botn] } {
+    if [regexp -nocase {what('s| is) ([^ ]+)\\??} $text matches ignore term] {
+      set question "is $term"
+    }
     bMotion_plugin_complex_question_what $nick $channel $host $question
     return 1
   }
@@ -99,7 +102,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
 }
 
 proc bMotion_plugin_complex_question_what { nick channel host question } {
-    global bMotionInfo
+    global bMotionInfo bMotionFacts
     #see if we know the answer to it
     if {$question != ""} {
       if [regexp -nocase {[[:<:]]a/?s/?l[[:>:]]} $question] {
@@ -113,8 +116,22 @@ proc bMotion_plugin_complex_question_what { nick channel host question } {
         bMotion_plugin_complex_question_when $nick $channel $host
         return 1
       }
+      #let's try to process this with facts
+      if [regexp -nocase {is ([^ ]+)} $question ignore term] {
+        set term [string map {"?" ""} $term]
+        catch {
+          set term [string tolower $term]
+          putlog "looking for what,$term"
+          set answers $bMotionFacts(what,$term)
+          putlog $answers
+          bMotionDoAction $channel [pickRandom $answers] "%VAR{question_what_fact_wrapper}"
+          return 1
+        } err
+        if {$err == 1} {
+          return 1
+        }
+      }
     }
-
     #generic answer to what
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWhats}"
 }
@@ -158,4 +175,12 @@ proc bMotion_plugin_complex_question_many { nick channel host } {
 proc bMotion_plugin_complex_question_how { nick channel host } {
   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHows}"
   return 1
+}
+
+set question_what_fact_wrapper {
+  "%%"
+  "%% i guess"
+  "i think it's %%"
+  "%% i think"
+  "%% i suppose"
 }
