@@ -23,10 +23,6 @@ proc bMotion_plugin_complex_action_smacks { nick host handle channel text } {
     bMotionGetSad
     bMotionGetUnLonely
     driftFriendship $nick -2
-    if [rand 2] {
-      frightened $nick $channel
-      return 1
-    }
     bMotionDoAction $channel $nick "%VAR{slapped}"
     return 1
   }
@@ -44,15 +40,15 @@ bMotion_abstract_batchadd "trouts" {
 
 bMotion_abstract_register "slapped"
 bMotion_abstract_batchadd "slapped" {
-	"ow hey! that was my %VAR{count} %VAR{bodyparts} %VAR{unsmiles}"
-	"ow! that was my %VAR{count} %VAR{bodyparts} %VAR{unsmiles}"
+	"ow hey! that was my %VAR{counts} %VAR{bodypart} %VAR{unsmiles}"
+	"ow! that was my %VAR{counts} %VAR{bodypart} %VAR{unsmiles}"
 	"they took my squeezing arm!%|WHY MY SQUEEZING ARM?!?%|WHHHYYYYY?"
 	"/%VAR{smacks} %% back with %VAR{sillyThings}"
 	"/%VAR{smacks} %% back with %ruser"
-	"ow! my %VAR{bodyparts}!"
-	"ow! my %VAR{bodyparts}! that was my %VAR{counts} one"
-	"arrgh my %VAR{bodyparts}! now i only have %NUMBER{50} left"
-
+	"ow! my %VAR{bodypart}!"
+	"ow! my %VAR{bodypart}! that was my %VAR{counts} one"
+	"arrgh my %VAR{bodypart}! now i only have %NUMBER{50} left"
+	"%VAR{frightens}"
 }
 
 bMotion_abstract_register "counts"
