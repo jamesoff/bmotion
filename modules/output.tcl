@@ -201,10 +201,10 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
     #see if we have a new-style abstract available
     set newText [bMotion_abstract_get $BOOM]
     if {$newText == ""} {
+      #insert old style
       set var [subst $$BOOM]
       set line [bMotionInsertString $line "%VAR\{$BOOM\}" [pickRandom $var]]
-    } else {
-      #insert old style
+    } else {      
       set line [bMotionInsertString $line "%VAR\{$BOOM\}" $newText]
     }
     if [string match "*%noun*" $line] {
@@ -294,6 +294,8 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0}} {
     return 0
   }
 
+  set ruser ""
+
   #choose a new user?
   if [regexp {^%PICKUSER\[(.+)?\]} $line matches conditions] {
     set ruser [bMotionChooseRandomUser $channel $conditions]
@@ -305,14 +307,26 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0}} {
   #safe to do these here
   #try to get sensible names
   #set uhost [getchanhost $bMotionCache(randomUser)]
-  set ruser [bMotionGetRealName $bMotionCache(randomUser)]
-  set line [bMotionInsertString $line "%ruser" $ruser]
+
+  catch {
+    set ruser [bMotionGetRealName $bMotionCache(randomUser)]
+  }
+
+  if {$ruser != ""} {
+    set line [bMotionInsertString $line "%ruser" $ruser]
+  }
 
   #set uhost [getchanhost $bMotionCache(remoteBot)]
   #putloglev 3 * "bMotion: remote bothost = $uhost"
-  set rbot [bMotionGetRealName $bMotionCache(remoteBot)]
+  set rbot ""
+  catch {
+    set rbot [bMotionGetRealName $bMotionCache(remoteBot)]
   #putloglev 3 * "bMotion: remote bot nick = $rbot"
-  set line [bMotionInsertString $line "%rbot" $rbot]
+  }
+
+  if {$rbot != ""} {
+    set line [bMotionInsertString $line "%rbot" $rbot]
+  }
 
   set line [bMotionInterpolation2 $line]
 
