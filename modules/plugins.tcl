@@ -208,7 +208,7 @@ proc bMotion_plugin_find_management_help { name } {
   while {[set key [array nextelement bMotion_plugins_management $s]] != ""} {
     if {$key == "dummy"} { continue }
     if [string match -nocase $name $key] {
-    	set blah [split $val "¦"]
+    	set blah [split $bMotion_plugins_management($key) "¦"]
   	  set helpcallback [lindex $blah 3]
   	  array donesearch bMotion_plugins_management $s
 	    return $hellcallback
