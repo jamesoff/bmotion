@@ -132,7 +132,10 @@ proc bMotion_event_main {nick host handle channel text} {
   }
 
   ## Update the channel idle tracker ##
-  set bMotionOldIdle [expr [clock seconds] - $bMotionLastEvent($channel)]
+  set bMotionOldIdle 0
+  catch {
+    set bMotionOldIdle [expr [clock seconds] - $bMotionLastEvent($channel)]
+  }
   set bMotionLastEvent($channel) [clock seconds]
   
   #ignore other bots
@@ -1110,55 +1113,6 @@ proc bMotion_event_nick { nick host handle channel newnick } {
     return 0
   }
 
-  if {[regexp -nocase "(away|sleep|gone|afk|zzz+|bed|slaap|w(0|e|3|o)rk|school)" $nick] && ![regexp -nocase "(away|sleep|gone|afk|slaap|w(0|e|3|o)rk|school)" $newnick]} {
-    set chance [rand 5]
-    if {$chance > 2} {
-      global welcomeBacks
-
-      #let's do some cool stuff
-      #if they came back from sleep, it's morning
-      if [regexp -nocase "(sleep|bed|zzz+|slaap)" $nick] {
-        global goodMornings
-
-        bMotionDoAction $channel $newnick [pickRandom $goodMornings]
-        return 0
-      }
-      bMotionDoAction $channel $newnick [pickRandom $welcomeBacks]
-    }
-    set bMotionCache(lastDoneFor) $nick
-    set bMotionCache(lastGreeted) $nick
-    return 0
-  }
-
-  if [regexp -nocase "(away|sleep|gone|afk|zzz+|bed|slaap)" $newnick] {
-    set chance [rand 5]
-    if {$chance > 2} {
-      global cyas
-      #work out if it's a special away
-
-      #work
-      if [regexp -nocase "w(o|e|3|0)rk" $newnick] {
-        global awayWorks
-        bMotionDoAction $channel $nick [pickRandom $awayWorks]
-        return 0
-      }
-
-      #sleep
-      if [regexp -nocase "(sleep|bed|zzz+|slaap)" $newnick] {
-        global goodnights
-        bMotionDoAction $channel $nick [pickRandom $goodnights]
-        if [bMotionLike $nick $host] {
-          if [rand 2] {return 0}
-          bMotionDoAction $channel $nick "*hugs*"
-        }
-        return 0
-      }
-
-      bMotionDoAction $channel $nick [pickRandom $cyas]
-      return 0
-    }
-  } 
-
   global bMotionInfo
   ## Run the nick action plugins ##
   set response [bMotion_plugin_find_nick_action $newnick $bMotionInfo(language)]
@@ -1169,17 +1123,16 @@ proc bMotion_event_nick { nick host handle channel newnick } {
    
       bMotion_putloglev 1 * "bMotion: matched nick change plugin, running callback $callback"
       set result [$callback $nick $host $handle $channel $newnick ]
-      if {$result == ""} {
+      if {$result == 1} {
         bMotion_putloglev 2 * "bMotion: $callback returned 1, breaking out..."
         break
       }
-      bMotionDoAction $channel "" $result
     }
     return 0
   }
 
 }
-#emd of nick handler
+#end of nick handler
 
 
 bMotion_putloglev d * "bMotion: events module loaded"
