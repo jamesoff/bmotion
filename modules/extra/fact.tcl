@@ -154,5 +154,76 @@ catch {
 
 }
 
+proc bMotion_plugin_management_fact { handle { arg "" }} {
+
+  global bMotionFacts
+
+  #fact show <type> <name>
+  if [regexp -nocase {show ([^ ]+) ([^ ]+)} $arg matches t name] {
+    set known $bMotionFacts($t,$name)
+    bMotion_putadmin "Known '$t' facts about: $name"
+    set count 0
+    foreach fact $known {
+      bMotion_putadmin "$count: $fact"
+      incr count
+    }
+    return 0
+  }
+
+  #status
+  if [regexp -nocase {status} $arg] {
+    set items [lsort [array names bMotionFacts]]
+    set itemcount 0
+    set factcount 0
+    #bMotion_putadmin "Known facts:"
+    foreach item $items {
+      #bMotion_putadmin "$item ([llength $bMotionFacts($item)])"
+      incr itemcount
+      incr factcount [llength $bMotionFacts($item)]
+    }
+    bMotion_putadmin "Total: $factcount facts about $itemcount items"
+    return 0
+  }
+  
+  if [regexp -nocase {list (.+)} $arg matches re] {
+  	bMotion_putadmin "Items matching /$re/:"
+  	bMotion_putadmin "  <not implemented yet>"
+  	return 0
+  }
+  
+  if [regexp -nocase {purge (.+)} $arg matches re] {
+  	bMotion_putadmin "Deleting items matching /$re/:"
+  	bMotion_putadmin "  <not implemented yet>"
+  	return 0
+  }
+  
+  if [regexp -nocase {delete ([^ ]+) (.+)} $arg matches item re] {
+  	bMotion_putadmin "Deleting facts matching /$re/ from item $item:"
+  	bMotion_putadmin "  <not implemented yet>"
+  	return 0
+  }
+  
+  #all else fails, list help
+  bMotion_putadmin {use: fact [show <type> <name>|status]}
+  return 0
+}
+
+proc bMotion_plugin_management_fact_help { } {
+	bMotion_putadmin "Manage the fact subsystem:"
+	bMotion_putadmin "  .bmotion fact status"
+	bMotion_putadmin "    Show a summary of facts (lots of output!)"
+	bMotion_putadmin "  .bmotion fact show <type> <key>"
+	bMotion_putadmin "    Show defined values for <key>"
+	bMotion_putadmin "    Currently <type> is only 'what'"
+	bMotion_putadmin "  .bmotion fact list <regexp>"
+	bMotion_putadmin "    List all items matching the regexp"
+	bMotion_putadmin "  .bmotion fact purge <regexp>"
+	bMotion_putadmin "    Deletes ALL facts known about ALL mataching items"
+	bMotion_putadmin "  .bmotion fact delete <item> <regexp>"
+	bMotion_putadmin "    Deletes all matching facts about <item>"
+}
+
+# register the plugin
+bMotion_plugin_add_management "fact" "^fact" n "bMotion_plugin_management_fact" "any" bMotion_plugin_management_fact_help
 
 putlog "loaded fact module"
