@@ -108,12 +108,6 @@ if {$bMotion_testing == 1} {
 }
 source "$bMotionModules/output.tcl"
 
-# load mood functions
-if {$bMotion_testing == 1} {
-  putlog "... loading mood"
-}
-source "$bMotionModules/mood.tcl"
-
 # load event functions
 if {$bMotion_testing == 1} {
   putlog "... loading events"
@@ -154,6 +148,12 @@ if {$bMotion_testing == 1} {
   putlog "... loading plugins"
 }
 source "$bMotionModules/plugins.tcl"
+
+# load mood functions
+if {$bMotion_testing == 1} {
+  putlog "... loading mood"
+}
+source "$bMotionModules/mood.tcl"
 
 if {$bMotion_testing == 1} {
   putlog "... loading plugin settings"
