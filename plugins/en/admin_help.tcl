@@ -30,6 +30,9 @@ proc bMotion_plugin_management_help { handle { args "" } } {
 	  set line ""
 	  set s [array startsearch bMotion_plugins_management]
 	  while {[set key [array nextelement bMotion_plugins_management $s]] != ""} {
+	  	if {$key == "dummy"} {
+	  		continue
+	  	}
 	  	append line "$key "
 	  	if {[string length $line] > 50} {
 	  		bMotion_putadmin "  $line"
@@ -45,7 +48,7 @@ proc bMotion_plugin_management_help { handle { args "" } } {
 	  bMotion_putadmin "  for more information."
 	  return 1
   } else {
-  	switch $arg {
+  	switch $args {
   		default {
   			bMotion_putadmin "I seem to have misplaced my help for that command."
   		}
