@@ -23,6 +23,7 @@ proc bMotion_plugin_complex_readings { nick host handle channel text } {
     bMotion_plugins_settings_set "complex:readings" "reading" "reading" "" $reading
     bMotionDoAction $channel $nick "%VAR{readings_result}"
     bMotionGetUnLonely
+    return 1
   }
 }
 
