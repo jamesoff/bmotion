@@ -68,7 +68,7 @@ foreach chan $bMotionInfo(randomChannels) {
   #used to make the bot a bit more intelligent (perhaps) at conversations
   set bMotionCache($chan,last) 0
   #channel mood tracker
-  set bMotionCache($chan,mood) 0
+  #set bMotionCache($chan,mood) 0
 }
 
 

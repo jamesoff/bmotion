@@ -9,16 +9,16 @@
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or 
+# the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
 #
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 # General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License 
-# along with this program; if not, write to the Free Software 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
@@ -77,13 +77,13 @@ proc bMotionGetUnLonely {} {
 proc checkmood {nick channel} {
   global mood
   foreach r {happy horny lonely electricity stoned} {
-    if {$r < -30} { 
-      set mood($r) -30 
+    if {$r < -30} {
+      set mood($r) -30
       bMotion_putloglev d * "bMotion: Mood($r) went OOB, resetting to -30"
     }
-    if {$mood($r) > 30} { 
+    if {$mood($r) > 30} {
       bMotion_putloglev d * "bMotion: Mood($r) went OOB, resetting to 30"
-      set mood($r) 30 
+      set mood($r) 30
     }
   }
   if {$nick == ""} {return 0}
@@ -126,17 +126,17 @@ proc driftmood {} {
   set mooddrifttimer 1
 
   #now also drift all channels towards 0
-  global bMotionInfo
-  foreach chan $bMotionInfo(randomChannels) {
-    set chanMood $bMotionCache($chan,mood)
-    if {$chanMood > 0} {
-      incr chanMood -1
-    }
-    if {$chanMood < 0} {
-      incr chanMood
-    }
-    set bMotionCache($chan,mood) $chanMood
-  }
+#  global bMotionInfo
+#  foreach chan $bMotionInfo(randomChannels) {
+#    set chanMood $bMotionCache($chan,mood)
+#    if {$chanMood > 0} {
+#      incr chanMood -1
+#    }
+#    if {$chanMood < 0} {
+#      incr chanMood
+#    }
+#    set bMotionCache($chan,mood) $chanMood
+#  }
 
   timer 10 driftmood
   return 0
@@ -181,9 +181,9 @@ proc pubm_moodhandler {nick host handle channel text} {
   if {![matchattr $handle n]} {
     return 0
   }
-  
+
   global botnick
-  
+
   bMotionDoAction $channel $nick "%%: Please use .bmotion $botnick mood"
   return 0
 #  global mood botnick
@@ -227,7 +227,7 @@ proc pubm_moodhandler {nick host handle channel text} {
 # management command
 proc bMotion_mood_admin { handle { arg "" } } {
 	global mood
-	
+
 	if {($arg == "") || ($arg == "status")} {
 		#output our mood
 		bMotion_putadmin "Current mood status:"
@@ -236,13 +236,13 @@ proc bMotion_mood_admin { handle { arg "" } } {
 		}
 		return 0
 	}
-	
+
 	if {$arg == "drift"} {
 		bMotion_putadmin "Drifting mood values..."
 		driftmood
 		return 0
 	}
-	
+
 	if {[regexp -nocase {set ([^ ]+) ([0-9]+)} $arg matches moodname moodval]} {
 		if {!([lsearch -inline {happy horny lonely electricity stoned} $moodname] == $moodname)} {
 			bMotion_putadmin "Unknown mood type '$moodname'"
@@ -252,7 +252,7 @@ proc bMotion_mood_admin { handle { arg "" } } {
 		bMotion_putadmin "Mood '$moodname' changed to $moodval"
 		return 0
 	}
-	
+
 	bMotion_putadmin "use: mood \[status|drift|set <type> <value>\]"
 	return 0
 }
