@@ -1,6 +1,17 @@
 bMotion CHANGELOG
 -----------------
 
+2003/01/03
+v0.0.4
+
+* bMotion should only respond once when someone changes their nick AND
+  does a public away
+* Fixed a potential error with bMotionLastEvent checking
++ bMotion now supports nick-change plugins
+* Moved away-nickchange detection to plugins from legacy code
+* Fixed a problem with plugins not loading on some systems
++ bMotion now drops output if it's identical to the trigger text that generated it
+
 2002/12/12
 v0.0.3
 
