@@ -9,16 +9,16 @@
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or 
+# the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
 #
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 # General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License 
-# along with this program; if not, write to the Free Software 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
@@ -30,11 +30,11 @@ set bMotion_plugins_simple(dummy) "_{100,100}¦0¦/has a tremendous plugin-related
 if [info exists bMotion_plugins_admin] { unset bMotion_plugins_admin }
 set bMotion_plugins_admin(dummy) "none"
 
-## complex plugins 
+## complex plugins
 if [info exists bMotion_plugins_complex] { unset bMotion_plugins_complex }
 set bMotion_plugins_complex(dummy) "none"
 
-## output plugins 
+## output plugins
 if [info exists bMotion_plugins_output] { unset bMotion_plugins_output }
 set bMotion_plugins_output(dummy) "none"
 
@@ -226,6 +226,8 @@ proc bMotion_plugin_find_complex { text lang } {
   global bMotion_plugins_complex botnicks
   set s [lsort [array names bMotion_plugins_complex]]
   set result [list]
+
+  bMotion_putloglev 3 * "Looking for a complex plugin to match !$text!"
 
   foreach key $s {
     if {$key == "dummy"} { continue }
