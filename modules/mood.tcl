@@ -265,23 +265,23 @@ proc pubm_moodhandler {nick host handle channel text} {
 
 set mood(happy) 0
 set moodtarget(happy) 0
-bMotion_mood_add "happy" -30 30 0 1 2
+#bMotion_mood_add "happy" -30 30 0 1 2
 
 set mood(horny) 0
 set moodtarget(horny) 0
-bMotion_mood_add "horny" -30 30 0 1 2
+#bMotion_mood_add "horny" -30 30 0 1 2
 
 set mood(lonely) 0
 set moodtarget(lonely) 5
-bMotion_mood_add "lonely" -30 30 5 1 2
+#bMotion_mood_add "lonely" -30 30 5 1 2
 
 
 set mood(electricity) 2
 set moodtarget(electricity) 2
-bMotion_mood_add "electricity" 0 2 2 1 2
+#bMotion_mood_add "electricity" 0 2 2 1 2
 
 set mood(stoned) 0
 set moodtarget(stoned) 0
-bMotion_mood_add "stoned" 0 30 0 1 2
+#bMotion_mood_add "stoned" 0 30 0 1 2
 
 bMotion_putloglev d * "bMotion: mood module loaded"
