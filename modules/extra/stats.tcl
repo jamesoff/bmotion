@@ -291,7 +291,7 @@ proc bMotion_stats_version_cmp { } {
 }
 
 ### these are our admin commands
-proc bMotion_stats_admin { handle { args "" } } {
+proc bMotion_stats_admin { handle { arg "" } } {
 	global bMotion_stats_key bMotion_stats_id
 	global bMotion_stats_enabled bMotion_stats_version
 	
