@@ -22,6 +22,11 @@ proc bMotion_plugins_irc_default_quit { nick host handle channel text } {
     }
   }
 
+  #don't do anything if it looks like an error
+  if [regexp -nocase "(error|reset|timeout|closed)" $text] {
+    return 0
+  }
+
   #if 1, we greeted someone last
   #if 0, someone has said something since
   if {$lasttalk == 1} {
