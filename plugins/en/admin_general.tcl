@@ -22,6 +22,7 @@ bMotion_plugin_add_admin "friends" "^friends(hip)?"  n       "bMotion_plugin_adm
 bMotion_plugin_add_admin "unbind votes" "^unbind votes" n    "bMotion_plugin_admin_unbindVotes" "any"
 bMotion_plugin_add_admin "codesize" "^codesize"          n       "bMotion_plugin_admin_codesize" "any"
 bMotion_plugin_add_admin "rehash" "^rehash"          n       "bMotion_plugin_admin_rehash" "any"
+bMotion_plugin_add_admin "reload" "^reload"          n       "bMotion_plugin_admin_reload" "any"
 bMotion_plugin_add_admin "settings_clear" "^settings clear" n bMotion_plugin_admin_settings_clear "any"
 
 #################################################################################################################################
@@ -153,6 +154,26 @@ proc bMotion_plugin_admin_rehash { handle idx { arg "" } } {
     bMotion_putloglev d * "bMotion: New code ok, rehashing..."
     set bMotion_testing 0
     rehash
+  }
+}
+
+proc bMotion_plugin_admin_reload { handle idx { arg "" } } {
+  global bMotionCache bMotion_testing bMotionRoot
+
+  #check we're not going to die
+  catch {
+    bMotion_putloglev d * "bMotion: Testing new code..."
+    set bMotion_testing 1
+    source "$bMotionRoot/bMotion.tcl"
+  } msg
+
+  if {$msg != ""} {
+    putlog "bMotion: FATAL: Cannot reload due to error: $msg"
+    return 0
+  } else {
+    bMotion_putloglev d * "bMotion: New code ok, reloading..."
+    set bMotion_testing 0
+    source "$bMotionRoot/bMotion.tcl"
   }
 }
 
