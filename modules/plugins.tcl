@@ -477,6 +477,9 @@ catch { source "$bMotionPlugins/action_simple.tcl" }
 ## Load the complex action plugins
 catch { source "$bMotionPlugins/action_complex.tcl" }
 
+## Load the nick plugins
+catch { source "$bMotionPlugins/nick.tcl" }
+
 bMotion_putloglev d * "Installed bMotion plugins: (some may be inactive)\r"
 bMotion_putloglev d * "(one moment...)\r"
 foreach t {simple complex admin output action_simple action_complex nick_action} {
