@@ -562,49 +562,6 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 
   ## LEGACY CODE STARTS HERE
 
-	if [regexp -nocase "((s(e|3)x(o|0)r(s|z|5))|(fluffles)|fucks|paalt|shags|paalt|fondles|ravages|rapes|spanks|kisses|zoent) $botnicks" $text] {
-    if [regexp -nocase "(ass|arse|bottom|anal|rape(s)?|fist)" $text] {
-      driftFriendship $nick -5
-      frightened $nick $dest
-      return 0
-    }
-    if [bMotionLike $nick $host] {
-      driftFriendship $nick 4
-      bMotionDoAction $dest "" [pickRandom $rarrs]
-      incr mood(horny) 2
-      incr mood(happy)
-      set mood(lonely) [expr $mood(lonely) - 1]
-      checkmood $nick $dest
-    } else {
-      frightened $nick $dest
-      driftFriendship $nick -1
-    }
-		return 0
-	}
-
-  #parks/puts
-  if [regexp -nocase "(parks|puts|places|inserts|shoves|sticks) (his|her|a|the|some) (.+) (in|on|up) $botnicks" $text ming verb other item] {
-    #is it someone we like?
-    if {![bMotionLike $nick $host]} {
-      global parkedinsDislike
-      bMotionDoAction $channel $nick [pickRandom $parkedinsDislike]
-      bMotionGetSad
-      bMotionGetUnLonely
-      driftFriendship $nick -1
-      return 0
-    }
-
-    bMotionGetHorny
-    bMotionGetHappy
-    bMotionGetUnLonely
-    global rarrs lovesits
-    set responses $rarrs
-    set responses [concat $responses $lovesits]
-    bMotionDoAction $channel $nick [pickRandom $responses]
-    return 0
-  }
-
-
   if [regexp -nocase "balefires (.+)" $text ming who] {
     global bMotionInfo
     if [regexp -nocase $botnicks $who] {
