@@ -17,8 +17,10 @@ bMotion_plugin_add_complex "activate" "(activate|increase power to)" 100 bMotion
 proc bMotion_plugin_complex_activate { nick host handle channel text } {
   global botnicks
   if [regexp -nocase "^(${botnicks}:?,? )?(activate|increase power to) (.+)$" $text matches bot bot2 verb item] {
-    if {($bot != "") || [rand 2]} {
+    if {($bot != "") || ([bMotion_interbot_me_next $channel] && [rand 2])} {
       set item [bMotion_uncolen $item]
+      set item [string trim $item]
+      regsub "(.+)\.$" $item {\1} item
       bMotionDoAction $channel $item "%VAR{activateses}"
     }
     return 1
