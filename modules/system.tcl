@@ -77,7 +77,7 @@ proc bMotionInfo {nick host handle channel text} {
 }
 
 proc doRandomStuff {} {
-  global bMotionInfo mood stonedRandomStuff bMotionInfo
+  global bMotionInfo mood stonedRandomStuff bMotionSettings
   global bMotionLastEvent
   set timeNow [clock seconds]
   set saidChannels ""
@@ -107,6 +107,11 @@ proc doRandomStuff {} {
 
   if {($timeNow - $mostRecent) > ([expr $bMotionInfo(maxIdleGap) * 10])} {
     set idleEnough 1
+  }
+
+  #override if we should never go away
+  if {$bMotionSettings(useAway) == 0} {
+    set idleEnough 0
   }
 
   if {$idleEnough} {
@@ -165,11 +170,13 @@ proc bMotionSaySomethingRandom {channel} {
 
 proc bMotionSetRandomAway {} {
   #set myself away with a random message
-  global randomAways bMotionInfo
+  global randomAways bMotionInfo bMotionSettings
 
   set awayReason [pickRandom $randomAways]
   foreach channel $bMotionInfo(randomChannels) {
-    bMotionDoAction $channel $awayReason "/is away: %%"
+    if {[lsearch $bMotionSettings(noAwayFor) $channel] == -1} {
+      bMotionDoAction $channel $awayReason "/is away: %%"
+    }
   }
   putserv "AWAY :$awayReason"
   set bMotionInfo(away) 1
@@ -180,12 +187,14 @@ proc bMotionSetRandomAway {} {
 
 proc bMotionSetRandomBack {} {
   #set myself back
-  global bMotionInfo
+  global bMotionInfo bMotionSettings
 
   set bMotionInfo(away) 0
   set bMotionInfo(silence) 0
   foreach channel $bMotionInfo(randomChannels) {
-    bMotionDoAction $channel "" "/is back"
+    if {[lsearch $bMotionSettings(noAwayFor) $channel] == -1} {
+      bMotionDoAction $channel "" "/is back"
+    }
   }
   putserv "AWAY"
 

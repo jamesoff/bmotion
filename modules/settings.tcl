@@ -46,8 +46,14 @@ set bMotionSettings(needI) 1
 # if you have more than one bot running bmotion, set one of them to 1 and all others to 0
 set bMotionInfo(balefire) 1
 
+# go away if things get idle?
+set bMotionSettings(useAway) 1
+
 # channels to run in (lower case please)
 set bMotionInfo(randomChannels) { "#molsoft" "#ags" "#exeter" "#namcoarcade" "#startrek" }
+
+# channels to not announce our away status in (lower case)
+set bMotionSettings(noAwayFor) { "#irssi" }
 
 
 ## SYSTEM SETTINGS
