@@ -218,7 +218,6 @@ proc pubm_moodhandler {nick host handle channel text} {
 ## pubm_moodHandler: !mood
 proc pubm_moodhandler {nick host handle channel text} {
   if {![matchattr $handle n]} {
-    bMotionDoAction $channel "" "That command is no longer available."
     return 0
   }
 
