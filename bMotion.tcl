@@ -30,8 +30,13 @@ if {$bMotion_testing == 1} {
   putloglev 1 * "bMotion: INFO: Code loading in running mode"
 }
 
+foreach letter [split "d12345678" {}] {
+  set bMotionCache($letter,lastlog) ""
+  set bMotionCache($letter,lastcount) 0
+}
+
 proc bMotion_putloglev { level star text } {
-  global bMotion_testing
+  global bMotion_testing bMotionCache
   regsub "bMotion:" $text "" text
   set text2 ""
   if {$level != "d"} {
@@ -40,7 +45,16 @@ proc bMotion_putloglev { level star text } {
   set text "bMotion:$text2 $text"
 
   if {$bMotion_testing == 0} {
+    if {$bMotionCache($level,lastlog) == $text} {
+      incr bMotionCache($level,lastcount)
+      return
+    }
+    if {$bMotionCache($level,lastcount) > 0} {
+      putloglev $level $star "($level)Previous message repeated $bMotionCache($level,lastcount) time(s)"
+    }
     putloglev $level $star "($level)$text"
+    set bMotionCache($level,lastlog) $text
+    set bMotionCache($level,lastcount) 0
   }
 }
 
