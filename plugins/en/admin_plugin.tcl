@@ -12,6 +12,9 @@
 # in the modules directory.
 ###############################################################################
 
+#register the plugin
+bMotion_plugin_add_admin "plugin" "^plugin" n "bMotion_plugin_admin_plugins" "any"
+
 proc bMotion_plugin_admin_plugins { handle idx { arg "" }} {
   #global bMotion_plugins_admin bMotion_plugins_simple
  
@@ -117,6 +120,3 @@ proc bMotion_plugin_admin_plugins { handle idx { arg "" }} {
   }
   putidx $idx "Total plugins: $total\r"
 }
-
-# register the plugin
-bMotion_plugin_add_admin "plugin" "^plugin" n "bMotion_plugin_admin_plugins" "any"
