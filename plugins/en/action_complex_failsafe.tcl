@@ -14,23 +14,27 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_action_complex "zzz-failsafe" {^(.+?)s %botnicks} 100 bMotion_plugin_complex_action_failsafe "en"
+bMotion_plugin_add_action_complex "zzz-failsafe" {^(.+?)s?( at|with)? %botnicks} 100 bMotion_plugin_complex_action_failsafe "en"
 
 proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
-  regexp {^(.+?)(e?(s)) } $text matches verb ee es
+  regexp {^([^ ]+) } $text matches verb
   if {$verb == ""} {
     return 1
   }
 
-  if {$es != ""} {
-    if [regexp -nocase {([^aeiouy])$} $verb matches letter] {
-      append verb $letter
-    }
-  }
   bMotion_plugins_settings_set "complex:failsafe" "last" "nick" "moo" [bMotionGetRealName $nick]
-  bMotionDoAction $channel $verb "%VAR{failsafes}"
+
+  if [rand 1] {
+  	bMotionDoAction $channel "" "%VAR{failsafes_a}"
+  } else {
+  	bMotionDoAction $channel $verb "%VAR{failsafes_b}"
+  }
+  return 1
 }
 
 
-bMotion_abstract_register "failsafes"
-bMotion_abstract_batchadd "failsafes" [list "%VAR{rarrs}" "%REPEAT{3:7:m} %%" "%VAR{thanks}" "i do love a good %%ing" "/%%s %SETTING{complex:failsafe:last:nick:moo} back with %VAR{sillyThings}" "what"]
+bMotion_abstract_register "failsafes_a"
+bMotion_abstract_batchadd "failsafes_a" [list "%VAR{rarrs}" "%REPEAT{3:7:m}" "%VAR{thanks}" "what" "/loves it" "/passes it on to %ruser" "/. o O ( ? )"]
+
+bMotion_abstract_register "failsafes_b"
+bMotion_abstract_batchadd "failsafes_b" [list "/%% %SETTING{complex:failsafe:last:nick:moo} back with %VAR{sillyThings}" "/%% %SETTING{complex:failsafe:last:nick:moo}" "/%VAR{sillyThings}{strip} %SETTING{complex:failsafe:last:nick:moo} in return"]
