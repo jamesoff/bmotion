@@ -118,7 +118,10 @@ proc bMotion_facts_save { } {
           continue
         }
         puts $fileHandle "$item $fact"
-      }
+      } else {
+        # don't tidy, just dump it straight to the file
+        puts $fileHandle "$item $fact"
+      }  
     }
   }
   if {$tidy} {
