@@ -822,13 +822,23 @@ proc bMotion_uncolen { line } {
 proc bMotion_setting_get { setting } {
   global bMotionSettings
   global bMotionInfo
+  set val ""
   catch {
-    return bMotionSettings($setting)
+    set val $bMotionSettings($setting)
   }
+  if {$val != ""} {
+	  return $val
+  }
+  
   bMotion_putloglev d * "setting '$setting' doesn't exist in bMotionSettings, trying bMotionInfo..."
   catch {
-    return bMotionInfo($setting)
+    set val $bMotionInfo($setting)
   }
+  if {$val != ""} {
+	  return $value
+  
+  }
+  
   bMotion_putloglev d * "nope, not there either, returning nothing"
   return ""
 }
