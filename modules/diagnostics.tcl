@@ -69,6 +69,53 @@ proc bMotion_diagnostic_channel2 { } {
   }
 }
 
+#
+# make sure we only have one instance of each timer
+proc bMotion_diagnostic_timers { } {
+  bMotion_putloglev d * "running level 4 diagnostic on timers"
+  set alltimers [timers]
+  set seentimers [list]
+  foreach t $alltimers {
+    bMotion_putloglev 1 * "checking timer $t"
+    set t_function [lindex $t 1]
+    set t_name [lindex $t 2]
+    set t_function [string tolower $t_function]
+    if {[lsearch $seentimers $t_function] >= 0} {
+      putlog "bMotion: A level 4 diagnostic has found a duplicate timer $t_name for $t_function ... removing"
+      #remove timer
+    } else {
+      #add to seen list
+      lappend seentimers $t_function
+    }
+  }
+}
+
+#
+# make sure we have only one instance of each utimer
+proc bMotion_diagnostic_utimers { } {
+  bMotion_putloglev d * "running level 4 diagnostic on utimers"
+  set alltimers [utimers]
+  set seentimers [list]
+  foreach t $alltimers {
+    bMotion_putloglev 1 * "checking timer $t"
+    set t_function [lindex $t 1]
+    set t_name [lindex $t 2]
+    set t_function [string tolower $t_function]
+    if {[lsearch $seentimers $t_function] >= 0} {
+      putlog "bMotion: A level 4 diagnostic has found a duplicate utimer $t_name for $t_function ... removing"
+      #remove timer
+    } else {
+      #add to seen list
+      lappend seentimers $t_function
+    }
+  }
+}
+
+proc bMotion_diagnostic_auto { min hr a b c } {
+  putlog "bMotion: running level 4 self-diagnostic"
+  bMotion_diagnostic_timers
+  bMotion_diagnostic_utimers
+}
 
 bMotion_putloglev d * "Running a level 5 self-diagnostic..."
 
@@ -76,3 +123,5 @@ bMotion_diagnostic_channel1
 bMotion_diagnostic_channel2
 
 bMotion_putloglev d * "Diagnostics complete."
+
+bind time - "30 * * * *" bMotion_abstract_auto
