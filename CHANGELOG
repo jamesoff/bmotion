@@ -5,6 +5,13 @@ bMotion CHANGELOG
 + = added
 - = removed
 
+* optimised events.tcl a bit to be more efficient
+* switched the way bMotion represents its version to make it more consistent for
+  proper releases etc
+* adjusted the light plugin
+* moved question handler to plugin
+* moved pinches to a plugin
+* moved asl trigger to a plugin
 * tidied up code a bit
 - no longer tracking chanmood, because it was rubbish
 * smileys now handled by a plugin (new regexps included)
