@@ -16,7 +16,7 @@
 bMotion_plugin_add_management "plugin" "^plugin" n "bMotion_plugin_management_plugins" "any"
 
 proc bMotion_plugin_management_plugins { handle { arg "" }} {
- 
+
   #plugin remove <type> <id>
   if [regexp -nocase {remove ([^ ]+) (.+)} $arg matches t id] {
     bMotion_putadmin "Removing $t plugin $id..."
@@ -109,7 +109,7 @@ proc bMotion_plugin_management_plugins { handle { arg "" }} {
         if {$t == "output"} {
           set details $cheese($n)
           set blah [split $details "¦"]
-          set enabled [lindex $blah 1]          
+          set enabled [lindex $blah 1]
           if {$enabled} {
             append a "$n\[on\], "
           } else {
@@ -131,6 +131,6 @@ proc bMotion_plugin_management_plugins { handle { arg "" }} {
   }
 
   #all else fails, give usage:
-  bMotion_putadmin "usage: plugins (list|info|remove|enable|disable|rehash)"
+  bMotion_putadmin "usage: plugins (list|info|remove|enable|disable)"
   return 0
 }
