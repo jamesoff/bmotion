@@ -62,8 +62,7 @@ proc finishdildo {} {
 
     cum $got(dildo,channel) $got(dildo,nick)
 
-    bMotionDoAction $got(dildo,channel) $got(dildo,nick) [pickRandom $dildoFluteFinishes]
-
+    bMotionDoAction $got(dildo,channel) $got(dildo,nick) "%VAR{dildoFluteFinishes}"
     set got(dildo,nick) ""
 
     set got(dildo,count) 0
@@ -82,8 +81,7 @@ proc finishdildo {} {
 
     global dildoFemaleFemaleSwap
 
-    bMotionDoAction $got(dildo,channel) $got(dildo,dildo) [pickRandom $dildoFemaleFemaleSwap]
-
+    bMotionDoAction $got(dildo,channel) $got(dildo,dildo) "%VAR{dildoFemaleFemaleSwap}"
     set got(dildo,style) "normal"
 
     utimer 70 finishdildo
@@ -98,8 +96,7 @@ proc finishdildo {} {
 
     global dildoMaleMaleSwap
 
-    bMotionDoAction $got(dildo,channel) $got(dildo,dildo) [pickRandom $dildoMaleMaleSwap]
-
+    bMotionDoAction $got(dildo,channel) $got(dildo,dildo) "%VAR{dildoMaleMaleSwap}"
     set got(dildo,style) "normal"
 
     utimer 70 finishdildo
@@ -114,7 +111,7 @@ proc finishdildo {} {
 
   cum $got(dildo,channel) $got(dildo,nick)
 
-  bMotionDoAction $got(dildo,channel) $got(dildo,dildo) [pickRandom $dildoFinishes] $got(dildo,nick)
+  bMotionDoAction $got(dildo,channel) $got(dildo,dildo) "%VAR{dildoFinishes}" $got(dildo,nick)
 
   set got(dildo,nick) ""
 
@@ -168,10 +165,7 @@ proc lol {nick host handle channel text} {
 
     if {[rand 10] > 6} {
 
-      set response [pickRandom $lols]      
-
-      bMotionDoAction $channel $nick $response
-
+      bMotionDoAction $channel $nick "%VAR{lols}"
       set bMotionCache(LOLcount) 0
 
     }
@@ -244,8 +238,7 @@ proc bMotionMakeItSo {nick channel} {
 
   global makeItSos
 
-  bMotionDoAction $channel $nick [pickRandom $makeItSos]
-
+  bMotionDoAction $channel $nick "%VAR{makeItSos}"
   global bMotionCache
 
   set bMotionCache(lastDoneFor) $nick
@@ -276,8 +269,7 @@ proc bMotionYesNo {channel} {
 
   set yesnos [concat $yeses $nos]
 
-  bMotionDoAction $channel "" [pickRandom $yesnos]
-
+  bMotionDoAction $channel "" "%VAR{yesnos}"
   return 0
 
 }
@@ -294,8 +286,7 @@ proc bMotionBlessYou {channel nick} {
 
   if {[rand 2] && ($bMotionInfo(balefire) == 1)} {
 
-    bMotionDoAction $channel $nick [pickRandom $blessyous]
-
+    bMotionDoAction $channel $nick "%VAR{blessyous}"
     bMotionGetUnLonely
 
   }
