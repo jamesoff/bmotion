@@ -222,10 +222,6 @@ proc bMotion_stats_load { } {
 		set line [gets $fileHandle]
 	}
 
-	if {$line == ""} {
-		return
-	}
-
 	if {$line != ""} {
 		set bMotion_stats_time $line
 		set bMotion_stats_id [gets $fileHandle]
@@ -249,9 +245,6 @@ proc bMotion_stats_check { force } {
 		set diff [expr $now - $bMotion_stats_time]
 		if {$force || ($diff > 604800)} {
 			putlog "bMotion: last stats run was $diff seconds ago, resending..."
-			#one week difference
-			set bMotion_stats_id [gets $fileHandle]
-			set bMotion_stats_key [gets $fileHandle]
 			bMotion_stats_send
 		}
 	} else {
