@@ -273,7 +273,7 @@ proc bMotionInterpolation2 { line } {
 }
 
 proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0}} {
-  bMotion_putloglev 3 * "bMotionDoInterpolation: channel = $channel, nick = $nick, line = $line, moreText = $moreText, noTypo = $noTypo"
+  bMotion_putloglev 3 * "bMotionSayLine: channel = $channel, nick = $nick, line = $line, moreText = $moreText, noTypo = $noTypo"
   global mood botnick bMotionInfo bMotionCache
 
   #choose a new bot?
@@ -517,7 +517,7 @@ proc bMotionGetRealName { nick { host "" }} {
   }
 
   set handle [nick2hand $nick]
-  if {$handle == "*"} {
+  if {($handle == "") ||($handle == "*")} {
     #not in bot
     bMotion_putloglev 2 * "bMotion: no match, using nick"
     #return [bMotionWashNick $nick]
