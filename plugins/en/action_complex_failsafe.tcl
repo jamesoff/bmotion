@@ -32,10 +32,16 @@ bMotion_plugin_add_action_complex "zzz-failsafe" {^(.+?)s %botnicks} 100 bMotion
 
 proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
 
-  regexp {^(.+?)s } $text matches verb
+  regexp {^(.+?)(e?(s)) } $text matches verb ee es
 
   if {$verb == ""} {
     return 1
+  }
+
+  if {$es != ""} {
+    if [regexp -nocase {([^aeiouy])$} $verb matches letter] {
+      append verb $letter
+    }
   }
   bMotion_plugins_settings_set "complex:failsafe" "last" "nick" "moo" [bMotionGetRealName $nick]
   bMotionDoAction $channel $verb "%VAR{failsafes}"
