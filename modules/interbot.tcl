@@ -95,6 +95,14 @@ proc bMotion_interbot_catch { bot cmd args } {
     "fake_event" {
       bMotion_interbot_fake_catch $bot $params
     }
+
+    "HAY" {
+      bMotion_interbot_hay $bot $params
+    }
+
+    "SUP" {
+      bMotion_interbot_sup $bot $params
+    }
   }
 
   return 0
@@ -151,12 +159,12 @@ proc bMotion_interbot_next_incoming_reply { bot params } {
   }
 }
 
-proc bMotionSendSayChan { channel  text thisBot} {
+proc bMotionSendSayChan { channel text thisBot} {
   #replace all ¬ with %
   set text [bMotionInsertString $text "¬" "%"]
   bMotion_putloglev 1 * "bMotion: pushing command say ($channel $text) to $thisBot"
   if [islinked $thisBot] {
-    putbot $thisBot "bmotion say $channel $text"
+    putbot $thisBot "bmotion say $channel :$text"
     return $thisBot
   } else {
     putlog "bMotion: ALERT! Trying to talk to bot $thisBot, but it isn't linked"
@@ -170,16 +178,12 @@ proc bMotionCatchSayChan { bot params } {
 
   bMotion_putloglev 4 * "bMotion: bMotionCatchSayChan $bot $params"
 
-  if [regexp {([#!][^ ]+) (.+)} $params matches channel txt] {
+  if [regexp {([#!][^ ]+) :(.+)} $params matches channel txt] {
   
-    if {$bMotionQueueTimer == 0} {
-      set bMotionQueueTimer 1
-      utimer 4 bMotionProcessQueue
-    }
     if {$bMotionInfo(silence) == 1} {
       set bMotionInfo(silence) 2
     }
-    bMotionDoAction $channel $bot $txt
+    bMotionDoAction $channel $bot $txt "" 0 1
     bMotion_putloglev 1 * "bMotion: done say command from $bot"
     if {$bMotionInfo(silence) == 2} {
       set bMotionInfo(silence) 1
@@ -196,6 +200,12 @@ proc bMotion_interbot_me_next { channel } {
   global bMotion_interbot_nextbot_nick bMotion_interbot_nextbot_score botnick
 
   set channel [string tolower $channel]
+
+  #let's look to see if we know any other bots on the botnet
+  if {[llength [bMotion_interbot_otherbots $channel]] == 0} {
+    return 1
+  }
+
   set me 0 
   ## /|\  KIS hack
   catch {
@@ -244,7 +254,73 @@ foreach chan $bMotionInfo(randomChannels) {
 }
 bMotion_interbot_next_elect
 
-#interbot stuff
-bind bot I "bmotion" bMotion_interbot_catch
+# bMotion_interbot_link
+#
+# callback for a bot linking to the botnet
+proc bMotion_interbot_link { botname via } {
+  #let's announce we're a bmotion bot
+  putbot $botname "bmotion SUP [bMotion_setting_get randomChannels]"
+}
+
+# bMotion_interbot_hay
+#
+# Catches a HAY from another bot, replies with a SUP
+proc bMotion_interbot_hay { bot channels } {
+  #we've met another bmotion bot, we need to tell it what channels we're on
+  global bMotion_interbot_otherbots
+  set bMotion_interbot_otherbots($bot) $channels
+  putlog "bMotion: Met bMotion bot $bot on channels $channels"
+  putbot $bot "bmotion SUP [bMotion_setting_get randomChannels]"
+  array unset bMotion_interbot_otherbots dummy
+}
+
+# bMotion_interbot_sup
+#
+# Catches a SUP (reply to my HAY)
+proc bMotion_interbot_sup { bot channels } {
+  #we've met another bmotion bot
+  global bMotion_interbot_otherbots
+  set bMotion_interbot_otherbots($bot) $channels
+  putlog "bMotion: bMotion bot $bot on channels $channels"
+  array unset bMotion_interbot_otherbots dummy
+}
+
+set bMotion_interbot_otherbots(dummy) ""
+
+# bMotion_interbot_resync
+#
+# Broadcasts a HAY to see who's around
+proc bMotion_interbot_resync { } {
+  #let's find out who's on the botnet
+  global bMotion_interbot_otherbots
+  unset bMotion_interbot_otherbots
+  set bMotion_interbot_otherbots(dummy) ""
+
+  putloglev d * "bMotion: Resyncing with botnet for bMotion bots"
+  putallbots "bmotion HAY [bMotion_setting_get randomChannels]"
+  utimer [expr [rand 900] + 300] bMotion_interbot_resync
+}
+
+# bMotion_interbot_otherbots
+#
+# Returns other bots we know on this channel
+proc bMotion_interbot_otherbots { channel } {
+  global bMotion_interbot_otherbots
+
+  set otherbots [list]
+
+  foreach bot [array names bMotion_interbot_otherbots] {
+    if {[lsearch $bMotion_interbot_otherbots($bot) $channel] > -1} {
+      lappend otherbots $bot
+    }
+  }
+  return $otherbots
+}
+
+# set up our binds
+bind bot - "bmotion" bMotion_interbot_catch
+bind link - * bMotion_interbot_link
+
+utimer [expr [rand 900] + 300] bMotion_interbot_resync
 
 bMotion_putloglev d * "bMotion: interbot module loaded"
