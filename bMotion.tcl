@@ -26,8 +26,10 @@ if {$bMotion_testing == 0} {
 
 if {$bMotion_testing == 1} {
   putlog "bMotion: INFO: Code loading in testing mode"
+  set bMotion_loading 0
 } else {
   putloglev 1 * "bMotion: INFO: Code loading in running mode"
+  set bMotion_loading 1
 }
 
 foreach letter [split "d12345678" {}] {
@@ -188,6 +190,9 @@ if {$bMotion_testing == 0} {
   set bMotionCache(rehash) ""
   putlog "\002bMotion $bMotionVersion AI online\002 :D"
 }
+
+set bMotion_loading 0
+set bMotion_testing 0
 
 # set this to 0 to stop showing the copyright
 # DO NOT DISTRIBUTE THIS FILE IF THE VARIABLE IS SET TO 0
