@@ -17,7 +17,7 @@
 bMotion_plugin_add_output  "leet"   bMotion_plugin_output_leet     0 "en"
 
 if [bMotion_plugin_check_depend "complex:dutchify"] {
-  bMotion_plugin_add_output  "dutch"  bMotion_plugin_output_dutch    0
+  bMotion_plugin_add_output  "dutch"  bMotion_plugin_output_dutch    0 "en"
 }
 
 proc bMotion_plugin_output_leet { channel text } {
