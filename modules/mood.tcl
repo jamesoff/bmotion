@@ -149,7 +149,7 @@ proc moodTimerStart {} {
   global mooddrifttimer
 	if  {![info exists mooddrifttimer]} {
 		timer 10 driftmood
-    utimer 5 loldec
+    #utimer 5 loldec
 #    utimer 90 smileyhandler
     timer [expr [rand 30] + 3] doRandomStuff
 		set mooddrifttimer 1
