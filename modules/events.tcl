@@ -71,7 +71,7 @@ proc bMotion_event_onjoin {nick host handle channel} {
 
 
 ## BEGIN onpart handler
-proc bMotion_event_onpart {nick uhost hand chan {msg ""}} {
+proc bMotion_event_onpart {nick host handle chan {msg ""}} {
   global bMotionCache
 
   set nick [bMotion_cleanNick $nick $handle]
