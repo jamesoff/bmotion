@@ -73,7 +73,7 @@ proc bMotion_diagnostic_channel2 { } {
 # check the channels are set in the right format
 proc bMotion_diagnostic_channel3 { } {
 	global bMotionInfo
-	if [regexp {#[^ ]+ *#.+} $bMotionInfo(randomChannels)] {
+	if [regexp {#[^ ]+ *#.+} [lindex $bMotionInfo(randomChannels) 0]] {
 		putlog "bMotion self-diagnostics indicate you have set your channel list in settings.tcl"
 		putlog "  incorrectly. You must have a pair of double-quotes around EACH channel, not"
 		putlog "  the entire list. bMotion WILL NOT WORK with this configuration error."
