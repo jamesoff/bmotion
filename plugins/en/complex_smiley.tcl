@@ -14,12 +14,27 @@
 
 bMotion_plugin_add_complex "smiley" {^[;:=]-?[)D>]$} 40 bMotion_plugin_complex_smiley "all"
 bMotion_plugin_add_complex "smiley2" {^([\-^])_*[\-^];*$} 40 bMotion_plugin_complex_smiley "all"
+bMotion_plugin_add_complex "smiley4" {^%botnicks [;:=]-?[)D>]$} 80 bMotion_plugin_complex_smiley2 "all"
+bMotion_plugin_add_complex "smiley5" {^%botnicks ([\-^])_*[\-^];*$} 80 bMotion_plugin_complex_smiley2 "all"
 bMotion_plugin_add_complex "smiley3" {^heh(ehe?)*$} 30 bMotion_plugin_complex_smiley "all"
 
 proc bMotion_plugin_complex_smiley { nick host handle channel text } {  
   global mood
 
   if {![bMotion_interbot_me_next $channel]} { return 0 }
+
+  if {$mood(happy) < 0} {
+    return 0
+  }
+
+  bMotionDoAction $channel "" "%VAR{smiles}"
+  bMotionGetHappy
+  bMotionGetUnLonely
+  return 1
+}
+
+proc bMotion_plugin_complex_smiley2 { nick host handle channel text } {
+  global mood
 
   if {$mood(happy) < 0} {
     return 0
