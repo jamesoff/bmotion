@@ -432,29 +432,11 @@ proc makeSmiley { mood } {
 #    Attempt to clean a nickname up to a proper name
 #
 proc bMotionWashNick { nick } {
-  # strip numbers off the nick
-  #putlog "Examining $nick"
-  if [regexp -nocase {^([[:digit:]]+)?([[:alpha:]]+)([[:digit:]]{2,})?$} $nick matches numbers1 stem numbers2] {
-    #putlog "Stripping surrounding numbers"
-    set nick $stem
-  }
+  #remove leading
+  regsub {^[|`_\[]+} $nick "" nick
 
-  #strip `'- and |s off beginning and end
-  if [regexp -nocase {^[\|`\'\-\_^\[\]\{\}]?([[:alnum:]]+)[\|`\'\-\_^\[\]\{\}]?$} $nick matches stem] {
-    #putlog "Stripping surrounding |s"
-    set nick $stem
-  }
-
-  #try for numbers again, just in case
-  if [regexp -nocase {^([[:digit:]]+)?([[:alpha:]]+)([[:digit:]]{2,})?$} $nick matches numbers1 stem numbers2] {
-    #putlog "Stripping surrounding numbers again"
-    set nick $stem
-  }
-
-  #slice after `'-^_ and |
-  if [regexp -nocase {^([[:alnum:]]+)[`\'\|\-^_\[\]\{\}].*} $nick matches stem] {
-    set nick $stem
-  }
+  #remove trailing
+  regsub {[|`_\[]+$} $nick "" nick
 
   return $nick
 }
