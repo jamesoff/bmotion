@@ -28,8 +28,12 @@ if {$bMotion_testing == 1} {
 
 proc bMotion_putloglev { level star text } {
   global bMotion_testing
+  if {![string match -nocase "bMotion: *" $text]} {
+    set text "bMotion: $text"
+  }
+
   if {$bMotion_testing == 0} {
-    putloglev $level $star "($level) $text"
+    putloglev $level $star "($level)$text"
   }
 }
 
@@ -50,6 +54,13 @@ if {$bMotion_testing == 1} {
   putlog "... loading settings"
 }
 source "$bMotionModules/settings.tcl"
+#try to load a file for this bot
+catch {
+  if {${botnet-nick} != ""} {
+    source "$bMotionModules/settings_${botnet-nick}.tcl"
+    putlog "... also loaded settings for this bot from settings_${botnet-nick}.tcl"
+  }
+}
 
 #load system functions
 if {$bMotion_testing == 1} {
