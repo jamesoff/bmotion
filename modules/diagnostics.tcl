@@ -41,9 +41,9 @@ proc bMotion_diagnostic_channel1 { } {
   set bMotionInfo(randomChannels) $cleanChannels
 
   if {$err == 1} {
-    bMotion_putloglev d * "Self-diagnostics indicate you have a channel with a captial letter in in your settings file."
-    bMotion_putloglev d * "  This has been fixed on the fly at load time, but you will need to edit the settings file"
-    bMotion_putloglev d * "  to prevent this reoccuring. Please use all lower-case characters for defining channels."
+    putlog "Self-diagnostics indicate you have a channel with a captial letter in in your settings file."
+    putlog "  This has been fixed on the fly at load time, but you will need to edit the settings file"
+    putlog "  to prevent this reoccuring. Please use all lower-case characters for defining channels."
   }
 }
 
@@ -65,7 +65,7 @@ proc bMotion_diagnostic_channel2 { } {
     }
   }
   if {$notOnChans != ""} {
-    bMotion_putloglev d * "The following channels are in the settings file, but not configured in eggdrop (typos?): $notOnChans"
+    putlog "The following channels are in the settings file, but not configured in eggdrop (typos?): $notOnChans"
   }
 }
 
