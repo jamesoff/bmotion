@@ -14,11 +14,10 @@
 ###############################################################################
 
 #                        name   regexp               flags   callback
-bMotion_plugin_add_management "status" "^(status|info)"     t       "bMotion_plugin_management_status" "any"
-bMotion_plugin_add_admin "queue" "^queue"            n       "bMotion_plugin_admin_queue" "any"
-bMotion_plugin_add_admin "parse" "^parse"            n       "bMotion_plugin_admin_parse" "any"
-bMotion_plugin_add_admin "friends" "^friends(hip)?"  n       "bMotion_plugin_admin_friends" "any"
-bMotion_plugin_add_admin "unbind votes" "^unbind votes" n    "bMotion_plugin_admin_unbindVotes" "any"
+bMotion_plugin_add_management "status" "^(status|info)"     t       bMotion_plugin_management_status "any"
+bMotion_plugin_add_management "queue" "^queue"            n       bMotion_plugin_management_queue "any"
+bMotion_plugin_add_admin "parse" "^parse"            n       bMotion_plugin_admin_parse "any"
+bMotion_plugin_add_management "friends" "^friends(hip)?"  n       bMotion_plugin_management_friends "any"
 bMotion_plugin_add_management "rehash" "^rehash"          n       bMotion_plugin_management_rehash "any"
 bMotion_plugin_add_management "reload" "^reload"          n       bMotion_plugin_management_reload "any"
 bMotion_plugin_add_admin "settings_clear" "^settings clear" n bMotion_plugin_admin_settings_clear "any"
@@ -71,32 +70,22 @@ proc bMotion_plugin_admin_parse { handle idx arg } {
   }
 }
 
-proc bMotion_plugin_admin_friends { handle idx { arg "" } } {
+proc bMotion_plugin_management_friends { handle { arg "" } } {
   if {$arg == ""} {
-    putidx $idx "[getFriendsList]\r"
+    bMotion_putadmin "[getFriendsList]"
     return 0
   }
 
   if [regexp -nocase {([^ ]+)( (.+))?} $arg matches nick pom val] {
     if {$val == ""} {
-      putidx $idx "friendship rating for $nick is [getFriendshipHandle $nick]\r"
+      bMotion_putadmin "friendship rating for $nick is [getFriendshipHandle $nick]\r"
     } else {
       setFriendshipHandle $nick $val
-      putidx $idx "friendship rating for $nick is now [getFriendshipHandle $nick]\r"
+      bMotion_putadmin "friendship rating for $nick is now [getFriendshipHandle $nick]\r"
     }
     return 0
   }
 }
-
-proc bMotion_plugin_admin_unbindVotes { handle idx arg } {
-  putidx $idx "Unbinding vote commands...\r"
-  unbind pub - "!innocent" bMotionVoteHandler
-  unbind pub - "!guilty" bMotionVoteHandler
-  unbind pubm - "!innocent" bMotionVoteHandler
-  unbind pubm - "!guilty" bMotionVoteHandler
-  putidx $idx "ok\r"
-}
-
 
 proc bMotion_plugin_management_rehash { handle } {
   global bMotionCache bMotion_testing bMotionRoot
