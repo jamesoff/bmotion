@@ -5,6 +5,7 @@ bMotion CHANGELOG
 + = added
 - = removed
 
+*  Kevin           added some gollum code. Precious.
 *  Kevin           where question should now be rude to anyone the bot dislikes
 *  Kevin           wellbeing code now takes notice of whether the bot likes you or not
 *  James           changed the failsafe plugin to have (slightly) more intelligent responses
