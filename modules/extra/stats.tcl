@@ -353,6 +353,12 @@ proc bMotion_stats_admin { handle { arg "" } } {
 		
 		return 0
 	}
+	
+	if {($arg == "check") || ($arg == "go")} {
+		bMotion_putadmin "checking stats are up to date..."
+		bMotion_stats_check 0
+		return 0
+	}
 }
 if {$bMotion_testing == 0} {
 	bMotion_plugin_add_management "stats" "^stats" n bMotion_stats_admin "any"
