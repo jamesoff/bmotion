@@ -2,13 +2,25 @@
 
 
 ###############################################################################
-# This is a bMotion 
+# This is a bMotion module thing
+# it provides the answers to questions
+
 # Copyright (C) James Michael Seward 2000-2002
 #
 # This program is covered by the GPL, please refer the to LICENCE file in the
 # distribution; further information can be found in the headers of the scripts
 # in the modules directory.
 ###############################################################################
+
+proc bMotion_question_where { nick channel host } {
+    bMotion_putloglev 2 * "$nick where question"
+    #bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWheres}"
+    if {[getFriendship $nick] < 35} {
+	bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{upyourbums}"
+    } else {
+	bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWheres}"
+    }
+}
 
 proc bMotion_question_wellbeing { nick channel host } {
     ##boring code, replaced

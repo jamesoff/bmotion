@@ -5,6 +5,8 @@ bMotion CHANGELOG
 + = added
 - = removed
 
+*  Kevin           where question should now be rude to anyone the bot dislikes
+*  Kevin           wellbeing code now takes notice of whether the bot likes you or not
 *  James           changed the failsafe plugin to have (slightly) more intelligent responses
 *  James           updated light plugin to trigger correctly
 +  James           added .bmadmin abstract delete <abstract> <index>

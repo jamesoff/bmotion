@@ -83,7 +83,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
   ## Where question targeted at me
   if { [regexp -nocase "^$botnicks,?:? where" $text] ||
        [regexp -nocase "^where .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_where $nick $channel $host 
+    bMotion_question_where $nick $channel $host 
     return 1
   }
 
@@ -225,11 +225,12 @@ proc bMotion_plugin_complex_question_why { nick channel host } {
   return 1
 }
 
-proc bMotion_plugin_complex_question_where { nick channel host } {
-    bMotion_putloglev 2 * "$nick where question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWheres}"
-  return 1
-}
+## obsolete, it's been moved
+# proc bMotion_plugin_complex_question_where { nick channel host } {
+#   bMotion_putloglev 2 * "$nick where question"
+#   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWheres}"
+#   return 1
+# }
 
 proc bMotion_plugin_complex_question_many { nick channel host } {
     bMotion_putloglev 2 * "$nick how many question"
