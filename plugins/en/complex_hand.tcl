@@ -28,8 +28,12 @@ proc bMotion_plugin_complex_hand { nick host handle channel text } {
 
   if [regexp -nocase {[[:<:]](hug|cuddle|knuffel)[[:>:]]} $item] {
     #we're being asked to hug someone
-    if [bMotion_plugin_check_depend "complex:hug"] {
-      bMotion_plugin_complex_hug_do $channel $who $host
+    if { [bMotion_plugin_check_depend "complex:hug"] } {
+      if { [string match -nocase "me" $who] } {
+        bMotion_plugin_complex_hug_do $channel $nick $host
+      } else {  
+        bMotion_plugin_complex_hug_do $channel $who $host
+      }  
     } else {
       bMotionDoAction $channel $nick "%%: I'm sorry, I don't know how to hug %VAR{unsmiles}"
     }
