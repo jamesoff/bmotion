@@ -183,7 +183,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0}} {
 }
 
 proc bMotionDoInterpolation { line nick moreText { channel "" } } {
-  global botnick sillyThings bMotionCache
+  global botnick bMotionCache
 
   #drop out immediately if this is a %BOT
   #if [regexp -nocase "^%BOT" $line] {
@@ -198,8 +198,15 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
       putlog "bMotion: ALERT! looping too much in %VAR code with $line"
       set line "/has a tremendous error while trying to sort something out :("
     }
-    set var [subst $$BOOM]
-    set line [bMotionInsertString $line "%VAR\{$BOOM\}" [pickRandom $var]]
+    #see if we have a new-style abstract available
+    set newText [bMotion_abstract_get $BOOM]
+    if {$newText == ""} {
+      set var [subst $$BOOM]
+      set line [bMotionInsertString $line "%VAR\{$BOOM\}" [pickRandom $var]]
+    } else {
+      #insert old style
+      set line [bMotionInsertString $line "%VAR\{$BOOM\}" $newText]
+    }
   }
 
   set loops 0
@@ -230,7 +237,7 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
   set line [bMotionInsertString $line "%pronoun" [getPronoun]]
   set line [bMotionInsertString $line "%himherself" [getPronoun]]
   set line [bMotionInsertString $line "%me" $botnick]
-  set line [bMotionInsertString $line "%noun" [pickRandom $sillyThings]]
+  set line [bMotionInsertString $line "%noun" [bMotion_abstract_get "sillyThings"]]
   set line [bMotionInsertString $line "%colen" [bMotionGetColenChars]]
   set line [bMotionInsertString $line "%hishers" [getHisHers]]
   set line [bMotionInsertString $line "%heshe" [getHeShe]]
@@ -269,7 +276,7 @@ proc bMotionInterpolation2 { line } {
 }
 
 proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0}} {
-  global mood botnick bMotionInfo sillyThings bMotionCache
+  global mood botnick bMotionInfo bMotionCache
 
   #choose a new bot?
   if [regexp {^%PICKBOT\[(.+)?\]} $line matches conditions] {
