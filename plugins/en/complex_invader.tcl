@@ -275,5 +275,5 @@ bMotion_plugin_add_complex "invader(zim)" "zim|inva(de|sion)|((mwa)?ha(ha)+)|(vi
 bMotion_plugin_add_complex "invader(gir)" "w(h)?oo+|chicken|gir(!+| )|doo+m|piggy" 20 "bMotion_plugin_complex_invader_gir" "en"
 
 # nick change response
-bMotion_plugin_add_irc_event "invader(nick)" "nick" ".*" 20 "bMotion_plugin_complex_invader_nick" "en"
+bMotion_plugin_add_irc_event "invader(nick)" "nick" ".*" 5 "bMotion_plugin_complex_invader_nick" "en"
 
