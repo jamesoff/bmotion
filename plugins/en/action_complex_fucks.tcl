@@ -20,7 +20,7 @@ proc bMotion_plugin_complex_action_fucks { nick host handle channel text } {
     if {[regexp -nocase "(ass|arse|bottom|anal|rape(s)?|fist)" $text] && ![bMotion_setting_get "kinky"]} {
       driftFriendship $nick -5
       frightened $nick $channel
-      return 0
+      return 1
     }
     if [bMotionLike $nick $host] {
       driftFriendship $nick 4
@@ -33,6 +33,6 @@ proc bMotion_plugin_complex_action_fucks { nick host handle channel text } {
       frightened $nick $channel
       driftFriendship $nick -1
     }
-		return 0
+		return 1
 	}
 }
