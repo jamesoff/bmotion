@@ -9,16 +9,16 @@
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or 
+# the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
 #
-# This program is distributed in the hope that it will be useful, but 
-# WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 # General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License 
-# along with this program; if not, write to the Free Software 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
@@ -103,7 +103,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
     0 { }
     1 { set nick [string tolower $nick] }
     2 { set nick "[string range $nick 0 0][string tolower [string range $nick 1 end]]" }
-  } 
+  }
 
   #do this first now
   set text [bMotionDoInterpolation $text $nick $moreText $channel]
@@ -115,15 +115,15 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
     set thingsToSay ""
     set loopCount 0
     set blah 0
-    
+
     #make sure we get the last section
     set text "$text%|"
 
     while {[string match "*%|*" $text]} {
       set sentence [string range $text 0 [expr [string first "%|" $text] -1]]
-      if {$sentence != ""} { 
+      if {$sentence != ""} {
         if {$blah == 0} {
-          set thingsToSay [list $sentence] 
+          set thingsToSay [list $sentence]
           set blah 1
         } else {
           lappend thingsToSay $sentence
@@ -131,7 +131,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
       }
       set text [string range $text [expr [string first "%|" $text] + 2] end]
       incr loopCount
-      if {$loopCount > 20} { 
+      if {$loopCount > 20} {
         putlog "bMotion ALERT! Bailed in bMotionDoAction with $text. Lost output."
         return 0
       }
@@ -154,8 +154,8 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
       if [rand 2] {
         bMotionDoAction $channel "" "%VAR{typoFix}" "" 1
       }
-      bMotion_plugins_settings_set "output:typos" "typos" "" "" ""      
-      
+      bMotion_plugins_settings_set "output:typos" "typos" "" "" ""
+
 
     }
     return 0
@@ -169,7 +169,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
     if [rand 2] {
       bMotionDoAction $channel "" "%VAR{typoFix}" "" 1
     }
-    bMotion_plugins_settings_set "output:typos" "typos" "" "" ""        
+    bMotion_plugins_settings_set "output:typos" "typos" "" "" ""
   }
 
   return 0
@@ -201,7 +201,7 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
       bMotion_putloglev 1 * "before1: $line"
       regsub "%VAR\{$BOOM\}" $line [pickRandom $var] line
       bMotion_putloglev 1 * "after1: $line"
-    } else {      
+    } else {
       #set line [bMotionInsertString $line "%VAR\{$BOOM\}" $newText]
       bMotion_putloglev 1 * "before2: $line"
       regsub "%VAR\{$BOOM\}" $line $newText line
@@ -230,7 +230,7 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
     }
     set line [bMotionInsertString $line "%SETTING{$settingString}" $var]
   }
-  
+
   set loops 0
   bMotion_putloglev 4 * "doing NUMBER processing"
   while {[regexp "%NUMBER\{(.+?)\}" $line matches numberString]} {
@@ -418,7 +418,7 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
   }
 
   set line [bMotionInsertString $line "%slash" "/"]
-  
+
   if [regexp "^/" $line] {
     #it's an action
     mee $channel [string range $line 1 end] $urgent
@@ -613,6 +613,7 @@ proc bMotionTransformTarget { target {host ""} } {
 #   * friend, enemy - pick by if we're friends
 #   * prev - return previously chosen user/bot
 proc bMotion_choose_random_user { channel bot condition } {
+	bMotion_putloglev 4 * "entering bMotion_choose_random_user ($channel, $bot, $condition)"
   global bMotionCache
   set users [chanlist $channel]
   set acceptable [list]
@@ -642,8 +643,9 @@ proc bMotion_choose_random_user { channel bot condition } {
       continue
     }
 
-    #else, if we're accepting anyone and they don't have a handle, use nick
-    if {(($handle == "") || ($handle == "*")) && ($condition == "")} {
+    #else, if we're accepting anyone and they don't have a handle, and
+    #we don't want a bot, then use nick
+    if {(($handle == "") || ($handle == "*")) && ($condition == "") && ($bot == 0)} {
       bMotion_putloglev 4 * "  ++accept: $user (no handle)"
       lappend acceptable $user
       continue
@@ -657,10 +659,14 @@ proc bMotion_choose_random_user { channel bot condition } {
       }
       #check we can talk to this bot
       global bMotion_interbot_otherbots
-      if {[lindex [array names bMotion_interbot_otherbots] $bot] == -1} {
+      if {[lsearch [array names bMotion_interbot_otherbots] $handle] == -1} {
         bMotion_putloglev 4 * "  --reject: not a bmotion bot"
         continue
       }
+      #else add them
+      lappend acceptable $user
+      bMotion_putloglev 4 * "  ++accept: bmotion bot"
+      continue
     }
 
     #conversely if we're looking for a user...
@@ -673,41 +679,48 @@ proc bMotion_choose_random_user { channel bot condition } {
       "" {
         bMotion_putloglev 4 * "  ++accept: any"
         lappend acceptable $handle
+        continue
       }
       "male" {
         if {[getuser $handle XTRA gender] == "male"} {
           bMotion_putloglev 4 * "  ++accept: male"
           lappend acceptable $handle
+          continue
         }
       }
       "female" {
         if {[getuser $handle XTRA gender] == "female"} {
           bMotion_putloglev 4 * "  ++accept: female"
           lappend acceptable $handle
+          continue
         }
       }
       "like" {
         if {[bMotionLike $user [getchanhost $user]]} {
           bMotion_putloglev 4 * "  ++accept: like"
           lappend acceptable $handle
+          continue
         }
       }
       "dislike" {
         if {![bMotionLike $user [getchanhost $user]]} {
           bMotion_putloglev 4 * "  ++accept: dislike"
           lappend acceptable $handle
+          continue
         }
       }
       "friend" {
         if {[getFriendshipHandle $user] > 50} {
           bMotion_putloglev 4 * "  ++accept: friend"
           lappend acceptable $handle
+          continue
         }
       }
       "enemy" {
         if {[getFriendshipHandle $user] < 50} {
           bMotion_putloglev 4 * "  ++accept: enemy"
           lappend acceptable $handle
+          continue
         }
       }
     }
