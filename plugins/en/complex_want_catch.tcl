@@ -19,7 +19,7 @@ bMotion_plugin_add_complex "mmm-catch" "^mmm+ (.+)" 100 bMotion_plugin_complex_m
 bMotion_plugin_add_complex "noun-catch" {[[:<:]](?:a|an|the) ([[:alpha:]]+)} 100 bMotion_plugin_complex_noun_catcher "en"
 
 proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
-  if [regexp -nocase "i (want|need) (?!to)(.+)" $text matches verb item] {
+  if [regexp -nocase "i (want|need) (?!to)(.+? )" $text matches verb item] {
     #that's a negative lookahead ---^
     bMotion_flood_undo $nick
     bMotion_abstract_add "sillyThings" $item
@@ -27,15 +27,24 @@ proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
 }
 
 proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
-  if [regexp -nocase "^mmm+ (.+)" $text matches item] {
+  if [regexp -nocase "^mmm+ (.+?) " $text matches item] {
     bMotion_flood_undo $nick
     bMotion_abstract_add "sillyThings" $item
   }
 }
 
 proc bMotion_plugin_complex_noun_catcher { nick host handle channel text } {
-  if [regexp -nocase {[[:<:]](?:a|an|the) ([[:alpha:]]+(?!ed|ing|ce|ly))} $text matches item] {
+  if [regexp -nocase {[[:<:]](a|an|the|some) ([[:alpha:]]+(?!ed|ing|ce|ly))} $text matches prefix item] {
     bMotion_flood_undo $nick
-    bMotion_abstract_add "sillyThings" $item
+    set item [string tolower $item]
+    set prefix [string tolower $prefix]
+    if {$prefix == "the"} {
+      if {[string range $item end end] == "s"} {
+        set prefix "some"
+      } else {
+        set prefix "a"
+      }
+    }
+    bMotion_abstract_add "sillyThings" "$prefix $item"
   }
 }
