@@ -17,13 +17,6 @@ bMotion_plugin_add_complex "st-decloak" "^%botnicks decloak$" 100 "bMotion_plugi
 bMotion_plugin_add_complex "st-fire" "^%botnicks fire " 100 "bMotion_plugin_complex_startrek_fire" "en"
 bMotion_plugin_add_complex "st-courtmartial" "^%botnicks courtmartial " 100 "bMotion_plugin_complex_startrek_courtmartial" "en"
 
-#change the last value in the line below to 1 to make a guilty person get kicked
-#and to 0 to not kick (SECURITY IMPLICATIONS!)
-bMotion_plugins_settings_set "complex:startrek" "kick" "active" "" "0"
-
-#this is the kick message used
-bMotion_plugins_settings_set "complex:startrek" "kick" "message" "" "Guilty!"
-
 #cloak
 proc bMotion_plugin_complex_startrek_cloak { nick host handle channel text } {
   global bMotionInfo
@@ -72,7 +65,7 @@ proc bMotion_plugin_complex_startrek_fire { nick host handle channel text } {
     } else {
       bMotionDoAction $channel "" "/swoops in on $target"
     }
-    
+
     if {$weapon == "phasers"} {
       global phaserFires
       bMotionDoAction $channel $target "%VAR{phaserFires}"
@@ -124,8 +117,8 @@ proc bMotion_plugin_complex_startrek_courtmartial { nick host handle channel tex
       bMotionDoAction $channel $who "Rules simple. Simply decide if you think I'll find %% innocent."
       set bMotionInfo(brigInnocent) [list]
       set bMotionInfo(brigGuilty) [list]
-      bind pub - "!vote" bMotionVoteHandler
-      bMotionDoAction $channel $who "Place bets now!"
+      bind pub - "!bet" bMotionVoteHandler
+      bMotionDoAction $channel $who "Place bets now! (\002!bet innocent\002 and \002!bet guilty\002, one bet per person)"
     }
     bMotionDoAction $channel $who "/throws %% in the brig to await charges"
     utimer $bMotionInfo(brigDelay) bMotionDoBrig
@@ -146,7 +139,7 @@ proc bMotionBanzaiBrigMidBet {} {
   regexp -nocase "(.+)@(.+)" $brigInfo pop nick channel
 
   bMotionDoAction $channel "" [pickRandom $banzaiMidBets]
-  return 0  
+  return 0
 }
 
 proc bMotionDoBrig {} {
@@ -177,10 +170,6 @@ proc bMotionDoBrig {} {
       if {[llength $bMotionInfo(brigGuilty)] > 0} {
         bMotionDoAction $channel $bMotionInfo(brigGuilty) "Congraturation go to big winner who are %%. Well done! Riches beyond your wildest dreams are yours to taking!"
       }
-      if {[bMotion_plugins_settings_get "complex:startrek" "kick" "active" ""] == 1} {
-        set msg [bMotion_plugins_settings_set "complex:startrek" "kick" "message" ""]
-        puthelp "KICK $channel $nick :$message"
-      }
     }
   } else {
     bMotionDoAction $channel "" "You have been found innocent, have a nice day."
@@ -200,33 +189,33 @@ proc bMotionDoBrig {} {
 proc bMotionVoteHandler {nick host handle channel text} {
   global bMotionInfo
   set brigInfo $bMotionInfo(brig)
-  if {$brigInfo == ""} { 
-    #unbind    
+  if {$brigInfo == ""} {
+    #unbind
     putlog "bMotion: Oops, need to unbind votes"
-    unbind pubm - "!vote" bMotionVoteHandler
-    return 0 
+    unbind pubm - "!bet" bMotionVoteHandler
+    return 0
   }
 
   if {[lsearch $bMotionInfo(brigInnocent) $nick] != -1} {
-    puthelp "NOTICE $nick :You have already voted."
+    puthelp "NOTICE $nick :You have already bet."
     return 0
   }
 
   if {[lsearch $bMotionInfo(brigGuilty) $nick] != -1} {
-    puthelp "NOTICE $nick :You have already voted."
+    puthelp "NOTICE $nick :You have already bet."
     return 0
   }
 
-  if [string match -nocase "innocent" $text] {    
+  if [string match -nocase "innocent" $text] {
     lappend bMotionInfo(brigInnocent) $nick
-    putlog "bMotion: Accepted innocent vote from $nick"
+    putlog "bMotion: Accepted innocent bet from $nick"
     return 0
   }
 
   if [string match -nocase "guilty" $text] {
     lappend bMotionInfo(brigGuilty) $nick
-    putlog "bMotion: Accepted guilty vote from $nick"
+    putlog "bMotion: Accepted guilty bet from $nick"
     return 0
   }
-  puthelp "NOTICE $nick: Syntax: !vote <guilty|innocent>"
+  puthelp "NOTICE $nick: Syntax: !bet <guilty|innocent>"
 }
