@@ -121,8 +121,8 @@ proc doRandomStuff {} {
     }
 
     #channel is quite idle
-    putlog "bMotion: All channels are idle, going away"
     if {[rand 4] == 0} {
+      putlog "bMotion: All channels are idle, going away"
       bMotionSetRandomAway
       return 0
     }
@@ -150,15 +150,8 @@ proc doRandomStuff {} {
 proc bMotionSaySomethingRandom {channel} {
   global randomStuff stonedRandomStuff randomStuffMale randomStuffFemale mood bMotionInfo
   
-  set myRandomStuff $randomStuff
-
-  if {$mood(stoned) > 9} {
-    bMotionDoAction $channel "" "%VAR{$myRandomStuff}"
-    return 0
-  }
-
   if [rand 2] {
-    bMotionDoAction $channel "" "%VAR{$myRandomStuff}"
+    bMotionDoAction $channel "" "%VAR{randomStuff}"
   }
 
   return 0
