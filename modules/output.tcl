@@ -580,7 +580,8 @@ proc bMotionProcessQueue { } {
     set done 0
 
     #check if it needs to go to a bot
-    if [regexp {(\[#!\][^ ]+) %BOT\[(.+?)\] (.+)} $next matches channel cmd bot] {
+    if [regexp {([#!][^ ]+) %BOT\[(.+?)\] (.+)} $next matches channel cmd bot] {
+      putlog "yes"
       bMotion_putloglev 2 * "bMotion: matched 100% bot command for channel $channel -> $cmd"
       global bMotionQueue
       #bMotionQueueCheck
@@ -588,7 +589,7 @@ proc bMotionProcessQueue { } {
       set done 1
     }
 
-    if [regexp {(\[#!\][^ ]+) %bot\[([[:digit:]]+),(.+?)\] (.+)} $next matches channel chance cmd bot] {
+    if [regexp {([#!][^ ]+) %bot\[([[:digit:]]+),(.+?)\] (.+)} $next matches channel chance cmd bot] {
       #push to a bot
       bMotion_putloglev 2 * "bMotion: matched $chance% bot command for channel $channel -> $cmd"
       if {[rand 100] < $chance} {
