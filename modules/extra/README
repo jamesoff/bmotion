@@ -1,0 +1,5 @@
+This directory does/will contain extra modules for bMotion.
+
+They will automatically be loaded at start time to give extra 
+functionality in bMotion's core. File which add interactions on IRC 
+should go in ../plugins.
