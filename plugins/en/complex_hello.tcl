@@ -43,7 +43,11 @@ proc bMotion_plugin_complex_hello { nick host handle channel text } {
   if {[string length $exclaim] >= 3} {
     set greeting "%%%colen"
   } else {
-    set greeting "%VAR{greetings}"
+    if {[getFriendship $nick] > 60} {
+      set greeting "%VAR{hello_familiars}"
+    } else {
+      set greeting "%VAR{greetings}"
+    }
   }
 
   # get random nick from realnames
@@ -51,4 +55,12 @@ proc bMotion_plugin_complex_hello { nick host handle channel text } {
 
   bMotionDoAction $channel $nick $greeting
   return 1
+}
+
+set hello_familiars {
+  "%%%colen"
+  "%%!"
+  "%% :D"
+  "%% ^_^"
+  "/hugs %%"
 }
