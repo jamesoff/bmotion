@@ -125,5 +125,13 @@ proc bMotion_queue_size { } {
 	return [llength bMotion_queue]
 }
 
+# bMotion_queue_flush
+#
+# Clears the queue
+proc bMotion_queue_flush { } {
+	global bMotion_queue
+	set bMotion_queue [list]
+}
+
 # init timer
 utimer 1 bMotion_queue_callback
