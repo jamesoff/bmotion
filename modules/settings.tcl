@@ -94,3 +94,6 @@ set bMotionSettings(languages) "en,nl"
 
 # default language to use
 set bMotionInfo(language) "en"
+
+# regexp to stop learning of facts
+set bMotionSettings(ignorefacts) "is online"
