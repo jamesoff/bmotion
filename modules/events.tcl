@@ -150,7 +150,7 @@ proc bMotion_event_onquit {nick host handle channel reason} {
 # BEGIN main interactive
 proc bMotion_event_main {nick host handle channel text} {
   #check our global toggle
-  global bMotionGlobal
+  global bMotionGlobal bMotionPluginHistory
   if {$bMotionGlobal == 0} {
     return 0
   }
@@ -272,9 +272,16 @@ proc bMotion_event_main {nick host handle channel text} {
       if [bMotion_flood_check $nick] { return 0 }
 
       bMotion_putloglev 1 * "bMotion: `- running callback $callback"
-      bMotion_counter_incr "events" "complexplugins"
-      set result [$callback $nick $host $handle $channel $text]
-      set bMotionCache(lastPlugin) $callback
+			set result 0
+			#if {![bMotion_plugin_history_check $channel "complex" $callback]} {
+				bMotion_counter_incr "events" "complexplugins"
+				set result [$callback $nick $host $handle $channel $text]
+				set bMotionCache(lastPlugin) $callback
+				bMotion_plugin_history_add $channel "complex" $callback
+			#} else {
+			#	bMotion_putloglev 2 * "Plugin $callback has recently fired in $channel, ignoring"
+			#}
+			
       if {$result == 1} {
         bMotion_putloglev 2 * "bMotion:    `-$callback returned 1, breaking out..."
         break

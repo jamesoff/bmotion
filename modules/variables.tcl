@@ -86,3 +86,5 @@ set bMotionThisText ""
 
 #0 for off
 set bMotionGlobal 1
+
+set bMotionPluginHistory [list]

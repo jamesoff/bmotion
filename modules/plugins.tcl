@@ -588,5 +588,37 @@ proc bMotion_plugin_null { {a ""} {b ""} {c ""} {d ""} {e ""} } {
   return 0
 }
 
+# bMotion_plugin_history_add
+#
+# adds a plugin name to the history list, keeping the list to 10 items
+# will not add the plugin if the last one is identical
+proc bMotion_plugin_history_add { channel type plugin } {
+	global bMotionPluginHistory
+
+	set historyEntry "$channel:$type:$plugin"
+	if {$historyEntry == [lindex $bMotionPluginHistory end]} {
+		bMotion_putloglev 2 * "Skipping duplicate plugin history entry $historyEntry"
+		return 0
+	}
+
+	bMotion_putloglev 2 * "Added $historyEntry to plugin history"
+	lappend bMotionPluginHistory $historyEntry
+	
+	if {[llength $bMotionPluginHistory] > 10} {
+		set bMotionPluginHistory [lreplace $bMotionPluginHistory end-10 end]
+	}
+	return 1
+}
+
+# bMotion_plugin_history_check
+#
+# returns 0 if the plugin hasn't fired recently in the channel
+# else returns position in list
+proc bMotion_plugin_history_check { channel type plugin } {
+	global bMotionPluginHistory
+
+	return [expr [lsearch $bMotionPluginHistory "$channel:$type:$plugin"] + 1]
+}
+
 bMotion_putloglev d * "bMotion: plugins module loaded"
 

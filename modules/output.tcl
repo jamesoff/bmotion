@@ -79,7 +79,7 @@ proc mee {channel action {urgent 0} } {
 ## bMotionDoAction ###########################################################
 proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
   bMotion_putloglev 5 * "bMotionDoAction($channel,$nick,$text,$moreText,$noTypo)"
-  global bMotionInfo bMotionCache
+  global bMotionInfo bMotionCache bMotionOriginalInput
   set bMotionCache($channel,last) 1
   set bMotionCache(typos) 0
   set bMotionCache(typoFix) ""
@@ -337,7 +337,7 @@ proc bMotionInterpolation2 { line } {
 
 proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
   bMotion_putloglev 5 * "bMotionSayLine: channel = $channel, nick = $nick, line = $line, moreText = $moreText, noTypo = $noTypo"
-  global mood botnick bMotionInfo bMotionCache
+  global mood botnick bMotionInfo bMotionCache bMotionOriginalInput
 
   set line [bMotionInterpolation2 $line]
 
@@ -426,12 +426,21 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
     return 0
   }
 
+	if {[string index $line end] == " "} {
+		set line [string range $line 0 end-1]
+	}
+
   #check if this line matches the last line said on IRC
   global bMotionThisText
   if [string match -nocase $bMotionThisText $line] {
     bMotion_putloglev 1 * "bMotion: my output matches the trigger, dropping"
     return 0
   }
+
+	if [string match -nocase $bMotionOriginalInput $line] {
+		bMotion_putloglev 1 * "my output matches the trigger, dropping"
+		return 0
+	}
 
   set line [bMotionInsertString $line "%slash" "/"]
 
@@ -822,5 +831,11 @@ proc bMotionMakeVerb { text } {
   append text "s"
   return $text
 }
+proc chr c { 
+    if {[string length $c] > 1 } { error "chr: arg should be a single char"}
+		#   set c [ string range $c 0 0] 
+		    set v 0; 
+				    scan $c %c v; return $v
+						}
 
 bMotion_putloglev d * "bMotion: output module loaded"
