@@ -27,7 +27,7 @@ global randomsVersion
 global fellOffs
 global jokeends
 global confuciousStart
-global confuciousEnds
+global confuciousEnd
 global fuckOffs
 global silenceAways
 global lovesits
@@ -104,7 +104,7 @@ set fellOffs {
   "collapsed"
   "split into component atoms"
   "got sat on by a fat person"
-  "get turned in to %VAR{sillyThings}"
+  "got turned into %VAR{sillyThings}"
 }
 
 set jokeends {
@@ -121,7 +121,7 @@ set confuciousStart {
   "man who jump off cliff"
 }
 
-set confuciousEnds {
+set confuciousEnd {
   "going to Bangkok."
   "feel cocky all day."
   "lead to undoing of fly"
