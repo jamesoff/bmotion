@@ -203,13 +203,15 @@ proc bMotion_interbot_me_next { channel } {
 
   set channel [string tolower $channel]
 
-  if {$bMotion_interbot_nextbot_score($channel) < 0} {
-    return 0
-  }
+  catch
+    if {$bMotion_interbot_nextbot_score($channel) < 0} {
+      return 0
+    }
 
-  if {$bMotion_interbot_nextbot_nick($channel) == $botnick} {
-    bMotion_interbot_next_elect_do $channel
-    return 1
+    if {$bMotion_interbot_nextbot_nick($channel) == $botnick} {
+      bMotion_interbot_next_elect_do $channel
+      return 1
+    }
   }
   #if it's noone, the winning bot will force an election anyway
   return 0
