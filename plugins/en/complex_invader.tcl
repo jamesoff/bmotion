@@ -45,6 +45,14 @@ proc bMotion_plugin_complex_invader_gir { nick host handle channel text } {
 }
 # end bMotion_plugin_complex_invader_gir
 
+# bMotion_plugin_complex_invader_nick
+proc bMotion_plugin_complex_invader_nick { nick host handle channel newnick } {
+	global randomZimNameChange
+	set nickresponse [ pickRandom $randomZimNameChange ]
+	return $nickresponse 
+}
+# end bMotion_plugin_complex_invader_nick
+
 # random zimlike phrases
 set randomZimness { 
 	"yes, my tallest!"
@@ -225,6 +233,13 @@ set randomDootie {
 	"you said dootie %VAR{smiles}"
 }
 
+# random zim/gir name change responses
+set randomZimNameChange {
+	"master where did you go? I can't see you"
+	"master?"
+	"where'd my moose go?"
+}
+
 # callbacks
 
 # "duty" plugin responds to "duty" and variations of "dootie"
@@ -235,4 +250,7 @@ bMotion_plugin_add_complex "invader(zim)" "zim|inva(de|sion)|((mwa)?ha(ha)+)|(vi
 
 # "gir" plugin responds to "gir" "whooo or wooo" "chicken" "doom" "piggy"
 bMotion_plugin_add_complex "invader(gir)" "w(h)?oo+|chicken|gir(!+| )|doo+m|piggy" 40 "bMotion_plugin_complex_invader_gir" "en"
+
+# nick change response
+bMotion_plugin_add_nick_action "invader(nick)" ".*" 40 "bMotion_plugin_complex_invader_nick" "en"
 

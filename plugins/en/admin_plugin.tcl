@@ -82,7 +82,7 @@ proc bMotion_plugin_admin_plugins { handle idx { arg "" }} {
   putidx $idx "Installed bMotion plugins:\r"
   putidx $idx "(one moment...)\r"
   set total 0
-  foreach t {simple complex output admin action_simple action_complex } {
+  foreach t {simple complex output admin action_simple action_complex nick_action } {
     set arrayName "bMotion_plugins_$t"
     upvar #0 $arrayName cheese
     set plugins [array names cheese]

@@ -1159,6 +1159,25 @@ proc bMotion_event_nick { nick host handle channel newnick } {
     }
   } 
 
+  global bMotionInfo
+  ## Run the nick action plugins ##
+  set response [bMotion_plugin_find_nick_action $newnick $bMotionInfo(language)]
+  if {[llength $response] > 0} {
+    foreach callback $response {
+      bMotion_flood_add $nick $callback $newnick
+      if [bMotion_flood_check $nick] { return 0 }
+   
+      bMotion_putloglev 1 * "bMotion: matched nick change plugin, running callback $callback"
+      set result [$callback $nick $host $handle $channel $newnick ]
+      if {$result == ""} {
+        bMotion_putloglev 2 * "bMotion: $callback returned 1, breaking out..."
+        break
+      }
+      bMotionDoAction $channel "" $result
+    }
+    return 0
+  }
+
 }
 #emd of nick handler
 

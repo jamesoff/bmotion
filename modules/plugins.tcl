@@ -46,6 +46,9 @@ set bMotion_plugins_action_simple(dummy) "none"
 if [info exists bMotion_plugins_action_complex] { unset bMotion_plugins_action_complex }
 set bMotion_plugins_action_complex(dummy) "none"
 
+## nick action plugins
+if [info exists bMotion_plugins_nick_action] { unset bMotion_plugins_nick_action }
+set bMotion_plugins_nick_action(dummy) "none"
 
 ##############################################################################################################################
 ## Load a simple plugin
@@ -392,6 +395,54 @@ proc bMotion_plugin_check_allowed { name } {
   return 1
 }
 
+################################################################################
+
+## dev: simsea
+## Load a nick change response plugin
+proc bMotion_plugin_add_nick_action { id match chance callback language } {
+  global bMotion_plugins_nick_action plugins bMotion_testing
+  if {$bMotion_testing == 0} {
+    catch {
+      set test $bMotion_plugins_nick_action($id)
+      putlog "bMotion: ALERT! Nick action plugin $id is defined more than once"
+      return 0
+    }
+  }
+  if [bMotion_plugin_check_allowed "nick:$id"] {
+    set bMotion_plugins_nick_action($id) "${match}¦$chance¦$callback¦$language"
+    bMotion_putloglev 2 * "bMotion: added nick action plugin: $id"
+    append plugins "$id,"
+    return 1
+  }
+  bMotion_putloglev d * "bMotion: ignoring disallowed plugin nick:$id"
+
+}
+
+## Find a nick change response plugin plugin
+proc bMotion_plugin_find_nick_action { text lang } {
+  global bMotion_plugins_nick_action botnicks
+  set s [lsort [array names bMotion_plugins_nick_action]]
+  set result [list]
+
+  foreach key $s {
+    if {$key == "dummy"} { continue }
+    set val $bMotion_plugins_nick_action($key)
+    set blah [split $val "¦"]
+    set rexp [lindex $blah 0]
+    set chance [lindex $blah 1]
+    set callback [lindex $blah 2]
+    set language [lindex $blah 3]
+    if {[string match $language $lang] || ($language == "any")} {
+      if [regexp -nocase $rexp $text] {
+        set c [rand 100]
+        if {$chance > $c} {
+          lappend result $callback
+        }
+      }
+    }
+  }
+  return $result
+}
 
 
 ################################################################################
@@ -428,7 +479,7 @@ catch { source "$bMotionPlugins/action_complex.tcl" }
 
 bMotion_putloglev d * "Installed bMotion plugins: (some may be inactive)\r"
 bMotion_putloglev d * "(one moment...)\r"
-foreach t {simple complex admin output action_simple action_complex} {
+foreach t {simple complex admin output action_simple action_complex nick_action} {
   set arrayName "bMotion_plugins_$t"
   upvar #0 $arrayName cheese
   set plugins [array names cheese]
