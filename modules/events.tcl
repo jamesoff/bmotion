@@ -141,7 +141,7 @@ proc bMotion_event_main {nick host handle channel text} {
   regsub -all "\002" $text "" text
   regsub -all "\022" $text "" text
   regsub -all "\037" $text "" text
-  regsub -all {\003[0-9]+(,[0-9+])?} $text "" text
+  regsub -all "\003\[0-9\]+(,\[0-9+\])?" $text "" text
 
   #first, check botnicks (this is to get round empty-nick-on-startup
   if {$botnicks == ""} {
