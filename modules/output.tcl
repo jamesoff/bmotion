@@ -77,6 +77,12 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0}} {
   set bMotionCache(typos) 0
   set bMotionCache(typoFix) ""
 
+  #check our global toggle
+  global bMotionGlobal
+  if {$bMotionGlobal == 0} {
+    return 0
+  }
+
   if [regexp "^\[#!\].+" $channel] {
     set channel [string tolower $channel]
     if {[lsearch $bMotionInfo(randomChannels) [string tolower $channel]] < 0} {
