@@ -83,4 +83,4 @@ set bMotionAdminFlag "n"
 set bMotionQueue [list]
 set bMotionQueueTimer 0
 
-
+set bMotionThisText ""

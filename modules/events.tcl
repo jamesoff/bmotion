@@ -113,6 +113,7 @@ proc bMotion_event_main {nick host handle channel text} {
   global loveresponses boreds upyourbums smiles
   global arrs botnick arrcachenick arrcachearr
   global bMotionLastEvent bMotionSettings botnicks bMotionCache bMotionInfo
+  global bMotionThisText  
 
   if {[lsearch $bMotionInfo(randomChannels) [string tolower $channel]] == -1} {
     return 0
@@ -150,14 +151,15 @@ proc bMotion_event_main {nick host handle channel text} {
       regsub -all "%" $text "%percent" text
     }    
   }
-  regsub -all "/" $text "%slash" text
-  
+  regsub -all "/" $text "%slash" text  
 
   ## Trim ##
   set text [string trim $text]
 
   ## Dump double+ spaces ##
   regsub -all "  +" $text " " text
+
+  set bMotionThisText $text
 
   ## Run the simple plugins ##
   set response [bMotion_plugin_find_simple $text $bMotionInfo(language)]

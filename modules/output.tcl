@@ -351,6 +351,13 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0}} {
     }
   }
 
+  #check if this line matches the last line said on IRC
+  global bMotionThisText
+  if [string match -nocase $bMotionThisText $line] {
+    bMotion_putloglev 1 * "bMotion: my output matches the trigger, dropping"
+    return 0
+  }
+
   if [regexp "^/" $line] {
     set line [bMotionInsertString $line "%slash" "/"]
     #it's an action
