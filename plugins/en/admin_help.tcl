@@ -88,14 +88,6 @@ proc bMotion_plugin_management_help { handle { args "" } } {
   			bMotion_putadmin "  .bmotion lang use <lang>"
   			bMotion_putadmin "    switch active language"
   		}
-  		"fact" {
-  			bMotion_putadmin "Manage the fact subsystem:"
-  			bMotion_putadmin "  .bmotion fact status"
-  			bMotion_putadmin "    Show a summary of facts (lots of output!)"
-  			bMotion_putadmin "  .bmotion fact show <type> <key>"
-  			bMotion_putadmin "    Show defined values for <key>"
-  			bMotion_putadmin "    Currently <type> is only 'what'"
-  		}
   		"plugin" {
   			bMotion_putadmin "Manage plugins:"
   			bMotion_putadmin "  .bmotion plugin list \[<search terms>\]"
@@ -144,7 +136,13 @@ proc bMotion_plugin_management_help { handle { args "" } } {
   			bMotion_putadmin "    a query or the partyline have '\[parse\]' prefixed."
   		}
    		default {
-  			bMotion_putadmin "I seem to have misplaced my help for that command."
+   			#no pre-defined help, see if there's a callback for it
+   			set callback [bMotion_plugin_find_management $args]
+   			if {$callback != ""} {
+   				set result [$callback]
+   			} else {
+  				bMotion_putadmin "I seem to have misplaced my help for that command."
+  			}
   		}
   	}
   	return 0
