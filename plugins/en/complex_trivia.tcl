@@ -18,17 +18,33 @@ bMotion_plugin_add_complex "trivia1" {^===== Question .+ =====$} 100 bMotion_plu
 #[@   fluffy] Hint: _ _ _ _ _ _ _ _ _
 bMotion_plugin_add_complex "trivia2" {^Hint:} 85 bMotion_plugin_complex_trivia_2 "en"
 
+#[      zeal] Name The Year: Calvin Coolidge, 30th US President, died.
+bMotion_plugin_add_complex "trivia4" "^Name the year:" 100 bMotion_plugin_complex_trivia_4 "en"
+
 # [@   fluffy] Show 'em how it's done Bel! The answer was DARLING.
 bMotion_plugin_add_complex "trivia3" ".+ The (correct )?answer was.+" 100 bMotion_plugin_complex_trivia_3 "en"
 
+#
+#bMotion_plugin_add_complex "trivia4" "^Name the year:" 100 bMotion_plugin_complex_trivia_4 "en"
 
 #
 # Detect the start of the game
 proc bMotion_plugin_complex_trivia_1 { nick host handle channel text } {
   bMotion_plugins_settings_set "trivia" "nick" "" "" $nick
   bMotion_plugins_settings_set "trivia" "channel" "" "" $channel
+  bMotion_plugins_settings_set "trivia" "type" "" "" ""
   bMotion_putloglev 2 * "Detected start of trivia round"
   bMotion_flood_clear $nick
+}
+
+proc bMotion_plugin_complex_trivia_4 { nick host handle channel text } {
+  if {$channel != [bMotion_plugins_settings_get "trivia" "channel" "" ""]} {
+    return 0
+  }
+  if {$nick != [bMotion_plugins_settings_get "trivia" "nick" "" ""]} {
+    return 0
+  }
+  bMotion_plugins_settings_set "trivia" "type" "" "" "year"
 }
 
 #
@@ -42,6 +58,8 @@ proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
   }
 
   bMotion_flood_clear $nick
+
+  bMotion_plugins_settings_set "trivia" "tries" "" "" 0
 
   catch {
     killutimer [bMotion_plugins_settings_get "trivia" "timer" "" ""]
@@ -71,6 +89,7 @@ proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
 
   bMotion_plugins_settings_set "trivia" "nick" "" "" ""
   bMotion_plugins_settings_set "trivia" "channel" "" "" ""
+  bMotion_plugins_settings_set "trivia" "type" "" "" ""
   catch {
     killutimer [bMotion_plugins_settings_get "trivia" "timer" "" ""]
     bMotion_putloglev d * "killed trivia retry timer"
@@ -120,6 +139,15 @@ proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
 proc bMotion_plugin_complex_trivia_guess { nick host handle channel text } {
   set bMotionOriginalInput $text
 
+  set tries [bMotion_plugins_settings_get "trivia" "tries" "" ""]
+  incr tries
+  if {$tries > 4} {
+    #give up auto-guessing until next clue
+    bMotion_putloglev d * "giving up guessing trivia after 4 tries..."
+    return 0
+  }
+  bMotion_plugins_settings_set "trivia" "tries" "" "" $tries
+
   #remove {}s
   regsub -all {[\{\}]} $text " " text
 
@@ -152,7 +180,11 @@ proc bMotion_plugin_complex_trivia_guess { nick host handle channel text } {
       bMotion_putloglev 2 * "processing hint $hint"
       set firstletter [string range $hint 0 0]
       if {$firstletter == "."} {
-        set firstletter [pickRandom [split "ABCDEFGHIJKLMNOPQRSTUVWXYZ" {}]]
+        if {[bMotion_plugins_settings_get "trivia" "type" "" ""] == "year"} {
+          set firstletter "1"
+        } else {
+          set firstletter [pickRandom [split "ABCDEFGHIJKLMNOPQRSTUVWXYZ" {}]]
+        }
       }
       if [regexp {[A-Z1]} $firstletter] {
         bMotion_putloglev 1 * "looking for a $firstletter word..."
@@ -219,4 +251,4 @@ bMotion_abstract_register "trivia_wins"
 bMotion_abstract_batchadd "trivia_wins" [list "%VAR{harhars}" "own3d" "PWND!" "yes!" "w%REPEAT{3:6:o}!" "go %me, go %me!" "whe%REPEAT{3:7:e}" "muhar" "winnar!" "in your face, %ruser!"]
 
 bMotion_abstract_register "trivia_loses"
-bMotion_abstract_batchadd "trivia_loses" [list "hey stop copying me %VAR{unsmiles}" "i was going to say that next" "hay you're cheating %VAR{unsmiles}" "you're in league with the bot, i know it" "that's not the right answer; the right answer is obviously '%VAR{sillyThings}'" "feh" "*cough*google*cough*" "toss" "%VAR{unsmiles}" "I was distracted by %VAR{sillyThings}" "i wish i knew as much as you. really."]
+bMotion_abstract_batchadd "trivia_loses" [list "hey stop copying me %VAR{unsmiles}" "i was going to say that next" "hay you're cheating %VAR{unsmiles}" "you're in league with the bot, i know it" "that's not the right answer; the right answer is obviously '%VAR{sillyThings}'" "feh" "*cough*google*cough*" "toss" "%VAR{unsmiles}" "I was distracted by %VAR{sillyThings}" "i wish i knew as much as you. really." "/dumb" "/stupid" "i knew that"]
