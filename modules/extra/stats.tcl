@@ -320,15 +320,16 @@ proc bMotion_stats_admin { handle { arg "" } } {
 		foreach bind $binds {
 			if {[lindex $bind 4] == "bMotion_stats_auto"} {
 				#this is us
-				bMotion_putadmin "  next stats run at [lindex $bind 0]:[lindex $bind 1]"
+				bMotion_putadmin "  next stats run at [lindex [lindex $bind 2] 0]:[lindex [lindex $bind 2] 1]"
 			}
 		}
 		
 		return 0
 	}
 }
-
-bMotion_plugin_add_management "stats" "^stats" n bMotion_stats_admin "any"
+if {$bMotion_testing == 0} {
+	bMotion_plugin_add_management "stats" "^stats" n bMotion_stats_admin "any"
+}
 
 #init
 set bMotion_stats_id ""
@@ -341,5 +342,7 @@ set hour [expr int(rand() * 22 + 1)]
 bind time - "$min $hour * * *" bMotion_stats_auto
 
 #make sure we're synced
-bMotion_stats_check 0
+if {$bMotion_testing == 0} {
+	bMotion_stats_check 0
+}
 
