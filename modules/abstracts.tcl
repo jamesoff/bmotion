@@ -887,6 +887,15 @@ set jokeReplies {
   "one's %n and the other's %n"
 }
 
+bMotion_abstract_register "lostPlot"
+set lostPlot {
+  "I've forgotten the rest"
+  "uh... was there more to that?"
+  "I have no idea what's going on"
+  "nevermind... you're obviously not ready for a statement of this magnitude"
+  "what? leave me alone"
+}
+
 bMotion_abstract_register "locations"
 #bMotion_abstract_batchadd "locations" $locations
 

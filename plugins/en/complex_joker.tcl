@@ -1,40 +1,44 @@
 # tell a random joke plugin
 set jokeInfo ""
 
-# parse command strings
-proc multipleParseLine { line } {
-	global bMotion_abstract_contents
-	
-	# have a different random thing for every %n tag
-	# this is here because the abstract replaces them all with the same silly thing
-	# instead of one for each occurance. That might be expected behaviour, so we'll
-	# just do it here instead.
-	while { [string first "%n" $line] != -1 } {
-		set object [pickRandom $bMotion_abstract_contents(sillyThings)]
-		regsub "%n" $line $object line
-	}
-
-	# return the output
-	return $line	
-}
-
 # tell a random answer callback
 proc bMotionDoJokeAnswer {} {
-	global jokeInfo jokeReplies
+	global jokeInfo jokeReplies bMotion_abstract_contents bMotionFacts
 
 	# if we're not telling a joke, what are we doing here?
 	if { $jokeInfo == "" } { return 0 }
 	
 	# parse out the first 3 bits of info
-	regexp -nocase "(.+)¦(.+)¦(.+)" $jokeInfo pop nick channel index
+	regexp -nocase "(.+)¦(.+)¦(.+):(.+)" $jokeInfo pop nick channel index bits
 	
 	# coordinate with the joke
 	set answer [ lindex $jokeReplies $index ]
 	# parse the answer line
-	set answer [ multipleParseLine $answer ]
+	while { [string first "%n" $answer] != -1 } {
+		set ind [string first "¦" $bits]
+		if { $ind == -1 } {
+			bMotionDoAction $channel $nick "%VAR{lostPlot}"
+			return 0
+		}
+		set thing [string range $bits 0 [ expr $ind - 1 ] ]
+		set bits [string range $bits [ expr $ind + 2 ] end ]
+		set object ""
+		catch {
+			set answers $bMotionFacts(what, $thing)
+			if {[llength $answers] > 0} {
+				set object [pickRandom $answers]
+			}
+		} err
+		if { $object == "" } {
+			set object [pickRandom $bMotion_abstract_contents(sillyThings)]
+		}
+
+		
+		regsub "%n" $answer $object answer
+	}
 
 	# tell the answer
-	bMotionDoAction $channel "" $answer
+	bMotionDoAction $channel $nick $answer
 	
 	# reset joke
 	set jokeInfo ""
@@ -46,7 +50,7 @@ proc bMotionDoJokeAnswer {} {
 
 # random joke callback
 proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
-	global jokeInfo jokeForms
+	global bMotion_abstract_contents jokeInfo jokeForms
 
 	# check if we're already telling a joke
 	if { $jokeInfo != "" } {
@@ -58,10 +62,17 @@ proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
 	set index [ rand [ llength $jokeForms ] ]
 	set joke [ lindex $jokeForms $index ]
 	# set the startings of the joke info
-	set jokeInfo "$nick¦$channel¦$index"
+	set jokeInfo "$nick¦$channel¦$index:"
 
-	# parse the joke
-	set joke [ multipleParseLine $joke ]
+	# have a different random thing for every %n tag
+	# this is here because the abstract replaces them all with the same silly thing
+	# instead of one for each occurance. That might be expected behaviour, so we'll
+	# just do it here instead.
+	while { [string first "%n" $joke] != -1 } {
+		set object [pickRandom $bMotion_abstract_contents(sillyThings)]
+		regsub "%n" $joke $object joke
+		set jokeInfo "$jokeInfo$object¦"
+	}
 
 	# tell the joke
 	bMotionDoAction $channel $nick $joke
