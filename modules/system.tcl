@@ -33,7 +33,7 @@ proc bMotionCleanCVSString { cvs } {
   return $cvs
 }
 set cvsinfo [bMotionCleanCVSString {$Id$}]
-set randomsinfo [bMotionCleanCVSString $randomsVersion]
+set randomsinfo ""
 
 #Set up the binds
 
@@ -340,26 +340,8 @@ proc bMotionGetGender { nick host } {
   return [getuser $handle XTRA gender]
 }
 
-proc pastWatershedCheck { nick } {
-  return 1
-  set hour [getHour]
-  global bMotionInfo
-  if {($hour < $bMotionInfo(upperWatershed)) && ($hour > $bMotionInfo(lowerWatershed))} {
-    global bMotionInfo
-    putserv "NOTICE $nick :I'd love to, but it's before the watershed so I'm not allowed to do that. Try asking me again after $bMotionInfo(upperWatershed):00"
-    return 0
-  }
-  return 1
-}
-
 proc loldec {} {
-  #obselete
   return 0
-  #global bMotionCache
-  #if {$bMotionCache(LOLcount) > 0} {
-  #  incr bMotionCache(LOLcount) -1
-  #}
-  #utimer 5 loldec
 }
 
 proc getHour {} {
@@ -447,10 +429,7 @@ proc dcc_bmotioncommand { handle idx arg } {
 
   if [regexp -nocase "unbind votes" $arg] {
       putidx $idx "Unbinding vote commands...\n"
-      unbind pub - "!innocent" bMotionVoteHandler
-      unbind pub - "!guilty" bMotionVoteHandler
-      unbind pubm - "!innocent" bMotionVoteHandler
-      unbind pubm - "!guilty" bMotionVoteHandler
+      unbind pub - "!vote" bMotionVoteHandler
       putidx $idx "ok\n"
       return 1
   }
@@ -690,23 +669,6 @@ proc msg_bmotioncommand { nick host handle cmd } {
   }  
 }
 
-proc smileyhandler {} {
-  global bMotionInfo bMotionCache
-  foreach channel $bMotionInfo(randomChannels) {
-    set chanMood $bMotionCache($channel,mood)
-    if [rand 2] {
-      if {$chanMood != 0} {
-        #don't talk to ourselves
-        if {$bMotionCache($channel,last) == 0} {
-          bMotionDoAction $channel "" [makeSmiley $chanMood]
-        }
-      }
-    }
-  #end foreach
-  }
-}
-
-
 # Time stuff
  set pronounce {vigintillion novemdecillion octodecillion \
         septendecillion sexdecillion quindecillion quattuordecillion \
@@ -808,17 +770,17 @@ proc bMotion_cleanNick { nick { handle "" } } {
   return $nick
 }
 
+# bMotion_uncolen
 #
 # clean out $£(($ off the end
-#
 proc bMotion_uncolen { line } {
   regsub -all {([!\"\£\$\%\^\&\*\(\)\#\@]{3,})} $line "" line
   return $line
 }
 
+# bMotion_setting_get
 #
-# get a setting
-#
+# get a setting out of the two variables that commonly hold them
 proc bMotion_setting_get { setting } {
   global bMotionSettings
   global bMotionInfo
@@ -830,16 +792,16 @@ proc bMotion_setting_get { setting } {
 	  return $val
   }
   
-  bMotion_putloglev d * "setting '$setting' doesn't exist in bMotionSettings, trying bMotionInfo..."
+  bMotion_putloglev 3 * "setting '$setting' doesn't exist in bMotionSettings, trying bMotionInfo..."
   catch {
     set val $bMotionInfo($setting)
   }
   if {$val != ""} {
-	  return $value
+	  return $val
   
   }
   
-  bMotion_putloglev d * "nope, not there either, returning nothing"
+  bMotion_putloglev 3 * "nope, not there either, returning nothing"
   return ""
 }
 
