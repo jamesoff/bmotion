@@ -164,7 +164,6 @@ proc bMotionSetRandomAway {} {
   set awayReason [pickRandom $randomAways]
   foreach channel $bMotionInfo(randomChannels) {
     if {[lsearch $bMotionSettings(noAwayFor) $channel] == -1} {
-
       bMotionDoAction $channel $awayReason "/is away: %%"
     }
   }
@@ -183,7 +182,6 @@ proc bMotionSetRandomBack {} {
   set bMotionInfo(silence) 0
   foreach channel $bMotionInfo(randomChannels) {
     if {[lsearch $bMotionSettings(noAwayFor) $channel] == -1} {
-
       bMotionDoAction $channel "" "/is back"
     }
   }
