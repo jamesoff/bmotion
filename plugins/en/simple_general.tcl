@@ -20,7 +20,6 @@ bMotion_plugin_add_simple "url-gen" {(http|ftp)://([[:alnum:]]+\.)+[[:alnum:]]{2
 bMotion_plugin_add_simple "ali g" "^((aiii+)|wikkid|innit|respect|you got me mobile|you iz)" 40 "%VAR{aiis}" "en"
 bMotion_plugin_add_simple "wassup" "^wa+((ss+)|(zz+))u+p+(!*)?$" 40 "wa%REPEAT{4:12:a}up!" "en"
 bMotion_plugin_add_simple "oops" "^(oops|who+ps|whups|doh |d\'oh)" 40 "%VAR{ruins}" "en"
-bMotion_plugin_add_simple "shocked" "^((((=|:|;)-?(o|0))|(!+))|blimey|crumbs|i say)$" 40 "%VAR{shocked}" "en"
 bMotion_plugin_add_simple "bof" "^bof$" 30 "alors" "en"
 bMotion_plugin_add_simple "alors" "^alors$" 30 "bof" "en"
 bMotion_plugin_add_simple "foo" "^foo$" 30 "bar" "en"
