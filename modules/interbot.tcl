@@ -115,11 +115,13 @@ proc bMotion_interbot_next_incoming { bot params } {
   bMotion_putloglev 1 * "bMotion: Incoming election from $bot"
 
   regexp "(\[#!\].+) (.+)" $params matches channel score
+  catch {
   if {$score > $bMotion_interbot_nextbot_score($channel)} {
     bMotion_putloglev 2 * "bMotion: $bot now has highest score on $channel"
     set bMotion_interbot_nextbot_score($channel) $score
     set bMotion_interbot_nextbot_nick($channel) $bot
   }
+}
   
   set myScore [rand 100]
   if {$bMotionInfo(away) == 1} {
@@ -199,6 +201,10 @@ proc bMotion_interbot_me_next { channel } {
   global bMotion_interbot_nextbot_nick bMotion_interbot_nextbot_score botnick
 
   set channel [string tolower $channel]
+
+  if [bMotion_setting_get "bitlbee"] {
+    return 1
+  }
 
   #let's look to see if we know any other bots on the botnet
   if {[llength [bMotion_interbot_otherbots $channel]] == 0} {
