@@ -127,6 +127,9 @@ proc doRandomStuff {} {
 
   #do this first now
   set upperLimit [expr $bMotionInfo(maxRandomDelay) - $bMotionInfo(minRandomDelay)]
+  if {$upperLimit < 1} {
+  	set upperLimit 1
+  }
   set temp [expr [rand $upperLimit] + $bMotionInfo(minRandomDelay)]
   timer $temp doRandomStuff
   bMotion_putloglev d * "bMotion: randomStuff next ($temp minutes)"
@@ -493,12 +496,12 @@ proc bMotionAdminHandler2 {nick host handle channel text} {
     set botnicks "($botnick|$bMotionSettings(botnicks)) ?"
   }
 
-  if {![regexp -nocase "^($botnicks)|all" $text]} {
+  if {![regexp -nocase "^($botnicks)|all (.+)" $text matches blah blah2 blah3 cmd]} {
     #not me
     return 0
   }
 
-  regexp -nocase "^(($botnicks)|all) (.+)" $text matches blah blah2 blah3 cmd
+  #regexp -nocase "^(($botnicks)|all) (.+)" $text matches blah blah2 blah3 cmd
 
   bMotion_plugins_settings_set "admin" "type" "" "" "irc"
   bMotion_plugins_settings_set "admin" "target" "" "" $channel
@@ -711,71 +714,8 @@ proc msg_bmotioncommand { nick host handle cmd } {
   }
 }
 
-# Time stuff
- set pronounce {vigintillion novemdecillion octodecillion \
-        septendecillion sexdecillion quindecillion quattuordecillion \
-        tredecillion duodecillion undecillion decillion nonillion \
-        octillion septillion sextillion quintillion quadrillion \
-        trillion billion million thousand ""}
-
- proc get_num num {
-    foreach {a b} {0 {} 1 one 2 two 3 three 4 four 5 five 6 six 7 seven \
-            8 eight 9 nine 10 ten 11 eleven 12 twelve 13 thirteen 14 \
-            fourteen 15 fifteen 16 sixteen 17 seventeen 18 eighteen 19 \
-            nineteen 20 twenty 30 thirty 40 forty 50 fifty 60 sixty 70 \
-            seventy 80 eighty 90 ninety} {if {$num == $a} {return $b}}
-    return $num
- }
-
-
- proc revorder list {
-    for {set x 0;set y [expr {[llength $list] - 1}]} {$x < $y} \
-	    {incr x;incr y -1} {
-	set t [lindex $list $x]
-	set list [lreplace $list $x $x [lindex $list $y]]
-	set list [lreplace $list $y $y $t]
-    }
-    return $list
- }
-
- proc pron_form num {
-    global pronounce
-    set x [join [split $num ,] {}]
-    set x [revorder [split $x {}]]
-    set pron ""
-    set ct [expr {[llength $pronounce] - 1}]
-    foreach {a b c} $x {
-	set p [pron_num $c$b$a]
-	if {$p != ""} {
-	    lappend pron "$p [lindex $pronounce $ct]"
-	}
-	incr ct -1
-    }
-    return [join [revorder $pron] ", "]
- }
-
 proc bMotion_get_number { num } {
   return [expr [rand $num] + 1]
-  set hundred ""
-  set ten ""
-  set len [string length $num]
-  if {$len == 3} {
-    set hundred "[get_num [string index $num 0]] hundred"
-    set num [string range $num 1 end]
-  }
-  if {$num > 20 && $num != $num/10} {
-    set tens [get_num [string index $num 0]0]
-    set ones [get_num [string index $num 1]]
-    set ten [join [concat $tens $ones] -]
-  } else {
-    set ten [get_num $num]
-  }
-  if {[string length $hundred] && [string length $ten]} {
-    return [concat $hundred and $ten]
-  } else {
-    # One of these is empty, but don't bother to work out which!
-    return [concat $hundred $ten]
-  }
 }
 
 proc bMotion_startTimers { } {
