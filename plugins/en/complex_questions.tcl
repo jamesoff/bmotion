@@ -177,6 +177,9 @@ proc bMotion_plugin_complex_question_what { nick channel host question } {
               bMotion_putloglev 1 * "... but I shall answer anyway."
             }
           }
+          set answer [pickRandom $answers]
+          #remove any timestamp
+          regsub {(_[0-9]+_ )?(.+)} $answer "\2" answer
           bMotionDoAction $channel [pickRandom $answers] "%VAR{question_what_fact_wrapper}"
           return 1
         } err
