@@ -41,6 +41,18 @@ proc bMotion_event_onjoin {nick host handle channel} {
     return 0
   }
 
+  set nick [bMotion_cleanNick $nick $handle]
+
+  #has something happened since we last greeted?
+  set lasttalk [bMotion_plugins_settings_get "system:join" "lasttalk" $channel ""]
+
+  #if 1, we greeted someone last
+  #if 0, someone has said something since
+  if {$lasttalk == 1} {
+    bMotion_putloglev 2 d "dropping greeting for $nick on $channel because it's too idle"
+    return 0
+  }
+
   global ranjoins bigranjoins botnick mood
   set chance [rand 10]
   set greetings $ranjoins
@@ -57,6 +69,7 @@ proc bMotion_event_onjoin {nick host handle channel} {
 
     bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $greetings]
     set bMotionCache(lastGreeted) $nick
+    bMotion_plugins_settings_set "system:join" "lasttalk" $channel "" 1
   }
 }
 ## END onjoin
@@ -65,6 +78,9 @@ proc bMotion_event_onjoin {nick host handle channel} {
 ## BEGIN onpart handler
 proc bMotion_event_onpart {nick uhost hand chan {msg ""}} {
   global bMotionCache
+
+  set nick [bMotion_cleanNick $nick $handle]
+
   set bMotionCache(lastLeft) $nick
 }
 ## END onpart
@@ -73,6 +89,8 @@ proc bMotion_event_onpart {nick uhost hand chan {msg ""}} {
 ## BEGIN onquit handler
 proc bMotion_event_onquit {nick host handle channel reason} {
   global bMotionCache bMotionSettings bMotionInfo
+
+  set nick [bMotion_cleanNick $nick $handle]
 
   if {$bMotionSettings(needI) == 1} {
     set bMotionCache(lastLeft) $nick
@@ -98,19 +116,7 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }
 
-  #remove []s and \s from nick cos they break things (Minder[]...)
-  if [regexp {[\\\[\]]} $nick] {
-    if {$handle != ""} {
-      #frist try the handle
-      set nick $handle
-    }
-  }
-
-  # try again in case we have []s in the handle
-  if [regexp {[\\\[\]]} $nick] {   
-    regsub -all {[\\\[\]]} $nick "" nick
-  }
-  #regsub -all {(\[|\])} $nick "" nick
+  set nick [bMotion_cleanNick $nick $handle]
 
   ## Global definitions ##
   global mood botnick greetings welcomes sorryoks
@@ -165,6 +171,9 @@ proc bMotion_event_main {nick host handle channel text} {
 
   ## Dump double+ spaces ##
   regsub -all "  +" $text " " text
+
+  ## Update the last-talked flag for the join system
+  bMotion_plugins_settings_set "system:join" "lasttalk" "channel" "" 0 
 
   set bMotionThisText $text
 
@@ -813,6 +822,8 @@ proc bMotion_event_action {nick host handle dest keyword text} {
     return 0
   }
 
+  set nick [bMotion_cleanNick $nick $handle]
+
   ## Trim ##
   set text [string trim $text]
 
@@ -1116,6 +1127,9 @@ proc bMotion_event_nick { nick host handle channel newnick } {
   if [matchattr $handle J] {
     return 0
   }
+
+  set nick [bMotion_cleanNick $nick $handle]
+  set nick [bMotion_cleanNick $newnick $handle]
 
   global bMotionInfo
   ## Run the nick action plugins ##
