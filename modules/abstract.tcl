@@ -62,7 +62,7 @@
 # Admin plugin to be loaded (but not from this module):
 #   !bmadmin abstract (add|list|view|del(ete)?|cache|gc) ...
 #
-# NOTE: This plugin should be loaded before plugins as they will need it to register abstracts
+# NOTE: This module should be loaded before plugins as they will need it to register abstracts
 #
 # The abstracts will be stored in ./abstracts/<abstract name>.txt in the bMotion directory. The 
 # fileformat is simply one per line.
@@ -75,89 +75,113 @@ set bMotion_abstract_max_age 300
 if {![info exists bMotion_abstract_contents]} {
   set bMotion_abstract_contents(dummy) ""
   set bMotion_abstract_timestamps(dummy) 1
+  set bMotion_abstract_ondisk [list]
 }
 
 # garbage collect the abstracts arrays
 proc bMotion_abstract_gc { } {
   global bMotion_abstract_contents bMotion_abstract_timestamps
-  global bMotion_abstract_max_age
+  global bMotion_abstract_max_age bMotion_abstract_ondisk
 
-  set abstracts [array names $bMotion_abstract_contents]
+  bMotion_putloglev 2 * "Garbage collecting abstracts..."
+
+  set abstracts [array names bMotion_abstract_contents]
   set limit [expr [clock seconds] - $bMotion_abstract_max_age]
 
-  foreach abstract $abstract {
+  foreach abstract $abstracts {
     if {($bMotion_abstract_timestamps($abstract) < $limit) && ($bMotion_abstract_timestamps($abstract) > 0)} {
       bMotion_putloglev d * "abstract $abstract has expired"
       unset bMotion_abstract_contents($abstract)
       set bMotion_abstract_timestamps($abstract) 0
+      lappend bMotion_abstract_ondisk $abstract
     }
   }
 }
 
 proc bMotion_abstract_register { abstract } {
   global bMotion_abstract_contents bMotion_abstract_timestamps
+  global bMotionModules
 
   #set timestamp to now
   set bMotion_abstract_timestamps($abstract) [clock seconds]
 
   #load any existing abstracts
-  if [file exists "$bMotionModules/abstracts/${abstract}.txt"] {
+  if [file exists "[pwd]/$bMotionModules/abstracts/${abstract}.txt"] {
     bMotion_abstract_load $abstract
   } else {
     #file doesn't exist - create an empty one
-    set fileHandle [open "$bMotionModules/abstracts/${abstract}.txt" "w"]
+    #create blank array for it
+    set bMotion_abstract_contents($abstract) [list]
+    bMotion_putloglev 1 * "Creating new abstract file for $abstract"
+    set fileHandle [open "[pwd]/$bMotionModules/abstracts/${abstract}.txt" "w"]
     puts $fileHandle " "
   }
 
-  if {$fileHandle} {
+  if {[info exists fileHandle]} {
     close $fileHandle
-  }
+  }  
 }
 
 proc bMotion_abstract_load { abstract } {
   global bMotion_abstract_contents bMotion_abstract_timestamps
+  global bMotionModules bMotion_abstract_ondisk
+
+  bMotion_putloglev 1 * "Attempting to load $bMotionModules/abstracts/${abstract}.txt"
 
   if {![file exists "$bMotionModules/abstracts/${abstract}.txt"]} {
     return
   }
 
+  #create blank array for it
+  set bMotion_abstract_contents($abstract) [list]
+
   #set timestamp to now
   set bMotion_abstract_timestamps($abstract) [clock seconds]
 
-  catch {
-    set fileHandle [open "$bMotionModules/abstracts/${abstract}.txt" "r"]
-    set line ""
-    while [gets $fileHandle line] {
-      if {[lsearch -exact $bMotion_abstract_contents($abstract) $line] > -1} {
+  #remove from ondisk list
+  set index [lsearch -exact $bMotion_abstract_ondisk $abstract]
+  set bMotion_abstract_ondisk [lreplace $bMotion_abstract_ondisk $index $index]
+
+  set fileHandle [open "$bMotionModules/abstracts/${abstract}.txt" "r"]
+  set line [gets $fileHandle]
+  while {![eof $fileHandle]} {
+    if {$line != ""} {
+      if {[lsearch -exact $bMotion_abstract_contents($abstract) $line] == -1} {
         lappend bMotion_abstract_contents($abstract) $line
       }
     }
+    set line [gets $fileHandle]
   }
 
-  if {$fileHandle} {
+  if {[info exists fileHandle]} {
     close $fileHandle
   }
 }
 
-proc bMotion_abstract_add { abstract text } {
+proc bMotion_abstract_add { abstract text {save 1} } {
   global bMotion_abstract_contents bMotion_abstract_timestamps
 
-  if {[lsearch -exact $bMotion_abstract_contents($abstract) $text] > -1} {
+  bMotion_putloglev 1 * "Adding '$text' to abstract '$abstract'"
+
+  if {[lsearch -exact $bMotion_abstract_contents($abstract) $text] == -1} {
     lappend bMotion_abstract_contents($abstract) $text
   }
-  bMotion_abstract_save $abstract
+  if {$save} {
+    bMotion_abstract_save $abstract
+  }
 }
 
 proc bMotion_abstract_save { abstract } {
-  global bMotion_abstract_contents 
+  global bMotion_abstract_contents
+  global bMotionModules
 
-  catch {
-    set fileHandle [open "$bMotionModules/abstracts/${abstract}.txt" "w"]
-    foreach abstract $bMotion_abstract_contents($abstract) {
-      puts $fileHandle $abstract
-    }
-    close $fileHandle
+  bMotion_putloglev 1 * "Saving abstracts '$abstract' to disk"
+
+  set fileHandle [open "[pwd]/$bMotionModules/abstracts/${abstract}.txt" "w"]
+  foreach a $bMotion_abstract_contents($abstract) {
+    puts $fileHandle $a
   }
+  close $fileHandle
 }
 
 proc bMotion_abstract_all { abstract } {
@@ -173,9 +197,18 @@ proc bMotion_abstract_all { abstract } {
 proc bMotion_abstract_get { abstract } {
   global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age
 
+  bMotion_putloglev 2 * "getting abstract $abstract"
+
+  if {![info exists bMotion_abstract_timestamps($abstract)]} {
+    return ""
+  }
+
   if {$bMotion_abstract_timestamps($abstract) < [expr [clock seconds] - $bMotion_abstract_max_age]} {
+    bMotion_putloglev d * "abstract $abstract has been unloaded, reloading..."
     bMotion_abstract_load $abstract
   }
+
+  set bMotion_abstract_timestamps($abstract) [clock seconds]
 
   return [lindex $bMotion_abstract_contents($abstract) [rand [llength $bMotion_abstract_contents($abstract)]]]
 }
@@ -184,4 +217,19 @@ proc bMotion_abstract_delete { abstract index } {
   global bMotion_abstract_contents 
 
   set bMotion_abstract_contents($abstract) [lreplace $bMotion_abstract_contents($abstract) $index $index]
+  bMotion_abstract_save $abstract
 }
+
+proc bMotion_abstract_auto_gc { min hr a b c } {
+  bMotion_abstract_gc
+}
+
+proc bMotion_abstract_batchadd { abstract stuff } {
+  bMotion_putloglev d * "batch-adding to $abstract"
+  foreach i $stuff {
+    bMotion_abstract_add $abstract $i 0
+  }
+  bMotion_abstract_save $abstract
+}
+
+bind time - "* * * * *" bMotion_abstract_auto_gc
