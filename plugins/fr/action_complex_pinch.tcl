@@ -12,7 +12,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_action_complex "volez" "^(vole|enlèv|prise) .+ de %botnicks" 100 bMotion_plugin_complex_action_volez "fr"
+bMotion_plugin_add_action_complex "volez" "^(vole|enlève|prise) .+ de %botnicks" 100 bMotion_plugin_complex_action_volez "fr"
 
 proc bMotion_plugin_complex_action_volez { nick host handle channel text } {  
   global botnicks
