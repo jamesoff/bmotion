@@ -233,7 +233,7 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 
   set loops 0
   bMotion_putloglev 4 * "doing NUMBER processing"
-  while {[regexp "%NUMBER\{(.+?)\}" $line matches numberString]} {
+  while {[regexp "%NUMBER\{(\[0-9\]+)\}" $line matches numberString]} {
     set var [bMotion_get_number [rand $numberString]]
     incr loops
     if {$loops > 10} {
@@ -778,6 +778,9 @@ proc bMotionMakePossessive { text { altMode 0 }} {
 proc bMotionMakeRepeat { text } {
   if [regexp {([0-9]+):([0-9]+):(.+)} $text matches min max repeat] {
     set diff [expr $max - $min]
+    if {$diff < 1} {
+    	set diff 1
+    }
     set count [rand $diff]
     set repstring [string repeat $repeat $count]
     append repstring [string repeat $repeat $min]
