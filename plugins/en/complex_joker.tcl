@@ -72,7 +72,7 @@ proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
 	global bMotion_abstract_contents jokeInfo jokeForms
 
 	if { ![bMotion_interbot_me_next $channel] } {
-		return 1
+		return 0
 	}
 
 	# check if we're already telling a joke
