@@ -219,6 +219,10 @@ proc bMotion_flood_check { nick } {
     }  
   }  
 
+  if {[bMotion_setting_get "bitlbee"]} {
+    return 0
+  }
+
   bMotion_putloglev 3 * "checking flood for $nick"
   set flood [bMotion_flood_get $nick]
   set chance 2

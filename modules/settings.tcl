@@ -29,7 +29,7 @@ set bMotionInfo(orientation) "straight"
 
 # list of nicks to respond to, separate with the | character
 # regexp is ok, but don't use brackets!
-set bMotionSettings(botnicks) "nt|bots|the bots"
+set bMotionSettings(botnicks) "nt|bots|the bots|notopic"
 
 # does the bot like 'kinky' stuff (e.g. see action_complex:fucks)
 set bMotionSettings(kinky) 0
@@ -53,10 +53,10 @@ set bMotionSettings(needI) 1
 set bMotionInfo(balefire) 1
 
 # go away if things get idle?
-set bMotionSettings(useAway) 1
+set bMotionSettings(useAway) 0
 
 # channels to run in (lower case please)
-set bMotionInfo(randomChannels) { "#molsoft" }
+set bMotionInfo(randomChannels) { "#bitlbee" }
 
 # channels to not announce our away status in (lower case)
 set bMotionSettings(noAwayFor) { "#irssi" }
@@ -80,10 +80,10 @@ set bMotionSettings(noPlugin) "simple:huk,complex:wb"
 set bMotionInfo(minRandomDelay) 20
 
 # maximum delay (mins) between random lines
-set bMotionInfo(maxRandomDelay) 120
+set bMotionInfo(maxRandomDelay) 240
 
 # if nothing's happened on this channel for this much time, don't say something
-set bMotionInfo(maxIdleGap) 45
+set bMotionInfo(maxIdleGap) 120
 set bMotionInfo(brigDelay) 30
 
 # number of minutes to be silent when told to shut up
@@ -122,4 +122,7 @@ set bMotionSettings(factsMaxItems) 500
 
 # maximum number of facts to know about an item
 set bMotionSettings(factsMaxFacts) 20
+
+# use bitlbee mode (bmotion on MSN, ICQ, etc :)
+set bMotionSettings(bitlbee) 1
 

@@ -120,10 +120,11 @@ proc bMotionStats {nick host handle channel text} {
 
 proc doRandomStuff {} {
   global bMotionInfo mood stonedRandomStuff bMotionSettings
-  global bMotionLastEvent
+  global bMotionLastEvent bMotionOriginalNick
   set timeNow [clock seconds]
   set saidChannels ""
   set silentChannels ""
+  set bMotionOriginalNick ""
 
   #do this first now
   set upperLimit [expr $bMotionInfo(maxRandomDelay) - $bMotionInfo(minRandomDelay)]
@@ -152,6 +153,11 @@ proc doRandomStuff {} {
 
   if {($timeNow - $mostRecent) > ([expr $bMotionInfo(maxIdleGap) * 10])} {
     set idleEnough 1
+  }
+
+  if {[bMotion_setting_get "bitlbee"]} {
+    #never go away in bitlbee
+    set idleEnough 0
   }
 
   #override if we should never go away
@@ -183,7 +189,7 @@ proc doRandomStuff {} {
   #we didn't set ourselves away, let's do something random
   bMotion_counter_incr "system" "randomstuff"
   foreach channel $bMotionInfo(randomChannels) {
-    if {($timeNow - $bMotionLastEvent($channel)) < ($bMotionInfo(maxIdleGap) * 60)} {
+    if {![bMotion_setting_get "bitlbee"] || (($timeNow - $bMotionLastEvent($channel)) < ($bMotionInfo(maxIdleGap) * 60))} {
       set saidChannels "$saidChannels $channel"
       bMotionSaySomethingRandom $channel
     } else {

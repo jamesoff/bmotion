@@ -158,11 +158,13 @@ proc bMotion_event_main {nick host handle channel text} {
   ## Global definitions ##
   global mood botnick
   global bMotionLastEvent bMotionSettings botnicks bMotionCache bMotionInfo
-  global bMotionThisText bMotionOriginalInput
+  global bMotionThisText bMotionOriginalInput bMotionOriginalNick
 
   if [matchattr $handle J] {
     return 0
   }
+
+  set bMotionOriginalNick $nick
 
   set channel [string tolower $channel]
 
@@ -233,8 +235,12 @@ proc bMotion_event_main {nick host handle channel text} {
   set bMotionThisText $text
 
   #if we spoke last, add "$botnick: " if it's not in the line
-  if {![regexp -nocase $botnicks $text] && $bMotionCache($channel,last)} {
+  if {![regexp -nocase $botnicks $text] && ($bMotionCache($channel,last) || [bMotion_setting_get "bitlbee"])} {
     set text "${botnick}: $text"
+  }
+
+  if [bMotion_setting_get "bitlbee"] {
+    bMotion_putloglev d * "bitlbee incoming from $nick: $text"
   }
 
   #check for someone breaking the loop of lastSpoke

@@ -655,6 +655,11 @@ proc bMotion_choose_random_user { channel bot condition } {
     #is it me?
     if [isbotnick $user] { continue }
 
+    if {[bMotion_setting_get "bitlbee"] && ($user == "root")} {
+      bMotion_putloglev 4 * "  --reject: bitlbee root user"
+      continue
+    }
+
     #get their handle
     set handle [nick2hand $user $channel]
     bMotion_putloglev 4 * "  handle: $handle"

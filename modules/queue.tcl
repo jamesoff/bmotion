@@ -61,7 +61,20 @@ proc bMotion_queue_run { } {
         }
       } else {
         if {$content != ""} {
+	  if [bMotion_setting_get "bitlbee"] {
+	    global bMotionOriginalNick
+	    #make sure the line doesn't start with the nick already
+	    if {$bMotionOriginalNick == ""} {
+	      set bMotionOriginalNick [bMotion_choose_random_user $target 0 ""]
+            }
+	    if {![regexp -nocase "^$bMotionOriginalNick:" $content]} {
+              set content "$bMotionOriginalNick: $content"
+	    }
+	    set bMotionOriginalNick ""
+            bMotion_putloglev d * "bitlbee outgoing: $content"
+	  }
           puthelp "PRIVMSG $target :$content"
+
         }
       }
     } else {
