@@ -50,6 +50,10 @@ set bMotion_plugins_action_complex(dummy) "none"
 if [info exists bMotion_plugins_irc_event] { unset bMotion_plugins_irc_event }
 set bMotion_plugins_irc_event(dummy) "none"
 
+## management plugins
+if [info exists bMotion_plugins_management] { unset bMotion_plugins_management }
+set bMotion_plugins_management(dummy) "none"
+
 ##############################################################################################################################
 ## Load a simple plugin
 proc bMotion_plugin_add_simple { id match chance response language} {
@@ -124,6 +128,7 @@ proc bMotion_plugin_add_admin { id match flags callback language } {
   bMotion_putloglev d * "bMotion: ignoring disallowed plugin admin:$id"
 }
 
+
 ## Find an admin plugin
 proc bMotion_plugin_find_admin { text lang } {
   global bMotion_plugins_admin
@@ -145,6 +150,48 @@ proc bMotion_plugin_find_admin { text lang } {
     }
   }
   array donesearch bMotion_plugins_admin $s
+  return ""
+}
+
+## Load management plugin
+proc bMotion_plugin_add_management { id match flags callback { language "" } } {
+  global bMotion_plugins_management plugins bMotion_testing
+
+  if {$bMotion_testing == 0} {
+    catch {
+      set test $bMotion_plugins_management($id)
+      putlog "bMotion: ALERT! management plugin $id is defined more than once"
+      return 0
+    }
+  }
+
+  if [bMotion_plugin_check_allowed "management:$id"] {
+    set bMotion_plugins_management($id) "${match}¦${flags}¦${callback}"
+    bMotion_putloglev 2 * "bMotion: added management plugin: $id"
+    append plugins "$id,"
+    return 1
+  }
+  bMotion_putloglev d * "bMotion: ignoring disallowed plugin management:$id"
+}
+
+## Find management plugin
+proc bMotion_plugin_find_management { text } {
+  global bMotion_plugins_management
+  set s [array startsearch bMotion_plugins_management]
+
+  while {[set key [array nextelement bMotion_plugins_management $s]] != ""} {
+    if {$key == "dummy"} { continue }
+    set val $bMotion_plugins_management($key)
+    set blah [split $val "¦"]
+    set rexp [lindex $blah 0]
+    set flags [lindex $blah 1]
+    set callback [lindex $blah 2]
+    if [regexp -nocase $rexp $text] {
+      array donesearch bMotion_plugins_management $s
+      return "${flags}¦$callback"
+    }
+  }
+  array donesearch bMotion_plugins_management $s
   return ""
 }
 

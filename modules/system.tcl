@@ -50,8 +50,9 @@ bind ctcp - ACTION bMotion_event_action
 bind pub - "!mood" pubm_moodhandler
 bind pub - "!bminfo" bMotionInfo
 bind pub - "!bmstats" bMotionStats
-bind msg m bmotion msg_bmotioncommand
+bind msg - bmotion msg_bmotioncommand
 bind pub - !bmadmin bMotionAdminHandler
+bind pub - !bmotion bMotionAdminHandler2
 
 #DCC commands
 bind dcc m mood moodhandler
@@ -457,6 +458,88 @@ proc dcc_bmotioncommand { handle idx arg } {
   return 1
 }
 
+
+# new admin plugins ("management")
+proc bMotionAdminHandler2 {nick host handle channel text} {
+  global botnicks bMotionInfo botnick bMotionSettings
+
+  #first, check botnicks (this is to get round empty-nick-on-startup
+  if {$botnicks == ""} {
+    # need to set this
+    set botnicks "($botnick|$bMotionSettings(botnicks)) ?"
+  }
+
+  if {![regexp -nocase "^($botnicks)|all" $text]} {
+    #not me
+    return 0
+  }
+
+  regexp -nocase "^(($botnicks)|all) (.+)" $text matches blah blah2 blah3 cmd
+
+  bMotion_plugins_settings_set "admin" "type" "" "" "irc"
+  bMotion_plugins_settings_set "admin" "target" "" "" $channel
+
+  #putlog "bMotion command from $nick in $channel: $cmd"
+  set nfo [bMotion_plugin_find_management $cmd]
+
+  if {$nfo == ""} {
+    bMotion_putadmin "what"
+    return 1
+  }
+
+  set blah [split $nfo "¦"]
+  set flags [lindex $blah 0]
+  set callback [lindex $blah 1]
+
+  if {![matchattr $handle $flags]} {
+    bMotion_putadmin "What? You need more flags :)"
+    return 1
+  }
+
+  bMotion_putloglev d * "bMotion: management callback matched, calling $callback"
+
+  #strip the first command
+  regexp {[^ ]+( .+)?} $cmd {\1} arg
+
+  #run the callback :)
+  set arg [join $arg]
+  set arg [string trim $arg]
+
+  catch {
+    if {$arg == ""} {
+      $callback $handle
+    } else {
+      $callback $handle $arg
+    }
+  } err
+  if {($err != "") && ($err != 0)} {
+    putlog "bMotion: ALERT! Callback failed for !bmotion: $callback: $err"
+  }  
+}
+
+proc bMotion_putadmin { text } {
+
+  set output [bMotion_plugins_settings_get "admin" "type" "" ""]
+  if {$output == ""} {
+    return 0
+  }
+
+  putlog $output
+
+  if {$output == "dcc"} {
+    set idx [bMotion_plugins_settings_get "admin" "idx" "" ""]
+    putidx $idx $text
+    return 0
+  }
+
+  if {$output == "irc"} {
+    set target [bMotion_plugins_settings_get "admin" "target" "" ""]
+    puthelp "PRIVMSG $target :$text"
+    return 0
+  }
+  return 0
+}
+
 proc bMotionAdminHandler {nick host handle channel text} {
   global bMotionAdminFlag botnicks bMotionInfo botnick bMotionSettings
 
@@ -564,9 +647,47 @@ proc bMotionAdminHandler {nick host handle channel text} {
   }
 }
 
+proc msg_bmotioncommand { nick host handle cmd } {
+  bMotion_plugins_settings_set "admin" "type" "" "" "irc"
+  bMotion_plugins_settings_set "admin" "target" "" "" $nick
 
-proc msg_bmotioncommand { nick host handle arg } {
-  return 0
+  #putlog "bMotion command from $nick in $channel: $cmd"
+  regsub "(bmotion )" $cmd "" cmd
+  set nfo [bMotion_plugin_find_management $cmd]
+
+  if {$nfo == ""} {
+    bMotion_putadmin "what"
+    return 1
+  }
+
+  set blah [split $nfo "¦"]
+  set flags [lindex $blah 0]
+  set callback [lindex $blah 1]
+
+  if {![matchattr $handle $flags]} {
+    bMotion_putadmin "What? You need more flags :)"
+    return 1
+  }
+
+  bMotion_putloglev d * "bMotion: management callback matched, calling $callback"
+
+  #strip the first command
+  regexp {[^ ]+( .+)?} $cmd {\1} arg
+
+  #run the callback :)
+  set arg [join $arg]
+  set arg [string trim $arg]
+
+  catch {
+    if {$arg == ""} {
+      $callback $handle
+    } else {
+      $callback $handle $arg
+    }
+  } err
+  if {($err != "") && ($err != 0)} {
+    putlog "bMotion: ALERT! Callback failed for !bmotion: $callback"
+  }  
 }
 
 proc smileyhandler {} {
