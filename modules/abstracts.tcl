@@ -691,6 +691,7 @@ set randomReplies {
   "If only I hadn't used up all my lifelines%|%bot\[50,you can have one of mine\]%|no thanks, don't know where it's been"
 }
 
+bMotion_abstract_register "feelings"
 set feelings {
   "ok thanks"
   "fine"
@@ -706,6 +707,8 @@ set feelings {
   "positively jade-like"
   "like John's mum on a Thursday night"
 }
+bMotion_abstract_batchadd "feelings" $feelings
+unset feelings
 
 bMotion_abstract_register "blownAways"
 #set blownAways {
