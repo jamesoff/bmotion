@@ -153,16 +153,12 @@ proc bMotionSaySomethingRandom {channel} {
   set myRandomStuff $randomStuff
 
   if {$mood(stoned) > 9} {
-    set myRandomStuff [concat $myRandomStuff $stonedRandomStuff]
-  }
-  if {$bMotionInfo(gender) == "male"} {
-    set myRandomStuff [concat $myRandomStuff $randomStuffMale]
-  } else {
-    set myRandomStuff [concat $myRandomStuff $randomStuffFemale]
+    bMotionDoAction $channel "" "%VAR{$myRandomStuff}"
+    return 0
   }
 
   if [rand 2] {
-    bMotionDoAction $channel "" [pickRandom $myRandomStuff]
+    bMotionDoAction $channel "" "%VAR{$myRandomStuff}"
   }
 
   return 0
