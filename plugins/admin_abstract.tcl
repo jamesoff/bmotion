@@ -36,15 +36,22 @@ proc bMotion_plugin_admin_abstract { handle idx { arg "" }} {
   if [regexp -nocase {status} $arg] {
     global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age
     global bMotion_abstract_ondisk
+
+    set mem 0
+    set disk 0
+
     set handles [array names bMotion_abstract_contents]
     putidx $idx "bMotion abstract info info:\r"
     foreach handle $handles {      
       set diff [expr [clock seconds]- $bMotion_abstract_timestamps($handle)]
       putidx $idx "$handle: [llength [bMotion_abstract_all $handle]] items, $diff seconds since used"
+      incr mem
     }
     foreach handle $bMotion_abstract_ondisk {
       putidx $idx "$handle: on disk"
+      incr disk
     }
+    putidx $idx "[expr $mem + $disk] total abstracts, $mem loaded, $disk on disk"
     return 0
   }
 
