@@ -691,7 +691,7 @@ proc bMotionChooseRandomBot { channel { conditions "" }} {
     set handle [nick2hand $bot $channel]
 
     bMotion_putloglev 1 * "bMotion: checking $bot ($handle)"
-    if [matchattr [nick2hand $bot $channel] b&K $channel] {
+    if {[matchattr $handle bK] || [matchattr $handle b&K $channel]} {
       if {$conditions != ""} {
         if [string match -nocase [getuser $handle XTRA gender] $conditions] {
           lappend botslist $bot
