@@ -34,7 +34,7 @@ proc bMotionLeetChannel {nick host handle channel text} {
   if {$bMotionInfo(balefire) != 1} {
     return 0
   }
-  puthelp "PRIVMSG $channel :[makeLeet2 $text]"
+  puthelp "PRIVMSG [chandname2name $channel] :[makeLeet2 $text]"
 }
 
 proc makeLeet { line } {
@@ -121,7 +121,7 @@ proc leetPrivate {nick host handle arg} {
   if {$handle == "*"} {
     return 0
   }
-  if [regexp {(\#\w+) (.+)} $arg ming channel param] {
+  if [regexp {(\[#!\]\w+) (.+)} $arg ming channel param] {
     set val [makeLeet2 $param]
     putlog "bMotion: $nick asked !$param! to be leeted to !$channel!"
     if {![botonchan $channel]} {
@@ -134,7 +134,7 @@ proc leetPrivate {nick host handle arg} {
       putlog "bMotion: ALERT! $nick failed query leet to $channel ($param)."
       return 0
     }
-    puthelp "PRIVMSG $channel :\[\002$nick\002\] $val"
+    puthelp "PRIVMSG [chandname2name $channel] :\[\002$nick\002\] $val"
     return 0
   }
 

@@ -563,6 +563,7 @@ proc bMotion_event_main {nick host handle channel text} {
 proc bMotion_event_action {nick host handle dest keyword text} {
 
   global botnick mood rarrs smiles unsmiles botnicks bMotionCache bMotionSettings bMotionInfo
+  set dest [channame2dname $dest]
   set channel $dest
 
   if [matchattr $handle J] {

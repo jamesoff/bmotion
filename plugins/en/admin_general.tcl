@@ -73,7 +73,7 @@ proc bMotion_plugin_admin_queue { handle idx { args "" }} {
 }
 
 proc bMotion_plugin_admin_parse { handle idx arg } {
-  if [regexp -nocase {(#[^ ]+)( (.+))} $arg matches channel pom txt] {
+  if [regexp -nocase {(\[#!\][^ ]+)( (.+))} $arg matches channel pom txt] {
     bMotionDoAction $channel "" $txt
     putlog "bMotion: Parsed text from DCC chat"
   }

@@ -102,7 +102,7 @@ proc bMotion_interbot_next_incoming { bot params } {
 
   bMotion_putloglev 1 * "bMotion: Incoming election from $bot"
 
-  regexp "(#.+) (.+)" $params matches channel score
+  regexp "(\[#!\].+) (.+)" $params matches channel score
   if {$score > $bMotion_interbot_nextbot_score($channel)} {
     bMotion_putloglev 2 * "bMotion: $bot now has highest score on $channel"
     set bMotion_interbot_nextbot_score($channel) $score
@@ -138,7 +138,7 @@ proc bMotion_interbot_next_incoming_reply { bot params } {
 
   bMotion_putloglev 1 * "bMotion: Incoming election reply from $bot"
 
-  regexp "(#.+) (.+)" $params matches channel score
+  regexp "(\[#!\].+) (.+)" $params matches channel score
   if {$score > $bMotion_interbot_nextbot_score($channel)} {
     bMotion_putloglev 2 * "bMotion: $bot now has highest score on $channel"
     set bMotion_interbot_nextbot_score($channel) $score
@@ -169,7 +169,7 @@ proc bMotionCatchSayChan { bot params } {
 
   #bMotion_putloglev d * "bMotion: got command $function ($params) from $bot"
 
-  regexp {(#[^ ]+) (.+)} $params matches channel txt
+  regexp {(\[#!\][^ ]+) (.+)} $params matches channel txt
   global bMotionQueueTimer
   if {$bMotionQueueTimer == 0} {
     set bMotionQueueTimer 1

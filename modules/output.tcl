@@ -60,7 +60,7 @@ proc mee {channel action} {
   #puthelp "PRIVMSG $channel :\001ACTION $action\001"
   global bMotionQueue
   bMotionQueueCheck
-  lappend bMotionQueue "PRIVMSG $channel :\001ACTION $action\001"
+  lappend bMotionQueue "PRIVMSG [chandname2name $channel] :\001ACTION $action\001"
 
 }
 
@@ -73,7 +73,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0}} {
   set bMotionCache(typos) 0
   set bMotionCache(typoFix) ""
 
-  if [regexp "^#.+" $channel] {
+  if [regexp "^\[#!\].+" $channel] {
     set channel [string tolower $channel]
     if {[lsearch $bMotionInfo(randomChannels) [string tolower $channel]] < 0} {
       bMotion_putloglev d * "bMotion: aborting bMotionDoAction ... $channel not allowed"
@@ -395,8 +395,8 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0}} {
     global bMotionQueue
     set line [bMotionInsertString $line "%slash" "/"]
     bMotionQueueCheck
-    bMotion_putloglev 1 * "bMotion: queuing !PRIVMSG $channel :$line! for output"
-    lappend bMotionQueue "PRIVMSG $channel :$line"
+    bMotion_putloglev 1 * "bMotion: queuing !PRIVMSG [chandname2name $channel] :$line! for output"
+    lappend bMotionQueue "PRIVMSG [chandname2name $channel] :$line"
   }
   return 0
 }
@@ -544,7 +544,7 @@ proc bMotionProcessQueue { } {
     set done 0
 
     #check if it needs to go to a bot
-    if [regexp {(#[^ ]+) %BOT\[(.+?)\] (.+)} $next matches channel cmd bot] {
+    if [regexp {(\[#!\][^ ]+) %BOT\[(.+?)\] (.+)} $next matches channel cmd bot] {
       bMotion_putloglev 2 * "bMotion: matched 100% bot command for channel $channel -> $cmd"
       global bMotionQueue
       #bMotionQueueCheck
@@ -552,7 +552,7 @@ proc bMotionProcessQueue { } {
       set done 1
     }
 
-    if [regexp {(#[^ ]+) %bot\[([[:digit:]]+),(.+?)\] (.+)} $next matches channel chance cmd bot] {
+    if [regexp {(\[#!\][^ ]+) %bot\[([[:digit:]]+),(.+?)\] (.+)} $next matches channel chance cmd bot] {
       #push to a bot
       bMotion_putloglev 2 * "bMotion: matched $chance% bot command for channel $channel -> $cmd"
       if {[rand 100] < $chance} {

@@ -118,7 +118,7 @@ proc bMotion_plugin_complex_phonetic { nick host handle channel text } {
 
 	# print out the reply
 	if { $line != "" } {
-		puthelp "PRIVMSG $channel :$line"
+		puthelp "PRIVMSG [chandname2name $channel] :$line"
 		bMotion_putloglev d * "bMotion: (phonetic:$command) $nick needed it spelled out, so I did"
 	}
 }
