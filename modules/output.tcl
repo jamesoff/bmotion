@@ -73,10 +73,12 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0}} {
   set bMotionCache(typos) 0
   set bMotionCache(typoFix) ""
 
-  set channel [string tolower $channel]
-  if {[lsearch $bMotionInfo(randomChannels) [string tolower $channel]] < 0} {
-    bMotion_putloglev d * "bMotion: aborting bMotionDoAction ... $channel not allowed"
-    return 0
+  if [regexp "^#.+" $channel] {
+    set channel [string tolower $channel]
+    if {[lsearch $bMotionInfo(randomChannels) [string tolower $channel]] < 0} {
+      bMotion_putloglev d * "bMotion: aborting bMotionDoAction ... $channel not allowed"
+      return 0
+    }
   }
 
   if {$bMotionInfo(silence) == 1} { return 0 }
