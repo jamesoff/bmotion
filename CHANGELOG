@@ -5,6 +5,9 @@ bMotion CHANGELOG
 + = added
 - = removed
 
+* fixed [ 680856 ] irc_nick_away plugin returns wrong values
+* fixed [ 729155 ] $nick error
+
 2003/04/13
 v0.0.6
 
