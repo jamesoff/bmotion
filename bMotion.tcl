@@ -52,13 +52,6 @@ if {$bMotion_testing == 1} {
   putlog "... loading abstracts"
 }
 source "$bMotionModules/abstracts.tcl"
-#try to load a file for this bot
-catch {
-  if {${botnet-nick} != ""} {
-    source "$bMotionModules/abstracts_${botnet-nick}.tcl"
-    bMotion_putloglev d * "loaded abstracts for this bot from abstracts_${botnet-nick}.tcl"
-  }
-}
 
 # load settings
 if {$bMotion_testing == 1} {
@@ -143,6 +136,14 @@ if {$bMotion_testing == 1} {
   putlog "... loading plugin settings"
 }
 source "$bMotionModules/plugins_settings.tcl"
+
+#load local abstracts
+catch {
+  if {${botnet-nick} != ""} {
+    source "$bMotionModules/abstracts_${botnet-nick}.tcl"
+    bMotion_putloglev d * "loaded abstracts for this bot from abstracts_${botnet-nick}.tcl"
+  }
+}
 
 # load other bits
 if {$bMotion_testing == 1} {
