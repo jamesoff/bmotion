@@ -12,11 +12,11 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_complex "thants" {^(([^aeiou]+)[aeiuo][a-z]+) (you )?([^aeiou]*([aeiuo][a-z]+))$} 2 bMotion_plugin_complex_thants "en"
+bMotion_plugin_add_complex "thants" {^(([^%/aeiou. ]+)[aeiuo][a-z]+) (you )?([^aeiou .]*([aeiuo][a-z]+))$} 1 bMotion_plugin_complex_thants "en"
 
 proc bMotion_plugin_complex_thants { nick host handle channel text } {
 
-  if {[regexp -nocase {^(([^%/aeiou]+)[aeiuo][a-z]+) (you )?([^aeiou]*([aeiuo][a-z]+))$} $text matches 1 2 3 4 5]} {
+  if {[regexp -nocase {^(([^%/aeiou. ]+)[aeiuo][a-z]+) (you )?([^aeiou .]*([aeiuo][a-z]+))$} $text matches 1 2 3 4 5]} {
     bMotionDoAction $channel "" "$1 $3$4... $2$5"
     return 1
   }
