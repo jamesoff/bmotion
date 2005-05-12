@@ -15,7 +15,7 @@
 ###############################################################################
 
 bMotion_plugin_add_complex "want-catch" "i (want|need) (.+)" 100 bMotion_plugin_complex_want_catcher "en"
-bMotion_plugin_add_complex "mmm-catch" "^mm+[,\. ]*(.+)" 100 bMotion_plugin_complex_mmm_catcher "en"
+bMotion_plugin_add_complex "mmm-catch" {^mm+[,. ]*(.+)} 100 bMotion_plugin_complex_mmm_catcher "en"
 bMotion_plugin_add_complex "plusplus-catch" {^(.+)\+{2}$} 100 bMotion_plugin_complex_mmm_catcher "en"
 bMotion_plugin_add_complex "noun-catch" {[[:<:]](?:a|an|the) ([[:alpha:]]+)} 100 bMotion_plugin_complex_noun_catcher "en"
 
