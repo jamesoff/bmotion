@@ -31,7 +31,7 @@ proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
 }
 
 proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
-  if [regexp -nocase "^mm+\[,\\.\]* (.+)(\\+{2})?" $text matches discard1 item] {
+  if [regexp -nocase "^mm+\\[,.\\]* (.+)(\\+{2})?" $text matches discard1 item] {
     bMotion_flood_undo $nick
     bMotion_abstract_add "sillyThings" $item
 	
