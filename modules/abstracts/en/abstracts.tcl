@@ -1229,7 +1229,7 @@ bMotion_abstract_batchadd "afro_Y" [list "yellow" "yank" "you" "yourself" "your"
 
 bMotion_abstract_batchadd "afro_Z" [list "zebra" "zeus" "zadora" "zsa" ]
 
-bMotion_abstract_batchadd "boreds" [list "aww%|/hugs %%" "/tickles %%" "cheer up %%%|*hugs*" "/feels %%" "/spanks %%" "I'll get the body paint... :P" "/gets out a board game for %%" "/starts shuffling cards" ]
+bMotion_abstract_batchadd "boreds" [list "aww%|/hugs %%" "/tickles %%" "cheer up %%%|*hugs*" "/feels %%" "/gets out a board game for %%" "/starts shuffling cards" "/befriends %%"]
 
 bMotion_abstract_batchadd "moos" [list "moo" "MOO!" "/moos quietly" "/moos back to %%" "M%REPEAT{2:8:o}%REPEAT{2:8:O}%REPEAT{2:8:0}%REPEAT{2:8:o}%REPEAT{2:8:0}%REPEAT{2:8:o}!" "ahhh moo" "moo?" "/goes moo" "quack" "woof" "baa" "oink" "You mooing at me?" "MOo" "Moooooooweeeeeeeeeehahahahahahahahahaa" 	"MOO" "moo..." "mo...o" "moo%colen" ]
 
