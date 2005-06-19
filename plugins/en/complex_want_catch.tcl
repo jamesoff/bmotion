@@ -16,7 +16,7 @@
 
 bMotion_plugin_add_complex "want-catch" "i (want|need) (.+)" 100 bMotion_plugin_complex_want_catcher "en"
 bMotion_plugin_add_complex "mmm-catch" {^mm+[,. ]*(.+)} 100 bMotion_plugin_complex_mmm_catcher "en"
-bMotion_plugin_add_complex "plusplus-catch" {^(.+)\+{2}$} 100 bMotion_plugin_complex_mmm_catcher "en"
+bMotion_plugin_add_complex "plusplus-catch" {^(.+)\+{2}$} 100 bMotion_plugin_complex_plusplus_catcher "en"
 bMotion_plugin_add_complex "noun-catch" {[[:<:]](?:a|an|the) ([[:alpha:]]+)} 100 bMotion_plugin_complex_noun_catcher "en"
 
 proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
@@ -31,15 +31,28 @@ proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
 }
 
 proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
-  if [regexp -nocase "^mm+\\[,.\\]* (.+)(\\+{2})?" $text matches discard1 item] {
+  if [regexp -nocase {^mm+[,.]* (.+)} $text matches item] {
     bMotion_flood_undo $nick
     bMotion_abstract_add "sillyThings" $item
 	
-		if {[rand 100] > 85} {
+		if {[rand 100] > 95} {
 				bMotionDoAction $channel $item "%VAR{betters}"
 		}
 	}
 }
+
+
+proc bMotion_plugin_complex_plusplus_catcher { nick host handle channel text } {
+  if [regexp -nocase {^(.+)\+{2}$} $text matches item] {
+    bMotion_flood_undo $nick
+    bMotion_abstract_add "sillyThings" $item
+	
+		if {[rand 100] > 95} {
+				bMotionDoAction $channel $item "%VAR{betters}"
+		}
+	}
+}
+
 
 proc bMotion_plugin_complex_noun_catcher { nick host handle channel text } {
   if [regexp -nocase {[[:<:]](a|an|the|some) ([[:alpha:]]+)( [[:alpha:]]+[[:>:]])?} $text matches prefix item second] {
