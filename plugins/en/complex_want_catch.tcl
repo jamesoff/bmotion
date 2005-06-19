@@ -33,10 +33,17 @@ proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
 proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
   if [regexp -nocase {^mm+[,.]* (.+)} $text matches item] {
     bMotion_flood_undo $nick
+    
+    if [regexp -nocase "bmotion|$botnicks" $item] {
+    	bMotionDoAction $channel "" "%VAR{wins}"
+    	return 1
+    }
+    
     bMotion_abstract_add "sillyThings" $item
 	
 		if {[rand 100] > 95} {
 				bMotionDoAction $channel $item "%VAR{betters}"
+				return 1
 		}
 	}
 }
@@ -45,10 +52,17 @@ proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
 proc bMotion_plugin_complex_plusplus_catcher { nick host handle channel text } {
   if [regexp -nocase {^(.+)\+{2}$} $text matches item] {
     bMotion_flood_undo $nick
+    
+    if [regexp -nocase "bmotion|$botnicks" $item] {
+    	bMotionDoAction $channel "" "%VAR{wins}"
+    	return 1
+    }
+    
     bMotion_abstract_add "sillyThings" $item
 	
 		if {[rand 100] > 95} {
 				bMotionDoAction $channel $item "%VAR{betters}"
+				return 1
 		}
 	}
 }
