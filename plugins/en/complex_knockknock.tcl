@@ -18,6 +18,9 @@ bMotion_plugin_add_complex "knockknock2" ".+" 100 bMotion_plugin_complex_knock2 
 proc bMotion_plugin_complex_knock1 { nick host handle channel text } {
 
 	#TODO: bMotion_interbot_next
+	if (![bMotion_interbot_me_next $channel]) {
+		return 0
+	}
 	
 	bMotion_plugins_settings_set "complex:knock" "who" $channel "" $nick
 	bMotion_plugins_settings_set "complex:knock" "state" $channel "" 1

@@ -16,7 +16,7 @@ bMotion_plugin_add_complex "spoon" {^([^%/aeiou. ]+)([aeiuo][a-z]+) ([a-z]+ )?([
 
 proc bMotion_plugin_complex_spoon { nick host handle channel text } {
 
-	if [bMotion_interbot_me_next $channel] {
+	if (![bMotion_interbot_me_next $channel]) {
 		return 0
 	}
 
