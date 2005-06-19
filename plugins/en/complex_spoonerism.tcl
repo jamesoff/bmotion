@@ -16,6 +16,10 @@ bMotion_plugin_add_complex "spoon" {^([^%/aeiou. ]+)([aeiuo][a-z]+) ([a-z]+ )?([
 
 proc bMotion_plugin_complex_spoon { nick host handle channel text } {
 
+	if [bMotion_interbot_me_next $channel] {
+		return 0
+	}
+
   if {[regexp -nocase {^([^%/aeiou. ]+)([aeiuo][a-z]+) ([a-z]+ )?([^aeiou. ]*)([aeiuo][a-z]+)$} $text matches 1 2 3 4 5 6 7]} {
 		if {![string equal -nocase "$4$2 $3$1$5" $text]} {
     	bMotionDoAction $channel $text "%VAR{spoonerisms}" "$4$2 $3$1$5"
