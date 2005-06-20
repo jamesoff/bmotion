@@ -113,6 +113,15 @@ proc bMotion_plugin_management_help { handle { args "" } } {
   		}
   		"friends" {
   			bMotion_putadmin "Lists bMotion's friendships"
+  			bMotion_putadmin "  .bmotion friends show <nick>"
+  			bMotion_putadmin "    Shows the rating for the user"
+  			bMotion_putadmin "  .bmotion friends show -all"
+  			bMotion_putadmin "    Shows A LOT OF OUTPUT!!1"
+  			bMotion_putadmin "  .bmotion friends set <nick> <value>"
+  			bMotion_putadmin "    Sets user's friendship rating"
+  			bMotion_putadmin "Friendships are rated 0-100% with 50% being neutral. All users start on 50%."
+  			bMotion_putadmin "Actions against the bot affect friendships; friendships drift back to 40 or 60% (depending"
+  			bMotion_putadmin "on if they are lower or higher than those limits)."
   		}
   		"settings" {
   			bMotion_putadmin "Handles internal bMotion settings (not configuration)"

@@ -17,7 +17,6 @@
 bMotion_plugin_add_management "status" "^(status|info)"     t       bMotion_plugin_management_status "any"
 bMotion_plugin_add_management "queue" "^queue"            n       bMotion_plugin_management_queue "any"
 bMotion_plugin_add_management "parse" "^parse"            n       bMotion_plugin_management_parse "any"
-bMotion_plugin_add_management "friends" "^friends(hip)?"  n       bMotion_plugin_management_friends "any"
 bMotion_plugin_add_management "rehash" "^rehash"          n       bMotion_plugin_management_rehash "any"
 bMotion_plugin_add_management "reload" "^reload"          n       bMotion_plugin_management_reload "any"
 bMotion_plugin_add_management "settings" "^settings" n bMotion_plugin_management_settings "any"
@@ -91,23 +90,6 @@ proc bMotion_plugin_management_parse { handle { arg "" } } {
 	puthelp $target
 	bMotionDoAction $target "somenick" $arg
 	return 0
-}
-
-proc bMotion_plugin_management_friends { handle { arg "" } } {
-  if {$arg == ""} {
-    bMotion_putadmin "[getFriendsList]"
-    return 0
-  }
-
-  if [regexp -nocase {([^ ]+)( (.+))?} $arg matches nick pom val] {
-    if {$val == ""} {
-      bMotion_putadmin "friendship rating for $nick is [getFriendshipHandle $nick]\r"
-    } else {
-      setFriendshipHandle $nick $val
-      bMotion_putadmin "friendship rating for $nick is now [getFriendshipHandle $nick]\r"
-    }
-    return 0
-  }
 }
 
 proc bMotion_plugin_management_rehash { handle } {
