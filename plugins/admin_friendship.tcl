@@ -28,10 +28,9 @@ proc bMotion_plugin_management_friends { handle { arg "" } } {
 	}
 
   if [regexp -nocase {set ([^ ]+) ([0-9]+)} $arg matches nick val] {
-      setFriendshipHandle $nick $val
-      bMotion_putadmin "Friendship rating for $nick is now [getFriendshipHandle $nick]%"
-    }
-    return 0
+     setFriendshipHandle $nick $val
+     bMotion_putadmin "Friendship rating for $nick is now [getFriendshipHandle $nick]%"
+		return 0
   }
   
   bMotion_putadmin "usage: friendship \[show|set\]"
