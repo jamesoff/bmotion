@@ -17,6 +17,7 @@
 bMotion_plugin_add_complex "want-catch" "i (want|need) (.+)" 100 bMotion_plugin_complex_want_catcher "en"
 bMotion_plugin_add_complex "mmm-catch" {^mm+[,. ]*(.+)} 100 bMotion_plugin_complex_mmm_catcher "en"
 bMotion_plugin_add_complex "plusplus-catch" {^(.+)\+{2}$} 100 bMotion_plugin_complex_plusplus_catcher "en"
+bMotion_plugin_add_complex "minmin-catch" {^(.+)-{2}$} 100 bMotion_plugin_complex_minmin_catcher "en"
 bMotion_plugin_add_complex "noun-catch" {[[:<:]](?:a|an|the) ([[:alpha:]]+)} 100 bMotion_plugin_complex_noun_catcher "en"
 
 proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
@@ -67,6 +68,25 @@ proc bMotion_plugin_complex_plusplus_catcher { nick host handle channel text } {
 				return 1
 		}
 	}
+}
+
+proc bMotion_plugin_complex_minmin_catcher { nick host handle channel text } {
+  global botnicks
+  if [regexp -nocase {^(.+)-{2}$} $text matches item] {
+    bMotion_flood_undo $nick
+
+    if [regexp -nocase "bmotion|$botnicks" $item] {
+      bMotionDoAction $channel "" "%VAR{unsmiles}"
+      return 1
+    }
+
+    bMotion_abstract_add "sillyThings" $item
+
+    if {[rand 100] > 95} {
+        bMotionDoAction $channel $item "%% = %VAR{PROM}"
+        return 1
+    }
+  }
 }
 
 
