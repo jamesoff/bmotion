@@ -188,8 +188,12 @@ proc doRandomStuff {} {
 
   #we didn't set ourselves away, let's do something random
   bMotion_counter_incr "system" "randomstuff"
+	if {[bMotion_setting_get "bitlbee"] == "1"} {
+		return 0
+	}
+
   foreach channel $bMotionInfo(randomChannels) {
-    if {![bMotion_setting_get "bitlbee"] || (($timeNow - $bMotionLastEvent($channel)) < ($bMotionInfo(maxIdleGap) * 60))} {
+    if {(($timeNow - $bMotionLastEvent($channel)) < ($bMotionInfo(maxIdleGap) * 60))} {
       set saidChannels "$saidChannels $channel"
       bMotionSaySomethingRandom $channel
     } else {
@@ -200,7 +204,11 @@ proc doRandomStuff {} {
 }
 
 proc bMotionSaySomethingRandom {channel} {
-  global randomStuff stonedRandomStuff randomStuffMale randomStuffFemale mood bMotionInfo
+  global randomStuff stonedRandomStuff randomStuffMale randomStuffFemale mood bMotionInfo bMotionCache
+
+	if ($bMotionCache($channel,last)) {
+		return 1
+	}
 
   if [rand 2] {
     bMotionDoAction $channel "" "%VAR{randomStuff}"
