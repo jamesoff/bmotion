@@ -323,6 +323,16 @@ proc bMotionInterpolation2 { line } {
   }
 
   set loops 0
+  while {[regexp -nocase "%PLURAL\{(.*?)\}" $line matches BOOM]} {
+    incr loops
+    if {$loops > 10} {
+      putlog "bMotion: ALERT! looping too much in %PLURAL code with $line"
+      set line "/has a tremendous error while trying to sort something out :("
+    }
+    set line [bMotionInsertString $line "%PLURAL\{$BOOM\}" [bMotionMakePlural $BOOM]]
+  }
+
+  set loops 0
   while {[regexp -nocase "%REPEAT\{(.+?)\}" $line matches BOOM]} {
     incr loops
     if {$loops > 10} {
@@ -828,14 +838,51 @@ proc bMotionMakeVerb { text } {
   if [regexp -nocase "(s|x)$" $text matches letter] {
     return $text
   }
+  
+  if [regexp -nocase "^(.*)y$" $text matches root] {
+    set verb $root
+    append verb "ies"
+    return $verb
+  }
+
   append text "s"
   return $text
 }
-proc chr c { 
+proc chr c {
     if {[string length $c] > 1 } { error "chr: arg should be a single char"}
-		#   set c [ string range $c 0 0] 
-		    set v 0; 
+		#   set c [ string range $c 0 0]
+		    set v 0;
 				    scan $c %c v; return $v
 						}
+
+
+proc bMotionMakePlural { text } {
+  bMotion_putloglev 5 * "bMotionMakePlural ($text)"
+
+  if [regexp -nocase "(us|is|x|ch)$" $text] {
+    append text "es"
+    return $text
+  }
+
+  if [regexp -nocase "s$" $text] {
+    return $text
+  }
+
+  if [regexp -nocase "^(.*)f$" $text matches root] {
+    set plural $root
+    append plural "ves"
+    return $plural
+  }
+
+  if [regexp -nocase "^(.*)y$" $text matches root] {
+    set plural $root
+    append plural "ies"
+    return $plural
+  }
+
+  append text "s"
+  return $text
+
+}
 
 bMotion_putloglev d * "bMotion: output module loaded"

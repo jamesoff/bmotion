@@ -84,8 +84,10 @@ bMotion_abstract_batchadd "show_generic" {
   "/gasps in %VAR{show_amazements}"
   "%VAR{show_whoas}%colen"
   "%VAR{show_whoas}.. that's %VAR{show_comparisons} than %VAR{sillyThings}!"
-  "%REPEAT{3:6:o}h, %VAR{show_adjectives}!%|/steals %% and runs off%|ALL MINE NOW%colen"
+  "%REPEAT{3:6:o}h, %VAR{show_adjectives}!%|/steals %% and runs off%|ALL MINE NOW%colen%|/sells %% on ebay"
   "now that's %VAR{show_adjectives}"
   "p%REPEAT{2:5:f}t.. wait until you see my %VAR{sillyThings}{strip}"
   "/takes a picture"
+  "/contemplates%|it'd be nicer if it had %PLURAL{%VAR{sillyThings}{strip}}"
+  "I prefer %OWNER{%ruser}"
 }

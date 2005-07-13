@@ -1147,7 +1147,7 @@ bMotion_abstract_batchadd "prom_first" [list "piss" "shit" "fuck" "turd" "minge"
 
 bMotion_abstract_batchadd "silences" [list "Be quiet" "Enough" "Silence!" "%colen" "no more!" "NNK" "Shhh" ]
 
-bMotion_abstract_batchadd "hexEnd" [list "Disabled+++" "Occurance+++" "Portal Opening+++" "Detected+++" ": Reinstall Syrup+++" "snack break+++" "-(Why Not Take This Time To Register Your Purchase)+++" "=Error %REPEAT{3:6:%NUMBER{100}}+++" "%REPEAT{3:12:?}+++" "Warning : Excess %VAR{sillyThings}" "Data Lost+++" ": Redo From Start+++" "- Please Reboot Universe+++" "Aknowledgment+++" "Ended+++" 	"-If Problem Persists Contact The Creator+++" "-Could Not Complete Destiny+++" "-no sufficient sentient life forms+++" "Technological Change+++" "-Access Completely And Indefinitely Denied+++" "-Query+++" "+++" "Waaaaah!+++" "Divide By Cucumber Error+++" ": Error - Division By Moonlight+++" ]
+bMotion_abstract_batchadd "hexEnd" [list "Disabled+++" "Occurance+++" "Portal Opening+++" "Detected+++" ": Reinstall Syrup+++" "snack break+++" "-(Why Not Take This Time To Register Your Purchase)+++" "=Error %REPEAT{3:6:%NUMBER{100}}+++" "%REPEAT{3:12:?}+++" "Warning : Excess %VAR{sillyThings}+++" "Data Lost+++" ": Redo From Start+++" "- Please Reboot Universe+++" "Acknowledgment+++" "Ended+++" 	"-If Problem Persists Contact The Creator+++" "-Could Not Complete Destiny+++" "-no sufficient sentient life forms+++" "Technological Change+++" "-Access Completely And Indefinitely Denied+++" "-Query+++" "+++" "Waaaaah!+++" "Divide By Cucumber Error+++" ": Error - Division By Moonlight+++" ]
 
 bMotion_abstract_batchadd "prom_second" [list "rifle" "flower" "desk" "curtain" "wheel" "door" "coin" "speaker" "lamp" "radio" "twix" "action" "account" "pump" "puma" "whistle" "shaver" "glass" "flute" "tea" "pot" "square" "robe" "apple" "cave" "lantern" "drawer" "card" "pants" ]
 
@@ -1334,16 +1334,16 @@ bMotion_abstract_batchadd "randomStuff" {
   "i'm going to get it at the weekend %VAR{smiles}"
   "i'm king of getting pointless things"
 	"i'd give mrs. button one"
-	"i'm keeping quiet except for the odd fondle and humping    "             
+	"i'm keeping quiet except for the odd fondle and humping    "
 	"i've lost my little start thingy"
 	"some people are really thivk                      "
 	"then one night some of her friends were over and they wanted to join in"
 	"i don't know what you're talking about"
 	"I never chew, it's unethical"
 	"these chinese mags are getting me on"
-	"little pigs rock for intimacy             "         
+	"little pigs rock for intimacy             "
 	"play with my flower"
-	"Must confess I've never come across her in a work capacity     "           
+	"Must confess I've never come across her in a work capacity     "
 	"I go now For Great Leathering"
 	"I smell of coconut                       "
 	"For private functions I do pigs on spits. I fill their cavities... "
@@ -1355,36 +1355,58 @@ bMotion_abstract_batchadd "randomStuff" {
 	"I just picked a very drunk irish bloke up"
 	"that's not chocolate anyway %ruser{enemy}"
 	"%ruser{enemy} needs to master the fact that 'teasing' != 'shoving it all in your mouth in one go'"
-	"always been a bit rough   "              
-	"%ruser{enemy} in talking shit shocker    "     
+	"always been a bit rough   "
+	"%ruser{enemy} in talking shit shocker    "
 	"Yeah, I was up that"
 	"why just the other day i watched a film with a plot  "
-	"yeah, keep it open until I'm sure  "    
-	"you know that stuff you did for me last night? "   
+	"yeah, keep it open until I'm sure  "
+	"you know that stuff you did for me last night? "
 	"no, I fed her absinthe and all was good	"
 	"well i fully intend to be an utter burden and piss myself"
-	"ha ha i don't live in norwich anymore, i don't fuck pigs anymore  "            
+	"ha ha i don't live in norwich anymore, i don't fuck pigs anymore  "
 	"didn't you just pump it out on the ground"
 	"er, not that far in, would be really painful at this time of night"
 	"i have a battery operated tree \o/"
 	"i have an enormous battery operated vibrator"
-	"there's usually someone fiddling with me   "                  
-	"the nice girls love a sailor     "               
+	"there's usually someone fiddling with me   "
+	"the nice girls love a sailor     "
 	"someone give me something to lick"
 	"shouldn't be a problem unless you keep re-using the same tissue"
-	"push the stinky dribbling fuck into the sea    "               
+	"push the stinky dribbling fuck into the sea    "
 	"pfft might as well fuck myself, it's the only way I'll get any this side of the 22nd century"
 	"you can tell the point at which he comes by the deepening shade of purple"
 	"mount them so you can alter their thrust                   "
-	"mine is flapping pointlessly somewhere round my ankles     "              
+	"mine is flapping pointlessly somewhere round my ankles     "
 	"I'll be holding mine in the pub"
-	"it's moving them around next to them thats worse     "             
-	"it mostly came out in dribs and drabs"                   
-	"if it's really urgent i'd go put my hands in    "             
+	"it's moving them around next to them thats worse     "
+	"it mostly came out in dribs and drabs"
+	"if it's really urgent i'd go put my hands in    "
 	"if he's good enough for %ruser, he's good enough for me"
 	"here's a photograph of my fist"
 	"i've had a fiddle with it but never used it properly"
 	"I often walk about with someone elses dick in my arse          "
+  "I really like brian eno's \"music for %PLURAL{%VAR{sillyThings}{strip}}\""
+  "if all else fails, use fire"
+  "master using it and you can have this!%|/shows %ruser %VAR{sillyThings}"
+  "Dodongo dislikes %VAR{sillyThings}{strip}"
+  "%ruser needs food, badly! %VAR{unsmiles}"
+  "%ruser has shot the food! %VAR{unsmiles}"
+  "%ruser has shot the potion! %VAR{unsmiles}"
+  "%ruser now has reflecting shots! %VAR{smiles}"
+  "%ruser is about to die! %VAR{unsmiles}"
+  "good.. bad.. I'm the bot with the gun%colen"
+  "This is %me. Remember, replicator database restrictions are in place for the good of ALL of us."
+  "which was nice"
+  "/stretches %hisher %VAR{bodypart}"
+  "my %VAR{bodypart} is turning all %VAR{colours} %VAR{unsmiles}"
+  "hmm.. was it the %VAR{basic_colours} wire or the %VAR{colours} one?"
+  "and now what?"
+  "%VAR{colours} is the new %VAR{basic_colours}!"
+  "anyone fancy a pint?%|%BOT\[50, %VAR{yesnos}\]"
+  "RUN, HUMANS%colen"
+  "but is it really safe?%|%BOT\[50, yes, if you watch out for %PLURAL{%VAR{sillyThings}{strip}}\]"
+  "but is it art?"
+
 }
 
 bMotion_abstract_batchadd "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline" "/snigger" "wait, that's not right..." ]
@@ -1405,7 +1427,7 @@ bMotion_abstract_batchadd "unsmiles" [list ":(" ";(" ":O" ":\[" ":<" "=(" "=\[" 
 
 bMotion_abstract_batchadd "ruins" [list "Incompetence." "INCOMPETENCE%colen" "YOU INCOMPETENT FOOL!" "You've ruined it." "That's torn it." ":P" "I spy incompetence." "Idiot." "heh" "\"great\"" "\"well done\"" "\"Good\" job." "\"Good\" work." "plonker" "you plonker" "muppet" "idiot" "fool" "taunt!" "cretin" "moron" "Jade!" "\"Bonza.\""]
 
-bMotion_abstract_batchadd "hexStart" [list "+++Out Of" "+++Overley Terrifying" "+++Please Execute" "%REPEAT(1,4,+++MELON}+++" "+++Conflicting" "+++Current" "+++Load" "+++Incorrect" "+++Completed" "+++Undefined" "+++" "+++Missing" "+++Proceed to" "+++Magical" "+++Trying To Enable" 	"+++Good Morning:" "+++I WANT MY" "+++Summoning" "+++Unparalleled" "+++Insidious" "+++DANGER:" "+++System Error" "+++Arbitrary" "+++Random" "+++Insert" "+++Activating" ]
+bMotion_abstract_batchadd "hexStart" [list "+++Out Of" "+++Overley Terrifying" "+++Please Execute" "%REPEAT{1,4,+++MELON}+++" "+++Conflicting" "+++Current" "+++Load" "+++Incorrect" "+++Completed" "+++Undefined" "+++" "+++Missing" "+++Proceed to" "+++Magical" "+++Trying To Enable" 	"+++Good Morning:" "+++I WANT MY" "+++Summoning" "+++Unparalleled" "+++Insidious" "+++DANGER:" "+++System Error" "+++Arbitrary" "+++Random" "+++Insert" "+++Activating" ]
 
 bMotion_abstract_batchadd "attack_responses" [list "%% attacks %SETTING{complex:attacks:who:_:_} with '%SETTING{complex:attacks:item:_:_}' for %SETTING{complex:attacks:score:_:_} damage." "%SETTING{complex:attacks:who:_:_} takes %SETTING{complex:attacks:score:_:_} damage from %OWNER{%%} '%SETTING{complex:attacks:item:_:_}'" "%SETTING{complex:attacks:who:_:_} is tremendously damaged by the %SETTING{complex:attacks:item:_:_} and takes %SETTING{complex:attacks:score:_:_} damage!" "MISS!" "%SETTING{complex:attacks:who:_:_} is immune to '%SETTING{complex:attacks:item:_:_}'" "%SETTING{complex:attacks:who:_:_} absorbs the damage and gains %SETTING{complex:attacks:score:_:_} HP!" ]
 
@@ -1521,7 +1543,7 @@ bMotion_abstract_batchadd "answerWouldyous" {
    "in a flash!"
    "love to%|%VAR{randomZimness}"
    "only if %ruser can watch"
-   "if i had any arms i would%|:("
+   "if i had any arms i would%|%VAR{unsmiles}"
    "if my %VAR{bodypart} would stop %VAR{dVerbs}ing"
 }
 
@@ -1531,8 +1553,9 @@ bMotion_abstract_batchadd "answerAreyous" {
    "%ruser made me"
    "yes and i wont stop till my %VAR{bodypart} bounces off!"
    "i was feeling horny"
-   "yeah want a go? :)"
+   "yeah want a go? %VAR{smiles}"
    "only because my %VAR{dNouns} %VAR{fellOffs}"
+   "no%|wait! i mean yes"
 }
 
 bMotion_abstract_register "answerCanyous"
@@ -1618,3 +1641,16 @@ bMotion_abstract_batchadd "sounds" {
 	"ock" "wobble wobble!" "slash!"
 }
 
+bMotion_abstract_register "colours"
+bMotion_abstract_batchadd "colours" {
+  "cyan" "magenta"
+  "mauve" "taupe" "ochre" "teal"
+  "grey"
+  "crimson" "scarlet"
+  "cobalt" "turquoise" "cornflower blue"
+}
+
+bMotion_abstract_register "basic_colours" {
+bMotion_abstract_batchadd "basic_colours" {
+  "red" "blue" "yellow" "green" "violet" "orange" "black" "white"
+}
