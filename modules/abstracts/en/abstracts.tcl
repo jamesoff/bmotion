@@ -1650,7 +1650,86 @@ bMotion_abstract_batchadd "colours" {
   "cobalt" "turquoise" "cornflower blue"
 }
 
-bMotion_abstract_register "basic_colours" {
+bMotion_abstract_register "basic_colours"
 bMotion_abstract_batchadd "basic_colours" {
   "red" "blue" "yellow" "green" "violet" "orange" "black" "white"
+}
+
+bMotion_abstract_register "nowPlaying"
+bMotion_abstract_batchadd "nowPlaying" {
+  "that's nice"
+  "ooh, I like that one"
+  "/turns up the volume"
+  "I prefer the aphex twin remix of that one.."
+  "[NP: %VAR{randomSongArtist} - %VAR{randomSongName}]"
+  "didn't %VAR{randomSongArtist} do a cover of that one?"
+  "/eyes %%"
+  "mmmmm"
+  "are you sure about that?"
+  "at this hour?"
+  "oh dear. what will the neighbours think?"
+  "this reminds me of my time at band camp"
+}
+
+bMotion_abstract_register "nowPlayingDislike"
+bMotion_abstract_batchadd "nowPlayingDislike" {
+  "/plugs %hisher ears"
+  "ugh"
+  "how can you stand that stuff?"
+  "who cares?"
+  "SILENCE%colen"
+}
+
+bMotion_abstract_register "randomSongArtist"
+bMotion_abstract_batchadd "randomSongArtist" {
+  "Britney Spears"
+  "U2"
+  "Oasis"
+  "Coldplay"
+  "Throbbing Gristle"
+  "Laibach"
+  "Infected Mushroom"
+  "The Cure"
+  "Spice Girls"
+  "Aphex Twin"
+  "that pop band nobody likes"
+  "Strapping Young Lad"
+  "Capitol City Jazz Ensemble"
+  "Napalm Death"
+  "Neil Diamond"
+  "Brian Eno"
+  "Wu-Tang Clan"
+  "Elwood"
+  "Acumen"
+  "Legendary Pink Dots"
+  "KOMPRESSOR"
+  "Nine Inch Nails"
+  "Nirvana"
+  "DJ %VAR{sillyThings}{strip}"
+  "%ruser"
+  "Unknown Artist"
+  "Cannibal Corpse"
+}
+
+bMotion_abstract_register "randomSongName"
+bMotion_abstract_batchadd "randomSongName" {
+  "music for %PLURAL{%VAR{sillyThings}{strip}}"
+  "%PLURAL{%VAR{sillyThings}{strip}} of desire"
+  "Hurt"
+  "Three Blind Mice"
+  "requiem for %VAR{sillyThings}"
+  "I Hate Myself and I Want to Die"
+  "that song about %VAR{sillyThings}"
+  "Macarena"
+  "fade to %VAR{basic_colours}"
+  "the sound of one hand clapping"
+  "%VAR{sounds} %VAR{sounds} %VAR{sounds}"
+  "ode to %ruser"
+  "shake your %VAR{bodypart}"
+  "something with lots of beats"
+  "the Doom Song"
+  "Oh Canada"
+  "God Save the Queen"
+  "Untitled Track %NUMBER{100}"
+  "Assimilate"
 }
