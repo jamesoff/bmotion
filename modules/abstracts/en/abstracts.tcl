@@ -1147,7 +1147,7 @@ bMotion_abstract_batchadd "prom_first" [list "piss" "shit" "fuck" "turd" "minge"
 
 bMotion_abstract_batchadd "silences" [list "Be quiet" "Enough" "Silence!" "%colen" "no more!" "NNK" "Shhh" ]
 
-bMotion_abstract_batchadd "hexEnd" [list "Disabled+++" "Occurance+++" "Portal Opening+++" "Detected+++" ": Reinstall Syrup+++" "snack break+++" "-(Why Not Take This Time To Register Your Purchase)+++" "=Error %REPEAT{3:6:%NUMBER{100}}+++" "%REPEAT{3:12:?}+++" "Warning : Excess %VAR{sillyThings}+++" "Data Lost+++" ": Redo From Start+++" "- Please Reboot Universe+++" "Acknowledgment+++" "Ended+++" 	"-If Problem Persists Contact The Creator+++" "-Could Not Complete Destiny+++" "-no sufficient sentient life forms+++" "Technological Change+++" "-Access Completely And Indefinitely Denied+++" "-Query+++" "+++" "Waaaaah!+++" "Divide By Cucumber Error+++" ": Error - Division By Moonlight+++" ]
+bMotion_abstract_batchadd "hexEnd" [list "Disabled+++" "Occurance+++" "Portal Opening+++" "Detected+++" ": Reinstall Syrup+++" "snack break+++" "-(Why Not Take This Time To Register Your Purchase)+++" "=Error %REPEAT{3:6:%NUMBER{100}}+++" "%REPEAT{3:12:?}+++" "Warning : Excess %VAR{sillyThings}" "Data Lost+++" ": Redo From Start+++" "- Please Reboot Universe+++" "Aknowledgment+++" "Ended+++" 	"-If Problem Persists Contact The Creator+++" "-Could Not Complete Destiny+++" "-no sufficient sentient life forms+++" "Technological Change+++" "-Access Completely And Indefinitely Denied+++" "-Query+++" "+++" "Waaaaah!+++" "Divide By Cucumber Error+++" ": Error - Division By Moonlight+++" ]
 
 bMotion_abstract_batchadd "prom_second" [list "rifle" "flower" "desk" "curtain" "wheel" "door" "coin" "speaker" "lamp" "radio" "twix" "action" "account" "pump" "puma" "whistle" "shaver" "glass" "flute" "tea" "pot" "square" "robe" "apple" "cave" "lantern" "drawer" "card" "pants" ]
 
@@ -1279,9 +1279,14 @@ bMotion_abstract_batchadd "cyas" [list "l8r" "cya" "cya l8r" "bye" "byebye" "/wa
 
 bMotion_abstract_batchadd "balefired" [list "/vanishes from the continuum" "/ceases to have ever existed" "hey! :(" "/dodges%|/hits d+1 and does Chinese Fan on %%" ]
 
-bMotion_abstract_batchadd "randomStuff" [list "I'm a doctor not %VAR{sillyThings}" "pika pika!" "pikachu!" "pika...CHUUUU!!! *ZZZAAP*" "*boing*" "moo." "BOOM" "BLAM" "Knickers.%|%BOT\[¬VAR{rarrs}\]" "/goes for coffee" "bof" "alors" "bhar" "arrrr.." "elbow." 	"gorilla" "*yawn*" "*spangle*" "brb" "lalalala.. ow! I stubbed my toe :(%|%bot\[50,¬VAR{awwws}\]" "lum de dum de dum..." "/twiddles thumbs" "boom" "Look over there!" "bleh" "/puts on some banging house tunes" "zut alors" "alors bof" "groogle arrhar" "brb, loo" 	"brb, sex" "uNF" "~rarr~" "~oof~" "Oops, I've ruined it." "Buttock Crunchies" "D'oh!" "setty mings lalalala" "pika" "Are you local?" "We'll have no trouble here" "Resistance is futile, you will be assimilated" "Resistance is futile, you will be 0wn3d" "Assimilation is futile, you will be resi... D'OH!" "I *didn't*" 	"waCHOO *sniff*%|%BOT\[¬VAR{blessyous}\]" "blblblblblbl" "/assimilates the channel" "We are the B0rg. You will be 4551m1la70r3d." "wheeeee" "We are the Borg. Lower your shields and surrender your ship." "h%REPEAT{3:8:n}" "did you see that.." "You are the weakest link, goodbye." "Computer, deactivate iguana." "kerPOW" "kerSPLAT" "KAZAM" "kazOO" "yaZOO" 	"spam, spam, spam, spam, spam, spam..." "Oh my god! There's an axe in my head.%|%BOT\[¬VAR{pullsOut}\]" "Mon dieu! Il y a une hache dans ma tete.%|%BOT\[¬VAR{pullsOut}\]" "ghay'cha'! nachwIjDaq betleH tu'lu'!%|%BOT\[¬VAR{pullsOut}\]" "Deus Meus! Securis in capite meo est.%|%BOT\[¬VAR{pullsOut}\]" "ALL YOUR BASE ARE BELONG TO US" "For great justice." "nostril" "%REPEAT{2:7:bl}" "wh%REPEAT{3:8:e}" "h%REPEAT{3:10:e} FUN" "ah bof" "I didn't!" "shh, sekrit" "SSSH SEKRIT" 	"SILENCE%colen" "pop" "cabbages" "penguin" "cheese" "mmm chicken" "blimey" "crikey" "hoorah" "pie pie pie pie" "fantastic" "ho ho" "har har" "deary me" "m00se" 	"llama" "frogs" "knickers" "bob" "kenneth" "nigel" "is everyone thooper?" "super" "thooper" "lashings of ginger beer" ]
+bMotion_abstract_batchadd "randomStuff" [list "I'm a doctor not %VAR{sillyThings}" "pika pika!" "pikachu!" "pika...CHUUUU!!! *ZZZAAP*" "*boing*" "moo." "BOOM" "BLAM" "Knickers.%|%BOT\[¬VAR{rarrs}\]" "/goes for coffee" "bof" "alors" "bhar" "arrrr.." "elbow." 	"gorilla" "*yawn*" "*spangle*" "brb" "lalalala.. ow! I stubbed my toe :(%|%bot\[50,¬VAR{awwws}\]" "lum de dum de dum..." "/twiddles thumbs" "boom" "Look over there!" "bleh" "/puts on some banging house tunes" "zut alors" "alors bof" "groogle arrhar" "brb, loo" 	"brb, sex" "uNF" "~rarr~" "~oof~" "Oops, I've ruined it." "Buttock Crunchies" "D'oh!" "setty mings lalalala" "pika" "Are you local?" "We'll have no trouble here" "Resistance is futile, you will be assimilated" "Resistance is futile, you will be 0wn3d" "Assimilation is futile, you will be resi... D'OH!" "I *didn't*" 	"waCHOO *sniff*%|%BOT\[¬VAR{blessyous}\]" "blblblblblbl" "/assimilates the channel" "We are the B0rg. You will be 4551m1la70r3d." "wheeeee" "We are the Borg. Lower your shields and surrender your ship." "h%REPEAT{3:8:n}" "did you see that.." "You are the weakest link, goodbye." "Computer, deactivate iguana." "kerPOW" "kerSPLAT" "KAZAM" "kazOO" "yaZOO" 	"spam, spam, spam, spam, spam, spam..." "Oh my god! There's an axe in my head.%|%BOT\[¬VAR{pullsOut}\]" "Mon dieu! Il y a une hache dans ma tete.%|%BOT\[¬VAR{pullsOut}\]" "ghay'cha'! nachwIjDaq betleH tu'lu'!%|%BOT\[¬VAR{pullsOut}\]" "Deus Meus! Securis in capite meo est.%|%BOT\[¬VAR{pullsOut}\]" "ALL YOUR BASE ARE BELONG TO US" "For great justice." "nostril" "%REPEAT{2:7:bl}" "wh%REPEAT{3:8:e}" "h%REPEAT{3:10:e} FUN" "ah bof" "I didn't!" "shh, sekrit" "SSSH SEKRIT" 	"SILENCE%colen" "pop" "cabbages" "penguin" "cheese" "mmm chicken" "blimey" "crikey" "hoorah" "pie pie pie pie" "fantastic" "ho ho" "har har" "deary me" "m00se" 	"llama" "frogs" "knickers" "bob" "kenneth" "nigel" "is everyone thooper?" "super" "thooper" "lashings of ginger beer" "It's not sugar in my sugar bowl, it's %VAR{sillyThings}{strip}" "I smell of %VAR{sillyThings}{strip}" "Honestly, I don't know how that %VAR{sillyThings}{strip} got in there. I must have slipped" ]
 
 bMotion_abstract_batchadd "randomStuff" {
+	"omg this %VAR{sillyThings}{strip} is the Best Thing Ever"
+	"/burps%|er... it was the fish%|/points"
+	"/burps%|() :)"
+	"/burps%|it was... er, %ruser"
+	"when this %VAR{sillyThings}{strip} hits %NUMBER{10000} mph, we're going to see some serious shit"
   "There are clowns living under my bed."
   "What's it going to take to get you into this car?"
   "Was I snoring again?"
@@ -1334,16 +1339,16 @@ bMotion_abstract_batchadd "randomStuff" {
   "i'm going to get it at the weekend %VAR{smiles}"
   "i'm king of getting pointless things"
 	"i'd give mrs. button one"
-	"i'm keeping quiet except for the odd fondle and humping    "
+	"i'm keeping quiet except for the odd fondle and humping    "             
 	"i've lost my little start thingy"
 	"some people are really thivk                      "
 	"then one night some of her friends were over and they wanted to join in"
 	"i don't know what you're talking about"
 	"I never chew, it's unethical"
 	"these chinese mags are getting me on"
-	"little pigs rock for intimacy             "
+	"little pigs rock for intimacy             "         
 	"play with my flower"
-	"Must confess I've never come across her in a work capacity     "
+	"Must confess I've never come across her in a work capacity     "           
 	"I go now For Great Leathering"
 	"I smell of coconut                       "
 	"For private functions I do pigs on spits. I fill their cavities... "
@@ -1355,58 +1360,36 @@ bMotion_abstract_batchadd "randomStuff" {
 	"I just picked a very drunk irish bloke up"
 	"that's not chocolate anyway %ruser{enemy}"
 	"%ruser{enemy} needs to master the fact that 'teasing' != 'shoving it all in your mouth in one go'"
-	"always been a bit rough   "
-	"%ruser{enemy} in talking shit shocker    "
+	"always been a bit rough   "              
+	"%ruser{enemy} in talking shit shocker    "     
 	"Yeah, I was up that"
 	"why just the other day i watched a film with a plot  "
-	"yeah, keep it open until I'm sure  "
-	"you know that stuff you did for me last night? "
+	"yeah, keep it open until I'm sure  "    
+	"you know that stuff you did for me last night? "   
 	"no, I fed her absinthe and all was good	"
 	"well i fully intend to be an utter burden and piss myself"
-	"ha ha i don't live in norwich anymore, i don't fuck pigs anymore  "
+	"ha ha i don't live in norwich anymore, i don't fuck pigs anymore  "            
 	"didn't you just pump it out on the ground"
 	"er, not that far in, would be really painful at this time of night"
 	"i have a battery operated tree \o/"
 	"i have an enormous battery operated vibrator"
-	"there's usually someone fiddling with me   "
-	"the nice girls love a sailor     "
+	"there's usually someone fiddling with me   "                  
+	"the nice girls love a sailor     "               
 	"someone give me something to lick"
 	"shouldn't be a problem unless you keep re-using the same tissue"
-	"push the stinky dribbling fuck into the sea    "
+	"push the stinky dribbling fuck into the sea    "               
 	"pfft might as well fuck myself, it's the only way I'll get any this side of the 22nd century"
 	"you can tell the point at which he comes by the deepening shade of purple"
 	"mount them so you can alter their thrust                   "
-	"mine is flapping pointlessly somewhere round my ankles     "
+	"mine is flapping pointlessly somewhere round my ankles     "              
 	"I'll be holding mine in the pub"
-	"it's moving them around next to them thats worse     "
-	"it mostly came out in dribs and drabs"
-	"if it's really urgent i'd go put my hands in    "
+	"it's moving them around next to them thats worse     "             
+	"it mostly came out in dribs and drabs"                   
+	"if it's really urgent i'd go put my hands in    "             
 	"if he's good enough for %ruser, he's good enough for me"
 	"here's a photograph of my fist"
 	"i've had a fiddle with it but never used it properly"
 	"I often walk about with someone elses dick in my arse          "
-  "I really like brian eno's \"music for %PLURAL{%VAR{sillyThings}{strip}}\""
-  "if all else fails, use fire"
-  "master using it and you can have this!%|/shows %ruser %VAR{sillyThings}"
-  "Dodongo dislikes %VAR{sillyThings}{strip}"
-  "%ruser needs food, badly! %VAR{unsmiles}"
-  "%ruser has shot the food! %VAR{unsmiles}"
-  "%ruser has shot the potion! %VAR{unsmiles}"
-  "%ruser now has reflecting shots! %VAR{smiles}"
-  "%ruser is about to die! %VAR{unsmiles}"
-  "good.. bad.. I'm the bot with the gun%colen"
-  "This is %me. Remember, replicator database restrictions are in place for the good of ALL of us."
-  "which was nice"
-  "/stretches %hisher %VAR{bodypart}"
-  "my %VAR{bodypart} is turning all %VAR{colours} %VAR{unsmiles}"
-  "hmm.. was it the %VAR{basic_colours} wire or the %VAR{colours} one?"
-  "and now what?"
-  "%VAR{colours} is the new %VAR{basic_colours}!"
-  "anyone fancy a pint?%|%BOT\[50, %VAR{yesnos}\]"
-  "RUN, HUMANS%colen"
-  "but is it really safe?%|%BOT\[50, yes, if you watch out for %PLURAL{%VAR{sillyThings}{strip}}\]"
-  "but is it art?"
-
 }
 
 bMotion_abstract_batchadd "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline" "/snigger" "wait, that's not right..." ]
@@ -1427,7 +1410,7 @@ bMotion_abstract_batchadd "unsmiles" [list ":(" ";(" ":O" ":\[" ":<" "=(" "=\[" 
 
 bMotion_abstract_batchadd "ruins" [list "Incompetence." "INCOMPETENCE%colen" "YOU INCOMPETENT FOOL!" "You've ruined it." "That's torn it." ":P" "I spy incompetence." "Idiot." "heh" "\"great\"" "\"well done\"" "\"Good\" job." "\"Good\" work." "plonker" "you plonker" "muppet" "idiot" "fool" "taunt!" "cretin" "moron" "Jade!" "\"Bonza.\""]
 
-bMotion_abstract_batchadd "hexStart" [list "+++Out Of" "+++Overley Terrifying" "+++Please Execute" "%REPEAT{1,4,+++MELON}+++" "+++Conflicting" "+++Current" "+++Load" "+++Incorrect" "+++Completed" "+++Undefined" "+++" "+++Missing" "+++Proceed to" "+++Magical" "+++Trying To Enable" 	"+++Good Morning:" "+++I WANT MY" "+++Summoning" "+++Unparalleled" "+++Insidious" "+++DANGER:" "+++System Error" "+++Arbitrary" "+++Random" "+++Insert" "+++Activating" ]
+bMotion_abstract_batchadd "hexStart" [list "+++Out Of" "+++Overley Terrifying" "+++Please Execute" "%REPEAT(1,4,+++MELON}+++" "+++Conflicting" "+++Current" "+++Load" "+++Incorrect" "+++Completed" "+++Undefined" "+++" "+++Missing" "+++Proceed to" "+++Magical" "+++Trying To Enable" 	"+++Good Morning:" "+++I WANT MY" "+++Summoning" "+++Unparalleled" "+++Insidious" "+++DANGER:" "+++System Error" "+++Arbitrary" "+++Random" "+++Insert" "+++Activating" ]
 
 bMotion_abstract_batchadd "attack_responses" [list "%% attacks %SETTING{complex:attacks:who:_:_} with '%SETTING{complex:attacks:item:_:_}' for %SETTING{complex:attacks:score:_:_} damage." "%SETTING{complex:attacks:who:_:_} takes %SETTING{complex:attacks:score:_:_} damage from %OWNER{%%} '%SETTING{complex:attacks:item:_:_}'" "%SETTING{complex:attacks:who:_:_} is tremendously damaged by the %SETTING{complex:attacks:item:_:_} and takes %SETTING{complex:attacks:score:_:_} damage!" "MISS!" "%SETTING{complex:attacks:who:_:_} is immune to '%SETTING{complex:attacks:item:_:_}'" "%SETTING{complex:attacks:who:_:_} absorbs the damage and gains %SETTING{complex:attacks:score:_:_} HP!" ]
 
@@ -1543,7 +1526,7 @@ bMotion_abstract_batchadd "answerWouldyous" {
    "in a flash!"
    "love to%|%VAR{randomZimness}"
    "only if %ruser can watch"
-   "if i had any arms i would%|%VAR{unsmiles}"
+   "if i had any arms i would%|:("
    "if my %VAR{bodypart} would stop %VAR{dVerbs}ing"
 }
 
@@ -1553,9 +1536,8 @@ bMotion_abstract_batchadd "answerAreyous" {
    "%ruser made me"
    "yes and i wont stop till my %VAR{bodypart} bounces off!"
    "i was feeling horny"
-   "yeah want a go? %VAR{smiles}"
+   "yeah want a go? :)"
    "only because my %VAR{dNouns} %VAR{fellOffs}"
-   "no%|wait! i mean yes"
 }
 
 bMotion_abstract_register "answerCanyous"
@@ -1631,6 +1613,11 @@ bMotion_abstract_add "sound" "%VAR{sounds} %VAR{sounds} %VAR{sounds} %|oh! excus
 bMotion_abstract_add "sound" "%VAR{sounds} %VAR{sounds}%|/giggles"
 bMotion_abstract_add "sound" "%VAR{sounds} %VAR{sounds}"
 
+bMotion_abstract_register "sound2"
+bMotion_abstract_add "sound2" "%VAR{sounds} %VAR{sound2} "
+bMotion_abstract_add "sound2" "%VAR{sounds} "
+
+
 bMotion_abstract_register "sounds"
 bMotion_abstract_batchadd "sounds" {
 	"click-click!" "klackety" "feep-feep" "*eeeem*" "honk honk!" "uh-uh-uh" "whommm" "eep"
@@ -1641,95 +1628,4 @@ bMotion_abstract_batchadd "sounds" {
 	"ock" "wobble wobble!" "slash!"
 }
 
-bMotion_abstract_register "colours"
-bMotion_abstract_batchadd "colours" {
-  "cyan" "magenta"
-  "mauve" "taupe" "ochre" "teal"
-  "grey"
-  "crimson" "scarlet"
-  "cobalt" "turquoise" "cornflower blue"
-}
-
-bMotion_abstract_register "basic_colours"
-bMotion_abstract_batchadd "basic_colours" {
-  "red" "blue" "yellow" "green" "violet" "orange" "black" "white"
-}
-
-bMotion_abstract_register "nowPlaying"
-bMotion_abstract_batchadd "nowPlaying" {
-  "that's nice"
-  "ooh, I like that one"
-  "/turns up the volume"
-  "I prefer the aphex twin remix of that one.."
-  "[NP: %VAR{randomSongArtist} - %VAR{randomSongName}]"
-  "didn't %VAR{randomSongArtist} do a cover of that one?"
-  "/eyes %%"
-  "mmmmm"
-  "are you sure about that?"
-  "at this hour?"
-  "oh dear. what will the neighbours think?"
-  "this reminds me of my time at band camp"
-}
-
-bMotion_abstract_register "nowPlayingDislike"
-bMotion_abstract_batchadd "nowPlayingDislike" {
-  "/plugs %hisher ears"
-  "ugh"
-  "how can you stand that stuff?"
-  "who cares?"
-  "SILENCE%colen"
-}
-
-bMotion_abstract_register "randomSongArtist"
-bMotion_abstract_batchadd "randomSongArtist" {
-  "Britney Spears"
-  "U2"
-  "Oasis"
-  "Coldplay"
-  "Throbbing Gristle"
-  "Laibach"
-  "Infected Mushroom"
-  "The Cure"
-  "Spice Girls"
-  "Aphex Twin"
-  "that pop band nobody likes"
-  "Strapping Young Lad"
-  "Capitol City Jazz Ensemble"
-  "Napalm Death"
-  "Neil Diamond"
-  "Brian Eno"
-  "Wu-Tang Clan"
-  "Elwood"
-  "Acumen"
-  "Legendary Pink Dots"
-  "KOMPRESSOR"
-  "Nine Inch Nails"
-  "Nirvana"
-  "DJ %VAR{sillyThings}{strip}"
-  "%ruser"
-  "Unknown Artist"
-  "Cannibal Corpse"
-}
-
-bMotion_abstract_register "randomSongName"
-bMotion_abstract_batchadd "randomSongName" {
-  "music for %PLURAL{%VAR{sillyThings}{strip}}"
-  "%PLURAL{%VAR{sillyThings}{strip}} of desire"
-  "Hurt"
-  "Three Blind Mice"
-  "requiem for %VAR{sillyThings}"
-  "I Hate Myself and I Want to Die"
-  "that song about %VAR{sillyThings}"
-  "Macarena"
-  "fade to %VAR{basic_colours}"
-  "the sound of one hand clapping"
-  "%VAR{sounds} %VAR{sounds} %VAR{sounds}"
-  "ode to %ruser"
-  "shake your %VAR{bodypart}"
-  "something with lots of beats"
-  "the Doom Song"
-  "Oh Canada"
-  "God Save the Queen"
-  "Untitled Track %NUMBER{100}"
-  "Assimilate"
-}
+bMotion_abstract_register "quizes"
