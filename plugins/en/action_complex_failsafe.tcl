@@ -24,13 +24,27 @@ proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
 
   bMotion_plugins_settings_set "complex:failsafe" "last" "nick" "moo" [bMotionGetRealName $nick]
 
-  if [rand 1] {
+	#try to figure out something geneal about this action
+	if [regexp "(hug(gle)?|pet|rub|like|<3)s?" $verb] {
+		bMotionDoAction $channel $nick "%VAR{failsafe_nice}"
+		bMotionGetHappy
+		driftFriendship $nick 1
+		return 1
+	}
+
+	set whee [rand 10]
+	putlog $whee
+
+	if {$whee > 5} {
   	bMotionDoAction $channel "" "%VAR{failsafes_a}"
   } else {
   	bMotionDoAction $channel $verb "%VAR{failsafes_b}"
   }
   return 1
 }
+
+bMotion_abstract_register "failsafe_nice"
+bMotion_abstract_batchadd "failsafe_nice" [list "mmm" "%VAR{smiles}" "%VAR{smiles}%|/gives %% %VAR{sillyThings}"]
 
 
 bMotion_abstract_register "failsafes_a"

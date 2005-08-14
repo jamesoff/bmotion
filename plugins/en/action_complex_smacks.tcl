@@ -48,6 +48,7 @@ bMotion_abstract_batchadd "slapped" {
 	"ow! my %VAR{bodypart}!"
 	"ow! my %VAR{bodypart}! that was my %VAR{counts} one"
 	"arrgh my %VAR{bodypart}! now i only have %NUMBER{50} left"
+	"arrgh my %VAR{bodypart}! now i only have %NUMBER{50} left%|look, here in this box"
 	"%VAR{frightens}"
 }
 

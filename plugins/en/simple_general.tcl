@@ -43,3 +43,4 @@ bMotion_plugin_add_simple "no-mirc" "mirc" 5 [list "mIRC < irssi" "use irssi" "m
 bMotion_plugin_add_simple "no-bitchx" "bitchx" 5 [list "bitchx < irssi" "use irssi" "mmm irssi" "irssi > *" "/fires %% into the sun"] "en"
 bMotion_plugin_add_simple "no-trillian" "trillian" 5 [list "trillian < irssi" "use trillian + bitlbee" "mmm irssi" "irssi > *" "/fires %% into the sun"] "en"
 bMotion_plugin_add_simple "right" "%botnicks: (i see|ri+ght|ok|all? ?right|whatever)" 60 [list "it's true %VAR{unsmiles}" "it's true%colen" "yes" "what" "you don't believe me?"] "en"
+bMotion_plugin_add_simple "hal" "%botnicks: open the cargo bay doors?" 70 [list "I'm sorry %%, I can't do that."] "en"
