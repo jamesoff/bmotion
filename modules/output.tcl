@@ -26,6 +26,8 @@
 bMotion_counter_init "output" "lines"
 bMotion_counter_init "output" "irclines"
 
+set bMotion_output_delay 0
+
 proc pickRandom { list } {
 	bMotion_putloglev 5 * "pickRandom ($list)"
   return [lindex $list [rand [llength $list]]]
@@ -80,6 +82,10 @@ proc mee {channel action {urgent 0} } {
 proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
   bMotion_putloglev 5 * "bMotionDoAction($channel,$nick,$text,$moreText,$noTypo)"
   global bMotionInfo bMotionCache bMotionOriginalInput
+	global bMotion_output_delay
+
+	set bMotion_output_delay 0
+
   set bMotionCache($channel,last) 1
   set bMotionCache(typos) 0
   set bMotionCache(typoFix) ""
@@ -348,6 +354,7 @@ proc bMotionInterpolation2 { line } {
 proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
   bMotion_putloglev 5 * "bMotionSayLine: channel = $channel, nick = $nick, line = $line, moreText = $moreText, noTypo = $noTypo"
   global mood botnick bMotionInfo bMotionCache bMotionOriginalInput
+	global bMotion_output_delay
 
   set line [bMotionInterpolation2 $line]
 
@@ -401,6 +408,11 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
     return 1
   }
 
+  if [regexp {%DELAY\{([0-9]+)\}} $line matches delay] {
+	    set bMotion_output_delay $delay
+			    bMotion_putloglev d * "Changing output delay to $delay"
+					set line ""
+					  }
 
   if {$mood(stoned) > 3} {
     if [rand 2] {
@@ -454,6 +466,8 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 
   set line [bMotionInsertString $line "%slash" "/"]
 
+	global bMotion_output_delay
+
   if [regexp "^/" $line] {
     #it's an action
     mee $channel [string range $line 1 end] $urgent
@@ -461,7 +475,7 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
     if {$urgent} {
       bMotion_queue_add_now [chandname2name $channel] $line
     } else {
-      bMotion_queue_add [chandname2name $channel] $line
+      bMotion_queue_add [chandname2name $channel] $line $bMotion_output_delay
     }
   }
   return 0
