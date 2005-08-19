@@ -208,6 +208,7 @@ set satOns {
 
 #question answers
 set answerWhats {
+	"well you asked the right guy, i'm a whale biologist"
   "a book"
   "3 fingers"
   "cycling"
@@ -606,6 +607,7 @@ set randomReplies {
   "why the hell not"
   "only if there are no alternatives"
   "what a silly question *giggle*"
+	"let's all ask each other! that'll solve this problem!"
   "only on Wednesdays"
   "42"
   "a tv"
@@ -1282,6 +1284,34 @@ bMotion_abstract_batchadd "balefired" [list "/vanishes from the continuum" "/cea
 bMotion_abstract_batchadd "randomStuff" [list "I'm a doctor not %VAR{sillyThings}" "pika pika!" "pikachu!" "pika...CHUUUU!!! *ZZZAAP*" "*boing*" "moo." "BOOM" "BLAM" "Knickers.%|%BOT\[¬VAR{rarrs}\]" "/goes for coffee" "bof" "alors" "bhar" "arrrr.." "elbow." 	"gorilla" "*yawn*" "*spangle*" "brb" "lalalala.. ow! I stubbed my toe :(%|%bot\[50,¬VAR{awwws}\]" "lum de dum de dum..." "/twiddles thumbs" "boom" "Look over there!" "bleh" "/puts on some banging house tunes" "zut alors" "alors bof" "groogle arrhar" "brb, loo" 	"brb, sex" "uNF" "~rarr~" "~oof~" "Oops, I've ruined it." "Buttock Crunchies" "D'oh!" "setty mings lalalala" "pika" "Are you local?" "We'll have no trouble here" "Resistance is futile, you will be assimilated" "Resistance is futile, you will be 0wn3d" "Assimilation is futile, you will be resi... D'OH!" "I *didn't*" 	"waCHOO *sniff*%|%BOT\[¬VAR{blessyous}\]" "blblblblblbl" "/assimilates the channel" "We are the B0rg. You will be 4551m1la70r3d." "wheeeee" "We are the Borg. Lower your shields and surrender your ship." "h%REPEAT{3:8:n}" "did you see that.." "You are the weakest link, goodbye." "Computer, deactivate iguana." "kerPOW" "kerSPLAT" "KAZAM" "kazOO" "yaZOO" 	"spam, spam, spam, spam, spam, spam..." "Oh my god! There's an axe in my head.%|%BOT\[¬VAR{pullsOut}\]" "Mon dieu! Il y a une hache dans ma tete.%|%BOT\[¬VAR{pullsOut}\]" "ghay'cha'! nachwIjDaq betleH tu'lu'!%|%BOT\[¬VAR{pullsOut}\]" "Deus Meus! Securis in capite meo est.%|%BOT\[¬VAR{pullsOut}\]" "ALL YOUR BASE ARE BELONG TO US" "For great justice." "nostril" "%REPEAT{2:7:bl}" "wh%REPEAT{3:8:e}" "h%REPEAT{3:10:e} FUN" "ah bof" "I didn't!" "shh, sekrit" "SSSH SEKRIT" 	"SILENCE%colen" "pop" "cabbages" "penguin" "cheese" "mmm chicken" "blimey" "crikey" "hoorah" "pie pie pie pie" "fantastic" "ho ho" "har har" "deary me" "m00se" 	"llama" "frogs" "knickers" "bob" "kenneth" "nigel" "is everyone thooper?" "super" "thooper" "lashings of ginger beer" "It's not sugar in my sugar bowl, it's %VAR{sillyThings}{strip}" "I smell of %VAR{sillyThings}{strip}" "Honestly, I don't know how that %VAR{sillyThings}{strip} got in there. I must have slipped" ]
 
 bMotion_abstract_batchadd "randomStuff" {
+	"oh! i can't wait until the tatoos on %ruser's butt hear about this!"
+	"to induce vomiting, that was the answer! everywhere it went!%|what a valentine's day that was"
+	"freshen your coffee?%|%BOT\[yeahyeahyeah keep it coming just put the pot down\]%|%BOT\[*DING* (31)\]"
+	"*DING* (51)%|why is my cup shaking i don't want my cup shaking!"
+	"of course i've been up all night but not cos of coffee no it was insomnia i'm tired *zzz* coffee time!%|*DING* (52)"
+	"Mushu is sad :("
+	"Wait! that chunk, it's %VAR{sillyThings}!"
+	"what? it's not even scratch-and-sniff?"
+	"what a clever impression of a stupid poor person"
+	"precious hamburgers?"
+	"this has been %me, your guide to the world of facts!"
+	"i feel like bouncing!"
+	"%mes love hugs!"
+	"the loot! the loot! the loot is on fire!"
+	"coffeecoffeecoffeecoffeecoffeecoffeecoffeecoffee *glug glug*%|*DING* (100)%|:D"
+	"oh crud! he ate my suit!%|%BOT\[the suit was ugly! whale biologist!\]"
+	"what d'you say we just it a strip joint?%|%BOT\[i was waiting for one of us to say that!\]"
+	"i hope you won't think it \"evil\" of me to ask how you got that stylish headwound"
+	"getting my brain out was the easy part. the hard part was getting my brain out%|muwahahahahaha"
+	"they're all like, stop spraying me with ink, %me, stop eating the garbage, %me"
+	"Meanwhile in Universe A, %me A heads towards the Sun%|A."
+	"If i know parallel %me, %heshe's in the sun by now!"
+	"Yes, it's the apocolypse alright. I always thought i'd have a part in it."
+	"the professor was right! you are evil. and shallow%|%BOT\[i am not shallow :(\]"
+	"only throwing it into the sun will destory it%|%BOT\[I could hit it with a shovel\]%|Not good enough.%|%BOT\[This one time, I hit a guy into the ground with a shovel\]%|yes, yes."
+	"arrgh! it's hot! the butter in my packet is melting"
+	"heads i will, tails i won't%|*flip*%|heads! oh yeah! oh yeah!%|i mean, alrighty then"
+	"it's some guy wearing a %ruser costume! get him!"
 	"omg this %VAR{sillyThings}{strip} is the Best Thing Ever"
 	"/burps%|er... it was the fish%|/points"
 	"/burps%|() :)"
@@ -1390,6 +1420,10 @@ bMotion_abstract_batchadd "randomStuff" {
 	"here's a photograph of my fist"
 	"i've had a fiddle with it but never used it properly"
 	"I often walk about with someone elses dick in my arse          "
+	"what to do, what to do... three hundred one-dollar hookerbots or one three hundred dollar hooker bot?"
+	"%ruser: ow! not so rough!"
+	"... and was buried with George Burns until rampaging space monkeys - well you know the rest!"
+	"%ruser: you are now the proud owner of Bamboo Boogie Boots%|(with a warning sticker this big you know they gotta be fun!)"
 }
 
 bMotion_abstract_batchadd "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline" "/snigger" "wait, that's not right..." ]
