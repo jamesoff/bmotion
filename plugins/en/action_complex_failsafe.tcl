@@ -25,7 +25,7 @@ proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
   bMotion_plugins_settings_set "complex:failsafe" "last" "nick" "moo" [bMotionGetRealName $nick]
 
 	#try to figure out something geneal about this action
-	if [regexp "(hug(gle)?|pet|rub|like|<3)s?" $verb] {
+	if [regexp "(hug(gle)?|pet|rub|like|<3|sniff|smell)s?" $verb] {
 		bMotionDoAction $channel $nick "%VAR{failsafe_nice}"
 		bMotionGetHappy
 		driftFriendship $nick 1
