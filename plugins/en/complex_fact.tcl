@@ -19,6 +19,8 @@ bMotion_plugin_add_complex "fact" {[[:<:]](is|was|=|am)[[:>:]]} 100 bMotion_plug
 proc bMotion_plugin_complex_fact { nick host handle channel text } {
   global bMotionFacts bMotionFactTimestamps
 
+	bMotion_flood_undo $nick
+
   set ignoretext [bMotion_setting_get "ignorefacts"]
   if {$ignoretext != ""} {
     if [regexp -nocase $ignoretext $text] {
