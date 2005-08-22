@@ -131,6 +131,7 @@ proc bMotion_flood_add { nick { callback "" } { text "" } } {
 
 proc bMotion_flood_clear { nick } {
   global bMotion_flood_info bMotion_flood_last
+	bMotion_putloglev d * "Cleared flood for $nick"
   set bMotion_flood_info($nick) 0
   set bMotion_flood_last($nick) ""
 }

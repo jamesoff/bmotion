@@ -60,7 +60,8 @@ proc bMotionDoEventResponse { type nick host handle channel text } {
   set response [bMotion_plugin_find_irc_event $text $type $bMotionInfo(language)]
   if {[llength $response] > 0} {
     foreach callback $response {
-      bMotion_flood_add $nick $callback $text
+			bMotion_putloglev 2 * "adding flood for callback $callback"
+			bMotion_flood_add $nick $callback $text
       if [bMotion_flood_check $nick] { return 0 }
 
       bMotion_putloglev 1 * "bMotion: matched irc event plugin, running callback $callback"
@@ -273,6 +274,7 @@ proc bMotion_event_main {nick host handle channel text} {
     #set nick [bMotionGetRealName $nick $host]
     bMotion_putloglev 1 * "going to run plugins: $response"
     foreach callback $response {
+			bMotion_putloglev 1 * "bMotion: doing flood for $callback..."
       bMotion_flood_add $nick $callback $text
       if [bMotion_flood_check $nick] { return 0 }
 
