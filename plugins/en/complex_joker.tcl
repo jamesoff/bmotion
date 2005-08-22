@@ -57,7 +57,7 @@ proc bMotionDoJokeAnswer {} {
 	}
 
 	# tell the answer
-	bMotionDoAction $channel $nick $answer
+	bMotionDoAction $channel $nick "%DELAY{15}%|$answer"
 	
 	# reset joke
 	set jokeInfo ""
@@ -72,6 +72,7 @@ proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
 	global bMotion_abstract_contents jokeInfo jokeForms
 
 	if { ![bMotion_interbot_me_next $channel] } {
+		putlog "not me next"
 		return 0
 	}
 
@@ -101,7 +102,9 @@ proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
 	bMotionDoAction $channel $nick $joke
 	
 	# pause before telling the answer
-	utimer 20 bMotionDoJokeAnswer
+	#utimer 20 bMotionDoJokeAnswer
+	#now we use %DELAY, this can just happen
+	bMotionDoJokeAnswer
 	
 	# log this
 	bMotion_putloglev d * "bMotion: (joker) I'm a tellin' a joke"
