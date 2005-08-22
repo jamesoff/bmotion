@@ -13,7 +13,7 @@
 ###############################################################################
 
 #[@   fluffy] ===== Question 1807/12605  =====
-bMotion_plugin_add_complex "trivia1" {\[category: .+\] \[question id: .+\]} 100 bMotion_plugin_complex_trivia_1 "en"
+bMotion_plugin_add_complex "trivia1" {== Trivia ==.+\[category: .+\]} 100 bMotion_plugin_complex_trivia_1 "en"
 
 #[@   fluffy] Hint: _ _ _ _ _ _ _ _ _
 bMotion_plugin_add_complex "trivia2" {^Hint(:| \[)} 100 bMotion_plugin_complex_trivia_2 "en"
@@ -46,11 +46,14 @@ proc bMotion_plugin_complex_trivia_4 { nick host handle channel text } {
     return 0
   }
   bMotion_plugins_settings_set "trivia" "type" "" "" "year"
+	bMotion_flood_clear $nick
 }
 
 #
 # Here's a hint... let's try to answer
 proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
+	bMotion_flood_undo $nick
+
   if {$channel != [bMotion_plugins_settings_get "trivia" "channel" "" ""]} {
     return 0
   }
@@ -95,6 +98,8 @@ proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
     killutimer [bMotion_plugins_settings_get "trivia" "timer" "" ""]
     bMotion_putloglev d * "killed trivia retry timer"
   }
+
+	bMotion_flood_clear $nick
 
   #let's remember this answer
   #putlog $text
