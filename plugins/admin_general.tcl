@@ -20,7 +20,8 @@ bMotion_plugin_add_management "parse" "^parse"            n       bMotion_plugin
 bMotion_plugin_add_management "rehash" "^rehash"          n       bMotion_plugin_management_rehash "any"
 bMotion_plugin_add_management "reload" "^reload"          n       bMotion_plugin_management_reload "any"
 bMotion_plugin_add_management "settings" "^settings" n bMotion_plugin_management_settings "any"
-bMotion_plugin_add_management "global" "^global" n bMotion_plugin_management_global
+bMotion_plugin_add_management "global" "^global" n bMotion_plugin_management_global "any"
+bMotion_plugin_add_management "interbot" "^interbot" n bMotion_plugin_management_interbot "any"
 
 #################################################################################################################################
 # Declare plugin functions
@@ -179,4 +180,29 @@ proc bMotion_plugin_management_global { handle { text "" } } {
   }
   bMotion_putadmin "use: global off|on"
   return 0
+}
+
+proc bMotion_plugin_management_interbot { handle { text "" } } {
+	global bMotion_interbot_nextbot_nick
+	
+	if [regexp -nocase "next (#.+)" $text matches chan] {
+		set next $bMotion_interbot_nextbot_nick($chan)
+		if {$next == ""} {
+			bMotion_putadmin "Next bot is unknown!"
+		} else {
+			bMotion_putadmin "Next bot for $chan is $next"
+		}
+	}
+
+	if [regexp -nocase "elect (#.+)" $text matches chan] {
+		bMotion_putadmin "Forcing election on $chan..."
+
+		bMotion_interbot_next_elect_do $chan
+	}
+
+	if [regexp -nocase "bots (#.+)" $text matches chan] {
+
+		bMotion_putadmin "Known bMotion bots on $chan: "
+		bMotion_putadmin [bMotion_interbot_otherbots $chan]
+	}
 }
