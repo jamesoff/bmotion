@@ -217,7 +217,7 @@ proc bMotion_event_main {nick host handle channel text} {
       regsub -all "%" $text "%percent" text
     }
   }
-  regsub -all "/" $text "%slash" text
+  regsub -all "\</" $text "%slash" text
 
   ## If this isn't just a smiley of some kind, trim smilies
   if {[string length $text] >= ([string length $botnick] + 4)} {
