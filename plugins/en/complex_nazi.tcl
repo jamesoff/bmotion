@@ -42,6 +42,6 @@ bMotion_abstract_register "nazi1"
 bMotion_abstract_batchadd "nazi1" [list "%%: \"you're\"" "their what?" "s/your/you're/"]
 
 bMotion_abstract_register "nazi2"
-bMotion_abstract_batchadd "nazi2" [list "Invalid regular expression." "You suck at the regular expression syntax." "/detects invalid regexp use" "%%: +/"]
+bMotion_abstract_batchadd "nazi2" [list "Invalid regular expression." "You suck at the regular expression syntax." "/detects invalid regexp use" "%%: +/" "s/you/suck/"]
 
 
