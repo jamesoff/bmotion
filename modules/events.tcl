@@ -221,7 +221,7 @@ proc bMotion_event_main {nick host handle channel text} {
 
   ## If this isn't just a smiley of some kind, trim smilies
   if {[string length $text] >= ([string length $botnick] + 4)} {
-    regsub -all -nocase {[;:=]-?[)D>]} $text "" text
+    regsub -all -nocase {[;:=]-?[)D>/]} $text "" text
     regsub -all {([\-^])_*[\-^];*} $text "" text
   }
 
