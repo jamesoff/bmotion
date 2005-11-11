@@ -10,16 +10,14 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_complex "wins" "^${botnicks}(:?) (wins|exactly|precisely|perfect|nice one)" 100 bMotion_plugin_complex_wins "en"
+bMotion_plugin_add_complex "wins" "^${botnicks}(:?) (wins|exactly|precisely|perfect|nice one|yes)[!1.]*$" 100 bMotion_plugin_complex_wins "en"
 
-proc bMotion_plugins_complex_wins { nick host handle channel text } {
-  if [regexp -nocase "^${botnicks}(:?) (wins|exactly|precisely|perfect|nice one)\.?!?$" $text] {
-    bMotionDoAction $channel $nick "%VAR{wins}"
-    bMotionGetHappy
-    bMotionGetUnLonely
-    driftFriendship $nick 1
-    return 0
-  }
+proc bMotion_plugin_complex_wins { nick host handle channel text } {
+   bMotionDoAction $channel $nick "%VAR{wins}"
+   bMotionGetHappy
+   bMotionGetUnLonely
+   driftFriendship $nick 1
+   return 0
 }
 
 set wins {
