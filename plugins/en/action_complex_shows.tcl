@@ -16,16 +16,49 @@ bMotion_plugin_add_action_complex "shows" "(shows) %botnicks " 100 bMotion_plugi
 proc bMotion_plugin_complex_action_shows { nick host handle channel text } {
   global botnicks
 	if {[regexp -nocase "(shows) $botnicks (a|an|the|some|his|her|its)? ?(.+)" $text bling act bot preposition item]} {
-	  bMotion_putloglev d * "bMotion: Was shown !$item! by $nick in $channel"
+	  bMotion_putloglev d * "bMotion: Was shown !$preposition $item! by $nick in $channel"
+
+	  if {($preposition == "a") || ($preposition == "an") || ($preposition == "some")}
+      {
+	    set properitem "the $item"
+	    set learnitem "$preposition $item"
+	  }
+      else
+      {
+        if {$preposition == "the"}
+        {
+          set properitem "the $item"
+          set learnitem "$item" # not pretty, but oh well.
+        }
+        else
+        {
+          # his, her or its
+          if {(([bMotionGetGender $nick $host] == "male") && ($preposition == "his")) ||
+              (([bMotionGetGender $nick $host] == "female") && ($preposition == "her"))}
+          {
+            set realname [bMotionGetRealName $nick $host]
+            set properitem "%OWNER{$realname} $item"
+            # adds a bit of flavour to sillyThings:
+            set learnitem "$properitem"
+          }
+          else
+          {
+            set properitem "the $item"
+            set learnitem "$item" # not pretty, but oh well.
+          }
+        }
+      }
+      
+      bMotion_putloglev d * "bMotion: going to do stuff with !$properitem! and learn !$learnitem!"
 
     #catch everything for now
-    bMotionDoAction $channel $item "%VAR{show_generic}"
-    
+    bMotionDoAction $channel $properitem "%VAR{show_generic}"
+
     #we'll add it to our random things list for this session too
-    bMotion_abstract_add "sillyThings" $item
+    bMotion_abstract_add "sillyThings" $learnitem
     return 1
-  } 
-  #end of "hands" handler
+  }
+  #end of "shows" handler
 }
 
 
@@ -95,4 +128,6 @@ bMotion_abstract_batchadd "show_generic" {
   "/takes a picture"
   "/contemplates%|it'd be nicer if it had %PLURAL{%VAR{sillyThings}{strip}}"
   "I prefer %OWNER{%ruser}"
+  "/admires %%"
+  "/replaces %% with a cheap %VAR{colours} plastic copy%|bwaha%REPEAT{1:4:ha}"
 }
