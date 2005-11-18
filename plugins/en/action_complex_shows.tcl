@@ -15,7 +15,7 @@ bMotion_plugin_add_action_complex "shows" "(shows) %botnicks " 100 bMotion_plugi
 
 proc bMotion_plugin_complex_action_shows { nick host handle channel text } {
   global botnicks
-	if {[regexp -nocase "(shows) $botnicks (a|an|the|some|his|her)? ?(.+)" $text bling act bot preposition item]} {
+	if {[regexp -nocase "(shows) $botnicks (a|an|the|some|his|her|its)? ?(.+)" $text bling act bot preposition item]} {
 	  bMotion_putloglev d * "bMotion: Was shown !$item! by $nick in $channel"
 
     #catch everything for now
@@ -39,6 +39,8 @@ bMotion_abstract_batchadd "show_amazements" {
   "astonishment"
   "wonderment"
   "mystification"
+  "shock"
+  "surprise"
 }
 
 bMotion_abstract_register "show_whoas"
@@ -48,6 +50,7 @@ bMotion_abstract_batchadd "show_whoas" {
   "wh%REPEAT{3:6:e}"
   "my word"
   "I say"
+  "hohoho"
 }
 
 bMotion_abstract_register "show_comparisons"
@@ -66,6 +69,8 @@ bMotion_abstract_batchadd "show_comparisons" {
   "almost better"
   "sexier"
   "going to hurt more"
+  "wobblier"
+  "softer"
 }
 
 bMotion_abstract_register "show_adjectives"
