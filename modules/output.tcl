@@ -852,7 +852,7 @@ proc bMotionMakeVerb { text } {
   if [regexp -nocase "(s|x)$" $text matches letter] {
     return $text
   }
-  
+
   if [regexp -nocase "^(.*)y$" $text matches root] {
     set verb $root
     append verb "ies"

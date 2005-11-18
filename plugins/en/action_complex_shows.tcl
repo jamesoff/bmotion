@@ -18,37 +18,55 @@ proc bMotion_plugin_complex_action_shows { nick host handle channel text } {
 	if {[regexp -nocase "(shows) $botnicks (a|an|the|some|his|her|its)? ?(.+)" $text bling act bot preposition item]} {
 	  bMotion_putloglev d * "bMotion: Was shown !$preposition $item! by $nick in $channel"
 
-	  if {($preposition == "a") || ($preposition == "an") || ($preposition == "some")}
-      {
-	    set properitem "the $item"
-	    set learnitem "$preposition $item"
-	  }
-      else
-      {
-        if {$preposition == "the"}
-        {
-          set properitem "the $item"
-          set learnitem "$item" # not pretty, but oh well.
-        }
-        else
-        {
+      # the following code is HORRIBLE, but that's just because I can't figure out TCL
+	  if {($preposition == "a") || ($preposition == "an" ) || ($preposition == "some")} {
+
+        # "the $item"
+        set properitem "the "
+        append properitem $item
+
+        # "$preposition $item"
+        set learnitem $preposition
+        append learnitem " "
+        append learnitem $item
+
+	  } else {
+
+        if {$preposition == "the"} {
+
+          # "the $item"
+          set properitem "the "
+	      append properitem $item
+
+          # "$item" - not too pretty, but it'll have to do
+          set learnitem $item
+
+        } else {
+
           # his, her or its
           if {(([bMotionGetGender $nick $host] == "male") && ($preposition == "his")) ||
-              (([bMotionGetGender $nick $host] == "female") && ($preposition == "her"))}
-          {
+              (([bMotionGetGender $nick $host] == "female") && ($preposition == "her"))} {
+
             set realname [bMotionGetRealName $nick $host]
-            set properitem "%OWNER{$realname} $item"
-            # adds a bit of flavour to sillyThings:
-            set learnitem "$properitem"
-          }
-          else
-          {
-            set properitem "the $item"
-            set learnitem "$item" # not pretty, but oh well.
+
+            # "%OWNER{$realname} $item"
+            set properitem "%OWNER{"
+            append properitem $realname
+            append properitem "} "
+            append properitem $item
+
+            set learnitem $properitem
+          } else {
+
+            # "the $item"
+            set properitem "the "
+	        append properitem $item
+
+            set learnitem $item
           }
         }
       }
-      
+
       bMotion_putloglev d * "bMotion: going to do stuff with !$properitem! and learn !$learnitem!"
 
     #catch everything for now
