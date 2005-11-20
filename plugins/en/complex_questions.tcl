@@ -29,6 +29,24 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
       return 1
   }
 
+  ## moved here from further down because it'd never be triggered otherwise   --szrof
+  bMotion_putloglev 3 * "Checking question for 'what have'"
+  ## What have question targeted at me
+  if { [regexp -nocase "^$botnicks,?:? what ?have" $text] ||
+       [regexp -nocase "^what ?have .* $botnicks ?\\?" $text] } {
+    bMotion_plugin_complex_question_whathave $nick $channel $host
+    return 1
+  }
+
+  bMotion_putloglev 3 * "Checking question for 'which/what colour'"
+  ## What have question targeted at me
+  if { [regexp -nocase "^$botnicks,?:? wh(ich|at) ?colou?r" $text] ||
+       [regexp -nocase "^wh(ich|at) ?colou?r .* $botnicks ?\\?" $text] } {
+    bMotion_plugin_complex_question_whatcolour $nick $channel $host
+    return 1
+  }
+
+
   bMotion_putloglev 3 * "Checking question for 'what'"
   ## What question targeted at me
   if { [regexp -nocase "what('?s)?(.+)" $text matches s question] ||
@@ -121,13 +139,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
 
   ## begin sid's stuff
 
-  bMotion_putloglev 3 * "Checking question for 'what have'"
-  ## What have question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? what ?have" $text] ||
-       [regexp -nocase "^what ?have .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_whathave $nick $channel $host
-    return 1
-  }
+  ## moved "what have" to top   --szrof
 
   bMotion_putloglev 3 * "Checking question for 'how much'"
   ## How many question targeted at me
@@ -397,6 +409,13 @@ proc bMotion_plugin_complex_question_isyour { nick channel host } {
   return 1
 }
 
+proc bMotion_plugin_complex_question_whatcolour { nick channel host } {
+    bMotion_putloglev 2 * "$nick what colour question"
+  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{question_colour_wrapper}"
+  return 1
+}
+
+
 ## end sid's functions
 
 set question_what_fact_wrapper {
@@ -421,4 +440,12 @@ set question_want_reply_wrapper {
   "Not until %VAR{answerWhens}."
   "Yes please, the Borg Queen offered me %VAR{trekNouns} and I only got %VAR{sillyThings}."
   "%VAR{sweet}."
+}
+
+set question_colour_wrapper {
+  "%VAR{colours}"
+  "hmm.. %VAR{colours}, I think"
+  "%VAR{colours}"
+  "%VAR{colours}%|No! %VAR{colours}!"
+  "%VAR{colours}"
 }
