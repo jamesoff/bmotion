@@ -61,7 +61,7 @@ proc bMotion_plugins_nick_returned { nick host handle channel newnick } {
        ![regexp -nocase "(away|sleep|gone|afk|slaap|w(0|e|3|o)rk|school)" $newnick]} {
     
     set bMotionCache(lastDoneFor) $nick
-    set bMotionCache(lastGreeted) $nick
+    bMotion_plugins_settings_set "system:join" "lastgreeted" $channel "" $newnick
 
     #if they came back from sleep, it's morning
     if [regexp -nocase "(sleep|bed|zzz+|slaap)" $nick] {

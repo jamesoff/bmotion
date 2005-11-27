@@ -40,6 +40,11 @@ proc bMotion_plugins_settings_set { plugin setting channel nick val } {
     return 0
   }
 
+  set nick [string tolower $nick]
+  set channel [string tolower $channel]
+  set setting [string tolower $setting]
+  set plugin [string tolower $plugin]
+
   if {$plugin == "dummy"} {
     return ""
   }
@@ -62,6 +67,11 @@ proc bMotion_plugins_settings_get { plugin setting channel nick } {
     bMotion_putloglev d * "bMotion: Unknown plugin trying to get a setting"
     return 0
   }
+
+	set nick [string tolower $nick]
+	set channel [string tolower $channel]
+	set setting [string tolower $setting]
+	set plugin [string tolower $plugin]
 
   if {$plugin == "dummy"} {
     return ""

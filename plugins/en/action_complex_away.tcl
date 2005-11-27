@@ -105,7 +105,7 @@ proc bMotion_plugin_complex_action_back { nick host handle channel text } {
 
   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{welcomeBacks}"
   }
-  set bMotionCache(lastGreeted) $nick
+	bMotion_plugins_settings_set "system:join" "lastgreeted" $channel "" $nick
   return 0
 }
 

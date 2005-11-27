@@ -30,7 +30,7 @@ proc bMotion_plugins_irc_default_quit { nick host handle channel text } {
   
 
   #don't do anything if it looks like an error
-  if [regexp -nocase "(error|reset|timeout|closed)" $text] {
+  if [regexp -nocase "(irc\.|error|reset|timeout|closed)" $text] {
     return 0
   }
 
@@ -43,8 +43,9 @@ proc bMotion_plugins_irc_default_quit { nick host handle channel text } {
   }
 
   bMotionDoAction $channel [bMotionGetRealName $nick $host] $output
-  set bMotionCache(lastGreeted) $nick
   bMotion_plugins_settings_set "system:join" "lasttalk" $channel "" 1
+	bMotion_plugins_settings_set "system:join" "lastleft" $channel "" $nick
+	bMotion_plugins_settings_set "system:join" "lastgreeted" $channel "" $nick
 
   return 0
 }

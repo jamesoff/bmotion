@@ -34,14 +34,15 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
   set chance [rand 10]
 
   set greetings [bMotion_abstract_all "ranjoins"]
-
-  if {$handle != "*"} {
+	set lastLeft [bMotion_plugins_settings_get "system:join" "lastleft" $channel ""]
+	
+	if {$handle != "*"} {
     if {![rand 10]} {
       set greetings [concat $greetings [bMotion_abstract_all "insult_joins"]]
     }
-    if {$nick == $bMotionCache(lastLeft)} {
+    if {$nick == $lastLeft} {
       set greetings [bMotion_abstract_all "welcomeBacks"]
-      set bMotionCache(lastLeft) ""
+      bMotion_plugins_settings_set "system:join" "lastleft" $channel "" ""
     }
     bMotionGetHappy
     bMotionGetUnLonely
@@ -62,7 +63,7 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
   }
 
   bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $greetings]
-  set bMotionCache(lastGreeted) $nick
+  bMotion_plugins_settings_set "system:join" "lastgreeted" $channel "" $nick
   bMotion_plugins_settings_set "system:join" "lasttalk" $channel "" 1
 
   return 0
