@@ -17,7 +17,7 @@
 bMotion_plugin_add_action_complex "zzz-failsafe" {^(.+?)s?( at|with)? %botnicks} 100 bMotion_plugin_complex_action_failsafe "en"
 
 proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
-  regexp {^([^ ]+) } $text matches verb
+  regexp {^([^ ]+) ((across|near|at|with|to|against|from|over|under|in|on|next to) )?} $text matches verb dir
   if {$verb == ""} {
     return 1
   }
@@ -36,9 +36,9 @@ proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
 	putlog $whee
 
 	if {$whee > 5} {
-  	bMotionDoAction $channel "" "%VAR{failsafes_a}"
+  	bMotionDoAction $channel $nick "%VAR{failsafes_a}"
   } else {
-  	bMotionDoAction $channel $verb "%VAR{failsafes_b}"
+  	bMotionDoAction $channel $verb "%VAR{failsafes_b}" $dir
   }
   return 1
 }
@@ -51,4 +51,4 @@ bMotion_abstract_register "failsafes_a"
 bMotion_abstract_batchadd "failsafes_a" [list "%VAR{rarrs}" "%REPEAT{3:7:m}" "%VAR{thanks}" "what" "/loves it" "/passes it on to %ruser" "/. o O ( ? )"]
 
 bMotion_abstract_register "failsafes_b"
-bMotion_abstract_batchadd "failsafes_b" [list "/%% %SETTING{complex:failsafe:last:nick:moo} back with %VAR{sillyThings}" "/%% %SETTING{complex:failsafe:last:nick:moo}" "/%VERB{%VAR{sillyThings}{strip}} %SETTING{complex:failsafe:last:nick:moo} in return"]
+bMotion_abstract_batchadd "failsafes_b" [list "/%% %2 %SETTING{complex:failsafe:last:nick:moo} back with %VAR{sillyThings}" "/%% %2 %SETTING{complex:failsafe:last:nick:moo}" "/%VERB{%VAR{sillyThings}{strip}} %2 %SETTING{complex:failsafe:last:nick:moo} in return"]
