@@ -515,10 +515,12 @@ proc bMotion_event_mode {nick host handle channel mode victim} {
   bMotion_putloglev 4 * "bMotion: entering bMotion_event_mode with $nick $host $handle $channel $mode $victim"
 
   global botnick
-	if {$victim != $botnick} {return 0}
+  if {$victim != $botnick} {return 0}
 
-	if {$mode == "+o"} {
-	  if {$nick == ""} {return 0}
+  if {$mode == "+o"} {
+	  if {$nick == ""} {
+			return 0
+		}
 
     #check to see if i was opped before
     if [wasop $botnick $channel] { return 0 }
@@ -531,6 +533,20 @@ proc bMotion_event_mode {nick host handle channel mode victim} {
 	  bMotionDoAction $channel "" "hey! %VAR{unsmiles} i needed that"
 		return 0
   }
+
+	if {$mode == "+v"} {
+		if {$nick == ""} {
+			return 0
+		}
+		putlog "yarr"
+
+		bMotionDoAction $channel "" "%VAR{thanks}"
+		return 0
+	}
+
+	if {$mode == "-v"} {
+		bMotionDoAction $channel "" "%VAR{unsmiles}"
+	}
 }
 
 
