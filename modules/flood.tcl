@@ -2,6 +2,8 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
+
 
 ###############################################################################
 # bMotion - an 'AI' TCL script for eggdrops
@@ -51,7 +53,7 @@ if {![info exists bMotion_flood_info]} {
   set bMotion_flood_undo 0
 }
 
-proc bMotion_flood_tick { min hr a b c } {
+proc bMotion_flood_tick { min hr a b c } { 
   bMotion_putloglev 4 * "bMotion: flood tick"
   #tick all values down one, to zero
   global bMotion_flood_info bMotion_flood_last bMotion_flood_lasttext
@@ -82,6 +84,7 @@ proc bMotion_flood_tick { min hr a b c } {
 
 proc bMotion_flood_add { nick { callback "" } { text "" } } {
   global bMotion_flood_info bMotion_flood_last bMotion_flood_lasttext bMotion_flood_last bMotion_flood_undo
+
   set val 1
   if [validuser $nick] {
     set handle $nick
@@ -120,11 +123,14 @@ proc bMotion_flood_add { nick { callback "" } { text "" } } {
   catch {
     set flood $bMotion_flood_info($handle)
   }
+	set oldflood $flood
   incr flood $val
   if {$flood > 40} {
     set flood 40
   }
-  bMotion_putloglev 2 * "bMotion: flood added $val to $nick, now $flood"
+  bMotion_putloglev 2 * "bMotion: flood $oldflood -- $val --> $flood for $nick"
+	bMotion_putloglev 3 * "flood was added by plugin $callback"
+
   set bMotion_flood_info($handle) $flood
   set bMotion_flood_undo $val
 }
@@ -163,12 +169,9 @@ proc bMotion_flood_undo { nick } {
   global bMotion_flood_undo bMotion_flood_info bMotion_flood_lasttext
   set val $bMotion_flood_undo
 
-  #don't knock off the whole value
   if {$val <= 1} {
     return 0
   }
-
-  #incr val -1
 
   if [validuser $nick] {
     set handle $nick
@@ -183,6 +186,7 @@ proc bMotion_flood_undo { nick } {
   catch {
     set flood $bMotion_flood_info($handle)
   }
+	set oldflood $flood
   incr flood [expr 0 - $val]
   if {$flood < 0} {
     set flood 0
@@ -191,7 +195,7 @@ proc bMotion_flood_undo { nick } {
   set bMotion_flood_info($handle) $flood
   set bMotion_flood_lasttext($handle) ""
   set bMotion_flood_undo 1
-  bMotion_putloglev 2 * "bMotion: undid flood from $nick, now $flood"
+  bMotion_putloglev 2 * "bMotion: undid flood $oldflood -- $val --> $flood from $nick"
   return 0
 }
 
@@ -213,7 +217,6 @@ proc bMotion_flood_get { nick } {
 }
 
 proc bMotion_flood_check { nick } {
-
   if { [bMotion_setting_get "disableFloodChecks"] != "" } {
     if { [bMotion_setting_get "disableFloodChecks"] == 1 } {
       return 0
