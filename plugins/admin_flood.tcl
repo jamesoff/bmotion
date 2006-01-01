@@ -21,6 +21,8 @@ proc bMotion_plugin_management_flood { handle { arg "" } } {
   #flood show <handle>
   if [regexp -nocase {show ([^ ]+)} $arg matches handle] {
     bMotion_putadmin "bMotion: Flood for $handle is [bMotion_flood_get $handle]"
+		bMotion_putadmin "bMotion: flood: last text for $handle was $bMotion_flood_lasttext($handle)"
+		bMotion_putadmin "bMotion: flood: last callback for $handle was $bMotion_flood_last($handle)"
     return 0
   }
 

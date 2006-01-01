@@ -53,8 +53,9 @@ if {![info exists bMotion_flood_info]} {
   set bMotion_flood_undo 0
 }
 
-proc bMotion_flood_tick { min hr a b c } { 
+proc bMotion_flood_tick { } { 
   bMotion_putloglev 4 * "bMotion: flood tick"
+	utimer 30 bMotion_flood_tick
   #tick all values down one, to zero
   global bMotion_flood_info bMotion_flood_last bMotion_flood_lasttext
   set stats ""
@@ -250,4 +251,5 @@ proc bMotion_flood_check { nick } {
   return 0
 }
 
-bind time - "* * * * *" bMotion_flood_tick
+#bind time - "* * * * *" bMotion_flood_tick
+utimer 30 bMotion_flood_tick
