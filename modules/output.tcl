@@ -197,7 +197,7 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 
   set loops 0
   bMotion_putloglev 4 * "doing VAR processing"
-  while {[regexp {%VAR\{([^\}]+)\}(\{strip\})?} $line matches BOOM clean]} {
+  while {[regexp -nocase {%VAR\{([^\}]+)\}(\{strip\})?} $line matches BOOM clean]} {
   	#putlog "var: clean = $clean"
     global $BOOM
     incr loops
@@ -218,7 +218,7 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
     if {$clean != ""} {
     	set replacement [bMotion_strip_article $replacement]
     }
-    regsub "%VAR\{$BOOM\}$clean" $line $replacement line
+    regsub -nocase "%VAR\{$BOOM\}$clean" $line $replacement line
     if [string match "*%noun*" $line] {
       set line [bMotionInsertString $line "%noun" "%VAR{sillyThings}"]
     }
@@ -315,7 +315,8 @@ proc bMotionInterpolation2 { line } {
       putlog "bMotion: ALERT! looping too much in %OWNER code with $line"
       set line "/has a tremendous error while trying to sort something out :("
     }
-    set line [bMotionInsertString $line "%OWNER\{$BOOM\}" [bMotionMakePossessive $BOOM]]
+    # set line [bMotionInsertString $line "%OWNER\{$BOOM\}" [bMotionMakePossessive $BOOM]]
+    regsub -nocase "%OWNER\{$BOOM\}" $line [bMotionMakePossessive $BOOM] line
   }
 
   set loops 0
@@ -325,7 +326,8 @@ proc bMotionInterpolation2 { line } {
       putlog "bMotion: ALERT! looping too much in %VERB code with $line"
       set line "/has a tremendous error while trying to sort something out :("
     }
-    set line [bMotionInsertString $line "%VERB\{$BOOM\}" [bMotionMakeVerb $BOOM]]
+    # set line [bMotionInsertString $line "%VERB\{$BOOM\}" [bMotionMakeVerb $BOOM]]
+    regsub -nocase "%VERB\{$BOOM\}" $line [bMotionMakeVerb $BOOM] line
   }
 
   set loops 0
@@ -335,7 +337,8 @@ proc bMotionInterpolation2 { line } {
       putlog "bMotion: ALERT! looping too much in %PLURAL code with $line"
       set line "/has a tremendous error while trying to sort something out :("
     }
-    set line [bMotionInsertString $line "%PLURAL\{$BOOM\}" [bMotionMakePlural $BOOM]]
+    # set line [bMotionInsertString $line "%PLURAL\{$BOOM\}" [bMotionMakePlural $BOOM]]
+    regsub -nocase "%PLURAL\{$BOOM\}" $line [bMotionMakePlural $BOOM] line
   }
 
   set loops 0
@@ -345,7 +348,8 @@ proc bMotionInterpolation2 { line } {
       putlog "bMotion: ALERT! looping too much in %REPEAT code with $line"
       set line "/has a tremendous error while trying to sort something out :("
     }
-    set line [bMotionInsertString $line "%REPEAT\\\{$BOOM\\\}" [bMotionMakeRepeat $BOOM]]
+    # set line [bMotionInsertString $line "%REPEAT\\\{$BOOM\\\}" [bMotionMakeRepeat $BOOM]]
+    regsub -nocase "%REPEAT\{$BOOM\}" $line [bMotionMakeRepeat $BOOM] line
   }
 
   return $line
