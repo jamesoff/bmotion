@@ -1,5 +1,7 @@
 # bMotion facts module
 # $Id$
+#
+# vim: foldmethod=indent:foldcolumn=2:fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -11,34 +13,47 @@
 ###############################################################################
 
 # maximum number of things about which facts can be known
-if { [bMotion_setting_get "factsMaxItems"] != "" } {
-  set bMotion_facts_max_items [bMotion_setting_get "factsMaxItems"]
-} else {
-  set bMotion_facts_max_items 500
-}
+	if { [bMotion_setting_get "factsMaxItems"] != "" } {
+		set bMotion_facts_max_items [bMotion_setting_get "factsMaxItems"]
+	} else {
+		set bMotion_facts_max_items 500
+	}
 
 # maximum number of facts to know about an item
-if { [bMotion_setting_get "factsMaxFacts"] != "" } {
-  set bMotion_facts_max_facts [bMotion_setting_get "factsMaxFacts"]
-} else {
-  set bMotion_facts_max_facts 20
-}
+	if { [bMotion_setting_get "factsMaxFacts"] != "" } {
+		set bMotion_facts_max_facts [bMotion_setting_get "factsMaxFacts"]
+	} else {
+		set bMotion_facts_max_facts 20
+	}
+
+#work out where we're storing facts
+	if {[bMotion_setting_get "factsFile"] == ""} {
+		set bMotion_facts_file "$bMotionLocal/facts/facts.txt"
+	} else {
+		set bMotion_facts_file [bMotion_setting_get "factsFile"]
+	}
 
 # initialise
-if {![info exists bMotionFacts]} {
-  set bMotionFacts(what,bmotion) [list "a very nice script"]
-}
+	if {![info exists bMotionFacts]} {
+		set bMotionFacts(what,bmotion) [list "a very nice script"]
+	}
 
 proc bMotion_facts_load { } {
-  global bMotionFacts bMotionModules
+  global bMotionFacts bMotion_facts_file
+	global bMotion_testing
 
-  bMotion_putloglev 1 * "Attempting to load $bMotionModules/facts/facts.txt"
+	if {$bMotion_testing == 1} {
+		return 0
+	}
 
-  if {![file exists "$bMotionModules/facts/facts.txt"]} {
+  bMotion_putloglev 1 * "Attempting to load $bMotion_facts_file"
+
+  if {![file exists "$bMotion_facts_file"]} {
+		bMotion_putloglev d * "facts file $bMotion_facts_file doesn't exist"
     return
   }
 
-  set fileHandle [open "$bMotionModules/facts/facts.txt" "r"]
+  set fileHandle [open "$bMotion_facts_file" "r"]
   set line [gets $fileHandle]
 
   set needResave 0
@@ -50,25 +65,30 @@ proc bMotion_facts_load { } {
       if {![info exists bMotionFacts($item)]} {
         set bMotionFacts($item) [list]
       }
-      if {[lsearch -exact $bMotionFacts($item) $fact] == -1} {
-        lappend bMotionFacts($item) $fact
-      } else {
-        bMotion_putloglev 4 * "dropping duplicate fact $fact for item $item"
-        set needReSave 1
-      }
+		 lappend bMotionFacts($item) $fact
 
       incr count
+
 
       if {[expr $count % 1000] == 0} {
 
       putlog "  still loading facts: $count ..."
 
       }
-
-
     }
     set line [gets $fileHandle]
   }
+
+	#now de-dupe the lists
+	set factnodes [array names bMotionFacts]
+	foreach node $factnodes {
+		set count [llength $bMotionFacts($node)]
+		set bMotionFacts($node) [lsort -unique $bMotionFacts($node)]
+		set newcount [llength $bMotionFacts($node)]
+		if {$newcount < $count} {
+			bMotion_putloglev 3 * "saved [expr $count - $newcount] items from $node"
+		}
+	}
 
   if {[info exists fileHandle]} {
     close $fileHandle
@@ -80,7 +100,7 @@ proc bMotion_facts_load { } {
 }
 
 proc bMotion_facts_save { } {
-  global bMotionFacts bMotionModules
+  global bMotionFacts bMotion_facts_file
   global bMotion_facts_max_facts
   global bMotion_facts_max_items
 
@@ -88,9 +108,9 @@ proc bMotion_facts_save { } {
   set tidyfact 0
   set count 0
 
-  bMotion_putloglev 1 * "Saving facts to $bMotionModules/facts/facts.txt"
+  bMotion_putloglev 1 * "Saving facts to $bMotion_facts_file"
 
-  set fileHandle [open "$bMotionModules/facts/facts.txt" "w"]
+  set fileHandle [open "$bMotion_facts_file" "w"]
 
   set items [array names bMotionFacts]
   if {[llength $items] > $bMotion_facts_max_items} {
@@ -136,7 +156,7 @@ proc bMotion_facts_auto_save { min hr a b c } {
 }
 
 proc bMotion_facts_forget_all { fact } {
-  global bMotionFacts bMotionModules
+  global bMotionFacts bMotionLocal
 
   #drop the array element
   unset bMotionFacts($fact)
@@ -154,11 +174,9 @@ catch {
     bMotion_putloglev d * "autoloading facts..."
     bMotion_facts_load
   }
-
 }
 
 proc bMotion_plugin_management_fact { handle { arg "" }} {
-
   global bMotionFacts
 
   #fact show <type> <name>
@@ -211,20 +229,20 @@ proc bMotion_plugin_management_fact { handle { arg "" }} {
   return 0
 }
 
-proc bMotion_plugin_management_fact_help { } {
-	bMotion_putadmin "Manage the fact subsystem:"
-	bMotion_putadmin "  .bmotion fact status"
-	bMotion_putadmin "    Show a summary of facts (lots of output!)"
-	bMotion_putadmin "  .bmotion fact show <type> <key>"
-	bMotion_putadmin "    Show defined values for <key>"
-	bMotion_putadmin "    Currently <type> is only 'what'"
-	#bMotion_putadmin "  .bmotion fact list <regexp>"
-	#bMotion_putadmin "    List all items matching the regexp"
-	#bMotion_putadmin "  .bmotion fact purge <regexp>"
-	#bMotion_putadmin "    Deletes ALL facts known about ALL mataching items"
-	#bMotion_putadmin "  .bmotion fact delete <item> <regexp>"
-	#bMotion_putadmin "    Deletes all matching facts about <item>"
-}
+	proc bMotion_plugin_management_fact_help { } {
+		bMotion_putadmin "Manage the fact subsystem:"
+		bMotion_putadmin "  .bmotion fact status"
+		bMotion_putadmin "    Show a summary of facts (lots of output!)"
+		bMotion_putadmin "  .bmotion fact show <type> <key>"
+		bMotion_putadmin "    Show defined values for <key>"
+		bMotion_putadmin "    Currently <type> is only 'what'"
+		#bMotion_putadmin "  .bmotion fact list <regexp>"
+		#bMotion_putadmin "    List all items matching the regexp"
+		#bMotion_putadmin "  .bmotion fact purge <regexp>"
+		#bMotion_putadmin "    Deletes ALL facts known about ALL mataching items"
+		#bMotion_putadmin "  .bmotion fact delete <item> <regexp>"
+		#bMotion_putadmin "    Deletes all matching facts about <item>"
+	}
 
 # register the plugin
 if {$bMotion_testing == 0} {

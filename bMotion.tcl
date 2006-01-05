@@ -14,6 +14,7 @@
 set bMotionRoot "scripts/bmotion"
 set bMotionModules "$bMotionRoot/modules"
 set bMotionPlugins "$bMotionRoot/plugins"
+set bMotionLocal "$bMotionRoot/local"
 
 
 if {![info exists bMotion_testing]} {
