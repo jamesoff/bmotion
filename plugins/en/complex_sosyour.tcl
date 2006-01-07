@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -18,13 +19,13 @@ proc bMotion_plugin_complex_sosyour {nick host handle channel text} {
 	global botnicks
 
   if {![bMotion_interbot_me_next $channel]} {
-  	return 1
+  	return 0
   }
 
 	if [regexp -nocase "^($botnicks\[:, \]+)?(it'?s|it is|you'?re|s?he'?s|they'?re) (a|the) (\[a-z\]+)\[.!\]?$" $text matches botnickused bn thing article noun] {
     if {$botnickused == ""} {
 			if {[rand 100] < 95} {
-				return 0
+				return 2
 			}
 		}
 		bMotionDoAction $channel $nick "%VAR{sosyours}" "$article $noun"

@@ -1,5 +1,6 @@
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -47,7 +48,7 @@ proc bMotion_plugins_irc_default_quit { nick host handle channel text } {
 	bMotion_plugins_settings_set "system:join" "lastleft" $channel "" $nick
 	bMotion_plugins_settings_set "system:join" "lastgreeted" $channel "" $nick
 
-  return 0
+  return 1
 }
 
 bMotion_plugin_add_irc_event "default quit" "quit" ".*" 15 "bMotion_plugins_irc_default_quit" "en"

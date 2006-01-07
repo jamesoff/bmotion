@@ -33,8 +33,6 @@ proc bMotion_plugin_complex_knock1 { nick host handle channel text } {
 proc bMotion_plugin_complex_knock2 { nick host handle channel text } {
 	set lastnick [bMotion_plugins_settings_get "complex:knock" "who" $channel ""]
 
-	bMotion_flood_undo $nick
-
 	global bMotionOriginalInput
 	set text $bMotionOriginalInput
 
@@ -63,7 +61,6 @@ proc bMotion_plugin_complex_knock2 { nick host handle channel text } {
 		bMotionDoAction $channel $nick "%VAR{knock3}"
 		return 1
 	}
-
 }
 bMotion_abstract_register "knock1"
 bMotion_abstract_batchadd "knock1" [list "%%: Who's there?" "who's there?"]

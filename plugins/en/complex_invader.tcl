@@ -1,6 +1,7 @@
 # $Id$
 #
 # simsea's "Invader Zim" plugin
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin

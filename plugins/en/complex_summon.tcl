@@ -1,6 +1,8 @@
 # simsea's summoning script
 # $Id$
 #
+# vim: fdm=indent fdn=1
+
 ###############################################################################
 # This is a bMotion plugin
 # Copyright (C) Andrew Payne 2000-2003
@@ -18,7 +20,7 @@ proc bMotion_plugin_complex_summon { nick host handle channel text } {
 	# check to make sure we should bother
 	if { ![bMotion_interbot_me_next $channel] } {
 		# bMotion_putloglev d * "bMotion: (summon) not me"
-		return 0
+		return 2
 	}
 	# bMotion_putloglev d * "bMotion: (summon) cleared interbot check"
 
@@ -30,7 +32,7 @@ proc bMotion_plugin_complex_summon { nick host handle channel text } {
 		if { [string first " " $name] != -1 } {
 			bMotion_putloglev d * "bMotion: (summon) multiple names... skipping"
 			# just ignore it?
-			return 0
+			return 2
 		}	
 		# now we can do our main checks
 		if { $name != "" && $name != $nick } {

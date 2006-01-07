@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -44,8 +45,7 @@ proc bMotion_plugin_complex_taunt {nick host handle channel text} {
   }
 
   bMotionDoAction $channel "" "$prefix [pickRandom $randomTauntPrefixes] [pickRandom $randomTauntSuffixes]$plural"
-  #bMotion_flood_undo $nick
-  return 0
+  return 1
 
 }
 

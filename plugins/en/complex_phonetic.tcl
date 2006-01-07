@@ -1,6 +1,7 @@
 # $Id$
 #
 # simsea's "asshat" phonetic plugin
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -101,9 +102,6 @@ proc bMotion_plugin_complex_phonetic_xform { text style } {
 # bMotion_plugin_complex_phonetic procedure
 # callback for the bmotion plugin
 proc bMotion_plugin_complex_phonetic { nick host handle channel text } {
-	# JamesOff says that if I don't do this, then bMotion will start ignoring
-	# people rather quickly. So... I did it
-	bMotion_flood_undo $nick
 
 	# remove the leading command
 	regexp -nocase "^!(asshat|phonetic) (.+)" $text matches command text
@@ -120,6 +118,7 @@ proc bMotion_plugin_complex_phonetic { nick host handle channel text } {
 	if { $line != "" } {
 		puthelp "PRIVMSG [chandname2name $channel] :$line"
 		bMotion_putloglev d * "bMotion: (phonetic:$command) $nick needed it spelled out, so I did"
+		return 1
 	}
 }
 # end bMotion_plugin_complex_phonetic

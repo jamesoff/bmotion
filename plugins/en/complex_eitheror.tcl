@@ -2,6 +2,7 @@
 #
 # $Id: complex_fry.tcl 628 2005-08-19 21:30:28Z notopic $
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -25,8 +26,6 @@ proc bMotion_plugin_complex_eitheror {nick host handle channel text} {
 		}
 		return 1
 	}
-
-	bMotion_flood_undo $nick
 
   return 0
 }

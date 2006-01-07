@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -18,7 +19,7 @@ proc bMotion_plugin_complex_pack {nick host handle channel text} {
 	global botnicks
 
   if {![bMotion_interbot_me_next $channel]} {
-  	return 1
+  	return 2
   }
 
 	if [regexp -nocase {a ([a-z]+ (of )?[a-z]+ly) [a-z]+ed [a-z]+} $text matches pop] {

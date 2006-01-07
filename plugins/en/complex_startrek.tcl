@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -93,20 +94,20 @@ proc bMotion_plugin_complex_startrek_courtmartial { nick host handle channel tex
   if [regexp -nocase "$botnicks courtmartial (.+?)( with banzai)?" $text pop frogs who banzai] {
     if [regexp -nocase "\[\[:<:\]\]$botnicks\[\[:>:\]\]" $who] {
       bMotionDoAction $channel "" "Duh."
-      return 0
+      return 1
     }
 
     if {$banzai != ""} { set bMotionInfo(banzaiModeBrig) 1 } else { set bMotionInfo(banzaiModeBrig) 0 }
 
     if {$bMotionInfo(brig) != ""} {
       bMotionDoAction $channel $nick "I'm sorry Sir, I already have someone in the brig - please try again later, or empty the Recycle Bin."
-      return 0
+      return 1
     }
 
     if {![onchan $who $channel]} {
       bMotionDoAction $channel "" "Who?"
       puthelp "NOTICE $nick :Please specify the full nickname of someone in the channel (Couldn't find '$who')."
-      return 0
+      return 1
     }
 
     set bMotionInfo(brig) "$who@$channel"
@@ -125,7 +126,7 @@ proc bMotion_plugin_complex_startrek_courtmartial { nick host handle channel tex
     if {$bMotionInfo(banzaiModeBrig) == 1} {
       utimer [expr $bMotionInfo(brigDelay) / 2 + 7] bMotionBanzaiBrigMidBet
     }
-    return 0
+    return 1
   }
 }
 

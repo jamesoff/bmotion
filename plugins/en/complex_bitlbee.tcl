@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -23,7 +24,7 @@ proc bMotion_plugin_complex_bitlbee1 { nick host handle channel text } {
 		#login to accounts
 		putserv "PRIVMSG #bitlbee :account add oscar 320543426 startrek login.icq.com"
 		putserv "PRIVMSG #bitlbee :account on 320543426"
-		return 1
+		return 2
 	}
 	return 0
 }
@@ -36,7 +37,7 @@ proc bMotion_plugin_complex_bitlbee2 { nick host handle channel text } {
 		putserv "PRIVMSG #bitlbee :add 0 $h"
 		putserv "PRIVMSG #bitlbee :$h: sorry, what?"
 		bMotion_putloglev d * "met new bitlbee user $h"
-		return 1
+		return 2
 	}
 }
 
@@ -45,6 +46,6 @@ proc bMotion_plugin_complex_bitlbee3 { nick host handle channel text } {
 	if [bMotion_setting_get "bitlbee" {
 		#reconnect
 		putserv "PRIVMSG $channel :account on 0"
-		return 1
+		return 2
 	}
 }

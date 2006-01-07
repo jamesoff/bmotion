@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -13,11 +14,11 @@
 ###############################################################################
 
 proc bMotion_plugin_complex_techs { nick host handle channel text } {
-  bMotion_flood_undo $nick
   if [bMotion_interbot_me_next $channel] {
     bMotionDoAction $channel $nick "%%: %VAR{tech_answer}"
+		return 1
   }
-  return 1
+  return 2
 }
 
 bMotion_plugin_add_complex "techsup" "^!techsupport$" 100 bMotion_plugin_complex_techs "en"

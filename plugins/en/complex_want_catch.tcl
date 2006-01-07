@@ -4,6 +4,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -18,15 +19,15 @@ bMotion_plugin_add_complex "want-catch" "i (want|need) (.+)" 100 bMotion_plugin_
 bMotion_plugin_add_complex "mmm-catch" {^mm+[,. ]*(.+)} 100 bMotion_plugin_complex_mmm_catcher "en"
 bMotion_plugin_add_complex "plusplus-catch" {^(.+)\+{2}$} 100 bMotion_plugin_complex_plusplus_catcher "en"
 bMotion_plugin_add_complex "minmin-catch" {^(.+)-{2}$} 100 bMotion_plugin_complex_minmin_catcher "en"
-bMotion_plugin_add_complex "noun-catch" {[[:<:]](?:a|an|the) ([[:alpha:]]+)} 100 bMotion_plugin_complex_noun_catcher "en"
+bMotion_plugin_add_complex "zzz-noun-catch" {[[:<:]](?:a|an|the) ([[:alpha:]]+)} 100 bMotion_plugin_complex_noun_catcher "en"
 
 proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
   if [regexp -nocase "i (want|need) (?!to)(.+? )" $text matches verb item] {
     #that's a negative lookahead ---^
-    bMotion_flood_undo $nick
     bMotion_abstract_add "sillyThings" $item
     if {[rand 100] > 95} {
     	bMotionDoAction $channel "" "%VAR{gotone}"
+			return 1
     }
 	}
 }
@@ -34,9 +35,8 @@ proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
 proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
 	global botnicks
   if [regexp -nocase {^mm+[,.]* (.+)} $text matches item] {
-    bMotion_flood_undo $nick
     
-    if [regexp -nocase "bmotion|$botnicks" $item] {
+    if [regexp -nocase "\ybmotion|$botnicks\y" $item] {
     	bMotionDoAction $channel "" "%VAR{wins}"
     	return 1
     }
@@ -54,9 +54,8 @@ proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
 proc bMotion_plugin_complex_plusplus_catcher { nick host handle channel text } {
 	global botnicks
   if [regexp -nocase {^(.+)\+{2}$} $text matches item] {
-    bMotion_flood_undo $nick
     
-    if [regexp -nocase "bmotion|$botnicks" $item] {
+    if [regexp -nocase "\ybmotion|$botnicks\y" $item] {
     	bMotionDoAction $channel "" "%VAR{wins}"
     	return 1
     }
@@ -73,9 +72,8 @@ proc bMotion_plugin_complex_plusplus_catcher { nick host handle channel text } {
 proc bMotion_plugin_complex_minmin_catcher { nick host handle channel text } {
   global botnicks
   if [regexp -nocase {^(.+)-{2}$} $text matches item] {
-    bMotion_flood_undo $nick
 
-    if [regexp -nocase "bmotion|$botnicks" $item] {
+    if [regexp -nocase "\ybmotion|$botnicks\y" $item] {
       bMotionDoAction $channel "" "%VAR{unsmiles}"
       return 1
     }
@@ -92,7 +90,6 @@ proc bMotion_plugin_complex_minmin_catcher { nick host handle channel text } {
 
 proc bMotion_plugin_complex_noun_catcher { nick host handle channel text } {
   if [regexp -nocase {[[:<:]](a|an|the|some) ([[:alpha:]]+)( [[:alpha:]]+[[:>:]])?} $text matches prefix item second] {
-    bMotion_flood_undo $nick
     set item [string tolower $item]
 
     if [regexp "(ly)$" $item] {
@@ -116,6 +113,7 @@ proc bMotion_plugin_complex_noun_catcher { nick host handle channel text } {
     }
 
     bMotion_abstract_add "sillyThings" "$prefix $item"
+		return 0
   }
 }
 

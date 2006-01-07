@@ -1,5 +1,6 @@
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -13,8 +14,6 @@
 proc bMotion_plugin_complex_abbr { nick host handle channel text } {
   global abbr_nouns abbr_verbs abbr_adj
   global abbr_adult_nouns abbr_adult_verbs abbr_adult_adj
-
-  bMotion_flood_undo $nick
 
   putlog $text
   if [regexp -nocase "^!abbr( adult| xxx)?$" $text blah adult] {

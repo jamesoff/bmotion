@@ -1,6 +1,7 @@
 # $Id$
 #
 # simsea's "I can't remember which console to type in"  plugin
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -19,8 +20,6 @@ proc bMotion_plugin_complex_wrong_console { nick host handle channel text } {
 	}
 	bMotionDoAction $channel "" "%VAR{randomWrongConsoleReply}"
 	
-	#log this action
-	bMotion_putloglev d * "bMotion: (wrong console(tm)) $nick couldn't remember which window to type in"
 	return 1
 }
 # end bMotion_plugin_complex_wrong_console

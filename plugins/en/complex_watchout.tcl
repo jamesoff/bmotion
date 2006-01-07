@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -18,5 +19,5 @@ proc bMotion_plugin_complex_watchout { nick host handle channel text } {
   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{hides}"
   bMotionGetUnLonely
   driftFriendship $nick 2
-  return 0
+  return 1
 }

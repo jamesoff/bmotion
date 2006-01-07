@@ -2,7 +2,7 @@
 #
 # $Id$
 #
-
+# vim: fdm=indent fdn=1
 
 
 ###############################################################################
@@ -19,7 +19,7 @@ bMotion_plugin_add_action_complex "zzz-failsafe" {^(.+?)s?( at|with)? %botnicks}
 proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
   regexp {^([^ ]+) ((across|near|at|with|to|against|from|over|under|in|on|next to) )?} $text matches verb dir
   if {$verb == ""} {
-    return 1
+    return 2
   }
 
   bMotion_plugins_settings_set "complex:failsafe" "last" "nick" "moo" [bMotionGetRealName $nick]
@@ -33,7 +33,6 @@ proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
 	}
 
 	set whee [rand 10]
-	putlog $whee
 
 	if {$whee > 5} {
   	bMotionDoAction $channel $nick "%VAR{failsafes_a}"

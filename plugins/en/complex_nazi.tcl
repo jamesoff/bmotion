@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -31,7 +32,7 @@ proc bMotion_plugin_complex_nazi2 {nick host handle channel text} {
 	}
 
 	if {![bMotion_interbot_me_next $channel]} {
-		return 1
+		return 0
 	}
 
 	bMotionDoAction $channel $nick "%VAR{nazi2}"

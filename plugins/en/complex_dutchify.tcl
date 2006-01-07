@@ -1,5 +1,6 @@
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -12,6 +13,7 @@
 
 proc bMotion_plugin_complex_dutchify {nick host handle channel text} {
   bMotionDoAction $channel $nick "$nick: [bMotion_module_extra_dutchify $text]"
+	return 1
 }
 
 bMotion_plugin_add_complex "dutchify" "^!nl" 100 "bMotion_plugin_complex_dutchify" "en"

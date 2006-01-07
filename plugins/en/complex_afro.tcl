@@ -1,29 +1,16 @@
 ## bMotion plugin: blblbl
-
 #
-
 # $Id$
-
 #
 
-
-
 ###############################################################################
-
 # This is a bMotion plugin
-
 # Copyright (C) James Michael Seward 2000-2002
-
 #
-
 # This program is covered by the GPL, please refer the to LICENCE file in the
-
 # distribution; further information can be found in the headers of the scripts
-
 # in the modules directory.
-
 ###############################################################################
-
 
 
 #[ AfrObawt] The afronym for this round is AGNUE. You have 60 seconds.
@@ -103,10 +90,7 @@ proc bMotion_plugin_complex_afro_1 { nick host handle channel text } {
   bMotion_plugins_settings_set "afro" "nick" "" "" $nick
 
 
-
-  bMotion_flood_undo $nick
-
-  return 1
+  return 2
 
 }
 
@@ -122,9 +106,7 @@ proc bMotion_plugin_complex_afro_1a { nick host handle channel text } {
 
   bMotion_plugin_complex_afro_1 $nick $host $handle $channel "The afronym for this round is $afronym"
 
-  bMotion_flood_undo $nick
-
-  return 1
+  return 2
 
 }
 
@@ -153,19 +135,10 @@ proc bMotion_plugin_complex_afro_answer { } {
 # switch to getting answers mode
 
 proc bMotion_plugin_complex_afro_2 { nick host handle channel text } {
-
   #this one spots the start of the answers
-
-
-
-  bMotion_flood_undo $nick
-
-
-
   bMotion_plugins_settings_set "afro" "state" $channel $nick "listing"
-
   bMotion_plugins_settings_set "afro" "answers" $channel $nick ""
-
+	return 2
 }
 
 
@@ -184,16 +157,8 @@ proc bMotion_plugin_complex_afro_3 { nick host handle channel text } {
 
   }
 
-
-
-  bMotion_flood_undo $nick
-
-
-
   if [regexp {^([0-9]+)\. (.+)} $text matches answernum answer] {
-
     set myAnswer [bMotion_plugins_settings_get "afro" "answer" $channel $nick]
-
     bMotion_putloglev d * "Answer number $answernum is $answer (mine was $myAnswer)"
 
     if {![string match -nocase "$answer*" $myAnswer]} {
@@ -238,7 +203,7 @@ proc bMotion_plugin_complex_afro_3 { nick host handle channel text } {
 
       }
 
-      return 1
+      return 2
 
     } else {
 
@@ -246,7 +211,7 @@ proc bMotion_plugin_complex_afro_3 { nick host handle channel text } {
 
       bMotion_plugins_settings_set "afro" "myanswer" $channel $nick $answernum
 
-      return 1
+      return 2
 
     }
 
@@ -268,9 +233,7 @@ proc bMotion_plugin_complex_afro_3a { nick host handle channel text } {
 
     bMotion_plugin_complex_afro_3 $nick $host $handle $channel "$number. $acro"
 
-    bMotion_flood_clear $nick
-
-    return 1
+    return 2
 
   }
 
@@ -303,11 +266,6 @@ proc bMotion_plugin_complex_afro_4 { nick host handle channel text } {
   set answerList [split $answers " "]
 
 
-
-  bMotion_flood_clear $nick
-
-
-
   set ourVote [pickRandom $answerList]
 
 
@@ -324,7 +282,7 @@ proc bMotion_plugin_complex_afro_4 { nick host handle channel text } {
 
     bMotionDoAction $channel $nick "%VAR{oops}"
 
-    return 0
+    return 2
 
   }
 

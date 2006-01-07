@@ -1,6 +1,7 @@
 ## bMotion plugin: attack
 #
 # $Id$
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin

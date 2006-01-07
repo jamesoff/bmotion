@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -18,7 +19,8 @@ proc bMotion_plugin_complex_nipples { nick host handle channel text } {
   if [regexp -nocase {^i'?m ([a-z]+)$} $text matches word] {
 		if [bMotion_interbot_me_next $channel] {
 	    bMotionDoAction $channel "" "YOU'RE $word? feel these nipples!"
+			return 1
 		}
-    return 1
+    return 0
   }
 }

@@ -1,6 +1,7 @@
 # 
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -127,6 +128,7 @@ proc bMotion_plugin_complex_scrap { nick host handle channel text } {
 
 
     bMotionDoAction $channel "" $output
+		return 1
   }
 }
 

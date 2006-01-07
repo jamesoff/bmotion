@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -24,8 +25,9 @@ proc bMotion_plugin_complex_activate { nick host handle channel text } {
         regsub "(.+)\.$" $item {\1} item
       }
       bMotionDoAction $channel $item "%VAR{activateses}"
+			return 1
     }
-    return 1
+    return 2
   }
 }
 

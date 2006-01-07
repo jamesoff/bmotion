@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # bMotion - an 'AI' TCL script for eggdrops
@@ -29,7 +30,7 @@ bMotion_counter_init "events" "lines"
 
 # call an irc event response plugin
 proc bMotionDoEventResponse { type nick host handle channel text } {
-  #check our global toggle
+	#check our global toggle
   global bMotionGlobal bMotionInfo
   if {$bMotionGlobal == 0} {
     return 0
@@ -102,7 +103,6 @@ proc bMotion_event_onjoin {nick host handle channel} {
 
 ## BEGIN onpart handler
 proc bMotion_event_onpart {nick host handle channel {msg ""}} {
-
   #check our global toggle
   global bMotionGlobal
   if {$bMotionGlobal == 0} {
@@ -275,22 +275,24 @@ proc bMotion_event_main {nick host handle channel text} {
     bMotion_putloglev 1 * "going to run plugins: $response"
     foreach callback $response {
 			bMotion_putloglev 1 * "bMotion: doing flood for $callback..."
-      bMotion_flood_add $nick $callback $text
       if [bMotion_flood_check $nick] { return 0 }
 
       bMotion_putloglev 1 * "bMotion: `- running callback $callback"
 			set result 0
-			#if {![bMotion_plugin_history_check $channel "complex" $callback]} {
-				bMotion_counter_incr "events" "complexplugins"
-				set result [$callback $nick $host $handle $channel $text]
-				set bMotionCache(lastPlugin) $callback
-				bMotion_plugin_history_add $channel "complex" $callback
-			#} else {
-			#	bMotion_putloglev 2 * "Plugin $callback has recently fired in $channel, ignoring"
-			#}
-			
-      if {$result == 1} {
-        bMotion_putloglev 2 * "bMotion:    `-$callback returned 1, breaking out..."
+			bMotion_counter_incr "events" "complexplugins"
+			set result [$callback $nick $host $handle $channel $text]
+			set bMotionCache(lastPlugin) $callback
+			bMotion_plugin_history_add $channel "complex" $callback
+
+			#plugins should return 1 if they trigger, and 2 if they trigger without output
+			# (i.e. return 2 to not increment flood)
+			# they should return 0 if they don't trigger
+
+      if {$result > 1} {
+				if {$result == 1} {
+					bMotion_flood_add $nick $callback $text
+				}
+        bMotion_putloglev 2 * "bMotion:    `-$callback returned $result, breaking out..."
         break
       }
     }
@@ -505,7 +507,6 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 
 ### MODE HANDLER #############################################################
 proc bMotion_event_mode {nick host handle channel mode victim} {
-
   #check our global toggle
   global bMotionGlobal
   if {$bMotionGlobal == 0} {

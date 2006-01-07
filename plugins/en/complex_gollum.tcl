@@ -2,6 +2,7 @@
 #
 # 	$Id$	
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -22,7 +23,7 @@ proc bMotion_plugin_complex_gollum { nick host handle channel text } {
     }
     bMotion_putloglev 4 * "bMotion: my turn when running complex_gollum"
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{gollums}"
-    return 0 
+    return 1 
     #this allows us to still respond to questions, right?
   }
 }

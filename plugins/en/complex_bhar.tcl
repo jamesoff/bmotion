@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -19,6 +20,7 @@ proc bMotion_plugin_complex_bhar { nick host handle channel text } {
   if {$arr == ""} {
     bMotion_plugins_settings_set "complex:bhar" "contents" $channel $nick $text
     bMotionDoAction $channel $nick "%VAR{arrs}"
+		return 1
   }  
 }
 

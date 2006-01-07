@@ -1,6 +1,7 @@
 # $Id$
 #
 # Delilah's crap plugin (avec sim-help)
+# vim: fdm=indent fdn=1
 
 set random_crap_adj {
 	"blue"
@@ -34,8 +35,6 @@ set random_crap_type {
 }
 
 proc bMotion_plugin_complex_crap { nick host handle channel text } {
-	#bMotion_flood_undo $nick
-
 	# regexp -nocase "^!crap (.+)" $text matches command text
 
 	bMotion_putloglev d * "bMotion: i have been made all crappy by $nick"
@@ -46,6 +45,7 @@ proc bMotion_plugin_complex_crap { nick host handle channel text } {
 
 	set phrase "/does a $adj $type and hands it to %ruser"
 	bMotionDoAction $channel $nick $phrase
+	return 1
 }
 
 # register callbacks

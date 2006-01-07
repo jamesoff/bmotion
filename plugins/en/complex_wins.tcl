@@ -1,5 +1,6 @@
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -17,7 +18,7 @@ proc bMotion_plugin_complex_wins { nick host handle channel text } {
    bMotionGetHappy
    bMotionGetUnLonely
    driftFriendship $nick 1
-   return 0
+   return 1
 }
 
 set wins {

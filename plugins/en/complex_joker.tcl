@@ -2,6 +2,8 @@
 #    - based on an idea from sitting in the pub with JamesOff
 # $Id$
 #
+# vim: fdm=indent fdn=1
+
 ###############################################################################
 # This is a bMotion plugin
 # Copyright (C) Andrew Payne 2000-2003
@@ -64,7 +66,7 @@ proc bMotionDoJokeAnswer {} {
 
 	# log this
 	bMotion_putloglev d * "bMotion: (joker) I made a funny"
-	return 0 
+	return 1 
 }
 
 # random joke callback
@@ -79,7 +81,7 @@ proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
 	# check if we're already telling a joke
 	if { $jokeInfo != "" } {
 		bMotionDoAction $channel $nick "I'm sorry, but can't you see I'm already telling a joke?!"
-		return 0
+		return 1
 	}
 
 	# we need the index to coordinate with the reply

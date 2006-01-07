@@ -2,6 +2,10 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
+#
+# random characters from roz:
+#   ngfdngfd,jyr,iyrmyrwgrtewf436546lik,cmhtzmyt35znt43hmtgfnxgrw3\njt5,iut,vvjjhhhhhhhhhhhhhhhhn.
 
 ###############################################################################
 # This is a bMotion plugin

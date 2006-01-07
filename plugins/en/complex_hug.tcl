@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -28,7 +29,9 @@ proc bMotion_plugin_complex_hug_do { channel nick host } {
     bMotionGetUnLonely
     bMotionGetHappy
     bMotionDoAction $channel $nick "%VAR{hugs}"
+		return 1
   } else {
     bMotionDoAction $channel $nick "%VAR{blehs}"
+		return 1
   }
 }

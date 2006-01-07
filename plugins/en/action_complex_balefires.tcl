@@ -1,6 +1,7 @@
 ## bMotion plugin: balefires
 #
 # $Id$
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -29,4 +30,5 @@ proc bMotion_plugin_complex_action_balefires { nick host handle channel text } {
     }
     return 1
   }
+	return 0
 }

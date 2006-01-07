@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -16,5 +17,5 @@ bMotion_plugin_add_complex "unf" "((~(rarr|oof|unf)~)|unf|lick(s)?) %botnicks" 1
   
 proc bMotion_plugin_complex_unf { nick host handle channel text } {
   bMotionGetHorny
-  return 1
+  return 2
 }

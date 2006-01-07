@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -17,6 +18,7 @@ bMotion_plugin_add_complex "woot" {^[a-zA-Z0-9]+[!1~]+$} 5 bMotion_plugin_comple
 proc bMotion_plugin_complex_woot { nick host handle channel text } {
   if [regexp {^([a-zA-Z0-9]+)[!1~]+$} $text matches word] {
     bMotionDoAction $channel $word "%VAR{woots}"
+		return 1
   }
 }
 

@@ -34,8 +34,8 @@ proc bMotion_plugin_complex_trivia_1 { nick host handle channel text } {
   bMotion_plugins_settings_set "trivia" "channel" "" "" $channel
   bMotion_plugins_settings_set "trivia" "type" "" "" ""
   bMotion_plugins_settings_set "trivia" "played" "" "" 0
-  bMotion_putloglev 1 * "Detected start of trivia round"
-  bMotion_flood_clear $nick
+  bMotion_putloglev 1 * "Detected start of trivia round"A
+	return 2
 }
 
 proc bMotion_plugin_complex_trivia_4 { nick host handle channel text } {
@@ -46,22 +46,18 @@ proc bMotion_plugin_complex_trivia_4 { nick host handle channel text } {
     return 0
   }
   bMotion_plugins_settings_set "trivia" "type" "" "" "year"
-	bMotion_flood_clear $nick
+	return 2
 }
 
 #
 # Here's a hint... let's try to answer
 proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
-	bMotion_flood_undo $nick
-
   if {$channel != [bMotion_plugins_settings_get "trivia" "channel" "" ""]} {
     return 0
   }
   if {$nick != [bMotion_plugins_settings_get "trivia" "nick" "" ""]} {
     return 0
   }
-
-  bMotion_flood_clear $nick
 
   bMotion_plugins_settings_set "trivia" "tries" "" "" 0
 
@@ -85,7 +81,7 @@ proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
   set delay [expr [rand 15] + 2]
   bMotion_putloglev d * "try trivia first again in $delay seconds"
   bMotion_plugins_settings_set "trivia" "timer" "" "" [utimer $delay bMotion_plugin_complex_trivia_auto]
-
+	return 2
 }
 
 proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
@@ -98,8 +94,6 @@ proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
     killutimer [bMotion_plugins_settings_get "trivia" "timer" "" ""]
     bMotion_putloglev d * "killed trivia retry timer"
   }
-
-	bMotion_flood_clear $nick
 
   #let's remember this answer
   #putlog $text
@@ -139,7 +133,7 @@ proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
       bMotion_abstract_add $full_array_name_for_upvar $word
     }
   }
-  bMotion_flood_clear $nick
+  return 2
 }
 
 proc bMotion_plugin_complex_trivia_guess { nick host handle channel text } {
@@ -161,7 +155,7 @@ proc bMotion_plugin_complex_trivia_guess { nick host handle channel text } {
   regexp {^Hint(:| \[.+ of .+\]:) ([_ A-Z])+} $text matches hinttext
   catch {
     if {$hinttext == ""} {
-      return 1
+      return 2
     }
   }
   set hinttext [string range $text 6 end]
@@ -235,6 +229,7 @@ proc bMotion_plugin_complex_trivia_guess { nick host handle channel text } {
       putloglev d * "skipped answering with $answer, same as last time"
     }
   }
+	return 2
 }
 
 proc bMotion_plugin_complex_trivia_auto { } {

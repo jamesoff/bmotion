@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -40,7 +41,7 @@ proc bMotion_plugin_complex_replicate { nick host handle channel text } {
   set whom ""
   if {$who == ""} {
     bMotionDoAction $channel $nick "Idiot. Try pressing Alt-F4 for help, %%"
-    return 0
+    return 1
   }
   if {$who == "me"} { set whom $nick }
   if {[regexp -nocase "(yourself|you)" $who]} { set whom [getPronoun] }
@@ -48,7 +49,7 @@ proc bMotion_plugin_complex_replicate { nick host handle channel text } {
   if {[string tolower $action] == "make"} {
     if {($whom == [getPronoun]) && [regexp -nocase "(come|cum|ejaculate|squirt)" $item]} {
       cum $channel $nick
-      return 0
+      return 1
     }
     if {[rand 4] == 0 || [regexp -nocase "into" $item]} {
       set whom "$whom is"
@@ -65,10 +66,9 @@ proc bMotion_plugin_complex_replicate { nick host handle channel text } {
       bMotionGetHappy
       bMotionGetUnLonely
       bMotion_putloglev d * "bMotion: Turned someone into $item :P"
-      return 0
+      return 1
     }
   }
-  bMotion_putloglev d * "bMotion: Replicated $item for $whom on $channel (requested by $nick)"
   bMotionDoAction $channel $whom "/replicates $item and hands it to %%"
   bMotionGetUnLonely
   set bMotionCache(lastDoneFor) $nick

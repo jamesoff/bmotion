@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 
 ###############################################################################
@@ -18,8 +19,6 @@ bMotion_plugin_add_complex "fact" {[[:<:]](is|was|=|am)[[:>:]]} 100 bMotion_plug
 
 proc bMotion_plugin_complex_fact { nick host handle channel text } {
   global bMotionFacts bMotionFactTimestamps
-
-	bMotion_flood_undo $nick
 
   set ignoretext [bMotion_setting_get "ignorefacts"]
   if {$ignoretext != ""} {
@@ -45,6 +44,6 @@ proc bMotion_plugin_complex_fact { nick host handle channel text } {
     lappend bMotionFacts(what,$item) $fact
     set bMotionFactTimestamps(what,$item) [clock seconds]
   }
-  return 0
+  return 2
 }
 
