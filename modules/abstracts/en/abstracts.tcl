@@ -1695,12 +1695,9 @@ bMotion_abstract_register "quizes"
 bMotion_abstract_register "colours"
 bMotion_abstract_batchadd "colours" {
   "%VAR{basic_colours}"
-  "%VAR{basic_colours}"
-  "%VAR{weird_colours}"
   "%VAR{weird_colours}"
   "%VAR{colour_adjective} %VAR{basic_colours}"
   "%VAR{colour_adjective} %VAR{weird_colours}"
-  "%VAR{basic_colours}"
 }
 
 bMotion_abstract_register "weird_colours"
@@ -1709,6 +1706,7 @@ bMotion_abstract_batchadd "weird_colours" {
   "mauve" "taupe" "ochre" "teal"
   "crimson" "scarlet"
   "cobalt" "turquoise" "cornflower blue"
+  "chartreuse"
 }
 
 bMotion_abstract_register "basic_colours"
@@ -1797,4 +1795,17 @@ bMotion_abstract_batchadd "randomSongName" {
   "the Doom Song"
   "God Save the Queen"
   "Untitled Track %NUMBER{100}"
+}
+
+bMotion_abstract_register "answerWhatOdds"
+bMotion_abstract_batchadd "answerWhatOdds" {
+  "one in a million"
+  "one to %NUMBER{10000}"
+  "%NUMBER{10000} to one"
+  "%VAR{ers}... one to something really, really big?"
+  "about a snowball's chance in hell"
+  "that depends. is %ruser involved?"
+  "calculating...%|%VAR{sounds} %VAR{sounds} %VAR{sounds}%|%VAR{hexStart} %VAR{hexMiddle} %VAR{hexEnd}"
+  "that depends entirely on %VAR{sillyThings}"
+  "I'm not an expert on that%|%BOT[75,but I am! it's, %VAR{ers}, one to %NUMBER{100000}!]"
 }

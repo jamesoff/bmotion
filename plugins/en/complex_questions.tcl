@@ -46,6 +46,13 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
     return 1
   }
 
+  bMotion_putloglev 3 * "Checking question for 'what are the odds'"
+  ## What have question targeted at me
+  if { [regexp -nocase "^$botnicks,?:? what ?(are|is|'?s|was|were) the (odds|chance|probability)" $text] ||
+       [regexp -nocase "^what ?(are|is|'?s|was|were) the (odds|chance|probability) .* $botnicks ?\\?" $text] } {
+    bMotion_plugin_complex_question_whatodds $nick $channel $host
+    return 1
+  }
 
   bMotion_putloglev 3 * "Checking question for 'what'"
   ## What question targeted at me
@@ -121,6 +128,14 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
     return 1
   }
 
+  bMotion_putloglev 3 * "Checking question for 'how much'"
+  ## How many question targeted at me
+  if { [regexp -nocase "^$botnicks,?:? how ?much" $text] ||
+       [regexp -nocase "^how ?much .* $botnicks ?\\?" $text] } {
+    bMotion_plugin_complex_question_much $nick $channel $host
+    return 1
+  }
+
   bMotion_putloglev 3 * "Checking question for 'how'"
   ## How question targeted at me
   if { [regexp -nocase "^$botnicks,?:? how" $text] ||
@@ -141,13 +156,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
 
   ## moved "what have" to top   --szrof
 
-  bMotion_putloglev 3 * "Checking question for 'how much'"
-  ## How many question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? how ?much" $text] ||
-       [regexp -nocase "^how ?much .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_much $nick $channel $host
-    return 1
-  }
+  ## moved "how much" further up   --szrof
 
   bMotion_putloglev 3 * "Checking question for 'have you'"
   ## Have you question targeted at me
@@ -415,6 +424,11 @@ proc bMotion_plugin_complex_question_whatcolour { nick channel host } {
   return 1
 }
 
+proc bMotion_plugin_complex_question_whatodds { nick channel host } {
+    bMotion_putloglev 2 * "$nick what odds question"
+  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWhatOdds}"
+  return 1
+}
 
 ## end sid's functions
 
