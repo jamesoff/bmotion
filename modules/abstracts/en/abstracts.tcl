@@ -1809,3 +1809,33 @@ bMotion_abstract_batchadd "answerWhatOdds" {
   "that depends entirely on %VAR{sillyThings}"
   "I'm not an expert on that%|%BOT[75,but I am! it's, %VAR{ers}, one to %NUMBER{100000}!]"
 }
+
+bMotion_abstract_register "answerHowLongs"
+bMotion_abstract_batchadd "answerHowLongs" {
+  "%NUMBER{60} minutes"
+  "%NUMBER{60} seconds"
+  "%NUMBER{365} days"
+  "%NUMBER{1000} years"
+  "all your life"
+  "all my life"
+  "as long as I can hold my breath"
+  "until something explodes"
+  "six to eight weeks, usually"
+}
+
+bMotion_abstract_register "answerHowOlds"
+bMotion_abstract_batchadd "answerHowOlds" {
+  "%NUMBER{60} minutes"
+  "%NUMBER{60} seconds"
+  "%NUMBER{365} days"
+  "%NUMBER{100} years"
+  "about as old as %ruser"
+  "about as old as %VAR{sillyThings}"
+  "older than %ruser"
+  "older than %VAR{sillyThings}"
+  "too old"
+  "too young"
+  "old enough"
+  "%VAR{answerHowmanys}"
+  "%VAR{answerHowLongs}"
+}

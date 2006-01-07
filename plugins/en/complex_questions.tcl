@@ -120,6 +120,22 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
     return 1
   }
 
+  bMotion_putloglev 3 * "Checking question for 'how long'"
+  ## How many question targeted at me
+  if { [regexp -nocase "^$botnicks,?:? how ?long" $text] ||
+       [regexp -nocase "^how ?long .* $botnicks ?\\?" $text] } {
+    bMotion_plugin_complex_question_long $nick $channel $host
+    return 1
+  }
+
+  bMotion_putloglev 3 * "Checking question for 'how old'"
+  ## How many question targeted at me
+  if { [regexp -nocase "^$botnicks,?:? how ?old" $text] ||
+       [regexp -nocase "^how ?old .* $botnicks ?\\?" $text] } {
+    bMotion_plugin_complex_question_age $nick $channel $host
+    return 1
+  }
+
   bMotion_putloglev 3 * "Checking question for 'when'"
   ## When question targeted at me
   if { [regexp -nocase "^$botnicks,?:? (when|what time)" $text] ||
@@ -427,6 +443,18 @@ proc bMotion_plugin_complex_question_whatcolour { nick channel host } {
 proc bMotion_plugin_complex_question_whatodds { nick channel host } {
     bMotion_putloglev 2 * "$nick what odds question"
   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWhatOdds}"
+  return 1
+}
+
+proc bMotion_plugin_complex_question_long { nick channel host } {
+    bMotion_putloglev 2 * "$nick how long question"
+  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowLongs}"
+  return 1
+}
+
+proc bMotion_plugin_complex_question_age { nick channel host } {
+    bMotion_putloglev 2 * "$nick how old question"
+  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowOlds}"
   return 1
 }
 
