@@ -174,5 +174,4 @@ proc bMotion_plugin_complex_action_hands_dildo { channel nick item item2 } {
     }
     return 0
   }
-  
 }

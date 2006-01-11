@@ -19,10 +19,16 @@ foreach language $languages {
   bMotion_putloglev 2 * "bMotion: loading irc event plugins language = $language"
   set files [glob -nocomplain "$bMotionPlugins/$language/irc_*.tcl"]
   foreach f $files {
+		set count [llength [array names bMotion_plugins_irc_event]]
     bMotion_putloglev 1 * "bMotion: loading ($language) irc event plugin file $f"
     catch {
       source $f
-    }
+    } err
+		set newcount [llength [array names bMotion_plugins_irc_event]]
+		if {($bMotion_testing == 0) && ($newcount == $count)} {
+			putlog "bMotion: ALERT! complex plugins file $f added no plugins"
+			putlog "Possible error: $err"
+		}
   }
 }
 set bMotionInfo(language) $currentlang

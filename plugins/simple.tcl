@@ -19,10 +19,16 @@ foreach language $languages {
   bMotion_putloglev 2 * "bMotion: loading simple plugins language = $language"
   set files [glob -nocomplain "$bMotionPlugins/$language/simple_*.tcl"]
   foreach f $files {
+		set count [llength [array names bMotion_plugins_simple]]
     bMotion_putloglev 1 * "bMotion: loading ($language) simple plugin file $f"
     catch {
       source $f
-    }
+    } err
+		set newcount [llength [array names bMotion_plugins_simple]]
+		if {($bMotion_testing == 0) && ($newcount == $count)} {
+			putlog "bMotion: ALERT! Loading plugins file $f did not add any plugins!"
+			putlog "Possible error: $err"
+		}
   }
 }
 set bMotionInfo(language) $currentlang

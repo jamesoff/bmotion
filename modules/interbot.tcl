@@ -184,6 +184,10 @@ proc bMotionCatchSayChan { bot params } {
     if {$bMotionInfo(silence) == 1} {
       set bMotionInfo(silence) 2
     }
+		
+		#check we haven't been sent broken text to output by %bot
+		regsub "^[0-9]+,(.+)" $txt "\1" txt
+
     bMotionDoAction $channel $bot $txt "" 0 1
     bMotion_putloglev 1 * "bMotion: done say command from $bot"
     if {$bMotionInfo(silence) == 2} {

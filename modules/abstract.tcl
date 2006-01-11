@@ -94,6 +94,8 @@ bMotion_counter_init "abstracts" "pageouts"
 bMotion_counter_init "abstracts" "gc"
 bMotion_counter_init "abstracts" "gets"
 
+set bMotion_abstract_dir "$bMotionLocal/abstracts/$bMotionInfo(language)"
+
 # garbage collect the abstracts arrays
 proc bMotion_abstract_gc { } {
 	bMotion_putloglev 5 * "bMotion_abstract_gc"
@@ -127,34 +129,32 @@ proc bMotion_abstract_gc { } {
   if {$expiredList != ""} {
     bMotion_putloglev d * "expired $expiredCount abstracts: $expiredList"
   }
-
 }
 
 proc bMotion_abstract_register { abstract } {
 	bMotion_putloglev 5 * "bMotion_abstract_register ($abstract)"
   global bMotion_abstract_contents bMotion_abstract_timestamps
   global bMotionModules bMotion_testing bMotion_loading
-  global bMotionInfo bMotion_abstract_languages
+  global bMotionInfo bMotion_abstract_languages bMotion_abstract_dir
 
   #set timestamp to now
   set bMotion_abstract_timestamps($abstract) [clock seconds]
   set lang $bMotionInfo(language)
 
   #load any existing abstracts
-  if [file exists "[pwd]/$bMotionModules/abstracts/$lang/${abstract}.txt"] {
+  if [file exists "$bMotion_abstract_dir/${abstract}.txt"] {
     bMotion_abstract_load $abstract
   } else {
     # check that the language directory exists while we're at it
-    set dir "$bMotionModules/abstracts/$lang"
-    if { ![file exists $dir] } {
-      [file mkdir "$bMotionModules/abstracts/$lang"]
+    if { ![file exists $bMotion_abstract_dir] } {
+      [file mkdir $bMotion_abstract_dir]
     }
     #file doesn't exist - create an empty one
     #create blank array for it
     set bMotion_abstract_contents($abstract) [list]
     set bMotion_abstract_languages($abstract) "$lang"
     bMotion_putloglev 1 * "Creating new abstract file for $abstract"
-    set fileHandle [open "[pwd]/$bMotionModules/abstracts/$lang/${abstract}.txt" "w"]
+    set fileHandle [open "$bMotion_abstract_dir/${abstract}.txt" "w"]
     puts $fileHandle " "
   }
 
@@ -169,11 +169,12 @@ proc bMotion_abstract_load { abstract } {
   global bMotionModules bMotion_abstract_ondisk
   global bMotion_loading bMotion_testing
   global bMotionInfo bMotion_abstract_languages
+	global bMotion_abstract_dir
   set lang $bMotionInfo(language)
 
-  bMotion_putloglev 1 * "Attempting to load $bMotionModules/abstracts/$lang/${abstract}.txt"
+  bMotion_putloglev 1 * "Attempting to load $bMotion_abstract_dir/${abstract}.txt"
 
-  if {![file exists "$bMotionModules/abstracts/$lang/${abstract}.txt"]} {
+  if {![file exists "$bMotion_abstract_dir/${abstract}.txt"]} {
     return
   }
 
@@ -192,7 +193,7 @@ proc bMotion_abstract_load { abstract } {
   set index [lsearch -exact $bMotion_abstract_ondisk $abstract]
   set bMotion_abstract_ondisk [lreplace $bMotion_abstract_ondisk $index $index]
 
-  set fileHandle [open "$bMotionModules/abstracts/$lang/${abstract}.txt" "r"]
+  set fileHandle [open "$bMotion_abstract_dir/${abstract}.txt" "r"]
   set line [gets $fileHandle]
   set needReSave 0
   set count 0
@@ -200,19 +201,19 @@ proc bMotion_abstract_load { abstract } {
   while {![eof $fileHandle]} {
     set line [string trim $line]
     if {$line != ""} {
-      if {[lsearch -exact $bMotion_abstract_contents($abstract) $line] == -1} {
-        lappend bMotion_abstract_contents($abstract) $line
-      } else {
-        bMotion_putloglev 4 * "dropping duplicate $line for abstract $abstract"
-        set needReSave 1
-      }
+			lappend bMotion_abstract_contents($abstract) $line
       incr count
-      #if {[expr $count % 200] == 0} {
-        #putlog "  still loading abstract $abstract: $count ..."
-      #}
     }
     set line [gets $fileHandle]
   }
+
+	#optimise
+	set bMotion_abstract_contents($abstract) [lsort -unique $bMotion_abstract_contents($abstract)]
+	set newcount [llength $bMotion_abstract_contents($abstract)]
+	if {$newcount < $count} {
+		bMotion_putloglev d * "Shrunk abstract $abstract by [expr $count - $newcount] items by de-duping"
+		set needReSave 1
+	}
 
   if {[info exists fileHandle]} {
     close $fileHandle
@@ -227,6 +228,7 @@ proc bMotion_abstract_add { abstract text {save 1} } {
 	bMotion_putloglev 5 * "bMotion_abstract_add ($abstract, $text, $save)"
   global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age
   global bMotionModules bMotionInfo
+	global bMotion_abstract_dir
   set lang $bMotionInfo(language)
 
   bMotion_putloglev 2 * "Adding '$text' to abstract '$abstract'"
@@ -239,7 +241,7 @@ proc bMotion_abstract_add { abstract text {save 1} } {
 
     bMotion_putloglev 2 * "updating abstracts '$abstract' on disk"
     if {$save} {
-      set fileHandle [open "[pwd]/$bMotionModules/abstracts/$lang/${abstract}.txt" "a+"]
+      set fileHandle [open "$bMotion_abstract_dir/${abstract}.txt" "a+"]
       puts $fileHandle $text
       close $fileHandle
     }
@@ -250,7 +252,7 @@ proc bMotion_abstract_add { abstract text {save 1} } {
     lappend bMotion_abstract_contents($abstract) $text
     if {$save} {
       bMotion_putloglev 2 * "updating abstracts '$abstract' on disk and in memory"
-      set fileHandle [open "[pwd]/$bMotionModules/abstracts/$lang/${abstract}.txt" "a+"]
+      set fileHandle [open "$bMotion_abstract_dir/${abstract}.txt" "a+"]
       puts $fileHandle $text
       close $fileHandle
     }
@@ -262,6 +264,7 @@ proc bMotion_abstract_save { abstract } {
   global bMotion_abstract_contents
   global bMotionModules bMotion_testing bMotion_loading
   global bMotion_abstract_max_number bMotionInfo bMotion_abstract_languages
+	global bMotion_abstract_dir
   set lang $bMotionInfo(language)
 
   if {$lang != $bMotion_abstract_languages($abstract) } {
@@ -280,7 +283,7 @@ proc bMotion_abstract_save { abstract } {
 
   bMotion_putloglev 1 * "Saving abstracts '$abstract' to disk"
 
-  set fileHandle [open "[pwd]/$bMotionModules/abstracts/$lang/${abstract}.txt" "w"]
+  set fileHandle [open "$bMotion_abstract_dir/${abstract}.txt" "w"]
   set number [llength $bMotion_abstract_contents($abstract)]
   if {$number > $bMotion_abstract_max_number} {
     putlog "Abstract $abstract has too many elements ($number > $bMotion_abstract_max_number), tidying up"
@@ -289,7 +292,7 @@ proc bMotion_abstract_save { abstract } {
   foreach a $bMotion_abstract_contents($abstract) {
     if {$tidy} {
       if {[rand 100] < 10} {
-        bMotion_putloglev d * "Dropped '$a' from abstract $abstract"
+        bMotion_putloglev 3 * "Dropped '$a' from abstract $abstract"
         incr drop_count
         continue
       }
@@ -350,7 +353,7 @@ proc bMotion_abstract_auto_gc { min hr a b c } {
 }
 
 proc bMotion_abstract_batchadd { abstract stuff } {
-  bMotion_putloglev d * "batch-adding to $abstract"
+  bMotion_putloglev 1 * "batch-adding to $abstract"
   foreach i $stuff {
     bMotion_abstract_add $abstract $i 0
   }
@@ -440,7 +443,7 @@ proc bMotion_abstract_check {  } {
   }
   foreach f $files {
     catch {
-      [file rename -force -- $f "${dir}/"]
+			[file rename -force -- $f "${dir}/"]
     }
   }
 }

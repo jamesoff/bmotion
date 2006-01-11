@@ -19,10 +19,16 @@ foreach language $languages {
   bMotion_putloglev 2 * "bMotion: loading admin plugins language = $language"
   set files [glob -nocomplain "$bMotionPlugins/$language/admin_*.tcl"]
   foreach f $files {
+		set count [llength [array names bMotion_plugins_admin]]
     bMotion_putloglev 1 * "bMotion: loading ($language) admin plugin file $f"
     catch {
       source $f
-    }
+    } err
+		set newcount [llength [array names bMotion_plugins_admin]]
+		if {($bMotion_testing == 0) && ($newcount == $count)} {
+			putlog "bMotion: ALERT! admin plugin file $f added no plugins"
+			putlog "Possible error: $err"
+		}
   }
 }
 set bMotionInfo(language) $currentlang

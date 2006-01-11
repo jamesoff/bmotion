@@ -14,6 +14,7 @@
 
 #                         name  regexp            %   responses
 #bMotion_plugin_add_action_simple "licks" "(licks|bites) %botnicks" 100 [list "%VAR{rarrs}"]
+#TODO: Move this
 bMotion_plugin_add_action_simple "moo" "^(goes |does a )?moo+s?( at %botnicks)?" 40 [list "%VAR{moos}"] "all"
 
 
@@ -21,8 +22,14 @@ bMotion_plugin_add_action_simple "moo" "^(goes |does a )?moo+s?( at %botnicks)?"
 
 set files [glob -nocomplain "$bMotionPlugins/action_simple_*.tcl"]
 foreach f $files {
+	set count [llength [array names bMotion_plugins_action_simple]]
   bMotion_putloglev 1 * "bMotion: loading simple action plugin file $f"
   catch {
     source $f
-  }
+  } err
+	set newcount [llength [array names bMotion_plugins_action_simple]]
+	if {($bMotion_testing == 0) && ($newcount == $count)} {
+		putlog "bMotion: ALERT! simple action plugin file $f added no plugins"
+		putlog "Possible error: $err"
+	}
 }

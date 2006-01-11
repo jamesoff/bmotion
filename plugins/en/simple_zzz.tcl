@@ -12,4 +12,4 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_simple "zzz" "^zzz+" 50 [list "%VAR{handcoffees}"]
+bMotion_plugin_add_simple "zzz" "^zzz+" 50 [list "%VAR{handcoffees}"] "en"

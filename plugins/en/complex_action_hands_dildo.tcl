@@ -14,7 +14,7 @@
 ###############################################################################
 
 #we need complex_action:hands
-if {![bMotion_plugin_check_depends "action_complex:hands"} {
+if {![bMotion_plugin_check_depend "action_complex:hands"]} {
 	return 0
 }
 
@@ -170,5 +170,4 @@ proc bMotion_complex_action_hands_dildo { channel nick item2 } {
     }
     return 0
   }
-  
 }

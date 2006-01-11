@@ -124,18 +124,33 @@ proc bMotion_diagnostic_utimers { } {
   }
 }
 
+proc bMotion_diagnostic_plugins { } {
+	bMotion_putloglev 5 * "bMotion_diagnostic_plugins"
+	foreach t {simple complex admin output action_simple action_complex irc_event} {
+		set arrayName "bMotion_plugins_$t"
+		upvar #0 $arrayName cheese
+		if {[llength [array names cheese]] == 0} {
+			putlog "bMotion: diagnostics: No $t plugins loaded, something is wrong!"
+		}
+	}
+}
+
 proc bMotion_diagnostic_auto { min hr a b c } {
+	bMotion_putloglev 5 * "bMotion_diagnostic_auto"
   putlog "bMotion: running level 4 self-diagnostic"
   bMotion_diagnostic_timers
   bMotion_diagnostic_utimers
 }
 
-bMotion_putloglev d * "Running a level 5 self-diagnostic..."
+if {$bMotion_testing == 0} {
+	bMotion_putloglev d * "Running a level 5 self-diagnostic..."
 
-bMotion_diagnostic_channel1
-bMotion_diagnostic_channel2
-bMotion_diagnostic_channel3
+	bMotion_diagnostic_channel1
+	bMotion_diagnostic_channel2
+	bMotion_diagnostic_channel3
+	bMotion_diagnostic_plugins
 
-bMotion_putloglev d * "Diagnostics complete."
+	bMotion_putloglev d * "Diagnostics complete."
+}
 
 bind time - "30 * * * *" bMotion_diagnostic_auto

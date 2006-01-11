@@ -11,7 +11,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_complex "wins" "^${botnicks}(:?) (wins|exactly|precisely|perfect|nice one|yes)[!1.]*$" 100 bMotion_plugin_complex_wins "en"
+bMotion_plugin_add_complex "wins" "^${botnicks}(:?) (wins|exactly|precisely|perfect|nice one|yes)\[!1.\]*$" 100 bMotion_plugin_complex_wins "en"
 
 proc bMotion_plugin_complex_wins { nick host handle channel text } {
    bMotionDoAction $channel $nick "%VAR{wins}"

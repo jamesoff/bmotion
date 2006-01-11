@@ -16,6 +16,9 @@ set bMotionModules "$bMotionRoot/modules"
 set bMotionPlugins "$bMotionRoot/plugins"
 set bMotionLocal "$bMotionRoot/local"
 
+if {![info exists bMotion_log_regexp]} {
+	set bMotion_log_regexp ""
+}
 
 if {![info exists bMotion_testing]} {
   putloglev d * "bMotion: bMotion_testing is not defined, setting to 0."
@@ -43,7 +46,14 @@ foreach letter [split "d12345678" {}] {
 }
 
 proc bMotion_putloglev { level star text } {
-  global bMotion_testing bMotionCache
+  global bMotion_testing bMotionCache bMotion_log_regexp
+	
+	if {$bMotion_log_regexp != ""} {
+		if {![regexp -nocase $bMotion_log_regexp $text]} {
+			return 0
+		}
+	}
+
   regsub "bMotion:" $text "" text
   set text2 ""
   if {$level != "d"} {
@@ -81,14 +91,31 @@ source "$bMotionModules/counters.tcl"
 if {$bMotion_testing == 1} {
   putlog "... loading settings"
 }
-source "$bMotionModules/settings.tcl"
+# try the original location first
+set bMotion_loaded_settings 0
+if [file exists "$bMotionModules/settings.tcl"] {
+	source "$bMotionModules/settings.tcl"
+	set bMotion_loaded_settings 1
+}
 
 #try to load a file for this bot
 catch {
   if {${botnet-nick} != ""} {
     source "$bMotionModules/settings_${botnet-nick}.tcl"
     bMotion_putloglev d * "loaded settings for this bot from settings_${botnet-nick}.tcl"
+		set bMotion_loaded_settings 1
   }
+}
+
+#try to load from the local dir
+if [file exists "$bMotionLocal/settings.tcl"] {
+	source "$bMotionLocal/settings.tcl"
+	bMotion_putloglev d * "loaded local settings from $bMotionLocal/settings.tcl"
+	set bMotion_loaded_settings 1
+}
+
+if {$bMotion_loaded_settings == 0} {
+	putlog "bMotion: FATAL! Could not load from any settings file! bMotion is not going to work! :("
 }
 
 #load system functions
@@ -165,7 +192,7 @@ source "$bMotionModules/plugins_settings.tcl"
 bMotion_putloglev d * "looking for 3rd party modules..."
 set files [lsort [glob -nocomplain "$bMotionModules/extra/*.tcl"]]
 foreach f $files {
-  bMotion_putloglev 1 * "loading module: $f"
+  bMotion_putloglev 1 * "... loading extra module: $f"
   catch {
     source $f
   }
@@ -177,10 +204,8 @@ foreach f $files {
 
 #load local abstracts
 catch {
-  if {${botnet-nick} != ""} {
-    source "$bMotionModules/abstracts_${botnet-nick}.tcl"
-    bMotion_putloglev d * "loaded abstracts for this bot from abstracts_${botnet-nick}.tcl"
-  }
+	source "$bMotionLocal/abstracts.tcl"
+	bMotion_putloglev d * "loaded abstracts for this bot from local abstracts.tcl"
 }
 
 # load other bits
@@ -205,11 +230,14 @@ if {$bMotion_testing == 0} {
   putlog "\002bMotion $bMotionVersion AI online\002 :D"
 }
 
+if {$bMotion_testing == 0} {
+	bMotion_diagnostic_utimers
+	bMotion_diagnostic_timers
+}
+
 set bMotion_loading 0
 set bMotion_testing 0
 
-bMotion_diagnostic_utimers
-bMotion_diagnostic_timers
 
 # set this to 0 to stop showing the copyright
 # DO NOT DISTRIBUTE THIS FILE IF THE VARIABLE IS SET TO 0

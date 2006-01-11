@@ -132,6 +132,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
     set text "$text%|"
 
     while {[string match "*%|*" $text]} {
+			set origtext $text
       set sentence [string range $text 0 [expr [string first "%|" $text] -1]]
       if {$sentence != ""} {
         if {$blah == 0} {
@@ -142,8 +143,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
         }
       }
       set text [string range $text [expr [string first "%|" $text] + 2] end]
-      incr loopCount
-      if {$loopCount > 20} {
+			if {$text == $origtext} {
         putlog "bMotion ALERT! Bailed in bMotionDoAction with $text. Lost output."
         return 0
       }

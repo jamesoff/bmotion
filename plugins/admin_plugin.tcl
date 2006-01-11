@@ -16,7 +16,6 @@
 bMotion_plugin_add_management "plugin" "^plugin" n "bMotion_plugin_management_plugins" "any"
 
 proc bMotion_plugin_management_plugins { handle { arg "" }} {
-
   #plugin remove <type> <id>
   if [regexp -nocase {remove ([^ ]+) (.+)} $arg matches t id] {
     bMotion_putadmin "Removing $t plugin $id..."
@@ -91,44 +90,44 @@ proc bMotion_plugin_management_plugins { handle { arg "" }} {
       bMotion_putadmin "Installed bMotion plugins:"
     }
     foreach t {simple complex output admin action_simple action_complex irc_event management} {
-    set arrayName "bMotion_plugins_$t"
-    upvar #0 $arrayName cheese
-    set plugins [array names cheese]
-    set plugins [lsort $plugins]
-    set a "\002$t\002: "
-    set count 0
-    foreach n $plugins {
-	if {($re == "") || [regexp -nocase $re $n]} {
-      if {[string length $a] > 55} {
-	    bMotion_putadmin "$a"
-        set a "     "
-      }
-      if {$n != "dummy"} {
-      incr count
-      incr total
-        if {$t == "output"} {
-          set details $cheese($n)
-          set blah [split $details "¦"]
-          set enabled [lindex $blah 1]
-          if {$enabled} {
-            append a "$n\[on\], "
-          } else {
-            append a "$n\[off\], "
-          }
-        } else {
-          append a "$n, "
-        }
-      }
-    }
-      }
-    set a [string range $a 0 [expr [string length $a] - 3]]
-      if {($re != "") && $count} {
-	bMotion_putadmin "$a ($count)\n"
-  }
-    }
-    bMotion_putadmin "Total plugins: $total"
-    return 0
-  }
+			set arrayName "bMotion_plugins_$t"
+			upvar #0 $arrayName cheese
+			set plugins [array names cheese]
+			set plugins [lsort $plugins]
+			set a "\002$t\002: "
+			set count 0
+			foreach n $plugins {
+				if {($re == "") || [regexp -nocase $re $n]} {
+					if {[string length $a] > 55} {
+						bMotion_putadmin "$a"
+						set a "     "
+					}
+					if {$n != "dummy"} {
+						incr count
+						incr total
+						if {$t == "output"} {
+							set details $cheese($n)
+							set blah [split $details "¦"]
+							set enabled [lindex $blah 1]
+							if {$enabled} {
+								append a "$n\[on\], "
+							} else {
+								append a "$n\[off\], "
+							}
+						} else {
+							append a "$n, "
+						}
+					}
+				}
+			}
+			set a [string range $a 0 [expr [string length $a] - 3]]
+			if {($re != "") && $count} {
+				bMotion_putadmin "$a ($count)\n"
+			}
+		}
+		bMotion_putadmin "Total plugins: $total"
+		return 0
+	}
 
   #all else fails, give usage:
   bMotion_putadmin "usage: plugins (list|info|remove|enable|disable)"

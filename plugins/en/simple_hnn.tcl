@@ -12,4 +12,4 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_simple "hnnn" "^hn{3,}" 70 [list "%VAR{blindings}"]
+bMotion_plugin_add_simple "hnnn" "^hn{3,}" 70 [list "%VAR{blindings}"] "en"

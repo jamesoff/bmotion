@@ -2,7 +2,6 @@
 #
 # $Id$
 #
-# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -13,7 +12,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_complex "goodwork" "^(well done|good (work|show|job)),? %botnicks\.?$" 100 bMotion_plugin_complex_goodwork
+bMotion_plugin_add_complex "goodwork" "^(well done|good (work|show|job)),? %botnicks\.?$" 100 bMotion_plugin_complex_goodwork "en"
 
 proc bMotion_plugin_complex_goodwork { nick host handle channel text } {
   bMotionDoAction $channel $nick "%VAR{harhars}"
