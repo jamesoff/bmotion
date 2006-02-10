@@ -288,7 +288,7 @@ proc bMotion_event_main {nick host handle channel text} {
 			# (i.e. return 2 to not increment flood)
 			# they should return 0 if they don't trigger
 
-      if {$result > 1} {
+      if {$result > 0} {
 				if {$result == 1} {
 					bMotion_flood_add $nick $callback $text
 				}
