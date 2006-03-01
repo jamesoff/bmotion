@@ -17,7 +17,7 @@ foreach language $languages {
   bMotion_putloglev 2 * "bMotion: loading output plugins language = $language"
   set files [glob -nocomplain "$bMotionPlugins/$language/output_*.tcl"]
   foreach f $files {
-		set count [llength [array names [bMotion_plugins_output]]
+		set count [llength [array names bMotion_plugins_output]]
     bMotion_putloglev 1 * "bMotion: loading ($language) output plugin file $f"
     catch {
       source $f
