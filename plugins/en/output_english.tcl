@@ -59,7 +59,7 @@ proc bMotion_plugin_output_english { channel line } {
 	regsub -all "  +" $line " " line
 
 	#fix double-period at end of line
-	regsub -all "\.\.$" $line "." line
+	regsub -all "\\.\\.$" $line "." line
 
   return $line
 }
