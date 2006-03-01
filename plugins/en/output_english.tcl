@@ -58,5 +58,8 @@ proc bMotion_plugin_output_english { channel line } {
 	#fix double (or more) spaces
 	regsub -all "  +" $line " " line
 
+	#fix double-period at end of line
+	regsub -all "\.\.$" $line "." line
+
   return $line
 }
