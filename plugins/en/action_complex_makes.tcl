@@ -15,8 +15,10 @@
 bMotion_plugin_add_action_complex "makes" "^makes %botnicks" 100 bMotion_plugin_complex_action_makes "en"
 
 proc bMotion_plugin_complex_action_makes { nick host handle channel text } {
+	global botnicks
   if [regexp -nocase "makes $botnicks (.+)" $text ming ming2 details] {
     global bMotionInfo
+		set dest $channel
 
     if {![bMotionLike $nick $host]} {
       frightened $nick $dest
