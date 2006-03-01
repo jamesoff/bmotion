@@ -32,7 +32,7 @@ proc bMotion_plugin_complex_snap { nick host handle channel text } {
       }
   bMotion_plugins_settings_set "complex:snap" $channel "" "text" $text
   bMotion_plugins_settings_set "complex:snap" $channel "" "nick" $nick
-  return 2
+  return 0
 }
 
 bMotion_abstract_register "snaps"
