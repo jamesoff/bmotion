@@ -34,7 +34,7 @@ proc bMotion_plugin_complex_trivia_1 { nick host handle channel text } {
   bMotion_plugins_settings_set "trivia" "channel" "" "" $channel
   bMotion_plugins_settings_set "trivia" "type" "" "" ""
   bMotion_plugins_settings_set "trivia" "played" "" "" 0
-  bMotion_putloglev 1 * "Detected start of trivia round"A
+  bMotion_putloglev 1 * "Detected start of trivia round"
 	return 2
 }
 
