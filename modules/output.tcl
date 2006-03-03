@@ -349,7 +349,8 @@ proc bMotionInterpolation2 { line } {
       set line "/has a tremendous error while trying to sort something out :("
     }
     # set line [bMotionInsertString $line "%REPEAT\\\{$BOOM\\\}" [bMotionMakeRepeat $BOOM]]
-    regsub -nocase "%REPEAT\{$BOOM\}" $line [bMotionMakeRepeat $BOOM] line
+		set replacement [bMotionMakeRepeat $BOOM]
+    regsub -nocase "%REPEAT\\{$BOOM\\}" $line $replacement line
   }
 
   return $line
@@ -833,6 +834,7 @@ proc bMotionMakePossessive { text { altMode 0 }} {
 proc bMotionMakeRepeat { text } {
 	bMotion_putloglev 5 * "bMotionMakeRepeat ($text)"
   if [regexp {([0-9]+):([0-9]+):(.+)} $text matches min max repeat] {
+		bMotion_putloglev 4 * "bMotionMakeRepeat: min = $min, max = $max, text = $repeat"
     set diff [expr $max - $min]
     if {$diff < 1} {
     	set diff 1
@@ -842,6 +844,7 @@ proc bMotionMakeRepeat { text } {
     append repstring [string repeat $repeat $min]
     return $repstring
   }
+	bMotion_putloglev 4 * "bMotionMakeRepeat: no match (!), returning nothing"
   return ""
 }
 
