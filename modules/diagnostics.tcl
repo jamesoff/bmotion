@@ -92,7 +92,7 @@ proc bMotion_diagnostic_timers { } {
     set t_name [lindex $t 2]
     set t_function [string tolower $t_function]
     if {[lsearch $seentimers $t_function] >= 0} {
-      putlog "bMotion: A level 4 diagnostic has found a duplicate timer $t_name for $t_function ... removing"
+      bMotion_loglev d * "bMotion: A level 4 diagnostic has found a duplicate timer $t_name for $t_function ... removing (this is not an error)"
       #remove timer
       killtimer $t_name
     } else {
@@ -114,7 +114,7 @@ proc bMotion_diagnostic_utimers { } {
     set t_name [lindex $t 2]
     set t_function [string tolower $t_function]
     if {[lsearch $seentimers $t_function] >= 0} {
-      putlog "bMotion: A level 4 diagnostic has found a duplicate utimer $t_name for $t_function ... removing"
+      bMotion_putloglev d * "bMotion: A level 4 diagnostic has found a duplicate utimer $t_name for $t_function ... removing (this is not an error)"
       #remove timer
       killutimer $t_name
     } else {
