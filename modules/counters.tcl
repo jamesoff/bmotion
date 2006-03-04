@@ -49,7 +49,7 @@ proc bMotion_counter_init { section name } {
 proc bMotion_counter_incr { section name { amount 1 } } {
   global bMotion_counters
 
-  bMotion_putloglev d * "incring counter $section $name by $amount"
+  bMotion_putloglev 1 * "incring counter $section $name by $amount"
   
   if {$section == ""} {
     return 0
