@@ -13,7 +13,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_complex "love" "(i )?(think )?(you are|you're )?(love|luv|wov|wuv|luvly|lovely)( you)? %botnick" 100 bMotion_plugin_complex_love "en"
+bMotion_plugin_add_complex "love" "(i )?(think )?(you are|you're )?(love|luv|wov|wuv|luvly|lovely)( you)? %botnicks" 100 bMotion_plugin_complex_love "en"
 
 proc bMotion_plugin_complex_love { nick host handle channel text } {
   if {![bMotionLike $nick $host]} {
