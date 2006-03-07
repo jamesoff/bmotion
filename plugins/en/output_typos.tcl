@@ -150,15 +150,17 @@ proc bMotion_plugin_output_typos { channel line } {
 
   set line [string trim $newLine]
 
-  if {[rand 1000] < $typochance} {
+  if {[rand 100] < $typochance} {
     set tmpchar [pickRandom {"#" "]"}]
     append line $tmpchar
     bMotion_plugin_output_typos_adderror "" "-$tmpchar"
+		bMotion_putloglev 1 * "typoing a character onto the end of the line"
   }
 
-  if {[rand 1000] < $typochance} {
+  if {[rand 100] < $typochance} {
     set line [string toupper $line]
     bMotion_plugin_output_typos_adderror "" "-caps"
+		bMotion_putloglev 1 * "typoing in all caps"
   }
 
   if {$oldLine != $line} {
