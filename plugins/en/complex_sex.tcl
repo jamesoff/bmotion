@@ -35,7 +35,7 @@ proc bMotion_plugin_complex_sex_go_down_on_2 { nick host handle channel text } {
 ## supporting functions
 
 proc bMotionGoDownOn {channel nick forNick} {
-    global mood botnick bMotionCache
+    global mood botnick 
     regsub {^([^ ]+)( .+)?} $nick {\1} nick
     bMotion_putloglev d * "bMotion: Was asked to go down on '$nick' in $channel by $forNick"
     if {[regexp -nocase "(himself|herself|your?self)" $nick] || [isbotnick $nick]} { 
@@ -62,6 +62,6 @@ proc bMotionGoDownOn {channel nick forNick} {
     incr mood(horny) 1
     incr mood(happy) 1
     incr mood(lonely) -1
-    set bMotionCache(lastDoneFor) "$nick $forNick"
+		bMotion_plugins_settings_set "system" "lastdonefor" $channel "" $nick
     return 0
 }

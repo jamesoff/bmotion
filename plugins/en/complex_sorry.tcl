@@ -17,11 +17,6 @@ bMotion_plugin_add_complex "sorry1" "(i'm)?( )?(very)?( )?sorry(,)? %botnicks" 1
 bMotion_plugin_add_complex "sorry2" "%botnicks:? sorry" 100 bMotion_plugin_complex_sorry "en"
 
 proc bMotion_plugin_complex_sorry { nick host handle channel text } {
-  global bMotionCache
-  #user needs to have been evil recently
-  #if {![regexp -nocase $nick $bMotionCache(lastEvil)]} {return 0}
-  #set bMotionCache(lastEvil) ""
-  #bMotion_putloglev d * "bMotion: Apologised to by $nick on $channel"
   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{sorryok} %%"
   bMotionGetHappy
   bMotionGetUnLonely

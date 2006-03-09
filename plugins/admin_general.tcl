@@ -95,7 +95,7 @@ proc bMotion_plugin_management_parse { handle { arg "" } } {
 }
 
 proc bMotion_plugin_management_rehash { handle } {
-  global bMotionCache bMotion_testing bMotionRoot
+  global bMotion_testing bMotionRoot
 
   #check we're not going to die
   catch {
@@ -117,7 +117,7 @@ proc bMotion_plugin_management_rehash { handle } {
 }
 
 proc bMotion_plugin_management_reload { handle } {
-  global bMotionCache bMotion_testing bMotionRoot
+  global bMotion_testing bMotionRoot
 
   #check we're not going to die
   catch {

@@ -280,68 +280,26 @@ proc frightened {nick channel} {
 
 
 proc bMotionMakeItSo {nick channel} {
-
-
   global makeItSos
-
-
   bMotionDoAction $channel $nick "%VAR{makeItSos}"
-
-  global bMotionCache
-
-
-  set bMotionCache(lastDoneFor) $nick
-
-
+	bMotion_plugins_settings_set "system" "lastdonefor" $channel "" $nick
 }
-
-
-
 
 
 proc checkPokemon {which channel} {
-
-
   global bMotionInfo
-
-
   if {$bMotionInfo(pokemon) != [string tolower $which]} {
-
-
     bMotionDoAction $channel $which "/morphs into %%!"
-
-
     set bMotionInfo(pokemon) [string tolower $which]
-
-
   }
-
-
 }
-
-
-
-
 
 proc bMotionYesNo {channel} {
-
-
   global yeses nos
-
-
   set yesnos [concat $yeses $nos]
-
-
   bMotionDoAction $channel "" "%VAR{yesnos}"
-
   return 0
-
-
 }
-
-
-
-
 
 proc bMotionBlessYou {channel nick} {
 
@@ -488,14 +446,7 @@ proc bMotionRandomQuestion {channel} {
 
 
 proc bMotionEndTeamRocket {} {
-
-
-  global bMotionCache
-
-
-  set bMotionCache(teamRocket) ""
-
-
+	bMotion_plugins_settings_set "system" "teamrocket" "" "" ""
 }
 
 

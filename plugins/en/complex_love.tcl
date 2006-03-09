@@ -27,12 +27,12 @@ proc bMotion_plugin_complex_love { nick host handle channel text } {
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{loveresponses}"
     bMotionGetHappy
     bMotionGetUnlonely
-    set bMotionCache(lastDoneFor) $nick
+		bMotion_plugins_settings_set "system" "lastdonefor" $channel "" $nick
     return 1
   } else {
     bMotionDoAction $channel "" "hehe, want to go out on a date someplace? :)"
     set mood(happy) [expr $mood(happy) - 10]
-    set bMotionCache(lastDoneFor) $nick
+		bMotion_plugins_settings_set "system" "lastdonefor" $channel "" $nick
     return 1
   }
 }

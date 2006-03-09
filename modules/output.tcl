@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# vim: fdm=indent fdn=1
 
 ###############################################################################
 # bMotion - an 'AI' TCL script for eggdrops
@@ -87,8 +88,6 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 	set bMotion_output_delay 0
 
   set bMotionCache($channel,last) 1
-  set bMotionCache(typos) 0
-  set bMotionCache(typoFix) ""
 
   #check our global toggle
   global bMotionGlobal

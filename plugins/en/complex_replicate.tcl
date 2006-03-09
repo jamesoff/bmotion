@@ -24,14 +24,14 @@ proc bMotion_plugin_complex_replicate { nick host handle channel text } {
   #make it so
   if [regexp -nocase "^it so$" $details] { 
     bMotionDoAction $channel $nick "/makes it so for %%"
-    set bMotionCache(lastDoneFor) $nick
+    bMotion_plugins_settings_set "system" "lastdonefor" $channel "" $nick
     return 1
   }
 
   # make it something
   if [regexp -nocase "^it (.+)$" $details ming details2] {
     bMotionDoAction $channel $nick "/makes it $details2 for %%"
-    set bMotionCache(lastDoneFor) $nick   
+    bMotion_plugins_settings_set "system" "lastdonefor" $channel "" $nick
     return 1
   }
 
@@ -71,7 +71,7 @@ proc bMotion_plugin_complex_replicate { nick host handle channel text } {
   }
   bMotionDoAction $channel $whom "/replicates $item and hands it to %%"
   bMotionGetUnLonely
-  set bMotionCache(lastDoneFor) $nick
+  bMotion_plugins_settings_set "system" "lastdonefor" $channel "" $nick
   return 1
 }
 

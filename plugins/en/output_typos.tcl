@@ -21,27 +21,32 @@
 #      too because loading two plugins to simulate typing errors is meaningless (mostly)
 
 proc bMotion_plugin_output_typos_do { line } {
-  if {[rand 1000] <= $typochance} {
+	bMotion_putloglev 4 * "bMotion_plugin_output_typos_do $line"
+	global bMotionSettings
+
+  set typochance $bMotionSettings(typos)
+
+  if {[rand 100] <= $typochance} {
     set line [string map -nocase { is si ome oem ame aem oe eo } $line ]
     set typochance [expr $typochance * 0.6]
   }
 
-  if {[rand 1000] <= $typochance} {
+  if {[rand 100] <= $typochance} {
     set line [string map -nocase { aid iad ers ars ade aed ite eit } $line ]
     set typochance [expr $typochance * 0.6]
   }
 
-  if {[rand 1000] <= $typochance} {
+  if {[rand 100] <= $typochance} {
     set line [string map -nocase { hi ih or ro ip pi ho oh } $line ]
     set typochance [expr $typochance * 0.6]
   }
 
-  if {[rand 1000] <= $typochance} {
+  if {[rand 100] <= $typochance} {
     set line [string map -nocase { he eh re er in ni lv vl sec sex } $line ]
     set typochance [expr $typochance * 0.6]
   }
 
-  if {[rand 1000] <= $typochance} {
+  if {[rand 100] <= $typochance} {
     set line [string map -nocase { ir ri ou uo ha ah ui iu ig gi nd dn} $line ]
     set typochance [expr $typochance * 0.6]
   }
@@ -55,73 +60,66 @@ proc bMotion_plugin_output_typos_do { line } {
   set chars [split $line {}]
   set newLine ""
   set typochance [expr $bMotionSettings(typos) / 2]
+
   foreach char $chars {
     if [string match -nocase "l" $char] {
-      if {[rand 1000] < $typochance} {
+      if {[rand 100] < $typochance} {
         append newLine ";l"
         bMotion_plugin_output_typos_adderror "" "-;"
-        continue
       }
     }
 
     if [string match -nocase "a" $char] {
-      if {[rand 1000] < $typochance} {
+      if {[rand 100] < $typochance} {
         append newLine "sa"
         bMotion_plugin_output_typos_adderror "" "-s"
-        continue
       }
     }
     if [string match -nocase "s" $char] {
-      if {[rand 1000] < $typochance} {
+      if {[rand 100] < $typochance} {
         append newLine "sd"
         bMotion_plugin_output_typos_adderror "" "-d"
-        continue
       }
     }
     if [string match -nocase "e" $char] {
-      if {[rand 1000] < $typochance} {
+      if {[rand 100] < $typochance} {
         append newLine "re"
         bMotion_plugin_output_typos_adderror "" "-r"
-        continue
       }
     }
     if [string match -nocase "d" $char] {
-      if {[rand 1000] < $typochance} {
+      if {[rand 100] < $typochance} {
         append newLine "df"
         bMotion_plugin_output_typos_adderror "" "-f"
-        continue
       }
     }
     if [string match -nocase "z" $char] {
-      if {[rand 1000] < $typochance} {
+      if {[rand 100] < $typochance} {
         append newLine "zx"
         bMotion_plugin_output_typos_adderror "" "-x"
-        continue
       }
     }
     if [string match -nocase "z" $char] {
-      if {[rand 1000] < $typochance} {
+      if {[rand 100] < $typochance} {
         append newLine "z\\"
         bMotion_plugin_output_typos_adderror "" "-\\"
-        continue
       }
     }
     if [string match -nocase " " $char] {
-      if {[rand 1000] < $typochance} {
+      if {[rand 100] < $typochance} {
         bMotion_plugin_output_typos_adderror "" "+space"
-        continue
       }
     }
     if [string match -nocase ")" $char] {
-      if {[rand 1000] < $typochance} {
+      if {[rand 100] < $typochance} {
         append newLine ")_"
         bMotion_plugin_output_typos_adderror "" "-_"
-        continue
       }
     }
     #else...
     append newLine $char
   }
+	bMotion_putloglev 4 * "returning $newLine"
   return $newLine
 }
 
@@ -129,23 +127,30 @@ proc bMotion_plugin_output_typos_do { line } {
 #    Attempt to make typos similar to human typing errors
 #
 proc bMotion_plugin_output_typos { channel line } {
-  global bMotionSettings bMotionCache
+	bMotion_putloglev 4 * "bMotion_plugin_output_typos $channel $line"
+  global bMotionSettings 
 
   set typochance $bMotionSettings(typos)
+	bMotion_putloglev 4 * "Typo chance is: $typochance%"
   set oldLine $line
 
   #reset typos
   bMotion_plugins_settings_set "output:typos" "typos" "" "" ""
   bMotion_plugins_settings_set "output:typos" "typosDone" "" "" ""
 
-  #split words
-  set words [split $line {}]
   set newLine ""
+	
+  #split words
+	set line [string trim $line]
+  set words [split $line " "]
 
   #typo words
+	bMotion_putloglev 4 * "words list is: $words"
+	putlog "words is [llength $words] long"
   foreach word $words {
-    set word [bMotion_plugin_output_typos_do $word]
-    append newLine "$word "
+		bMotion_putloglev 4 * "typo_do'ing $word"
+    append newLine [bMotion_plugin_output_typos_do $word]
+		append newLine " "
   }
 
   set line [string trim $newLine]
@@ -163,7 +168,7 @@ proc bMotion_plugin_output_typos { channel line } {
 		bMotion_putloglev 1 * "typoing in all caps"
   }
 
-  if {$oldLine != $line} {
+  if {[string trim $oldLine] != [string trim $line]} {
     bMotion_plugins_settings_set "output:typos" "typosDone" "" "" "yes"
   }
 

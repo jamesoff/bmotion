@@ -44,13 +44,12 @@ proc bMotion_plugin_complex_opme { nick host handle channel text } {
   if [matchattr $handle |+o $channel] {
     return 0
   }
-  global bMotionCache
-  if {$bMotionCache(opme) == $nick} {
+  if {[bMotion_plugins_settings_get "opme" "lastnick" $channel ""] == $nick} {
     #kickban instead
     newchanban $chan *!*[string range $host [string first @ $host] end] opme "op begging, 10 minute ban" 10
     return 0
   }
   putkick $channel $nick "oops, missed."
-  set bMotionCache(opme) $nick
+  bMotion_plugins_settings_set "opme" "lastnick" $channel "" $nick
   return 0
 }

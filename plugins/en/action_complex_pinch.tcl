@@ -23,6 +23,7 @@ proc bMotion_plugin_complex_action_pinch { nick host handle channel text } {
     bMotionGetSad
     # TODO: switch to using plugin settings for this
     #set bMotionCache(lastEvil) $nick
+		bMotion_plugins_settings_set "system" "lastevil" $channel "" $nick
     driftFriendship $nick -1
     return 1
   }

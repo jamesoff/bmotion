@@ -110,9 +110,8 @@ proc bMotion_event_onpart {nick host handle channel {msg ""}} {
   }
 
   bMotion_putloglev 3 * "entering bmotion_event_onpart: $nick $host $handle $channel $msg"
-  global bMotionCache
 
-  set bMotionCache(lastLeft) $nick
+	bMotion_plugins_settings_set "system" "lastleft" $channel "" $nick
 
   #TODO: Fix this? Passing a cleaned nick around can break things
   set nick [bMotion_cleanNick $nick $handle]
@@ -124,7 +123,7 @@ proc bMotion_event_onpart {nick host handle channel {msg ""}} {
 
 ## BEGIN onquit handler
 proc bMotion_event_onquit {nick host handle channel reason} {
-  global bMotionCache bMotionSettings bMotionInfo
+  global bMotionSettings bMotionInfo
 
   #check our global toggle
   global bMotionGlobal
@@ -134,7 +133,7 @@ proc bMotion_event_onquit {nick host handle channel reason} {
 
   set nick [bMotion_cleanNick $nick $handle]
 
-  set bMotionCache(lastLeft) $nick
+  bMotion_plugins_settings_set "system" "lastleft" $channel "" $nick
 
   if {$bMotionInfo(brig) != ""} {
     #check if that person was in the brig
@@ -317,7 +316,7 @@ proc bMotion_event_main {nick host handle channel text} {
   ## Requires global +m
   if [regexp -nocase "${botnicks},?:? re(hash|load)( your config files?)?" $text] {
     putlog "bMotion: $nick asked me to rehash in $channel"
-    global bMotionCache bMotion_testing bMotionRoot
+    global bMotion_testing bMotionRoot
 
     if [matchattr $handle m] {
       #check we're not going to die
@@ -334,7 +333,7 @@ proc bMotion_event_main {nick host handle channel text} {
         return 0
       } else {
         bMotion_putloglev d * "bMotion: New code ok, rehashing..."
-        set bMotionCache(rehash) $channel
+				bMotion_plugins_settings_set "system" "rehash" "" "" $channel
         set bMotion_testing 0
         if {[matchattr $handle m]} {
           putchan $channel [bMotionDoInterpolation "%VAR{rehashes}" "" ""]

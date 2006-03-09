@@ -14,8 +14,6 @@
 
 proc bMotion_plugins_irc_default_join { nick host handle channel text } { 
 
-  global bMotionCache
-
   #has something happened since we last greeted?
   set lasttalk [bMotion_plugins_settings_get "system:join" "lasttalk" $channel ""]
 

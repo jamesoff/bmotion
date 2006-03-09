@@ -40,13 +40,8 @@ if {$bMotion_testing == 1} {
   set bMotion_loading 1
 }
 
-foreach letter [split "d12345678" {}] {
-  set bMotionCache($letter,lastlog) ""
-  set bMotionCache($letter,lastcount) 0
-}
-
 proc bMotion_putloglev { level star text } {
-  global bMotion_testing bMotionCache bMotion_log_regexp
+  global bMotion_testing bMotion_log_regexp
 	
 	if {$bMotion_log_regexp != ""} {
 		if {![regexp -nocase $bMotion_log_regexp $text]} {
@@ -62,16 +57,7 @@ proc bMotion_putloglev { level star text } {
   set text "bMotion:$text2 $text"
 
   if {$bMotion_testing == 0} {
-    if {$bMotionCache($level,lastlog) == $text} {
-      incr bMotionCache($level,lastcount)
-      return
-    }
-    if {$bMotionCache($level,lastcount) > 0} {
-      putloglev $level $star "($level)Previous message repeated $bMotionCache($level,lastcount) time(s)"
-    }
     putloglev $level $star "($level)$text"
-    set bMotionCache($level,lastlog) $text
-    set bMotionCache($level,lastcount) 0
   }
 }
 
@@ -226,11 +212,8 @@ catch {
 
 bMotion_startTimers
 if {$bMotion_testing == 0} {
-  set bMotionCache(rehash) ""
   putlog "\002bMotion $bMotionVersion AI online\002 :D"
-}
 
-if {$bMotion_testing == 0} {
 	bMotion_diagnostic_utimers
 	bMotion_diagnostic_timers
 }

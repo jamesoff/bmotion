@@ -99,8 +99,6 @@ proc checkmood {nick channel} {
 
 ## Driftmood: Drifts all moods towards 0
 proc driftmood {} {
-  global bMotionCache
-  set bMotionCache(lastHows) ""
   set driftSummary ""
   global mood mooddrifttimer moodtarget
   foreach r {happy horny lonely electricity stoned} {
@@ -124,19 +122,6 @@ proc driftmood {} {
   }
   checkmood "" ""
   set mooddrifttimer 1
-
-  #now also drift all channels towards 0
-#  global bMotionInfo
-#  foreach chan $bMotionInfo(randomChannels) {
-#    set chanMood $bMotionCache($chan,mood)
-#    if {$chanMood > 0} {
-#      incr chanMood -1
-#    }
-#    if {$chanMood < 0} {
-#      incr chanMood
-#    }
-#    set bMotionCache($chan,mood) $chanMood
-#  }
 
   timer 10 driftmood
   return 0
