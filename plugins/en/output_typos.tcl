@@ -26,6 +26,9 @@ proc bMotion_plugin_output_typos_do { line } {
 
   set typochance $bMotionSettings(typos)
 
+	#make typochance a bit lower
+	set typochance [expr $typochance / 2]
+
   if {[rand 100] <= $typochance} {
     set line [string map -nocase { is si ome oem ame aem oe eo } $line ]
     set typochance [expr $typochance * 0.6]
@@ -146,7 +149,6 @@ proc bMotion_plugin_output_typos { channel line } {
 
   #typo words
 	bMotion_putloglev 4 * "words list is: $words"
-	putlog "words is [llength $words] long"
   foreach word $words {
 		bMotion_putloglev 4 * "typo_do'ing $word"
     append newLine [bMotion_plugin_output_typos_do $word]
