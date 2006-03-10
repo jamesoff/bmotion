@@ -462,10 +462,14 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
     bMotion_putloglev 1 * "bMotion: my output matches the trigger, dropping"
     return 0
   }
-
-	if [string match -nocase $bMotionOriginalInput $line] {
-		bMotion_putloglev 1 * "my output matches the trigger, dropping"
-		return 0
+	
+	#protect this block - it'll generate an error if noone's talked yet, and then
+	#we try an admin plugin
+	if [info exists bMotionOriginalInput] {
+		if [string match -nocase $bMotionOriginalInput $line] {
+			bMotion_putloglev 1 * "my output matches the trigger, dropping"
+			return 0
+		}
 	}
 
   set line [bMotionInsertString $line "%slash" "/"]
