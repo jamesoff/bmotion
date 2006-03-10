@@ -124,6 +124,7 @@ proc bMotion_diagnostic_utimers { } {
   }
 }
 
+# check some plugins loaded
 proc bMotion_diagnostic_plugins { } {
 	bMotion_putloglev 5 * "bMotion_diagnostic_plugins"
 	foreach t {simple complex admin output action_simple action_complex irc_event} {
@@ -134,6 +135,142 @@ proc bMotion_diagnostic_plugins { } {
 		}
 	}
 }
+
+
+# check needed settings are defined
+proc bMotion_diagnostic_settings { } {
+	global bMotionInfo bMotionSettings
+
+	set errors 0
+
+	if {![info exists bMotionInfo(gender)]} {
+		putlog "bMotion: diagnostics: Gender not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionInfo(orientation)]} {
+		putlog "bMotion: diagnostics: Orientation not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionSettings(kinky)]} {
+		putlog "bMotion: diagnostics: kinky not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionSettings(friendly)]} {
+		putlog "bMotion: diagnostics: friendly not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionSettings(melMode)]} {
+		putlog "bMotion: diagnostics: melMode not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionSettings(needI)]} {
+		putlog "bMotion: diagnostics: needI not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionInfo(balefire)]} {
+		putlog "bMotion: diagnostics: balefire not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionSettings(useAway)]} {
+		putlog "bMotion: diagnostics: useAway not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionSettings(botnicks)]} {
+		putlog "bMotion: diagnostics: botnicks not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionSettings(noAwayFor)]} {
+		putlog "bMotion: diagnostics: noAwayFor not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionSettings(typos)]} {
+		putlog "bMotion: diagnostics: typos not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionSettings(colloq)]} {
+		putlog "bMotion: diagnostics: colloq not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionInfo(minRandomDelay)]} {
+		putlog "bMotion: diagnostics: minRandomDelay not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionInfo(maxRandomDelay)]} {
+		putlog "bMotion: diagnostics: maxRandomDelay not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionInfo(maxIdleGap)]} {
+		putlog "bMotion: diagnostics: maxIdleGap not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionInfo(brigDelay)]} {
+		putlog "bMotion: diagnostics: brigDelay not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionSettings(silenceTime)]} {
+		putlog "bMotion: diagnostics: silenceTime not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionSettings(languages)]} {
+		putlog "bMotion: diagnostics: languages not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionSettings(typingSpeed)]} {
+		putlog "bMotion: diagnostics: typingSpeed not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionSettings(disableFloodChecks)]} {
+		putlog "bMotion: diagnostics: disableFloodChecks not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionSettings(abstractMaxAge)]} {
+		putlog "bMotion: diagnostics: abstractMaxAge not defined, check settings file!"
+		set errors 1
+	}
+
+	if {![info exists bMotionSettings(abstractMaxNumber)]} {
+		putlog "bMotion: diagnostics: abstractMaxNumber not defined, check settings file!"
+		set errors 1
+	}
+	if {![info exists bMotionSettings(factsMaxItems)]} {
+		putlog "bMotion: diagnostics: factsMaxItems not defined, check settings file!"
+		set errors 1
+	}
+	if {![info exists bMotionSettings(factsMaxFacts)]} {
+		putlog "bMotion: diagnostics: factsMaxFacts not defined, check settings file!"
+		set errors 1
+	}
+	if {![info exists bMotionSettings(bitlbee)]} {
+		putlog "bMotion: diagnostics: bitlbee not defined, check settings file!"
+		set errors 1
+	}
+
+	if {$errors == 1} {
+		putlog "bMotion: ### MISSING ONE OR MORE CONFIG SETTINGS ###"
+		putlog "bMotion: ### It's likely that your bot will be broken!"
+	}
+}
+
 
 proc bMotion_diagnostic_auto { min hr a b c } {
 	bMotion_putloglev 5 * "bMotion_diagnostic_auto"
@@ -149,6 +286,7 @@ if {$bMotion_testing == 0} {
 	bMotion_diagnostic_channel2
 	bMotion_diagnostic_channel3
 	bMotion_diagnostic_plugins
+	bMotion_diagnostic_settings
 
 	bMotion_putloglev d * "Diagnostics complete."
 }
