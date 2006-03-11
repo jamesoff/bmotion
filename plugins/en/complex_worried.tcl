@@ -17,9 +17,12 @@ bMotion_plugin_add_complex "worried" "i'?m worried about (.+)" 80 bMotion_plugin
 
 proc bMotion_plugin_complex_worried { nick host handle channel text } {
   global botnicks
-	if [regexp -nocase "i'?m worried about (\[^,.\]+)" $text matches what] {
-		bMotionDoAction $what "%VAR{dontworrys}"
-		return 1
+
+	if [bMotion_interbot_me_next $channel] {
+		if [regexp -nocase "i'?m worried about (\[^,.\]+)" $text matches what] {
+			bMotionDoAction $channel $what "%VAR{dontworrys}"
+			return 1
+		}
 	}
 }
 
