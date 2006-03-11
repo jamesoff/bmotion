@@ -821,6 +821,7 @@ set typoFix {
   "grrr %SETTING{output:typos:typos:_:_}"
   "%SETTING{output:typos:typos:_:_}"
   "-typo"
+	"/butterfingers"
 }
 
 set blehs {

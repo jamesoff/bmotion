@@ -26,9 +26,6 @@ proc bMotion_plugin_output_typos_do { line } {
 
   set typochance $bMotionSettings(typos)
 
-	#make typochance a bit lower
-	set typochance [expr $typochance / 2]
-
   if {[rand 100] <= $typochance} {
     set line [string map -nocase { is si ome oem ame aem oe eo } $line ]
     set typochance [expr $typochance * 0.6]
@@ -54,10 +51,6 @@ proc bMotion_plugin_output_typos_do { line } {
     set typochance [expr $typochance * 0.6]
   }
 
-#  if {[rand 1000] <= $typochance} {
-#    set line [string map -nocase { " t" "t " } $line ]
-#    set typochance [expr $typochance * 0.6]
-#  }
 
   #go though the line one char at a time
   set chars [split $line {}]
@@ -69,6 +62,7 @@ proc bMotion_plugin_output_typos_do { line } {
       if {[rand 100] < $typochance} {
         append newLine ";l"
         bMotion_plugin_output_typos_adderror "" "-;"
+				continue
       }
     }
 
@@ -76,47 +70,55 @@ proc bMotion_plugin_output_typos_do { line } {
       if {[rand 100] < $typochance} {
         append newLine "sa"
         bMotion_plugin_output_typos_adderror "" "-s"
+				continue
       }
     }
     if [string match -nocase "s" $char] {
       if {[rand 100] < $typochance} {
         append newLine "sd"
         bMotion_plugin_output_typos_adderror "" "-d"
+				continue
       }
     }
     if [string match -nocase "e" $char] {
       if {[rand 100] < $typochance} {
         append newLine "re"
         bMotion_plugin_output_typos_adderror "" "-r"
+				continue
       }
     }
     if [string match -nocase "d" $char] {
       if {[rand 100] < $typochance} {
         append newLine "df"
         bMotion_plugin_output_typos_adderror "" "-f"
+				continue
       }
     }
     if [string match -nocase "z" $char] {
       if {[rand 100] < $typochance} {
         append newLine "zx"
         bMotion_plugin_output_typos_adderror "" "-x"
+				continue
       }
     }
     if [string match -nocase "z" $char] {
       if {[rand 100] < $typochance} {
         append newLine "z\\"
         bMotion_plugin_output_typos_adderror "" "-\\"
+				continue
       }
     }
     if [string match -nocase " " $char] {
       if {[rand 100] < $typochance} {
         bMotion_plugin_output_typos_adderror "" "+space"
+				continue
       }
     }
     if [string match -nocase ")" $char] {
       if {[rand 100] < $typochance} {
         append newLine ")_"
         bMotion_plugin_output_typos_adderror "" "-_"
+				continue
       }
     }
     #else...

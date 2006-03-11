@@ -67,7 +67,7 @@ set bMotionSettings(noAwayFor) { "#irssi" }
 ## SYSTEM SETTINGS
 
 # percent of typos (output:typos plugin)
-set bMotionSettings(typos) 7
+set bMotionSettings(typos) 3
 
 # percent of colloqualisms (output:colloq plugin)
 set bMotionSettings(colloq) 10
