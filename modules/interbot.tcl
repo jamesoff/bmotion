@@ -186,7 +186,7 @@ proc bMotionCatchSayChan { bot params } {
     }
 		
 		#check we haven't been sent broken text to output by %bot
-		regsub "^[0-9]+,(.+)" $txt "\1" txt
+		regsub "^\[0-9\]+,(.+)" $txt "\1" txt
 
     bMotionDoAction $channel $bot $txt "" 0 1
     bMotion_putloglev 1 * "bMotion: done say command from $bot"
