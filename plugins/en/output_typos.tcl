@@ -136,8 +136,12 @@ proc bMotion_plugin_output_typos { channel line } {
   global bMotionSettings 
 
   set typochance $bMotionSettings(typos)
-	bMotion_putloglev 4 * "Typo chance is: $typochance%"
   set oldLine $line
+
+	if {[rand 100] > $typochance} {
+		#don't typo at all
+		return $line
+	}
 
   #reset typos
   bMotion_plugins_settings_set "output:typos" "typos" "" "" ""
