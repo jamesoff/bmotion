@@ -16,7 +16,7 @@
 bMotion_plugin_add_complex "st-cloak" "^%botnicks cloak$" 100 "bMotion_plugin_complex_startrek_cloak" "en"
 bMotion_plugin_add_complex "st-decloak" "^%botnicks decloak$" 100 "bMotion_plugin_complex_startrek_decloak" "en"
 bMotion_plugin_add_complex "st-fire" "^%botnicks fire " 100 "bMotion_plugin_complex_startrek_fire" "en"
-bMotion_plugin_add_complex "st-courtmartial" "^%botnicks courtmartial " 100 "bMotion_plugin_complex_startrek_courtmartial" "en"
+bMotion_plugin_add_complex "st-courtmartial" "^%botnicks:?,? courtmartial " 100 "bMotion_plugin_complex_startrek_courtmartial" "en"
 
 #cloak
 proc bMotion_plugin_complex_startrek_cloak { nick host handle channel text } {
@@ -91,7 +91,7 @@ proc bMotion_plugin_complex_startrek_fire { nick host handle channel text } {
 
 proc bMotion_plugin_complex_startrek_courtmartial { nick host handle channel text } {
   global botnicks bMotionInfo
-  if [regexp -nocase "$botnicks courtmartial (.+?)( with banzai)?" $text pop frogs who banzai] {
+  if [regexp -nocase "$botnicks:?,? courtmartial (.+?)( with banzai)?" $text pop frogs who banzai] {
     if [regexp -nocase "\[\[:<:\]\]$botnicks\[\[:>:\]\]" $who] {
       bMotionDoAction $channel "" "Duh."
       return 1
