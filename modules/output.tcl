@@ -244,14 +244,21 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 
   set loops 0
   bMotion_putloglev 4 * "doing NUMBER processing"
-  while {[regexp "%NUMBER\{(\[0-9\]+)\}" $line matches numberString]} {
+	set padding 0
+  while {[regexp "%NUMBER\{(\[0-9\]+)\}(\{(\[0-9\]+)\})?" $line matches numberString paddingOpt padding]} {
     set var [bMotion_get_number [rand $numberString]]
+		if {$padding > 0} {
+			set fmt "%0$padding"
+			append fmt "u"
+			set var [format $fmt $var]
+		}
     incr loops
     if {$loops > 10} {
       putlog "bMotion: ALERT! looping too much in %NUMBER code with $line"
       set line "/has a tremendous error while trying to think of a number :("
     }
-    set line [bMotionInsertString $line "%NUMBER\\{$numberString\\}" $var]
+    set line [bMotionInsertString $line "%NUMBER\\{$numberString\\}(\\{\[0-9\]+\\})?" $var]
+		set padding 0
   }
 
   bMotion_putloglev 4 * "doing misc interpolation processing"
