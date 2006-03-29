@@ -25,10 +25,22 @@ proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
   bMotion_plugins_settings_set "complex:failsafe" "last" "nick" "moo" [bMotionGetRealName $nick]
 
 	#try to figure out something geneal about this action
-	if [regexp "(hug(gle)?|pet|rub|like|<3|sniff|smell)s?" $verb] {
+	if [regexp -nocase {(hug(gle)?|p[ae]t|rub|like|<3|sniff|smell|nibble|tickle)s?} $verb] {
 		bMotionDoAction $channel $nick "%VAR{failsafe_nice}"
 		bMotionGetHappy
 		driftFriendship $nick 1
+		return 1
+	}
+
+	if [regexp -nocase "(squashes|squishes|squee+zes)" $verb] {
+		bMotionDoAction $channel $nick "%VAR{squeezeds}"
+		bMotionGetHappy
+		driftFriendship $nick 1
+		return 1
+	}
+
+	if [regexp -nocase "(eyes|looks|stares)" $verb] {
+		bMotionDoAction $channel $nick "%VAR{whats}"
 		return 1
 	}
 
@@ -51,3 +63,9 @@ bMotion_abstract_batchadd "failsafes_a" [list "%VAR{rarrs}" "%REPEAT{3:7:m}" "%V
 
 bMotion_abstract_register "failsafes_b"
 bMotion_abstract_batchadd "failsafes_b" [list "/%% %2 %SETTING{complex:failsafe:last:nick:moo} back with %VAR{sillyThings}" "/%% %2 %SETTING{complex:failsafe:last:nick:moo}" "/%VERB{%VAR{sillyThings}{strip}} %2 %SETTING{complex:failsafe:last:nick:moo} in return"]
+
+bMotion_abstract_register "squeezeds"
+bMotion_abstract_batchadd "squeezeds" [list "/pops" "/bursts" "/is compressed to a singularity and sucks in all of spacetime%|whoops" "/deflates" "%VAR{smiles}"]
+
+bMotion_abstract_register "whats"
+bMotion_abstract_batchadd "whats" [list "what?" "hmm?" "hello? yes?" "er... they did it%|/points at %ruser" "/stares back"]
