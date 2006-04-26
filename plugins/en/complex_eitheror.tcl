@@ -18,6 +18,11 @@ bMotion_plugin_add_complex "eitheror" {%botnicks[;:,] (.+) or (.+)} 100 bMotion_
 proc bMotion_plugin_complex_eitheror {nick host handle channel text} {
 	global botnicks
 
+	#dirty hack to fix work with my trivia script
+	if {$nick == "TriviaCow"} {
+		return 0
+	}
+
 	if [regexp -nocase {([^ ]+) or ([^ ?]+)\?*} $text matches first second] {
 		if [rand 2] {
 			bMotionDoAction $channel $nick "%VAR{eitherors}" $first
