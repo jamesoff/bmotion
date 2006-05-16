@@ -27,8 +27,8 @@ proc bMotion_plugin_output_diddlydots { channel line } {
 			if {[string length $word] > 2} {
 				bMotion_putloglev 4 * "diddlydots: long enough"
 				if [regexp -nocase {^[a-z]+$} $word] {
-					if {![regexp -nocase "(they|these|them|those|their|there|some)" $word]} {
-						if {[rand 100] > 95} {
+					if {![regexp -nocase "(what|which|the|about|and|just|they|these|them|those|their|there|some)" $word]} {
+						if {[rand 100] > 96} {
 							bMotion_putloglev 4 * "adding quotes"
 							set word "\"$word\""
 							incr done
