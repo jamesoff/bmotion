@@ -1453,6 +1453,14 @@ bMotion_abstract_batchadd "randomStuff" {
   "%VAR{sillyThings}{strip}--"
   "%ruser++"
   "%ruser--"
+	"%VAR{lyrics}%|but more on that story later"
+	"%VAR{lyrics}"
+}
+
+bMotion_abstract_register "lyrics"
+bMotion_abstract_batchadd "lyrics" {
+	"push me, and then just touch me, 'till i can get my satisfaction"
+	"you can do it put yo back into it"
 }
 
 bMotion_abstract_batchadd "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline" "/snigger" "wait, that's not right..." ]
