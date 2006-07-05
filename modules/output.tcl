@@ -246,7 +246,7 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
   bMotion_putloglev 4 * "doing NUMBER processing"
 	set padding 0
   while {[regexp "%NUMBER\{(\[0-9\]+)\}(\{(\[0-9\]+)\})?" $line matches numberString paddingOpt padding]} {
-    set var [bMotion_get_number [rand $numberString]]
+    set var [bMotion_get_number [bMotion_rand_nonzero $numberString]]
 		if {$padding > 0} {
 			set fmt "%0$padding"
 			append fmt "u"
@@ -261,7 +261,7 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 		set padding 0
   }
 
-  bMotion_putloglev 4 * "doing misc interpolation processing"
+  bMotion_putloglev 4 * "doing misc interpolation processing for $line"
   set line [bMotionInsertString $line "%%" $nick]
   set line [bMotionInsertString $line "%pronoun" [getPronoun]]
   set line [bMotionInsertString $line "%himherself" [getPronoun]]
@@ -272,6 +272,9 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
   set line [bMotionInsertString $line "%hisher" [getHisHer]]
   set line [bMotionInsertString $line "%2" $moreText]
   set line [bMotionInsertString $line "%percent" "%"]
+	
+
+	bMotion_putloglev 4 * "done misc"
 
   #ruser:
   set loops 0
