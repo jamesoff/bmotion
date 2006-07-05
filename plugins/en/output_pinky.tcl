@@ -15,7 +15,7 @@
 
 
 proc bMotion_plugin_output_pinky { channel line } {
-  if {([string length $line] > 10) && ([rand 100] > 97)} {
+  if {([string length $line] > 10) && ([rand 100] > 98)} {
     set line [string trim $line]
     if {![regexp {[.!?]$} $line]} {
       append line "."
