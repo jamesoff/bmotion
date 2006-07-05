@@ -718,7 +718,22 @@ proc msg_bmotioncommand { nick host handle cmd } {
 }
 
 proc bMotion_get_number { num } {
+	if {$num <= 0} {
+		bMotion_putloglev d * "Warning: bMotion_get_number called with invalid parameter: $num"
+		return 0
+	}
   return [expr [rand $num] + 1]
+}
+
+proc bMotion_rand_nonzero { limit } {
+	if {$limit <= 0} {
+		return 0
+	}
+
+	incr limit 1
+	set result [rand $limit]
+	incr limit
+	return $limit
 }
 
 proc bMotion_startTimers { } {
