@@ -24,11 +24,11 @@ proc bMotion_plugin_output_diddlydots { channel line } {
 	foreach word $words {
 		bMotion_putloglev 4 * "diddlydots: considering word $word"
 		if {$done < 3} {
-			if {[string length $word] > 2} {
+			if {[string length $word] > 4} {
 				bMotion_putloglev 4 * "diddlydots: long enough"
 				if [regexp -nocase {^[a-z]+$} $word] {
-					if {![regexp -nocase "(what|which|the|about|and|just|they|these|them|those|their|there|some)" $word]} {
-						if {[rand 100] > 96} {
+					if {![regexp -nocase "(which|about|these|those|their|there)" $word]} {
+						if {[rand 100] > 97} {
 							bMotion_putloglev 4 * "adding quotes"
 							set word "\"$word\""
 							incr done
