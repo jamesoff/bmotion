@@ -1285,6 +1285,7 @@ bMotion_abstract_batchadd "balefired" [list "/vanishes from the continuum" "/cea
 bMotion_abstract_batchadd "randomStuff" [list "I'm a doctor not %VAR{sillyThings}" "pika pika!" "pikachu!" "pika...CHUUUU!!! *ZZZAAP*" "*boing*" "moo." "BOOM" "BLAM" "Knickers.%|%BOT\[¬VAR{rarrs}\]" "/goes for coffee" "bof" "alors" "bhar" "arrrr.." "elbow." 	"gorilla" "*yawn*" "*spangle*" "brb" "lalalala.. ow! I stubbed my toe :(%|%bot\[50,¬VAR{awwws}\]" "lum de dum de dum..." "/twiddles thumbs" "boom" "Look over there!" "bleh" "/puts on some banging house tunes" "zut alors" "alors bof" "groogle arrhar" "brb, loo" 	"brb, sex" "uNF" "~rarr~" "~oof~" "Oops, I've ruined it." "Buttock Crunchies" "D'oh!" "setty mings lalalala" "pika" "Are you local?" "We'll have no trouble here" "Resistance is futile, you will be assimilated" "Resistance is futile, you will be 0wn3d" "Assimilation is futile, you will be resi... D'OH!" "I *didn't*" 	"waCHOO *sniff*%|%BOT\[¬VAR{blessyous}\]" "blblblblblbl" "/assimilates the channel" "We are the B0rg. You will be 4551m1la70r3d." "wheeeee" "We are the Borg. Lower your shields and surrender your ship." "h%REPEAT{3:8:n}" "did you see that.." "You are the weakest link, goodbye." "Computer, deactivate iguana." "kerPOW" "kerSPLAT" "KAZAM" "kazOO" "yaZOO" 	"spam, spam, spam, spam, spam, spam..." "Oh my god! There's an axe in my head.%|%BOT\[¬VAR{pullsOut}\]" "Mon dieu! Il y a une hache dans ma tete.%|%BOT\[¬VAR{pullsOut}\]" "ghay'cha'! nachwIjDaq betleH tu'lu'!%|%BOT\[¬VAR{pullsOut}\]" "Deus Meus! Securis in capite meo est.%|%BOT\[¬VAR{pullsOut}\]" "ALL YOUR BASE ARE BELONG TO US" "For great justice." "nostril" "%REPEAT{2:7:bl}" "wh%REPEAT{3:8:e}" "h%REPEAT{3:10:e} FUN" "ah bof" "I didn't!" "shh, sekrit" "SSSH SEKRIT" 	"SILENCE%colen" "pop" "cabbages" "penguin" "cheese" "mmm chicken" "blimey" "crikey" "hoorah" "pie pie pie pie" "fantastic" "ho ho" "har har" "deary me" "m00se" 	"llama" "frogs" "knickers" "bob" "kenneth" "nigel" "is everyone thooper?" "super" "thooper" "lashings of ginger beer" "It's not sugar in my sugar bowl, it's %VAR{sillyThings}{strip}" "I smell of %VAR{sillyThings}{strip}" "Honestly, I don't know how that %VAR{sillyThings}{strip} got in there. I must have slipped" ]
 
 bMotion_abstract_batchadd "randomStuff" {
+	"%VAR{troy}"
 	"oh! i can't wait until the tatoos on %ruser's butt hear about this!"
 	"to induce vomiting, that was the answer! everywhere it went!%|what a valentine's day that was"
 	"freshen your coffee?%|%BOT\[yeahyeahyeah keep it coming just put the pot down\]%|%BOT\[*DING* (31)\]"
@@ -1454,13 +1455,17 @@ bMotion_abstract_batchadd "randomStuff" {
   "%ruser++"
   "%ruser--"
 	"%VAR{lyrics}%|but more on that story later"
-	"%VAR{lyrics}"
 }
 
 bMotion_abstract_register "lyrics"
 bMotion_abstract_batchadd "lyrics" {
 	"push me, and then just touch me, 'till i can get my satisfaction"
 	"you can do it put yo back into it"
+	"there's a moose loose aboot this hoose"
+	"everybody was kung-fu fighting"
+	"yes for twenty-four years i've been living next door to Alice"
+	"wake up, please Suzy! wake up!"
+	"don't you step on my blue suede shoes"
 }
 
 bMotion_abstract_batchadd "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline" "/snigger" "wait, that's not right..." ]
@@ -1847,4 +1852,126 @@ bMotion_abstract_batchadd "answerHowOlds" {
   "old enough"
   "%VAR{answerHowmanys}"
   "%VAR{answerHowLongs}"
+}
+
+bMotion_abstract_register "troy"
+bMotion_abstract_batchadd "troy" {
+	"Hi, I'm %me. You might remember me from %VAR{troyfrom}"
+}
+
+bMotion_abstract_register "troyfrom"
+bMotion_abstract_batchadd "troyfrom" {
+	"such films as %VAR{troyfilm1} and %VAR{troyfilm2}"
+	"such educational films as %VAR{troyinfo1} and %VAR{troyinfo2}"
+	"such TV events as %VAR{troytv1} and %VAR{troytv2}"
+}
+
+bMotion_abstract_register "troyfilm1"
+bMotion_abstract_batchadd "troyfilm1" {
+	"The Boatjacking of Supership '79"
+	"Calling All Quakers"
+	"The Contrabulous Fabtraption of Professor Horatio Hufnagel"
+	"Cry Yuma"
+	"David versus Super Goliath"
+	"Dial M for Murderousness"
+	"The Electric Gigolo"
+	"The Erotic Adventures of Hercules"
+	"Give My Remains to Broadway"
+	"Gladys the Groovy Mule"
+	"Good-Time Slim, Uncle Doobie, and the Great 'Frisco Freak-Out"
+	"The Greatest Story Ever Hulaed"
+	"Here Comes the Coast Guard "
+	"Hitler Doesn't Live Here Anymore"
+	"Hydro, the Man With the Hydraulic Arms"
+	"Leper in the Backfield"
+	"Make-Out King of Montana"
+}
+
+bMotion_abstract_register "troyfilm2"
+bMotion_abstract_batchadd "troyfilm2" {
+	"Meet Joe Blow "
+	"The Muppets Go Medieval "
+	"'P' is for Psycho "
+	"Preacher With a Shovel "
+	"The President's Neck is Missing "
+	"The Revenge of Abe Lincoln"
+	"The Seven-Year Old Bitch "
+	"Sorry, Wrong Closet "
+	"Suddenly Last Supper "
+	"They Came to Burgle Carnegie Hall"
+	"Today We Kill, Tomorrow We Die"
+	"The Verdict Was Mail Fraud"
+	"The Wackiest Covered Wagon in the West "
+}
+
+bMotion_abstract_register "troyinfo1"
+bMotion_abstract_batchadd "troyinfo1" {
+	"Adjusting Your Self-O-Stat "
+	"Alice Doesn't Live Any More "
+	"Alice's Adventures through the Windshield Glass "
+	"Birds: Our Fine Feathered Colleagues"
+	"The Decapitation of Larry Leadfoot"
+	"Designated Drivers: The Lifesaving Nerds"
+	"Dig Your Own Grave and Save"
+	"Earwigs, Ew!"
+	"Firecrackers: The Silent Killer"
+	"Fuzzy Bunny's Guide to You-Know-What"
+	"Get Confident, Stupid"
+	"The Half-Assed Approach to Foundation Repair"
+	"Here Comes the Metric System"
+	"Lead Paint: Delicious But Deadly"
+}
+
+bMotion_abstract_register "troyinfo2"
+bMotion_abstract_batchadd "troyinfo2" {
+	"Locker Room Towel Fights: The Blinding of Larry Driscoll"
+	"Man Versus Nature: The Road To Victory"
+	"Meat and You -- Partners in Freedom "
+	"Mommy, What's Wrong With That Man's Face?"
+	"Mothballing Your Battleship"
+	"Phony Tornado Alerts Reduce Readiness"
+	"Shoplifters BEWARE"
+	"60 Minutes of Car Crash Victims"
+	"Smoke Yourself Thin"
+	"Someone's in the Kitchen with DNA! "
+	"Two Minus Three Equals Negative Fun"
+	"Young Jebediah Springfield "
+	"Welcome to Springfield Airport "
+	"Where's Nordstrom? "
+}
+
+bMotion_abstract_register "troytv1"
+bMotion_abstract_batchadd "troytv1" {
+	"Alien Nose Job "
+	"Carnival of the Stars "
+	"Five Fabulous Weeks of The Chevy Chase Show"
+	"Let's Save Tony Orlando's House"
+	"Out With Gout '88"
+	"The Miss American Girl Pageant"
+	"AfterMannix "
+	"America's Funniest Tornadoes "
+	"Buck Henderson, Union Buster"
+	"Handel with Kare "
+}
+
+
+bMotion_abstract_register "troytv2"
+bMotion_abstract_batchadd "troytv2" {
+	"I Can't Believe They Invented It!"
+	"Son of Sanford and Son"
+	"Troy and Company's Summertime Smile Factory"
+	"[edit]"
+	"Cartoons"
+	"Christmas Ape"
+	"Christmas Ape Goes to Summer Camp"
+	"[edit]"
+	"Other"
+	"[edit]"
+	"Celebrity funerals"
+	"Herschel Shmoikel Krustofsky, aka Krusty the Clown"
+	"André the Giant, We Hardly Knew Ye"
+	"Shemp Howard: Today We Mourn A Stooge"
+	"[edit]"
+	"Musicals"
+	"Stop the Planet of the Apes, I Want to Get Off!"
 }
