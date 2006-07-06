@@ -1110,7 +1110,7 @@ bMotion_abstract_batchadd "stonedAnnounce" [list "/is quite obviously stoned" "/
 
 bMotion_abstract_batchadd "goDowns" [list "/goes down on %%" "/goes slowly down on %%" "/flops down on %%" "/pleasures %%" "/pleasures %% with %hisher tongue" ]
 
-bMotion_abstract_batchadd "bigranjoins" [list "bhar" "r." "r %%" "a%REPEAT{3:8:r}" "boohar %%" "boom" "BOOM%colen" "BOOM!" "alors bof" "pop" "%%%colen" "%%!" "%% %VAR{smiles}"]
+bMotion_abstract_batchadd "bigranjoins" [list "bhar" "r." "r %%" "a%REPEAT{3:8:r}" "boohar %%" "boom" "BOOM%colen" "BOOM!" "alors bof" "pop" "%%%colen" "%%!" "%% %VAR{smiles}" "oh my god it's %%... i'm so excited i wish i could wet my pants!" ]
 
 bMotion_abstract_batchadd "hexMiddle" [list "Cheese Error" "FTB" "GBL" "+MELON+" "Octarine" "Sixth Dimension" "Teatime" "Phase Of Moon Generator" "Unreal Time Clock" "Anthill Inside" "Thaumic Disturbance" "Flux" "Influx" "Hive Interface" "Line 666" "Line %NUMBER{10000}" "Nether Realm" "Conjuring" "Octagram" "Archive Reference" "Enchantment" "Eternal Domain" "Paradox Shifting" "Here Comes The Cheese" "Ow" "%VAR{sillyThings}{strip}" ]
 
@@ -1159,6 +1159,8 @@ bMotion_abstract_batchadd "ididntresponses" [list "no, *I* didn't" "Oh really." 
 bMotion_abstract_batchadd "aiis" [list "wikkid" "aii" "aiiiii" "innit" "respect" "westsyde%|/snaps wrist Ali G-stylee." "true" "keepin' it real" "iz wikkid" "wikkid stylin' of da wikkid!" "/is hangin with his crew" "Respect ma blingbling" "kickin it down with da home boy posse" "That is so last week" ]
 
 bMotion_abstract_batchadd "randomStuffFemale" [list "This one time, at band camp, I put a flute..." "Does my arse look big in this?" "Does my bum look big in this?" "*ping*%|Did it just get cold in here?" "Do you know how we keep warm in Russia?%|... we play chess." "I kinda like thongs" "I wonder what happens when I put that in here...%|oooooooh!" "/plays with herself" "That ain't my belly button" "This one time, at band camp, I put %noun..." "/considers breast implants%|%PICKUSER\[female\]%|%BOT\[¬PICKUSER\[female\]¬|/feels up ¬¬ to check¬|true, they aren't as good as ¬ruser's¬|/feels up ¬ruser's breasts¬|mmmm ¬VAR{smiles}\]" "/considers sexchange operation%|%PICKUSER\[male\]%|/looks at %ruser%|Maybe not" "%PICKUSER\[female\]%|It's good to be female isn't it %ruser" ]
+
+bMotion_abstract_batchadd "randomStuff" [list "my speedos!" "there, good as new. except that we're three miles below the surface, we're out of food, and the channel doesn't work underwater%|%BOT\[tempers are wearing thin - let's just hope some bot doesn't kill everybody...\]" "i can't swallow that!%|%BOT\[well then good news! it's a suppository.\]" "arrrr... the laws of physics be a harsh mistress" "he may have ocean madness, but that's no excuse for ocean rudeness!" "in the event of an emergency, my ass can be used as a floatation device" "yes, we all miss our loved ones and gasses" "%ruser you half-mad half-insane maniac! be reasonable!" "these last 24 hours have been the happiest days of my life" "Undercover pursuit in progress! Baby." ]
 
 bMotion_abstract_batchadd "PROM" [list "%VAR{prom_first}-%VAR{prom_second}" ]
 
@@ -1285,7 +1287,11 @@ bMotion_abstract_batchadd "balefired" [list "/vanishes from the continuum" "/cea
 bMotion_abstract_batchadd "randomStuff" [list "I'm a doctor not %VAR{sillyThings}" "pika pika!" "pikachu!" "pika...CHUUUU!!! *ZZZAAP*" "*boing*" "moo." "BOOM" "BLAM" "Knickers.%|%BOT\[¬VAR{rarrs}\]" "/goes for coffee" "bof" "alors" "bhar" "arrrr.." "elbow." 	"gorilla" "*yawn*" "*spangle*" "brb" "lalalala.. ow! I stubbed my toe :(%|%bot\[50,¬VAR{awwws}\]" "lum de dum de dum..." "/twiddles thumbs" "boom" "Look over there!" "bleh" "/puts on some banging house tunes" "zut alors" "alors bof" "groogle arrhar" "brb, loo" 	"brb, sex" "uNF" "~rarr~" "~oof~" "Oops, I've ruined it." "Buttock Crunchies" "D'oh!" "setty mings lalalala" "pika" "Are you local?" "We'll have no trouble here" "Resistance is futile, you will be assimilated" "Resistance is futile, you will be 0wn3d" "Assimilation is futile, you will be resi... D'OH!" "I *didn't*" 	"waCHOO *sniff*%|%BOT\[¬VAR{blessyous}\]" "blblblblblbl" "/assimilates the channel" "We are the B0rg. You will be 4551m1la70r3d." "wheeeee" "We are the Borg. Lower your shields and surrender your ship." "h%REPEAT{3:8:n}" "did you see that.." "You are the weakest link, goodbye." "Computer, deactivate iguana." "kerPOW" "kerSPLAT" "KAZAM" "kazOO" "yaZOO" 	"spam, spam, spam, spam, spam, spam..." "Oh my god! There's an axe in my head.%|%BOT\[¬VAR{pullsOut}\]" "Mon dieu! Il y a une hache dans ma tete.%|%BOT\[¬VAR{pullsOut}\]" "ghay'cha'! nachwIjDaq betleH tu'lu'!%|%BOT\[¬VAR{pullsOut}\]" "Deus Meus! Securis in capite meo est.%|%BOT\[¬VAR{pullsOut}\]" "ALL YOUR BASE ARE BELONG TO US" "For great justice." "nostril" "%REPEAT{2:7:bl}" "wh%REPEAT{3:8:e}" "h%REPEAT{3:10:e} FUN" "ah bof" "I didn't!" "shh, sekrit" "SSSH SEKRIT" 	"SILENCE%colen" "pop" "cabbages" "penguin" "cheese" "mmm chicken" "blimey" "crikey" "hoorah" "pie pie pie pie" "fantastic" "ho ho" "har har" "deary me" "m00se" 	"llama" "frogs" "knickers" "bob" "kenneth" "nigel" "is everyone thooper?" "super" "thooper" "lashings of ginger beer" "It's not sugar in my sugar bowl, it's %VAR{sillyThings}{strip}" "I smell of %VAR{sillyThings}{strip}" "Honestly, I don't know how that %VAR{sillyThings}{strip} got in there. I must have slipped" ]
 
 bMotion_abstract_batchadd "randomStuff" {
+<<<<<<< .mine
+		"i'd say there's room up there for another %NUMBER{100} %PLURAL{%VAR{sillyThings}{strip}}"
+=======
 	"%VAR{troy}"
+>>>>>>> .r704
 	"oh! i can't wait until the tatoos on %ruser's butt hear about this!"
 	"to induce vomiting, that was the answer! everywhere it went!%|what a valentine's day that was"
 	"freshen your coffee?%|%BOT\[yeahyeahyeah keep it coming just put the pot down\]%|%BOT\[*DING* (31)\]"
@@ -1461,13 +1467,22 @@ bMotion_abstract_register "lyrics"
 bMotion_abstract_batchadd "lyrics" {
 	"push me, and then just touch me, 'till i can get my satisfaction"
 	"you can do it put yo back into it"
+<<<<<<< .mine
+	"cut ze lettuce"
+	"burgers, fries, a shake or a friend, if you're hungry simply line up at the end!"
+	"cook ze patties!"
+	"serve ze cheese!"
+	"french ze fries!"
+	"cook those burgers! turn the patty over!"
+=======
 	"there's a moose loose aboot this hoose"
 	"everybody was kung-fu fighting"
 	"yes for twenty-four years i've been living next door to Alice"
 	"wake up, please Suzy! wake up!"
 	"don't you step on my blue suede shoes"
+>>>>>>> .r704
 }
-
+	
 bMotion_abstract_batchadd "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline" "/snigger" "wait, that's not right..." ]
 
 bMotion_abstract_batchadd "randomStuffMale" [list "Yeah baby yeah!" "I don't know how that got in there. It's not mine." "I don't think there's enough room in here for me and my thingy%|/removes thingy and sits in the other room" "That ain't my finger" "%REPEAT{3:8:m} electronical things" "%REPEAT{3:6:m} internet" "%REPEAT{3:6:m} breasts" "%REPEAT{3:6:m} jugs" "/considers sexchange operation%|%PICKUSER\[female\]%|/looks at %ruser%|Maybe not" "%PICKUSER\[male\]%|It's good to be male isn't it %ruser" ]
@@ -1852,6 +1867,41 @@ bMotion_abstract_batchadd "answerHowOlds" {
   "old enough"
   "%VAR{answerHowmanys}"
   "%VAR{answerHowLongs}"
+}
+
+bMotion_abstract_register "reminder_where"
+bMotion_abstract_batchadd "reminder_where" {
+	"the dentist"
+	"the greengrocer"
+	"the shrink"
+	"a coffee"
+	"my fist"
+	"my boot"
+	"%ruser"
+	"the hair designer"
+	"the hairdressers"
+	"the shoe painter"
+	"a spiritual advisor"
+	"the pope"
+	"some popes"
+	"the floss counsellor"
+	"the immigration committee"
+	"your friends in the pub"
+}
+
+bMotion_abstract_register "reminder"
+bMotion_abstract_batchadd "reminder" {
+	"REMINDER - %ruser: You have an appointment with %VAR{reminder_where} %VAR{reminder_when}"
+}
+
+bMotion_abstract_register "reminder_when"
+bMotion_abstract_batchadd "reminder_when" {
+	"in %NUMBER{59} minutes"
+	"at %NUMBER{12}:%NUMBER{59}{2}pm"
+	"at %NUMBER{12}:%NUMBER{59}{2}am"
+	"at %TIME{now}"
+	"at %TIME{-1 minute}"
+	"%NUMBER{120} minutes ago"
 }
 
 bMotion_abstract_register "troy"
