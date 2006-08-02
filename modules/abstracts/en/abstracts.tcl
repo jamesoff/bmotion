@@ -1287,6 +1287,7 @@ bMotion_abstract_batchadd "balefired" [list "/vanishes from the continuum" "/cea
 bMotion_abstract_batchadd "randomStuff" [list "I'm a doctor not %VAR{sillyThings}" "pika pika!" "pikachu!" "pika...CHUUUU!!! *ZZZAAP*" "*boing*" "moo." "BOOM" "BLAM" "Knickers.%|%BOT\[¬VAR{rarrs}\]" "/goes for coffee" "bof" "alors" "bhar" "arrrr.." "elbow." 	"gorilla" "*yawn*" "*spangle*" "brb" "lalalala.. ow! I stubbed my toe :(%|%bot\[50,¬VAR{awwws}\]" "lum de dum de dum..." "/twiddles thumbs" "boom" "Look over there!" "bleh" "/puts on some banging house tunes" "zut alors" "alors bof" "groogle arrhar" "brb, loo" 	"brb, sex" "uNF" "~rarr~" "~oof~" "Oops, I've ruined it." "Buttock Crunchies" "D'oh!" "setty mings lalalala" "pika" "Are you local?" "We'll have no trouble here" "Resistance is futile, you will be assimilated" "Resistance is futile, you will be 0wn3d" "Assimilation is futile, you will be resi... D'OH!" "I *didn't*" 	"waCHOO *sniff*%|%BOT\[¬VAR{blessyous}\]" "blblblblblbl" "/assimilates the channel" "We are the B0rg. You will be 4551m1la70r3d." "wheeeee" "We are the Borg. Lower your shields and surrender your ship." "h%REPEAT{3:8:n}" "did you see that.." "You are the weakest link, goodbye." "Computer, deactivate iguana." "kerPOW" "kerSPLAT" "KAZAM" "kazOO" "yaZOO" 	"spam, spam, spam, spam, spam, spam..." "Oh my god! There's an axe in my head.%|%BOT\[¬VAR{pullsOut}\]" "Mon dieu! Il y a une hache dans ma tete.%|%BOT\[¬VAR{pullsOut}\]" "ghay'cha'! nachwIjDaq betleH tu'lu'!%|%BOT\[¬VAR{pullsOut}\]" "Deus Meus! Securis in capite meo est.%|%BOT\[¬VAR{pullsOut}\]" "ALL YOUR BASE ARE BELONG TO US" "For great justice." "nostril" "%REPEAT{2:7:bl}" "wh%REPEAT{3:8:e}" "h%REPEAT{3:10:e} FUN" "ah bof" "I didn't!" "shh, sekrit" "SSSH SEKRIT" 	"SILENCE%colen" "pop" "cabbages" "penguin" "cheese" "mmm chicken" "blimey" "crikey" "hoorah" "pie pie pie pie" "fantastic" "ho ho" "har har" "deary me" "m00se" 	"llama" "frogs" "knickers" "bob" "kenneth" "nigel" "is everyone thooper?" "super" "thooper" "lashings of ginger beer" "It's not sugar in my sugar bowl, it's %VAR{sillyThings}{strip}" "I smell of %VAR{sillyThings}{strip}" "Honestly, I don't know how that %VAR{sillyThings}{strip} got in there. I must have slipped" ]
 
 bMotion_abstract_batchadd "randomStuff" {
+	"%VAR{reminder}"
 	"Doctor, Doctor, there's a %VAR{sillyThings}{strip} in my %VAR{bodypart}"
 		"i'd say there's room up there for another %NUMBER{100} %PLURAL{%VAR{sillyThings}{strip}}"
 	"%VAR{troy}"
@@ -1895,7 +1896,7 @@ bMotion_abstract_batchadd "reminder_when" {
 	"at %NUMBER{12}:%NUMBER{59}{2}pm"
 	"at %NUMBER{12}:%NUMBER{59}{2}am"
 	"at %TIME{now}"
-	"at %TIME{-1 minute}"
+	"at %TIME{1 minute ago}"
 	"%NUMBER{120} minutes ago"
 }
 
@@ -2019,4 +2020,104 @@ bMotion_abstract_batchadd "troytv2" {
 	"[edit]"
 	"Musicals"
 	"Stop the Planet of the Apes, I Want to Get Off!"
+}
+
+bMotion_abstract_register "bb_places"
+bMotion_abstract_batchadd "bb_places" {
+	"lounge"
+	"dining area"
+	"kitchen"
+	"diary room"
+	"bathroom"
+	"shower"
+	"garden"
+	"bedroom"
+	"secret %VAR{bb_places}"
+}
+
+bMotion_abstract_register "bb_stuff"
+bMotion_abstract_batchadd "bb_stuff" {
+	"Day %NUMBER{500} %VAR{bb_time}: Big Brother has given the housemates %NUMBER{50} %PLURAL{%VAR{sillyThings}{strip}} and challenged them to build %VAR{sillyThings}"
+	"Day %NUMBER{500} %VAR{bb_time}: Big Brother has given the housemates %NUMBER{50} %PLURAL{%VAR{sillyThings}{strip}} and challenged them to build %VAR{sillyThings}. %ruser has been crying in the %VAR{bb_places} for %NUMBER{30} minutes."
+	"Day %NUMBER{500} %VAR{bb_time}: This week, %ruser, %ruser and %ruser are all up for eviction"
+	"Day %NUMBER{500} %VAR{bb_time}: Big Brother has locked %ruser in the %VAR{bb_places} for %VAR{bb_naughty}"
+	"Day %NUMBER{500} %VAR{bb_time}: Big Brother has set the housemates a %VAR{bb_task} task"
+	"Day %NUMBER{500} %VAR{bb_time}: %ruser is in the %VAR{bb_places}. The other housemates are in the %VAR{bb_places}, talking about %OWNER{%ruser{prev}} %VAR{bodypart}"
+	"Day %NUMBER{500} %VAR{bb_time}: %ruser is in the diary room, talking to Big Brother about %VAR{bb_diary}"
+	"Day %NUMBER{500} %VAR{bb_time}: %ruser has hidden %OWNER{%ruser} %VAR{bb_posession} in %VAR{bb_hide}"
+}
+bMotion_abstract_register "bb_time"
+bMotion_abstract_batchadd "bb_time" {
+	"%TIME{now}"
+}
+
+bMotion_abstract_register "bb_naughty"
+bMotion_abstract_batchadd "bb_naughty" {
+	"talking about the outside world"
+	"discussing nominations"
+	"eating all the food"
+	"urinating in the %VAR{bb_places}"
+	"failing the %VAR{bb_task} task"
+}
+
+bMotion_abstract_register "bb_task"
+bMotion_abstract_batchadd "bb_task" {
+	"prison"
+	"school"
+	"university"
+	"icky goo"
+	"cooking"
+	"running"
+	"tennis"
+	"badminton"
+	"swimsuit"
+	"factory labour"
+	"singing"
+	"memorising"
+	"poetry"
+	"painting"
+	"hiding in a box"
+}
+
+bMotion_abstract_register "bb_diary"
+bMotion_abstract_batchadd "bb_diary" {
+	"their %VAR{colours} %VAR{bodypart}"
+	"their %VAR{bodypart}"
+	"%ruser"
+	"how much they like the %VAR{bb_places}"
+	"how much they like %VAR{sillyThings}{strip}"
+	"how much they like %me"
+	"nominations"
+	"nuclear physics"
+	"quantum mechanics"
+	"string theory"
+	"biscuits"
+	"shoes"
+}
+
+bMotion_abstract_register "bb_posession"
+bMotion_abstract_batchadd "bb_posession" {
+	"sock drawer"
+	"food"
+	"drink"
+	"false leg"
+	"false nose"
+	"shoe collection"
+	"toilet paper"
+	"cigarette"
+	"lighter"
+	"favourite pants"
+	"favourite chair"
+	"shampoo"
+}
+
+bMotion_abstract_register "bb_hide"
+bMotion_abstract_batchadd "bb_hide" {
+	"the %VAR{bb_places}"
+	"the cistern"
+	"a cupboard"
+	"a pillowcase"
+	"another one that's slightly larger"
+	"%OWNER{%ruser} bed"
+	"%OWNER{%ruser} cupboard"
 }
