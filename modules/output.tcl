@@ -261,6 +261,21 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 		set padding 0
   }
 
+	set loops 0
+	bMotion_putloglev 4 * "doing TIME processing"
+	while {[regexp "%TIME\{(\[a-zA-Z0-9 \]+)\}" $line matches timeString]} {
+		bMotion_putloglev 2 * "found timestring $timeString"
+		set var [clock scan $timeString]
+		set var [clock format $var -format "%I:%M %p"]
+		bMotion_putloglev 2 * "using time $var"
+		incr loops
+		if {$loops > 10} {
+			putlog "bMotion: ALERT! looping too much in %TIME code with %line"
+			set line "/has a tremendous error while trying to do complex time mathematics :("
+		}
+		set line [bMotionInsertString $line "%TIME\\{$timeString\\}" $var]
+	}
+
   bMotion_putloglev 4 * "doing misc interpolation processing for $line"
   set line [bMotionInsertString $line "%%" $nick]
   set line [bMotionInsertString $line "%pronoun" [getPronoun]]
