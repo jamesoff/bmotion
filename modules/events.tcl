@@ -175,9 +175,15 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }
 
+	#make sure we're allowed to talk in here
   if {[lsearch $bMotionInfo(randomChannels) $channel] == -1} {
     return 0
   }
+
+	#don't trigger on !seen
+	if [regexp -nocase "^!seen" $text] {
+		return 0
+	}
 
   bMotion_putloglev 4 * "bMotion: entering bMotion_event_main with nick: $nick host: $host handle: $handle chan: $channel text: $text"
 
