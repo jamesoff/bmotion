@@ -27,17 +27,17 @@ bMotion_plugin_add_management "interbot" "^interbot" n bMotion_plugin_management
 # Declare plugin functions
 
 proc bMotion_plugin_management_status { handle { args "" } } {
-  global bMotionInfo botnicks bMotionSettings bMotionVersion
+  global bMotionInfo botnicks bMotionSettings bMotionVersion bMotionChannels
+	bMotion_update_chanlist
 
   bMotion_putadmin "I am running bMotion $bMotionVersion"
   bMotion_putadmin "My gender is $bMotionInfo(gender), and I am $bMotionInfo(orientation)"
   bMotion_putadmin "Random stuff happens at least every [bMotion_setting_get minRandomDelay], at most every [bMotion_setting_get maxRandomDelay], and not if channel quiet for more than [bMotion_setting_get maxIdleGap] (mins)"
   bMotion_putadmin "My botnicks are /$botnicks/"
-	bMotion_putadmin "Active on channels: $bMotionInfo(randomChannels)"
+	bMotion_putadmin "Active on channels: $bMotionChannels"
   if [bMotion_setting_get silence] {
   	bMotion_putadmin "Running silent"
   }
-  bMotion_putadmin "Current queue size is [bMotion_queue_size]"
   return 0
 }
 

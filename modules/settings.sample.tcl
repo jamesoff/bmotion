@@ -57,8 +57,8 @@ set bMotionInfo(balefire) 1
 # go away if things get idle?
 set bMotionSettings(useAway) 0
 
-# channels to run in (lower case please)
-set bMotionInfo(randomChannels) { "#bitlbee" }
+# channels to run in (lower case please) DEPRECATED
+#set bMotionInfo(randomChannels) { "#bitlbee" }
 
 # channels to not announce our away status in (lower case)
 set bMotionSettings(noAwayFor) { "#irssi" }

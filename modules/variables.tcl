@@ -88,3 +88,5 @@ set bMotionThisText ""
 set bMotionGlobal 1
 
 set bMotionPluginHistory [list]
+
+set bMotionChannels [list]

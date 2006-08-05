@@ -11,10 +11,14 @@
 #						(www.bash.org)
 
 
+### Set some important variables
 set bMotionRoot "scripts/bmotion"
 set bMotionModules "$bMotionRoot/modules"
 set bMotionPlugins "$bMotionRoot/plugins"
 set bMotionLocal "$bMotionRoot/local"
+
+### We need to do this early on in case something breaks
+setudef flag bmotion
 
 if {![info exists bMotion_log_regexp]} {
 	set bMotion_log_regexp ""

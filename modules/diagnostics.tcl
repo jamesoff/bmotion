@@ -1,7 +1,6 @@
 # bMotion - Diagnostics
 #
-# $Id$
-#
+# vim: foldmethod=marker:foldmarker=<<<,>>>:foldcolumn=3
 
 ###############################################################################
 # bMotion - an 'AI' TCL script for eggdrops
@@ -22,11 +21,13 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
-#
 # Check if a channel has uppercase letters in it
 #
 proc bMotion_diagnostic_channel1 { } {
   global bMotionInfo
+
+	#not used now
+	return 0
 
   set err 0
   set cleanChannels [list]
@@ -52,6 +53,9 @@ proc bMotion_diagnostic_channel1 { } {
 proc bMotion_diagnostic_channel2 { } {
   global bMotionInfo
 
+	#not used now 
+	return 0
+
   set notOnChans ""
   set botChans [list]
   foreach chan [channels] {
@@ -73,6 +77,10 @@ proc bMotion_diagnostic_channel2 { } {
 # check the channels are set in the right format
 proc bMotion_diagnostic_channel3 { } {
 	global bMotionInfo
+
+	#not used now
+	return 0
+
 	if [regexp {#[^ ]+ *#.+} [lindex $bMotionInfo(randomChannels) 0]] {
 		putlog "bMotion self-diagnostics indicate you have set your channel list in settings.tcl"
 		putlog "  incorrectly. You must have a pair of double-quotes around EACH channel, not"
@@ -80,7 +88,7 @@ proc bMotion_diagnostic_channel3 { } {
 	}
 }
 
-#
+# bMotion_diagnostic_timers <<<1
 # make sure we only have one instance of each timer
 proc bMotion_diagnostic_timers { } {
   bMotion_putloglev d * "running level 4 diagnostic on timers"
@@ -102,7 +110,7 @@ proc bMotion_diagnostic_timers { } {
   }
 }
 
-#
+# bMotion_diagnostic_utimers <<<1
 # make sure we have only one instance of each utimer
 proc bMotion_diagnostic_utimers { } {
   bMotion_putloglev d * "running level 4 diagnostic on utimers"
@@ -124,6 +132,7 @@ proc bMotion_diagnostic_utimers { } {
   }
 }
 
+### bMotion_diagnostic_plugins <<<1
 # check some plugins loaded
 proc bMotion_diagnostic_plugins { } {
 	bMotion_putloglev 5 * "bMotion_diagnostic_plugins"
@@ -136,7 +145,7 @@ proc bMotion_diagnostic_plugins { } {
 	}
 }
 
-
+### bMotion_diagnostic_settings <<<1
 # check needed settings are defined
 proc bMotion_diagnostic_settings { } {
 	global bMotionInfo bMotionSettings
@@ -271,13 +280,14 @@ proc bMotion_diagnostic_settings { } {
 	}
 }
 
-
+### bMotion_diagnostic_auto <<<1
 proc bMotion_diagnostic_auto { min hr a b c } {
 	bMotion_putloglev 5 * "bMotion_diagnostic_auto"
   putlog "bMotion: running level 4 self-diagnostic"
   bMotion_diagnostic_timers
   bMotion_diagnostic_utimers
 }
+#>>>
 
 if {$bMotion_testing == 0} {
 	bMotion_putloglev d * "Running a level 5 self-diagnostic..."

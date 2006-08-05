@@ -29,9 +29,9 @@ proc bMotion_interbot_next_elect { } {
   # This makes them all pick a number too and send that as a reply to all the other bots too
   # Each bot tracks the numbers, highest bot wins and speaks next
 
-  global bMotionInfo bMotion_interbot_timer
+  global bMotionInfo bMotion_interbot_timer bMotionChannels
   catch {
-    foreach chan $bMotionInfo(randomChannels) {
+    foreach chan $bMotionChannels {
       bMotion_interbot_next_elect_do $chan
     }
   }
@@ -257,7 +257,7 @@ proc bMotion_interbot_fake_catch { bot params } {
 }
 
 #call an election when we start/rehash
-foreach chan $bMotionInfo(randomChannels) {
+foreach chan $bMotionChannels {
   set bMotion_interbot_nextbot_score($chan) "-1"
   set bMotion_interbot_nextbot_nick($chan) ""
 }
@@ -267,8 +267,10 @@ bMotion_interbot_next_elect
 #
 # callback for a bot linking to the botnet
 proc bMotion_interbot_link { botname via } {
+	global bMotionChannels
+	bMotion_update_chanlist
   #let's announce we're a bmotion bot
-  putbot $botname "bmotion SUP [bMotion_setting_get randomChannels]"
+  putbot $botname "bmotion SUP $bMotionChannels"
 }
 
 # bMotion_interbot_hay
@@ -276,7 +278,8 @@ proc bMotion_interbot_link { botname via } {
 # Catches a HAY from another bot, replies with a SUP
 proc bMotion_interbot_hay { bot channels } {
   #we've met another bmotion bot, we need to tell it what channels we're on
-  global bMotion_interbot_otherbots network
+  global bMotion_interbot_otherbots network bMotionChannels
+	bMotion_update_chanlist
 	if [regexp -nocase {(.+) network:(.+)} $channels matches chans nw] {
 		if {[string tolower $nw] != [string tolower $network]} {
 			bMotion_putloglev 2 * "Ignoring HAY from bot on wrong network (me: $network; $bot: $nw)"
@@ -286,7 +289,7 @@ proc bMotion_interbot_hay { bot channels } {
 	}
   set bMotion_interbot_otherbots($bot) $channels
   putlog "bMotion: Met bMotion bot $bot on channels $channels"
-  putbot $bot "bmotion SUP [bMotion_setting_get randomChannels]"
+  putbot $bot "bmotion SUP $bMotionChannels"
   array unset bMotion_interbot_otherbots dummy
 }
 
@@ -308,12 +311,13 @@ set bMotion_interbot_otherbots(dummy) ""
 # Broadcasts a HAY to see who's around
 proc bMotion_interbot_resync { } {
   #let's find out who's on the botnet
-  global bMotion_interbot_otherbots network
+  global bMotion_interbot_otherbots network bMotionChannels
+	bMotion_update_chanlist
   unset bMotion_interbot_otherbots
   set bMotion_interbot_otherbots(dummy) ""
 
   putloglev d * "bMotion: Resyncing with botnet for bMotion bots"
-  putallbots "bmotion HAY [bMotion_setting_get randomChannels] ($network)"
+  putallbots "bmotion HAY $bMotionChannels ($network)"
   utimer [expr [rand 900] + 300] bMotion_interbot_resync
 }
 
