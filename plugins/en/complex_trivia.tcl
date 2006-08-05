@@ -32,7 +32,7 @@ bMotion_plugin_add_complex "trivia3" ".+ The (correct )?answer was.+" 100 bMotio
 proc bMotion_plugin_complex_trivia_1 { nick host handle channel text } {
   bMotion_plugins_settings_set "trivia" "nick" "" "" $nick
   bMotion_plugins_settings_set "trivia" "channel" "" "" $channel
-  bMotion_plugins_settings_set "trivia" "type" "" "" ""
+  bMotion_plugins_settings_set "trivia" "type" "" "" "normal"
   bMotion_plugins_settings_set "trivia" "played" "" "" 0
   bMotion_putloglev 1 * "Detected start of trivia round"
 	return 2
@@ -110,7 +110,7 @@ proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
     } else {
       #my nick isn't, so is "correct" (someone else got it)
       if {![regexp "correct answer" $text]} {
-        if {(![rand 10]) && [bMotion_plugins_settings_get "trivia" "type" "" ""]} {
+        if {(![rand 10]) && ([bMotion_plugins_settings_get "trivia" "type" "" ""] != "year")} {
           bMotionDoAction $channel $nick "%VAR{trivia_loses}"
         }
       }
