@@ -52,7 +52,18 @@ bind dcc m bmotion* bMotion_dcc_command
 bind dcc m bmadmin* bMotion_dcc_command
 bind dcc m bmhelp bMotion_dcc_help
 
+### bMotion_update_chanlist <<<1
+# rebuilds our channel list based on which channels are +bmotion
+proc bMotion_update_chanlist { } {
+	global bMotionChannels
+	set bMotionChannels [list]
 
+	foreach chan [channels] {
+		if {[channel get $chan bmotion]} {
+			lappend bMotionChannels $chan
+		}
+	}
+}
 ### Initalise some variables per channel <<<1
 bMotion_update_chanlist
 foreach chan $bMotionChannels {
@@ -767,21 +778,6 @@ proc bMotion_setting_get { setting } {
   bMotion_putloglev 3 * "nope, not there either, returning nothing"
   return ""
 }
-
-### bMotion_update_chanlist <<<1
-# rebuilds our channel list based on which channels are +bmotion
-proc bMotion_update_chanlist { } {
-	global bMotionChannels
-	set bMotionChannels [list]
-
-	foreach chan [channels] {
-		if {[channel get $chan bmotion]} {
-			lappend bMotionChannels $chan
-		}
-	}
-}
-
-
-
 #>>>
+
 bMotion_putloglev d * "bMotion: system module loaded"
