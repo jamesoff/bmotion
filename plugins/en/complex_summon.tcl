@@ -42,6 +42,10 @@ proc bMotion_plugin_complex_summon { nick host handle channel text } {
 				bMotionDoAction $channel $name "%VAR{summon_channel_response_notthere}"
 			} else {
 				bMotion_putloglev d * "bMotion: (summon) answering for someone here"
+				if [isbotnick $name] {
+					bMotionDoAction $channel $nick "%VAR{summon_bot}"
+					return 1
+				}
 				bMotionDoAction $channel $name "%VAR{summon_channel_response}"
 				set msg [pickRandom $summon_privmsg_response]
 				# replacements
@@ -101,4 +105,13 @@ set summon_channel_idiot {
 	"%%: stop bothering me"
 	"you know, %%, it's a miracle you made it past childhood"
 	"it's not your fault, %%, you must have walked into a door"
+}
+
+bMotion_abstract_register "summon_bot"
+bMotion_abstract_batchadd "summon_bot" {
+	"oh! here i am!"
+	"sup"
+	"hello, yes?"
+	"spluh"
+	"<%%> good news everyone! I'm a horse's butt!"
 }
