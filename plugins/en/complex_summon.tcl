@@ -15,6 +15,7 @@
 # random summoning callback
 proc bMotion_plugin_complex_summon { nick host handle channel text } {
 	global summon_privmsg_response
+	global botnicks
 
 	# bMotion_putloglev d * "bMotion: (summon) entering"
 	# check to make sure we should bother
@@ -38,21 +39,33 @@ proc bMotion_plugin_complex_summon { nick host handle channel text } {
 		if { $name != "" && $name != $nick } {
 			# summon the best we can
 			if { ![onchan $name $channel] } {
+ 				# the botnick could be non-existant
+ 				if [regexp -nocase "^$botnicks\$" $name] {
+ 					bMotion_putloglev d * "bMotion: (summon) myself!"
+ 					bMotionDoAction $channel $nick "%VAR{summon_bot}"
+ 					return 1
+ 				}
 				bMotion_putloglev d * "bMotion: (summon) answering for someone not here"
 				bMotionDoAction $channel $name "%VAR{summon_channel_response_notthere}"
 			} else {
+ 				# the botnick could exist but be shorthand
+ 				if [isbotnick $name || regexp -nocase "$botnicks" $name] {
+ 					bMotion_putloglev d * "bMotion: (summon) myself!"
+  				bMotionDoAction $channel $nick "%VAR{summon_bot}"
+  				return 1
+  			}
 				bMotion_putloglev d * "bMotion: (summon) answering for someone here"
 				if [isbotnick $name] {
 					bMotionDoAction $channel $nick "%VAR{summon_bot}"
 					return 1
 				}
 				bMotionDoAction $channel $name "%VAR{summon_channel_response}"
-				set msg [pickRandom $summon_privmsg_response]
-				# replacements
+				#set msg [pickRandom $summon_privmsg_response]
+				set msg [doInterpolation "%VAR{summon_privmsg_response}" $nick ""]
+				# replacements (TODO: may not be needed after doInterpolation)
 				regsub "%chan" $msg $channel msg 
 				regsub "%%" $msg $nick msg
 				# notify
-				puthelp "NOTICE $name :$msg"
 				puthelp "PRIVMSG $name :$msg"
 			}
 			return 1
@@ -67,7 +80,8 @@ proc bMotion_plugin_complex_summon { nick host handle channel text } {
 # register the summon callback
 bMotion_plugin_add_complex "summon" "^!summon" 100 "bMotion_plugin_complex_summon" "en"
 
-set summon_channel_response_notthere {
+bMotion_abstract_register "summon_channel_response_notthere"
+bMotion_abstract_batchadd "summon_channel_response_notthere" {
 	"yoooo hooooo! %%!"
 	"hello there, %%?"
 	"how should I know where %% is?"
@@ -77,7 +91,8 @@ set summon_channel_response_notthere {
 	"/searches all over the channel for %%"
 }
 
-set summon_channel_response {
+bMotion_abstract_register "summon_channel_response"
+bMotion_abstract_batchadd "summon_channel_response" {
 	"/prods at %% with %noun"
 	"through my awesome powers of telepathy, I shall summon %%!!"
 	"/uses a smoke signal to get %%'s attention"
@@ -86,7 +101,8 @@ set summon_channel_response {
 	"why do you want to talk to %%?"
 }
 
-set summon_privmsg_response {
+bMotion_abstract_register "summon_privmsg_response"
+bMotion_abstract_batchadd "summon_privmsg_response" {
 	"FYI: %% was looking for you on %chan"
 	"just so you know %% was asking about you on %chan"
 	"%% was too lazy to message you from %chan themselves so I had to"
@@ -95,7 +111,8 @@ set summon_privmsg_response {
 	"Oi! %chan now! %% looking for you!"
 }
 
-set summon_channel_idiot {
+bMotion_abstract_register "summon_channel_idiot"
+bMotion_abstract_batchadd "summon_channel_idiot" {
 	"ANNOUNCEMENT: %% is an idiot. That is all."
 	"Pay no attention to %%, the village idiot."
 	"oOoOooOO very good %%... now who are you looking for?"
