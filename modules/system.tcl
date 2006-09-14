@@ -257,11 +257,18 @@ proc bMotionSetRandomBack {} {
 ### bMotionTalkingToMe <<<1
 proc bMotionTalkingToMe { text } {
   global botnicks
+
   bMotion_putloglev 2 * "checking $text to see if they're talking to me"
-  if [regexp -nocase "(^${botnicks}:?|${botnicks}\\?$)" $text] {
-    bMotion_putloglev 2 * "`- yes"
-    return 1
-  }
+	if [regexp -nocase "^$botnicks\[ :,\]" $text] {
+		bMotion_putloglev 2 * "`- yes"	
+		return 1
+	}
+
+	if [regexp -nocase "$botnicks\[!?~\]*$" $text] {
+		bMotion_putloglev 2 * "`- yes"	
+		return 1
+	}
+
   bMotion_putloglev 2 * "`- no"
   return 0
 }
