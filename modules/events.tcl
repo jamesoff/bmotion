@@ -211,7 +211,7 @@ proc bMotion_event_main {nick host handle channel text} {
   }
 
   #does this look like a paste? <<<2
-  if [regexp -nocase {^[0-9\[<(@+%]} $text] {
+  if [regexp -nocase {^[([]?[0-9]{2}[-:.][0-9]{2}. ?[[<(]?[%@+]?[a-z0-9` ]+[@+%]?. \w+} $text] {
     return 0
   }
 	#>>>
