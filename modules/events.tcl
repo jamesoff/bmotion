@@ -233,6 +233,7 @@ proc bMotion_event_main {nick host handle channel text} {
   if {[string length $text] >= ([string length $botnick] + 4)} {
     regsub -all -nocase {[;:=]-?[)D>/]} $text "" text
     regsub -all {([\-^])_*[\-^];*} $text "" text
+		regsub -all {\\o/} $text "" text
   }
 
   #Trim stuff <<<2

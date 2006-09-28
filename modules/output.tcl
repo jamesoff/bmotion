@@ -208,6 +208,7 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
     set newText [bMotion_abstract_get $BOOM]
     set replacement ""
     if {$newText == ""} {
+			bMotion_putloglev d * "abstract '$BOOM' doesn't exist in new abstracts system!"
       #insert old style
       set var [subst $$BOOM]
       set replacement [pickRandom $var]

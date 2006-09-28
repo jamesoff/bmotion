@@ -314,6 +314,7 @@ set answerWhys {
   "i think %ruser knows..."
   "beats working"
   "entropy"
+	"we tried that, but you were sick and my hat blew off"
 }
 
 set answerWheres {

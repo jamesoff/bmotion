@@ -12,6 +12,7 @@
 ###############################################################################
 
 bMotion_plugin_add_complex "wins" "^${botnicks}(:?) (wins|exactly|precisely|perfect|nice one|yes)\[!1.\]*$" 100 bMotion_plugin_complex_wins "en"
+bMotion_plugin_add_complex "wins2" "(nice one|well said|exactly|previsely|perfect|right one|yes) $botnicks\[!1.\]*$" 100 bMotion_plugin_complex_wins "en"
 
 proc bMotion_plugin_complex_wins { nick host handle channel text } {
    bMotionDoAction $channel $nick "%VAR{wins}"
@@ -21,7 +22,8 @@ proc bMotion_plugin_complex_wins { nick host handle channel text } {
    return 1
 }
 
-set wins {
+bMotion_abstract_register "wins"
+bMotion_abstract_batchadd "wins" {
   "victory for %me%colen"
   "this victory strengthens the soul of %me!"
   "%VAR{harhars}"
@@ -29,7 +31,4 @@ set wins {
   "wh%REPEAT{2:6:e}! do I get %VAR{sillyThings} now?"
 }
 
-bMotion_abstract_register "wins"
-bMotion_abstract_batchadd "wins" $wins
-unset $wins
 

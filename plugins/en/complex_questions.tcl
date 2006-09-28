@@ -19,6 +19,10 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
   bMotion_putloglev 2 * "Question handler triggerred"
   global botnicks bMotionFacts
 
+	if [regexp {\\o/} $text] {
+		return
+	}
+
   regsub {(.+)[>\/]$} $text {\1?} text
 
   bMotion_putloglev 3 * "Checking question for wellbeing"
