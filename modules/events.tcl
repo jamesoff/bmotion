@@ -379,10 +379,6 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }
 
-  if {$bMotionSettings(needI) == 1} {
-    if {![matchattr $handle I]} {return 0}
-  }
-
   #shut up <<<2
 	#TODO: move this into a plugin?
   if [regexp -nocase "^${botnicks}:?,? (silence|shut up|be quiet|go away)" $text] {
