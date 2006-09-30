@@ -27,7 +27,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
 
   bMotion_putloglev 3 * "Checking question for wellbeing"
   ## wellbeing question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? how( a|')?re (you|ya)" $text] ||
+  if { [regexp -nocase "^$botnicks,?:? how( a|')?re (you|ya)( today|now)?\\??$" $text] ||
        [regexp -nocase "^how( a|')?re (you|ya).*$botnicks ?\\?" $text] ||
        [regexp -nocase "${botnicks}?:? ?(how('?s|z) it going|hoe gaat het|what'?s up|'?sup|how are you),?( ${botnicks})?\\?" $text]} {
       bMotion_question_wellbeing $nick $channel $host
