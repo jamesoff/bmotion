@@ -86,6 +86,7 @@ if {![info exists bMotion_abstract_contents]} {
   set bMotion_abstract_languages(dummy) "en"
   set bMotion_abstract_timestamps(dummy) 1
   set bMotion_abstract_ondisk [list]
+	set bMotion_abstract_last_get(dummy) ""
 }
 
 #init our counters
@@ -136,10 +137,12 @@ proc bMotion_abstract_register { abstract } {
   global bMotion_abstract_contents bMotion_abstract_timestamps
   global bMotionModules bMotion_testing bMotion_loading
   global bMotionInfo bMotion_abstract_languages bMotion_abstract_dir
+	global bMotion_abstract_last_get
 
   #set timestamp to now
   set bMotion_abstract_timestamps($abstract) [clock seconds]
   set lang $bMotionInfo(language)
+	set bMotion_abstract_last_get($abstract) ""
 
   #load any existing abstracts
   if [file exists "$bMotion_abstract_dir/${abstract}.txt"] {
@@ -310,16 +313,26 @@ proc bMotion_abstract_all { abstract } {
 	bMotion_putloglev 5 * "bMotion_abstract_all ($abstract)"
   global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age
 
-  if {$bMotion_abstract_timestamps($abstract) < [expr [clock seconds] - $bMotion_abstract_max_age]} {
-    bMotion_abstract_load $abstract
-  }
+	if [info exists bMotion_abstract_timestamps($abstract)] {
+		if {$bMotion_abstract_timestamps($abstract) < [expr [clock seconds] - $bMotion_abstract_max_age]} {
+			bMotion_abstract_load $abstract
+		}
 
-  return $bMotion_abstract_contents($abstract)
+		return $bMotion_abstract_contents($abstract)
+	} else {
+		#abstract doesn't exist
+		bMotion_putloglev d * "bMotion_abstract_all: couldn't find abstract '$abstract' in new system"
+		global $abstract
+		set var [subst $$abstract]
+		
+		return $var
+	}
+
 }
 
 proc bMotion_abstract_get { abstract } {
 	bMotion_putloglev 5 * "bMotion_abstract_get ($abstract)"
-  global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age
+  global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age bMotion_abstract_last_get
 
   bMotion_putloglev 2 * "getting abstract $abstract"
 
@@ -337,7 +350,26 @@ proc bMotion_abstract_get { abstract } {
 
   set bMotion_abstract_timestamps($abstract) [clock seconds]
 
-  return [lindex $bMotion_abstract_contents($abstract) [rand [llength $bMotion_abstract_contents($abstract)]]]
+	if {![info exists bMotion_abstract_last_get($abstract)]} {
+		set bMotion_abstract_last_get($abstract) ""
+	}
+
+  set retval [lindex $bMotion_abstract_contents($abstract) [rand [llength $bMotion_abstract_contents($abstract)]]]
+	if {[llength $bMotion_abstract_contents($abstract)] > 1} {
+		set count 0
+		while {$retval == $bMotion_abstract_last_get($abstract)} {
+			putloglev d * "fetched repeat value for abstract $abstract, trying again"
+			putloglev 1 * "this: $retval ... last: $bMotion_abstract_last_get($abstract)"
+			set retval [lindex $bMotion_abstract_contents($abstract) [rand [llength $bMotion_abstract_contents($abstract)]]]
+			incr count
+			if {$count > 5} {
+				putloglev d * "trying too hard to find non-dupe for abstract $abstract, giving up and using $retval"
+				break
+			}
+		}
+	}
+	set bMotion_abstract_last_get($abstract) $retval
+	return $retval
 }
 
 proc bMotion_abstract_delete { abstract index } {
