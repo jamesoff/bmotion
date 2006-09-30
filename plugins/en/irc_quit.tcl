@@ -17,6 +17,10 @@ proc bMotion_plugins_irc_default_quit { nick host handle channel text } {
   #has something happened since we last spoke?
   set lasttalk [bMotion_plugins_settings_get "system:join" "lasttalk" $channel ""]
 
+	if {[bMotion_settings_get "friendly"] == "2"} {
+		return 0
+	}
+
   if {$handle == "*"} {
     if {[bMotion_setting_get "friendly"] != 1} {
       return 0

@@ -37,6 +37,10 @@ set bMotionSettings(botnicks) "nt|bots|the bots|notopic"
 set bMotionSettings(kinky) 0
 
 # greet people we don't know when they join the channel?
+# 0 = only greet friends
+# 1 = greet everyone
+# 2 = disable greetings
+# (note: this only affects the default join/quit plugins; 3rd party ones may not honour this)
 set bMotionSettings(friendly) 0
 
 

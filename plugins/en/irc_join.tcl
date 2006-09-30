@@ -34,7 +34,12 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 
   set greetings [bMotion_abstract_all "ranjoins"]
 	set lastLeft [bMotion_plugins_settings_get "system:join" "lastleft" $channel ""]
-	
+
+	if {[bMotion_settings_get "friendly"] == "2"} {
+		# don't greet anyone
+		return 0
+	}
+
 	if {$handle != "*"} {
     if {![rand 10]} {
       set greetings [concat $greetings [bMotion_abstract_all "insult_joins"]]
