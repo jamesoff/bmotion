@@ -21,11 +21,12 @@ foreach language $languages {
   foreach f $files {
 		set count [llength [array names bMotion_plugins_irc_event]]
     bMotion_putloglev 1 * "bMotion: loading ($language) irc event plugin file $f"
+		set bMotion_noplugins 0
     catch {
       source $f
     } err
 		set newcount [llength [array names bMotion_plugins_irc_event]]
-		if {($bMotion_testing == 0) && ($newcount == $count)} {
+		if {($bMotion_testing == 0) && ($newcount == $count) && ($bMotion_noplugins == 0)} {
 			putlog "bMotion: ALERT! complex plugins file $f added no plugins"
 			putlog "Possible error: $err"
 		}

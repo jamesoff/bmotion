@@ -19,13 +19,14 @@ foreach language $languages {
   bMotion_putloglev 2 * "bMotion: loading complex action plugins language = $language"
   set files [glob -nocomplain "$bMotionPlugins/$language/action_complex_*.tcl"]
   foreach f $files {
+		set bMotion_noplugins 0
 		set count [llength [array names bMotion_plugins_action_complex]]
     bMotion_putloglev 1 * "bMotion: loading ($language) complex action plugin file $f"
     catch {
       source $f
     } err
 		set newcount [llength [array names bMotion_plugins_action_complex]]
-		if {($bMotion_testing == 0) && ($newcount == $count)} {
+		if {($bMotion_testing == 0) && ($newcount == $count) && ($bMotion_noplugins == 0)} {
 			putlog "bMotion: ALERT! complex action plugin file $f added no plugins"
 			putlog "Possible error: $err"
 		}

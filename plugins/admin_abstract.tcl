@@ -33,7 +33,6 @@ proc bMotion_plugin_admin_abstract { handle { arg "" }} {
     return 0
   }
 
-
   #status
   if [regexp -nocase {status} $arg] {
     global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age
@@ -69,8 +68,14 @@ proc bMotion_plugin_admin_abstract { handle { arg "" }} {
     return 0
   }
 
+	if [regexp -nocase {purge ([^ ]+) (.+)} $arg matches name re] {
+		bMotion_putadmin "Purging abstract $name for elements matching /$re/"
+		#TODO
+		return 0
+	}
+
   #all else fails, list help
-  bMotion_putadmin ".bmadmin abstract \[show|gc|status\]\r"
+  bMotion_putadmin ".bmadmin abstract \[show|gc|status|info|delete\]\r"
   return 0
 }
 

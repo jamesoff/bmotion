@@ -57,7 +57,7 @@ set bMotion_plugins_management(dummy) "none"
 ##############################################################################################################################
 ## Load a simple plugin
 proc bMotion_plugin_add_simple { id match chance response language} {
-  global bMotion_plugins_simple plugins bMotion_testing
+  global bMotion_plugins_simple plugins bMotion_testing bMotion_noplugins
 
   if {$bMotion_testing == 0} {
     catch {
@@ -73,6 +73,7 @@ proc bMotion_plugin_add_simple { id match chance response language} {
     return 1
   }
   bMotion_putloglev d * "bMotion: ignoring disallowed plugin simple:$id"
+	set bMotion_noplugins 1
 }
 
 
@@ -113,7 +114,7 @@ proc bMotion_plugin_find_simple { text lang } {
 
 ## Load management plugin: TODO: Still generating dups?
 proc bMotion_plugin_add_management { id match flags callback { language "" } { helpcallback "" } } {
-  global bMotion_plugins_management plugins bMotion_testing
+  global bMotion_plugins_management plugins bMotion_testing bMotion_noplugins
 
   if {$bMotion_testing == 0} {
     catch {
@@ -128,6 +129,7 @@ proc bMotion_plugin_add_management { id match flags callback { language "" } { h
 			return 1
 		}
 		bMotion_putloglev d * "bMotion: ignoring disallowed plugin management:$id"
+		set bMotion_noplugins 1
 	}
 }
 
@@ -172,7 +174,7 @@ proc bMotion_plugin_find_management_help { name } {
 
 ## Load a complex plugin
 proc bMotion_plugin_add_complex { id match chance callback language } {
-  global bMotion_plugins_complex plugins bMotion_testing
+  global bMotion_plugins_complex plugins bMotion_testing bMotion_noplugins
   if {$bMotion_testing == 0} {
     catch {
       set test $bMotion_plugins_complex($id)
@@ -186,6 +188,7 @@ proc bMotion_plugin_add_complex { id match chance callback language } {
 			return 1
 		}
 		bMotion_putloglev d * "bMotion: ignoring disallowed plugin complex:$id"
+		set bMotion_noplugins 1
   }
 }
 
@@ -222,7 +225,7 @@ proc bMotion_plugin_find_complex { text lang } {
 
 ## Load an output plugin
 proc bMotion_plugin_add_output { id callback enabled language } {
-  global bMotion_plugins_output plugins bMotion_testing
+  global bMotion_plugins_output plugins bMotion_testing bMotion_noplugins
 
   if {$bMotion_testing == 0} {
     catch {
@@ -237,6 +240,7 @@ proc bMotion_plugin_add_output { id callback enabled language } {
 			return 1
 		}
 		bMotion_putloglev d * "bMotion: ignoring disallowed plugin output:$id"
+		set bMotion_noplugins 1
 	}
 }
 
@@ -265,7 +269,7 @@ proc bMotion_plugin_find_output { lang } {
 
 ## Load a simple action plugin
 proc bMotion_plugin_add_action_simple { id match chance response language } {
-  global bMotion_plugins_action_simple plugins bMotion_testing
+  global bMotion_plugins_action_simple plugins bMotion_testing bMotion_noplugins
 
   if {$bMotion_testing == 0} {
     catch {
@@ -280,6 +284,7 @@ proc bMotion_plugin_add_action_simple { id match chance response language } {
 			return 1
 		}
 		bMotion_putloglev d * "bMotion: ignoring disallowed plugin action_simple:$id"
+		set bMotion_noplugins 1
 	}
 }
 
@@ -313,7 +318,7 @@ proc bMotion_plugin_find_action_simple { text lang } {
 
 ## Load a complex action plugin
 proc bMotion_plugin_add_action_complex { id match chance callback language } {
-  global bMotion_plugins_action_complex plugins bMotion_testing
+  global bMotion_plugins_action_complex plugins bMotion_testing bMotion_noplugins
   if {$bMotion_testing == 0} {
     catch {
       set test $bMotion_plugins_action_complex($id)
@@ -327,6 +332,7 @@ proc bMotion_plugin_add_action_complex { id match chance callback language } {
 			return 1
 		}
 		bMotion_putloglev d * "bMotion: ignoring disallowed plugin action_complex:$id"
+		set bMotion_noplugins 1
 	}
 }
 
@@ -425,7 +431,7 @@ proc bMotion_plugin_add_irc_event { id type match chance callback language } {
     putlog "bMotion: ALERT! IRC Event plugin $id has an invalid type $type"
     return 0
   }
-  global bMotion_plugins_irc_event plugins bMotion_testing
+  global bMotion_plugins_irc_event plugins bMotion_testing bMotion_noplugins
   if {$bMotion_testing == 0} {
     catch {
       set test $bMotion_plugins_irc_event($id)
@@ -439,6 +445,7 @@ proc bMotion_plugin_add_irc_event { id type match chance callback language } {
 			return 1
 		}
 		bMotion_putloglev d * "bMotion: ignoring disallowed plugin irc:$id"
+		set bMotion_noplugins 1
 	}
 }
 
@@ -499,21 +506,8 @@ catch { source "$bMotionPlugins/action_complex.tcl" }
 ## Load the irc event plugins
 catch { source "$bMotionPlugins/irc_event.tcl" }
 
-bMotion_putloglev d * "Installed bMotion plugins: (some may be inactive)\r"
-bMotion_putloglev d * "(one moment...)\r"
-foreach t {simple complex admin output action_simple action_complex irc_event} {
-  set arrayName "bMotion_plugins_$t"
-  upvar #0 $arrayName cheese
-  set plugins [lsort [array names cheese]]
-  set output "$t: "
-  foreach n $plugins {
-    if {$n != "dummy"} {
-      append output "$n, "
-    }
-  }
-  set output [string range $output 0 [expr [string length $output] - 3]]
-  bMotion_putloglev d * "$output\r"
-}
+## clean this up, not used again
+unset bMotion_noplugins
 
 ### null plugin routine for faking plugins
 proc bMotion_plugin_null { {a ""} {b ""} {c ""} {d ""} {e ""} } {
