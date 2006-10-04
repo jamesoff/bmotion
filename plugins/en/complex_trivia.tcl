@@ -97,19 +97,23 @@ proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
 
   #let's remember this answer
   #putlog $text
-  if [regexp -nocase {(correct )?answer was ([^\.]+)\.} $text matches correct answer] {
-    if {$correct != ""} {
-      if {![rand 10]} {
+  if [regexp -nocase {(correct )?answer was (.+)\.?$} $text matches correct answer] {
+		bMotion_putloglev d * "detected an answer (correct = $correct)"
+    if [string match "*Nobody got it right.*" $text] {
+			bMotion_putloglev d * "need to bah"
+      if {![rand 20]} {
         bMotionDoAction $channel $nick "%VAR{bahs}"
       }
     }
 
     #if my nick is in the line, i must have got it right
-    if [regexp -nocase "${botnicks}!" $text] {
+    if [regexp -nocase "Congratulations $botnicks" $text] {
+			bMotion_putloglev d * "i got it right :o"
       bMotionDoAction $channel $nick "%VAR{trivia_wins}"
     } else {
       #my nick isn't, so is "correct" (someone else got it)
-      if {![regexp "correct answer" $text]} {
+      if [regexp -nocase "Congratulations (\[^!\]+)!" $text matches nick] {
+				bMotion_putloglev d * "someone else got it right"
         if {(![rand 10]) && ([bMotion_plugins_settings_get "trivia" "type" "" ""] != "year")} {
           bMotionDoAction $channel $nick "%VAR{trivia_loses}"
         }
