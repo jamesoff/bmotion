@@ -201,7 +201,7 @@ proc bMotion_event_main {nick host handle channel text} {
   
   #try stripcodes (eggdrop 1.6.17+)
   catch {
-  	set text [stripcodes $text]
+  	set text [stripcodes bcruag $text]
   }
 
   #first, check botnicks (this is to get round empty-nick-on-startup <<<2
