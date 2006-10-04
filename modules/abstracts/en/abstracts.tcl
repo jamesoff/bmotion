@@ -1288,6 +1288,7 @@ bMotion_abstract_batchadd "balefired" [list "/vanishes from the continuum" "/cea
 bMotion_abstract_batchadd "randomStuff" [list "I'm a doctor not %VAR{sillyThings}" "pika pika!" "pikachu!" "pika...CHUUUU!!! *ZZZAAP*" "*boing*" "moo." "BOOM" "BLAM" "Knickers.%|%BOT\[¬VAR{rarrs}\]" "/goes for coffee" "bof" "alors" "bhar" "arrrr.." "elbow." 	"gorilla" "*yawn*" "*spangle*" "brb" "lalalala.. ow! I stubbed my toe :(%|%bot\[50,¬VAR{awwws}\]" "lum de dum de dum..." "/twiddles thumbs" "boom" "Look over there!" "bleh" "/puts on some banging house tunes" "zut alors" "alors bof" "groogle arrhar" "brb, loo" 	"brb, sex" "uNF" "~rarr~" "~oof~" "Oops, I've ruined it." "Buttock Crunchies" "D'oh!" "setty mings lalalala" "pika" "Are you local?" "We'll have no trouble here" "Resistance is futile, you will be assimilated" "Resistance is futile, you will be 0wn3d" "Assimilation is futile, you will be resi... D'OH!" "I *didn't*" 	"waCHOO *sniff*%|%BOT\[¬VAR{blessyous}\]" "blblblblblbl" "/assimilates the channel" "We are the B0rg. You will be 4551m1la70r3d." "wheeeee" "We are the Borg. Lower your shields and surrender your ship." "h%REPEAT{3:8:n}" "did you see that.." "You are the weakest link, goodbye." "Computer, deactivate iguana." "kerPOW" "kerSPLAT" "KAZAM" "kazOO" "yaZOO" 	"spam, spam, spam, spam, spam, spam..." "Oh my god! There's an axe in my head.%|%BOT\[¬VAR{pullsOut}\]" "Mon dieu! Il y a une hache dans ma tete.%|%BOT\[¬VAR{pullsOut}\]" "ghay'cha'! nachwIjDaq betleH tu'lu'!%|%BOT\[¬VAR{pullsOut}\]" "Deus Meus! Securis in capite meo est.%|%BOT\[¬VAR{pullsOut}\]" "ALL YOUR BASE ARE BELONG TO US" "For great justice." "nostril" "%REPEAT{2:7:bl}" "wh%REPEAT{3:8:e}" "h%REPEAT{3:10:e} FUN" "ah bof" "I didn't!" "shh, sekrit" "SSSH SEKRIT" 	"SILENCE%colen" "pop" "cabbages" "penguin" "cheese" "mmm chicken" "blimey" "crikey" "hoorah" "pie pie pie pie" "fantastic" "ho ho" "har har" "deary me" "m00se" 	"llama" "frogs" "knickers" "bob" "kenneth" "nigel" "is everyone thooper?" "super" "thooper" "lashings of ginger beer" "It's not sugar in my sugar bowl, it's %VAR{sillyThings}{strip}" "I smell of %VAR{sillyThings}{strip}" "Honestly, I don't know how that %VAR{sillyThings}{strip} got in there. I must have slipped" ]
 
 bMotion_abstract_batchadd "randomStuff" {
+	"CAPS LOCK: cruise control for AWESOME!"
 	"%VAR{reminder}"
 	"Doctor, Doctor, there's a %VAR{sillyThings}{strip} in my %VAR{bodypart}"
 		"i'd say there's room up there for another %NUMBER{100} %PLURAL{%VAR{sillyThings}{strip}}"
@@ -1440,7 +1441,6 @@ bMotion_abstract_batchadd "randomStuff" {
   "%ruser has shot the food! %VAR{unsmiles}"
   "%ruser has shot the potion! %VAR{unsmiles}"
   "%ruser now has reflecting shots! %VAR{smiles}"
-  "%ruser is about to die! %VAR{unsmiles}"
   "good.. bad.. I'm the bot with the gun%colen"
   "This is %me. Remember, replicator database restrictions are in place for the good of ALL of us."
   "which was nice"
