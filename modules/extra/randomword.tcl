@@ -61,7 +61,7 @@ proc pubm_rosieword {nick host handle channel text} {
   }
 
   if {$mode == 2} {
-    putlog "mode = 2 bof"
+    #putlog "mode = 2 bof"
     #<something>^n<something>
     set count [rand 10]
     set count [expr $count + 1]

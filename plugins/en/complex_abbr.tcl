@@ -15,7 +15,6 @@ proc bMotion_plugin_complex_abbr { nick host handle channel text } {
   global abbr_nouns abbr_verbs abbr_adj
   global abbr_adult_nouns abbr_adult_verbs abbr_adult_adj
 
-  putlog $text
   if [regexp -nocase "^!abbr( adult| xxx)?$" $text blah adult] {
     if {$adult == ""} {
       set noun1 [pickRandom $abbr_adj]

@@ -546,6 +546,7 @@ proc bMotion_putadmin { text } {
 }
 
 ### bMotionAdminHandler <<<1
+#TODO: is this ever used now?
 proc bMotionAdminHandler {nick host handle channel text} {
   global bMotionAdminFlag botnicks bMotionInfo botnick bMotionSettings
 

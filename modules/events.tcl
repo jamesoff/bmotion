@@ -328,7 +328,7 @@ proc bMotion_event_main {nick host handle channel text} {
   #Reload config files <<<2
 	#TODO: move this into a plugin?
   if [regexp -nocase "${botnicks},?:? re(hash|load)( your config files?)?" $text] {
-    putlog "bMotion: $nick asked me to rehash in $channel"
+    #putlog "bMotion: $nick asked me to rehash in $channel"
     global bMotion_testing bMotionRoot
 
     if [matchattr $handle m] {

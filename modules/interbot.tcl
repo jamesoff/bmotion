@@ -251,7 +251,7 @@ proc bMotion_interbot_fake_catch { bot params } {
   bMotion_putloglev 1 * "Incoming fake event from $bot: $params"
   regexp {([^ ]+) ([^ ]+) (.+)} $params matches channel fromnick line
   #proc bMotion_event_main {nick host handle channel text}
-  putlog $line
+  #putlog $line
   bMotion_event_main $fromnick "fake@fake.com" $fromnick $channel $line
   return 1
 }
@@ -288,7 +288,7 @@ proc bMotion_interbot_hay { bot channels } {
 		set channels $chans
 	}
   set bMotion_interbot_otherbots($bot) $channels
-  putlog "bMotion: Met bMotion bot $bot on channels $channels"
+  bMotion_putloglev d * "bMotion: Met bMotion bot $bot on channels $channels"
   putbot $bot "bmotion SUP $bMotionChannels"
   array unset bMotion_interbot_otherbots dummy
 }
@@ -300,7 +300,7 @@ proc bMotion_interbot_sup { bot channels } {
   #we've met another bmotion bot
   global bMotion_interbot_otherbots
   set bMotion_interbot_otherbots($bot) $channels
-  putlog "bMotion: bMotion bot $bot on channels $channels"
+  bMotion_putloglev d * "bMotion: bMotion bot $bot on channels $channels"
   array unset bMotion_interbot_otherbots dummy
 }
 

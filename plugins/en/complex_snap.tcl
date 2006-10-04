@@ -23,7 +23,6 @@ proc bMotion_plugin_complex_snap { nick host handle channel text } {
       ($nick != [bMotion_plugins_settings_get "complex:snap" $channel "" "nick"])} {
         if {[bMotion_interbot_me_next $channel] && [rand 2]} {
           set othernick [bMotion_plugins_settings_get "complex:snap" $channel "" "nick"]
-          putlog "othernick = $othernick"
           bMotionDoAction $channel $nick "%VAR{snaps}" $othernick
           bMotion_plugins_settings_set "complex:snap" $channel "" "text" ""
           bMotion_plugins_settings_set "complex:snap" $channel "" "nick" ""

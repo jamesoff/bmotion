@@ -43,7 +43,7 @@ proc bMotion_plugins_irc_default_quit { nick host handle channel text } {
   #if 0, someone has said something since
   if {$lasttalk == 1} {
     #bMotion_putloglev 2 d "dropping depart for $nick on $channel because it's too idle"
-    putlog "dropping depart for $nick on $channel because it's too idle"
+    bMotion_putloglev d * "dropping depart for $nick on $channel because it's too idle"
     return 0
   }
 

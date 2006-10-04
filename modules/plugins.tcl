@@ -62,7 +62,7 @@ proc bMotion_plugin_add_simple { id match chance response language} {
   if {$bMotion_testing == 0} {
     catch {
       set test $bMotion_plugins_simple($id)
-      putlog "bMotion: ALERT! Simple plugin $id is defined more than once"
+      bMotion_putloglev d * "bMotion: ALERT! Simple plugin $id is defined more than once"
       return 0
     }
   }
@@ -119,7 +119,7 @@ proc bMotion_plugin_add_management { id match flags callback { language "" } { h
   if {$bMotion_testing == 0} {
     catch {
       set test $bMotion_plugins_management($id)
-      putlog "bMotion: ALERT! management plugin $id is defined more than once ($bMotion_testing)"
+      bMotion_putloglev d * "bMotion: ALERT! management plugin $id is defined more than once ($bMotion_testing)"
       return 0
     }
 		if [bMotion_plugin_check_allowed "management:$id"] {
@@ -178,7 +178,7 @@ proc bMotion_plugin_add_complex { id match chance callback language } {
   if {$bMotion_testing == 0} {
     catch {
       set test $bMotion_plugins_complex($id)
-      putlog "bMotion: ALERT! Complex plugin $id is defined more than once"
+      bMotion_putloglev d * "bMotion: ALERT! Complex plugin $id is defined more than once"
       return 0
     }
 		if [bMotion_plugin_check_allowed "complex:$id"] {
@@ -230,7 +230,7 @@ proc bMotion_plugin_add_output { id callback enabled language } {
   if {$bMotion_testing == 0} {
     catch {
       set test $bMotion_plugins_output($id)
-      putlog "bMotion: ALERT! Output plugin $id is defined more than once"
+      bMotion_putloglev d * "bMotion: ALERT! Output plugin $id is defined more than once"
       return 0
     }
 		if [bMotion_plugin_check_allowed "output:$id"] {
@@ -274,7 +274,7 @@ proc bMotion_plugin_add_action_simple { id match chance response language } {
   if {$bMotion_testing == 0} {
     catch {
       set test $bMotion_plugins_action_simple($id)
-      putlog "bMotion: ALERT! Simple plugin $id is defined more than once"
+      bMotion_putloglev d * "bMotion: ALERT! Simple plugin $id is defined more than once"
       return 0
     }
 		if [bMotion_plugin_check_allowed "action_simple:$id"] {
@@ -322,7 +322,7 @@ proc bMotion_plugin_add_action_complex { id match chance callback language } {
   if {$bMotion_testing == 0} {
     catch {
       set test $bMotion_plugins_action_complex($id)
-      putlog "bMotion: ALERT! Complex action plugin $id is defined more than once"
+      bMotion_putloglev d * "bMotion: ALERT! Complex action plugin $id is defined more than once"
       return 0
     }
 		if [bMotion_plugin_check_allowed "action_complex:$id"] {
@@ -428,14 +428,14 @@ proc bMotion_plugin_check_allowed { name } {
 ## Load an irc event response plugin
 proc bMotion_plugin_add_irc_event { id type match chance callback language } {
   if {![regexp -nocase "nick|join|quit|part|split" $type]} {
-    putlog "bMotion: ALERT! IRC Event plugin $id has an invalid type $type"
+    bMotion_putloglev d * "bMotion: ALERT! IRC Event plugin $id has an invalid type $type"
     return 0
   }
   global bMotion_plugins_irc_event plugins bMotion_testing bMotion_noplugins
   if {$bMotion_testing == 0} {
     catch {
       set test $bMotion_plugins_irc_event($id)
-      putlog "bMotion: ALERT! IRC Event plugin $id is defined more than once"
+      bMotion_putloglev d * "bMotion: ALERT! IRC Event plugin $id is defined more than once"
       return 0
     }
 		if [bMotion_plugin_check_allowed "irc:$id"] {
@@ -452,7 +452,7 @@ proc bMotion_plugin_add_irc_event { id type match chance callback language } {
 ## Find an IRC Event response plugin plugin
 proc bMotion_plugin_find_irc_event { text type lang } {
   if {![regexp -nocase "nick|join|quit|part|split" $type]} {
-    putlog "bMotion: IRC Event search type $type is invalid"
+    bMotion_putloglev d * "bMotion: IRC Event search type $type is invalid"
     return 0
   }
   global bMotion_plugins_irc_event botnicks

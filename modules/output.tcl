@@ -304,7 +304,7 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
     regsub $findString $line $ruser line
     incr loops
     if {$loops > 10} {
-      putlog "bleh :( $line"
+      putlog "bMotion: ALERT! looping too much in %ruser code with $line"
       return ""
     }
   }
@@ -321,7 +321,7 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
     regsub $findString $line $ruser line
     incr loops
     if {$loops > 10} {
-      putlog "bleh :( $line"
+      putlog "bMotion: ALERT! looping too much in %rbot code with $line"
       return ""
     }
   }
