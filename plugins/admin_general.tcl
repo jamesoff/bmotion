@@ -46,7 +46,7 @@ proc bMotion_plugin_management_queue { handle { args "" }} {
 
   if {$args == ""} {
     #display queue
-    bMotion_putadmin "Queue size: [expr [bMotion_queue_size] - 1] lines"
+    bMotion_putadmin "Queue size: [bMotion_queue_size] lines"
 	  foreach item $bMotion_queue {
 	    set sec [lindex $item 0]
 	    set target [lindex $item 1]
@@ -61,6 +61,24 @@ proc bMotion_plugin_management_queue { handle { args "" }} {
     bMotion_queue_flush
     return 0
   }
+
+	if {$args == "freeze"} {
+		bMotion_putadmin "Freezing queue..."
+		bMotion_queue_freeze
+		return 0
+	}
+
+	if {$args == "thaw"} {
+		bMotion_putadmin "Thawing queue..."
+		bMotion_queue_thaw
+		return 0
+	}
+
+	if {$args == "run"} {
+		bMotion_putadmin "Running queue..."
+		bMotion_queue_run 1
+		return 0
+	}
 }
 
 proc bMotion_plugin_management_parse { handle { arg "" } } {

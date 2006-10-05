@@ -27,6 +27,7 @@
 
 #A rehash should kill the queue
 set bMotion_queue [list]
+set bMotion_queue_runny 1
 
 # queue format is:
 #  list of:
@@ -40,8 +41,17 @@ set bMotion_queue [list]
 # Processes the queue, reducing all the times by 1. If anything hits or goes below
 # 0 then it is sent to output
 # This also sends stuff to remote bots
-proc bMotion_queue_run { } {
-  global bMotion_queue
+proc bMotion_queue_run { {force 0} } {
+  global bMotion_queue bMotion_queue_runny
+
+	if {$bMotion_queue_runny == 0} {
+		if {$force == 0} {
+			#queue is frozen
+			return 0
+		} else {
+			bMotion_putloglev d * "Running queue once while frozen"
+		}
+	}
 
   set tempqueue [list]
   bMotion_putloglev 3 * "Running output queue..."
@@ -144,6 +154,23 @@ proc bMotion_queue_size { } {
 proc bMotion_queue_flush { } {
 	global bMotion_queue
 	set bMotion_queue [list]
+}
+
+# bMotion_queue_freeze
+#
+# Stops queue output
+proc bMotion_queue_freeze { } {
+	global bMotion_queue_runny
+
+	set bMotion_queue_runny 0
+	bMotion_putloglev d * "Freezing output queue"
+}
+
+proc bMotion_queue_thaw { } {
+	global bMotion_queue_runny
+
+	set bMotion_queue_runny 1
+	bMotion_putloglev d * "Thawing output queue"
 }
 
 # init timer
