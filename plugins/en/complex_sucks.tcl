@@ -20,6 +20,11 @@ proc bMotion_plugin_complex_sucks { nick host handle channel text } {
     if {$item == "=="} {
       return 0
     }
+
+		if {[string tolower $item] == "i"} {
+			return 0
+		}
+
     bMotionDoAction $channel $item "%VAR{sucks}"
 		return 1
   }
