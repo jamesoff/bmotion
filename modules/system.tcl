@@ -202,11 +202,23 @@ proc doRandomStuff {} {
 proc bMotionSaySomethingRandom {channel} {
   global randomStuff stonedRandomStuff randomStuffMale randomStuffFemale mood bMotionInfo bMotionCache
 
-	if ($bMotionCache($channel,last)) {
-		return 1
-	}
+	#if ($bMotionCache($channel,last)) {
+#		return 1
+#	}
 
   if [rand 2] {
+		set today [clock format [clock seconds] -format "randomStuff_%Y_%m_%d"]
+		if [bMotion_abstract_exists $today] {
+			bMotionDoAction $channel "" "%VAR{$today}"
+			return 0
+		}
+
+		set today [clock format [clock seconds] -format "randomStuff_%m_%d"]
+		if [bMotion_abstract_exists $today] {
+			bMotionDoAction $channel "" "%VAR{$today}"
+			return 0
+		}
+
     bMotionDoAction $channel "" "%VAR{randomStuff}"
   }
 

@@ -330,6 +330,18 @@ proc bMotion_abstract_all { abstract } {
 
 }
 
+proc bMotion_abstract_exists { abstract } {
+	bMotion_putloglev 5 * "bMotion_abstract_exists ($abstract)"
+  global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age bMotion_abstract_last_get
+
+  bMotion_putloglev 2 * "checking for existence of abstract $abstract"
+
+  if {![info exists bMotion_abstract_timestamps($abstract)]} {
+    return 0
+  }
+	return 1
+}
+
 proc bMotion_abstract_get { abstract } {
 	bMotion_putloglev 5 * "bMotion_abstract_get ($abstract)"
   global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age bMotion_abstract_last_get

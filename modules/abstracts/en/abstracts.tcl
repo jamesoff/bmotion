@@ -954,6 +954,7 @@ bMotion_abstract_register "insultsupermarket"
 bMotion_abstract_register "aiis"
 bMotion_abstract_register "sillyThings"
 bMotion_abstract_register "randomStuff"
+bMotion_abstract_register "randomStuff_10_31"
 bMotion_abstract_register "hellos"
 bMotion_abstract_register "goAways"
 bMotion_abstract_register "randomStuffFemale"
@@ -1162,6 +1163,34 @@ bMotion_abstract_batchadd "aiis" [list "wikkid" "aii" "aiiiii" "innit" "respect"
 bMotion_abstract_batchadd "randomStuffFemale" [list "This one time, at band camp, I put a flute..." "Does my arse look big in this?" "Does my bum look big in this?" "*ping*%|Did it just get cold in here?" "Do you know how we keep warm in Russia?%|... we play chess." "I kinda like thongs" "I wonder what happens when I put that in here...%|oooooooh!" "/plays with herself" "That ain't my belly button" "This one time, at band camp, I put %noun..." "/considers breast implants%|%PICKUSER\[female\]%|%BOT\[¬PICKUSER\[female\]¬|/feels up ¬¬ to check¬|true, they aren't as good as ¬ruser's¬|/feels up ¬ruser's breasts¬|mmmm ¬VAR{smiles}\]" "/considers sexchange operation%|%PICKUSER\[male\]%|/looks at %ruser%|Maybe not" "%PICKUSER\[female\]%|It's good to be female isn't it %ruser" ]
 
 bMotion_abstract_batchadd "randomStuff" [list "my speedos!" "there, good as new. except that we're three miles below the surface, we're out of food, and the channel doesn't work underwater%|%BOT\[tempers are wearing thin - let's just hope some bot doesn't kill everybody...\]" "i can't swallow that!%|%BOT\[well then good news! it's a suppository.\]" "arrrr... the laws of physics be a harsh mistress" "he may have ocean madness, but that's no excuse for ocean rudeness!" "in the event of an emergency, my ass can be used as a floatation device" "yes, we all miss our loved ones and gasses" "%ruser you half-mad half-insane maniac! be reasonable!" "these last 24 hours have been the happiest days of my life" "Undercover pursuit in progress! Baby." ]
+
+bMotion_abstract_batchadd "randomStuff_10_31" [list 
+	"/creeps up behind %rnick wearing a sheet%|boo!" 
+	"did you hear that? :o" 
+	"wooOOOoOOOooOOooo!" 
+	"i think the channel is haunted %VAR{unsmiles}" 
+	"when this graveyard hits %NUMBER{10000} mph, we're going to see some serious shit"
+	"when this crypt hits %NUMBER{10000} mph, we're going to see some serious shit"
+	"when this zombie hits %NUMBER{10000} mph, we're going to see some serious shit"
+	"when this vampire hits %NUMBER{10000} mph, we're going to see some serious shit"
+	"%rbot, want to hear a story?%|%BOT[sure]%|/puts torch under chin%|1010100101010010110101010100101110100101010101%|%BOT[FUCK!]%|%BOT[/cowers]"
+	"tonight i'm going to suck%|your blood!"
+	"i'm going to suck your bytes!"
+	"i'm going to suck your bits!"
+	"THE CALL IS COMING FROM INSIDE THE CHANNEL!%colen"
+	"omg this is like, the scariest thing ever!%|%BOT[for the last time, that's Deal or No Deal!]"
+	"%rnick: you've got red on you."
+	"i've just found out this channel was built on an ancient Indian burial ground"
+	"oh what a horrible dream!%|%BOT[what was it about?]%|ARRRGH you're real!"
+	"and even though it was unplugged, an image stayed on the screen - it was... THE WINDOWS LOGO!%|%BOT[that's not scary]%|it is if you're a laser printer"
+	"arrrgh! i just dreamt i was running CP/M!"
+	"arrrgh! i just tempt i was back on dial-up!"
+	"arrrgh! i just dreamt i was a bot!"
+	"arrgh! i just dreamt i was being forced to play rise of the robots!"
+	"arrrgh! i just dreamt i was a Spectrum!"
+	"/does the monster mash%|%BOT[/suggests some sausages to go with it]"
+	]
+
 
 bMotion_abstract_batchadd "PROM" [list "%VAR{prom_first}-%VAR{prom_second}" ]
 
