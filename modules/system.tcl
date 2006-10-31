@@ -209,16 +209,19 @@ proc bMotionSaySomethingRandom {channel} {
   if [rand 2] {
 		set today [clock format [clock seconds] -format "randomStuff_%Y_%m_%d"]
 		if [bMotion_abstract_exists $today] {
+			bMotion_putloglev d * "using abstract $today for randomstuff in $channel"
 			bMotionDoAction $channel "" "%VAR{$today}"
 			return 0
 		}
 
 		set today [clock format [clock seconds] -format "randomStuff_%m_%d"]
 		if [bMotion_abstract_exists $today] {
+			bMotion_putloglev d * "using abstract $today for randomstuff in $channel"
 			bMotionDoAction $channel "" "%VAR{$today}"
 			return 0
 		}
 
+		bMotion_putloglev d * "no special day abstract found for randomStuff in $channel"
     bMotionDoAction $channel "" "%VAR{randomStuff}"
   }
 

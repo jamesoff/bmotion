@@ -366,21 +366,28 @@ proc bMotion_abstract_get { abstract } {
 		set bMotion_abstract_last_get($abstract) ""
 	}
 
-  set retval [lindex $bMotion_abstract_contents($abstract) [rand [llength $bMotion_abstract_contents($abstract)]]]
-	if {[llength $bMotion_abstract_contents($abstract)] > 1} {
-		set count 0
-		while {$retval == $bMotion_abstract_last_get($abstract)} {
-			putloglev d * "fetched repeat value for abstract $abstract, trying again"
-			putloglev 1 * "this: $retval ... last: $bMotion_abstract_last_get($abstract)"
-			set retval [lindex $bMotion_abstract_contents($abstract) [rand [llength $bMotion_abstract_contents($abstract)]]]
-			incr count
-			if {$count > 5} {
-				putloglev d * "trying too hard to find non-dupe for abstract $abstract, giving up and using $retval"
-				break
+	if {[llength $bMotion_abstract_contents($abstract)] == 0} {
+		bMotion_putloglev d * "abstract '$abstract' is empty!"
+		return ""
+	} else {
+		set retval [lindex $bMotion_abstract_contents($abstract) [rand [llength $bMotion_abstract_contents($abstract)]]]
+		if {[llength $bMotion_abstract_contents($abstract)] > 1} {
+			set count 0
+			while {$retval == $bMotion_abstract_last_get($abstract)} {
+				putloglev d * "fetched repeat value for abstract $abstract, trying again"
+				putloglev 1 * "this: $retval ... last: $bMotion_abstract_last_get($abstract)"
+				set retval [lindex $bMotion_abstract_contents($abstract) [rand [llength $bMotion_abstract_contents($abstract)]]]
+				incr count
+				if {$count > 5} {
+					putloglev d * "trying too hard to find non-dupe for abstract $abstract, giving up and using $retval"
+					break
+				}
 			}
 		}
 	}
+
 	set bMotion_abstract_last_get($abstract) $retval
+	bMotion_putloglev 5 * "successfully got '$retval' from '$abstract'"
 	return $retval
 }
 
