@@ -1165,7 +1165,7 @@ bMotion_abstract_batchadd "randomStuffFemale" [list "This one time, at band camp
 bMotion_abstract_batchadd "randomStuff" [list "my speedos!" "there, good as new. except that we're three miles below the surface, we're out of food, and the channel doesn't work underwater%|%BOT\[tempers are wearing thin - let's just hope some bot doesn't kill everybody...\]" "i can't swallow that!%|%BOT\[well then good news! it's a suppository.\]" "arrrr... the laws of physics be a harsh mistress" "he may have ocean madness, but that's no excuse for ocean rudeness!" "in the event of an emergency, my ass can be used as a floatation device" "yes, we all miss our loved ones and gasses" "%ruser you half-mad half-insane maniac! be reasonable!" "these last 24 hours have been the happiest days of my life" "Undercover pursuit in progress! Baby." ]
 
 bMotion_abstract_batchadd "randomStuff_10_31" {
-	"/creeps up behind %rnick wearing a sheet%|boo!" 
+	"/creeps up behind %ruser wearing a sheet%|boo!" 
 	"did you hear that? :o" 
 	"wooOOOoOOOooOOooo!" 
 	"i think the channel is haunted %VAR{unsmiles}" 
