@@ -1184,7 +1184,7 @@ bMotion_abstract_batchadd "randomStuff_10_31" {
 	"oh what a horrible dream!%|%BOT[what was it about?]%|ARRRGH you're real!"
 	"and even though it was unplugged, an image stayed on the screen - it was... THE WINDOWS LOGO!%|%BOT[that's not scary]%|it is if you're a laser printer"
 	"arrrgh! i just dreamt i was running CP/M!"
-	"arrrgh! i just tempt i was back on dial-up!"
+	"arrrgh! i just dreamt i was back on dial-up!"
 	"arrrgh! i just dreamt i was a bot!"
 	"arrgh! i just dreamt i was being forced to play rise of the robots!"
 	"arrrgh! i just dreamt i was a Spectrum!"
