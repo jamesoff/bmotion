@@ -93,13 +93,14 @@ proc bMotion_plugin_complex_trivia_delay { } {
 
 # be told about the start of a round remotely
 proc bMotion_plugin_complex_trivia_init { info } {
-	if [regexp {(#[^ ]+) ([0-9]+)} $info matches channel roundlength] {
+	if [regexp {(#[^ ]+) ([0-9]+) (.+)} $info matches channel roundlength bot] {
 		bMotion_plugins_settings_set "trivia" "channel" "" "" $channel
 		bMotion_plugins_settings_set "trivia" "type" "" "" "normal"
 		bMotion_plugins_settings_set "trivia" "played" "" "" 0
 		bMotion_plugins_settings_set "trivia" "hint" "" "" ""
 		bMotion_plugins_settings_set "trivia" "tries" "" "" 0
 		bMotion_plugins_settings_set "trivia" "delay" "" "" $roundlength
+		bMotion_plugins_settings_set "trivia" "bot" "" "" $bot
 		bMotion_putloglev 1 * "trivia: informed of round start in $channel, delay = $roundlength"
 
 		#start a short timer (add extra delay for the text to escape from TriviaCow)
@@ -144,7 +145,7 @@ proc bMotion_plugin_complex_trivia_winner { info } {
 			#noone won
 			bMotion_putloglev d * "trivia: noone won this round"
       if {![rand 20]} {
-        bMotionDoAction $channel $nick "%VAR{bahs}"
+        bMotionDoAction $channel [bMotion_plugins_settings_get "trivia" "bot" "" ""] "%VAR{bahs}"
       }
 		} else {
 			# someone got it right
@@ -156,7 +157,7 @@ proc bMotion_plugin_complex_trivia_winner { info } {
 				#it was someone else
 				bMotion_putloglev d * "trivia: somone else won :("
         if {(![rand 10]) && ([bMotion_plugins_settings_get "trivia" "type" "" ""] != "year")} {
-          bMotionDoAction $channel $nick "%VAR{trivia_loses}"
+          bMotionDoAction $channel $winner "%VAR{trivia_loses}"
         }
 			}
 		}
