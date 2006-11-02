@@ -83,8 +83,11 @@ proc bMotion_plugin_complex_trivia_1 { nick host handle channel text } {
 
 proc bMotion_plugin_complex_trivia_delay { } {
 	set delay [bMotion_plugins_settings_get "trivia" "delay" "" ""]
+
 	if {$delay != ""} {
-		return [expr [rand [expr $delay - 3]] + 3]
+		set quarter [expr $delay / 4]
+		set lmt [expr $quarter * 3]
+		return [expr [rand $quarter] + $lmt]
 	}
 }
 
