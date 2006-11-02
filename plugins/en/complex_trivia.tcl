@@ -386,6 +386,9 @@ proc bMotion_plugin_complex_trivia_guess { nick host handle channel text } {
 			bMotion_putloglev d * "trivia: will try trivia again in $delay seconds"
 			bMotion_plugins_settings_set "trivia" "timer" "" "" [utimer $delay bMotion_plugin_complex_trivia_auto]
 		}
+		if {![rand 100]} {
+			bMotionDoAction $channel "" "permafrost"
+		}
 	}
 	return 2
 }

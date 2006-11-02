@@ -1130,7 +1130,7 @@ bMotion_abstract_batchadd "smiles" [list ":)" ";)" "=)" "=]" "=D" "^_^" "-_-" ":
 
 bMotion_abstract_batchadd "thanks" [list "cheers" "ta" "thanks" "merki" "a thousand thankyous" "thx" "tanks" "thankie" "thansk" "praise be to you" ]
 
-bMotion_abstract_batchadd "stupidReplies" [list "I may be stupid, but you're minging, and I can learn new things :)" "At least I'm not minging." "Minger." "You do better in 6911 lines of TCL :P" "You know, I think you say that just to hide the fact that you're not the sharpest tool in the box either." "*hands over ears* lalalalala I can't hear you..." "I'm only code, what's your excuse?" "Silence!" "I only have 1s and 0s.  You don't seem to be doing so hot with the rest of the numbers" "I'm made of SAND! I think I'm doing bloody well." "You see how you do after 2 years on IRC with no sleep" "You say that now. Wait till I'm in Mensa." "You're so thick even Densa rejected you." "Yes Jade. Absolutely." ]
+bMotion_abstract_batchadd "stupidReplies" [list "I may be stupid, but you're minging, and I can learn new things :)" "At least I'm not minging." "Minger." "You do better in 6911 lines of TCL :P" "You know, I think you say that just to hide the fact that you're not the sharpest tool in the box either." "*hands over ears* lalalalala I can't hear you..." "I'm only code, what's your excuse?" "Silence!" "I only have 1s and 0s.  You don't seem to be doing so hot with the rest of the numbers" "I'm made of SAND! I think I'm doing bloody well." "You see how you do after 2 years on IRC with no sleep" "You say that now. Wait till I'm in Mensa." "You're so thick even Densa rejected you." "Yes Jade. Absolutely." "at least i'm not a talking penis"]
 
 bMotion_abstract_batchadd "moose" [list "yarr" "pop" "jum" "zort" ]
 
