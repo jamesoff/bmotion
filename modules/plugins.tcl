@@ -486,7 +486,7 @@ proc bMotion_plugin_find_irc_event { text type lang } {
 ################################################################################
 
 ## Load the simple plugins
-source "$bMotionPlugins/simple.tcl"
+catch { source "$bMotionPlugins/simple.tcl" }
 
 ## Load the admin (management) plugins
 catch { source "$bMotionPlugins/admin.tcl" }
