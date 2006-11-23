@@ -14,13 +14,13 @@
 
 set currentlang $bMotionInfo(language)
 set languages [split $bMotionSettings(languages) ","]
-foreach language $languages {
-  set bMotionInfo(language) $language
-  bMotion_putloglev 2 * "bMotion: loading irc event plugins language = $language"
-  set files [glob -nocomplain "$bMotionPlugins/$language/irc_*.tcl"]
+foreach bMotion_language $languages {
+  set bMotionInfo(language) $bMotion_language
+  bMotion_putloglev 2 * "bMotion: loading irc event plugins language = $bMotion_language"
+  set files [glob -nocomplain "$bMotionPlugins/$bMotion_language/irc_*.tcl"]
   foreach f $files {
 		set count [llength [array names bMotion_plugins_irc_event]]
-    bMotion_putloglev 1 * "bMotion: loading ($language) irc event plugin file $f"
+    bMotion_putloglev 1 * "bMotion: loading ($bMotion_language) irc event plugin file $f"
 		set bMotion_noplugins 0
     catch {
       source $f

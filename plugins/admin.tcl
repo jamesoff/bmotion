@@ -14,13 +14,13 @@
 
 set currentlang $bMotionInfo(language)
 set languages [split $bMotionSettings(languages) ","]
-foreach language $languages {
-  set bMotionInfo(language) $language
-  bMotion_putloglev 2 * "bMotion: loading admin plugins language = $language"
-  set files [glob -nocomplain "$bMotionPlugins/$language/admin_*.tcl"]
+foreach bMotion_language $languages {
+  set bMotionInfo(language) $bMotion_language
+  bMotion_putloglev 2 * "bMotion: loading admin plugins language = $bMotion_language"
+  set files [glob -nocomplain "$bMotionPlugins/$bMotion_language/admin_*.tcl"]
   foreach f $files {
 		set count [llength [array names bMotion_plugins_admin]]
-    bMotion_putloglev 1 * "bMotion: loading ($language) admin plugin file $f"
+    bMotion_putloglev 1 * "bMotion: loading ($bMotion_language) admin plugin file $f"
     catch {
       source $f
     } err

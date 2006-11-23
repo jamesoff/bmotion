@@ -14,14 +14,14 @@
 
 set currentlang $bMotionInfo(language)
 set languages [split $bMotionSettings(languages) ","]
-foreach language $languages {
-  set bMotionInfo(language) $language
-  bMotion_putloglev 2 * "bMotion: loading complex action plugins language = $language"
-  set files [glob -nocomplain "$bMotionPlugins/$language/action_complex_*.tcl"]
+foreach language $bMotion_languages {
+  set bMotionInfo(language) $bMotion_language
+  bMotion_putloglev 2 * "bMotion: loading complex action plugins language = $bMotion_language"
+  set files [glob -nocomplain "$bMotionPlugins/$bMotion_language/action_complex_*.tcl"]
   foreach f $files {
 		set bMotion_noplugins 0
 		set count [llength [array names bMotion_plugins_action_complex]]
-    bMotion_putloglev 1 * "bMotion: loading ($language) complex action plugin file $f"
+    bMotion_putloglev 1 * "bMotion: loading ($bMotion_language) complex action plugin file $f"
     catch {
       source $f
     } err
