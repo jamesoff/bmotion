@@ -14,7 +14,7 @@
 
 set currentlang $bMotionInfo(language)
 set languages [split $bMotionSettings(languages) ","]
-foreach language $bMotion_languages {
+foreach bMotion_language $languages {
   set bMotionInfo(language) $bMotion_language
   bMotion_putloglev 2 * "bMotion: loading complex action plugins language = $bMotion_language"
   set files [glob -nocomplain "$bMotionPlugins/$bMotion_language/action_complex_*.tcl"]
