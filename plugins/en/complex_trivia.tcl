@@ -86,7 +86,7 @@ proc bMotion_plugin_complex_trivia_delay { } {
 
 	if {$delay != ""} {
 		set quarter [expr $delay / 4]
-		set lmt [expr $quarter * 3]
+		set lmt [expr $quarter * 1]
 		return [expr [rand $quarter] + $lmt]
 	}
 }
