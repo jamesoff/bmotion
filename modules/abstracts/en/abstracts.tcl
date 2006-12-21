@@ -1,5 +1,6 @@
 # Responses
 # $Id$
+# vim: foldmethod=indent
 #
 ###############################################################################
 # bMotion - an 'AI' TCL script for eggdrops
@@ -1130,7 +1131,7 @@ bMotion_abstract_batchadd "smiles" [list ":)" ";)" "=)" "=]" "=D" "^_^" "-_-" ":
 
 bMotion_abstract_batchadd "thanks" [list "cheers" "ta" "thanks" "merki" "a thousand thankyous" "thx" "tanks" "thankie" "thansk" "praise be to you" ]
 
-bMotion_abstract_batchadd "stupidReplies" [list "I may be stupid, but you're minging, and I can learn new things :)" "At least I'm not minging." "Minger." "You do better in 6911 lines of TCL :P" "You know, I think you say that just to hide the fact that you're not the sharpest tool in the box either." "*hands over ears* lalalalala I can't hear you..." "I'm only code, what's your excuse?" "Silence!" "I only have 1s and 0s.  You don't seem to be doing so hot with the rest of the numbers" "I'm made of SAND! I think I'm doing bloody well." "You see how you do after 2 years on IRC with no sleep" "You say that now. Wait till I'm in Mensa." "You're so thick even Densa rejected you." "Yes Jade. Absolutely." "at least i'm not a talking penis"]
+bMotion_abstract_batchadd "stupidReplies" [list "I may be stupid, but you're minging, and I can learn new things :)" "At least I'm not minging." "Minger." "You do better in 6911 lines of TCL :P" "You know, I think you say that just to hide the fact that you're not the sharpest tool in the box either." "*hands over ears* lalalalala I can't hear you..." "I'm only code, what's your excuse?" "Silence!" "I only have 1s and 0s.  You don't seem to be doing so hot with the rest of the numbers" "I'm made of SAND! I think I'm doing bloody well." "You see how you do after 2 years on IRC with no sleep" "You say that now. Wait till I'm in Mensa." "You're so thick even Densa rejected you." "Yes Jade. Absolutely." "at least i'm not a talking penis" "garbage fucker"]
 
 bMotion_abstract_batchadd "moose" [list "yarr" "pop" "jum" "zort" ]
 
@@ -1191,6 +1192,28 @@ bMotion_abstract_batchadd "randomStuff_10_31" {
 	"/does the monster mash%|%BOT[/suggests some sausages to go with it]"
 }
 
+bMotion_abstract_register "randomStuff_12_24" 
+bMotion_abstract_batchadd "randomStuff_12_24" {
+	"boy, i sure hope santa comes down my chimney tonight"
+	"santa claus is coming to town"
+	"/hangs up %hisher stockings%|er, stocking.%|%BOT[what a giveaway]"
+	"/hangs up %hisher stocking"
+	"/puts out mince pies and sherry for santa%|%BOT[hey, mince pies!]%|%BOT[/eats]"
+	"has santa been yet?"
+	"nearly christmas!%|/fidgets"
+}
+
+bMotion_abstract_register "randomStuff_12_25"
+bMotion_abstract_batchadd "randomStuff_12_25" {
+	"happy christmas!"
+	"merry christmas!"
+	"you'll never guess what santa put in my stocking"
+	"mmm presents"
+	"/opens present from %ruser%|%VAR{sillyThings}! just what i always wanted!"
+	"/hands present to %ruser%|/. o O ( i hope they like their new %VAR{sillyThings}{strip} )"
+	"mmm christmas"
+	"mmm %ruser{like}%|hey look, mistletoe!%|;)"
+}
 
 bMotion_abstract_batchadd "PROM" [list "%VAR{prom_first}-%VAR{prom_second}" ]
 
@@ -1308,7 +1331,7 @@ bMotion_abstract_batchadd "greetings" [list "hey %%" "hi %%" "hey there %%" "how
 
 bMotion_abstract_batchadd "FRENCH" [list "%VAR{french1} %VAR{french2} %VAR{french3}" ]
 
-bMotion_abstract_batchadd "hellos" [list "hello" "hey" "hi" "howdy" "greets" ]
+bMotion_abstract_batchadd "hellos" [list "hello" "hey" "hi" "howdy" "greets" "sup"]
 
 bMotion_abstract_batchadd "cyas" [list "l8r" "cya" "cya l8r" "bye" "byebye" "/waves" "you still here?" "quand vous retournez, apporter les tartes!" "talk to you later" "when you coming back?" "adieu" "toodle-oo" "ciao" "cheerio"]
 
@@ -1317,6 +1340,8 @@ bMotion_abstract_batchadd "balefired" [list "/vanishes from the continuum" "/cea
 bMotion_abstract_batchadd "randomStuff" [list "I'm a doctor not %VAR{sillyThings}" "pika pika!" "pikachu!" "pika...CHUUUU!!! *ZZZAAP*" "*boing*" "moo." "BOOM" "BLAM" "Knickers.%|%BOT\[¬VAR{rarrs}\]" "/goes for coffee" "bof" "alors" "bhar" "arrrr.." "elbow." 	"gorilla" "*yawn*" "*spangle*" "brb" "lalalala.. ow! I stubbed my toe :(%|%bot\[50,¬VAR{awwws}\]" "lum de dum de dum..." "/twiddles thumbs" "boom" "Look over there!" "bleh" "/puts on some banging house tunes" "zut alors" "alors bof" "groogle arrhar" "brb, loo" 	"brb, sex" "uNF" "~rarr~" "~oof~" "Oops, I've ruined it." "Buttock Crunchies" "D'oh!" "setty mings lalalala" "pika" "Are you local?" "We'll have no trouble here" "Resistance is futile, you will be assimilated" "Resistance is futile, you will be 0wn3d" "Assimilation is futile, you will be resi... D'OH!" "I *didn't*" 	"waCHOO *sniff*%|%BOT\[¬VAR{blessyous}\]" "blblblblblbl" "/assimilates the channel" "We are the B0rg. You will be 4551m1la70r3d." "wheeeee" "We are the Borg. Lower your shields and surrender your ship." "h%REPEAT{3:8:n}" "did you see that.." "You are the weakest link, goodbye." "Computer, deactivate iguana." "kerPOW" "kerSPLAT" "KAZAM" "kazOO" "yaZOO" 	"spam, spam, spam, spam, spam, spam..." "Oh my god! There's an axe in my head.%|%BOT\[¬VAR{pullsOut}\]" "Mon dieu! Il y a une hache dans ma tete.%|%BOT\[¬VAR{pullsOut}\]" "ghay'cha'! nachwIjDaq betleH tu'lu'!%|%BOT\[¬VAR{pullsOut}\]" "Deus Meus! Securis in capite meo est.%|%BOT\[¬VAR{pullsOut}\]" "ALL YOUR BASE ARE BELONG TO US" "For great justice." "nostril" "%REPEAT{2:7:bl}" "wh%REPEAT{3:8:e}" "h%REPEAT{3:10:e} FUN" "ah bof" "I didn't!" "shh, sekrit" "SSSH SEKRIT" 	"SILENCE%colen" "pop" "cabbages" "penguin" "cheese" "mmm chicken" "blimey" "crikey" "hoorah" "pie pie pie pie" "fantastic" "ho ho" "har har" "deary me" "m00se" 	"llama" "frogs" "knickers" "bob" "kenneth" "nigel" "is everyone thooper?" "super" "thooper" "lashings of ginger beer" "It's not sugar in my sugar bowl, it's %VAR{sillyThings}{strip}" "I smell of %VAR{sillyThings}{strip}" "Honestly, I don't know how that %VAR{sillyThings}{strip} got in there. I must have slipped" ]
 
 bMotion_abstract_batchadd "randomStuff" {
+	"I'd be in a lot of trouble if I was allergic to semen"
+	"My family is giving away a lot of wax for houses"
 	"CAPS LOCK: cruise control for AWESOME!"
 	"%VAR{reminder}"
 	"Doctor, Doctor, there's a %VAR{sillyThings}{strip} in my %VAR{bodypart}"
@@ -1507,6 +1532,7 @@ bMotion_abstract_batchadd "lyrics" {
 	"yes for twenty-four years i've been living next door to Alice"
 	"wake up, please Suzy! wake up!"
 	"don't you step on my blue suede shoes"
+	"i see girls here there and everywhere; short skirts long hair love it when they walk yeah"
 }
 
 bMotion_abstract_batchadd "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline" "/snigger" "wait, that's not right..." ]
