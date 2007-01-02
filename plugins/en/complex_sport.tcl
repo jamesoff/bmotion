@@ -11,6 +11,8 @@
 # in the modules directory.
 ###############################################################################
 
+bMotion_plugin_add_complex "sport" "^!sport" 100 bMotion_plugin_complex_sport "en"
+
 proc bMotion_plugin_complex_sport { nick host handle channel text } {
   if [regexp -nocase "^!sport( adult| xxx)?$" $text blah adult] {
     if {$adult != ""} {
@@ -23,9 +25,8 @@ proc bMotion_plugin_complex_sport { nick host handle channel text } {
   }
 }
 
-bMotion_plugin_add_complex "sport" "^!sport" 100 bMotion_plugin_complex_sport "en"
-
-set sport_superadjectives {
+bMotion_abstract_register "sport_superadjectives"
+bMotion_abstract_batchadd "sport_superadjectives" {
   "extreme"
   "super"
   "ultra"
@@ -55,7 +56,8 @@ set sport_superadjectives {
   "olympic"
 }
 
-set sport_adjectives {
+bMotion_abstract_register "sport_adjectives"
+bMotion_abstract_batchadd "sport_adjectives" {
   "downhill"
   "uphill"
   "sideways"
@@ -91,7 +93,8 @@ set sport_adjectives {
   "thimble"
 }
 
-set sport_sports {
+bMotion_abstract_register "sport_sports"
+bMotion_abstract_batchadd "sport_sports" {
   "football"
   "American Football"
   "basketball"
@@ -140,7 +143,8 @@ set sport_sports {
   "circus"
 }
 
-set sport_adult_superadjectives_t {
+bMotion_abstract_register "sport_adult_superadjectives_t"
+bMotion_abstract_batchadd "sport_adult_superadjectives_t" {
   "nude"
   "horny"
   "sticky"
@@ -149,7 +153,8 @@ set sport_adult_superadjectives_t {
   "animated"
 }
 
-set sport_adult_adjectives_t {
+bMotion_abstract_register "sport_adult_adjectives_t"
+bMotion_abstract_batchadd "sport_adult_adjectives_t" {
   "bent"
   "%ruser"
   "facial"
@@ -166,7 +171,8 @@ set sport_adult_adjectives_t {
   "paedophile"
 }
 
-set sport_adult_sports_t {
+bMotion_abstract_register "sport_adult_sports_t"
+bMotion_abstract_batchadd "sport_adult_sports_t" {
   "chicken fancying"
   "horthy riding (wahey)"
   "sex"
@@ -181,6 +187,18 @@ set sport_adult_sports_t {
 }
 
 #create the big lists :)
-set sport_adult_superadjectives [concat $sport_adjectives $sport_adult_superadjectives_t]
-set sport_adult_adjectives [concat $sport_adjectives $sport_adult_adjectives_t]
-set sport_adult_sports [concat $sport_sports $sport_adult_sports_t]
+bMotion_abstract_register "sport_adult_superadjectives"
+bMotion_abstract_batchadd "sport_adult_superadjectives" {
+  "%VAR{sport_adjectives}"
+  "%VAR{sport_adult_superadjectives_t}"
+}
+bMotion_abstract_register "sport_adult_adjectives"
+bMotion_abstract_batchadd "sport_adult_adjectives" {
+  "%VAR{sport_adjectives}"
+  "%VAR{sport_adult_adjectives_t}"
+}
+bMotion_abstract_register "sport_adult_sports"
+bMotion_abstract_batchadd "sport_adult_sports" {
+  "%VAR{sport_sports}"
+  "%VAR{sport_adult_sports_t}"
+}

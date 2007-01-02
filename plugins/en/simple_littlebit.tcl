@@ -12,9 +12,10 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_simple "littlebit" "(what, )?not even a little bit" 40 [list "%VAR{goonthens}"] "en"
+bMotion_plugin_add_simple "littlebit" "(what, )?not even a little bit" 40 "%VAR{goonthens}" "en"
 
-set goonthens {
+bMotion_abstract_register "goonthens"
+bMotion_abstract_batchadd "goonthens" {
   "sssh sekrit"
   "go on then"
   "oh go on then"

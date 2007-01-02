@@ -27,7 +27,8 @@ proc bMotion_plugin_complex_action_attack { nick host handle channel text } {
   return 1
 }
 
-set attack_responses {
+bMotion_abstract_register "attack_responses"
+bMotion_abstract_batchadd "attack_responses" {
   "%% attacks %SETTING{complex:attacks:who:_:_} with '%SETTING{complex:attacks:item:_:_}' for %SETTING{complex:attacks:score:_:_} damage."
   "%SETTING{complex:attacks:who:_:_} takes %SETTING{complex:attacks:score:_:_} damage from %OWNER{%%} '%SETTING{complex:attacks:item:_:_}'"
   "%SETTING{complex:attacks:who:_:_} is tremendously damaged by the %SETTING{complex:attacks:item:_:_} and takes %SETTING{complex:attacks:score:_:_} damage!"
@@ -35,5 +36,3 @@ set attack_responses {
   "%SETTING{complex:attacks:who:_:_} is immune to '%SETTING{complex:attacks:item:_:_}'"
   "%SETTING{complex:attacks:who:_:_} absorbs the damage and gains %SETTING{complex:attacks:score:_:_} HP!"
 }
-bMotion_abstract_register "attack_responses"
-bMotion_abstract_batchadd "attack_responses" $attack_responses

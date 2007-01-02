@@ -24,7 +24,8 @@ proc bMotion_plugin_complex_action_light { nick host handle channel text } {
   return 1
 }
 
-set burns {
+bMotion_abstract_register "burns"
+bMotion_abstract_batchadd "burns" {
   "/burns%|%bot[50,¬VAR{extinguishes}]"
   "*flames*%|%bot[50,¬VAR{extinguishes}]"
   "B%REPEAT{2:5:O}M"
@@ -40,7 +41,8 @@ set burns {
   "/informs the world 'It's time to burn'"
 }
 
-set extinguishes {
+bMotion_abstract_register "extinguishes"
+bMotion_abstract_batchadd "extinguishes" {
   "/puts %% out"
   "/pours water on %%"
   "/wraps %% in a fire blanket"
@@ -49,11 +51,3 @@ set extinguishes {
   "kaBLAM"
   "taunt"
 }
-
-bMotion_abstract_register "burns"
-bMotion_abstract_batchadd "burns" $burns
-unset burns
-
-bMotion_abstract_register "extinguishes"
-bMotion_abstract_batchadd "extinguishes" $extinguishes
-unset extinguishes

@@ -17,15 +17,15 @@ bMotion_plugin_add_complex "worried" "i'?m worried about (.+)" 80 bMotion_plugin
 
 proc bMotion_plugin_complex_worried { nick host handle channel text } {
   global botnicks
-
-	if [bMotion_interbot_me_next $channel] {
-		if [regexp -nocase "i'?m worried about (\[^,.\]+)" $text matches what] {
-			bMotionDoAction $channel $what "%VAR{dontworrys}"
-			return 1
-		}
-	}
+  if [bMotion_interbot_me_next $channel] {
+    if [regexp -nocase "i'?m worried about (\[^,.\]+)" $text matches what] {
+      bMotionDoAction $channel $what "%VAR{dontworrys}"
+      return 1
+    }
+  }
 }
 
-set dontworrys {
-	"Don't you worry about %%. I'll worry about blank."
+bMotion_abstract_register "dontworrys"
+bMotion_abstract_batchadd "dontworrys" {
+  "Don't you worry about %%. I'll worry about blank."
 }

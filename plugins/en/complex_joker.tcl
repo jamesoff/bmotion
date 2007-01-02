@@ -16,6 +16,9 @@
 # tell a random joke plugin
 set jokeInfo ""
 
+# register the invoke a joke callback
+bMotion_plugin_add_complex "joker" "^!joke" 100 "bMotion_plugin_complex_invoke_joke" "en"
+
 # tell a random answer callback
 proc bMotionDoJokeAnswer {} {
 	global jokeInfo jokeReplies bMotionFacts
@@ -113,7 +116,8 @@ proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
 }
 
 # %n is random noun
-set jokeForms {
+bMotion_abstract_register "jokeForms"
+bMotion_abstract_batchadd "jokeForms" {
   "what's the difference between %n and %n?"
   "what do you get when you cross %n and %n?"
   "what do you think you could do with %n?"
@@ -123,14 +127,12 @@ set jokeForms {
 
 # %r is relational
 # %n is random noun
-set jokeReplies {
+bMotion_abstract_register "jokeReplies"
+bMotion_abstract_batchadd "jokeReplies" {
   "one's %r and the other's %r"
   "%r with %r!"
   "become %r"
   "use %r"
   "it was %r"
 }
-
-# register the invoke a joke callback
-bMotion_plugin_add_complex "joker" "^!joke" 100 "bMotion_plugin_complex_invoke_joke" "en"
 

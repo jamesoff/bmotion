@@ -41,7 +41,8 @@ proc bMotion_plugin_complex_abbr { nick host handle channel text } {
 
 bMotion_plugin_add_complex "abbr" "^!abbr" 100 bMotion_plugin_complex_abbr "en"
 
-set abbr_nouns {
+bMotion_abstract_register "abbr_nouns"
+bMotion_abstract_batchadd "abbr_nouns" {
   "mullet"
   "cheese"
   "individual"
@@ -52,11 +53,13 @@ set abbr_nouns {
   "teddy" "shirt" "phaser" "klingon" "shoe" "black" "crunch" "celeb" "bounce" "grape" "spit" "hole" "gravel" "dung" "heap" "sheep" "crash" "screen" "crisps" "sword" "maple" "fish" "hip-hop" "wesley" "toilet"
 }
 
-set abbr_adj {
+bMotion_abstract_register "abbr_adj"
+bMotion_abstract_batchadd "abbr_adj" {
   "hot" "cold" "purple" "clean" "freezing" "thooper" "white" "starchy" "bavarian" "woolly" "blippy" "decent" "smart" "coloured" "flavoured" "norwegian" "swede" "brit" "dutchman" "american" "canadian" "german"
 }
 
-set abbr_verbs {
+bMotion_abstract_register "abbr_verbs"
+bMotion_abstract_batchadd "abbr_verbs" {
   "wielding"
   "powered"
   "enabled"
@@ -64,7 +67,8 @@ set abbr_verbs {
 }
 
 
-set abbr_adult_nouns_t {
+bMotion_abstract_register "abbr_adult_nouns_t"
+bMotion_abstract_batchadd "abbr_adult_nouns_t" {
   "sex"
   "vibrator"
   "rubber"
@@ -72,18 +76,34 @@ set abbr_adult_nouns_t {
   "package" "knickers" "dildo" "vibrator" "sex" "nipple" "bum" "stockings" "rabbit"
 }
 
-set abbr_adult_adj_t {
+bMotion_abstract_register "abbr_adult_adj_t"
+bMotion_abstract_batchadd "abbr_adult_adj_t" {
   "thexy" "horny"
   "hot" "moist" "wet" "lubricated"
 }
 
-set abbr_adult_verbs_t {
+bMotion_abstract_register "abbr_adult_verbs_t"
+bMotion_abstract_batchadd "abbr_adult_verbs_t" {
   "licking"
   "moaning"
   "licking" "pumping" "grinding" "rubbing" "ooh-ahhing" "screwing" "oomphing"
 }
 
 #create the big lists :)
-set abbr_adult_nouns [concat $abbr_nouns $abbr_adult_nouns_t]
-set abbr_adult_verbs [concat $abbr_verbs $abbr_adult_verbs_t]
-set abbr_adult_adj [concat $abbr_adj $abbr_adult_adj_t]
+bMotion_abstract_register "abbr_adult_nouns"
+bMotion_abstract_batchadd "abbr_adult_nouns" {
+  "%VAR{abbr_nouns}"
+  "%VAR{abbr_adult_nouns_t}"
+}
+
+bMotion_abstract_register "abbr_adult_verbs"
+bMotion_abstract_batchadd "abbr_adult_verbs" {
+  "%VAR{abbr_verbs}"
+  "%VAR{abbr_adult_verbs_t}"
+}
+
+bMotion_abstract_register "abbr_adult_adj"
+bMotion_abstract_batchadd "abbr_adult_adj" {
+  "%VAR{abbr_adj}"
+  "%VAR{abbr_adult_adj_t}"
+}

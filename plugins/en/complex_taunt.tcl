@@ -44,114 +44,60 @@ proc bMotion_plugin_complex_taunt {nick host handle channel text} {
     }
   }
 
-  bMotionDoAction $channel "" "$prefix [pickRandom $randomTauntPrefixes] [pickRandom $randomTauntSuffixes]$plural"
+  bMotionDoAction $channel "" "$prefix %VAR{randomTauntPrefixes} %VAR{randomTauntSuffixes}$plural"
   return 1
 
 }
 
-
-
-
-
 ### and our abstracts...
-
-
-
-set randomTauntPrefixes {
-
+bMotion_abstract_register "randomTauntPrefixes"
+bMotion_abstract_batchadd "randomTauntPrefixes" {
   "idiot"
-
   "stupid"
-
   "minging"
-
   "incompetent"
-
   "foolish"
-
   "silly"
-
   "prancing"
-
   "dancing"
-
   "buffoonesque"
-
   "horizontally-enhanced"
-
   "special"
-
   "Welsh"
-
   "Northern"
-
   "Southern"
-
   "fishguts"
-
   "imbecile"
-
   "credulous"
-
   "cretinous"
-
   "naughty"
-
   "disreputable"
-
   "absurd"
-
   "capricious"
-
   "lemon-flavoured"
-
 }
 
-
-
-set randomTauntSuffixes {
-
+bMotion_abstract_register "randomTauntSuffixes"
+bMotion_abstract_batchadd "randomTauntSuffixes" {
   "fool"
-
   "idiot"
-
   "buffoon"
-
   "mingbeast"
-
   "incompetent"
-
   "loser"
-
   "monstar"
-
   "foo'"
-
   "woolhead"
-
   "kenneth"
-
   "taunt"
-
   "individual"
-
   "failure"
-
   "imbecile"
-
   "cretin"
-
   "chap"
-
   "waste of space"
-
   "joker"
-
   "drone"
-
   "sailor"
-
   "moron"
-
 }
-

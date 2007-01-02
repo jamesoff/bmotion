@@ -58,7 +58,8 @@ proc bMotion_plugin_complex_hello { nick host handle channel text } {
   return 1
 }
 
-set hello_familiars {
+bMotion_abstract_register "hello_familiars"
+bMotion_abstract_batchadd "hello_familiars" {
   "%%%colen"
   "%%!"
   "%% :D"

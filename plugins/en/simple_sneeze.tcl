@@ -16,7 +16,8 @@ bMotion_plugin_add_simple "sneeze" "^(\\*?hatsjoe\\*?|wachoo|\\*sneezes?\\*|\\*?
 bMotion_plugin_add_action_simple "sneeze" "^sneezes" 60 "%VAR{bless_yous}" "en"
 
 # abstracts
-set bless_yous {
+bMotion_abstract_register "bless_yous"
+bMotion_abstract_batchadd "bless_yous" {
   "gesuntheit"
   "bless you"
   "Bless you"
@@ -32,4 +33,8 @@ set bless_yous {
   "%% - I recommend %VAR{sillyThings}"
 }
 
-set blessyous $bless_yous
+# TODO: bit odd this? remove mentions of it and use above
+bMotion_abstract_register "blessyous"
+bMotion_abstract_batchadd "blessyous" {
+  "%VAR{bless_yous}"
+}

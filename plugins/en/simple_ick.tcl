@@ -16,13 +16,15 @@ bMotion_plugin_add_simple "ick" "^!ick" 100 "%VAR{ick_sentences}" "en"
 
 # abstracts
 
-set ick_sentences {
+bMotion_abstract_register "ick_sentences"
+bMotion_abstract_batchadd "ick_sentences" {
   "Don't picture %VAR{ick_males} and %VAR{ick_females} in %VAR{ick_wraps} and covered in %VAR{ick_covereds} %VAR{ick_fucks} each other %VAR{ick_locations}"
   "Don't picture %VAR{ick_females} %VAR{ick_fucks} %VAR{ick_males} %VAR{ick_dildos} %VAR{ick_locations}"
   "Don't picture %VAR{ick_females} %VAR{ick_fucks} %VAR{ick_females} %VAR{ick_dildos} %VAR{ick_locations}"
 }
 
-set ick_males { 
+bMotion_abstract_register "ick_males"
+bMotion_abstract_batchadd "ick_males" { 
   "yourself" 
   "Jean-Luc Picard" 
   "the Pope" 
@@ -50,7 +52,8 @@ set ick_males {
   "Brian"
 }
 
-set ick_females { 
+bMotion_abstract_register "ick_females"
+bMotion_abstract_batchadd "ick_females" { 
   "wendy" 
   "sue" 
   "cherie blair" 
@@ -70,7 +73,8 @@ set ick_females {
   "Cath 2's mum"
 }
 
-set ick_wraps { 
+bMotion_abstract_register "ick_wraps"
+bMotion_abstract_batchadd "ick_wraps" { 
   "cellophane" 
   "cling-film" 
   "pvc" 
@@ -83,13 +87,15 @@ set ick_wraps {
   "chains"
 }
 
-set ick_covereds { 
+bMotion_abstract_register "ick_covereds"
+bMotion_abstract_batchadd "ick_covereds" { 
   "custard" "cooking oil" "motor oil" "baby oil" "cream" "whipped cream" "KY" "strawberry jam"
   "Raspberry yogurt *eg*" "chocolate sauce" "coconut oil" "peanut butter" "dairylea" "%OWNER{%ruser} love juice"
   "jelly" "assorted food stuffs" "3 week old toffee yogurt"
 }
 
-set ick_locations { 
+bMotion_abstract_register "ick_locations"
+bMotion_abstract_batchadd "ick_locations" { 
   "in your bed" "on wendy's desk" "in the yellow room" 
   "on a chair in the Nash lounge" "on the Nash kitchen table" "in a field" "on a checkout" "against a fish tank" 
   "on a trampoline" "from behind" 
@@ -99,7 +105,8 @@ set ick_locations {
   "in %OWNER{%ruser} bed"
 }
 
-set ick_fucks { 
+bMotion_abstract_register "ick_fucks"
+bMotion_abstract_batchadd "ick_fucks" { 
   "doing it to" 
   "fucking" 
   "shagging" 
@@ -110,7 +117,8 @@ set ick_fucks {
   "fux0ring"
 }
 
-set ick_dildos { 
+bMotion_abstract_register "ick_dildos"
+bMotion_abstract_batchadd "ick_dildos" { 
   "with a strap-on" "with a big dildo" "with a cucumber" "with a banana" "with a chicken"
   "whith a cucumber" "with a keyboard" "with bananna motion lotion" "with a ribbed tickler"
   "with a gag on" "with a webcam" "with a mouse" "with a realistic penis shaped keyring" "with a coffee bean"

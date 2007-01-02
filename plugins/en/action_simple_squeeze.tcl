@@ -13,9 +13,10 @@
 ###############################################################################
 
 #                         name  regexp            %   responses
-bMotion_plugin_add_action_simple "squeeze" "^(squeezes|beeps|honks|knijpt( in)?) %botnicks" 100 [list "%VAR{honks}"] "en"
+bMotion_plugin_add_action_simple "squeeze" "^(squeezes|beeps|honks|knijpt( in)?) %botnicks" 100 "%VAR{honks}" "en"
 
-set honks {
+bMotion_abstract_register "honks"
+bMotion_abstract_batchadd "honks" {
   "/honks"
   "/beeps"
   "beep beep"

@@ -12,6 +12,9 @@
 # in the modules directory.
 ###############################################################################
 
+# "specific" typos
+bMotion_plugin_add_complex "wrong console(tm)" "^rm|^cp|^su( -)?$|^make$|^ls" 20 "bMotion_plugin_complex_wrong_console" "en"
+
 # bMotion_plugin_complex_wrong_console
 proc bMotion_plugin_complex_wrong_console { nick host handle channel text } {
 	global randomWrongConsoleReply botnick
@@ -26,7 +29,7 @@ proc bMotion_plugin_complex_wrong_console { nick host handle channel text } {
 
 # random wrong console responses
 bMotion_abstract_register "randomWrongConsoleReply"
-set randomWrongConsoleReply {
+bMotion_abstract_batchadd "randomWrongConsoleReply" {
 	"yay! %% can't get it right"
 	"why don't you tell us your password as well?"
 	"try the other window"
@@ -35,8 +38,3 @@ set randomWrongConsoleReply {
 	"idiot."
 	"%% is t3h l337 h4x0R!"
 }
-
-# callbacks
-# "specific" typos
-bMotion_plugin_add_complex "wrong console(tm)" "^rm|^cp|^su( -)?$|^make$|^ls" 20 "bMotion_plugin_complex_wrong_console" "en"
-

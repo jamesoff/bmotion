@@ -24,7 +24,8 @@ proc bMotion_plugin_complex_correct { nick host handle channel text } {
   }
 }
 
-set shouldhaves {
+bMotion_abstract_register "shouldhaves"
+bMotion_abstract_batchadd "shouldhaves" {
   "\"%% have\" %VAR{smiles}"
   "%% what?"
   "%% HAVE, %% HAVE"

@@ -28,7 +28,8 @@ proc bMotion_plugin_complex_readings { nick host handle channel text } {
   }
 }
 
-set readings_scan {
+bMotion_abstract_register "readings_scan"
+bMotion_abstract_batchadd "readings_scan" {
   "/scans %%"
   "/analyses %%"
   "/checks %%"
@@ -36,7 +37,8 @@ set readings_scan {
   "/looks at %ruser"
 }
 
-set readings_result {
+bMotion_abstract_register "readings_result"
+bMotion_abstract_batchadd "readings_result" {
   "%%: That reads as %NUMBER{10000} %VAR{units}."
   "%SETTING{complex:readings:reading:reading:_} levels of %NUMBER{101} percent detected."
 }

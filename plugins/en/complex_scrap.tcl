@@ -23,14 +23,12 @@
 # Adult switch will introduce norty descriptions / devices.
 #
 
+bMotion_plugin_add_complex "scrap" "^!scrap" 100 bMotion_plugin_complex_scrap "en"
 
 proc bMotion_plugin_complex_scrap { nick host handle channel text } {
-
   if [regexp -nocase "^!scrap( silly| adult| xxx)?( silly| adult| xxx)?$" $text blah silly1 silly2] {
-
     # output from output_english.tcl automatically corrects bad grammar of "a " followed by a vowel.
     set output "A "
-
     set outputtype 0
     if {($silly1 == " silly") || ($silly2 == " silly")} {
       set outputtype [expr $outputtype + 1]
@@ -126,15 +124,13 @@ proc bMotion_plugin_complex_scrap { nick host handle channel text } {
       }
     }
 
-
     bMotionDoAction $channel "" $output
-		return 1
+    return 1
   }
 }
 
-bMotion_plugin_add_complex "scrap" "^!scrap" 100 bMotion_plugin_complex_scrap "en"
-
-set scrap_qualities {
+bMotion_abstract_register "scrap_qualities"
+bMotion_abstract_batchadd "scrap_qualities" {
   "broken"
   "cheap"
   "irrepairable"
@@ -166,7 +162,8 @@ set scrap_qualities {
   "excellent"
 }
 
-set scrap_adjectives {
+bMotion_abstract_register "scrap_adjectives"
+bMotion_abstract_batchadd "scrap_adjectives" {
   "broken down"
   "greasy"
   "dirty"
@@ -217,7 +214,8 @@ set scrap_adjectives {
   "semi automatic"
 }
 
-set scrap_power_adjectives {
+bMotion_abstract_register "scrap_power_adjectives"
+bMotion_abstract_batchadd "scrap_power_adjectives" {
   "super powered"
   "steam powered"
   "wind powered"
@@ -240,7 +238,8 @@ set scrap_power_adjectives {
   "pressurised"
 }
 
-set scrap_construction {
+bMotion_abstract_register "scrap_construction"
+bMotion_abstract_batchadd "scrap_construction" {
   "barge"
   "submarine"
   "torpedo"
@@ -299,7 +298,8 @@ set scrap_construction {
   "gyroscope"
 }
 
-set scrap_silly_qualities_t {
+bMotion_abstract_register "scrap_silly_qualities_t"
+bMotion_abstract_batchadd "scrap_silly_qualities_t" {
   "weird"
   "strange"
   "bizzare"
@@ -311,7 +311,8 @@ set scrap_silly_qualities_t {
   "magical"
 }
 
-set scrap_silly_adjectives_t {
+bMotion_abstract_register "scrap_silly_adjectives_t"
+bMotion_abstract_batchadd "scrap_silly_adjectives_t" {
   "spotty"
   "funny"
   "furry"
@@ -334,7 +335,8 @@ set scrap_silly_adjectives_t {
   "manic mining"
 }
 
-set scrap_silly_power_adjectives_t {
+bMotion_abstract_register "scrap_silly_power_adjectives_t"
+bMotion_abstract_batchadd "scrap_silly_power_adjectives_t" {
   "lunar powered"
   "psychicly charged"
   "hamster powered"
@@ -345,7 +347,8 @@ set scrap_silly_power_adjectives_t {
   "plasma powered"
 }
 
-set scrap_silly_construction_t {
+bMotion_abstract_register "scrap_silly_construction_t"
+bMotion_abstract_batchadd "scrap_silly_construction_t" {
   "blamanche"
   "fork"
   "knife"
@@ -397,7 +400,8 @@ set scrap_silly_construction_t {
   "cash printing machine"
 }
 
-set scrap_adult_qualities_t {
+bMotion_abstract_register "scrap_adult_qualities_t"
+bMotion_abstract_batchadd "scrap_adult_qualities_t" {
   "well formed"
   "well rounded"
   "slinky"
@@ -410,7 +414,8 @@ set scrap_adult_qualities_t {
   "doggish"
 }
 
-set scrap_adult_adjectives_t {
+bMotion_abstract_register "scrap_adult_adjectives_t"
+bMotion_abstract_batchadd "scrap_adult_adjectives_t" {
   "norty"
   "vary norty"
   "sexy"
@@ -446,7 +451,8 @@ set scrap_adult_adjectives_t {
   "stripping"
 }
 
-set scrap_adult_power_adjectives_t {
+bMotion_abstract_register "scrap_adult_power_adjectives_t"
+bMotion_abstract_batchadd "scrap_adult_power_adjectives_t" {
   "jiz powered"
   "love juice powered"
   "sweat powered"
@@ -455,7 +461,8 @@ set scrap_adult_power_adjectives_t {
   "cum powered"
 }
 
-set scrap_adult_construction_t {
+bMotion_abstract_register "scrap_adult_construction_t"
+bMotion_abstract_batchadd "scrap_adult_construction_t" {
   "dildo"
   "love doll"
   "vibrator"
@@ -489,23 +496,83 @@ set scrap_adult_construction_t {
 }
 
 #create the big lists :)
-set scrap_silly_qualities [concat $scrap_qualities $scrap_silly_qualities_t]
-set scrap_silly_power_adjectives [concat $scrap_power_adjectives $scrap_silly_power_adjectives_t]
-set scrap_silly_adjectives [concat $scrap_adjectives $scrap_silly_adjectives_t]
-set scrap_silly_construction [concat $scrap_construction $scrap_silly_construction_t]
+bMotion_abstract_register "scrap_silly_qualities"
+bMotion_abstract_batchadd "scrap_silly_qualities" {
+  "%VAR{scrap_qualities}"
+  "%VAR{scrap_silly_qualities_t}"
+}
+bMotion_abstract_register "scrap_silly_power_adjectives"
+bMotion_abstract_batchadd "scrap_silly_power_adjectives" {
+  "%VAR{scrap_power_adjectives}"
+  "%VAR{scrap_silly_power_adjectives_t}"
+}
+bMotion_abstract_register "scrap_silly_adjectives"
+bMotion_abstract_batchadd "scrap_silly_adjectives" {
+  "%VAR{scrap_adjectives}"
+  "%VAR{scrap_silly_adjectives_t}"
+}
+bMotion_abstract_register "scrap_silly_construction"
+bMotion_abstract_batchadd "scrap_silly_construction" {
+  "%VAR{scrap_construction}"
+  "%VAR{scrap_silly_construction_t}"
+}
 
-set scrap_adult_qualities [concat $scrap_qualities $scrap_adult_qualities_t]
-set scrap_adult_power_adjectives [concat $scrap_power_adjectives $scrap_adult_power_adjectives_t]
-set scrap_adult_adjectives [concat $scrap_adjectives $scrap_adult_adjectives_t]
-set scrap_adult_construction [concat $scrap_construction $scrap_adult_construction_t]
+bMotion_abstract_register "scrap_adult_qualities"
+bMotion_abstract_batchadd "scrap_adult_qualities" {
+  "%VAR{scrap_qualities}"
+  "%VAR{scrap_adult_qualities_t}"
+}
+bMotion_abstract_register "scrap_adult_power_adjectives"
+bMotion_abstract_batchadd "scrap_adult_power_adjectives" {
+  "%VAR{scrap_power_adjectives}"
+  "%VAR{scrap_adult_power_adjectives_t}"
+}
+bMotion_abstract_register "scrap_adult_adjectives"
+bMotion_abstract_batchadd "scrap_adult_adjectives" {
+  "%VAR{scrap_adjectives}"
+  "%VAR{scrap_adult_adjectives_t}"
+}
+bMotion_abstract_register "scrap_adult_construction"
+bMotion_abstract_batchadd "scrap_adult_construction" {
+  "%VAR{scrap_construction}"
+  "%VAR{scrap_adult_construction_t}"
+}
 
-set scrap_silly_adult_qualities [concat $scrap_qualities $scrap_silly_qualities_t]
-set scrap_silly_adult_power_adjectives [concat $scrap_power_adjectives $scrap_silly_power_adjectives_t]
-set scrap_silly_adult_adjectives [concat $scrap_adjectives $scrap_silly_adjectives_t]
-set scrap_silly_adult_construction [concat $scrap_construction $scrap_silly_construction_t]
+bMotion_abstract_register "scrap_silly_adult_qualities"
+bMotion_abstract_batchadd "scrap_silly_adult_qualities" {
+  "%VAR{scrap_qualities}"
+  "%VAR{scrap_silly_qualities_t}"
+}
+bMotion_abstract_register "scrap_silly_adult_power_adjectives"
+bMotion_abstract_batchadd "scrap_silly_adult_power_adjectives" {
+  "%VAR{scrap_power_adjectives}"
+  "%VAR{scrap_silly_power_adjectives_t}"
+}
+bMotion_abstract_register "scrap_silly_adult_adjectives"
+bMotion_abstract_batchadd "scrap_silly_adult_adjectives" {
+  "%VAR{scrap_adjectives}"
+  "%VAR{scrap_silly_adjectives_t}"
+}
+bMotion_abstract_register "scrap_silly_adult_construction"
+bMotion_abstract_batchadd "scrap_silly_adult_construction" {
+  "%VAR{scrap_construction}"
+  "%VAR{scrap_silly_construction_t}"
+}
 
 #duplicate for second adjectives
-set scrap_silly_adjectives2 $scrap_silly_adjectives
-set scrap_adult_adjectives2 $scrap_adult_adjectives
-set scrap_silly_adult_adjectives2 $scrap_silly_adult_adjectives
-set scrap_adjectives2 $scrap_adjectives
+bMotion_abstract_register "scrap_silly_adjectives2"
+bMotion_abstract_batchadd "scrap_silly_adjectives2" {
+  "%VAR{scrap_silly_adjectives}"
+}
+bMotion_abstract_register "scrap_adult_adjectives2"
+bMotion_abstract_batchadd "scrap_adult_adjectives2" {
+  "%VAR{scrap_adult_adjectives}"
+}
+bMotion_abstract_register "scrap_silly_adult_adjectives2"
+bMotion_abstract_batchadd "scrap_silly_adult_adjectives2" {
+  "%VAR{scrap_silly_adult_adjectives}"
+}
+bMotion_abstract_register "scrap_adjectives2"
+bMotion_abstract_batchadd "scrap_adjectives2" {
+  "%VAR{scrap_adjectives}"
+}

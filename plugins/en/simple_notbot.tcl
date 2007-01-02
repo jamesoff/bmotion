@@ -12,11 +12,12 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_simple "notbot" "%botnicks('s| is) a bot" 60 [list "%VAR{notbots}"] "en"
+bMotion_plugin_add_simple "notbot" "%botnicks('s| is) a bot" 60 "%VAR{notbots}" "en"
 
-bMotion_plugin_add_simple "arebot" "((is %botnicks a bot)|(are you a bot,? %botnicks)|(^%botnicks%:? are you a bot))" 60 [list "%VAR{nos}"] "en"
+bMotion_plugin_add_simple "arebot" "((is %botnicks a bot)|(are you a bot,? %botnicks)|(^%botnicks%:? are you a bot))" 60 "%VAR{nos}" "en"
 
-set notbots {
+bMotion_abstract_register "notbots"
+bMotion_abstract_batchadd "notbots" {
   "no I'm not"
   "am not :("
   "am not"

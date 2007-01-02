@@ -465,7 +465,8 @@ proc bMotion_plugin_complex_question_age { nick channel host } {
 
 ## end sid's functions
 
-set question_what_fact_wrapper {
+bMotion_abstract_register "question_what_fact_wrapper"
+bMotion_abstract_batchadd "question_what_fact_wrapper" {
   "%%"
   "%% i guess"
   "i think it's %%"
@@ -473,7 +474,8 @@ set question_what_fact_wrapper {
   "%% i suppose"
 }
 
-set question_want_reply_wrapper {
+bMotion_abstract_register "question_want_reply_wrapper"
+bMotion_abstract_batchadd "question_want_reply_wrapper" {
   "Why? I've got %VAR{sillyThings}!"
   "With %VAR{sillyThings} I have no need for anything else."
   "Ooh yes please, I've had %VAR{sillyThings} for so long it's boring me."
@@ -489,7 +491,8 @@ set question_want_reply_wrapper {
   "%VAR{sweet}."
 }
 
-set question_colour_wrapper {
+bMotion_abstract_register "question_colour_wrapper"
+bMotion_abstract_batchadd "question_colour_wrapper" {
   "%VAR{colours}"
   "hmm.. %VAR{colours}, I think"
   "%VAR{colours}"

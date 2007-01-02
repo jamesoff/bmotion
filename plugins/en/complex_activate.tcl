@@ -25,13 +25,14 @@ proc bMotion_plugin_complex_activate { nick host handle channel text } {
         regsub "(.+)\.$" $item {\1} item
       }
       bMotionDoAction $channel $item "%VAR{activateses}"
-			return 1
+      return 1
     }
     return 2
   }
 }
 
-set activateses {
+bMotion_abstract_register "activateses"
+bMotion_abstract_batchadd "activateses" {
   "/increases power to %%"
   "/brings %% online"
   "%% engaged%colen"

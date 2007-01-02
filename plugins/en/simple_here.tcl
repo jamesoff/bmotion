@@ -16,6 +16,7 @@ bMotion_plugin_add_simple "here" "^any ?(one|body) (here|alive|talking)" 40 "%VA
 
 # abstracts
 
-set here_responses {
+bMotion_abstract_register "here_responses"
+bMotion_abstract_batchadd "here_responses" {
   "%VAR{nos}"
 }
