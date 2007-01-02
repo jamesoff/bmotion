@@ -13,7 +13,7 @@
 ###############################################################################
 
 set languages [split $bMotionSettings(languages) ","]
-foreach language $bMotion_languages {
+foreach bMotion_language $languages {
   bMotion_putloglev 2 * "bMotion: loading output plugins language = $bMotion_language"
   set files [glob -nocomplain "$bMotionPlugins/$bMotion_language/output_*.tcl"]
   foreach f $files {
