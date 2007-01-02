@@ -1,6 +1,5 @@
 # $Id$
 #
-# vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
@@ -14,45 +13,45 @@
 
 proc bMotion_plugins_irc_default_quit { nick host handle channel text } { 
 
-  #has something happened since we last spoke?
-  set lasttalk [bMotion_plugins_settings_get "system:join" "lasttalk" $channel ""]
+	#has something happened since we last spoke?
+	set lasttalk [bMotion_plugins_settings_get "system:join" "lasttalk" $channel ""]
 
-	if {[bMotion_settings_get "friendly"] == "2"} {
+	if {[bMotion_setting_get "friendly"] == "2"} {
 		return 0
 	}
 
-  if {$handle == "*"} {
-    if {[bMotion_setting_get "friendly"] != 1} {
-      return 0
-    }
-  }
-  
-  if {[bMotionIsFriend $nick]} {
-  	set output "%VAR{departs-nice}"
-  } else {
-  	set output "%VAR{departs-nasty}"
-  }
-  
+	if {$handle == "*"} {
+		if {[bMotion_setting_get "friendly"] != 1} {
+			return 0
+		}
+	}
+	
+	if {[bMotionIsFriend $nick]} {
+		set output "%VAR{departs-nice}"
+	} else {
+		set output "%VAR{departs-nasty}"
+	}
+	
 
-  #don't do anything if it looks like an error
-  if [regexp -nocase "(irc\.|error|reset|timeout|closed)" $text] {
-    return 0
-  }
+	#don't do anything if it looks like an error
+	if [regexp -nocase "(irc\.|error|reset|timeout|closed)" $text] {
+		return 0
+	}
 
-  #if 1, we greeted someone last
-  #if 0, someone has said something since
-  if {$lasttalk == 1} {
-    #bMotion_putloglev 2 d "dropping depart for $nick on $channel because it's too idle"
-    bMotion_putloglev d * "dropping depart for $nick on $channel because it's too idle"
-    return 0
-  }
+	#if 1, we greeted someone last
+	#if 0, someone has said something since
+	if {$lasttalk == 1} {
+		#bMotion_putloglev 2 d "dropping depart for $nick on $channel because it's too idle"
+		bMotion_putloglev d * "dropping depart for $nick on $channel because it's too idle"
+		return 0
+	}
 
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] $output
-  bMotion_plugins_settings_set "system:join" "lasttalk" $channel "" 1
+	bMotionDoAction $channel [bMotionGetRealName $nick $host] $output
+	bMotion_plugins_settings_set "system:join" "lasttalk" $channel "" 1
 	bMotion_plugins_settings_set "system:join" "lastleft" $channel "" $nick
 	bMotion_plugins_settings_set "system:join" "lastgreeted" $channel "" $nick
 
-  return 1
+	return 1
 }
 
 bMotion_plugin_add_irc_event "default quit" "quit" ".*" 15 "bMotion_plugins_irc_default_quit" "en"
