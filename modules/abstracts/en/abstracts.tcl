@@ -1921,6 +1921,23 @@ bMotion_abstract_batchadd "answerHowOlds" {
   "%VAR{answerHowLongs}"
 }
 
+bMotion_abstract_register "answerHowBigs"
+bMotion_abstract_batchadd "answerHowBigs" {
+  "huge"
+  "tiny"
+  "too big"
+  "too small"
+  "big enough"
+  "small enough"
+  "about as big as %ruser"
+  "about as small as %ruser"
+  "about as big as %VAR{sillyThings}"
+  "about as small as %VAR{sillyThings}"
+  "%NUMBER{200} inches"
+  "%NUMBER{100} metres"
+  "%NUMBER{50} miles"
+}
+
 bMotion_abstract_register "reminder_where"
 bMotion_abstract_batchadd "reminder_where" {
 	"the dentist"

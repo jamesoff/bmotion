@@ -141,6 +141,14 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
     return 1
   }
 
+  bMotion_putloglev 3 * "Checking question 'how big'"
+  ## How big question targeted at me
+  if { [regexp -nocase "^$botnicks,?:? how ?big" $text] ||
+       [regexp -nocase "^how ?big .* $botnicks ?\\?" $text] } {
+    bMotion_plugin_complex_question_big $nick $channel $host
+    return 1
+  }
+
   bMotion_putloglev 3 * "Checking question for 'when'"
   ## When question targeted at me
   if { [regexp -nocase "^$botnicks,?:? (when|what time)" $text] ||
@@ -461,6 +469,12 @@ proc bMotion_plugin_complex_question_age { nick channel host } {
     bMotion_putloglev 2 * "$nick how old question"
   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowOlds}"
   return 1
+}
+
+proc bMotion_plugin_complex_question_big { nick channel host } {
+	bMotion_putloglev 2 * "$nick how big question"
+	bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowBigs}"
+	return 1
 }
 
 ## end sid's functions
