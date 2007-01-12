@@ -26,6 +26,11 @@ proc bMotion_plugin_complex_fact { nick host handle channel text } {
       return 0
     }
   }
+
+#don't let trivia trigger us
+	if [string match "*answer was*" $text] {
+		return 0
+	}
   
   if {[string range $text end end] == "?"} { return 0 }
   if [regexp -nocase {[[:<:]]([^ !"]+)[!" ]+(is|was|==?|am) ?([a-z0-9 '_/-]+)} $text matches item blah fact] {
@@ -44,6 +49,7 @@ proc bMotion_plugin_complex_fact { nick host handle channel text } {
     lappend bMotionFacts(what,$item) $fact
     set bMotionFactTimestamps(what,$item) [clock seconds]
   }
-  return 2
+	#return 0 because we don't put anything to irc, so we shouldn't get in the way
+  return 0
 }
 

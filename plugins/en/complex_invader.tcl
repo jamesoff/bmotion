@@ -114,6 +114,7 @@ bMotion_abstract_batchadd "randomZimness" {
 	"inferior human organs!"
 	"ow! my squealyspooch!"
 	"say, you're full of organs aren't you? and you wouldn't notice if you were missing a few?" 	"evaluation: PATHETIC%colen"
+	"Evaluation: LEMON FRESH%colen"
 	"surely that was no human bee!"
 	"when the repairs are done i shall hunt down that evil death bee."
 	"why am i so amazing?"
