@@ -12,6 +12,11 @@
 
 
 proc bMotion_plugins_irc_default_join { nick host handle channel text } { 
+  #if the user isban then dont bother
+  if {[ischanban $nick $channel] == 1 } {
+    bMotion_putloglev 2 d "dropping greeting for $nick on $channel as user is banned"
+    return 0
+  }
 
 	#has something happened since we last greeted?
 	set lasttalk [bMotion_plugins_settings_get "system:join" "lasttalk" $channel ""]
