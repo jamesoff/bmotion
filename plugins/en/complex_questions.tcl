@@ -96,7 +96,9 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
   if { [regexp -nocase "^$botnicks,?:? do you (need|want) (a|these|this|some|the|those|that)" $text] ||
         [regexp -nocase "^do you (want|need) (a|these|this|some|the|those|that) .* $botnicks ?\\?" $text] ||
         [regexp -nocase "^$botnicks,?:? would you like" $text] ||
-        [regexp -nocase "^would you like .+ $botnicks" $text]} {
+        [regexp -nocase "^would you like .+ $botnicks" $text] ||
+        [regexp -nocase "^$botnicks,?:? (do )?((yo)?u )?wanna" $text] ||
+        [regexp -nocase "^(do )?((yo)?u )?wanna .+ $botnicks" $text] } {
       bMotion_plugin_complex_question_want $nick $channel $host
       return 1
   }
