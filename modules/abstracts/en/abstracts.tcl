@@ -1163,7 +1163,7 @@ bMotion_abstract_batchadd "aiis" [list "wikkid" "aii" "aiiiii" "innit" "respect"
 
 bMotion_abstract_batchadd "randomStuffFemale" [list "This one time, at band camp, I put a flute..." "Does my arse look big in this?" "Does my bum look big in this?" "*ping*%|Did it just get cold in here?" "Do you know how we keep warm in Russia?%|... we play chess." "I kinda like thongs" "I wonder what happens when I put that in here...%|oooooooh!" "/plays with herself" "That ain't my belly button" "This one time, at band camp, I put %noun..." "/considers breast implants%|%PICKUSER\[female\]%|%BOT\[¬PICKUSER\[female\]¬|/feels up ¬¬ to check¬|true, they aren't as good as ¬ruser's¬|/feels up ¬ruser's breasts¬|mmmm ¬VAR{smiles}\]" "/considers sexchange operation%|%PICKUSER\[male\]%|/looks at %ruser%|Maybe not" "%PICKUSER\[female\]%|It's good to be female isn't it %ruser" ]
 
-bMotion_abstract_batchadd "randomStuff" [list "my speedos!" "there, good as new. except that we're three miles below the surface, we're out of food, and the channel doesn't work underwater%|%BOT\[tempers are wearing thin - let's just hope some bot doesn't kill everybody...\]" "i can't swallow that!%|%BOT\[well then good news! it's a suppository.\]" "arrrr... the laws of physics be a harsh mistress" "he may have ocean madness, but that's no excuse for ocean rudeness!" "in the event of an emergency, my ass can be used as a floatation device" "yes, we all miss our loved ones and gasses" "%ruser you half-mad half-insane maniac! be reasonable!" "these last 24 hours have been the happiest days of my life" "Undercover pursuit in progress! Baby." ]
+bMotion_abstract_batchadd "randomStuff" [list "my speedos!" "there, good as new. except that we're three miles below the surface, we're out of food, and the channel doesn't work underwater%|%BOT\[tempers are wearing thin - let's just hope some bot doesn't kill everybody...\]" "i can't swallow that!%|%BOT\[well then good news! it's a suppository.\]" "arrrr... the laws of physics be a harsh mistress" "he may have ocean madness, but that's no excuse for ocean rudeness!" "in the event of an emergency, my ass can be used as a floatation device" "yes, we all miss our loved ones and gasses" "%ruser you half-mad half-insane maniac! be reasonable!" "these last 24 hours have been the happiest days of my life" "Undercover pursuit in progress! Baby." "chum-own" "ow!%|/grabs crotch%|/= Michael Jackson" "fuck%|that's another box of tissues i've got though" "damnit i've run out of %VAR{sillyThings}{strip} %VAR{unsmiles}" "/moonwalks%|%BOT\[that's nothing\]%|%BOT\[/sunwalks\]"]
 
 bMotion_abstract_batchadd "randomStuff_10_31" {
 	"/creeps up behind %ruser wearing a sheet%|boo!" 
@@ -2193,4 +2193,23 @@ bMotion_abstract_batchadd "bb_hide" {
 	"another one that's slightly larger"
 	"%OWNER{%ruser} bed"
 	"%OWNER{%ruser} cupboard"
+}
+
+bMotion_abstract_register "deopped"
+bMotion_abstract_batchadd "deopped" {
+	"hey! %VAR{unsmiles} i needed that"
+	"hey! I was using that."
+	"great, now how am i going to kickban people who i hate (e.g. %%)?"
+	"what the"
+	"what th"
+	"CHANNEL TAKEOVER DETECTED! Everyone run around screaming%colen"
+	"muwa%REPEAT{3:6:ha}hang on%|bugger."
+}
+
+bMotion_abstract_register "opped"
+bMotion_abstract_batchadd "opped" {
+	"muwa%REPEAT{3:10:ha}"
+	"mmm, ops"
+	"i promise to be good and well-behaved with my new op superpowers%|\\kick %%%|whoops!"
+	"%VAR{thanks}"
 }

@@ -24,7 +24,14 @@ proc bMotion_plugin_complex_eitheror {nick host handle channel text} {
 	}
 
 	if [regexp -nocase {([^ ]+) or ([^ ?]+)\?*} $text matches first second] {
-		if [rand 2] {
+		# cut out some common rubbish ones
+		set first [string tolower first]
+		set second [string tolower second]
+		if {(first == "something") or (second == "something")} {
+			return 0
+		}
+
+		if {![rand 4]} {
 			bMotionDoAction $channel $nick "%VAR{eitherors}" $first
 		} else {
 			bMotionDoAction $channel $nick "%VAR{eitherors}" $second
@@ -36,4 +43,4 @@ proc bMotion_plugin_complex_eitheror {nick host handle channel text} {
 }
 
 bMotion_abstract_register "eitherors"
-bMotion_abstract_batchadd "eitherors" [list "%%: %2" "/thinks%|%%: %2" "/ponders%|%%: %2" "/flips a coin%|%%: %2" "%%: %2%|Or you could just use a placebo"]
+bMotion_abstract_batchadd "eitherors" [list "%%: %2" "/thinks%|%%: %2" "/ponders%|%%: %2" "/flips a coin%|%%: %2" "%%: %2%|Or you could just use a placebo" "%%: none of the above" "%%: actually, i think it's %VAR{sillyThings}"]

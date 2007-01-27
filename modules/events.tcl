@@ -506,27 +506,21 @@ proc bMotion_event_mode {nick host handle channel mode victim} {
     #check to see if i was opped before
     if [wasop $botnick $channel] { return 0 }
 
-	  bMotionDoAction $channel "" "%VAR{thanks}"
+	  bMotionDoAction $channel $nick "%VAR{opped}"
 		return 0
   }
 
 	if {$mode == "-o"} {
-	  bMotionDoAction $channel "" "hey! %VAR{unsmiles} i needed that"
-		return 0
-  }
-
-	if {$mode == "+v"} {
-		if {$nick == ""} {
+		if {![wasop $botnick $channel]} {
 			return 0
 		}
 
-		bMotionDoAction $channel "" "%VAR{thanks}"
+	  bMotionDoAction $channel $nick "%VAR{deopped}"
 		return 0
-	}
+  }
 
-	if {$mode == "-v"} {
-		bMotionDoAction $channel "" "%VAR{unsmiles}"
-	}
+	#removed voice stuff because there is no "wasvoice" function
+
 }
 
 ### bMotion_event_nick <<<1
