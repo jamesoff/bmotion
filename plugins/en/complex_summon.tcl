@@ -99,6 +99,7 @@ bMotion_abstract_batchadd "summon_channel_response" {
 	"/stands behind %% poking them in the back till they turn around"
 	"yeh... where is %%?"
 	"why do you want to talk to %%?"
+	"*pager on desk goes off*%|oh, %OWNER{%%} pager%|better let them know we've got it%|!summon %%%|*pager on desk goes off*%|oh %VAR{unsmiles}"
 }
 
 bMotion_abstract_register "summon_privmsg_response"
