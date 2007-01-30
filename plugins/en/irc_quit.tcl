@@ -34,7 +34,7 @@ proc bMotion_plugins_irc_default_quit { nick host handle channel text } {
 	
 
 	#don't do anything if it looks like an error
-	if [regexp -nocase "(irc\.|error|reset|timeout|closed)" $text] {
+	if [regexp -nocase "(irc\.|error|reset|timeout|closed|peer|\.net|timed|eof|lost)" $text] {
 		return 0
 	}
 

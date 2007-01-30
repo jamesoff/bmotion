@@ -49,7 +49,7 @@ proc bMotion_plugin_complex_summon { nick host handle channel text } {
 				bMotionDoAction $channel $name "%VAR{summon_channel_response_notthere}"
 			} else {
  				# the botnick could exist but be shorthand
- 				if [isbotnick $name || regexp -nocase "$botnicks" $name] {
+ 				if {[isbotnick $name] || [regexp -nocase "$botnicks" $name]} {
  					bMotion_putloglev d * "bMotion: (summon) myself!"
   				bMotionDoAction $channel $nick "%VAR{summon_bot}"
   				return 1
