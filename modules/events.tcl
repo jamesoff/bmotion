@@ -1,6 +1,5 @@
 # bMotion - Event handling
 #
-# vim: fdm=marker:foldmarker=<<<,>>>:foldcolumn=3
 
 ###############################################################################
 # bMotion - an 'AI' TCL script for eggdrops
@@ -204,11 +203,7 @@ proc bMotion_event_main {nick host handle channel text} {
   	set text [stripcodes bcruag $text]
   }
 
-  #first, check botnicks (this is to get round empty-nick-on-startup <<<2
-  if {$botnicks == ""} {
-    # need to set this
-    set botnicks "($botnick|$bMotionSettings(botnicks)) ?"
-  }
+	bMotion_check_botnicks
 
   #does this look like a paste? <<<2
   if [regexp -nocase {^[([]?[0-9]{2}[-:.][0-9]{2}. ?[[<(]?[%@+]?[a-z0-9` ]+[@+%]?. \w+} $text] {
@@ -355,29 +350,35 @@ proc bMotion_event_main {nick host handle channel text} {
         }
       }
     } else {
-      bMotionDoAction $channel $nick "I think not."
+			#don't respond here because there's no flood protection
       return 0
     }
   }
 
-  #tell the names we have <<<2
+	#tell the names we have <<<2
 	#TODO: move this into a plugin?
-  if [regexp -nocase "${botnicks}:?,? say my names?(,? bitch)?" $text] {
-  	if {($handle == "*") || ($handle == "")}  {
-  		#no handle = no saving IRL
-  		 bMotionDoAction $channel $nick "%%: Sorry, you aren't in my userfile so I can't store an IRL name for you."
-  		 return 0
-  	}
-  	
-    set realnames [getuser $handle XTRA irl]
-    if {$realnames == ""} {
-      bMotionDoAction $channel $nick "Ah you must be %%. (You have not set any IRL names.)" "" 1
-    } else {
-      bMotionDoAction $channel $nick "Your IRL name(s) are:\002 %2 \002" $realnames 1
-    }
-    puthelp "NOTICE $nick :To update your IRL names, do \002/msg $botnick IRL name1 name2 name3 ...\002"
-    return 0
-  }
+	if [regexp -nocase "${botnicks}:?,? say my names?(,? bitch)?" $text] {
+		if {($handle == "*") || ($handle == "")}  {
+			#no handle = no saving IRL
+			set lastnick [bMotion_plugins_settings_get "events" "last_irl_fail" $channel ""]
+			if {$lastnick == $nick} {
+				bMotion_putloglev d * "Ignoring 'say my names' from $nick because they've asked twice in a row"
+				return 0
+			}
+			bMotion_plugins_settings_set "events" "last_irl_fail" $channel "" $nick
+			bMotionDoAction $channel $nick "%%: Sorry, you aren't in my userfile so I can't store an IRL name for you."
+			return 0
+		}
+
+		set realnames [getuser $handle XTRA irl]
+		if {$realnames == ""} {
+			bMotionDoAction $channel $nick "Ah you must be %%. (You have not set any IRL names.)" "" 1
+		} else {
+			bMotionDoAction $channel $nick "Your IRL name(s) are:\002 %2 \002" $realnames 1
+		}
+		puthelp "NOTICE $nick :To update your IRL names, do \002/msg $botnick IRL name1 name2 name3 ...\002"
+		return 0
+	}
 
   #shut up <<<2
 	#TODO: move this into a plugin?
@@ -400,8 +401,6 @@ proc bMotion_event_main {nick host handle channel text} {
     bMotion_event_action $nick $host $handle $channel "" $action
     return 0
   }
-	#>>>
-
 }
 
 ### bMotion_event_action <<<1
@@ -444,17 +443,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
   if [regexp -nocase "\</?no$botnicks\>" $text] {return 0}
   if [regexp -nocase "\<no$botnicks\>" $text] {return 0}
 
-  #check for someone breaking the loop of lastSpoke <<<2
-  if [regexp -nocase "${botnicks}:? (i'm not talking to|not) you" $text] {
-    bMotionDoAction $channel $nick "oh"
-    set bMotionCache($channel,last) 0
-  }
-
-  #first, check botnicks (this is to get round empty-nick-on-startup) <<<2
-  if {$botnicks == ""} {
-    # need to set this
-    set botnicks "($botnick|$bMotionSettings(botnicks)) ?"
-  }
+	bMotion_check_botnicks
 
   #Run the simple plugins <<<2
   set response [bMotion_plugin_find_action_simple $text $bMotionInfo(language)]

@@ -802,5 +802,12 @@ proc bMotion_setting_get { setting } {
   return ""
 }
 #>>>
+proc bMotion_check_botnicks { } {
+	global botnicks, bMotionSettings
+
+	if {$botnicks == ""} {
+		set botnicks "($botnick|$bMotionSettings(botnicks)) ?"
+	}
+}
 
 bMotion_putloglev d * "bMotion: system module loaded"
