@@ -803,7 +803,7 @@ proc bMotion_setting_get { setting } {
 }
 #>>>
 proc bMotion_check_botnicks { } {
-	global botnicks bMotionSettings
+	global botnicks bMotionSettings botnick
 
 	if {$botnicks == ""} {
 		set botnicks "($botnick|$bMotionSettings(botnicks)) ?"
