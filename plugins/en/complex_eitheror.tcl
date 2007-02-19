@@ -27,7 +27,7 @@ proc bMotion_plugin_complex_eitheror {nick host handle channel text} {
 		# cut out some common rubbish ones
 		set first [string tolower first]
 		set second [string tolower second]
-		if {(first == "something") || (second == "something")} {
+		if {($first == "something") || ($second == "something")} {
 			return 0
 		}
 
