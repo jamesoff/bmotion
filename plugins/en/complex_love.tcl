@@ -16,6 +16,8 @@
 bMotion_plugin_add_complex "love" "(i )?(think )?(you are|you're )?(love|luv|wov|wuv|luvly|lovely)( you)? %botnicks" 100 bMotion_plugin_complex_love "en"
 
 proc bMotion_plugin_complex_love { nick host handle channel text } {
+	global mood
+
   if {![bMotionLike $nick $host]} {
     frightened $nick $channel
     return 1
@@ -26,7 +28,7 @@ proc bMotion_plugin_complex_love { nick host handle channel text } {
   if {$mood(happy) < 15 && $mood(lonely) < 5} {
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{loveresponses}"
     bMotionGetHappy
-    bMotionGetUnlonely
+    bMotionGetUnLonely
 		bMotion_plugins_settings_set "system" "lastdonefor" $channel "" $nick
     return 1
   } else {
