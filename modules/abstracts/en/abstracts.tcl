@@ -577,7 +577,7 @@ set randomReplies {
   "about half-past three, I think"
 	"r"
 	"more fun than a bucket of anchovies"
-	"more fun than a bucket of %VAR{sillythings}{strip}"
+	"more fun than a bucket of %VAR{sillyThings}{strip}"
   "yes"
   "no"
   "maybe"
