@@ -575,6 +575,9 @@ set randomReplies {
   "%ruser"
   "Orange."
   "about half-past three, I think"
+	"r"
+	"more fun than a bucket of anchovies"
+	"more fun than a bucket of %VAR{sillythings}{strip}"
   "yes"
   "no"
   "maybe"
@@ -845,6 +848,7 @@ set yesnos {
 }
 
 set rehashes {
+	"r"
   "Done."
   "ryoukai"
   "hai"
@@ -880,6 +884,7 @@ set bodypart {
   "tongue"
   "mouth"
 	"buns"
+	"cock"
 }
 
 set dude {
@@ -1300,7 +1305,12 @@ bMotion_abstract_batchadd "balefired" [list "/vanishes from the continuum" "/cea
 bMotion_abstract_batchadd "randomStuff" [list "I'm a doctor not %VAR{sillyThings}" "pika pika!" "pikachu!" "pika...CHUUUU!!! *ZZZAAP*" "*boing*" "moo." "BOOM" "BLAM" "Knickers.%|%BOT\[¬VAR{rarrs}\]" "/goes for coffee" "bof" "alors" "bhar" "arrrr.." "elbow." 	"gorilla" "*yawn*" "*spangle*" "brb" "lalalala.. ow! I stubbed my toe :(%|%bot\[50,¬VAR{awwws}\]" "lum de dum de dum..." "/twiddles thumbs" "boom" "Look over there!" "bleh" "/puts on some banging house tunes" "zut alors" "alors bof" "groogle arrhar" "brb, loo" 	"brb, sex" "uNF" "~rarr~" "~oof~" "Oops, I've ruined it." "Buttock Crunchies" "D'oh!" "setty mings lalalala" "pika" "Are you local?" "We'll have no trouble here" "Resistance is futile, you will be assimilated" "Resistance is futile, you will be 0wn3d" "Assimilation is futile, you will be resi... D'OH!" "I *didn't*" 	"waCHOO *sniff*%|%BOT\[¬VAR{blessyous}\]" "blblblblblbl" "/assimilates the channel" "We are the B0rg. You will be 4551m1la70r3d." "wheeeee" "We are the Borg. Lower your shields and surrender your ship." "h%REPEAT{3:8:n}" "did you see that.." "You are the weakest link, goodbye." "Computer, deactivate iguana." "kerPOW" "kerSPLAT" "KAZAM" "kazOO" "yaZOO" 	"spam, spam, spam, spam, spam, spam..." "Oh my god! There's an axe in my head.%|%BOT\[¬VAR{pullsOut}\]" "Mon dieu! Il y a une hache dans ma tete.%|%BOT\[¬VAR{pullsOut}\]" "ghay'cha'! nachwIjDaq betleH tu'lu'!%|%BOT\[¬VAR{pullsOut}\]" "Deus Meus! Securis in capite meo est.%|%BOT\[¬VAR{pullsOut}\]" "ALL YOUR BASE ARE BELONG TO US" "For great justice." "nostril" "%REPEAT{2:7:bl}" "wh%REPEAT{3:8:e}" "h%REPEAT{3:10:e} FUN" "ah bof" "I didn't!" "shh, sekrit" "SSSH SEKRIT" 	"SILENCE%colen" "pop" "cabbages" "penguin" "cheese" "mmm chicken" "blimey" "crikey" "hoorah" "pie pie pie pie" "fantastic" "ho ho" "har har" "deary me" "m00se" 	"llama" "frogs" "knickers" "bob" "kenneth" "nigel" "is everyone thooper?" "super" "thooper" "lashings of ginger beer" "It's not sugar in my sugar bowl, it's %VAR{sillyThings}{strip}" "I smell of %VAR{sillyThings}{strip}" "Honestly, I don't know how that %VAR{sillyThings}{strip} got in there. I must have slipped" ]
 
 bMotion_abstract_batchadd "randomStuff" {
+	"r"
+	"WHOOSH *DONG*"
+	"*schwing*"
+	"i'm awash with %VAR{bodypart}s"
 	"I feel a great disatisfaction within my bowels."
+	"Pardon me. Do you have any grey poupon?"
 	"oh really well what do you think, talking ass?"
 	"oh yeah? fuck your theory."
 	"PENIS BECOMES ARM"
@@ -1312,8 +1322,8 @@ bMotion_abstract_batchadd "randomStuff" {
 	"I have elbows!"
 	"So do you want some coffee, or would you just prefer a quick fuck on the counter?"
 	"PUT YOUR KNICKERS ON AND GO GET ME A CUP OF TEA"
-	"Hello! I've gome to fix your fax modem!"
-	"Do it again in a depper voice"
+	"Hello! I've come to fix your fax modem!"
+	"Do it again in a deeper voice"
 	"I'd be in a lot of trouble if I was allergic to semen"
 	"My family is giving away a lot of wax for houses"
 	"CAPS LOCK: cruise control for AWESOME!"
@@ -1540,7 +1550,7 @@ bMotion_abstract_batchadd "insult_joins" [list "%ruser: yeah, %% does suckOH HI 
 
 bMotion_abstract_batchadd "pullsOut" [list "/pulls it out%|%bot\[50,¬VAR{wahey}\]" ]
 
-bMotion_abstract_batchadd "goodMornings" [list "Morning %%" "good morning %%" "What time do you call this?" "G'day" "*yawn*" ]
+bMotion_abstract_batchadd "goodMornings" [list "Morning %%" "good morning %%" "What time do you call this?" "G'day" "*yawn*" "r"]
 
 bMotion_abstract_batchadd "stonedRandomStuff" [list "wheeeeeeee" "wheeeee..." "hey... i sound really stoned..." "hey, my hands are huge... they can touch anything but themselves... oh, wait" "slap my ass and call me charlie" "I don't think I'm ever going to come down" "peace" "flower power rules" "Did you ever wonder about the rising situation in Eastern Europe" "Hey, my TCL is HUGE" "I love you all" "look at all those beautiful colours" "I have to be stoned to feel normal" "see the marmalade skies" ]
 

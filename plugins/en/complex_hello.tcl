@@ -65,4 +65,5 @@ bMotion_abstract_batchadd "hello_familiars" {
   "%% :D"
   "%% ^_^"
   "/hugs %%"
+	"r %VAR{smiles}"
 }
