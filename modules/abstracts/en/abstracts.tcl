@@ -2198,3 +2198,34 @@ bMotion_abstract_batchadd "opped" {
 	"i promise to be good and well-behaved with my new op superpowers%|\\kick %%%|whoops!"
 	"%VAR{thanks}"
 }
+
+bMotion_abstract_register "weather"
+bMotion_abstract_batchadd "weather" {
+	"Today's forecast is %VAR{weathertypes}"
+	"Today's forecast is %VAR{weathertypes} with a %NUMBER{100}%percent chance of %VAR{sillyThings}{strip}"
+	"Today's forecast is %VAR{weathertypes} with a %NUMBER{100}%percent chance of %VAR{weather}"
+	"Today's forecast is %VAR{weathertypes} with a %NUMBER{100}%percent chance of %VAR{sillyThings}{strip} moving in from the %VAR{compass}"
+	"Today's forecast is %VAR{weathertypes} with a %NUMBER{100}%percent chance of %VAR{weather} moving in from the %VAR{compass}"
+}
+
+bMotion_abstract_register "weathertypes"
+bMotion_abstract_batchadd "weathertypes" {
+	"rain"
+	"sunshine"
+	"sun"
+	"snow"
+	"ice"
+	"horrible wetness"
+	"meteor showers"
+	"thunderstorms"
+	"a plague of locusts"
+	"breezes"
+}
+
+bMotion_abstract_register "compass"
+bMotion_abstract_batchadd "compass" {
+	"north"
+	"south"
+	"east"
+	"west"
+}
