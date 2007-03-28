@@ -290,26 +290,6 @@ proc bMotion_plugin_complex_trivia_guess { nick host handle channel text } {
   bMotion_plugins_settings_set "trivia" "tries" "" "" $tries
 	bMotion_putloglev 1 * "trivia: making attempt $tries"
 
-  #remove {}s
-  #regsub -all {[\{\}]} $text " " text
-
-  #extract the hint
-  #regexp {^Hint(:| \[.+ of .+\]:) ([_ A-Z])+} $text matches hinttext
-  #catch {
-    #if {$hinttext == ""} {
-     # return 2
-    #}
-  #}
-  #set hinttext [string range $text 6 end]
-  #set text [string trim $text]
-
-  #split if needed
-  #regsub -all { ([_A-Z])} $hinttext "\\1" hinttext
-
-  #turn _s to .s to make a regexp
-  #regsub -all "_" $hinttext "." hinttext
-
-  #bMotion_putloglev 2 * "contracted hint is $hinttext"
 	set hinttext [bMotion_plugins_settings_get "trivia" "hint" "" ""]
 	if {$hinttext == ""} {
 		bMotion_putloglev d * "trivia: no hint, aborting guess"
@@ -358,7 +338,12 @@ proc bMotion_plugin_complex_trivia_guess { nick host handle channel text } {
       incr elementcount -1
     }
   }
-  #putlog "elements: $elements, elementcount: $elementcount"
+	
+	# slow down guessing a bit
+	if [rand 2] {
+		return 2
+	}
+
   if {($elements == $elementcount)} {
     set answer [string trim $answer]
     if {$answer != [bMotion_plugins_settings_get "trivia" "last" "" ""]} {
