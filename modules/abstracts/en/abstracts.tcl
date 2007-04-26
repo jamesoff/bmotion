@@ -885,6 +885,9 @@ bMotion_abstract_batchadd "bodypart" {
   "tongue"
   "mouth"
 	"buns"
+	"shin"
+	"solar plexus"
+	"kidney"
 }
 
 bMotion_abstract_register "bodypart_male" 
@@ -902,6 +905,11 @@ bMotion_abstract_batchadd "bodypart_female" {
 	"vagina"
 	"fanny"
 	"front bottom"
+	"minge"
+	"breast"
+	"boob"
+	"wab"
+	"nipple"
 }
 
 set dude {
