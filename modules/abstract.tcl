@@ -370,7 +370,7 @@ proc bMotion_abstract_get { abstract } {
 	if [bMotion_abstract_exists "${abstract}_$bMotionInfo(gender)"] {
 		# mix-in the gender one with the vanilla one
 		bMotion_putloglev 1 * "mixing in $bMotionInfo(gender) version of $abstract"
-		set final_version [concat $bMotion_abstract_contents($abstract) $bMotion_abstract_contents(${abstract}_$bMotionInfo(gender))]
+		set final_version [concat $bMotion_abstract_contents($abstract) [bMotion_abstract_all "${abstract}_$bMotionInfo(gender)"]]
 	} else {
 		set final_version $bMotion_abstract_contents($abstract)
 	}

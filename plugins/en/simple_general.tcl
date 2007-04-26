@@ -45,3 +45,5 @@ bMotion_plugin_add_simple "no-trillian" "trillian" 5 [list "trillian < irssi" "u
 bMotion_plugin_add_simple "right" "%botnicks: (i see|ri+ght|ok|all? ?right|whatever)" 60 [list "it's true %VAR{unsmiles}" "it's true%colen" "yes" "what" "you don't believe me?"] "en"
 bMotion_plugin_add_simple "hal" "%botnicks: open the cargo bay doors?" 70 [list "I'm sorry %%, I can't do that."] "en"
 bMotion_plugin_add_simple "only4" {^only [0-9]+} 80 [list "well actually %NUMBER{100}" "that's quite a lot" "that's not very many" "well that's usually enough to get me functioning"] "en"
+bMotion_plugin_add_simple "team" "there'?s no \[\"'\]?i\[\"'\]? in \[\"'\]?team\[\"'\]?" 80 [list "But there is a U in cunt"] "en"
+bMotion_plugin_add_simple "luck" "wish me (good )?luck" 90 { "Luck!" "good luck!" "bad luck!%|no wait, good luck!" "i hope it doesn't explose" "%NUMBER{100}%percent good luck" "Luck you say? ... hmm, it's possible. I can have that with you in 6-8 weeks" "/looks for falling star in order to make luck based wish" } "en"
