@@ -28,7 +28,7 @@
 ### CONFIG
 
 ## enable sending of stats etc
-set bMotion_stats_enabled 1
+set bMotion_stats_enabled 0
 
 ## enable version checking (doesn't need stats to be sent)
 set bMotion_stats_version 0
