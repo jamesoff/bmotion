@@ -344,7 +344,7 @@ proc bMotion_abstract_exists { abstract } {
 
 proc bMotion_abstract_get { abstract } {
 	bMotion_putloglev 5 * "bMotion_abstract_get ($abstract)"
-  global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age bMotion_abstract_last_get
+  global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age bMotion_abstract_last_get bMotionInfo
 
   bMotion_putloglev 2 * "getting abstract $abstract"
 
@@ -366,17 +366,27 @@ proc bMotion_abstract_get { abstract } {
 		set bMotion_abstract_last_get($abstract) ""
 	}
 
-	if {[llength $bMotion_abstract_contents($abstract)] == 0} {
+	# look for male and female versions, and merge in if needed
+	if [bMotion_abstract_exists "${abstract}_$bMotionInfo(gender)"] {
+		# mix-in the gender one with the vanilla one
+		bMotion_putloglev 1 * "mixing in $bMotionInfo(gender) version of $abstract"
+		set final_version [concat $bMotion_abstract_contents($abstract) $bMotion_abstract_contents(${abstract}_$bMotionInfo(gender))]
+	} else {
+		set final_version $bMotion_abstract_contents($abstract)
+	}
+
+
+	if {[llength $final_version] == 0} {
 		bMotion_putloglev d * "abstract '$abstract' is empty!"
 		return ""
 	} else {
-		set retval [lindex $bMotion_abstract_contents($abstract) [rand [llength $bMotion_abstract_contents($abstract)]]]
-		if {[llength $bMotion_abstract_contents($abstract)] > 1} {
+		set retval [lindex $final_version [rand [llength $final_version]]]
+		if {[llength $final_version] > 1} {
 			set count 0
 			while {$retval == $bMotion_abstract_last_get($abstract)} {
 				putloglev d * "fetched repeat value for abstract $abstract, trying again"
 				putloglev 1 * "this: $retval ... last: $bMotion_abstract_last_get($abstract)"
-				set retval [lindex $bMotion_abstract_contents($abstract) [rand [llength $bMotion_abstract_contents($abstract)]]]
+				set retval [lindex $final_version [rand [llength $final_version]]]
 				incr count
 				if {$count > 5} {
 					putloglev d * "trying too hard to find non-dupe for abstract $abstract, giving up and using $retval"
