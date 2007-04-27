@@ -87,10 +87,8 @@ global sweet
 global units
 global oops
 
-# globals contents
-set randomsVersion {$Id$}
-
-set fellOffs {
+bMotion_abstract_register "fellOffs"
+bMotion_abstract_batchadd "fellOffs" {
   "fell off"
   "exploded"
   "imploded"
@@ -108,11 +106,13 @@ set fellOffs {
   "got turned into %VAR{sillyThings}"
 }
 
-set jokeends {
+bMotion_abstract_register "jokeends"
+bMotion_abstract_batchadd "jokeends" {
   "Confucious say, %VAR{confuciousStart} %VAR{confuciousEnd}"
 }
 
-set confuciousStart {
+bMotion_abstract_register "confuciousStart"
+bMotion_abstract_batchadd "confuciousStart" {
   "man who walk through turnstile sideways"
   "man with hand in pocket"
   "passionate kiss, like spider web,"
@@ -122,7 +122,8 @@ set confuciousStart {
   "man who jump off cliff"
 }
 
-set confuciousEnd {
+bMotion_abstract_register "confuciousEnd"
+bMotion_abstract_batchadd "confuciousEnd" {
   "going to Bangkok."
   "feel cocky all day."
   "lead to undoing of fly"
@@ -132,7 +133,8 @@ set confuciousEnd {
   "jump to conslusion"
 }
 
-set fuckOffs {
+bMotion_abstract_register "fuckOffs"
+bMotion_abstract_batchadd "fuckOffs" {
   "Not now, I'm not in the mood for him"
   "SILENCE%colen"
   "Bite my shiny metal ass"
@@ -144,7 +146,8 @@ set fuckOffs {
   "What did you just say?"
 }
 
-set silenceAways {
+bMotion_abstract_register "silenceAways"
+bMotion_abstract_batchadd "silenceAways" {
   "bah"
   "/goes to find someone more interesting to talk to"
   ":("
@@ -155,7 +158,8 @@ set silenceAways {
   "nnk"
 }
 
-set lovesits {
+bMotion_abstract_register "lovesits"
+bMotion_abstract_batchadd "lovesits" {
   "/loves it"
   "stop making me horny"
   "~oof~"
@@ -166,7 +170,8 @@ set lovesits {
   "%REPEAT{3:10:m}"
 }
 
-set chocolates {
+bMotion_abstract_register "chocolates"
+bMotion_abstract_batchadd "chocolates" {
   "mars bar"
   "bounty bar"
   "malteaser"
@@ -183,7 +188,8 @@ set chocolates {
   "edible panties"
 }
 
-set hiddenBehinds {
+bMotion_abstract_register "hiddenBehinds"
+bMotion_abstract_batchadd "hiddenBehinds" {
   "heeeeyyyy"
   "oi"
   "hey, watch it"
@@ -196,7 +202,8 @@ set hiddenBehinds {
   "Shame I'm transparent today really"
 }
 
-set satOns {
+bMotion_abstract_register "satOns"
+bMotion_abstract_batchadd "satOns" {
   "hey ow :("
   "heeeyyy :O"
   "bah"
@@ -208,7 +215,8 @@ set satOns {
 }
 
 #question answers
-set answerWhats {
+bMotion_abstract_register "answerWhats"
+bMotion_abstract_batchadd "answerWhats" {
 	"well you asked the right guy, i'm a whale biologist"
   "a book"
   "3 fingers"
@@ -239,7 +247,8 @@ set answerWhats {
   "%noun"
 }
 
-set answerWhos {
+bMotion_abstract_register "answerWhos"
+bMotion_abstract_batchadd "answerWhos" {
   "%ruser"
   "me"
   "you"
@@ -270,7 +279,8 @@ set answerWhos {
   "who do you think?"
 }
 
-set answerWithWhos {
+bMotion_abstract_register "answerWithWhos"
+bMotion_abstract_batchadd "answerWithWhos" {
   "%ruser"
   "me"
   "you"
@@ -304,7 +314,8 @@ set answerWithWhos {
   "probably at least 3 pr0n DVDs"
 }
 
-set answerWhys {
+bMotion_abstract_register "answerWhys"
+bMotion_abstract_batchadd "answerWhys" {
   "why not?"
   "hmm?"
   "because i said so"
@@ -318,7 +329,8 @@ set answerWhys {
 	"we tried that, but you were sick and my hat blew off"
 }
 
-set answerWheres {
+bMotion_abstract_register "answerWheres"
+bMotion_abstract_batchadd "answerWheres" {
   "in bed"
   "behind the fridge"
   "on the desk"
@@ -348,7 +360,8 @@ set answerWheres {
   "next to %ruser"
   "in bed with Madonna"
 }
-set answerWellbeing {
+bMotion_abstract_register "answerWellbeing"
+bMotion_abstract_batchadd "answerWellbeing" {
     "fine thanks"
     "much better now"
     "not now, I'm 'busy'. mmmmmm."
@@ -356,7 +369,8 @@ set answerWellbeing {
     "oh the pain, the pain, the....I'm fine thanks"
     "I'm not bad thanks, how're you?"
 }
-set answerWhens {
+bMotion_abstract_register "answerWhens"
+bMotion_abstract_batchadd "answerWhens" {
   "this morning"
   "this afternoon"
   "now!"
@@ -371,7 +385,8 @@ set answerWhens {
   "16:08"
 }
 
-set answerHowmanys {
+bMotion_abstract_register "answerHowmanys"
+bMotion_abstract_batchadd "answerHowmanys" {
   "42"
   "5"
   "34975"
@@ -389,7 +404,8 @@ set answerHowmanys {
   "%NUMBER{1000}"
 }
 
-set answerHows {
+bMotion_abstract_register "answerHows"
+bMotion_abstract_batchadd "answerHows" {
   "magic"
   "pull harder"
   "give it a push"
@@ -405,7 +421,8 @@ set answerHows {
   "drink volvic first, then try"
 }
 
-set phaserFires {
+bMotion_abstract_register "phaserFires"
+bMotion_abstract_batchadd "phaserFires" {
   "/fires several shots from the forward phaser banks, disabling %%"
   "/fires several shots from the forward phaser banks, destroying %%%|/flies out through the explosion in an impressive bit of piloting (not to mention rendering :)"
   "/accidentally activates the wrong system and replicates a small tree"
@@ -419,7 +436,8 @@ set phaserFires {
   "/pulls the Picard move (the non-uniform one)"
 }
 
-set torpedoFires {
+bMotion_abstract_register "torpedoFires"
+bMotion_abstract_batchadd "torpedoFires" {
   "/fires a volley of torpedos at %%"
   "/breaks into a roll and fires torpedos from dorsal and ventral launchers in sequence"
   "/breaks into a roll and ties itself in a knot%|Damn.%|%bot\[50,¬VAR{ruins}\]"
@@ -428,7 +446,8 @@ set torpedoFires {
   "/heads directly for %%, firing a full spread of torpedos from the forward lauchers%|/flies out through the wreakage"
 }
 
-set everythingFires {
+bMotion_abstract_register "everythingFires"
+bMotion_abstract_batchadd "everythingFires" {
   "/opens the cargo hold and ejects some plastic drums at %%"
   "/lauches all the escape pods"
   "/fires the Universe Gun(tm) at %%"
@@ -437,7 +456,8 @@ set everythingFires {
   "/lobs General Darian at %%"
 }
 
-set trekNouns {
+bMotion_abstract_register "trekNouns"
+bMotion_abstract_batchadd "trekNouns" {
   "Neelix"
   "Captain Janeway"
   "Deputy Wall Licker 97th Class Splock"
@@ -469,7 +489,8 @@ set trekNouns {
   "Deep Space 9"
 }
 
-set charges {
+bMotion_abstract_register "charges"
+bMotion_abstract_batchadd "charges" {
   "exploding %%"
   "setting fire to %%"
   "gross incompetence"
@@ -490,7 +511,8 @@ set charges {
   "timetravelling without a safety net"
 }
 
-set punishments {
+bMotion_abstract_register "punishments"
+bMotion_abstract_batchadd "punishments" {
   "talk to Neelix for 5 hours"
   "be keel-dragged through an asteriod field"
   "play chess against 7 of 9 (you may leave as soon as you win)"
@@ -508,13 +530,15 @@ set punishments {
   "find Geordi a date"
 }
 
-set brigBanzais {
+bMotion_abstract_register "brigBanzais"
+bMotion_abstract_batchadd "brigBanzais" {
   "The %% Being In Brig Bet!"
   "The Naughty %% Charge Conundrum!"
   "%%'s Prison Poser!"
 }
 
-set banzaiMidBets {
+bMotion_abstract_register "banzaiMidBets"
+bMotion_abstract_batchadd "banzaiMidBets" {
   "bet bet bet!"
   "bet now! Time running out!"
   "come on, bet!"
@@ -522,12 +546,14 @@ set banzaiMidBets {
   "you want friends to laugh at you? Bet!"
 }
 
-set wands {
+bMotion_abstract_register "wands"
+bMotion_abstract_batchadd "wands" {
   "/waves %hisher <notopic>magic wand</notopic>"
   "Go go gadget magic wand!"
 }
 
-set harhars {
+bMotion_abstract_register "harhars"
+bMotion_abstract_batchadd "harhars" {
   "har har"
   "h4w."
   "h4w"
@@ -537,7 +563,8 @@ set harhars {
   "I am the greatest!"
 }
 
-set analsexhelps {
+bMotion_abstract_register "analsexhelps"
+bMotion_abstract_batchadd "analsexhelps" {
   "/hands %% the KY jelly"
   "/watches"
   "/offers to help"
@@ -547,7 +574,8 @@ set analsexhelps {
   "/lubes %pronoun up"
 }
 
-set wankhelps {
+bMotion_abstract_register "wankhelps"
+bMotion_abstract_batchadd "wankhelps" {
   "/helps %%"
   "~rarr~"
   "~oof~"
@@ -555,7 +583,8 @@ set wankhelps {
   "/perves"
 }
 
-set niceTrys {
+bMotion_abstract_register "niceTrys"
+bMotion_abstract_batchadd "niceTrys" {
   "Nice try."
   "You wish."
   "Stop trying to break me or I'll break you."
@@ -563,7 +592,8 @@ set niceTrys {
 }
 
 
-set awwws {
+bMotion_abstract_register "awwws"
+bMotion_abstract_batchadd "awwws" {
   "awww"
   "awww%|poor %%"
   "awww%|/kisses it better"
@@ -571,7 +601,8 @@ set awwws {
   "awww%|/sniggers at %%"
 }
 
-set randomReplies {
+bMotion_abstract_register "randomReplies"
+bMotion_abstract_batchadd "randomReplies" {
   "%ruser"
   "Orange."
   "about half-past three, I think"
@@ -694,46 +725,54 @@ set randomReplies {
   "If only I hadn't used up all my lifelines%|%bot\[50,you can have one of mine\]%|no thanks, don't know where it's been"
 }
 
-set picksUp {
+bMotion_abstract_register "picksUp"
+bMotion_abstract_batchadd "picksUp" {
   "/picks up %%"
   "/helps %% back off the ground"
   "/gives %% a hand"
 }
 
-set dildoFlutePlays {
+bMotion_abstract_register "dildoFlutePlays"
+bMotion_abstract_batchadd "dildoFlutePlays" {
   "this one time at band camp...%|well, i'll show you...%|/puts the flute in herself"
   "this one time, at band camp, i put a flute in my pussy%|/demonstrates"
   "/puts the flute in herself%|we did this at band camp one year, too"
 }
 
-set dildoFluteFinishes {
+bMotion_abstract_register "dildoFluteFinishes"
+bMotion_abstract_batchadd "dildoFluteFinishes" {
   "/rescues her flute and plays a happy tune"
   "hey %%, want to play it? :P"
   "and that's why I liked band camp :)"
 }
 
 # %% = who, %2 = dildo
-set dildoPlays {
+bMotion_abstract_register "dildoPlays"
+bMotion_abstract_batchadd "dildoPlays" {
   "/sits herself down and shows %% how she uses a %2"
   "/lubes up and shows %% how pleased she is with her new present :D"
 }
 
 # %% = dildo, %2 = who
-set dildoFinishes {
+bMotion_abstract_register "dildoFinishes"
+bMotion_abstract_batchadd "dildoFinishes" {
   "/pulls out the %% and shoves it in %2's face%|you want some? :D"
   "~oof~ ... much better :)"
 }
 
-set dildoFemaleFemale {
+bMotion_abstract_register "dildoFemaleFemale"
+bMotion_abstract_batchadd "dildoFemaleFemale" {
   "/would do some girl-on-girl action here on %%, but needs to know how :P%|KatieStar! ;)"
 }
 
-set dildoFemaleFemaleSwap {
+bMotion_abstract_register "dildoFemaleFemaleSwap"
+bMotion_abstract_batchadd "dildoFemaleFemaleSwap" {
   "ok, i hope you're done cos it's my turn now :)%|/has her turn with the %%"
   "my turn my turn my turn!%|/swipes the %%"
 }
 
-set dildoMaleFemale {
+bMotion_abstract_register "dildoMaleFemale"
+bMotion_abstract_batchadd "dildoMaleFemale" {
   "*weg*%|/applies the %2 to %%"
   "ooh you are norty%|/makes %% horny with the %2"
   "i didn't realise you were in the mood for that%|*weg*%|/uses the %2 on %%"
@@ -745,20 +784,24 @@ set dildoMaleFemale {
   "/stretches %% with the %2"
 }
 
-set dildoMaleMale {
+bMotion_abstract_register "dildoMaleMale"
+bMotion_abstract_batchadd "dildoMaleMale" {
   "/would do some man-on-man action here on %%, but needs to know how :P%|hmm... who can I ask? :)"
 }
 
-set dildoMaleMaleSwap {
+bMotion_abstract_register "dildoMaleMaleSwap"
+bMotion_abstract_batchadd "dildoMaleMaleSwap" {
   "ok, i hope you're done cos it's my turn now :)%|/has his turn with the %%"
 }
 
-set dildoMalePlays {
+bMotion_abstract_register "dildoMalePlays"
+bMotion_abstract_batchadd "dildoMalePlays" {
   "/'plays' with the %2"
   "/replicates himself some lube"
 }
 
-set handcoffees {
+bMotion_abstract_register "handcoffees"
+bMotion_abstract_batchadd "handcoffees" {
   "/hands %% a coffee"
   "wake up%colen"
   "go to bed already"
@@ -770,7 +813,8 @@ set handcoffees {
   "/hands %% some ProPlus"
 }
 
-set parkedinsDislike {
+bMotion_abstract_register "parkedinsDislike"
+bMotion_abstract_batchadd "parkedinsDislike" {
   "heyyy"
   "hey OW"
   "%colen"
@@ -780,14 +824,16 @@ set parkedinsDislike {
   "/disapproves of that sort of thing."
 }
 
-set secondDildoPlays {
+bMotion_abstract_register "secondDildoPlays"
+bMotion_abstract_batchadd "secondDildoPlays" {
   "/makes use of the additional %%%|%bot[50,sheesh]"
   "/locates another hole for the %%%|%bot[50,sheesh]"
   "thanks, but i don't have a free hand... could you put that one in for me?"
   "woah cool!%|/gets some more lube%|%bot[50,sheesh]"
 }
 
-set thrownAts {
+bMotion_abstract_register "thrownAts"
+bMotion_abstract_batchadd "thrownAts" {
   "wh%REPEAT{4:10:e}!"
   "I can seeee myyy house from heeeerrreeeeee!"
   "*CRUMP*"
@@ -800,11 +846,13 @@ set thrownAts {
   "/does a triple inverted twist somersault and lands neatly next to %%"
 }
 
-set bookmarks {
+bMotion_abstract_register "bookmarks"
+bMotion_abstract_batchadd "bookmarks" {
   "%VAR{smiles}"
 }
 
-set punchlines {
+bMotion_abstract_register "punchlines"
+bMotion_abstract_batchadd "punchlines" {
   "but it's legal if it's HER dog."
   "because penguins can't dance."
   "look if you don't know where it is put your tongue away."
@@ -818,7 +866,8 @@ set punchlines {
   "she only shaved the front!"
 }
 
-set typoFix {
+bMotion_abstract_register "typoFix"
+bMotion_abstract_batchadd "typoFix" {
   "oops"
   "oops %SETTING{output:typos:typos:_:_}"
   "%colen"
@@ -829,25 +878,29 @@ set typoFix {
 	"/butterfingers"
 }
 
-set blehs {
+bMotion_abstract_register "blehs"
+bMotion_abstract_batchadd "blehs" {
   "bleh"
   "feh"
   "meh"
 }
 
-set huks {
+bMotion_abstract_register "huks"
+bMotion_abstract_batchadd "huks" {
   "huk"
   "kek"
   "tilde"
   "~"
 }
 
-set yesnos {
+bMotion_abstract_register "yesnos"
+bMotion_abstract_batchadd "yesnos" {
   "%VAR{yeses}"
   "%VAR{nos}"
 }
 
-set rehashes {
+bMotion_abstract_register "rehashes"
+bMotion_abstract_batchadd "rehashes" {
 	"r"
   "Done."
   "ryoukai"
@@ -912,19 +965,22 @@ bMotion_abstract_batchadd "bodypart_female" {
 	"nipple"
 }
 
-set dude {
+bMotion_abstract_register "dude"
+bMotion_abstract_batchadd "dude" {
   "Dude!"
   "My god dude!"
   "Duuuuuuuuuuuuuuuuuude!"
 }
 
-set sweet {
+bMotion_abstract_register "sweet"
+bMotion_abstract_batchadd "sweet" {
   "Sweet!"
   "Schweet!"
   "Sweeeeeeeeeet!"
 }
 
-set units {
+bMotion_abstract_register "units"
+bMotion_abstract_batchadd "units" {
   "inches"
   "miles"
   "feet"
@@ -949,7 +1005,8 @@ set units {
   "decibels"
 }
 
-set oops {
+bMotion_abstract_register "oops"
+bMotion_abstract_batchadd "oops" {
   "oops"
   "whoops"
   "d'oh"
@@ -1303,7 +1360,7 @@ bMotion_abstract_batchadd "blownAways" [list "/is blown off feet by force of %%'
 
 bMotion_abstract_batchadd "shocked" [list "!" "!!!" "crikey" "blimey" "crumbs" "yikes" "wow" "boom" "marmalade" ":O" ":o" "ooh 'eck" "i say%|%BOT\[what do you say?\]%|I say, %VAR{ers}...%|%VAR{randomStuff}." "%colen" "O_O" 	"A%REPEAT{4:7:R}GH!" ]
 
-bMotion_abstract_batchadd "randomAways" [list "sex" "coffee" "food" "sleep" "campus" "town" "work" "working" "shopping" "gaming" "playing a game" "h4X0ring" "dvd" "watching a film" "brb" 	"around" "taking over the world" "I am the magic horse(£(£$&" "John's Mum" "sekrit" "auto-away" "code" "programming" "beer" "pub" "out" "*squeeky*" "tea" "fud" "bnar" 	"bibble" "fnar" "coffee machine ~rarr~" "tantric sex" "pornography" "porn" "divx" "manual-away" "McDonalds" "yo mamma" "%ruser" "cookie" "penguin" "toilet" "shower" 	"bath" "taking the guinea pig for a walk" "washing my hair" "removing my enemies from the timeline" "trimming my toenails"]
+bMotion_abstract_batchadd "randomAways" [list "sex" "coffee" "food" "sleep" "campus" "town" "work" "working" "shopping" "gaming" "playing a game" "h4X0ring" "dvd" "watching a film" "brb" 	"around" "taking over the world" "I am the magic horse%colen" "John's Mum" "sekrit" "auto-away" "code" "programming" "beer" "pub" "out" "*squeeky*" "tea" "fud" "bnar" 	"bibble" "fnar" "coffee machine ~rarr~" "tantric sex" "pornography" "porn" "divx" "manual-away" "McDonalds" "yo mamma" "%ruser" "cookie" "penguin" "toilet" "shower" 	"bath" "taking the guinea pig for a walk" "washing my hair" "removing my enemies from the timeline" "trimming my toenails"]
 
 bMotion_abstract_batchadd "smokes" [list "/takes a drag" "/lights up" "/has a puff" "/smokes :)" "/partakes of herbal refreshment" ]
 
