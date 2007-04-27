@@ -196,7 +196,9 @@ proc bMotion_event_main {nick host handle channel text} {
   regsub -all "\002" $text "" text
   regsub -all "\022" $text "" text
   regsub -all "\037" $text "" text
-  regsub -all "\003\[0-9\]+(,\[0-9+\])?" $text "" text
+
+	# thanks, anonymous ticket poster (ticket #125)
+  regsub -all "\003\[0-9\]{0,2}(,\[0-9\]{1,2})?" $text "" text
   
   #try stripcodes (eggdrop 1.6.17+)
   catch {
