@@ -132,7 +132,7 @@ proc bMotion_abstract_gc { } {
   }
 }
 
-proc bMotion_abstract_register { abstract } {
+proc bMotion_abstract_register { abstract { stuff "" } } {
 	bMotion_putloglev 5 * "bMotion_abstract_register ($abstract)"
   global bMotion_abstract_contents bMotion_abstract_timestamps
   global bMotionModules bMotion_testing bMotion_loading
@@ -164,6 +164,12 @@ proc bMotion_abstract_register { abstract } {
   if {[info exists fileHandle]} {
     close $fileHandle
   }
+
+	if {$stuff != ""} {
+		# batch-add at the same time
+		bMotion_putloglev d * "Batchadding during registration for $abstract"
+		bMotion_abstract_batchadd $abstract $stuff
+	}
 }
 
 proc bMotion_abstract_load { abstract } {
