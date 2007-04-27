@@ -734,9 +734,9 @@ bMotion_abstract_batchadd "picksUp" {
 
 bMotion_abstract_register "dildoFlutePlays"
 bMotion_abstract_batchadd "dildoFlutePlays" {
-  "this one time at band camp...%|well, i'll show you...%|/puts the flute in herself"
+  "this one time at band camp...%|well, i'll show you...%|/puts the flute in %himherself"
   "this one time, at band camp, i put a flute in my pussy%|/demonstrates"
-  "/puts the flute in herself%|we did this at band camp one year, too"
+  "/puts the flute in %himherself%|we did this at band camp one year, too"
 }
 
 bMotion_abstract_register "dildoFluteFinishes"
@@ -749,8 +749,8 @@ bMotion_abstract_batchadd "dildoFluteFinishes" {
 # %% = who, %2 = dildo
 bMotion_abstract_register "dildoPlays"
 bMotion_abstract_batchadd "dildoPlays" {
-  "/sits herself down and shows %% how she uses a %2"
-  "/lubes up and shows %% how pleased she is with her new present :D"
+  "/sits %himherself down and shows %% how %heshe uses a %2"
+  "/lubes up and shows %% how pleased %heshe is with %hisher new present :D"
 }
 
 # %% = dildo, %2 = who
@@ -791,13 +791,13 @@ bMotion_abstract_batchadd "dildoMaleMale" {
 
 bMotion_abstract_register "dildoMaleMaleSwap"
 bMotion_abstract_batchadd "dildoMaleMaleSwap" {
-  "ok, i hope you're done cos it's my turn now :)%|/has his turn with the %%"
+  "ok, i hope you're done cos it's my turn now :)%|/has %hisher turn with the %%"
 }
 
 bMotion_abstract_register "dildoMalePlays"
 bMotion_abstract_batchadd "dildoMalePlays" {
   "/'plays' with the %2"
-  "/replicates himself some lube"
+  "/replicates %himherself some lube"
 }
 
 bMotion_abstract_register "handcoffees"
@@ -863,7 +863,7 @@ bMotion_abstract_batchadd "punchlines" {
   "big holes all over Australia"
   "that's not my dog!"
   "depends if you're in Texas"
-  "she only shaved the front!"
+  "%heshe only shaved the front!"
 }
 
 bMotion_abstract_register "typoFix"
@@ -1206,7 +1206,7 @@ bMotion_abstract_batchadd "prom_second" [list "rifle" "flower" "desk" "curtain" 
 
 bMotion_abstract_batchadd "ididntresponses" [list "no, *I* didn't" "Oh really." "Yes you did. We all saw it." "Of course you didn't." "Oh yes you did." "You must think us all fools." "nnk" "We all saw you" "I have proof you did" "caught on camera!"]
 
-bMotion_abstract_batchadd "aiis" [list "wikkid" "aii" "aiiiii" "innit" "respect" "westsyde%|/snaps wrist Ali G-stylee." "true" "keepin' it real" "iz wikkid" "wikkid stylin' of da wikkid!" "/is hangin with his crew" "Respect ma blingbling" "kickin it down with da home boy posse" "That is so last week" ]
+bMotion_abstract_batchadd "aiis" [list "wikkid" "aii" "aiiiii" "innit" "respect" "westsyde%|/snaps wrist Ali G-stylee." "true" "keepin' it real" "iz wikkid" "wikkid stylin' of da wikkid!" "/is hangin with %hisher crew" "Respect ma blingbling" "kickin it down with da home boy posse" "That is so last week" ]
 
 bMotion_abstract_batchadd "randomStuffFemale" [list "This one time, at band camp, I put a flute..." "Does my arse look big in this?" "Does my bum look big in this?" "*ping*%|Did it just get cold in here?" "Do you know how we keep warm in Russia?%|... we play chess." "I kinda like thongs" "I wonder what happens when I put that in here...%|oooooooh!" "/plays with herself" "That ain't my belly button" "This one time, at band camp, I put %noun..." "/considers breast implants%|%PICKUSER\[female\]%|%BOT\[¬PICKUSER\[female\]¬|/feels up ¬¬ to check¬|true, they aren't as good as ¬ruser's¬|/feels up ¬ruser's breasts¬|mmmm ¬VAR{smiles}\]" "/considers sexchange operation%|%PICKUSER\[male\]%|/looks at %ruser%|Maybe not" "%PICKUSER\[female\]%|It's good to be female isn't it %ruser" ]
 
@@ -1647,7 +1647,7 @@ bMotion_abstract_batchadd "goodMornings" [list "Morning %%" "good morning %%" "W
 
 bMotion_abstract_batchadd "stonedRandomStuff" [list "wheeeeeeee" "wheeeee..." "hey... i sound really stoned..." "hey, my hands are huge... they can touch anything but themselves... oh, wait" "slap my ass and call me charlie" "I don't think I'm ever going to come down" "peace" "flower power rules" "Did you ever wonder about the rising situation in Eastern Europe" "Hey, my TCL is HUGE" "I love you all" "look at all those beautiful colours" "I have to be stoned to feel normal" "see the marmalade skies" ]
 
-bMotion_abstract_batchadd "gollums" [list "Foolishness!" "Stupid fat hobbit!" "We hates the fat hobbit! Him and his pots and pans and ropes." "Thieves. Thieves all!" "Stupid hobbit. Talking to himself like that. Not answering himself." "Yes. Sleep sweet sleep with our precious!" "Filthy little thief playing with our precious!" "If only fat hobbit would go away for a moment, we could go to master and take the precious away from him." "No! Must not take away our precious!" "We miss the song of the precious. We miss it. We wants it back!" "Everyone wants my precious. It's not fair! It's ours!" "Shiny, shiny." "/sniggers" "/grovels" "/picks his nose" "/pines for his precious" "/searches his pockets" "/eats some slimy creatures" "/mutters: 'My precious, wheres my precious?'" "/shouts: 'No Master Hobbitsisisisis!'" "/cries: 'The ring was ours for agesisisisis!'" "Smeagol sneeking! ME! Shneekingsisis!" "/screams: 'Nasty Hobbitsisisisis...'" "Come on, quickly, follow Smeagol" "Every way is guarded, silly foolsis!" "Nasty Bagginis, stole my precious." "She will kill them oh yes she will precious." "Weees wants some fishises." "Whats has its got in its pocketses, hmmm?" "/whimpers: 'We've lost itses we have.'" "He'll eastus all the world if he getsitses it." "No food, no rest; Smeagol a SNEAK!" "What a dainty little dish you will be for her." "Hobbitses always SOOOO Polite." "/screams: 'Stop, Thief!'" "Makeses him drop his weapon precious." "/grovels: 'He has only four fingers on the black hand.'" "/growls: 'Not nice Hobbits, not sensible!'" "If you findesis it, give it us back." "Don't hurt us, mastersisis." "Poor Smeagol, poor Smeagol." "No AH! Don't hurtsis us." "golum kick hobbit arse%|/sniggers"]
+bMotion_abstract_batchadd "gollums" [list "Foolishness!" "Stupid fat hobbit!" "We hates the fat hobbit! Him and his pots and pans and ropes." "Thieves. Thieves all!" "Stupid hobbit. Talking to %himherself like that. Not answering %himherself." "Yes. Sleep sweet sleep with our precious!" "Filthy little thief playing with our precious!" "If only fat hobbit would go away for a moment, we could go to master and take the precious away from him." "No! Must not take away our precious!" "We miss the song of the precious. We miss it. We wants it back!" "Everyone wants my precious. It's not fair! It's ours!" "Shiny, shiny." "/sniggers" "/grovels" "/picks %hisher nose" "/pines for %hisher precious" "/searches %hisher pockets" "/eats some slimy creatures" "/mutters: 'My precious, wheres my precious?'" "/shouts: 'No Master Hobbitsisisisis!'" "/cries: 'The ring was ours for agesisisisis!'" "Smeagol sneeking! ME! Shneekingsisis!" "/screams: 'Nasty Hobbitsisisisis...'" "Come on, quickly, follow Smeagol" "Every way is guarded, silly foolsis!" "Nasty Bagginis, stole my precious." "%heshe will kill them oh yes %heshe will precious." "Weees wants some fishises." "Whats has its got in its pocketses, hmmm?" "/whimpers: 'We've lost itses we have.'" "He'll eastus all the world if he getsitses it." "No food, no rest; Smeagol a SNEAK!" "What a dainty little dish you will be for her." "Hobbitses always SOOOO Polite." "/screams: 'Stop, Thief!'" "Makeses him drop %hisher weapon precious." "/grovels: 'He has only four fingers on the black hand.'" "/growls: 'Not nice Hobbits, not sensible!'" "If you findesis it, give it us back." "Don't hurt us, mastersisis." "Poor Smeagol, poor Smeagol." "No AH! Don't hurtsis us." "golum kick hobbit arse%|/sniggers"]
 
 bMotion_abstract_batchadd "blairisms" {
   "%VAR{blairadj} %VAR{blairparts}, %VAR{blairadj} %VAR{blairparts}, %VAR{blairadj} %VAR{blairparts}."
@@ -1691,7 +1691,7 @@ bMotion_abstract_batchadd "answerDidyous" {
   "yes but i'd rather %VAR{punishments} than do it again!"
   "yeah %VAR{oops} %VAR{smiles}"
   "yarr%|%VAR{randomZimness}"
-  "%VAR{lols} %VAR{smiles} %colen%|/%VAR{smacks} himself in the %VAR{bodypart}"
+  "%VAR{lols} %VAR{smiles} %colen%|/%VAR{smacks} %himherself in the %VAR{bodypart}"
   "no i spent my time contemplating how i %VAR{smacked} %ruser in the %VAR{bodypart}"
   "yes but i wish i'd gone %VAR{dNouns}-%VAR{dVerbs}ing %VAR{smiles}"
 }
