@@ -194,16 +194,17 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
     set line [bMotionInsertString $line "%noun" "%VAR{sillyThings}"]
   }
 
-  set loops 0
+  #set loops 0
   bMotion_putloglev 4 * "doing VAR processing"
+	set lastloop ""
   while {[regexp -nocase {%VAR\{([^\}]+)\}(\{strip\})?} $line matches BOOM clean]} {
   	#putlog "var: clean = $clean"
     global $BOOM
-    incr loops
-    if {$loops > 10} {
-      putlog "bMotion: ALERT! looping too much in %VAR code with $line"
-      set line "/has a tremendous error while trying to sort something out :("
-    }
+    #incr loops
+    #if {$loops > 10} {
+    #  putlog "bMotion: ALERT! looping too much in %VAR code with $line"
+    #  set line "/has a tremendous error while trying to sort something out :("
+    #}
     #see if we have a new-style abstract available
     set newText [bMotion_abstract_get $BOOM]
     set replacement ""
@@ -222,6 +223,12 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
     if [string match "*%noun*" $line] {
       set line [bMotionInsertString $line "%noun" "%VAR{sillyThings}"]
     }
+		if {$lastloop == $line} {
+      putlog "bMotion: ALERT! looping too much in %VAR code with $line (no change since last parse)"
+      set line "/has a tremendous error while trying to sort something out :("
+			break
+		}
+		set lastloop $line
   }
 
   set loops 0
