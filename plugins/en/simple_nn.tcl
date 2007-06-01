@@ -12,5 +12,9 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_simple "nn" "(nn|gn|nite|night|nite ?nite),? (%botnicks|all)!*$" 100 [list "nn %VAR{unsmiles}" "nn" "nite" "night" "nn %%" "sleep well" "sweet dreams"] en
+bMotion_plugin_add_simple "nn" "(nn|gn|nite|night|nite ?nite),? (%botnicks|all)!*$" 100 [list "%VAR{nn}"] en
 
+# do this as an abstract by itself so we can add to it externally (e.g. nightmare)
+bMotion_abstract_register "nn" {
+"nn %VAR{unsmiles}" "nn" "nite" "night" "nn %%" "sleep well" "sweet dreams"
+}
