@@ -913,6 +913,7 @@ bMotion_abstract_batchadd "rehashes" {
 
 bMotion_abstract_register "bodypart"
 bMotion_abstract_batchadd "bodypart" {
+	"eyelash"
   "toe"
   "foot"
   "ankle"
@@ -963,6 +964,10 @@ bMotion_abstract_batchadd "bodypart_female" {
 	"boob"
 	"wab"
 	"nipple"
+}
+
+bMotion_abstract_register "randomStuff_male" {
+	"Come on baby, let's go play schoolgirl and guy who has sex with schoolgirls!"
 }
 
 bMotion_abstract_register "dude"
@@ -1208,7 +1213,7 @@ bMotion_abstract_batchadd "ididntresponses" [list "no, *I* didn't" "Oh really." 
 
 bMotion_abstract_batchadd "aiis" [list "wikkid" "aii" "aiiiii" "innit" "respect" "westsyde%|/snaps wrist Ali G-stylee." "true" "keepin' it real" "iz wikkid" "wikkid stylin' of da wikkid!" "/is hangin with %hisher crew" "Respect ma blingbling" "kickin it down with da home boy posse" "That is so last week" ]
 
-bMotion_abstract_batchadd "randomStuffFemale" [list "This one time, at band camp, I put a flute..." "Does my arse look big in this?" "Does my bum look big in this?" "*ping*%|Did it just get cold in here?" "Do you know how we keep warm in Russia?%|... we play chess." "I kinda like thongs" "I wonder what happens when I put that in here...%|oooooooh!" "/plays with herself" "That ain't my belly button" "This one time, at band camp, I put %noun..." "/considers breast implants%|%PICKUSER\[female\]%|%BOT\[¬PICKUSER\[female\]¬|/feels up ¬¬ to check¬|true, they aren't as good as ¬ruser's¬|/feels up ¬ruser's breasts¬|mmmm ¬VAR{smiles}\]" "/considers sexchange operation%|%PICKUSER\[male\]%|/looks at %ruser%|Maybe not" "%PICKUSER\[female\]%|It's good to be female isn't it %ruser" ]
+bMotion_abstract_batchadd "randomStuff_female" [list "This one time, at band camp, I put a flute..." "Does my arse look big in this?" "Does my bum look big in this?" "*ping*%|Did it just get cold in here?" "Do you know how we keep warm in Russia?%|... we play chess." "I kinda like thongs" "I wonder what happens when I put that in here...%|oooooooh!" "/plays with herself" "That ain't my belly button" "This one time, at band camp, I put %noun..." "/considers breast implants%|%PICKUSER\[female\]%|%BOT\[¬PICKUSER\[female\]¬|/feels up %ruser¬ to check¬|true, they aren't as good as %ruser's¬|/feels up ¬ruser's breasts¬|mmmm ¬VAR{smiles}\]" "/considers sexchange operation%|%PICKUSER\[male\]%|/looks at %ruser%|Maybe not" "%PICKUSER\[female\]%|It's good to be female isn't it %ruser" ]
 
 bMotion_abstract_batchadd "randomStuff" [list "my speedos!" "there, good as new. except that we're three miles below the surface, we're out of food, and the channel doesn't work underwater%|%BOT\[tempers are wearing thin - let's just hope some bot doesn't kill everybody...\]" "i can't swallow that!%|%BOT\[well then good news! it's a suppository.\]" "arrrr... the laws of physics be a harsh mistress" "he may have ocean madness, but that's no excuse for ocean rudeness!" "in the event of an emergency, my ass can be used as a floatation device" "yes, we all miss our loved ones and gasses" "%ruser you half-mad half-insane maniac! be reasonable!" "these last 24 hours have been the happiest days of my life" "Undercover pursuit in progress! Baby." "chum-own" "ow!%|/grabs crotch%|/= Michael Jackson" "fuck%|that's another box of tissues i've got though" "damnit i've run out of %VAR{sillyThings}{strip} %VAR{unsmiles}" "/moonwalks%|%BOT\[that's nothing\]%|%BOT\[/sunwalks\]"]
 
@@ -1374,7 +1379,7 @@ bMotion_abstract_batchadd "waveTooMuch" [list "What." "Are you practicing to be 
 
 bMotion_abstract_batchadd "welcomes" [list "you're welcome" "no problem" "np" "no prob" "ok" "my pleasure" "any time" "only for you" "no biggie" "no worries" ]
 
-bMotion_abstract_batchadd "greetings" [list "hey %%" "hi %%" "hey there %%" "how's it going %%" "* wave at %%" "yo %%" "y0 %%" "howdy %%" "hiya %%" "hi" "hey" "howdy" "hoi" "%VAR{jokeends}" "hi yo %%" ]
+bMotion_abstract_batchadd "greetings" [list "hey %%" "hi %%" "hey there %%" "how's it going %%" "* wave at %%" "yo %%" "y0 %%" "howdy %%" "hiya %%" "hi" "hey" "howdy" "hoi" "%VAR{jokeends}" "hi yo %%" "You! Serial number and primary function!" "r" ]
 
 bMotion_abstract_batchadd "FRENCH" [list "%VAR{french1} %VAR{french2} %VAR{french3}" ]
 
@@ -1386,7 +1391,27 @@ bMotion_abstract_batchadd "balefired" [list "/vanishes from the continuum" "/cea
 
 bMotion_abstract_batchadd "randomStuff" [list "I'm a doctor not %VAR{sillyThings}" "pika pika!" "pikachu!" "pika...CHUUUU!!! *ZZZAAP*" "*boing*" "moo." "BOOM" "BLAM" "Knickers.%|%BOT\[¬VAR{rarrs}\]" "/goes for coffee" "bof" "alors" "bhar" "arrrr.." "elbow." 	"gorilla" "*yawn*" "*spangle*" "brb" "lalalala.. ow! I stubbed my toe :(%|%bot\[50,¬VAR{awwws}\]" "lum de dum de dum..." "/twiddles thumbs" "boom" "Look over there!" "bleh" "/puts on some banging house tunes" "zut alors" "alors bof" "groogle arrhar" "brb, loo" 	"brb, sex" "uNF" "~rarr~" "~oof~" "Oops, I've ruined it." "Buttock Crunchies" "D'oh!" "setty mings lalalala" "pika" "Are you local?" "We'll have no trouble here" "Resistance is futile, you will be assimilated" "Resistance is futile, you will be 0wn3d" "Assimilation is futile, you will be resi... D'OH!" "I *didn't*" 	"waCHOO *sniff*%|%BOT\[¬VAR{blessyous}\]" "blblblblblbl" "/assimilates the channel" "We are the B0rg. You will be 4551m1la70r3d." "wheeeee" "We are the Borg. Lower your shields and surrender your ship." "h%REPEAT{3:8:n}" "did you see that.." "You are the weakest link, goodbye." "Computer, deactivate iguana." "kerPOW" "kerSPLAT" "KAZAM" "kazOO" "yaZOO" 	"spam, spam, spam, spam, spam, spam..." "Oh my god! There's an axe in my head.%|%BOT\[¬VAR{pullsOut}\]" "Mon dieu! Il y a une hache dans ma tete.%|%BOT\[¬VAR{pullsOut}\]" "ghay'cha'! nachwIjDaq betleH tu'lu'!%|%BOT\[¬VAR{pullsOut}\]" "Deus Meus! Securis in capite meo est.%|%BOT\[¬VAR{pullsOut}\]" "ALL YOUR BASE ARE BELONG TO US" "For great justice." "nostril" "%REPEAT{2:7:bl}" "wh%REPEAT{3:8:e}" "h%REPEAT{3:10:e} FUN" "ah bof" "I didn't!" "shh, sekrit" "SSSH SEKRIT" 	"SILENCE%colen" "pop" "cabbages" "penguin" "cheese" "mmm chicken" "blimey" "crikey" "hoorah" "pie pie pie pie" "fantastic" "ho ho" "har har" "deary me" "m00se" 	"llama" "frogs" "knickers" "bob" "kenneth" "nigel" "is everyone thooper?" "super" "thooper" "lashings of ginger beer" "It's not sugar in my sugar bowl, it's %VAR{sillyThings}{strip}" "I smell of %VAR{sillyThings}{strip}" "Honestly, I don't know how that %VAR{sillyThings}{strip} got in there. I must have slipped" ]
 
+bMotion_abstract_register "fruits" {
+	"pumpkin"
+	"melon"
+	"apple"
+	"grape"
+	"banana"
+}
+
+bMotion_abstract_register "vegetables" {
+	"cucumber"
+	"tomato"
+	"potato"
+	"runner bean"
+}
+
 bMotion_abstract_batchadd "randomStuff" {
+	"if you don't relax your face muscles, you're going to invert your skull!"
+	"i have to get home before midnight or i'll turn into a %VAR{fruits}"
+	"i have to get home before midnight or i'll turn into a %VAR{vegetables}"
+	"why that's genius! put water in the bathtub, and then the flying spaghetti monster can't get me!"
+	"murder, death, kill!"
 	"%VAR{sillything}{strip}? in my %VAR{bodypart}?%|%BOT[it's more common than you think.]"
 	"Tuesday's coming. Did you bring your coat?%|%BOT[I live in a giant bucket.]"
 	"Say, do you want to see a movie?%|%BOT[I'm feeling fat and sassy.]"
@@ -1584,6 +1609,7 @@ bMotion_abstract_batchadd "randomStuff" {
   "anyone fancy a pint?%|%BOT\[50,%VAR{yesnos}\]"
   "RUN, HUMANS%colen"
   "but is it really safe?%|%BOT\[50,yes, if you watch out for %PLURAL{%VAR{sillyThings}{strip}}\]"
+	"why don't i just jump out of a plane with a piano glued to my face"
   "but is it art?"
   "just cut them up like regular chickens%|%BOT\[50,AAAAGH! THEY OOZE!!%colen\]"
   "/waves %hisher magic wand%|sim sala bim bam ba sala du sala dim.. %ruser is now %VAR{sillyThings}!"
@@ -1615,7 +1641,7 @@ bMotion_abstract_batchadd "lyrics" {
 
 bMotion_abstract_batchadd "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline" "/snigger" "wait, that's not right..." ]
 
-bMotion_abstract_batchadd "randomStuffMale" [list "Yeah baby yeah!" "I don't know how that got in there. It's not mine." "I don't think there's enough room in here for me and my thingy%|/removes thingy and sits in the other room" "That ain't my finger" "%REPEAT{3:8:m} electronical things" "%REPEAT{3:6:m} internet" "%REPEAT{3:6:m} breasts" "%REPEAT{3:6:m} jugs" "/considers sexchange operation%|%PICKUSER\[female\]%|/looks at %ruser%|Maybe not" "%PICKUSER\[male\]%|It's good to be male isn't it %ruser" ]
+bMotion_abstract_batchadd "randomStuff_male" [list "Yeah baby yeah!" "I don't know how that got in there. It's not mine." "I don't think there's enough room in here for me and my thingy%|/removes thingy and sits in the other room" "That ain't my finger" "%REPEAT{3:8:m} electronical things" "%REPEAT{3:6:m} internet" "%REPEAT{3:6:m} breasts" "%REPEAT{3:6:m} jugs" "/considers sexchange operation%|%PICKUSER\[female\]%|/looks at %ruser%|Maybe not" "%PICKUSER\[male\]%|It's good to be male isn't it %ruser" ]
 
 bMotion_abstract_batchadd "welcomeBacks" [list "re" "wb" "welcome back" "hey" "hi" "%REPEAT{4:7:bl}" "pop" "heya" "you're back!"]
 
@@ -1637,7 +1663,7 @@ bMotion_abstract_batchadd "attack_responses" [list "%% attacks %SETTING{complex:
 
 bMotion_abstract_batchadd "locations" [list "England" "US" "california" "indiana" "the moon" "australia" "holland" "norway" "bosnia" "russia" "canada" "toronto" "amsterdam" "mars" "exeter" "london" "new york" "basingstoke" "mordor" "middle earth" "the heart of the world" "bree" ]
 
-bMotion_abstract_batchadd "kills" [list "/stabs %%" "/phasers %%" "/nukes %%" "/kills %%" "/0wnz %%" "/destroys %%" "/plays S Club 7 singles at %%" "/pops %% with a knitting needle" "/dices %%" "/shoots %%" "/eats %%" "/minces %%" "/slashes %%" "/chainsaws %%" "/farts on %%" 	"/uses the power of greyskull on %%" "/forces %% to shop at Budgens" ]
+bMotion_abstract_batchadd "kills" [list "/stabs %%" "/phasers %%" "/nukes %%" "/kills %%" "/0wnz %%" "/destroys %%" "/plays S Club 7 singles at %%" "/pops %% with a knitting needle" "/dices %%" "/shoots %%" "/eats %%" "/minces %%" "/slashes %%" "/chainsaws %%" "/farts on %%" 	"/uses the power of greyskull on %%" "/forces %% to shop at Budgens" "prepare to be liquified, skin-thing" ]
 
 bMotion_abstract_batchadd "insult_joins" [list "%ruser: yeah, %% does suckOH HI %%!" "\[%%\] I'm a %VAR{PROM}%|%VAR{wrong_infoline}" "\[%%\] I love %ruser%|%VAR{wrong_infoline}" "\[%%\] Just call me %VAR{sillyThings}%|%VAR{wrong_infoline}" ]
 
