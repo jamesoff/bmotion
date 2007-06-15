@@ -44,6 +44,10 @@ proc bMotion_plugin_output_english { channel line } {
   #"a" before a vowel needs to be "an"
   regsub -nocase -all {[[:<:]](a) ([aeiou].+)[[:>:]]} $line {\1n \2} line
 
+	#"an" before a cons... cont... non-vowel needs to be "a"
+	putlog $line
+	regsub -nocase -all {[[:<:]](an) ([^aeiou][a-z]+)[[:>:]]} $line {a \2} line
+
   if {[rand 100] > 60} {
     #captials at start, . at end
     if [regexp {^([a-z])(.+)} $line matches first rest] {
