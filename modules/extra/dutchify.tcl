@@ -24,7 +24,7 @@ proc bMotion_module_extra_dutchify_single_word_replace_list { {inout} line } {
   set one_word [expr [string first " " $line] == -1]
 
   foreach {in out} $inout {
-    if {[regsub -nocase -all "\[\[:<:\]\]$in\[\[:>:\]\]" $line $out line]} {
+    if {[regsub -nocase -all "\\m$in\\M" $line $out line]} {
       if {$one_word} { 
         break
       }
@@ -103,17 +103,17 @@ proc bMotion_module_extra_dutchify_makeDutch { line } {
 }
 
 proc bMotion_module_extra_dutchify_deBrittify {text} {
-  regsub -all {'m[[:>:]]} $text { am} text
-  regsub -all {'ve[[:>:]]} $text { have} text
-  regsub -all {'re[[:>:]]} $text { are} text
-  regsub -all {'ll[[:>:]]} $text { will} text
-  regsub -all {shan't[[:>:]]} $text {shall not} text
-  regsub -all {can't[[:>:]]} $text {can not} text
-  regsub -all {n't[[:>:]]} $text { not} text
+  regsub -all {'m\M} $text { am} text
+  regsub -all {'ve\M} $text { have} text
+  regsub -all {'re\M} $text { are} text
+  regsub -all {'ll\M} $text { will} text
+  regsub -all {shan't\M} $text {shall not} text
+  regsub -all {can't\M} $text {can not} text
+  regsub -all {n't\M} $text { not} text
 
   # special case, we don't plural or possesive form (sp?) to be substituted
   # this will fail with 'has' instead of 'is'
-  regsub -all -nocase {[[:<:]](she|he|it|that)'s[[:>:]]} $text {\1 is} text
+  regsub -all -nocase {\m(she|he|it|that)'s\M} $text {\1 is} text
 
   return $text
 }
@@ -123,18 +123,18 @@ proc bMotion_module_extra_dutchify_grammar {line} {
   set subword ""
 
   #...ed --> ge...[dt]
-  if {[regexp {(\w{3,})ed[[:>:]]} $line]} {
+  if {[regexp {(\w{3,})ed\M} $line]} {
     set new_line ""
     foreach word [split $line] {
       if {[string length $new_line] > 0} {
         append new_line " "
       }
       set subword ""
-      regexp {(\w{3,})ed[[:>:]]} $word discard subword
+      regexp {(\w{3,})ed\M} $word discard subword
 
 	  if {[string length $subword] > 0} {
         # ..i(ed) -> ..y
-        regsub -nocase {(\w+)i[[:>:]]} $subword {\1y} subword
+        regsub -nocase {(\w+)i\M} $subword {\1y} subword
 
         set subword [bMotion_module_extra_dutchify_verb_replace $subword]
         if {[regexp {(t|k|f|s|ch|p)} [string index $subword end]]} {
@@ -154,24 +154,24 @@ proc bMotion_module_extra_dutchify_grammar {line} {
   }
 
   #...ify -> ver...en
-  regsub -nocase -all {[[:<:]](.+?)ify[[:>:]]} $line {ver\1en} line
+  regsub -nocase -all {\m(.+?)ify\M} $line {ver\1en} line
 
   # this has something to do with the above translation, but I can't seem
   # to figure out what :) It has something to do with removing double vowels
-  regsub -nocase -all {[[:<:]](ver)(.+?)([auiou])\3([^auiou])(en)[[:>:]]} $line {\1\2\3\4\5} line
+  regsub -nocase -all {\m(ver)(.+?)([auiou])\3([^auiou])(en)\M} $line {\1\2\3\4\5} line
 
   # ...ing -> ...end   this fails most of the time :)
-  #regsub -nocase -all {[[:<:]]([a-z]{4,})ing[[:>:]]} $line {\1end} line
+  #regsub -nocase -all {\m([a-z]{4,})ing\M} $line {\1end} line
 
   # <verb>s -> <verb>t
-  if {[regexp {(\w{3,})s[[:>:]]} $line]} {
+  if {[regexp {(\w{3,})s\M} $line]} {
     set new_line ""
     foreach word [split $line] {
       if {[string length $new_line] > 0} {
         append new_line " "
       }
       set subword ""
-      regexp {(\w+)s[[:>:]]} $word discard subword
+      regexp {(\w+)s\M} $word discard subword
       if {[string length $subword] > 0} {
         set subword_nl [bMotion_module_extra_dutchify_verb_replace $subword]
         if {! [string equal $subword $subword_nl]} {

@@ -19,7 +19,7 @@ bMotion_plugin_add_complex "want-catch" "i (want|need) (.+)" 100 bMotion_plugin_
 bMotion_plugin_add_complex "mmm-catch" {^mm+[,. ]*(.+)} 100 bMotion_plugin_complex_mmm_catcher "en"
 bMotion_plugin_add_complex "plusplus-catch" {^(.+)\+{2}$} 100 bMotion_plugin_complex_plusplus_catcher "en"
 bMotion_plugin_add_complex "minmin-catch" {^(.+)-{2}$} 100 bMotion_plugin_complex_minmin_catcher "en"
-bMotion_plugin_add_complex "zzz-noun-catch" {[[:<:]](?:a|an|the) ([[:alpha:]]+)} 100 bMotion_plugin_complex_noun_catcher "en"
+bMotion_plugin_add_complex "zzz-noun-catch" {\m(?:a|an|the) ([[:alpha:]]+)} 100 bMotion_plugin_complex_noun_catcher "en"
 
 proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
   if [regexp -nocase "i (want|need) (?!to)(.+? )" $text matches verb item] {
@@ -89,7 +89,7 @@ proc bMotion_plugin_complex_minmin_catcher { nick host handle channel text } {
 
 
 proc bMotion_plugin_complex_noun_catcher { nick host handle channel text } {
-  if [regexp -nocase {[[:<:]](a|an|the|some) ([[:alpha:]]+)( [[:alpha:]]+[[:>:]])?} $text matches prefix item second] {
+  if [regexp -nocase {\m(a|an|the|some) ([[:alpha:]]+)( [[:alpha:]]+\M)?} $text matches prefix item second] {
     set item [string tolower $item]
 
     if [regexp "(ly)$" $item] {

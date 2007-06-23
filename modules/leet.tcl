@@ -66,22 +66,22 @@ proc makeLeet2 {line} {
   if [rand 2] { regsub -nocase -all "skills" $line "skillz" line }
 
   #...cked -> x0r3d
-  if [rand 2] { regsub -nocase -all {[[:<:]](\w+?)?cked[[:>:]]} $line {\1x0r3d} line }
+  if [rand 2] { regsub -nocase -all {\m(\w+?)?cked\M} $line {\1x0r3d} line }
 
   #...cker(s) -> x0r(s)
-  if [rand 2] { regsub -nocase -all {[[:<:]](\w+?)?cker(s|z)?[[:>:]]} $line {\1x0r\2} line }
+  if [rand 2] { regsub -nocase -all {\m(\w+?)?cker(s|z)?\M} $line {\1x0r\2} line }
 
   #[constonant]ed -> 0r3d
-  if [rand 2] { regsub -nocase -all {***:(\w+[^aeiouy])ed[[:>:]]} $line {\10r3d} line }
+  if [rand 2] { regsub -nocase -all {***:(\w+[^aeiouy])ed\M} $line {\10r3d} line }
 
   #...s --> ...z
-  if [rand 2] { regsub -nocase -all {(\w+)s[[:>:]]} $line {\1z} line }
+  if [rand 2] { regsub -nocase -all {(\w+)s\M} $line {\1z} line }
 
   #f... -> oph...
-  if [rand 2] { regsub -nocase -all {[[:<:]]f+(\w+)} $line {ph\1} line }
+  if [rand 2] { regsub -nocase -all {\mf+(\w+)} $line {ph\1} line }
 
   #...f -> ...oph
-  if [rand 2] { regsub -nocase -all {(\w+?)f+[[:>:]]} $line {\1ph} line }
+  if [rand 2] { regsub -nocase -all {(\w+?)f+\M} $line {\1ph} line }
   if [rand 2] { set line [string map -nocase { ROFL roflmaolozz!!111 loser lossarzz!! hehe HUHEHUHEHEHUEHUEH ike iek ter tar ife ief hah hehue ule lue ota oat ver var is si ome oem ame aem oe eo aid iad ers ars erz arz per par nic nix aye aey ade aed ite eit} $line ] }
   if [rand 2] { set line [string map -nocase { he eh re er ea ae hi ih or ro ip pi ho oh in ni lol lo!lololololzz! ! !!!111111 ir ri ou uo ha ah ui iu ig gi } $line ] }
   set letters [split [string tolower $line] {}]

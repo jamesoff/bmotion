@@ -382,7 +382,6 @@ proc bMotionInterpolation2 { line } {
       putlog "bMotion: ALERT! looping too much in %REPEAT code with $line"
       set line "/has a tremendous error while trying to sort something out :("
     }
-    # set line [bMotionInsertString $line "%REPEAT\\\{$BOOM\\\}" [bMotionMakeRepeat $BOOM]]
 		set replacement [bMotionMakeRepeat $BOOM]
     regsub -nocase "%REPEAT\\{$BOOM\\}" $line $replacement line
   }
@@ -600,8 +599,8 @@ proc OLDbMotionGetRealName { nick { host "" }} {
 
   #is it me?
   global botnicks
-  set first {[[:<:]]}
-  set last {[[:>:]]}
+  set first {\m}
+  set last {\M}
   if [regexp -nocase "${first}${botnicks}$last" $nick] {
     return "me"
   }
@@ -690,9 +689,9 @@ proc bMotionTransformTarget { target {host ""} } {
       set target $t
     }
   } else {
-    set himself {[[:<:]](your?self|}
+    set himself {\m(your?self|}
     append himself $botnicks
-    append himself {)[[:>:]]}
+    append himself {)\M}
     if [regexp -nocase $himself $target] {
       set target [getPronoun]
     }

@@ -1,4 +1,4 @@
-## bMotion plugin: smacks
+## bMotion plugin: snickers
 #
 # $Id$
 # vim: fdm=indent fdn=1

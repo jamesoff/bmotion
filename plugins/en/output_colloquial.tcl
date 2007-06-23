@@ -25,11 +25,11 @@ proc bMotion_plugin_output_colloq { channel line } {
   set oldLine $line
 
   if [bMotion_plugin_output_colloq_chance $colloq_rate] {
-    regsub -all -nocase "should( have|\'ve| of)" $line "%VAR{colloq_shouldhave}" line
+    regsub -all -nocase "\mshould( have|\'ve| of)\M" $line "%VAR{colloq_shouldhave}" line
   }
 
   if [bMotion_plugin_output_colloq_chance $colloq_rate] {
-    regsub -all -nocase "shouldn't( have|\'ve| of)" $line "%VAR{colloq_shouldhavenot}" line
+    regsub -all -nocase "\mshouldn't( have|\'ve| of)\M" $line "%VAR{colloq_shouldhavenot}" line
   }
 
   if [bMotion_plugin_output_colloq_chance $colloq_rate] {
@@ -50,8 +50,8 @@ proc bMotion_plugin_output_colloq { channel line } {
   }
 
   if [bMotion_plugin_output_colloq_chance $colloq_rate] {
-    regsub -all -nocase {[[:<:]]you[[:>:]]} $line "%VAR{colloq_you}" line
-    regsub -all -nocase {[[:<:]]your[[:>:]]} $line "%VAR{colloq_your}" line
+    regsub -all -nocase {\myou\M} $line "%VAR{colloq_you}" line
+    regsub -all -nocase {\myour\M} $line "%VAR{colloq_your}" line
   }
 
   if [bMotion_plugin_output_colloq_chance $colloq_rate] {
@@ -70,7 +70,7 @@ proc bMotion_plugin_output_colloq { channel line } {
   set words [split $line { }]
   foreach word $words {
     if {[bMotion_plugin_output_colloq_chance $colloq_rate]} {
-      regsub -nocase {[[:<:]](dis|anti|un|im)} $word [pickRandom $colloq_negative] word
+      regsub -nocase {\m(dis|anti|un|im)} $word [pickRandom $colloq_negative] word
     }
     append newLine "$word "
   }

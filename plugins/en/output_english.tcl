@@ -42,7 +42,7 @@ proc bMotion_plugin_output_english { channel line } {
 	regsub -nocase -all "(a an|an a) " $line "" "a"
 
   #"a" before a vowel needs to be "an"
-  regsub -nocase -all {[[:<:]](a) ([aeiou].+)[[:>:]]} $line {\1n \2} line
+  regsub -nocase -all {\m(a) ([aeiou].+)\M} $line {\1n \2} line
 
 	#"an" before a cons... cont... non-vowel needs to be "a"
 	putlog $line

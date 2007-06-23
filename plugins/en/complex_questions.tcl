@@ -284,7 +284,7 @@ proc bMotion_plugin_complex_question_what { nick channel host question } {
     global bMotionInfo bMotionFacts bMotionOriginalInput
     #see if we know the answer to it
     if {$question != ""} {
-      if [regexp -nocase {[[:<:]]a/?s/?l[[:>:]]} $question] {
+      if [regexp -nocase {\ma/?s/?l\M} $question] {
         #asl?
         set age [expr [rand 20] + 13]
         bMotionDoAction $channel $nick "%%: $age/$bMotionInfo(gender)/%VAR{locations}"

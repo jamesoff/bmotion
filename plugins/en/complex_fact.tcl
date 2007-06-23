@@ -14,7 +14,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_complex "fact" {[[:<:]](is|was|=|am)[[:>:]]} 100 bMotion_plugin_complex_fact "en"
+bMotion_plugin_add_complex "fact" {\m(is|was|=|am)\M} 100 bMotion_plugin_complex_fact "en"
 
 
 proc bMotion_plugin_complex_fact { nick host handle channel text } {
@@ -33,7 +33,7 @@ proc bMotion_plugin_complex_fact { nick host handle channel text } {
 	}
   
   if {[string range $text end end] == "?"} { return 0 }
-  if [regexp -nocase {[[:<:]]([^ !"]+)[!" ]+(is|was|==?|am) ?([a-z0-9 '_/-]+)} $text matches item blah fact] {
+  if [regexp -nocase {\m([^ !"]+)[!" ]+(is|was|==?|am) ?([a-z0-9 '_/-]+)} $text matches item blah fact] {
     set item [string tolower $item]
     if {([string length $fact] < 3) || ([string length $fact] > 30)} { return 0 }
     if [regexp "(what|which|have|it|that|when|where|there|then|this|who|you|you|yours|why|he|she)" $item] {
@@ -42,9 +42,9 @@ proc bMotion_plugin_complex_fact { nick host handle channel text } {
     if {$item == "i"} {
       set item [string tolower $nick]
     }
-    regsub {[[:<:]]me[[:>:]]} $fact $nick fact
+    regsub {\mme\M} $fact $nick fact
     set fact [string tolower [string trim $fact]]
-    regsub {[[:<:]]my[[:>:]]} $fact "%OWNER{$nick}" fact
+    regsub {\mmy\M} $fact "%OWNER{$nick}" fact
     bMotion_putloglev d * "fact: $item == $fact"
     lappend bMotionFacts(what,$item) $fact
     set bMotionFactTimestamps(what,$item) [clock seconds]

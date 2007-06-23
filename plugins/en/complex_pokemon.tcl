@@ -21,7 +21,7 @@ proc bMotion_plugin_complex_attack { nick host handle channel text } {
   global botnicks botnick mood
   if [regexp -nocase "^${botnicks}:? (use (your )?)?(.+)" $text ming ming1 ming2 ming2 what] {
     global bMotionInfo botnicks
-    if [regexp -nocase {[[:<:]]attack[[:>:]]} [string tolower $what]] {
+    if [regexp -nocase {\mattack\M} [string tolower $what]] {
       global mood
       set attack [string range $what 0 [expr [string first "attack" [string tolower $what]] - 2]]
       bMotion_putloglev d * "bMotion: Requested attack: $attack"

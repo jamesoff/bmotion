@@ -47,7 +47,7 @@ proc bMotion_plugin_complex_action_hands { nick host handle channel text } {
     }
 
     # pie
-    if [regexp -nocase {[[:<:]]pie[[:>:]]} $item] {
+    if [regexp -nocase {\mpie\M} $item] {
       bMotion_plugin_complex_action_hands_pie $channel $nick
       return 1
     }
