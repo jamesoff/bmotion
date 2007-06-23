@@ -24,53 +24,53 @@
 # Check if a channel has uppercase letters in it
 #
 proc bMotion_diagnostic_channel1 { } {
-  global bMotionInfo
+	global bMotionInfo
 
 	#not used now
 	return 0
 
-  set err 0
-  set cleanChannels [list]
-  foreach chan $bMotionInfo(randomChannels) {
-    set chan2 [string tolower $chan]
-    if {$chan != $chan2} {
-      #case difference
-      set err 1
-    }
-    lappend cleanChannels $chan2
-  }
-  set bMotionInfo(randomChannels) $cleanChannels
+	set err 0
+	set cleanChannels [list]
+	foreach chan $bMotionInfo(randomChannels) {
+		set chan2 [string tolower $chan]
+		if {$chan != $chan2} {
+			#case difference
+			set err 1
+		}
+		lappend cleanChannels $chan2
+	}
+	set bMotionInfo(randomChannels) $cleanChannels
 
-  if {$err == 1} {
-    putlog "Self-diagnostics indicate you have a channel with a captial letter in in your settings file."
-    putlog "  This has been fixed on the fly at load time, but you will need to edit the settings file"
-    putlog "  to prevent this reoccuring. Please use all lower-case characters for defining channels."
-  }
+	if {$err == 1} {
+		putlog "Self-diagnostics indicate you have a channel with a captial letter in in your settings file."
+		putlog "	This has been fixed on the fly at load time, but you will need to edit the settings file"
+		putlog "	to prevent this reoccuring. Please use all lower-case characters for defining channels."
+	}
 }
 
 #
 # Check the bot's configured for all the channels in the list
 proc bMotion_diagnostic_channel2 { } {
-  global bMotionInfo
+	global bMotionInfo
 
 	#not used now 
 	return 0
 
-  set notOnChans ""
-  set botChans [list]
-  foreach chan [channels] {
-    lappend botChans [string tolower $chan]
-  }
+	set notOnChans ""
+	set botChans [list]
+	foreach chan [channels] {
+		lappend botChans [string tolower $chan]
+	}
 
-  foreach chan $bMotionInfo(randomChannels) {
-    if {[lsearch -exact $botChans $chan] < 0} {
-      #configured chan the bot doesn't know about
-      append notOnChans "$chan "
-    }
-  }
-  if {$notOnChans != ""} {
-    putlog "The following channels are in the settings file, but not configured in eggdrop (typos?): $notOnChans"
-  }
+	foreach chan $bMotionInfo(randomChannels) {
+		if {[lsearch -exact $botChans $chan] < 0} {
+			#configured chan the bot doesn't know about
+			append notOnChans "$chan "
+		}
+	}
+	if {$notOnChans != ""} {
+		putlog "The following channels are in the settings file, but not configured in eggdrop (typos?): $notOnChans"
+	}
 }
 
 #
@@ -83,53 +83,53 @@ proc bMotion_diagnostic_channel3 { } {
 
 	if [regexp {#[^ ]+ *#.+} [lindex $bMotionInfo(randomChannels) 0]] {
 		putlog "bMotion self-diagnostics indicate you have set your channel list in settings.tcl"
-		putlog "  incorrectly. You must have a pair of double-quotes around EACH channel, not"
-		putlog "  the entire list. bMotion WILL NOT WORK with this configuration error."
+		putlog "	incorrectly. You must have a pair of double-quotes around EACH channel, not"
+		putlog "	the entire list. bMotion WILL NOT WORK with this configuration error."
 	}
 }
 
 # bMotion_diagnostic_timers <<<1
 # make sure we only have one instance of each timer
 proc bMotion_diagnostic_timers { } {
-  bMotion_putloglev d * "running level 4 diagnostic on timers"
-  set alltimers [timers]
-  set seentimers [list]
-  foreach t $alltimers {
-    bMotion_putloglev 1 * "checking timer $t"
-    set t_function [lindex $t 1]
-    set t_name [lindex $t 2]
-    set t_function [string tolower $t_function]
-    if {[lsearch $seentimers $t_function] >= 0} {
-      bMotion_loglev d * "bMotion: A level 4 diagnostic has found a duplicate timer $t_name for $t_function ... removing (this is not an error)"
-      #remove timer
-      killtimer $t_name
-    } else {
-      #add to seen list
-      lappend seentimers $t_function
-    }
-  }
+	bMotion_putloglev d * "running level 4 diagnostic on timers"
+	set alltimers [timers]
+	set seentimers [list]
+	foreach t $alltimers {
+		bMotion_putloglev 1 * "checking timer $t"
+		set t_function [lindex $t 1]
+		set t_name [lindex $t 2]
+		set t_function [string tolower $t_function]
+		if {[lsearch $seentimers $t_function] >= 0} {
+			bMotion_loglev d * "bMotion: A level 4 diagnostic has found a duplicate timer $t_name for $t_function ... removing (this is not an error)"
+			#remove timer
+			killtimer $t_name
+		} else {
+			#add to seen list
+			lappend seentimers $t_function
+		}
+	}
 }
 
 # bMotion_diagnostic_utimers <<<1
 # make sure we have only one instance of each utimer
 proc bMotion_diagnostic_utimers { } {
-  bMotion_putloglev d * "running level 4 diagnostic on utimers"
-  set alltimers [utimers]
-  set seentimers [list]
-  foreach t $alltimers {
-    bMotion_putloglev 1 * "checking timer $t"
-    set t_function [lindex $t 1]
-    set t_name [lindex $t 2]
-    set t_function [string tolower $t_function]
-    if {[lsearch $seentimers $t_function] >= 0} {
-      bMotion_putloglev d * "bMotion: A level 4 diagnostic has found a duplicate utimer $t_name for $t_function ... removing (this is not an error)"
-      #remove timer
-      killutimer $t_name
-    } else {
-      #add to seen list
-      lappend seentimers $t_function
-    }
-  }
+	bMotion_putloglev d * "running level 4 diagnostic on utimers"
+	set alltimers [utimers]
+	set seentimers [list]
+	foreach t $alltimers {
+		bMotion_putloglev 1 * "checking timer $t"
+		set t_function [lindex $t 1]
+		set t_name [lindex $t 2]
+		set t_function [string tolower $t_function]
+		if {[lsearch $seentimers $t_function] >= 0} {
+			bMotion_putloglev d * "bMotion: A level 4 diagnostic has found a duplicate utimer $t_name for $t_function ... removing (this is not an error)"
+			#remove timer
+			killutimer $t_name
+		} else {
+			#add to seen list
+			lappend seentimers $t_function
+		}
+	}
 }
 
 ### bMotion_diagnostic_plugins <<<1
@@ -280,12 +280,37 @@ proc bMotion_diagnostic_settings { } {
 	}
 }
 
+### bMotion_diagnostic_userinfo
+# Check to see if the user has added IRL and GENDER to their userinfo stuff
+proc bMotion_diagnostic_userinfo { } {
+	global userinfo-fields
+	
+	if {![info exists userinfo-fields]} {
+		putlog "bMotion: diagnostics indicate you haven't loaded the userinfo TCL script"
+		putlog "         this is not required, but is strongly recommended"
+		return 
+	}
+
+	if {![string match "*GENDER*" ${userinfo-fields}]} {
+		putlog "bMotion: diagnostics indicate you haven't added the GENDER field to the"
+		putlog "         userinfo.tcl script. This is not required, but is recommended"
+		return
+	}
+
+	if {![string match "*IRL*" ${userinfo-fields}]} {
+		putlog "bMotion: diagnostics indicate you haven't added the IRL field to the"
+		putlog "         userinfo.tcl script. This is not required, but is recommended"
+		return
+	}
+	return
+}
+
 ### bMotion_diagnostic_auto <<<1
 proc bMotion_diagnostic_auto { min hr a b c } {
 	bMotion_putloglev 5 * "bMotion_diagnostic_auto"
-  putlog "bMotion: running level 4 self-diagnostic"
-  bMotion_diagnostic_timers
-  bMotion_diagnostic_utimers
+	putlog "bMotion: running level 4 self-diagnostic"
+	bMotion_diagnostic_timers
+	bMotion_diagnostic_utimers
 }
 #>>>
 
@@ -297,6 +322,7 @@ if {$bMotion_testing == 0} {
 	bMotion_diagnostic_channel3
 	bMotion_diagnostic_plugins
 	bMotion_diagnostic_settings
+	bMotion_diagnostic_userinfo
 
 	bMotion_putloglev d * "Diagnostics complete."
 }
