@@ -23,70 +23,6 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
-# standard globals declarations
-global randomsVersion
-global fellOffs
-global jokeends
-global confuciousStart
-global confuciousEnd
-global fuckOffs
-global silenceAways
-global lovesits
-global chocolates
-global hiddenBehinds
-global satOns
-global answerWhats
-global answerWhos
-global answerWithWhos
-global answerWhys
-global answerWheres
-global answerWellbeing
-global answerWhens
-global answerHowmanys
-global answerHows
-global phaserFires
-global torpedoFires
-global everythingFires
-global trekNouns
-global charges
-global punishments
-global brigBanzais
-global banzaiMidBets
-global wands
-global harhars
-global analsexhelps
-global wankhelps
-global niceTrys
-global awwws
-global randomReplies
-global picksUp
-global dildoFlutePlays
-global dildoFluteFinishes
-global dildoPlays
-global dildoFinishes
-global dildoFemaleFemale
-global dildoFemaleFemaleSwap
-global dildoMaleFemale
-global dildoMaleMale
-global dildoMaleMaleSwap
-global dildoMalePlays
-global handcoffees
-global parkedinsDislike
-global secondDildoPlays
-global thrownAts
-global bookmarks
-global punchlines
-global typoFix
-global blehs
-global huks
-global yesnos
-global rehashes
-global bodypart
-global dude
-global sweet
-global units
-global oops
-
 bMotion_abstract_register "fellOffs"
 bMotion_abstract_batchadd "fellOffs" {
   "fell off"
@@ -968,6 +904,7 @@ bMotion_abstract_batchadd "bodypart_female" {
 
 bMotion_abstract_register "randomStuff_male" {
 	"Come on baby, let's go play schoolgirl and guy who has sex with schoolgirls!"
+	"Huh? Mmph? LOL! Buffer overrun! *pant*"
 }
 
 bMotion_abstract_register "dude"
