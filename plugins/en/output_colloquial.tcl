@@ -81,7 +81,7 @@ proc bMotion_plugin_output_colloq { channel line } {
     return $oldLine
   }
 
-  return [bMotionDoInterpolation $line "" ""]
+  return [string trim [bMotionDoInterpolation $line "" ""]]
 }
 
 #random chance test

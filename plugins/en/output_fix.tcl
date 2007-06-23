@@ -19,8 +19,11 @@ bMotion_plugin_add_output "fix" bMotion_plugin_output_fix 1 "all"
 #  Fix broken output
 #
 proc bMotion_plugin_output_fix { channel line } {
+	set original_line $line
   regsub -nocase {\$var} $line "%VAR" line
   regsub -nocase {%pickuser\[[^]]+\]} $line "" line
-  set line [bMotionDoInterpolation $line "" "" $channel]
+  if {$line != $original_line} {
+		set line [bMotionDoInterpolation $line "" "" $channel]
+  }
   return $line
 }

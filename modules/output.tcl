@@ -447,10 +447,10 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
   }
 
   if [regexp {%DELAY\{([0-9]+)\}} $line matches delay] {
-	    set bMotion_output_delay $delay
-			    bMotion_putloglev d * "Changing output delay to $delay"
-					set line ""
-					  }
+	  set bMotion_output_delay $delay
+	  bMotion_putloglev d * "Changing output delay to $delay"
+	  set line ""
+  }
 
   if {$mood(stoned) > 3} {
     if [rand 2] {
@@ -472,10 +472,13 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
         catch {
           set result [$callback $channel $line]
         } err
-        bMotion_putloglev 3 * "bMotion: returned from output $callback ($result)"
+		bMotion_putloglev 3 * "bMotion: returned from output $callback ($result)"
         if [regexp "1¦(.+)" $result matches line] {
           break
         }
+		if {$result == ""} {
+			return 0
+		}
         set line $result
       }
     }
