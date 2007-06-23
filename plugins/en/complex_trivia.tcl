@@ -13,21 +13,13 @@
 # in the modules directory.
 ###############################################################################
 
-#[@   fluffy] ===== Question 1807/12605  =====
-#bMotion_plugin_add_complex "trivia1" {== Trivia ==.+\[category: .+\]} 100 bMotion_plugin_complex_trivia_1 "en"
+# NOTE:
+# This plugin is designed to interact with the TriviaEngine TCL script
+# As of 20070624, the TriviaEngine is not OSS, so don't bother asking :P
+# If you want to come and play, find us in #triviacow on EFNet.
 
-#[@   fluffy] Hint: _ _ _ _ _ _ _ _ _
-#bMotion_plugin_add_complex "trivia2" {^Hint(:| \[)} 100 bMotion_plugin_complex_trivia_2 "en"
-
-#[      zeal] Name The Year: Calvin Coolidge, 30th US President, died.
-#bMotion_plugin_add_complex "trivia4" {^[\t ]*Name the year:} 100 bMotion_plugin_complex_trivia_4 "en"
-
-# [@   fluffy] Show 'em how it's done Bel! The answer was DARLING.
-#bMotion_plugin_add_complex "trivia3" ".+ The (correct )?answer was.+" 100 bMotion_plugin_complex_trivia_3 "en"
-
-#
-#bMotion_plugin_add_complex "trivia4" "^Name the year:" 100 bMotion_plugin_complex_trivia_4 "en"
-
+# This file registers no plugins as it's all triggered via botnet commands
+set bMotion_noplugins 1
 
 proc bMotion_plugin_complex_trivia_botnet { bot command params } {
 	if {$command != "trivia"} {
@@ -69,17 +61,6 @@ proc bMotion_plugin_complex_trivia_botnet { bot command params } {
 }
 
 bind bot - "trivia" bMotion_plugin_complex_trivia_botnet
-
-#
-# Detect the start of the game
-proc bMotion_plugin_complex_trivia_1 { nick host handle channel text } {
-  bMotion_plugins_settings_set "trivia" "nick" "" "" $nick
-  bMotion_plugins_settings_set "trivia" "channel" "" "" $channel
-  bMotion_plugins_settings_set "trivia" "type" "" "" "normal"
-  bMotion_plugins_settings_set "trivia" "played" "" "" 0
-  bMotion_putloglev 1 * "Detected start of trivia round"
-	return 2
-}
 
 proc bMotion_plugin_complex_trivia_delay { } {
 	set delay [bMotion_plugins_settings_get "trivia" "delay" "" ""]
@@ -169,109 +150,6 @@ proc bMotion_plugin_complex_trivia_stop { } {
 	bMotion_plugins_settings_set "trivia" "type" "" "" ""
 	bMotion_plugins_settings_set "trivia" "channel" "" "" ""
 	bMotion_plugins_settings_set "trivia" "hint" "" "" ""
-}
-
-# name the year question
-proc bMotion_plugin_complex_trivia_4 { nick host handle channel text } {
-  if {$channel != [bMotion_plugins_settings_get "trivia" "channel" "" ""]} {
-    return 0
-  }
-  if {$nick != [bMotion_plugins_settings_get "trivia" "nick" "" ""]} {
-    return 0
-  }
-  bMotion_plugins_settings_set "trivia" "type" "" "" "year"
-	return 2
-}
-
-#
-# Here's a hint... let's try to answer
-proc bMotion_plugin_complex_trivia_2 { nick host handle channel text } {
-  if {$channel != [bMotion_plugins_settings_get "trivia" "channel" "" ""]} {
-    return 0
-  }
-  if {$nick != [bMotion_plugins_settings_get "trivia" "nick" "" ""]} {
-    return 0
-  }
-
-  bMotion_plugins_settings_set "trivia" "tries" "" "" 0
-
-  catch {
-    killutimer [bMotion_plugins_settings_get "trivia" "timer" "" ""]
-    bMotion_putloglev d * "killed trivia retry timer"
-  }
-
-  global bMotionOriginalInput
-  # have to do this because bmotion contracts double spaces for us
-  set text $bMotionOriginalInput
-  bMotion_plugins_settings_set "trivia" "hint" "" "" $text
-
-  #definitely playing
-  bMotion_putloglev 1 * "detected trivia hint: $text"
-
-  #don't guess first time round
-  #bMotion_plugin_complex_trivia_guess $nick $host $handle $channel $text
-
-  #instead start a short timer
-  set delay [bMotion_plugin_complex_trivia_delay]
-  bMotion_putloglev d * "try trivia first again in $delay seconds"
-  bMotion_plugins_settings_set "trivia" "timer" "" "" [utimer $delay bMotion_plugin_complex_trivia_auto]
-	return 2
-}
-
-proc bMotion_plugin_complex_trivia_3 { nick host handle channel text } {
-  global botnicks
-
-  bMotion_plugins_settings_set "trivia" "nick" "" "" ""
-  bMotion_plugins_settings_set "trivia" "channel" "" "" ""
-  bMotion_plugins_settings_set "trivia" "type" "" "" ""
-  catch {
-    killutimer [bMotion_plugins_settings_get "trivia" "timer" "" ""]
-    bMotion_putloglev d * "killed trivia retry timer"
-  }
-
-  #let's remember this answer
-  #putlog $text
-  if [regexp -nocase {(correct )?answer was (.+)\.?$} $text matches correct answer] {
-		bMotion_putloglev d * "detected an answer (correct = $correct)"
-    if [string match "*Nobody got it right.*" $text] {
-			bMotion_putloglev d * "need to bah"
-      if {![rand 20]} {
-        bMotionDoAction $channel $nick "%VAR{bahs}"
-      }
-    }
-
-    #if my nick is in the line, i must have got it right
-    if [regexp -nocase "Congratulations $botnicks" $text] {
-			bMotion_putloglev d * "i got it right :o"
-      bMotionDoAction $channel $nick "%VAR{trivia_wins}"
-    } else {
-      #my nick isn't, so is "correct" (someone else got it)
-      if [regexp -nocase "Congratulations (\[^!\]+)!" $text matches nick] {
-				bMotion_putloglev d * "someone else got it right"
-        if {(![rand 10]) && ([bMotion_plugins_settings_get "trivia" "type" "" ""] != "year")} {
-          bMotionDoAction $channel $nick "%VAR{trivia_loses}"
-        }
-      }
-    }
-
-    set words [split $answer " "]
-    foreach word $words {
-      if [regexp {([a-zA-Z1]+)} $word matches newword] {
-        set word $newword
-      }
-      set word [string tolower $word]
-      set firstletter [string toupper [string range $word 0 0]]
-      set full_array_name_for_upvar "afro_$firstletter"
-      #bMotion_putloglev d * "looking for $full_array_name_for_upvar"
-      #upvar #0 $full_array_name_for_upvar teh_variable
-      #if {[lsearch $teh_variable $word] == -1} {
-        #lappend teh_variable $word
-        #bMotion_putloglev d * "trivia: learning word $word"
-      #}
-      bMotion_abstract_add $full_array_name_for_upvar $word
-    }
-  }
-  return 2
 }
 
 proc bMotion_plugin_complex_trivia_guess { nick host handle channel text } {
@@ -401,3 +279,5 @@ bMotion_abstract_batchadd "trivia_wins" [list "%VAR{harhars}" "own3d" "PWND!" "y
 
 bMotion_abstract_register "trivia_loses"
 bMotion_abstract_batchadd "trivia_loses" [list "hey stop copying me %VAR{unsmiles}" "i was going to say that next" "hay you're cheating %VAR{unsmiles}" "you're in league with the bot, i know it" "that's not the right answer; the right answer is obviously '%VAR{sillyThings}'" "feh" "*cough*google*cough*" "toss" "%VAR{unsmiles}" "I was distracted by %VAR{sillyThings}" "i wish i knew as much as you. really." "/dumb" "/stupid" "i knew that"]
+
+
