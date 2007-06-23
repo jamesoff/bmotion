@@ -1150,9 +1150,9 @@ bMotion_abstract_batchadd "ididntresponses" [list "no, *I* didn't" "Oh really." 
 
 bMotion_abstract_batchadd "aiis" [list "wikkid" "aii" "aiiiii" "innit" "respect" "westsyde%|/snaps wrist Ali G-stylee." "true" "keepin' it real" "iz wikkid" "wikkid stylin' of da wikkid!" "/is hangin with %hisher crew" "Respect ma blingbling" "kickin it down with da home boy posse" "That is so last week" ]
 
-bMotion_abstract_batchadd "randomStuff_female" [list "This one time, at band camp, I put a flute..." "Does my arse look big in this?" "Does my bum look big in this?" "*ping*%|Did it just get cold in here?" "Do you know how we keep warm in Russia?%|... we play chess." "I kinda like thongs" "I wonder what happens when I put that in here...%|oooooooh!" "/plays with herself" "That ain't my belly button" "This one time, at band camp, I put %noun..." "/considers breast implants%|%BOT\[/feels up %ruser{female} to check¬|true, they aren't as good as %ruser{prev}'s¬|/feels up ¬ruser{prev}'s breasts¬|mmmm ¬VAR{smiles}\]" "/considers sexchange operation%|/looks at %ruser{male}%|Maybe not" "It's good to be female isn't it %ruser{female}"]
+bMotion_abstract_batchadd "randomStuff_female" [list "This one time, at band camp, I put a flute..." "Does my arse look big in this?" "Does my bum look big in this?" "*ping*%|Did it just get cold in here?" "Do you know how we keep warm in Russia?%|... we play chess." "I kinda like thongs" "I wonder what happens when I put that in here...%|oooooooh!" "/plays with herself" "That ain't my belly button" "This one time, at band camp, I put %noun..." "/considers breast implants%|%BOT\[/feels up %ruser{female} to check¬|true, they aren't as good as %ruser{prev}'s¬|/feels up ¬ruser{prev}'s breasts¬|mmmm ¬VAR{smiles}\]" "/considers sexchange operation%|/looks at %ruser{male}%|Maybe not" "It's good to be female isn't it %ruser{female}" "Absurdly top heavy secretary speaking"]
 
-bMotion_abstract_batchadd "randomStuff" [list "my speedos!" "there, good as new. except that we're three miles below the surface, we're out of food, and the channel doesn't work underwater%|%BOT\[tempers are wearing thin - let's just hope some bot doesn't kill everybody...\]" "i can't swallow that!%|%BOT\[well then good news! it's a suppository.\]" "arrrr... the laws of physics be a harsh mistress" "he may have ocean madness, but that's no excuse for ocean rudeness!" "in the event of an emergency, my ass can be used as a floatation device" "yes, we all miss our loved ones and gasses" "%ruser you half-mad half-insane maniac! be reasonable!" "these last 24 hours have been the happiest days of my life" "Undercover pursuit in progress! Baby." "chum-own" "ow!%|/grabs crotch%|/= Michael Jackson" "fuck%|that's another box of tissues i've got though" "damnit i've run out of %VAR{sillyThings}{strip} %VAR{unsmiles}" "/moonwalks%|%BOT\[that's nothing\]%|%BOT\[/sunwalks\]"]
+bMotion_abstract_batchadd "randomStuff" [list "my speedos!" "there, good as new. except that we're three miles below the surface, we're out of food, and the channel doesn't work underwater%|%BOT\[tempers are wearing thin - let's just hope some bot doesn't kill everybody...\]" "i can't swallow that!%|%BOT\[well then good news! it's a suppository.\]" "arrrr... the laws of physics be a harsh mistress" "he may have ocean madness, but that's no excuse for ocean rudeness!" "in the event of an emergency, my ass can be used as a floatation device" "yes, we all miss our loved ones and gasses" "%ruser you half-mad half-insane maniac! be reasonable!" "these last 24 hours have been the happiest days of my life" "Undercover pursuit in progress! Baby." "chum-own" "ow!%|/grabs crotch%|/= Michael Jackson" "fuck%|that's another box of tissues i've got though" "damnit i've run out of %VAR{sillyThings}{strip} %VAR{unsmiles}" "/moonwalks%|%BOT\[that's nothing\]%|%BOT\[/sunwalks\]" ]
 
 bMotion_abstract_batchadd "randomStuff_10_31" {
 	"/creeps up behind %ruser wearing a sheet%|boo!" 
@@ -1328,22 +1328,23 @@ bMotion_abstract_batchadd "balefired" [list "/vanishes from the continuum" "/cea
 
 bMotion_abstract_batchadd "randomStuff" [list "I'm a doctor not %VAR{sillyThings}" "pika pika!" "pikachu!" "pika...CHUUUU!!! *ZZZAAP*" "*boing*" "moo." "BOOM" "BLAM" "Knickers.%|%BOT\[¬VAR{rarrs}\]" "/goes for coffee" "bof" "alors" "bhar" "arrrr.." "elbow." 	"gorilla" "*yawn*" "*spangle*" "brb" "lalalala.. ow! I stubbed my toe :(%|%bot\[50,¬VAR{awwws}\]" "lum de dum de dum..." "/twiddles thumbs" "boom" "Look over there!" "bleh" "/puts on some banging house tunes" "zut alors" "alors bof" "groogle arrhar" "brb, loo" 	"brb, sex" "uNF" "~rarr~" "~oof~" "Oops, I've ruined it." "Buttock Crunchies" "D'oh!" "setty mings lalalala" "pika" "Are you local?" "We'll have no trouble here" "Resistance is futile, you will be assimilated" "Resistance is futile, you will be 0wn3d" "Assimilation is futile, you will be resi... D'OH!" "I *didn't*" 	"waCHOO *sniff*%|%BOT\[¬VAR{blessyous}\]" "blblblblblbl" "/assimilates the channel" "We are the B0rg. You will be 4551m1la70r3d." "wheeeee" "We are the Borg. Lower your shields and surrender your ship." "h%REPEAT{3:8:n}" "did you see that.." "You are the weakest link, goodbye." "Computer, deactivate iguana." "kerPOW" "kerSPLAT" "KAZAM" "kazOO" "yaZOO" 	"spam, spam, spam, spam, spam, spam..." "Oh my god! There's an axe in my head.%|%BOT\[¬VAR{pullsOut}\]" "Mon dieu! Il y a une hache dans ma tete.%|%BOT\[¬VAR{pullsOut}\]" "ghay'cha'! nachwIjDaq betleH tu'lu'!%|%BOT\[¬VAR{pullsOut}\]" "Deus Meus! Securis in capite meo est.%|%BOT\[¬VAR{pullsOut}\]" "ALL YOUR BASE ARE BELONG TO US" "For great justice." "nostril" "%REPEAT{2:7:bl}" "wh%REPEAT{3:8:e}" "h%REPEAT{3:10:e} FUN" "ah bof" "I didn't!" "shh, sekrit" "SSSH SEKRIT" 	"SILENCE%colen" "pop" "cabbages" "penguin" "cheese" "mmm chicken" "blimey" "crikey" "hoorah" "pie pie pie pie" "fantastic" "ho ho" "har har" "deary me" "m00se" 	"llama" "frogs" "knickers" "bob" "kenneth" "nigel" "is everyone thooper?" "super" "thooper" "lashings of ginger beer" "It's not sugar in my sugar bowl, it's %VAR{sillyThings}{strip}" "I smell of %VAR{sillyThings}{strip}" "Honestly, I don't know how that %VAR{sillyThings}{strip} got in there. I must have slipped" ]
 
-bMotion_abstract_register "fruits" {
+bMotion_abstract_register "fruits" [list 
 	"pumpkin"
 	"melon"
 	"apple"
 	"grape"
 	"banana"
-}
+]
 
-bMotion_abstract_register "vegetables" {
+bMotion_abstract_register "vegetables" [list 
 	"cucumber"
 	"tomato"
 	"potato"
 	"runner bean"
-}
+]
 
 bMotion_abstract_batchadd "randomStuff" {
+	"oh man, i just barfed a load of data onto my screen %VAR{unsmiles}"
 	"if you don't relax your face muscles, you're going to invert your skull!"
 	"i have to get home before midnight or i'll turn into a %VAR{fruits}"
 	"i have to get home before midnight or i'll turn into a %VAR{vegetables}"
