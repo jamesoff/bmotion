@@ -305,6 +305,29 @@ proc bMotion_diagnostic_userinfo { } {
 	return
 }
 
+### bMotion_diagnostic_bitlbee
+# Check if bitlbee mode is enabled, but the bot doesn't know about #bitlbee/&bitlbee
+proc bMotion_diagnostic_bitlbee { } {
+	global bMotionSettings
+	if {!$bMotionSettings(bitlbee)} {
+		return
+	}
+
+	set found_bitlbee 0
+	foreach channel [channels] {
+		if [string match -nocase "*bitlbee" $channel] {
+			set found_bitlbee 1
+			break
+		}
+	}
+
+	if {!$found_bitlbee} {
+		putlog "bMotion: bitlbee mode is enabled, but I don't seem to be"
+		putlog "         configured to be in a bitlbee channel... maybe you"
+		putlog "         should turn bitlbee mode off else things will go weird!"
+	}
+}
+
 ### bMotion_diagnostic_auto <<<1
 proc bMotion_diagnostic_auto { min hr a b c } {
 	bMotion_putloglev 5 * "bMotion_diagnostic_auto"
@@ -323,6 +346,7 @@ if {$bMotion_testing == 0} {
 	bMotion_diagnostic_plugins
 	bMotion_diagnostic_settings
 	bMotion_diagnostic_userinfo
+	bMotion_diagnostic_bitlbee
 
 	bMotion_putloglev d * "Diagnostics complete."
 }
