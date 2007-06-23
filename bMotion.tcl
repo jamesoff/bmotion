@@ -216,22 +216,19 @@ catch {
 
 bMotion_startTimers
 if {$bMotion_testing == 0} {
-  putlog "\002bMotion $bMotionVersion AI online\002 :D"
-
 	bMotion_diagnostic_utimers
 	bMotion_diagnostic_timers
+
+  putlog "\002bMotion $bMotionVersion AI online\002 :D"
 }
 
 set bMotion_loading 0
 set bMotion_testing 0
 
-
-# set this to 0 to stop showing the copyright
-# DO NOT DISTRIBUTE THIS FILE IF THE VARIABLE IS SET TO 0
-set bMotion_show_copyright 1
-
+# To hide this message from your bot's startup/rehash, edit your settings.tcl and change
+# the bMotion_show_copyright value to 0
 if {$bMotion_show_copyright == 1} {
-  putlog "bMotion is Copyright (C) 2002 James Seward. bMotion comes with ABSOLUTELY NO WARRANTY;"
+	putlog "bMotion is Copyright (C) 2007 James Seward. bMotion comes with ABSOLUTELY NO WARRANTY;"
   putlog "This is free software, and you are welcome to redistribute it under certain conditions."
-  putlog "See the COPYRIGHT file for details. You can edit bMotion.tcl to hide this message once you have read it."
+  putlog "See the COPYRIGHT file for details. See bMotion.tcl to hide this message once you have read it."
 }

@@ -132,3 +132,6 @@ set bMotionSettings(factsMaxFacts) 20
 # use bitlbee mode (bmotion on MSN, ICQ, etc :)
 set bMotionSettings(bitlbee) 0
 
+# set this to 0 to stop showing the copyright
+# DO NOT DISTRIBUTE THIS FILE IF THE VARIABLE IS SET TO 0
+set bMotion_show_copyright 1
