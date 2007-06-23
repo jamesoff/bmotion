@@ -227,6 +227,9 @@ set bMotion_testing 0
 
 # To hide this message from your bot's startup/rehash, edit your settings.tcl and change
 # the bMotion_show_copyright value to 0
+if {![info exists bMotion_show_copyright]} {
+	set bMotion_show_copyright 1
+}
 if {$bMotion_show_copyright == 1} {
 	putlog "bMotion is Copyright (C) 2007 James Seward. bMotion comes with ABSOLUTELY NO WARRANTY;"
   putlog "This is free software, and you are welcome to redistribute it under certain conditions."
