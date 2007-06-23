@@ -23,10 +23,12 @@ proc bMotion_plugin_complex_eitheror {nick host handle channel text} {
 		return 0
 	}
 
+	#TODO: make work with lists of 3 or more alternatives
+
 	if [regexp -nocase {([^ ]+) or ([^ ?]+)\?*} $text matches first second] {
 		# cut out some common rubbish ones
-		set first [string tolower first]
-		set second [string tolower second]
+		set first [string tolower $first]
+		set second [string tolower $second]
 		if {($first == "something") || ($second == "something")} {
 			return 0
 		}
