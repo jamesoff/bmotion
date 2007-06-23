@@ -206,12 +206,15 @@ proc bMotion_interbot_me_next { channel } {
 
   set channel [string tolower $channel]
 
+	bMotion_putloglev 2 * "checking interbot_me_next for $channel"
+
   if {[bMotion_setting_get "bitlbee"] == "1"} {
     return 1
   }
 
   #let's look to see if we know any other bots on the botnet
   if {[llength [bMotion_interbot_otherbots $channel]] == 0} {
+		bMotion_putloglev 4 * "no other bots, returning 1"
     return 1
   }
 
@@ -224,7 +227,7 @@ proc bMotion_interbot_me_next { channel } {
     }
 
     if {$bMotion_interbot_nextbot_nick($channel) == $botnick} {
-      bMotion_putloglev 4 * "bMotion: nextbot_nick is me"
+      bMotion_putloglev 4 * "bMotion: nextbot_nick is me; calling election and returning 1"
       bMotion_interbot_next_elect_do $channel
       set me 1 
       ## /|\ KIS hack
@@ -242,6 +245,7 @@ proc bMotion_interbot_me_next { channel } {
 proc bMotion_interbot_fake_event { botnick channel fromnick line } {
   if {[matchattr $botnick b&K $channel] && [islinked $botnick]} {
     putbot $botnick "bmotion fake_event $channel $fromnick $line"
+
     return 1
   }
 }

@@ -212,8 +212,9 @@ proc bMotion_plugin_find_complex { text lang } {
     set rexp [bMotionInsertString $rexp "%botnicks" "${botnicks}"]
       if [regexp -nocase $rexp $text] {
         set c [rand 100]
-        bMotion_putloglev 4 * "matched complex:$key"
+        bMotion_putloglev 4 * "matched complex:$key, chance is $chance, c is $c"
         if {$chance > $c} {
+					bMotion_putloglev 4 * "chance is high enough, adding $callback"
           lappend result $callback
         }
       }
