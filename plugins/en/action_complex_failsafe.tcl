@@ -15,6 +15,7 @@
 ###############################################################################
 
 bMotion_plugin_add_action_complex "zzz-failsafe" {^(.+?)s?( at|with)? %botnicks} 100 bMotion_plugin_complex_action_failsafe "en"
+bMotion_plugin_add_action_complex "aaa-autogender" {[a-z]+s (his|her) } 100 bMotion_plugin_complex_action_autolearn_gender "en"
 
 proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
   regexp {^([^ ]+) ((across|near|at|with|to|against|from|over|under|in|on|next to) )?} $text matches verb dir
@@ -52,6 +53,43 @@ proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
   	bMotionDoAction $channel $verb "%VAR{failsafes_b}" $dir
   }
   return 1
+}
+
+proc bMotion_plugin_complex_action_autolearn_gender { nick host handle channel text } {
+	if {$handle == "*"} {
+		return 0
+	}
+
+	set gender [getuser $handle XTRA gender]
+	if [regexp -nocase {[a-z]+s (his|her) } $text matches pronoun] {
+		set pronoun [string tolower $pronoun]
+		if {$pronoun == "his"} {
+			if {$gender != ""} {
+				if {$gender == "male"} {
+					return 0
+				} else {
+					bMotion_putloglev 3 * "would learn gender for $nick as male, but they're already female!"
+					return 0
+				}
+			}
+			bMotion_putloglev d * "learning gender = male for $handle (via $nick)"
+			setuser $handle XTRA gender male
+			return 0
+		} else {
+			if {$gender != ""} {
+				if {$gender == "female"} {
+					return 0
+				} else {
+					bMotion_putloglev 3 * "would learn gender for $nick as female, but they're already male!"
+					return 0
+				}
+			}
+			bMotion_putloglev d * "learning gender = female for $handle (via $nick)"
+			setuser $handle XTRA gender female
+			return 0
+		}
+	}
+	return 0
 }
 
 bMotion_abstract_register "failsafe_nice"
