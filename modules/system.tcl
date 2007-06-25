@@ -911,13 +911,13 @@ proc bMotion_go_to_sleep { } {
 		bMotion_putloglev 3 * "considering bedtime -> sleep"
 		if {[rand 10] > 7} {
 			# go to sleep
-			set bMotionSettings(asleep) $BMOTION_SLEEP(ASLEEP)
 			foreach chan $bMotionChannels {
 				if [bMotion_is_active_enough $chan] {
-					bMotion_putloglev 3 * "sending tired output to $chan"
+					bMotion_putloglev 3 * "sending sleeping output to $chan"
 					bMotionDoAction $chan "" "%VAR{go_sleeps}"
 				}
 			}
+			set bMotionSettings(asleep) $BMOTION_SLEEP(ASLEEP)
 			return
 		} else {
 			bMotion_putloglev 1 * "not quite tired enough to actually go to sleep yet"
