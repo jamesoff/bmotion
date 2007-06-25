@@ -299,8 +299,7 @@ proc bMotionSilence {nick host channel} {
   }
   timer $bMotionSettings(silenceTime) bMotionUnSilence
   putlog "bMotion: Was told to be silent for $bMotionSettings(silenceTime) minutes by $nick in $channel"
-  set awayStuff [pickRandom $silenceAways]
-  bMotionDoAction $channel $nick $awayStuff
+  bMotionDoAction $channel $nick "%VAR{silenceAways}"
   putserv "AWAY :afk ($nick $channel)"
   set bMotionInfo(silence) 1
   set bMotionInfo(away) 1
