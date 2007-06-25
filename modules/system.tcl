@@ -833,16 +833,46 @@ proc bMotion_check_tired { min hour day month year } {
 	global bMotionSettings BMOTION_SLEEP
 
 	bMotion_putloglev 4 * "bMotion_check_tired $min $hour $day $month $year"
+	set past_sleepy [bMotion_later_than $bMotionSettings(bedtime_hour) $bMotionSettings(bedtime_minute)]
+	set past_wakey [bMotion_later_than $bMotionSettings(wakeytime_hour) $bMotionSettings(wakeytime_minute)]
+
+	bMotion_putloglev 3 * "past_sleepy: $past_sleepy ... past_wakey: $past_wakey"
 
 	if {$bMotionSettings(asleep) < $BMOTION_SLEEP(ASLEEP)} {
 		# not asleep, so check if we should be
-		if [bMotion_later_than $bMotionSettings(bedtime_hour) $bMotionSettings(bedtime_minute)] {
+		set do_sleep 0
+		if {$bMotionSettings(bedtime_hour) > $bMotionSettings(wakeytime_hour)} {
+			# check that we're past wakeytime and sleepytime
+			if {$past_wakey && $past_sleepy} {
+				set do_sleep 1
+			}
+		} else {
+			# check we're past sleepytime and NOT past wwakeytime (4am < X < 9am)
+				if {$past_sleepy && !$past_wakey} {
+				set do_sleep 1
+			}
+		}
+
+		if {$do_sleep} {
 			bMotion_putloglev d * "past my bedtime, going to sleep"
 			bMotion_go_to_sleep
 			return
 		}
 	} else {
-		if [bMotion_later_than $bMotionSettings(wakeytime_hour) $bMotionSettings(wakeytime_minute)] {
+		set do_wake 0
+		if {$bMotionSettings(bedtime_hour) > $bMotionSettings(wakeytime_hour)} {
+			# check we're not past bedtime but we are past wakeytime
+			if {!$past_sleepy && $past_wakey} {
+				set do_wake 1
+			} else {
+				# check we're past
+				if {$past_sleepy && !$past_wakey} {
+					set do_wake 1
+				}
+			}
+		}
+
+		if ($do_wake) {
 			bMotion_putloglev d * "ooh, time to wake up"
 			bMotion_wake_up
 			return
