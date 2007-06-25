@@ -53,7 +53,7 @@ bind dcc m bmadmin* bMotion_dcc_command
 bind dcc m bmhelp bMotion_dcc_help
 
 #bedtime
-bind time - * * * * * bMotion_check_tired
+bind time - "* * * * *" bMotion_check_tired
 
 ### bMotion_update_chanlist <<<1
 # rebuilds our channel list based on which channels are +bmotion
