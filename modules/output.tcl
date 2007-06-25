@@ -83,7 +83,7 @@ proc mee {channel action {urgent 0} } {
 proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
   bMotion_putloglev 5 * "bMotionDoAction($channel,$nick,$text,$moreText,$noTypo)"
   global bMotionInfo bMotionCache bMotionOriginalInput
-	global bMotion_output_delay
+	global bMotion_output_delay bMotionSettings BMOTION_SLEEP
 
 	set bMotion_output_delay 0
 
@@ -94,6 +94,11 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
   if {$bMotionGlobal == 0} {
     return 0
   }
+
+	# check if we're asleep
+	if {$bMotionSettings(asleep) == $BMOTION_SLEEP(ASLEEP)} {
+		return 0
+	}
 
   if [regexp "^\[#!\].+" $channel] {
     set channel [string tolower $channel]

@@ -90,3 +90,12 @@ set bMotionGlobal 1
 set bMotionPluginHistory [list]
 
 set bMotionChannels [list]
+
+# 0 -> 1 -> 2 -> 0
+set BMOTION_SLEEP(AWAKE) 0
+set BMOTION_SLEEP(BEDTIME) 1
+set BMOTION_SLEEP(ASLEEP) 2
+
+# start off awake
+set bMotionSettings(asleep) $BMOTION_SLEEP(AWAKE)
+

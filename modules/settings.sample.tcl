@@ -132,6 +132,16 @@ set bMotionSettings(factsMaxFacts) 20
 # use bitlbee mode (bmotion on MSN, ICQ, etc :)
 set bMotionSettings(bitlbee) 0
 
+# this is the hour and minute we should go to bed at (bMotion will sometimes stay up a bit later)
+# these MUST be strings and MUST have leading zeros
+# don't set it to midnight, and if you set it to before midnight, make it at latest 23:45 or so
+set bMotionSettings(bedtime_hour) "23"
+set bMotionSettings(bedtime_minute) "45"
+
+# and the time to wake up
+set bMotionSettings(wakeytime_hour) "06"
+set bMotionSettings(wakeytime_minute) "30"
+
 # set this to 0 to stop showing the copyright
 # DO NOT DISTRIBUTE THIS FILE IF THE VARIABLE IS SET TO 0
 set bMotion_show_copyright 1

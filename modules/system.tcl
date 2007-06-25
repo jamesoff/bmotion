@@ -52,6 +52,9 @@ bind dcc m bmotion* bMotion_dcc_command
 bind dcc m bmadmin* bMotion_dcc_command
 bind dcc m bmhelp bMotion_dcc_help
 
+#bedtime
+bind time - * * * * * bMotion_check_tired
+
 ### bMotion_update_chanlist <<<1
 # rebuilds our channel list based on which channels are +bmotion
 proc bMotion_update_chanlist { } {
@@ -108,6 +111,23 @@ proc bMotionStats {nick host handle channel text} {
   putchan $channel "flood: checks: [bMotion_counter_get flood checks]"
 }
 
+
+
+# check if a channel is active enough for randomy things
+proc bMotion_is_active_enough { channel } {
+  global bMotionInfo 
+  global bMotionLastEvent 
+
+	bMotion_putloglev 4 * "bMotion_is_active_enough $channel"
+
+	set last_event $bMotionLastEvent($channel)
+	bMotion_putloglev 3 * "last event for $channel was $last_event"
+  if {([clock seconds] - $last_event) < ([expr $bMotionInfo(maxIdleGap) * 60])} {
+		bMotion_putloglev 3 * "it fits!"
+    return 1
+  }
+	return 0
+}
 
 ### doRandomStuff <<<1
 proc doRandomStuff {} {
@@ -807,6 +827,108 @@ proc bMotion_check_botnicks { } {
 	if {$botnicks == ""} {
 		set botnicks "($botnick|$bMotionSettings(botnicks)) ?"
 	}
+}
+
+proc bMotion_check_tired { min hour day month year } {
+	global bMotionSettings BMOTION_SLEEP
+
+	bMotion_putloglev 4 * "bMotion_check_tired $min $hour $day $month $year"
+
+	if {$bMotionSettings(asleep) < $BMOTION_SLEEP(ASLEEP)} {
+		# not asleep, so check if we should be
+		if [bMotion_later_than $bMotionSettings(bedtime_hour) $bMotionSettings(bedtime_minute)] {
+			bMotion_putloglev d * "past my bedtime, going to sleep"
+			bMotion_go_to_sleep
+			return
+		}
+	} else {
+		if [bMotion_later_than $bMotionSettings(wakeytime_hour) $bMotionSettings(wakeytime_minute)] {
+			bMotion_putloglev d * "ooh, time to wake up"
+			bMotion_wake_up
+			return
+		}
+	}
+}
+
+# go to sleep
+proc bMotion_go_to_sleep { } {
+	# ok this is the plan
+	# 1. announce we feel tired
+	# 2. ???
+	# 3. sleep
+	global bMotionSettings BMOTION_SLEEP bMotionChannels
+	bMotion_update_chanlist
+
+	if {$bMotionSettings(asleep) == $BMOTION_SLEEP(AWAKE)} {
+		bMotion_putloglev 3 * "considering awake -> bedtime"
+		if {[rand 10] > 7} {
+			# announce we're tired
+			set bMotionSettings(asleep) $BMOTION_SLEEP(BEDTIME)
+			foreach chan $bMotionChannels {
+				if [bMotion_is_active_enough $chan] {
+					bMotion_putloglev 3 * "sending tired output to $chan"
+					bMotionDoAction $chan "" "%VAR{tireds}"
+				}
+			}
+			return
+		} else {
+			bMotion_putloglev d * "tired but not enough to tell anyone yet"
+		}
+		return
+	}
+
+	if {$bMotionSettings(asleep) == $BMOTION_SLEEP(BEDTIME)} {
+		bMotion_putloglev 3 * "considering bedtime -> sleep"
+		if {[rand 10] > 7} {
+			# go to sleep
+			set bMotionSettings(asleep) $BMOTION_SLEEP(ASLEEP)
+			foreach chan $bMotionChannels {
+				if [bMotion_is_active_enough $chan] {
+					bMotion_putloglev 3 * "sending tired output to $chan"
+					bMotionDoAction $chan "" "%VAR{go_sleeps}"
+				}
+			}
+			return
+		} else {
+			bMotion_putloglev 1 * "not quite tired enough to actually go to sleep yet"
+		}
+		return
+	}
+	bMotion_putloglev d * "What th... bMotion_go_to_sleep called but I'm already asleep!"
+}
+
+proc bMotion_wake_up { } {
+	global bMotionSettings BMOTION_SLEEP bMotionChannels
+	bMotion_update_chanlist
+
+	if {$bMotionSettings(asleep) == $BMOTION_SLEEP(ASLEEP)} {
+		bMotion_putloglev 3 * "considering asleep -> awake"
+		if {[rand 10] > 7} {
+			set bMotionSettings(asleep) $BMOTION_SLEEP(AWAKE)
+			foreach chan $bMotionChannels {
+				# don't check for active enough here, as we're waking everyone up!
+				bMotion_putloglev 3 * "sending waking output to $chan"
+				bMotionDoAction $chan "" "%VAR{wake_ups}"
+			}
+			return
+		} else {
+			bMotion_putloglev d * "just a few more minutes in bed..."
+		}
+		return
+	}
+}
+
+# check if the time is later than this
+proc bMotion_later_than { hour minute } {
+	set now [unixtime]
+	set target [clock scan "$hour:$minute"]
+	if {$target == ""} {
+		return 0
+	}
+	if {$now > $target} {
+		return 1
+	}
+	return 0
 }
 
 bMotion_putloglev d * "bMotion: system module loaded"

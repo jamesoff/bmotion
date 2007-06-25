@@ -2286,3 +2286,53 @@ bMotion_abstract_batchadd "compass" {
 	"east"
 	"west"
 }
+
+bMotion_abstract_register "tireds" {
+	"/yawns"
+	"/yawns%|bedtime for %me soon i think"
+	"*yawn*"
+	"/tired"
+	"nearly bedtime"
+	"is that the time? i need to be in bed"
+	"/puts on pajamas"
+	"/puts on jimjams"
+}
+
+bMotion_abstract_register "tireds_female" {
+	"/puts on nightie"
+}
+
+bMotion_abstract_register "tireds_male" {
+	"/puts on bedpants"
+}
+
+bMotion_abstract_register "go_sleeps" {
+	"right, bedtime"
+	"nite all"
+	"nn folks"
+	"nn"
+	"nite"
+	"night"
+	"goodnight"
+	"sleepytime for me!"
+	"/goes to bed"
+	"/hits the sack"
+	"/hits the hay"
+	"/hits the hay%|ow, my hay%|wait, what?%|must be bedtime"
+}
+
+bMotion_abstract_register "go_sleeps_male" {
+	"/hits the sack%|ow, my sack%|/goes to bed"
+}
+
+bMotion_abstract_register "wake_ups" {
+	"/wakes up"
+	"/awakens"
+	"good morning!"
+	"good morning"
+	"morning"
+	"r"
+	"mmm toast"
+	"/eats breakfast"
+	"/awakens from a nightmare about %VAR{nightmare}"
+}
