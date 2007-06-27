@@ -101,7 +101,7 @@ proc bMotion_plugin_complex_startrek_courtmartial { nick host handle channel tex
 
     if {$bMotionInfo(brig) != ""} {
       bMotionDoAction $channel $nick "I'm sorry Sir, I already have someone in the brig - please try again later, or empty the Recycle Bin."
-			utimer [expr $bMotionInfo(brigDelay) + 7] bMotion_brig_flush
+			utimer [expr $bMotionInfo(brigDelay) + 10] bMotion_brig_flush
       return 1
     }
 
@@ -198,7 +198,7 @@ proc bMotion_brig_flush { } {
 
 	bMotion_putloglev d * "Flushing brig..."
 
-  regexp -nocase "(.+)@(.+)" $brigInfo pop nick channel
+  regexp -nocase "(.+)@(.+)" $bMotionInfo(brig) pop nick channel
 	bMotionDoAction $channel $nick "Whoops... I forgot %% was in the brig%|/sweeps corpse under the rug"
 	set bMotionInfo(brig) ""
 }
