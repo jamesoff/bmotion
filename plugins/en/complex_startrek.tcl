@@ -113,9 +113,7 @@ proc bMotion_plugin_complex_startrek_courtmartial { nick host handle channel tex
 
     set bMotionInfo(brig) "$who@$channel"
     if {$bMotionInfo(banzaiModeBrig) == 1} {
-      global brigBanzais
-      set banzaiName [pickRandom $brigBanzais]
-      bMotionDoAction $channel $who $banzaiName
+      bMotionDoAction $channel $who "%VAR{brigBanzais}"
       bMotionDoAction $channel $who "Rules simple. Simply decide if you think I'll find %% innocent."
       set bMotionInfo(brigInnocent) [list]
       set bMotionInfo(brigGuilty) [list]
@@ -134,13 +132,13 @@ proc bMotion_plugin_complex_startrek_courtmartial { nick host handle channel tex
 
 ### Supporting functions
 proc bMotionBanzaiBrigMidBet {} {
-  global bMotionInfo banzaiMidBets
+  global bMotionInfo
 
   set brigInfo $bMotionInfo(brig)
   if {$brigInfo == ""} { return 0 }
   regexp -nocase "(.+)@(.+)" $brigInfo pop nick channel
 
-  bMotionDoAction $channel "" [pickRandom $banzaiMidBets]
+  bMotionDoAction $channel "" "%VAR{banzaiMidBets}"
   return 0
 }
 
@@ -161,8 +159,7 @@ proc bMotionDoBrig {} {
     bMotionDoAction $channel "" "Betting ends!"
   }
 
-  set charge "%%, you are charged with [bMotionInsertString [pickRandom $charges] %% [pickRandom $trekNouns]], and [bMotionInsertString [pickRandom $charges] %% [pickRandom $trekNouns]]"
-  bMotionDoAction $channel $nick $charge
+  bMotionDoAction $channel $nick "%%, you are charged with %VAR{charges}, and %VAR{charges}"
   set bMotionInfo(brig) ""
 
   set guilty [rand 2]
