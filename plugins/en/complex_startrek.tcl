@@ -164,7 +164,7 @@ proc bMotionDoBrig {} {
 
   set guilty [rand 2]
   if {$guilty} {
-    bMotionDoAction $channel [pickRandom $trekNouns] "You have been found guilty, and are sentenced to [pickRandom $punishments]. And may God have mercy on your soul."
+    bMotionDoAction $channel "" "You have been found guilty, and are sentenced to %VAR{punishments}. And may God have mercy on your soul."
     if {$bMotionInfo(banzaiModeBrig) == 1} {
       if {[llength $bMotionInfo(brigGuilty)] > 0} {
         bMotionDoAction $channel $bMotionInfo(brigGuilty) "Congraturation go to big winner who are %%. Well done! Riches beyond your wildest dreams are yours to taking!"
