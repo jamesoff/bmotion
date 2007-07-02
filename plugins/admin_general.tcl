@@ -22,6 +22,7 @@ bMotion_plugin_add_management "reload" "^reload"          n       bMotion_plugin
 bMotion_plugin_add_management "settings" "^settings" n bMotion_plugin_management_settings "any"
 bMotion_plugin_add_management "global" "^global" n bMotion_plugin_management_global "any"
 bMotion_plugin_add_management "interbot" "^interbot" n bMotion_plugin_management_interbot "any"
+bMotion_plugin_add_management "flux" "^flux capacitors?" n bMotion_plugin_management_flux "any"
 
 #################################################################################################################################
 # Declare plugin functions
@@ -223,5 +224,16 @@ proc bMotion_plugin_management_interbot { handle { text "" } } {
 
 		bMotion_putadmin "Known bMotion bots on $chan: "
 		bMotion_putadmin [bMotion_interbot_otherbots $chan]
+	}
+}
+
+proc bMotion_plugin_management_flux { handle { text "" } } {
+	if {[string match "*off*" $text]} {
+		bMotion_putadmin "i call it... MISTAR FUSION!"
+		return
+	}
+	if {[string match "*on*" $text]} {
+		bMotion_putadmin "ONE POINT TWENTY ONE JIGAWATS"
+		return
 	}
 }
