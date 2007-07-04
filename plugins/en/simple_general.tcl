@@ -50,3 +50,4 @@ bMotion_plugin_add_simple "luck" "wish me (good )?luck" 90 { "Luck!" "good luck!
 bMotion_plugin_add_simple "coffee1" "coffee ? < ?" 90 [list "what" "%VAR{unsmiles}" "%VAR{kills}" "/%VAR{smacks} %%" "traitor!" "you li%REPEAT{1:5:e}!%|YOU LI%REPEAT{4:10:E}%REPEAT{3:5:!}%colen"] "en"
 bMotion_plugin_add_simple "coffee2" "\[a-z0-9\]+ ?> ?coffee" 90 [list "what" "%VAR{unsmiles}" "%VAR{kills}" "/%VAR{smacks} %%" "traitor!" "you li%REPEAT{1:5:e}!%|YOU LI%REPEAT{4:10:E}%REPEAT{3:5:!}%colen"] "en"
 bMotion_plugin_add_simple "coffee3" "coffee (is |=+ )?(teh |the )?(suck|rubbish|fail|horrible|horrid)" 90 [list "what" "%VAR{unsmiles}" "%VAR{kills}" "/%VAR{smacks} %%" "traitor!" "you li%REPEAT{1:5:e}!%|YOU LI%REPEAT{4:10:E}%REPEAT{3:5:!}%colen"] "en"
+bMotion_plugin_add_simple "centipedes" {[a-z]+\? in my [a-z]+\?} 70 [list "it's more likely than you think"] "en"
