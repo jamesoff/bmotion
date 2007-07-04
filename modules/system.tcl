@@ -833,6 +833,10 @@ proc bMotion_check_tired { min hour day month year } {
 	global bMotionSettings BMOTION_SLEEP
 
 	bMotion_putloglev 4 * "bMotion_check_tired $min $hour $day $month $year"
+	if {[bMotion_setting_get "sleepy"] != 1} {
+		return
+	}
+
 	set past_sleepy [bMotion_later_than $bMotionSettings(bedtime_hour) $bMotionSettings(bedtime_minute)]
 	set past_wakey [bMotion_later_than $bMotionSettings(wakeytime_hour) $bMotionSettings(wakeytime_minute)]
 
@@ -891,7 +895,7 @@ proc bMotion_go_to_sleep { } {
 
 	if {$bMotionSettings(asleep) == $BMOTION_SLEEP(AWAKE)} {
 		bMotion_putloglev 3 * "considering awake -> bedtime"
-		if {[rand 10] > 7} {
+		if {[rand 10] > 3} {
 			# announce we're tired
 			set bMotionSettings(asleep) $BMOTION_SLEEP(BEDTIME)
 			foreach chan $bMotionChannels {
@@ -909,7 +913,7 @@ proc bMotion_go_to_sleep { } {
 
 	if {$bMotionSettings(asleep) == $BMOTION_SLEEP(BEDTIME)} {
 		bMotion_putloglev 3 * "considering bedtime -> sleep"
-		if {[rand 10] > 7} {
+		if {[rand 10] > 3} {
 			# go to sleep
 			foreach chan $bMotionChannels {
 				if [bMotion_is_active_enough $chan] {
