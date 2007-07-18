@@ -53,7 +53,7 @@ bind dcc m bmadmin* bMotion_dcc_command
 bind dcc m bmhelp bMotion_dcc_help
 
 #bedtime
-bind time - "* * * * *" bMotion_check_tired
+bind time - "* * * * *" bMotion_check_tired2
 
 ### bMotion_update_chanlist <<<1
 # rebuilds our channel list based on which channels are +bmotion
@@ -922,6 +922,9 @@ proc bMotion_go_to_sleep { } {
 				}
 			}
 			set bMotionSettings(asleep) $BMOTION_SLEEP(ASLEEP)
+			set hour [bMotion_setting_get "wakeytime_hour"]
+			set minute [bMotion_setting_get "wakeytime_minute"]
+			set bMotionSettings(sleepy_nextchange) [bMotion_sleep_next_event "$hour:$minute"]
 			return
 		} else {
 			bMotion_putloglev 1 * "not quite tired enough to actually go to sleep yet"
@@ -940,10 +943,16 @@ proc bMotion_wake_up { } {
 		if {[rand 10] > 7} {
 			set bMotionSettings(asleep) $BMOTION_SLEEP(AWAKE)
 			foreach chan $bMotionChannels {
-				# don't check for active enough here, as we're waking everyone up!
+				# don't check for active enough here, as we're waking everyone up
+				# TODO but do check we didn't speak last as that just looks dumb
+
 				bMotion_putloglev 3 * "sending waking output to $chan"
 				bMotionDoAction $chan "" "%VAR{wake_ups}"
 			}
+			
+			set hour [bMotion_setting_get "bedtime_hour"]
+			set minute [bMotion_setting_get "bedtime_minute"]
+			set bMotionSettings(sleepy_nextchange) [bMotion_sleep_next_event "$hour:$minute"]
 			return
 		} else {
 			bMotion_putloglev d * "just a few more minutes in bed..."
@@ -965,4 +974,64 @@ proc bMotion_later_than { hour minute } {
 	return 0
 }
 
+
+
+proc bMotion_check_tired2 { a b c d e } {
+	global BMOTION_SLEEP bMotionSettings
+
+	# check if we're past the time we should be changing
+	if {[bMotion_setting_get "sleepy"] != 1} {
+		return 0
+	}
+
+	set limit [bMotion_setting_get "sleepy_nextchange"]
+	bMotion_putloglev 4 * "current time = [clock seconds], checking if we're past $limit"
+
+	if {[clock seconds] >= $limit} {
+		bMotion_putloglev d * "need to do a sleepy state change"
+
+		set state [bMotion_setting_get "asleep"]
+		if {$state == $BMOTION_SLEEP(AWAKE)} {
+			bMotion_putloglev d * "maybe going to sleep"
+			bMotion_go_to_sleep
+			return
+		}
+
+		if {$state == $BMOTION_SLEEP(BEDTIME)} {
+			bMotion_putloglev d * "maybe going to sleep"
+			bMotion_go_to_sleep
+			return
+		}
+
+		if {$state == $BMOTION_SLEEP(ASLEEP)} {
+			bMotion_putloglev d * "maybe going to wake up"
+			bMotion_wake_up
+			return 
+		}
+
+		putlog "Whoops! Tried to do a sleepy state change but I'm not sure if I'm asleep or not :( ($state)"
+		return
+	}
+}
+
+proc bMotion_sleep_next_event { when } {
+	global bMotionSettings
+
+	set now [clock seconds]
+
+	set ts [clock scan $when]
+	if {$ts < $now} {
+		# oh, add 24h
+		incr ts 86400
+	}
+	bMotion_putloglev d * "sleepy: next state change at $ts = [clock format $ts]"
+	return $ts
+}
+
+# on start up, we should be awake and the next transition will be to sleep
+if {[bMotion_setting_get "sleepy"] == 1} {
+	set bMotionSettings(sleepy_nextchange) [bMotion_sleep_next_event "$bMotionSettings(bedtime_hour):$bMotionSettings(bedtime_minute)"]
+}
+
 bMotion_putloglev d * "bMotion: system module loaded"
+
