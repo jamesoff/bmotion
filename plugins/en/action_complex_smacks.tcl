@@ -16,7 +16,7 @@ bMotion_plugin_add_action_complex "smacks" "^(kicks|smacks|twats|injures|beats u
 
 proc bMotion_plugin_complex_action_smacks { nick host handle channel text } {
   global botnicks
-  if [regexp -nocase "(kicks|smacks|twats|injures|beats up|punches|hits|thwaps|slaps|pokes|kills|destroys) ${botnicks}" $text] {
+  if [regexp -nocase "(kicks|smacks|twats|injures|beats up|punches|hits|thwaps|slaps|pokes|kills|destroys) ${botnicks}\\M" $text] {
   	if [regexp -nocase "slaps $botnicks around( a bit)? with a( large)? trout" $text] {
   		bMotionDoAction $channel $nick "%VAR{trouts}"
   		return 1
