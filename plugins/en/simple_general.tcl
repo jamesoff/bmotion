@@ -50,4 +50,6 @@ bMotion_plugin_add_simple "luck" "wish me (good )?luck" 90 { "Luck!" "good luck!
 bMotion_plugin_add_simple "coffee1" "coffee ? < ?" 90 [list "what" "%VAR{unsmiles}" "%VAR{kills}" "/%VAR{smacks} %%" "traitor!" "you li%REPEAT{1:5:e}!%|YOU LI%REPEAT{4:10:E}%REPEAT{3:5:!}%colen"] "en"
 bMotion_plugin_add_simple "coffee2" "\[a-z0-9\]+ ?> ?coffee" 90 [list "what" "%VAR{unsmiles}" "%VAR{kills}" "/%VAR{smacks} %%" "traitor!" "you li%REPEAT{1:5:e}!%|YOU LI%REPEAT{4:10:E}%REPEAT{3:5:!}%colen"] "en"
 bMotion_plugin_add_simple "coffee3" "coffee (is |=+ )?(teh |the )?(suck|rubbish|fail|horrible|horrid)" 90 [list "what" "%VAR{unsmiles}" "%VAR{kills}" "/%VAR{smacks} %%" "traitor!" "you li%REPEAT{1:5:e}!%|YOU LI%REPEAT{4:10:E}%REPEAT{3:5:!}%colen"] "en"
+bMotion_plugin_add_simple "lolcats" "i can has " 90 [list "no you fucking can't%|not until you learn to use english right, anyway" "what" "i can has grammar plz" "i has a bucket%|I have placed it over your stupid head." "no you fucking can't" "shut up" "everyone look at %%, they're up to date on all internet memes!%|for example, <%%> all your base are belong to us%|fantastic."] "en"
+
 bMotion_plugin_add_simple "centipedes" {[a-z]+\? in my [a-z]+\?} 70 [list "it's more likely than you think"] "en"
