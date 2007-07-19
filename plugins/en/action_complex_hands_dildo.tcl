@@ -16,11 +16,6 @@
 #we're allowed to not add any plugins
 set bMotion_noplugins 1
 
-#we need complex_action:hands
-if {![bMotion_plugin_check_depend "action_complex:hands"]} {
-	return 0
-}
-
 bMotion_plugin_add_action_complex "hands_dildo" "^sfkjhkjhdfkhdsf__¬$" 0 bMotion_plugin_null "en"
 
 #### DILDO (oh god :)
