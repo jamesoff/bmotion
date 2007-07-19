@@ -898,6 +898,7 @@ proc bMotion_go_to_sleep { } {
 		if {[rand 10] > 3} {
 			# announce we're tired
 			set bMotionSettings(asleep) $BMOTION_SLEEP(BEDTIME)
+			putlog "bMotion: preparing to go to bed"
 			foreach chan $bMotionChannels {
 				if [bMotion_is_active_enough $chan] {
 					bMotion_putloglev 3 * "sending tired output to $chan"
@@ -922,6 +923,7 @@ proc bMotion_go_to_sleep { } {
 				}
 			}
 			set bMotionSettings(asleep) $BMOTION_SLEEP(ASLEEP)
+			putlog "bMotion: gone to sleep"
 			set hour [bMotion_setting_get "wakeytime_hour"]
 			set minute [bMotion_setting_get "wakeytime_minute"]
 			set bMotionSettings(sleepy_nextchange) [bMotion_sleep_next_event "$hour:$minute"]
@@ -941,13 +943,16 @@ proc bMotion_wake_up { } {
 	if {$bMotionSettings(asleep) == $BMOTION_SLEEP(ASLEEP)} {
 		bMotion_putloglev 3 * "considering asleep -> awake"
 		if {[rand 10] > 7} {
+			putlog "bMotion: woke up!"
 			set bMotionSettings(asleep) $BMOTION_SLEEP(AWAKE)
+
 			foreach chan $bMotionChannels {
 				# don't check for active enough here, as we're waking everyone up
-				# TODO but do check we didn't speak last as that just looks dumb
-
-				bMotion_putloglev 3 * "sending waking output to $chan"
-				bMotionDoAction $chan "" "%VAR{wake_ups}"
+				# but do check we didn't speak last as that just looks dumb
+				if {![bMotion_did_i_speak_last $channel]} {
+					bMotion_putloglev 3 * "sending waking output to $chan"
+					bMotionDoAction $chan "" "%VAR{wake_ups}"
+				}
 			}
 			
 			set hour [bMotion_setting_get "bedtime_hour"]
@@ -1026,6 +1031,17 @@ proc bMotion_sleep_next_event { when } {
 	}
 	bMotion_putloglev d * "sleepy: next state change at $ts = [clock format $ts]"
 	return $ts
+}
+
+proc bMotion_did_i_speak_last { channel } {
+	global bMotionCache
+	
+	catch {
+		return $bMotionCache($channel,last)
+	}
+
+	#assume no
+	return 0
 }
 
 # on start up, we should be awake and the next transition will be to sleep

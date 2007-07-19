@@ -28,17 +28,35 @@ bMotion_plugin_add_management "flux" "^flux capacitors?" n bMotion_plugin_manage
 # Declare plugin functions
 
 proc bMotion_plugin_management_status { handle { args "" } } {
-  global bMotionInfo botnicks bMotionSettings bMotionVersion bMotionChannels
-	bMotion_update_chanlist
+  global bMotionInfo botnicks bMotionSettings bMotionVersion bMotionChannels BMOTION_SLEEP botnick
+	bMotion_update_chanlist 
 
-  bMotion_putadmin "I am running bMotion $bMotionVersion"
-  bMotion_putadmin "My gender is $bMotionInfo(gender), and I am $bMotionInfo(orientation)"
+	bMotion_putadmin "I AM $botnick! I'm powered by bMotion $bMotionVersion. I'm $bMotionInfo(gender) and this week I have mostly been $bMotionInfo(orientation)."
+  bMotion_putadmin "My botnicks are currently /$botnicks/. I'm active on: $bMotionChannels"
+	if {[bMotion_setting_get "sleepy"]} {
+		switch $bMotionSettings(asleep) {
+			0 {
+				bMotion_putadmin "I'm currently awake and my next bedtime is [clock format $bMotionSettings(sleepy_nextchange)]."
+			}
+			1 {
+				bMotion_putadmin "I'm currently in my pajamas."
+			}
+			2 {
+				bMotion_putadmin "I'm actually asleep right now. My alarm's set for [clock format $bMotionSettings(sleepy_nextchange)]."
+			}
+			default {
+				bMotion_putadmin "I'm not really sure if I'm awake or what. My current sleep state is $bMotionSettings(asleep) and my next event is [clock format $bMotionSettings(sleepy_nextchange)], although who knows what'll happen then."
+			}
+		}
+	} else {
+		bMotion_putadmin "I am impervious to tiredness and never need to sleep."
+	}
+
   bMotion_putadmin "Random stuff happens at least every [bMotion_setting_get minRandomDelay], at most every [bMotion_setting_get maxRandomDelay], and not if channel quiet for more than [bMotion_setting_get maxIdleGap] (mins)"
-  bMotion_putadmin "My botnicks are /$botnicks/"
-	bMotion_putadmin "Active on channels: $bMotionChannels"
   if [bMotion_setting_get silence] {
   	bMotion_putadmin "Running silent"
   }
+
   return 0
 }
 
