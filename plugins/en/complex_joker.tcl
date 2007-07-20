@@ -17,14 +17,17 @@
 set jokeInfo ""
 
 # register the invoke a joke callback
-bMotion_plugin_add_complex "joker" "^!joke" 100 "bMotion_plugin_complex_invoke_joke" "en"
+bMotion_plugin_add_complex "joker" "^(%botnicks:? )?!joke" 100 "bMotion_plugin_complex_invoke_joke" "en"
 
 # tell a random answer callback
 proc bMotionDoJokeAnswer {} {
-	global jokeInfo jokeReplies bMotionFacts
+	global jokeInfo bMotionFacts
 
 	# if we're not telling a joke, what are we doing here?
 	if { $jokeInfo == "" } { return 0 }
+
+	set jokeReplies [bMotion_abstract_all "jokeReplies"]
+	putlog $jokeReplies
 	
 	# parse out the first 3 bits of info
 	regexp -nocase "(.+)¦(.+)¦(.+):(.+)" $jokeInfo pop nick channel index bits
@@ -74,7 +77,7 @@ proc bMotionDoJokeAnswer {} {
 
 # random joke callback
 proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
-	global bMotion_abstract_contents jokeInfo jokeForms
+	global bMotion_abstract_contents jokeInfo 
 
 	if { ![bMotion_interbot_me_next $channel] } {
 		return 0
@@ -87,6 +90,7 @@ proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
 	}
 
 	# we need the index to coordinate with the reply
+	set jokeForms [bMotion_abstract_all "jokeForms"]
 	set index [ rand [ llength $jokeForms ] ]
 	set joke [ lindex $jokeForms $index ]
 	# set the startings of the joke info
@@ -112,6 +116,10 @@ proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
 	
 	# log this
 	bMotion_putloglev d * "bMotion: (joker) I'm a tellin' a joke"
+
+	# clear this now we're not calling the support function later
+	set jokeInfo ""
+
 	return 1 
 }
 

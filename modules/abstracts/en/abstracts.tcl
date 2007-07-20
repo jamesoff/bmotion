@@ -905,6 +905,7 @@ bMotion_abstract_batchadd "bodypart_female" {
 bMotion_abstract_register "randomStuff_male" {
 	"Come on baby, let's go play schoolgirl and guy who has sex with schoolgirls!"
 	"Huh? Mmph? LOL! Buffer overrun! *pant*"
+	"Then I call the cops and jack off as the ambulance shows up"
 }
 
 bMotion_abstract_register "dude"

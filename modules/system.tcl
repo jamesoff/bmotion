@@ -949,7 +949,7 @@ proc bMotion_wake_up { } {
 			foreach chan $bMotionChannels {
 				# don't check for active enough here, as we're waking everyone up
 				# but do check we didn't speak last as that just looks dumb
-				if {![bMotion_did_i_speak_last $channel]} {
+				if {![bMotion_did_i_speak_last $chan]} {
 					bMotion_putloglev 3 * "sending waking output to $chan"
 					bMotionDoAction $chan "" "%VAR{wake_ups}"
 				}
