@@ -59,6 +59,14 @@ bMotion_abstract_register "mands" {
 	"with stain digestors and superior performance at 30 degrees"
 	}
 
+bMotion_abstract_register "mands_male" {
+	"IN MY TROUSERS"
+}
+
+bMotion_abstract_register "mands_female" {
+	"IN MY KNICKERS"
+}
+
 bMotion_abstract_register "mands_sauce" {
 	"cranberry sauce"
 	"creamy mustard and dill sauce"
