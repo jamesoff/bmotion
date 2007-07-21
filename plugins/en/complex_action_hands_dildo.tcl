@@ -32,7 +32,6 @@ proc bMotion_complex_action_hands_dildo { channel nick item2 } {
   set style "normal"
   #female bot
   if {$bMotionInfo(gender) == "female"} {
-    global got
 
     #already got two
     if {$got(dildo,count) >= 2} {
@@ -50,11 +49,9 @@ proc bMotion_complex_action_hands_dildo { channel nick item2 } {
 
     #play with it 
     #TODO: Rationalise this!
-    global dildoPlays
     if {$got(dildo,count) == 1} {
       set got(dildo,count) 2
-      global secondDildoPlays
-      bMotionDoAction $channel $item2 [pickRandom $secondDildoPlays]
+      bMotionDoAction $channel $item2 "%VAR{secondDildoPlays}"
       return 0
     }
     #> 1.) if a bloke hands a female bot a dildo the female bot will shaft
@@ -65,12 +62,11 @@ proc bMotion_complex_action_hands_dildo { channel nick item2 } {
     if {[bMotionGetGender $nick $host] == "male"} {
       #-- hander is male          
       if [string match -nocase "*flute*" $item] {
-        global dildoFlutePlays
-        bMotionDoAction $channel $item [pickRandom $dildoFlutePlays] $nick
+        bMotionDoAction $channel $item "%VAR{dildoFlutePlays}" $nick
         set useTimer 1
         set style "flute"
       } else {
-        bMotionDoAction $channel $nick [pickRandom $dildoPlays] $item
+        bMotionDoAction $channel $nick "%VAR{dildoPlays}" $item
         set useTimer 1
       }
     } else {
@@ -83,13 +79,12 @@ proc bMotion_complex_action_hands_dildo { channel nick item2 } {
         #gay female bot
         #do each in turn
         #first do the other person, then the timer'll handle us later
-        global dildoFemaleFemale
-        bMotionDoAction $channel $nick [pickRandom $dildoFemaleFemale] $item
+        bMotionDoAction $channel $nick "%VAR{dildoFemaleFemale}" $item
         set useTimer 1
         set style "f_swap"
       } else {
         #straight bot
-        bMotionDoAction $channel $item [pickRandom $dildoPlays] $nick
+        bMotionDoAction $channel $item "%VAR{dildoPlays}" $nick
         set useTimer 1
       }
     }
@@ -130,14 +125,12 @@ proc bMotion_complex_action_hands_dildo { channel nick item2 } {
       #> with it and shaft itself with it.
       if {$bMotionInfo(orientation) == "straight"} {
         #straight bot
-        global thanks
-        bMotionDoAction $channel $nick "\"[pickRandom $thanks]\""
+        bMotionDoAction $channel $nick "%VAR{thanks}"
         bMotionGetUnLonely
-        bMotionDoAction $channel $nick "/discards the $item"
+        bMotionDoAction $channel $item "/discards the %%"
         return 0
       } else {
-        global dildoMaleMale
-        bMotionDoAction $channel $nick [pickRandom $dildoMaleMale] $item            
+        bMotionDoAction $channel $nick "%VAR{dildoMaleMale}" $item            
         #take turns
         set useTimer 1
         set style "m_swap"
@@ -149,14 +142,12 @@ proc bMotion_complex_action_hands_dildo { channel nick item2 } {
       #> itself.
       if {[regexp -nocase "(straight|bi)" $bMotionInfo(orientation)]} {
         #do the hander
-        global dildoMaleFemale
-        bMotionDoAction $channel $nick [pickRandom $dildoMaleFemale] $item
+        bMotionDoAction $channel $nick "%VAR{dildoMaleFemale}" $item
         return 0
       } else {
         #gay bot
         #do ourselves
-        global dildoMaleMale
-        bMotionDoAction $channel $nick [pickRandom $dildoMalePlays] $item
+        bMotionDoAction $channel $nick "%VAR{dildoMalePlays}" $item
         set useTimer 1
         set style "normal"
       }          
