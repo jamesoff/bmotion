@@ -133,6 +133,7 @@ proc bMotion_is_active_enough { channel } {
 proc doRandomStuff {} {
   global bMotionInfo mood stonedRandomStuff bMotionSettings
   global bMotionLastEvent bMotionOriginalNick bMotionChannels
+	global BMOTION_SLEEP
 
   set timeNow [clock seconds]
   set saidChannels [list]
@@ -150,6 +151,13 @@ proc doRandomStuff {} {
   timer $temp doRandomStuff
   bMotion_putloglev d * "bMotion: randomStuff next ($temp minutes)"
 
+	# don't bother if we're asleep
+	if {$bMotionSettings(asleep) != $BMOTION_SLEEP(AWAKE)} {
+		bMotion_putloglev d * "not doing randomstuff now, i'm asleep"
+		# kill any away status as we don't want to come back from the shops after we've been to bed :P
+		set bMotionInfo(away) 0
+		return
+	}
 
   #not away
 
@@ -623,7 +631,7 @@ proc bMotionAdminHandler {nick host handle channel text} {
     set bMotionInfo(silence) 0
     set bMotionInfo(away) 0
     puthelp "NOTICE $nick :No longer globally silent"
-    putserv "AWAY";
+    putserv "AWAY"
     return 1
   }
 
@@ -916,6 +924,7 @@ proc bMotion_go_to_sleep { } {
 		bMotion_putloglev 3 * "considering bedtime -> sleep"
 		if {[rand 10] > 3} {
 			set bMotionSettings(asleep) $BMOTION_SLEEP(ASLEEP)
+			putserv "AWAY :ZzZz"
 			# go to sleep
 			foreach chan $bMotionChannels {
 				if [bMotion_is_active_enough $chan] {
@@ -945,6 +954,7 @@ proc bMotion_wake_up { } {
 		if {[rand 10] > 7} {
 			putlog "bMotion: woke up!"
 			set bMotionSettings(asleep) $BMOTION_SLEEP(AWAKE)
+			putserv "AWAY"
 
 			foreach chan $bMotionChannels {
 				# don't check for active enough here, as we're waking everyone up

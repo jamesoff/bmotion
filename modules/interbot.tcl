@@ -111,22 +111,26 @@ proc bMotion_interbot_catch { bot cmd args } {
 proc bMotion_interbot_next_incoming { bot params } {
   #another bot is forcing an election
   global bMotion_interbot_nextbot_score bMotion_interbot_nextbot_nick botnick bMotionInfo
-
+	global BMOTION_SLEEP bMotionSettings
   bMotion_putloglev 1 * "bMotion: Incoming election from $bot"
 
-  regexp "(\[#!\].+) (.+)" $params matches channel score
-  catch {
-  if {$score > $bMotion_interbot_nextbot_score($channel)} {
-    bMotion_putloglev 2 * "bMotion: $bot now has highest score on $channel"
-    set bMotion_interbot_nextbot_score($channel) $score
-    set bMotion_interbot_nextbot_nick($channel) $bot
-  }
-}
+	regexp "(\[#!\].+) (.+)" $params matches channel score
+	catch {
+		if {$score > $bMotion_interbot_nextbot_score($channel)} {
+			bMotion_putloglev 2 * "bMotion: $bot now has highest score on $channel"
+			set bMotion_interbot_nextbot_score($channel) $score
+			set bMotion_interbot_nextbot_nick($channel) $bot
+		}
+	}
   
   set myScore [rand 100]
   if {$bMotionInfo(away) == 1} {
     set myScore -2
   }
+	if {$bMotionSettings(asleep) == $BMOTION_SLEEP(ASLEEP)} {
+		set myScore -2
+	}
+
   bMotion_putloglev 2 * "bMotion: My score is $myScore"
 
   if {$myScore > $bMotion_interbot_nextbot_score($channel)} {
