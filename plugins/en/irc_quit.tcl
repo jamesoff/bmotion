@@ -33,8 +33,23 @@ proc bMotion_plugins_irc_default_quit { nick host handle channel text } {
 	}
 	
 
+	# check if the handle is still in the channel
+	set count 0
+	foreach n [chanlist $channel] {
+		if {[nick2hand $n $channel] == $handle} {
+			# we have a match
+			incr count
+		}
+	}
+
+	# note: this is 2 not 1 because this event is fired BEFORE eggdrop processes the part/quit
+	if {$count == 2} {
+		bMotion_putloglev d * "$nick has $count matching handles in $channel, so not saying bye"
+		return 0
+	}
+
 	#don't do anything if it looks like an error
-	if [regexp -nocase "(irc\.|error|reset|timeout|closed|peer|\.net|timed|eof|lost)" $text] {
+	if [regexp -nocase "(k-?lined|d-?lined|ircd?\.|error|reset|timeout|closed|peer|\.net|timed|eof|lost)" $text] {
 		return 0
 	}
 

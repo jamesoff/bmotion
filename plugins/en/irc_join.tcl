@@ -28,6 +28,21 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 		return 0
 	}
 
+	# check if the user is already in the channel - probably means they've joined a 2nd client
+	# or that they're about to ping out or something
+	set count 0
+	foreach n [chanlist $channel] {
+		if {[nick2hand $n $channel] == $handle} {
+			# we have a match
+			incr count
+		}
+	}
+	
+	if {$count >= 2} {
+		bMotion_putloglev d * "$nick has $count matching handles in $channel, so not greeting"
+		return 1
+	}
+
 	#we must also see if we're next to greet
 	if {![bMotion_interbot_me_next $channel]} {
 		return 1
