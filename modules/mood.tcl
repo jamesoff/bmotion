@@ -229,6 +229,11 @@ proc bMotion_mood_admin { handle { arg "" } } {
 	}
 
 	if {[regexp -nocase {set ([^ ]+) ([0-9]+)} $arg matches moodname moodval]} {
+		if {[info tclversion] < 8.4} {
+			bMotion_putadmin "Sorry, the mood set command needs TCL >= 8.4 :/"
+			return
+		}
+
 		if {!([lsearch -inline {happy horny lonely electricity stoned} $moodname] == $moodname)} {
 			bMotion_putadmin "Unknown mood type '$moodname'"
 			return 0
