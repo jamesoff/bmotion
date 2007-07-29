@@ -22,15 +22,35 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
-## PERSONALITY STUFF
-# male or female
+### GREETINGS
+#
+# Hi! You're about to configure your bMotion bot.
+# Please look through this file carefully and change any settings as needed
+# There are a few things which you really should look at, and these are marked
+# [important] so you can just search for that if you like.
+
+# Most non-important settings will probably be fine as their defaults. bMotion
+# has been tuned to be as non-annoying as possible. This means it might not
+# talk as much as you want. But things that talk too much stop being funny
+# very quickly.
+
+# Enjoy!
+
+
+
+### PERSONALITY STUFF
+#
+# It's SO you!
+
+# male or female [important]
 set bMotionInfo(gender) "male"
 
-# straight, gay, or bi
+# straight, gay, or bi [important]
 set bMotionInfo(orientation) "straight"
 
-# list of nicks to respond to, separate with the | character
-# regexp is ok, but don't use brackets!
+# list of nicks to respond to, separate with the | character [important]
+# regexp is ok, but don't use brackets of any sort: () [] {} <-- NO
+# your bot will automatically add its own nick to this
 set bMotionSettings(botnicks) "nt|bots|the bots|notopic"
 
 # does the bot like 'kinky' stuff (e.g. see action_complex:fucks)
@@ -44,9 +64,15 @@ set bMotionSettings(kinky) 0
 set bMotionSettings(friendly) 0
 
 
-## BEHAVIOUR STUFF
+
+### BEHAVIOUR STUFF
+#
+# Black or white? :)
 
 # set to 1 to skip the gender/orientation checks
+# turn this on if you're not going to both using the GENDER stuff
+# in userinfo.tcl, or if you'll have a lot of people interacting
+# with the bot who aren't in your userfile
 set bMotionSettings(melMode) 0
 
 # talk to everyone (this setting is being phased out)
@@ -61,14 +87,19 @@ set bMotionInfo(balefire) 1
 # go away if things get idle?
 set bMotionSettings(useAway) 0
 
-# channels to run in (lower case please) DEPRECATED
+# channels to run in (lower case please)
+# THIS SETTING IS NOW REDUNDANT AND IS IGNORED
+# Use ".chanset #channel +bmotion" instead!
 #set bMotionInfo(randomChannels) { "#bitlbee" }
 
 # channels to not announce our away status in (lower case)
+# some channels don't like public aways, so don't piss them off :)
 set bMotionSettings(noAwayFor) { "#irssi" }
 
 
+
 ## SYSTEM SETTINGS
+#
 
 # percent of typos (output:typos plugin)
 set bMotionSettings(typos) 3
@@ -90,6 +121,9 @@ set bMotionInfo(maxRandomDelay) 240
 
 # if nothing's happened on this channel for this much time, don't say something
 set bMotionInfo(maxIdleGap) 120
+
+# how long the courtmartial plugin should wait while people are in the brig
+# TODO: move this into said plugin
 set bMotionInfo(brigDelay) 30
 
 # number of minutes to be silent when told to shut up
@@ -107,6 +141,10 @@ set bMotionSettings(ignorefacts) "is online"
 # seconds per character in line
 set bMotionSettings(typingSpeed) 0.05
 
+
+
+### Flood checking
+#
 # whether to disable flood checks that would prevent a malicious user 
 # from triggering plugins over and over again
 #
@@ -116,28 +154,59 @@ set bMotionSettings(typingSpeed) 0.05
 # wolverine attacks.
 set bMotionSettings(disableFloodChecks) 0
 
+
+### Abstracts
+#
+# (Abstracts are bMotion's word lists, and some of them grow as it sees
+# things on IRC)
+
 # amount of time (in seconds) before loaded abstracts are purged from
 # memory and written to disk
+# you probably don't need to change this
 set bMotionSettings(abstractMaxAge) 300
 
 # maximum number of items to keep per abstract
+# when an abstract has more than this many items, bMotion will start
+# forgetting items at random
 set bMotionSettings(abstractMaxNumber) 600
 
 # maximum number of things about which facts can be known
+# after enough are known, others are forgotten at random
 set bMotionSettings(factsMaxItems) 500
 
 # maximum number of facts to know about an item
+# forgotten at random etc
 set bMotionSettings(factsMaxFacts) 20
 
-# use bitlbee mode (bmotion on MSN, ICQ, etc :)
+
+
+### Bitlbee mode
+#
+# bitlbee mode lets your bot connect to a bitlbee server and thus
+# lets bMotion work on MSN, ICQ, etc. You should probably know what
+# you're doing if you turn this on, as it's not really supported :)
+#
+# if you turn this on and connect to a normal IRC server, your bot
+# will not work correctly!
+
 set bMotionSettings(bitlbee) 0
 
-# Let the bot get tired and go to sleep?
+
+
+### Sleepy stuff
+#
+# These settings give your bot a bedtime and a time to wake up
+# When your bot's asleep, there's no way to wake it up!
+# If you don't want it to do that, leave the first setting as 0
+# and ignore the rest of this section
+
+# Let the bot get tired and go to sleep? [important]
 set bMotionSettings(sleepy) 1
 
 # this is the hour and minute we should go to bed at (bMotion will sometimes stay up a bit later)
-# these MUST be strings and MUST have leading zeros
-# don't set it to midnight, and if you set it to before midnight, make it at latest 23:45 or so
+# these MUST be strings and MUST have leading zeros: 
+# NO: set bMotionSettings(bedtime_hour) 9
+# YES: set bMotionSettings(bedtime_hour) "9"
 set bMotionSettings(bedtime_hour) "23"
 set bMotionSettings(bedtime_minute) "41"
 
@@ -145,6 +214,50 @@ set bMotionSettings(bedtime_minute) "41"
 set bMotionSettings(wakeytime_hour) "06"
 set bMotionSettings(wakeytime_minute) "30"
 
+
+
+### Stats (entirely optional!)
+#
+# bMotion can report back to me that it's installed, for my own curiosity
+# so i can see how many bots are installed (a bit like the eggdrop stats
+# module). It can also check for updates, not that there've been any for
+# years, but I intend to fix that.
+# 
+# If you'd like to enable this, set the first setting below to 1 and then
+# toggle the others to change exactly what info your bot shares with me.
+#
+# If you only want to check for updates, leave the first setting as 0 and
+# just set the 2nd one to 1.
+#
+# See the comments in modules/extra/stats.tcl for more information.
+# You can see the stats at http://www.bmotion.net/stats
+
+# Send stats? [important]
+set bMotion_stats_enabled 0
+
+# Check for new versions (independent from stats)
+set bMotion_stats_version 0
+
+# What can we send (if stats_enabled is 1)
+# Set these to 0 to disable sending that bit of
+# info.
+
+# this is the bot's nick
+set bMotion_stats_send(botnick) 1
+
+# the admin info ('admin' in eggdrop config)
+set bMotion_stats_send(admin) 1
+
+# the network name ('network' in eggdrop config)
+set bMotion_stats_send(network) 1
+
+# bmotion's gender/orientation
+set bMotion_stats_send(bminfo) 1
+
+
+
+### Copyright info
+#
 # set this to 0 to stop showing the copyright
-# DO NOT DISTRIBUTE THIS FILE IF THE VARIABLE IS SET TO 0
+# PLEASE DO NOT DISTRIBUTE THIS FILE IF THE VARIABLE IS SET TO 0
 set bMotion_show_copyright 1

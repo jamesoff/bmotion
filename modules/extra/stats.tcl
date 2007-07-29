@@ -25,24 +25,31 @@
 ##
 ## /JMS
 
-### CONFIG
+### CONFIG: now set in settings.tcl; this bit just sets the defaults
+### Don't change these any more, edit your settings file :)
 
 ## enable sending of stats etc
-set bMotion_stats_enabled 0
+if {![info exists bMotion_stats_enabled]} {
+	set bMotion_stats_enabled 0
+}
 
 ## enable version checking (doesn't need stats to be sent)
-set bMotion_stats_version 0
+if {![info exists bMotion_stats_version]} {
+	set bMotion_stats_version 0
+}
 
 
 ## what can we send (if stats_enabled is 1)
 # this is the bot's nick
-set bMotion_stats_send(botnick) 1
-# the admin info ('admin' in config)
-set bMotion_stats_send(admin) 1
-# the network name ('network' in config)
-set bMotion_stats_send(network) 1
-# bmotion's gender/orientation
-set bMotion_stats_send(bminfo) 1
+if {![info exists bMotion_stats_send]} {
+	set bMotion_stats_send(botnick) 1
+	# the admin info ('admin' in config)
+	set bMotion_stats_send(admin) 1
+	# the network name ('network' in config)
+	set bMotion_stats_send(network) 1
+	# bmotion's gender/orientation
+	set bMotion_stats_send(bminfo) 1
+}
 
 ### END USER CONFIG
 
@@ -340,7 +347,7 @@ proc bMotion_stats_admin { handle { arg "" } } {
 		}
 
 		if {$bMotion_stats_time > 0} {
-			bMotion_putadmin "  last stats run was [expr [clock seconds] - $bMotion_stats_time] seconds ago"
+			bMotion_putadmin "  last stats run was [expr [clock seconds] - $bMotion_stats_time] seconds ago ([clock format $bMotion_stats_time])"
 		} else {
 			bMotion_putadmin "  last stats run never or unknown"
 		}
@@ -363,8 +370,20 @@ proc bMotion_stats_admin { handle { arg "" } } {
 		return 0
 	}
 }
+
+proc bMotion_stats_help { } {
+	bMotion_putadmin "Interact with the stats module."
+	bMotion_putadmin "  .bmotion stats status"
+	bMotion_putadmin "    Show the status of the stats module, including if it's enabled,"
+	bMotion_putadmin "    if it's checking for updates, your bots unique ID, when the last"
+	bMotion_putadmin "    stats run took place, and when the next one will."
+	bMotion_putadmin "  .bmotion stats go"
+	bMotion_putadmin "    Immediately perform a stats run (if needed)"
+	bMotion_putadmin "(See settings.tcl and modules/extra/stats.tcl for config and information."
+}
+
 if {$bMotion_testing == 0} {
-	bMotion_plugin_add_management "stats" "^stats" n bMotion_stats_admin "any"
+	bMotion_plugin_add_management "stats" "^stats" n bMotion_stats_admin "any" "bMotion_stats_help"
 }
 
 #init
