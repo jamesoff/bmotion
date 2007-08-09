@@ -30,6 +30,8 @@ proc bMotion_plugin_output_demon { channel line } {
   foreach word $words {
 		regsub -all {o([b-df-hj-np-tv-xz])e(s|ing)?\M} $word {oa\1\2} word
 		regsub -all {([a-z][aeiou])ck\M} $word {\1q} word
+		regsub -all "don'?t" $word "doan" word
+		regsub -all "didn'?t" $word "din" word
 		append newLine "$word "
   }
 
