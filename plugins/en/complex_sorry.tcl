@@ -17,7 +17,7 @@ bMotion_plugin_add_complex "sorry1" "(i'm)?( )?(very)?( )?sorry(,)? %botnicks" 1
 bMotion_plugin_add_complex "sorry2" "%botnicks:? sorry" 100 bMotion_plugin_complex_sorry "en"
 
 proc bMotion_plugin_complex_sorry { nick host handle channel text } {
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{sorryok} %%"
+  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{sorryoks} %%"
   bMotionGetHappy
   bMotionGetUnLonely
   driftFriendship $nick 3
