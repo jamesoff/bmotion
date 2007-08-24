@@ -120,7 +120,16 @@ proc bMotion_is_active_enough { channel } {
 
 	bMotion_putloglev 4 * "bMotion_is_active_enough $channel"
 
-	set last_event $bMotionLastEvent($channel)
+	set last_event 0
+	catch {
+		set last_event $bMotionLastEvent($channel)
+	}
+	if {$last_event == 0} {
+		bMotion_putloglev d * "last event info for $channel not available"
+		# assume we're ok
+		return 1
+	}
+
 	bMotion_putloglev 3 * "last event for $channel was $last_event"
   if {([clock seconds] - $last_event) < ([expr $bMotionInfo(maxIdleGap) * 60])} {
 		bMotion_putloglev 3 * "it fits!"
