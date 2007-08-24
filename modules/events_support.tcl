@@ -23,12 +23,11 @@
 ###############################################################################
 
 proc finishdildo {} {
-	global got mood dildoPlays
+	global got mood 
 
 	set style $got(dildo,style)
 
 	if {$style == "flute"} {
-		global dildoFluteFinishes
 		cum $got(dildo,channel) $got(dildo,nick)
 		bMotionDoAction $got(dildo,channel) $got(dildo,nick) "%VAR{dildoFluteFinishes}"
 
@@ -40,7 +39,6 @@ proc finishdildo {} {
 	}
 
 	if {$style == "f_swap"} {
-		global dildoFemaleFemaleSwap
 		bMotionDoAction $got(dildo,channel) $got(dildo,dildo) "%VAR{dildoFemaleFemaleSwap}"
 
 		set got(dildo,style) "normal"
@@ -49,7 +47,6 @@ proc finishdildo {} {
 	}
 
 	if {$style == "m_swap"} {
-		global dildoMaleMaleSwap
 		bMotionDoAction $got(dildo,channel) $got(dildo,dildo) "%VAR{dildoMaleMaleSwap}"
 
 		set got(dildo,style) "normal"
@@ -57,7 +54,6 @@ proc finishdildo {} {
 		return 0
 	}
 
-	global dildoFinishes
 	cum $got(dildo,channel) $got(dildo,nick)
 	bMotionDoAction $got(dildo,channel) $got(dildo,dildo) "%VAR{dildoFinishes}" $got(dildo,nick)
 	set got(dildo,nick) ""
