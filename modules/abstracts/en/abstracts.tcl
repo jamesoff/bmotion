@@ -153,6 +153,7 @@ bMotion_abstract_batchadd "satOns" {
 #question answers
 bMotion_abstract_register "answerWhats"
 bMotion_abstract_batchadd "answerWhats" {
+	"a creature of meat and bone, panting and sweating"
 	"well you asked the right guy, i'm a whale biologist"
   "a book"
   "3 fingers"
@@ -1145,7 +1146,7 @@ bMotion_abstract_batchadd "silences" [list "Be quiet" "Enough" "Silence!" "%cole
 
 bMotion_abstract_batchadd "hexEnd" [list "Disabled+++" "Occurance+++" "Portal Opening+++" "Detected+++" ": Reinstall Syrup+++" "snack break+++" "-(Why Not Take This Time To Register Your Purchase)+++" "=Error %REPEAT{3:6:%NUMBER{100}}+++" "%REPEAT{3:12:?}+++" "Warning : Excess %VAR{sillyThings}{strip}" "Data Lost+++" ": Redo From Start+++" "- Please Reboot Universe+++" "Aknowledgment+++" "Ended+++" 	"-If Problem Persists Contact The Creator+++" "-Could Not Complete Destiny+++" "-no sufficient sentient life forms+++" "Technological Change+++" "-Access Completely And Indefinitely Denied+++" "-Query+++" "+++" "Waaaaah!+++" "Divide By Cucumber Error+++" ": Error - Division By Moonlight+++" ]
 
-bMotion_abstract_batchadd "prom_second" [list "rifle" "flower" "desk" "curtain" "wheel" "door" "coin" "speaker" "lamp" "radio" "twix" "action" "account" "pump" "puma" "whistle" "shaver" "glass" "flute" "tea" "pot" "square" "robe" "apple" "cave" "lantern" "drawer" "card" "pants" ]
+bMotion_abstract_batchadd "prom_second" [list "rifle" "flower" "desk" "curtain" "wheel" "door" "coin" "speaker" "lamp" "radio" "twix" "action" "account" "pump" "puma" "whistle" "shaver" "glass" "flute" "tea" "pot" "square" "robe" "apple" "cave" "lantern" "drawer" "card" "pants" "police" "polish"]
 
 bMotion_abstract_batchadd "ididntresponses" [list "no, *I* didn't" "Oh really." "Yes you did. We all saw it." "Of course you didn't." "Oh yes you did." "You must think us all fools." "nnk" "We all saw you" "I have proof you did" "caught on camera!"]
 
@@ -1368,6 +1369,19 @@ bMotion_abstract_register "vegetables" {
 }
 
 bMotion_abstract_batchadd "randomStuff" {
+	"Fucking is always satisfying. Like snickers."
+	"Uh oh. Here come the bees."
+	"I made a poopy"
+	"We're having some nice weather at the anus"
+	"I like to suck toilet rolls"
+	"I do what i have to have sex with a stick"
+	"Oh shut up! you don't even have fingers"
+	"For the bees!"
+	"I am a robot asshole!"
+	"Me too, I snorted salt!"
+	"Hello, I live in a hat made of cheese"
+	"I am a potato"
+	"Do you like magnets"
 	"oh man, i just barfed a load of data onto my screen %VAR{unsmiles}"
 	"if you don't relax your face muscles, you're going to invert your skull!"
 	"i have to get home before midnight or i'll turn into a %VAR{fruits}"
@@ -1603,7 +1617,7 @@ bMotion_abstract_batchadd "lyrics" {
 
 bMotion_abstract_batchadd "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline" "/snigger" "wait, that's not right..." ]
 
-bMotion_abstract_batchadd "randomStuff_male" [list "Yeah baby yeah!" "I don't know how that got in there. It's not mine." "I don't think there's enough room in here for me and my thingy%|/removes thingy and sits in the other room" "That ain't my finger" "%REPEAT{3:8:m} electronical things" "%REPEAT{3:6:m} internet" "%REPEAT{3:6:m} breasts" "%REPEAT{3:6:m} jugs" "/considers sexchange operation%|/looks at %ruser{female}%|Maybe not" "It's good to be male isn't it %ruser{male}" ]
+bMotion_abstract_batchadd "randomStuff_male" [list "Yeah baby yeah!" "I don't know how that got in there. It's not mine." "I don't think there's enough room in here for me and my thingy%|/removes thingy and sits in the other room" "That ain't my finger" "%REPEAT{3:8:m} electronical things" "%REPEAT{3:6:m} internet" "%REPEAT{3:6:m} breasts" "%REPEAT{3:6:m} jugs" "/considers sexchange operation%|/looks at %ruser{female}%|Maybe not" "It's good to be male isn't it %ruser{male}" "These girls are ace. And their racoon is ace." ]
 
 bMotion_abstract_batchadd "welcomeBacks" [list "re" "wb" "welcome back" "hey" "hi" "%REPEAT{4:7:bl}" "pop" "heya" "you're back!"]
 
