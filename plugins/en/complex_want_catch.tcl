@@ -118,7 +118,7 @@ proc bMotion_plugin_complex_noun_catcher { nick host handle channel text } {
 }
 
 bMotion_abstract_register "gotone"
-bMotion_abstract_batchadd "gotone" [list "I've already got one%|%BOT\[are you sure?\]%|yes yes, it's very nice" "I already have one of those."]
+bMotion_abstract_batchadd "gotone" [list "I've already got one%|%BOT\[are you sure?\]%|yes yes, it's very nice" "I already have one of those." "I had one of them the other week. They're very nice, aren't they?"]
 
 bMotion_abstract_register "betters"
 bMotion_abstract_batchadd "betters" [list "mm%REPEAT{1:5:m}, %VAR{sillyThings}{strip}" "%VAR{sillyThings}{strip} > %%" "%% < %VAR{sillyThings}{strip}" "%%++"]
