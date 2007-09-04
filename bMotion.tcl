@@ -85,6 +85,7 @@ if {$bMotion_testing == 1} {
 set bMotion_loaded_settings 0
 if [file exists "$bMotionModules/settings.tcl"] {
 	source "$bMotionModules/settings.tcl"
+	bMotion_putloglev d * "loaded settings from modules directory"
 	set bMotion_loaded_settings 1
 }
 
