@@ -87,6 +87,7 @@ if {![info exists bMotion_abstract_contents]} {
   set bMotion_abstract_timestamps(dummy) 1
   set bMotion_abstract_ondisk [list]
 	set bMotion_abstract_last_get(dummy) ""
+	set bMotion_abstract_filters(dummy) ""
 }
 
 #init our counters
@@ -231,6 +232,9 @@ proc bMotion_abstract_load { abstract } {
   if {$needReSave} {
     bMotion_abstract_save $abstract
   }
+
+	bMotion_putloglev 1 * "Abstract $abstract loaded, checking for filter"
+	bMotion_abstract_apply_filter $abstract
 }
 
 proc bMotion_abstract_add { abstract text {save 1} } {
@@ -313,6 +317,7 @@ proc bMotion_abstract_save { abstract } {
     putlog "Abstract $abstract now has $count elements ($drop_count fewer)"
   }
   close $fileHandle
+	bMotion_putloglev 2 * "Saved abstract $abstract to disk"
 }
 
 proc bMotion_abstract_all { abstract } {
@@ -326,12 +331,16 @@ proc bMotion_abstract_all { abstract } {
 
 		return $bMotion_abstract_contents($abstract)
 	} else {
-		#abstract doesn't exist
+	#abstract doesn't exist
 		bMotion_putloglev d * "bMotion_abstract_all: couldn't find abstract '$abstract' in new system"
-		global $abstract
-		set var [subst $$abstract]
-		
-		return $var
+		catch {
+			global $abstract
+			set var [subst $$abstract]
+
+			return $var
+		}
+		bMotion_putloglev d * "bMotion_abstract_all: $abstract doesn't exist as a global variable either :("
+		return ""
 	}
 
 }
@@ -376,9 +385,9 @@ proc bMotion_abstract_get { abstract } {
 	if [bMotion_abstract_exists "${abstract}_$bMotionInfo(gender)"] {
 		# mix-in the gender one with the vanilla one
 		bMotion_putloglev 1 * "mixing in $bMotionInfo(gender) version of $abstract"
-		set final_version [concat $bMotion_abstract_contents($abstract) [bMotion_abstract_all "${abstract}_$bMotionInfo(gender)"]]
+		set final_version [concat [bMotion_abstract_all $abstract] [bMotion_abstract_all "${abstract}_$bMotionInfo(gender)"]]
 	} else {
-		set final_version $bMotion_abstract_contents($abstract)
+		set final_version [bMotion_abstract_all $abstract]
 	}
 
 
@@ -452,7 +461,7 @@ proc bMotion_abstract_flush { } {
 # this loads language abstracts for the current language in bMotionInfo
 proc bMotion_abstract_revive_language { } {
   global bMotionSettings bMotionInfo bMotionModules
-  global bMotion_abstract_contents
+  global bMotion_abstract_contents bMotionLocal
 
   set lang $bMotionInfo(language)
 
@@ -471,28 +480,38 @@ proc bMotion_abstract_revive_language { } {
   }
   # if the default abstracts exists, use it first
   if { [file exists "$bMotionModules/abstracts/$lang/abstracts.tcl"] } {
+		bMotion_putloglev d * "loading system abstracts for lang $lang"
     catch {
       source "$bMotionModules/abstracts/$lang/abstracts.tcl"
     }
   } else {
     bMotion_putloglev 2 * "bMotion: language default abstracts not found"
   }
-  # then we need to load any others
-  set files [glob -nocomplain "$bMotionModules/abstracts/$lang/*.txt"]
-  if { [llength $files] == 0} {
-    return 0
-  }
-  foreach f $files {
-    set pos [expr [string last "/" $f] + 1]
-    set dot [expr [string last ".txt" $f] - 1]
-    set abstract [string range $f $pos $dot]
-    bMotion_putloglev 2 * "checking $abstract"
-    set len 0
-    catch { set len [llength $bMotion_abstract_contents($abstract)] } val
-    if { $val != "$len" } {
-      bMotion_abstract_load $abstract
-    }
-  }
+	# then we need to load any others
+	#TODO: should this be bMotionLocal not bMotionModules?
+	set files [glob -nocomplain "$bMotionModules/abstracts/$lang/*.txt"]
+	if { [llength $files] > 0} {
+		foreach f $files {
+			set pos [expr [string last "/" $f] + 1]
+			set dot [expr [string last ".txt" $f] - 1]
+			set abstract [string range $f $pos $dot]
+			bMotion_putloglev 2 * "checking $abstract"
+			set len 0
+			catch { set len [llength $bMotion_abstract_contents($abstract)] } val
+			if { $val != "$len" } {
+				bMotion_abstract_load $abstract
+			}
+		}
+	}
+
+	# load the local abstracts
+	bMotion_putloglev d * "looking for local abstracts..."
+	if [file exists "$bMotionLocal/abstracts/$lang/abstracts.tcl"] {
+		bMotion_putloglev d * "found local abstracts.tcl for $lang, loading"
+		catch {
+			source "$bMotionLocal/abstracts/$lang/abstracts.tcl"
+		}
+	}
 }
 
 # this is to update people from the old abstracts to the new abstracts.
@@ -515,9 +534,93 @@ proc bMotion_abstract_check {  } {
   }
 }
 
+# filter out stuff from an abstract
+proc bMotion_abstract_filter { abstract filter_text } {
+	global bMotion_abstract_contents bMotion_abstract_ondisk
+
+  set index [lsearch -exact $bMotion_abstract_ondisk $abstract]
+	if {$index > -1} {
+		bMotion_abstract_load $abstract
+	}
+	
+	set contents [list]
+	catch {
+		set contents $bMotion_abstract_contents($abstract)
+	}
+
+	if {[llength $contents] == 0} {
+		bMotion_putloglev d * "can't get contents for $abstract"
+		return
+	}
+
+	set new_contents [list]
+	set initial_size [llength $contents]
+
+	foreach element $contents {
+		bMotion_putloglev 2 * "considering $element for filtering"
+		if [regexp -nocase $filter_text $element] {
+			bMotion_putloglev 1 * "abstract $abstract element $element matches filter, dropping"
+			continue
+		}
+		lappend new_contents $element
+	}
+
+	set new_size [llength $new_contents]
+  set diff [expr $initial_size - $new_size]
+	bMotion_putloglev d * "abstract $abstract reduced by $diff items with filter $filter_text"
+
+	if {$diff > 0} {
+		set bMotion_abstract_contents($abstract) $new_contents
+		bMotion_abstract_save $abstract
+	}
+}
+
+# apply a filter to an abstract, if it has one defined
+proc bMotion_abstract_apply_filter { abstract } {
+	global bMotion_abstract_filters
+
+	set filter ""
+	catch {
+		set filter $bMotion_abstract_filters($abstract)
+	}
+	if {$filter == ""} {
+		return
+	}
+
+	bMotion_abstract_filter $abstract $filter
+}
+
+# register a filter for an abstract
+proc bMotion_abstract_add_filter { abstract filter_text } {
+	global bMotion_abstract_filters
+
+	set bMotion_abstract_filters($abstract) $filter_text
+	bMotion_putloglev d * "registered filter /$filter_text/ for abstract $abstract"
+
+	# apply it now
+	bMotion_abstract_apply_filter $abstract
+}
+
+# nuke all filters
+proc bMotion_abstract_flush_filters { } {
+	global bMotion_abstract_filters
+
+	unset bMotion_abstract_filters
+	set bMotion_abstract_filters(dummy) ""
+}
+
+# implementation-independent way to get all filters
+proc bMotion_abstract_list_filters { } {
+	global bMotion_abstract_filters
+	return $bMotion_abstract_filters
+}
+
+
 bind time - "* * * * *" bMotion_abstract_auto_gc
 
 # the check has to be run to update old systems
 bMotion_abstract_check
 # we have to revive at least one language
 bMotion_abstract_revive_language
+
+bMotion_putloglev d * "abstract module loaded"

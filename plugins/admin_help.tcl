@@ -58,15 +58,6 @@ proc bMotion_plugin_management_help { handle { args "" } } {
   			bMotion_putadmin "  .bmotion flood set <nick> <value>"
   			bMotion_putadmin "    set score for <nick> to <value>"
   		}
-  		"abstract" {
-  			bMotion_putadmin "Manage the abstracts subsystem:"
-  			bMotion_putadmin "  .bmotion abstract status"
-  			bMotion_putadmin "    display summary of abstracts (lots of output)!"
-  			bMotion_putadmin "  .bmotion abstract gc"
-  			bMotion_putadmin "    trigger a garbage collection"
-  			bMotion_putadmin "  .bmotion abstract show <name>"
-  			bMotion_putadmin "    show contents of abstract <name>"
-  		}
   		"status" {
   			bMotion_putadmin "Show a summary of bMotion's status."
   		}
