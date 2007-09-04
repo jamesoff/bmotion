@@ -13,11 +13,11 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_complex "z-activate" "(activate|increase power to)" 100 bMotion_plugin_complex_activate "en"
+bMotion_plugin_add_complex "z-activate" "(enable|activate|increase power to)" 100 bMotion_plugin_complex_activate "en"
 
 proc bMotion_plugin_complex_activate { nick host handle channel text } {
   global botnicks
-  if [regexp -nocase "^(${botnicks}:?,? )?(activate|increase power to) (.+)$" $text matches bot bot2 verb item] {
+  if [regexp -nocase "^(${botnicks}:?,? )?(enable|activate|increase power to) (.+)$" $text matches bot bot2 verb item] {
     if {($bot != "") || ([bMotion_interbot_me_next $channel] && [rand 2])} {
       set item [bMotion_uncolen $item]
       set item [string trim $item]
