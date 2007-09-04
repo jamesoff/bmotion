@@ -245,6 +245,7 @@ proc bMotion_plugin_management_interbot { handle { text "" } } {
 	}
 }
 
+# um
 proc bMotion_plugin_management_flux { handle { text "" } } {
 	if {[string match "*off*" $text]} {
 		bMotion_putadmin "i call it... MISTAR FUSION!"
