@@ -66,7 +66,6 @@ proc finishdildo {} {
 proc cum {channel nick} {
 	global bMotionInfo
 	global mood
-	if {![pastWatershedCheck $nick]} { return 0 }
 	if {![bMotionIsFriend $nick]} {
 		bMotionDoAction $channel $nick "%VAR{blehs} I can't cum thinking about someone I don't like"
 		return 0
