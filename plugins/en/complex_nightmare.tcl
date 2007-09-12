@@ -414,7 +414,7 @@ bMotion_abstract_register "material" {
 "obsidian"
 "stone"
 "wood"
-"%VAR{Metal}"
+"%VAR{metal}"
 "%VAR{paintbodyparts}"
 }
 
