@@ -20,8 +20,8 @@ proc bMotion_plugin_complex_action_volez { nick host handle channel text } {
     # TODO: check $object and $action (e.g. pinches arse)
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{stolens}"
     bMotionGetSad
-    # TODO: switch to using plugin settings for this
-    #set bMotionCache(lastEvil) $nick
+    # matching english plugin
+    bMotion_plugins_settings_set "system" "lastevil" $channel "" $nick
     driftFriendship $nick -1
     return 1
   }
