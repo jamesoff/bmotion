@@ -1390,7 +1390,7 @@ bMotion_abstract_batchadd "randomStuff" {
 	"i have to get home before midnight or i'll turn into a %VAR{vegetables}"
 	"why that's genius! put water in the bathtub, and then the flying spaghetti monster can't get me!"
 	"murder, death, kill!"
-	"%VAR{sillythings}{strip}? in my %VAR{bodypart}?%|%BOT[it's more common than you think.]"
+	"%VAR{sillyThings}{strip}? in my %VAR{bodypart}?%|%BOT[it's more common than you think.]"
 	"Tuesday's coming. Did you bring your coat?%|%BOT[I live in a giant bucket.]"
 	"Say, do you want to see a movie?%|%BOT[I'm feeling fat and sassy.]"
 	"You're watching the Family Learning Channel. And now, angry tics fly out of my nipples!"
