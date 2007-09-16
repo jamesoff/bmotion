@@ -450,6 +450,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
   #Run the simple plugins <<<2
   set response [bMotion_plugin_find_action_simple $text $bMotionInfo(language)]
   if {$response != ""} {
+		bMotion_flood_add $nick "" $text
     bMotion_putloglev 1 * "bMotion: matched simple action plugin, outputting $response..."
     set nick [bMotionGetRealName $nick $host]
     bMotionDoAction $channel $nick [pickRandom $response]
@@ -460,10 +461,18 @@ proc bMotion_event_action {nick host handle dest keyword text} {
   set response [bMotion_plugin_find_action_complex $text $bMotionInfo(language)]
   if {[llength $response] > 0} {
     #set nick [bMotionGetRealName $nick $host]
+    bMotion_putloglev 1 * "going to run action plugins: $response"
     foreach callback $response {
+			bMotion_putloglev 1 * "bMotion: doing flood for $callback..."
+      if [bMotion_flood_check $nick] { return 0 }
       bMotion_putloglev 1 * "bMotion: matched complex action plugin, running callback $callback"
+			set result 0
       set result [$callback $nick $host $handle $channel $text]
-      if {$result == 1} {
+      if {$result > 0} {
+				if {$result == 1} {
+					bMotion_flood_add $nick $callback $text
+				}
+        bMotion_putloglev 2 * "bMotion:    `-$callback returned $result, breaking out..."
         break
       }
     }
