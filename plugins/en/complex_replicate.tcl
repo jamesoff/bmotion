@@ -59,9 +59,8 @@ proc bMotion_plugin_complex_replicate { nick host handle channel text } {
         set item [string range $item [expr [string first "into" $item] + 5] end]
       }
       set hisHers [getHisHers]
-      global wands
-      bMotionDoAction $channel $hisHers [pickRandom $wands]
-      bMotionDoAction $channel $whom "*PING* ... $whom $item"
+      bMotionDoAction $channel $hisHers "%VAR{wands}"
+      bMotionDoAction $channel $whom "*PING* ... %% $item"
       if [rand 2] { bMotionDoAction $channel $whom "I AM THE WIZARD%colen" }
       bMotionGetHappy
       bMotionGetUnLonely
