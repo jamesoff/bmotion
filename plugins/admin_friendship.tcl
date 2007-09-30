@@ -18,7 +18,7 @@
 
 proc bMotion_plugin_management_friends { handle { arg "" } } {
 
-	if [regexp -nocase {show (.+)} $arg matches cmd nick] {
+	if [regexp -nocase {show (.+)} $arg matches nick] {
 		if {$nick == "all"} {
 			bMotion_putadmin [getFriendsList]
 			return 0

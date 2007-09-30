@@ -299,7 +299,7 @@ proc bMotion_abstract_save { abstract } {
   set fileHandle [open "$bMotion_abstract_dir/${abstract}.txt" "w"]
   set number [llength $bMotion_abstract_contents($abstract)]
   if {$number > $bMotion_abstract_max_number} {
-    putlog "Abstract $abstract has too many elements ($number > $bMotion_abstract_max_number), tidying up"
+    bMotion_putloglev d * "Abstract $abstract has too many elements ($number > $bMotion_abstract_max_number), tidying up"
     set tidy 1
   }
   foreach a $bMotion_abstract_contents($abstract) {
@@ -314,7 +314,7 @@ proc bMotion_abstract_save { abstract } {
     incr count
   }
   if {$tidy} {
-    putlog "Abstract $abstract now has $count elements ($drop_count fewer)"
+		bMotion_putloglev d * "Abstract $abstract now has $count elements ($drop_count fewer)"
   }
   close $fileHandle
 	bMotion_putloglev 2 * "Saved abstract $abstract to disk"
@@ -399,12 +399,12 @@ proc bMotion_abstract_get { abstract } {
 		if {[llength $final_version] > 1} {
 			set count 0
 			while {$retval == $bMotion_abstract_last_get($abstract)} {
-				putloglev d * "fetched repeat value for abstract $abstract, trying again"
-				putloglev 1 * "this: $retval ... last: $bMotion_abstract_last_get($abstract)"
+				bMotion_putloglev d * "fetched repeat value for abstract $abstract, trying again"
+				bMotion_putloglev 1 * "this: $retval ... last: $bMotion_abstract_last_get($abstract)"
 				set retval [lindex $final_version [rand [llength $final_version]]]
 				incr count
 				if {$count > 5} {
-					putloglev d * "trying too hard to find non-dupe for abstract $abstract, giving up and using $retval"
+					bMotion_putloglev d * "trying too hard to find non-dupe for abstract $abstract, giving up and using $retval"
 					break
 				}
 			}

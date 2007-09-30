@@ -72,7 +72,7 @@ proc bMotion_facts_load { } {
 
       if {[expr $count % 1000] == 0} {
 
-      putlog "  still loading facts: $count ..."
+      bMotion_putloglev d * "  still loading facts: $count ..."
 
       }
     }
@@ -114,7 +114,7 @@ proc bMotion_facts_save { } {
 
   set items [array names bMotionFacts]
   if {[llength $items] > $bMotion_facts_max_items} {
-    putlog "Too many items are known ([llength $items] > $bMotion_facts_max_items), tidying up"
+    bMotion_putloglev d * "Too many items are known ([llength $items] > $bMotion_facts_max_items), tidying up"
     set tidy 1
   }
   foreach item $items {
@@ -145,7 +145,7 @@ proc bMotion_facts_save { } {
     }
   }
   if {$tidy} {
-    putlog "$count facts have been forgo.. los... delet... thingy *dribbles*"
+    bMotion_putloglev d * "$count facts have been forgo.. los... delet... thingy *dribbles*"
   }
   close $fileHandle
 }

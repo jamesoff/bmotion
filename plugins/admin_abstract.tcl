@@ -81,7 +81,6 @@ proc bMotion_plugin_admin_abstract { handle { arg "" }} {
 	}
 
 	if [regexp -nocase "filter (\[a-z\]+)( (\[^ \]+)( .+)?)?" $arg matches cmd parms abstract filter] {
-		putlog $cmd
 		switch $cmd {
 			"list" {
 				global bMotion_abstract_filters

@@ -20,8 +20,6 @@ proc bMotion_plugin_complex_rndnum {nick host handle channel text} {
 
 	if [regexp -nocase "$botnicks ((tell|give) me)|(think (of|up)) a (random )?(negative )?number(.+)" $text matches bn a b c d rnd neg cond] {
 		if {$cond == ""} {
-			putlog $neg
-			putlog $rnd
 			if {$neg != ""} {
 				bMotionDoAction $channel $nick "%%: -%NUMBER{10000}"
 			} else {

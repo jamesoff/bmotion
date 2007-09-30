@@ -45,7 +45,6 @@ proc bMotion_plugin_output_english { channel line } {
   regsub -nocase -all {\m(a) ([aeiou].+)\M} $line {\1n \2} line
 
 	#"an" before a cons... cont... non-vowel needs to be "a"
-	putlog $line
 	regsub -nocase -all {[[:<:]](an) ([^aeiou][a-z]+)[[:>:]]} $line {a \2} line
 
   if {[rand 100] > 60} {

@@ -26,8 +26,6 @@ proc bMotion_plugin_complex_trivia_botnet { bot command params } {
 		return
 	}
 
-	putlog $params
-
 	if [regexp "^(.+) :(.*)" $params matches cmd arg] {
 		switch $cmd {
 			"start" {
