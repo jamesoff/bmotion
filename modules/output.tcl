@@ -636,7 +636,7 @@ proc OLDbMotionGetRealName { nick { host "" }} {
     #not set
     return [bMotionWashNick $nick]
   }
-  putloglev 2 * "bMotion: found $handle, IRLs are $realname"
+  bMotion_putloglev 2 * "bMotion: found $handle, IRLs are $realname"
   return [pickRandom $realname]
 }
 
@@ -674,7 +674,7 @@ proc bMotionGetRealName { nick { host "" }} {
     bMotion_putloglev 2 * "no IRL set, using nick"
     return $nick
   }
-  putloglev 2 * "bMotion: IRLs for $handle are $realname"
+  bMotion_putloglev 2 * "bMotion: IRLs for $handle are $realname"
   return [pickRandom $realname]
 }
 

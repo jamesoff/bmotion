@@ -1,6 +1,69 @@
 bMotion CHANGELOG
 -----------------
 
+v0.1.0
+
+Many many improvements, with the highlights being:
+
+o better use of interbot stuff
+o switched to using sample settings file, which must be copied/moved to proper settings.tcl by user
+o improved failsafe action handler
+o much better use of abstracts throughout
+o improvements to flood handler, including fixing not triggering at all on actions
+o many improvements to bMotion's internal code
+o moved quite a bit of bMotion's debug/diagnostic output into +d (or upgraded to +1) to stop worrying people so much
+o improved typos plugin
+o support for 0-padding in %NUMBER
+o many new things in abstracts
+o ignore !seen (to stop stupid spoonerism triggerings)
+o improvements to output queueing
+o changed %ruser and %rbot to take filters; replaces PICKUSER/PICKBOT
+o don't break with someone stuck in the brig
+o merged several similar output plugins into "append" output plugin
+o snap plugin now behaves better
+
++ scots output plugin
++ ___? in my ___? plugin
++ bot now has bedtime/wakeytime and goes to sleep
++ notlong plugin
++ M&S spoof advert plugin
++ pants plugin
++ ,8 plugin
++ random number plugin
++ lifted plugin
++ nn plugin
++ plus plugin
++ version admin plugin
++ support for date-specific abstracts (e.g. haloween)
++ numberwang plugin
++ takethat plugin
++ %TIME output macro
++ "diddydots" output plugin
++ fish (Red Dwarf) plugin
++ simpsons plugin
++ worried plugin
++ eitheror plugin
++ more diagnostics including spotting broken plugins
++ store our data in new local/ directory, not in random places elsewhere
++ respond to being voiced/devoiced
++ much better question handler
++ added interbot admin command
++ added %DELAY output macro
++ now playing plugin
++ %PLURAL{} output macro
++ welsh output plugin
++ knockknock plugin
++ experimental bitlbee supprt
++ shows plugin
++ spelling nazi plugin
++ spoonerism plugin
++ so's your face plugin
++ nipples plugin
++ ebonics output plugin
+
+- removed PICKUSER and PICKBOT (use %ruser{} instead)
+
+
 v0.0.9
 2004-09-19 15:04  james
 
