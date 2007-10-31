@@ -1194,7 +1194,7 @@ bMotion_abstract_batchadd "randomStuff_10_31" {
 	"i'm going to suck your bits!"
 	"THE CALL IS COMING FROM INSIDE THE CHANNEL!%colen"
 	"omg this is like, the scariest thing ever!%|%BOT[for the last time, that's Deal or No Deal!]"
-	"%rnick: you've got red on you."
+	"%ruser: you've got red on you."
 	"i've just found out this channel was built on an ancient Indian burial ground"
 	"oh what a horrible dream!%|%BOT[what was it about?]%|ARRRGH you're real!"
 	"and even though it was unplugged, an image stayed on the screen - it was... THE WINDOWS LOGO!%|%BOT[that's not scary]%|it is if you're a laser printer"
