@@ -22,6 +22,14 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
+# allow people to turn off the interbot stuff if they don't want it
+# these values should be set in the settings file, but we'll define
+# some defaults here
+
+if {![info exists bMotion_interbot_enable]} {
+	set bMotion_interbot_enable 1
+}
+
 # Elect a new bot to speak for each channel
 proc bMotion_interbot_next_elect { } {
   #send a message to all the bots on each of my channels
@@ -30,6 +38,12 @@ proc bMotion_interbot_next_elect { } {
   # Each bot tracks the numbers, highest bot wins and speaks next
 
   global bMotionInfo bMotion_interbot_timer bMotionChannels
+	global bMotion_interbot_enable
+
+	if {!$bMotion_interbot_enable} {
+		return
+	}
+
   catch {
     foreach chan $bMotionChannels {
       bMotion_interbot_next_elect_do $chan
@@ -111,7 +125,12 @@ proc bMotion_interbot_catch { bot cmd args } {
 proc bMotion_interbot_next_incoming { bot params } {
   #another bot is forcing an election
   global bMotion_interbot_nextbot_score bMotion_interbot_nextbot_nick botnick bMotionInfo
-	global BMOTION_SLEEP bMotionSettings
+	global BMOTION_SLEEP bMotionSettings bMotion_interbot_enable
+
+	if {![info exists bMotion_interbot_enable]} {
+		return
+	}
+
   bMotion_putloglev 1 * "bMotion: Incoming election from $bot"
 
 	regexp "(\[#!\].+) (.+)" $params matches channel score
@@ -166,6 +185,12 @@ proc bMotion_interbot_next_incoming_reply { bot params } {
 
 proc bMotionSendSayChan { channel text thisBot} {
   #replace all ¬ with %
+	global bMotion_interbot_enable
+
+	if {!$bMotion_interbot_enable} {
+		return ""
+	}
+
   set text [bMotionInsertString $text "¬" "%"]
   bMotion_putloglev 1 * "bMotion: pushing command say ($channel $text) to $thisBot"
   if [islinked $thisBot] {
@@ -207,8 +232,15 @@ proc bMotionCatchSayChan { bot params } {
 # if yes, then force an election for that channel immediately afterwards
 proc bMotion_interbot_me_next { channel } {
   global bMotion_interbot_nextbot_nick bMotion_interbot_nextbot_score botnick
+	global bMotion_interbot_enable
 
   set channel [string tolower $channel]
+
+	if {!$bMotion_interbot_enable} {
+		# if interbot stuff is turned off, we'll have to assume we should respond
+		# else we'd never say anything...
+		return 1
+	}
 
 	bMotion_putloglev 2 * "checking interbot_me_next for $channel"
 
@@ -286,7 +318,12 @@ proc bMotion_interbot_link { botname via } {
 # Catches a HAY from another bot, replies with a SUP
 proc bMotion_interbot_hay { bot channels } {
   #we've met another bmotion bot, we need to tell it what channels we're on
-  global bMotion_interbot_otherbots network bMotionChannels
+  global bMotion_interbot_otherbots network bMotionChannels bMotion_interbot_enable
+
+	if {!$bMotion_interbot_enable} {
+		return
+	}
+
 	bMotion_update_chanlist
 	if [regexp -nocase {(.+) network:(.+)} $channels matches chans nw] {
 		if {[string tolower $nw] != [string tolower $network]} {
@@ -306,7 +343,12 @@ proc bMotion_interbot_hay { bot channels } {
 # Catches a SUP (reply to my HAY)
 proc bMotion_interbot_sup { bot channels } {
   #we've met another bmotion bot
-  global bMotion_interbot_otherbots
+  global bMotion_interbot_otherbots bMotion_interbot_enable
+
+	if {!$bMotion_interbot_enable} {
+		return
+	}
+
   set bMotion_interbot_otherbots($bot) $channels
   bMotion_putloglev d * "bMotion: bMotion bot $bot on channels $channels"
   array unset bMotion_interbot_otherbots dummy
@@ -319,14 +361,20 @@ set bMotion_interbot_otherbots(dummy) ""
 # Broadcasts a HAY to see who's around
 proc bMotion_interbot_resync { } {
   #let's find out who's on the botnet
-  global bMotion_interbot_otherbots network bMotionChannels
+  global bMotion_interbot_otherbots network bMotionChannels bMotion_interbot_enable
+
+  utimer [expr [rand 900] + 300] bMotion_interbot_resync
+
+	if {$bMotion_interbot_enable != 1} {
+		return
+	}
+
 	bMotion_update_chanlist
   unset bMotion_interbot_otherbots
   set bMotion_interbot_otherbots(dummy) ""
 
   putloglev d * "bMotion: Resyncing with botnet for bMotion bots"
   putallbots "bmotion HAY $bMotionChannels ($network)"
-  utimer [expr [rand 900] + 300] bMotion_interbot_resync
 }
 
 # bMotion_interbot_otherbots

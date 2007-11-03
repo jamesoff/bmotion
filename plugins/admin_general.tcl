@@ -21,7 +21,7 @@ bMotion_plugin_add_management "rehash" "^rehash"          n       bMotion_plugin
 bMotion_plugin_add_management "reload" "^reload"          n       bMotion_plugin_management_reload "any"
 bMotion_plugin_add_management "settings" "^settings" n bMotion_plugin_management_settings "any"
 bMotion_plugin_add_management "global" "^global" n bMotion_plugin_management_global "any"
-bMotion_plugin_add_management "interbot" "^interbot" n bMotion_plugin_management_interbot "any"
+bMotion_plugin_add_management "interbot" "^interbot" n bMotion_plugin_management_interbot "any" bMotion_plugin_management_interbot_help
 bMotion_plugin_add_management "flux" "^flux capacitors?" n bMotion_plugin_management_flux "any"
 
 #################################################################################################################################
@@ -243,6 +243,45 @@ proc bMotion_plugin_management_interbot { handle { text "" } } {
 		bMotion_putadmin "Known bMotion bots on $chan: "
 		bMotion_putadmin [bMotion_interbot_otherbots $chan]
 	}
+
+	if [regexp -nocase "enable" $text] {
+		global bMotion_interbot_enable
+
+		if {$bMotion_interbot_enable} {
+			bMotion_putadmin "Interbot stuff is already enabled."
+			return
+		} else {
+			set bMotion_interbot_enable 1
+			bMotion_putadmin "Interbot stuff enabled."
+			return
+		}
+	}
+
+	if [regexp -nocase "disable" $text] {
+		global bMotion_interbot_enable
+
+		if {!$bMotion_interbot_enable} {
+			bMotion_putadmin "Interbot stuff is already disabled."
+			return
+		} else {
+			set bMotion_interbot_enable 0
+			bMotion_putadmin "Interbot stuff disabled."
+			return
+		}
+	}
+}
+
+proc bMotion_plugin_management_interbot_help { } {
+	bMotion_putadmin "Manage the interbot communication stuff."
+	bMotion_putadmin "  .bmotion interbot next #channel"
+	bMotion_putadmin "    Report the next bot for #channel"
+	bMotion_putadmin "  .bmotion interbot elect #channel"
+	bMotion_putadmin "    Force an election for #channel"
+	bMotion_putadmin "  .bmotion interbot bots #channel"
+	bMotion_putadmin "    Report bots discovered in #channel"
+	bMotion_putadmin "  .bmotion interbot enable"
+	bMotion_putadmin "  .bmotion interbot disable"
+	bMotion_putadmin "    Enable/disable interbot stuff entirely"
 }
 
 # um
