@@ -60,6 +60,8 @@ proc bMotion_plugin_management_help { handle { args "" } } {
   		}
   		"status" {
   			bMotion_putadmin "Show a summary of bMotion's status."
+			bMotion_putadmin "  .bmotion status channels"
+			bMotion_putadmin "    include the active channels in the status output"
   		}
   		"global" {
   			bMotion_putadmin "Switch bMotion on and off everywhere:"
