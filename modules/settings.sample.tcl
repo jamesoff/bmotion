@@ -119,8 +119,13 @@ set bMotionInfo(minRandomDelay) 20
 # maximum delay (mins) between random lines
 set bMotionInfo(maxRandomDelay) 240
 
-# if nothing's happened on this channel for this much time, don't say something
+# if nothing's happened on this channel for this many mins, don't say something
+# (stop us talking to ourselves too much)
 set bMotionInfo(maxIdleGap) 120
+
+# if something was said fewer than this many seconds ago, we consider the
+# channel active and say something more appropirate
+set bMotionSettings(active_idle_sec) 300
 
 # how long the courtmartial plugin should wait while people are in the brig
 # TODO: move this into said plugin

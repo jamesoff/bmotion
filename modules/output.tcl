@@ -915,11 +915,12 @@ proc bMotionMakeVerb { text } {
   return $text
 }
 proc chr c {
-    if {[string length $c] > 1 } { error "chr: arg should be a single char"}
-		#   set c [ string range $c 0 0]
-		    set v 0;
-				    scan $c %c v; return $v
-						}
+	if {[string length $c] > 1 } { error "chr: arg should be a single char"}
+	#   set c [ string range $c 0 0]
+		set v 0
+		scan $c %c v
+		return $v
+}
 
 
 proc bMotionMakePlural { text } {
