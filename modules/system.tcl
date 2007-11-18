@@ -114,7 +114,7 @@ proc bMotionStats {nick host handle channel text} {
 
 
 # check if a channel is active enough for randomy things
-proc bMotion_is_active_enough { channel } {
+proc bMotion_is_active_enough { channel { limit 0 } } {
 	global bMotionInfo 
 	global bMotionLastEvent 
 
@@ -131,7 +131,11 @@ proc bMotion_is_active_enough { channel } {
 	}
 
 	bMotion_putloglev 3 * "last event for $channel was $last_event"
-	if {([clock seconds] - $last_event) < ([expr $bMotionInfo(maxIdleGap) * 60])} {
+	if {$limit == 0} {
+		set limit [expr $bMotionInfo(maxIdleGap) * 60]
+	}
+
+	if {([clock seconds] - $last_event) < $limit} {
 		bMotion_putloglev 3 * "it fits!"
 		return 1
 	}
@@ -235,21 +239,24 @@ proc doRandomStuff {} {
 	# if someone spoke in the last 5 mins, use an activeRandomStuff
 	# else use a randomStuff
 
-	set max_idle_sec [expr $bMotionInfo(maxIdleGap) * 60]
 	set active_idle_sec [bMotion_setting_get "active_idle_sec"]
 
 	foreach channel $bMotionChannels {
-		set idle_sec [expr $timeNow - $bMotionLastEvent($channel)]
-		bMotion_putloglev 1 * "idle_sec for $channel is $idle_sec"
-
-		if {$idle_sec < $max_idle_sec} {
-			lappend saidChannels $channel
-			if {$idle_sec < $active_idle_sec} {
+		if [bMotion_is_active_enough $channel] {
+			if [bMotion_is_active_enough $channel $active_idle_sec] {
 				#channel is fairly busy
-				bMotionSaySomethingRandom $channel 1
+				if [bMotionSaySomethingRandom $channel 1] {
+					lappend saidChannels "$channel/active"
+				} else {
+					lappend silentChannels $channel
+				}
 			} else {
 				#use a more idle randomstuff
-				bMotionSaySomethingRandom $channel 0
+				if [bMotionSaySomethingRandom $channel 0] {
+					lappend saidChannels $channel
+				} else {
+					lappend silentChannels $channel
+				}
 			}
 		} else {
 			lappend silentChannels $channel
@@ -277,18 +284,19 @@ proc bMotionSaySomethingRandom {channel {busy 0}} {
 		if [bMotion_abstract_exists $today] {
 			bMotion_putloglev d * "using abstract $today for randomstuff in $channel"
 			bMotionDoAction $channel "" "%VAR{$today}"
-			return 0
+			return 1
 		}
 
 		set today [clock format [clock seconds] -format "${base_abstract}_%m_%d"]
 		if [bMotion_abstract_exists $today] {
 			bMotion_putloglev d * "using abstract $today for randomstuff in $channel"
 			bMotionDoAction $channel "" "%VAR{$today}"
-			return 0
+			return 1
 		}
 
 		bMotion_putloglev d * "no special day abstract found for randomStuff in $channel"
 		bMotionDoAction $channel "" "%VAR{${base_abstract}}"
+		return 1
 	}
 
 	return 0
