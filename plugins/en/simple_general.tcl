@@ -53,3 +53,5 @@ bMotion_plugin_add_simple "coffee3" "coffee (is |=+ )?(teh |the )?(suck|rubbish|
 bMotion_plugin_add_simple "lolcats" "i can has " 90 [list "no you fucking can't%|not until you learn to use english right, anyway" "what" "i can has grammar plz" "i has a bucket%|I have placed it over your stupid head." "no you fucking can't" "shut up" "everyone look at %%, they're up to date on all internet memes!%|for example, <%%> all your base are belong to us%|fantastic."] "en"
 
 bMotion_plugin_add_simple "centipedes" {[a-z]+\? in my [a-z]+\?} 70 [list "it's more likely than you think"] "en"
+
+bMotion_plugin_add_simple "cunt" "^(cunt|twat|bollocks)" 80 [list "cunt" "twat" "bollocks" "bastards" "idiot" "wanker" "%VAR{prom_first}" "pile of %VAR{prom_first}" "%VAR{prom_first}ing %VAR{prom_first}ers"] "en"

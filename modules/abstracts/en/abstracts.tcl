@@ -1131,13 +1131,72 @@ bMotion_abstract_batchadd "upyourbums" [list "up your bum." "up yer bum" "up yer
 
 bMotion_abstract_batchadd "tech_answer" [list "I just bought %VAR{tech_software} and I can't get it to %VAR{tech_problem}, I've tried %VAR{tech_tries} and it still won't work" "I've just got %VAR{tech_software}, and it won't %VAR{tech_problem}. I've tried everything including %VAR{tech_tries} but nothing helps" "I hear you do books by %VAR{answerWhos}, can you sell me one?" "I need a bit of software to %VAR{tech_functions} %VAR{sillyThings}" ]
 
-bMotion_abstract_batchadd "prom_first" [list "piss" "shit" "fuck" "turd" "minge" "crap" "vadge" "shat" "clit" "cack" "arse" "cum" "wank" "flid" ]
+bMotion_abstract_batchadd "prom_first" {
+	"piss"
+	"shit"
+	"fuck"
+	"turd"
+	"minge"
+	"crap"
+	"vadge"
+	"shat"
+	"clit"
+	"cack"
+	"arse"
+	"cum"
+	"wank"
+	"jizz"
+	"ass"
+}
 
-bMotion_abstract_batchadd "silences" [list "Be quiet" "Enough" "Silence!" "%colen" "no more!" "NNK" "Shhh" ]
+bMotion_abstract_batchadd "silences" {
+	"Be quiet"
+	"Enough"
+	"Silence!"
+	"%colen"
+	"no more!"
+	"NNK"
+	"Shhh"
+}
 
 bMotion_abstract_batchadd "hexEnd" [list "Disabled+++" "Occurance+++" "Portal Opening+++" "Detected+++" ": Reinstall Syrup+++" "snack break+++" "-(Why Not Take This Time To Register Your Purchase)+++" "=Error %REPEAT{3:6:%NUMBER{100}}+++" "%REPEAT{3:12:?}+++" "Warning : Excess %VAR{sillyThings}{strip}" "Data Lost+++" ": Redo From Start+++" "- Please Reboot Universe+++" "Aknowledgment+++" "Ended+++"		"-If Problem Persists Contact The Creator+++" "-Could Not Complete Destiny+++" "-no sufficient sentient life forms+++" "Technological Change+++" "-Access Completely And Indefinitely Denied+++" "-Query+++" "+++" "Waaaaah!+++" "Divide By Cucumber Error+++" ": Error - Division By Moonlight+++" ]
 
-bMotion_abstract_batchadd "prom_second" [list "rifle" "flower" "desk" "curtain" "wheel" "door" "coin" "speaker" "lamp" "radio" "twix" "action" "account" "pump" "puma" "whistle" "shaver" "glass" "flute" "tea" "pot" "square" "robe" "apple" "cave" "lantern" "drawer" "card" "pants" "police" "polish"]
+bMotion_abstract_batchadd "prom_second" {
+	"rifle"
+	"flower"
+	"desk"
+	"curtain"
+	"wheel"
+	"door"
+	"coin"
+	"speaker"
+	"lamp"
+	"radio"
+	"twix"
+	"action"
+	"account"
+	"pump"
+	"puma"
+	"whistle"
+	"shaver"
+	"glass"
+	"flute"
+	"tea"
+	"pot"
+	"square"
+	"robe"
+	"apple"
+	"cave"
+	"lantern"
+	"drawer"
+	"card"
+	"pants"
+	"police"
+	"polish"
+	"container"
+	"button"
+	"socket"
+}
 
 bMotion_abstract_batchadd "ididntresponses" [list "no, *I* didn't" "Oh really." "Yes you did. We all saw it." "Of course you didn't." "Oh yes you did." "You must think us all fools." "nnk" "We all saw you" "I have proof you did" "caught on camera!"]
 
@@ -1256,9 +1315,42 @@ bMotion_abstract_batchadd "autoAways" [list "oh, so we're not interesting enough
 
 bMotion_abstract_batchadd "tech_functions" [list "virus-scan" "validate" "manage" "install" "clean" "update" "audit" ]
 
-bMotion_abstract_batchadd "sucks" [list "%% = %VAR{PROM}" ]
+bMotion_abstract_batchadd "sucks" {
+	"%% = %VAR{PROM}"
+	"%% is a pile of %VAR{prom_first}"
+}
 
-bMotion_abstract_batchadd "yeses" [list "Yes." "yes" "yes." "mais oui" "oui" "but of course" "hai" "ja" "absolutement" "yup" "and you don't even have lots of forms to fill in" "mmm" "true" "nononononono*%|*=yes" "unquestionably" "amen" "undoubtedly" "affirmative" "all right" "yea" "yep" "aye" "exactly" "definitely" "indubitably" "naturally" "of course" "/nods" "*nod*"]
+bMotion_abstract_batchadd "yeses" {
+	"Yes."
+	"yes"
+	"yes."
+	"mais oui"
+	"oui"
+	"but of course"
+	"hai"
+	"ja"
+	"absolutement"
+	"yup"
+	"and you don't even have lots of forms to fill in"
+	"mmm"
+	"true"
+	"nononononono*%|\[*yes\]"
+	"unquestionably"
+	"amen"
+	"undoubtedly"
+	"affirmative"
+	"all right"
+	"yea"
+	"yep"
+	"aye"
+	"exactly"
+	"definitely"
+	"indubitably"
+	"naturally"
+	"of course"
+	"/nods"
+	"*nod*"
+}
 
 bMotion_abstract_batchadd "sillyThings" [list "12 year old black metal kids" "14 US dollars" "1.5 pie" "20 minutes till lunch" "5 litres of Halfords 10W-40" "5 pints" "99 bicycle clips" "a 12-inch pianist" "a 1.44MB floppy disk" "a 1979 Aston Martin" "a 7MB Flash movie" "AA" "a backup" "a badger" "a bag" "a bagette" "a bank" "a barbecue" "a bath" "a baton" "a bazooka" "a beach" "a beard" "a beast" "a bed" "Aberystwyth" "a better computer" "a big stick with nails in it" "a bike" "a bird"			"a biscuit tin" "a blanket" "a bloke" "a bog wallness" "a boiler" "a boob" "a book" "a bookshelf" "a bookstore" "a boot" "a bot" "a bottle" "a bottom" "a box" "a boy"	"a branch" "a brick" "a bridge" "a broken CD case" "a brother" "a brownie" "a bucket" "a budget" "a building" "a bullet" "a bunker" "a bus" "a business" "a button" "a cab"			"a camara" "a camera" "a candidate" "a can of coke" "a can of diet coke (bleh)" "a capital" "a Cappucino" "a captain" "a car" "a car park" "a carrot" "a cartoon" "a case" "a cassette" "a cassette deck"		"a cat" "a catflap" "a cd wallet" "a ceiling" "a cellar" "a certain" "a chain" "a champion" "a channel" "a chat" "a chatterbot" "a cheque" "a choir" "a Christian" "a chum"			"a cinema" "a circus" "a client" "a clock" "a clothes peg" "a clown" "a coffee pot" "a company" "a compiler" "a complete central heating system" ]
 
