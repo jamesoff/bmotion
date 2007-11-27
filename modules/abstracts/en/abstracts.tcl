@@ -122,6 +122,8 @@ bMotion_abstract_batchadd "chocolates" {
 	"smarties"
 	"cadburys buttons"
 	"edible panties"
+	"curly wurly"
+	"snickers"
 }
 
 bMotion_abstract_register "hiddenBehinds"
