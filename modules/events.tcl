@@ -105,6 +105,11 @@ proc bMotion_event_onpart {nick host handle channel {msg ""}} {
     return 0
   }
 
+	# channel is missing when the bot itself is parting, so ignore itself
+	if [isbotnick $nick] {
+		return 0
+	} 
+
 	if {![channel get $channel bmotion]} {
 		return 0
 	}
@@ -128,6 +133,11 @@ proc bMotion_event_onquit {nick host handle channel reason} {
   if {$bMotionGlobal == 0} {
     return 0
   }
+
+	# channel is missing when the bot itself is quiting, so ignore itself
+	if [isbotnick $nick] {
+		return 0
+	} 
 
 	if {![channel get $channel bmotion]} {
 		return 0
