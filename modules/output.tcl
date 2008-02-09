@@ -348,7 +348,10 @@ proc bMotionInterpolation2 { line } {
 		bMotion_putloglev 5 * "bMotionInterpolation2 ($line)"
 	#owners
 	set loops 0
+
 	while {[regexp -nocase "%OWNER\{(.*?)\}" $line matches BOOM]} {
+		set BOOM [string map {\\ \\\\ [ \\\[ ] \\\] \{ \\\{ \} \\\} $ \\\$ \" \\\" | \\\|} $BOOM]
+
 		incr loops
 		if {$loops > 10} {
 			putlog "bMotion: ALERT! looping too much in %OWNER code with $line"
@@ -356,6 +359,7 @@ proc bMotionInterpolation2 { line } {
 		}
 		# set line [bMotionInsertString $line "%OWNER\{$BOOM\}" [bMotionMakePossessive $BOOM]]
 		regsub -nocase "%OWNER\{$BOOM\}" $line [bMotionMakePossessive $BOOM] line
+		regsub -all "\\\\" $line "" line
 	}
 
 	set loops 0
