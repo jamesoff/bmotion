@@ -940,17 +940,17 @@ proc bMotion_check_tired { min hour day month year } {
 
 # go to sleep
 proc bMotion_go_to_sleep { } {
-	# ok this is the plan
-	# 1. announce we feel tired
-	# 2. ???
-	# 3. sleep
+# ok this is the plan
+# 1. announce we feel tired
+# 2. ???
+# 3. sleep
 	global bMotionSettings BMOTION_SLEEP bMotionChannels
 	bMotion_update_chanlist
 
 	if {$bMotionSettings(asleep) == $BMOTION_SLEEP(AWAKE)} {
 		bMotion_putloglev 3 * "considering awake -> bedtime"
 		if {[rand 10] > 3} {
-			# announce we're tired
+		# announce we're tired
 			set bMotionSettings(asleep) $BMOTION_SLEEP(BEDTIME)
 			putlog "bMotion: preparing to go to bed"
 			foreach chan $bMotionChannels {
@@ -969,19 +969,21 @@ proc bMotion_go_to_sleep { } {
 	if {$bMotionSettings(asleep) == $BMOTION_SLEEP(BEDTIME)} {
 		bMotion_putloglev 3 * "considering bedtime -> sleep"
 		if {[rand 10] > 3} {
-			set bMotionSettings(asleep) $BMOTION_SLEEP(ASLEEP)
-			putserv "AWAY :ZzZz"
-			# go to sleep
-			foreach chan $bMotionChannels {
-				if [bMotion_is_active_enough $chan] {
-					bMotion_putloglev 3 * "sending sleeping output to $chan"
-					bMotionDoAction $chan "" "%VAR{go_sleeps}"
-				}
-			}
-			putlog "bMotion: gone to sleep"
+		# go to sleep
 			set hour [bMotion_setting_get "wakeytime_hour"]
 			set minute [bMotion_setting_get "wakeytime_minute"]
 			set bMotionSettings(sleepy_nextchange) [bMotion_sleep_next_event "$hour:$minute"]
+			catch {
+				foreach chan $bMotionChannels {
+					if [bMotion_is_active_enough $chan] {
+						bMotion_putloglev 3 * "sending sleeping output to $chan"
+						bMotionDoAction $chan "" "%VAR{go_sleeps}"
+					}
+				}
+			}
+			set bMotionSettings(asleep) $BMOTION_SLEEP(ASLEEP)
+			putserv "AWAY :ZzZz"
+			putlog "bMotion: gone to sleep"
 			return
 		} else {
 			bMotion_putloglev 1 * "not quite tired enough to actually go to sleep yet"
@@ -1002,6 +1004,10 @@ proc bMotion_wake_up { } {
 			set bMotionSettings(asleep) $BMOTION_SLEEP(AWAKE)
 			putserv "AWAY"
 
+			set hour [bMotion_setting_get "bedtime_hour"]
+			set minute [bMotion_setting_get "bedtime_minute"]
+			set bMotionSettings(sleepy_nextchange) [bMotion_sleep_next_event "$hour:$minute"]
+
 			foreach chan $bMotionChannels {
 				# don't check for active enough here, as we're waking everyone up
 				# but do check we didn't speak last as that just looks dumb
@@ -1011,9 +1017,6 @@ proc bMotion_wake_up { } {
 				}
 			}
 			
-			set hour [bMotion_setting_get "bedtime_hour"]
-			set minute [bMotion_setting_get "bedtime_minute"]
-			set bMotionSettings(sleepy_nextchange) [bMotion_sleep_next_event "$hour:$minute"]
 			return
 		} else {
 			bMotion_putloglev d * "just a few more minutes in bed..."
