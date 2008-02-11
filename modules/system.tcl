@@ -1105,5 +1105,23 @@ if {[bMotion_setting_get "sleepy"] == 1} {
 	set bMotionSettings(sleepy_nextchange) [bMotion_sleep_next_event "$bMotionSettings(bedtime_hour):$bMotionSettings(bedtime_minute)"]
 }
 
+proc bMotion_get_daytime { } {
+	set hour [clock format [clock seconds] -format "%H"]
+
+	if {$hour < 1} {
+		return "evening"
+	}
+
+	if {$hour < 12} {
+		return "morning"
+	}
+
+	if {$hour < 6} {
+		return "afternoon"
+	}
+
+	return "evening"
+}
+
 bMotion_putloglev d * "bMotion: system module loaded"
 

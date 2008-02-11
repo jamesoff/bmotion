@@ -188,6 +188,7 @@ bMotion_abstract_batchadd "answerWhats" {
 
 bMotion_abstract_register "answerWhos"
 bMotion_abstract_batchadd "answerWhos" {
+	"Dr Beanturd Cake"
 	"%ruser"
 	"me"
 	"you"
@@ -317,11 +318,8 @@ bMotion_abstract_batchadd "answerWhens" {
 	"yesterday"
 	"tomorrow"
 	"today"
-	"in 10 minutes"
-	"4:32"
-	"7:53"
-	"9:21"
-	"16:08"
+	"in %NUMBER{59} minutes"
+	"%NUMBER{12}:%NUMBER{5}%NUMBER{9}"
 }
 
 bMotion_abstract_register "answerHowmanys"
@@ -1149,6 +1147,8 @@ bMotion_abstract_batchadd "prom_first" {
 	"wank"
 	"jizz"
 	"ass"
+	"bum"
+	"twat"
 }
 
 bMotion_abstract_batchadd "silences" {
@@ -1354,7 +1354,7 @@ bMotion_abstract_batchadd "yeses" {
 	"*nod*"
 }
 
-bMotion_abstract_batchadd "sillyThings" [list "12 year old black metal kids" "14 US dollars" "1.5 pie" "20 minutes till lunch" "5 litres of Halfords 10W-40" "5 pints" "99 bicycle clips" "a 12-inch pianist" "a 1.44MB floppy disk" "a 1979 Aston Martin" "a 7MB Flash movie" "AA" "a backup" "a badger" "a bag" "a bagette" "a bank" "a barbecue" "a bath" "a baton" "a bazooka" "a beach" "a beard" "a beast" "a bed" "Aberystwyth" "a better computer" "a big stick with nails in it" "a bike" "a bird"			"a biscuit tin" "a blanket" "a bloke" "a bog wallness" "a boiler" "a boob" "a book" "a bookshelf" "a bookstore" "a boot" "a bot" "a bottle" "a bottom" "a box" "a boy"	"a branch" "a brick" "a bridge" "a broken CD case" "a brother" "a brownie" "a bucket" "a budget" "a building" "a bullet" "a bunker" "a bus" "a business" "a button" "a cab"			"a camara" "a camera" "a candidate" "a can of coke" "a can of diet coke (bleh)" "a capital" "a Cappucino" "a captain" "a car" "a car park" "a carrot" "a cartoon" "a case" "a cassette" "a cassette deck"		"a cat" "a catflap" "a cd wallet" "a ceiling" "a cellar" "a certain" "a chain" "a champion" "a channel" "a chat" "a chatterbot" "a cheque" "a choir" "a Christian" "a chum"			"a cinema" "a circus" "a client" "a clock" "a clothes peg" "a clown" "a coffee pot" "a company" "a compiler" "a complete central heating system" ]
+bMotion_abstract_batchadd "sillyThings" [list "12 year old black metal kids" "14 US dollars" "1.5 pie" "20 minutes till lunch" "5 litres of Halfords 10W-40" "5 pints" "99 bicycle clips" "a 12-inch pianist" "a 1.44MB floppy disk" "a 1979 Aston Martin" "a 7MB Flash movie" "AA" "a backup" "a badger" "a bag" "a bagette" "a bank" "a barbecue" "a bath" "a baton" "a bazooka" "a beach" "a beard" "a beast" "a bed" "Aberystwyth" "a better computer" "a big stick with nails in it" "a bike" "a bird"			"a biscuit tin" "a blanket" "a bloke" "a bog wallness" "a boiler" "a boob" "a book" "a bookshelf" "a bookstore" "a boot" "a bot" "a bottle" "a bottom" "a box" "a boy"	"a branch" "a brick" "a bridge" "a broken CD case" "a brother" "a brownie" "a bucket" "a budget" "a building" "a bullet" "a bunker" "a bus" "a business" "a button" "a cab"			"a camara" "a camera" "a candidate" "a can of coke" "a can of diet coke (bleh)" "a capital" "a Cappucino" "a captain" "a car" "a car park" "a carrot" "a cartoon" "a case" "a cassette" "a cassette deck"		"a cat" "a catflap" "a cd wallet" "a ceiling" "a cellar" "a certain" "a chain" "a champion" "a channel" "a chat" "a chatterbot" "a cheque" "a choir" "a Christian" "a chum"			"a cinema" "a circus" "a client" "a clock" "a clothes peg" "a clown" "a coffee pot" "a company" "a compiler" "a complete central heating system" "marinated fuck giblets" ]
 
 bMotion_abstract_batchadd "blownAways" [list "/is blown off feet by force of %%'s statement%|%bot\[50,¬VAR{picksUp}\]" "/falls over%|%bot\[50,¬VAR{picksUp}\]" "/is blown away by force of %%'s statement%|%bot\[50,¬VAR{picksUp}\]" "ow my eyes :(" "/blinks" ":O" "o_O" ":o" "blimey" "crumbs" "i say" "lordy" ]
 
@@ -1448,7 +1448,10 @@ bMotion_abstract_batchadd "insult_joins" [list "%ruser: yeah, %% does suckOH HI 
 
 bMotion_abstract_batchadd "pullsOut" [list "/pulls it out%|%bot\[50,¬VAR{wahey}\]" ]
 
-bMotion_abstract_batchadd "goodMornings" [list "Morning %%" "good morning %%" "What time do you call this?" "G'day" "*yawn*" "r"]
+bMotion_abstract_batchadd "goodMornings" [list "%daytime %%" "good %daytime %%" "What time do you call this?" "G'day" "*yawn*" "r"]
+
+#clear out old good-morning text
+bMotion_abstract_add_filter "goodMornings" "morning"
 
 bMotion_abstract_batchadd "stonedRandomStuff" [list "wheeeeeeee" "wheeeee..." "hey... i sound really stoned..." "hey, my hands are huge... they can touch anything but themselves... oh, wait" "slap my ass and call me charlie" "I don't think I'm ever going to come down" "peace" "flower power rules" "Did you ever wonder about the rising situation in Eastern Europe" "Hey, my TCL is HUGE" "I love you all" "look at all those beautiful colours" "I have to be stoned to feel normal" "see the marmalade skies" ]
 
@@ -2169,9 +2172,9 @@ bMotion_abstract_register "go_sleeps_male" {
 bMotion_abstract_register "wake_ups" {
 	"/wakes up"
 	"/awakens"
-	"good morning!"
-	"good morning"
-	"morning"
+	"good %daytime!"
+	"good %daytime"
+	"%daytime"
 	"r"
 	"mmm toast"
 	"/eats breakfast"

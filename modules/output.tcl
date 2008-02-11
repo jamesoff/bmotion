@@ -201,39 +201,33 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 
 	#set loops 0
 	bMotion_putloglev 4 * "doing VAR processing"
-		set lastloop ""
+	set lastloop ""
 	while {[regexp -nocase {%VAR\{([^\}]+)\}(\{strip\})?} $line matches BOOM clean]} {
-		#putlog "var: clean = $clean"
 		global $BOOM
-		#incr loops
-		#if {$loops > 10} {
-		#  putlog "bMotion: ALERT! looping too much in %VAR code with $line"
-		#  set line "/has a tremendous error while trying to sort something out :("
-		#}
 		#see if we have a new-style abstract available
 		set newText [bMotion_abstract_get $BOOM]
 		set replacement ""
 		if {$newText == ""} {
-						bMotion_putloglev d * "abstract '$BOOM' doesn't exist in new abstracts system!"
+			bMotion_putloglev d * "abstract '$BOOM' doesn't exist in new abstracts system!"
 			#insert old style
 			set var [subst $$BOOM]
 			set replacement [pickRandom $var]
 		} else {
-				set replacement $newText
+			set replacement $newText
 		}
 		if {$clean != ""} {
-				set replacement [bMotion_strip_article $replacement]
+			set replacement [bMotion_strip_article $replacement]
 		}
 		regsub -nocase "%VAR\{$BOOM\}$clean" $line $replacement line
 		if [string match "*%noun*" $line] {
 			set line [bMotionInsertString $line "%noun" "%VAR{sillyThings}"]
 		}
-				if {$lastloop == $line} {
+		if {$lastloop == $line} {
 			putlog "bMotion: ALERT! looping too much in %VAR code with $line (no change since last parse)"
 			set line "/has a tremendous error while trying to sort something out :("
-						break
-				}
-				set lastloop $line
+			break
+		}
+		set lastloop $line
 	}
 
 	set loops 0
@@ -257,39 +251,39 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 
 	set loops 0
 	bMotion_putloglev 4 * "doing NUMBER processing"
-		set padding 0
+	set padding 0
 	while {[regexp "%NUMBER\{(\[0-9\]+)\}(\{(\[0-9\]+)\})?" $line matches numberString paddingOpt padding]} {
 		set var [bMotion_get_number [bMotion_rand_nonzero $numberString]]
-				if {$padding > 0} {
-						set fmt "%0$padding"
-						append fmt "u"
-						set var [format $fmt $var]
-				}
+		if {$padding > 0} {
+			set fmt "%0$padding"
+			append fmt "u"
+			set var [format $fmt $var]
+		}
 		incr loops
 		if {$loops > 10} {
 			putlog "bMotion: ALERT! looping too much in %NUMBER code with $line"
 			set line "/has a tremendous error while trying to think of a number :("
 		}
 		set line [bMotionInsertString $line "%NUMBER\\{$numberString\\}(\\{\[0-9\]+\\})?" $var]
-				set padding 0
+		set padding 0
 	}
 
-		set loops 0
-		bMotion_putloglev 4 * "doing TIME processing"
-		while {[regexp "%TIME\{(\[a-zA-Z0-9 -\]+)\}" $line matches timeString]} {
-				bMotion_putloglev 2 * "found timestring $timeString"
-				set origtime $timeString
-				regsub -nocase {^-([0-9]) minutes?$} $timeString "\\1 minutes ago" timeString
-				set var [clock scan $timeString]
-				set var [clock format $var -format "%I:%M %p"]
-				bMotion_putloglev 2 * "using time $var"
-				incr loops
-				if {$loops > 10} {
-						putlog "bMotion: ALERT! looping too much in %TIME code with %line"
-						set line "/has a tremendous error while trying to do complex time mathematics :("
-				}
-				set line [bMotionInsertString $line "%TIME\\{$origtime\\}" $var]
+	set loops 0
+	bMotion_putloglev 4 * "doing TIME processing"
+	while {[regexp "%TIME\{(\[a-zA-Z0-9 -\]+)\}" $line matches timeString]} {
+		bMotion_putloglev 2 * "found timestring $timeString"
+		set origtime $timeString
+		regsub -nocase {^-([0-9]) minutes?$} $timeString "\\1 minutes ago" timeString
+		set var [clock scan $timeString]
+		set var [clock format $var -format "%I:%M %p"]
+		bMotion_putloglev 2 * "using time $var"
+		incr loops
+		if {$loops > 10} {
+			putlog "bMotion: ALERT! looping too much in %TIME code with %line"
+			set line "/has a tremendous error while trying to do complex time mathematics :("
 		}
+		set line [bMotionInsertString $line "%TIME\\{$origtime\\}" $var]
+	}
 
 	bMotion_putloglev 4 * "doing misc interpolation processing for $line"
 	set line [bMotionInsertString $line "%%" $nick]
@@ -302,9 +296,10 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 	set line [bMotionInsertString $line "%hisher" [getHisHer]]
 	set line [bMotionInsertString $line "%2" $moreText]
 	set line [bMotionInsertString $line "%percent" "%"]
-		
+	set line [bMotionInsertString $line "%daytime" [bMotion_get_daytime]]
 
-		bMotion_putloglev 4 * "done misc"
+
+	bMotion_putloglev 4 * "done misc"
 
 	#ruser:
 	set loops 0

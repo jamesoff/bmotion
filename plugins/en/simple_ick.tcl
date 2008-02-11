@@ -30,14 +30,9 @@ bMotion_abstract_batchadd "ick_males" {
   "the Pope" 
   "John Major" 
   "your dad" 
-  "Jed" 
   "the entire crew of Voyager" 
   "your mum"
-  "Joost"
   "Bill Gates"
-  "damo"
-  "jms"
-  "Colen"
   "the Kazon"
   "the cast of Dallas"
   "Hwoarang"
@@ -50,27 +45,23 @@ bMotion_abstract_batchadd "ick_males" {
   "the editor of The Sun"
   "Tim"
   "Brian"
+	"%ruser{male}"
 }
 
 bMotion_abstract_register "ick_females"
 bMotion_abstract_batchadd "ick_females" { 
-  "wendy" 
-  "sue" 
-  "cherie blair" 
   "the queen" 
   "your mum" 
   "Miss Marple" 
   "that really minging woman who was on Eurovision" 
   "Ling Xiaoyu"
-  "Domilijn"
-  "monica"
   "Britney Spears"
   "Ling Xiaoyu"
   "Anna Kournikova"
   "Holly Valence"
   "Jade of Big Brother"
   "Davina McCall"
-  "Cath 2's mum"
+	"%ruser{female}"
 }
 
 bMotion_abstract_register "ick_wraps"
@@ -85,6 +76,7 @@ bMotion_abstract_batchadd "ick_wraps" {
   "zero-gravity"
   "pantyhose"
   "chains"
+	"hotpants"
 }
 
 bMotion_abstract_register "ick_covereds"
@@ -96,12 +88,12 @@ bMotion_abstract_batchadd "ick_covereds" {
 
 bMotion_abstract_register "ick_locations"
 bMotion_abstract_batchadd "ick_locations" { 
-  "in your bed" "on wendy's desk" "in the yellow room" 
-  "on a chair in the Nash lounge" "on the Nash kitchen table" "in a field" "on a checkout" "against a fish tank" 
+  "in your bed"   
+  "on a chair" "in a field" "on a checkout" "against a fish tank" 
   "on a trampoline" "from behind" 
-  "on a train" "on a bus" "in a swimming pool" "at the bus stop" "in your parents' bed" "under that bush" "on dunos' sofa"
-  "at James' PC" "under your desk" "at the local Tesco" "over there -->" "in the shower" "behind the bikesheds"
-  "on TalkCity" "in #New2Internet" "on Chabbys front porch" "in Essex" "in Wales" "on a hilltop" "at Pontins" "for a porn site"
+  "on a train" "on a bus" "in a swimming pool" "at the bus stop" "in your parents' bed" "under that bush" 
+   "under your desk" "at the local Tesco" "over there -->" "in the shower" "behind the bikesheds"
+     "in Essex" "in Wales" "on a hilltop" "at Pontins" "for a porn site"
   "in %OWNER{%ruser} bed"
 }
 
@@ -115,6 +107,8 @@ bMotion_abstract_batchadd "ick_fucks" {
   "being intimate with"
   "fscking"
   "fux0ring"
+	"rogering"
+	"making sweet love to"
 }
 
 bMotion_abstract_register "ick_dildos"

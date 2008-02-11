@@ -16,24 +16,24 @@
 bMotion_plugin_add_complex "sucks" {sucks?$} 30 bMotion_plugin_complex_sucks "en"
 
 proc bMotion_plugin_complex_sucks { nick host handle channel text } {
-	global botnicks
+		global botnicks
 
-  if [regexp -nocase {([^ ]+) ((is|si|==) (teh|the)? )?sucks?} $text matches item] {
-    if {$item == "=="} {
-      return 0
-    }
+		if [regexp -nocase {([^ ]+) ((is|si|==) (teh|the)? )?sucks?} $text matches item] {
+				if {$item == "=="} {
+						return 0
+				}
 
-		if {[string tolower $item] == "i"} {
-			return 0
+				if {[string tolower $item] == "i"} {
+						return 0
+				}
+
+				if [regexp -nocase "you|we|really|=|i|$botnicks" $item] {
+						return 0
+				}
+
+				bMotionDoAction $channel $item "%VAR{sucks}"
+				return 1
 		}
-
-		if [regexp -nocase "=|i|$botnicks" $item] {
-			return 0
-		}
-
-    bMotionDoAction $channel $item "%VAR{sucks}"
-		return 1
-  }
 }
 
 
