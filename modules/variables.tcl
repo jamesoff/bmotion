@@ -65,9 +65,9 @@ if {![info exists bMotionInfo]} {
   set bMotionCache(typoFix) ""
   set bMotionCache(remoteBot) ""
   set bMotionCache(randomUser) ""
-  set bMotionCache(lastPlugin) ""
 
-  set bMotionCache(last_simple) ""
+  bMotion_plugins_settings_set "system" "lastPlugin" "" "" ""
+  bMotion_plugins_settings_set "system" "last_simple" "" "" ""
 
 #this is set later
 set botnicks ""

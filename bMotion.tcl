@@ -65,6 +65,12 @@ proc bMotion_putloglev { level star text } {
   }
 }
 
+# needed for variables
+if {$bMotion_testing == 1} {
+  putlog "... loading plugin settings"
+}
+source "$bMotionModules/plugins_settings.tcl"
+
 # init default variables
 if {$bMotion_testing == 1} {
   putlog "... loading variables"
@@ -174,10 +180,6 @@ if {$bMotion_testing == 1} {
 }
 source "$bMotionModules/mood.tcl"
 
-if {$bMotion_testing == 1} {
-  putlog "... loading plugin settings"
-}
-source "$bMotionModules/plugins_settings.tcl"
 
 ### That's everything but the plugins stuff loaded. Now load extra modules
 bMotion_putloglev d * "looking for 3rd party modules..."

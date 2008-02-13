@@ -80,7 +80,7 @@ proc bMotion_plugin_add_simple { id match chance response language} {
 ## Find a simple plugin
 proc bMotion_plugin_find_simple { text lang } {
   bMotion_putloglev 3 * "bMotion_plugin_find_simple: text = $text, lang = $lang"
-  global bMotion_plugins_simple botnicks bMotionCache
+  global bMotion_plugins_simple botnicks
   set s [lsort [array names bMotion_plugins_simple]]
 
   foreach key $s {
@@ -96,11 +96,11 @@ proc bMotion_plugin_find_simple { text lang } {
       if [regexp -nocase $rexp $text] {
         set c [rand 100]
         bMotion_putloglev 4 * "simple plugin $key matches"
-        if {$bMotionCache(last_simple) == $key} {
+        if {[bMotion_plugins_settings_get "system" "last_simple" "" ""] == $key} {
           bMotion_putloglev 3 * "trying to trigger same simple plugin twice in a row, aborting"
           return ""
         }
-	      set bMotionCache(last_simple) $key
+	    bMotion_plugins_settings_set "system" "last_simple" "" "" $key
         if {$chance > $c} {
           bMotion_putloglev 4 * "  `- firing"
           return $response
