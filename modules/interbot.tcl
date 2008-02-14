@@ -51,7 +51,7 @@ proc bMotion_interbot_next_elect { } {
   }
   set bMotion_interbot_timer 1
   set delay [expr [rand 200] + 1700]
-  bMotion_putloglev 2 * "bMotion: starting election timer"
+  bMotion_putloglev 2 * "interbot: starting election timer"
   utimer $delay bMotion_interbot_next_elect
 }
 
@@ -64,32 +64,32 @@ proc bMotion_interbot_next_elect_do { channel } {
   }
   set bMotion_interbot_nextbot_score($channel) $myScore
   set bMotion_interbot_nextbot_nick($channel) $botnick
-  bMotion_putloglev 3 * "bMotion: assuming I'm the nextbot until I find another"
+  bMotion_putloglev 3 * "interbot: assuming I'm the nextbot until I find another"
   catch {
     set bots [chanlist $channel]
     foreach bot $bots {
       #not me you idiot
       if [isbotnick $bot] { continue }
-      bMotion_putloglev 4 * "bMotion: checking $bot for election in $channel"
+      bMotion_putloglev 4 * "interbot: checking $bot for election in $channel"
       set handle [nick2hand $bot $channel]
-      bMotion_putloglev 4 * "bMotion: checking $bot's handle; $handle"
+      bMotion_putloglev 4 * "interbot: checking $bot's handle; $handle"
       if {[matchattr $handle b&K $channel] && [islinked $handle]} {
-        bMotion_putloglev 2 * "bMotion: sending elect_initial to $bot for $channel"
+        bMotion_putloglev 2 * "interbot: sending elect_initial to $bot for $channel"
         putbot $handle "bmotion elect_initial $channel $myScore"
       }
-      bMotion_putloglev 4 * "bMotion: checking $handle over" 
+      bMotion_putloglev 4 * "interbot: checking $handle over" 
     }
   }
-  bMotion_putloglev 3 * "bMotion: election over"
+  bMotion_putloglev 3 * "interbot: election over"
 }
 
 proc bMotion_interbot_catch { bot cmd args } {
   global bMotionInfo
-  bMotion_putloglev 3 * "bMotion: incoming !$args!"
+  bMotion_putloglev 3 * "interbot: incoming !$args!"
   set args [lindex $args 0]
   regexp {([^ ]+) (.+)} $args matches function params
 
-  bMotion_putloglev 2 * "bMotion: got command $function ($params) from $bot"
+  bMotion_putloglev 2 * "interbot: got command $function ($params) from $bot"
 
   switch -exact $function {
     "say" {
@@ -131,12 +131,12 @@ proc bMotion_interbot_next_incoming { bot params } {
 		return
 	}
 
-  bMotion_putloglev 1 * "bMotion: Incoming election from $bot"
+  bMotion_putloglev 1 * "interbot: Incoming election from $bot"
 
 	regexp "(\[#!\].+) (.+)" $params matches channel score
 	catch {
 		if {$score > $bMotion_interbot_nextbot_score($channel)} {
-			bMotion_putloglev 2 * "bMotion: $bot now has highest score on $channel"
+			bMotion_putloglev 2 * "interbot: $bot now has highest score on $channel"
 			set bMotion_interbot_nextbot_score($channel) $score
 			set bMotion_interbot_nextbot_nick($channel) $bot
 		}
@@ -150,10 +150,10 @@ proc bMotion_interbot_next_incoming { bot params } {
 		set myScore -2
 	}
 
-  bMotion_putloglev 2 * "bMotion: My score is $myScore"
+  bMotion_putloglev 2 * "interbot: My score is $myScore"
 
   if {$myScore > $bMotion_interbot_nextbot_score($channel)} {
-    bMotion_putloglev 2 * "bMotion: Actually, I have highest score on $channel, sending out reply"
+    bMotion_putloglev 2 * "interbot: Actually, I have highest score on $channel, sending out reply"
     set bMotion_interbot_nextbot_score($channel) $myScore
     set bMotion_interbot_nextbot_nick($channel) $botnick
 
@@ -173,11 +173,11 @@ proc bMotion_interbot_next_incoming_reply { bot params } {
   #another bot is forcing an election
   global bMotion_interbot_nextbot_score bMotion_interbot_nextbot_nick 
 
-  bMotion_putloglev 1 * "bMotion: Incoming election reply from $bot"
+  bMotion_putloglev 1 * "interbot: Incoming election reply from $bot"
 
   regexp "(\[#!\].+) (.+)" $params matches channel score
   if {$score > $bMotion_interbot_nextbot_score($channel)} {
-    bMotion_putloglev 2 * "bMotion: $bot now has highest score on $channel"
+    bMotion_putloglev 2 * "interbot: $bot now has highest score on $channel"
     set bMotion_interbot_nextbot_score($channel) $score
     set bMotion_interbot_nextbot_nick($channel) $bot
   }
@@ -192,12 +192,12 @@ proc bMotionSendSayChan { channel text thisBot} {
 	}
 
   set text [bMotionInsertString $text "¬" "%"]
-  bMotion_putloglev 1 * "bMotion: pushing command say ($channel $text) to $thisBot"
+  bMotion_putloglev 1 * "interbot: pushing command say ($channel $text) to $thisBot"
   if [islinked $thisBot] {
     putbot $thisBot "bmotion say $channel :$text"
     return $thisBot
   } else {
-    putlog "bMotion: ALERT! Trying to talk to bot $thisBot, but it isn't linked"
+    putlog "interbot: ALERT! Trying to talk to bot $thisBot, but it isn't linked"
     return ""
   }
 }
@@ -206,7 +206,7 @@ proc bMotionCatchSayChan { bot params } {
   global bMotionInfo
   global bMotionQueueTimer
 
-  bMotion_putloglev 4 * "bMotion: bMotionCatchSayChan $bot $params"
+  bMotion_putloglev 4 * "interbot: bMotionCatchSayChan $bot $params"
 
   if [regexp {([#!][^ ]+) :(.+)} $params matches channel txt] {
   
@@ -218,7 +218,7 @@ proc bMotionCatchSayChan { bot params } {
 		regsub "^\[0-9\]+,(.+)" $txt {\1} txt
 
     bMotionDoAction $channel $bot $txt "" 0 1
-    bMotion_putloglev 1 * "bMotion: done say command from $bot"
+    bMotion_putloglev 1 * "interbot: done say command from $bot"
     if {$bMotionInfo(silence) == 2} {
       set bMotionInfo(silence) 1
     }
@@ -250,7 +250,7 @@ proc bMotion_interbot_me_next { channel } {
 
   #let's look to see if we know any other bots on the botnet
   if {[llength [bMotion_interbot_otherbots $channel]] == 0} {
-		bMotion_putloglev 4 * "no other bots, returning 1"
+		bMotion_putloglev 4 * "interbot: no other bots, returning 1"
     return 1
   }
 
@@ -258,19 +258,18 @@ proc bMotion_interbot_me_next { channel } {
   ## /|\  KIS hack
   catch {
     if {$bMotion_interbot_nextbot_score($channel) < 0} {
-      bMotion_putloglev 4 * "bMotion: nextbot_score is <0, I'm not answering"
-      return 0
+      bMotion_putloglev 4 * "interbot: nextbot_score is <0, I'm not answering"
+      set me 0
     }
 
     if {$bMotion_interbot_nextbot_nick($channel) == $botnick} {
-      bMotion_putloglev 4 * "bMotion: nextbot_nick is me; calling election and returning 1"
+      bMotion_putloglev 4 * "interbot: nextbot_nick is me; calling election and returning 1"
       bMotion_interbot_next_elect_do $channel
       set me 1 
       ## /|\ KIS hack
-      return 1
     }
   }
-  bMotion_putloglev 4 * "bMotion: nextbot_nick is not me" 
+  #bMotion_putloglev 4 * "interbot: nextbot_nick is not me" 
   #if it's noone, the winning bot will force an election anyway
   return $me 
   #return 0
@@ -333,7 +332,7 @@ proc bMotion_interbot_hay { bot channels } {
 		set channels $chans
 	}
   set bMotion_interbot_otherbots($bot) $channels
-  bMotion_putloglev d * "bMotion: Met bMotion bot $bot on channels $channels"
+  bMotion_putloglev d * "interbot: Met bMotion bot $bot on channels $channels"
   putbot $bot "bmotion SUP $bMotionChannels"
   array unset bMotion_interbot_otherbots dummy
 }
@@ -350,7 +349,7 @@ proc bMotion_interbot_sup { bot channels } {
 	}
 
   set bMotion_interbot_otherbots($bot) $channels
-  bMotion_putloglev d * "bMotion: bMotion bot $bot on channels $channels"
+  bMotion_putloglev d * "interbot: bMotion bot $bot on channels $channels"
   array unset bMotion_interbot_otherbots dummy
 }
 
@@ -373,7 +372,7 @@ proc bMotion_interbot_resync { } {
   unset bMotion_interbot_otherbots
   set bMotion_interbot_otherbots(dummy) ""
 
-  putloglev d * "bMotion: Resyncing with botnet for bMotion bots"
+  putloglev d * "interbot: Resyncing with botnet for bMotion bots"
   putallbots "bmotion HAY $bMotionChannels ($network)"
 }
 
@@ -399,4 +398,4 @@ bind link - * bMotion_interbot_link
 
 utimer [expr [rand 900] + 300] bMotion_interbot_resync
 
-bMotion_putloglev d * "bMotion: interbot module loaded"
+bMotion_putloglev d * "interbot: interbot module loaded"
