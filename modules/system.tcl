@@ -146,6 +146,8 @@ proc bMotion_is_active_enough { channel { limit 0 } } {
 proc bMotion_random_away {} {
 	global bMotionLastEvent bMotionChannels bMotionInfo 
 
+	set timeNow [clock seconds]
+
 	# check if it's worth doing anything
 	if {[bMotion_setting_get "bitlbee"]} {
 		#never go away in bitlbee
@@ -198,7 +200,6 @@ proc doRandomStuff {} {
 	global bMotionLastEvent bMotionOriginalNick bMotionChannels
 	global BMOTION_SLEEP
 
-	set timeNow [clock seconds]
 	set saidChannels [list]
 	set silentChannels [list]
 	set bMotionOriginalNick ""
@@ -347,18 +348,23 @@ proc bMotionSetRandomBack {} {
 proc bMotionTalkingToMe { text } {
 	global botnicks
 
-	bMotion_putloglev 2 * "checking $text to see if they're talking to me"
-	if [regexp -nocase "^$botnicks\[ :,\]" $text] {
-		bMotion_putloglev 2 * "`- yes"	
-		return 1
+	bMotion_putloglev 4 * "bMotionTalkingToMe $text"
+
+	# look for a nick at the start of the line
+	if [regexp -nocase {^([^ :,]+)} $text matches nick] {
+		bMotion_putloglev 2 * "looks like they're talking to $nick"
+		if [regexp -nocase $botnicks $nick] {
+			bMotion_putloglev 2 * "that's me!"
+			return 1
+		}
 	}
 
 	if [regexp -nocase "$botnicks\[!?~\]*$" $text] {
-		bMotion_putloglev 2 * "`- yes"	
+		bMotion_putloglev 2 * "found my name at the end of the line"
 		return 1
 	}
 
-	bMotion_putloglev 2 * "`- no"
+	bMotion_putloglev 2 * "not talking to me"
 	return 0
 }
 
