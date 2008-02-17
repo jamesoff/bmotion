@@ -1027,7 +1027,6 @@ bMotion_abstract_register "kills"
 bMotion_abstract_register "locations"
 bMotion_abstract_register "lols"
 bMotion_abstract_register "lostPlot"
-bMotion_abstract_register "loveresponses"
 bMotion_abstract_register "makeItSos"
 bMotion_abstract_register "mingreplies"
 bMotion_abstract_register "moos"
@@ -1123,7 +1122,27 @@ bMotion_abstract_batchadd "rarrs" [list "~rarr~" "~oof~" "uNf" "*uNf" "*squeaky*
 
 bMotion_abstract_batchadd "sorryoks" [list "ok" "that's ok" "alright then" "i forgive you" "/spanks %%%|%BOT\[¬VAR{rarrs}\]" "That's ok then. I suppose. Don't think this makes me like you again though" "humph" ]
 
-bMotion_abstract_batchadd "loveresponses" [list "awww thanks" "i love you too" "i wuv you too" "and i love you" "and i wuv you" "aww wuv you too" "awww *giggle*" "i love you just as much" "i want to have your babies" "/blushes" "hehe thanks" "you know, I've always loved you the most" ":*" ":x" ]
+bMotion_abstract_register "loveresponses" {
+	"awww thanks" 
+	"i love you too" 
+	"i wuv you too" 
+	"and i love you" 
+	"and i wuv you" 
+	"aww wuv you too" 
+	"awww *giggle*" 
+	"i love you just as much" 
+	"i want to have your babies" 
+	"/blushes" 
+	"hehe thanks" 
+	"you know, I've always loved you the most" 
+	":*" 
+	":x"
+	"and i love you th%REPEAT{3:7:i}s much: <%REPEAT{10:50:-}>"
+}
+
+bMotion_abstract_register "loveresponses_male" {
+	"and i love you th%REPEAT{3:7:i}s much:%|*schwing*%|%VAR{oops}"
+}
 
 bMotion_abstract_batchadd "hugs" [list "*hugs %%*" "/huggles %%" "/snuggles %%" "*snuggles %%*" "/huggles with %%" "/squeezes %%" "/snoofles %%" ]
 

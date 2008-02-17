@@ -632,6 +632,148 @@ bMotion_abstract_register "selfverb" {
 "jamming"
 }
 
+
+bMotion_abstract_register "nice_adjective" {
+	"happy"
+	"nice"
+	"intact"
+	"clean"
+	"curvy"
+	"alive"
+	"lovely"
+	"sexy"
+	"pretty"
+	"cute"
+	"reassuring"
+	"normal-sized"
+	"loving"
+	"visible"
+	"celibate"
+	"well-fed"
+	"cheery"
+	"shiny"
+	"confident"
+	"democratic"
+	"cuddly"
+	"furry"
+}
+
+bMotion_abstract_register "nice_adverb" {
+	"happily"
+	"nicely"
+	"sexily"
+	"cutely"
+	"visibly"
+	"confidently"
+	"lovingly"
+}
+
+bMotion_abstract_register "nice_being" {
+	"angel"
+	"baby"
+	"kitten"
+	"rainbow"
+	"puppy"
+	"guinea pig"
+	"rabbit"
+	"bunny"
+	"fish"
+	"cat"
+	"sheep"
+	"fluffy cloud"
+}
+
+bMotion_abstract_register "nice_beings" {
+	"angels"
+	"babies"
+	"kittens"
+	"rainbows"
+	"puppies"
+	"guinea pigs"
+	"rabbits"
+	"bunnies"
+	"fish"
+	"cats"
+	"sheep"
+	"fluffy clouds"
+}
+
+bMotion_abstract_register "nice_paintstuff" {
+	"coffee"
+	"tea"
+	"hot chocolate"
+	"chocolate"
+	"chocolate body paint"
+	"coffee body paint"
+	"custard"
+}
+
+bMotion_abstract_register "nice_paintbodypart" {
+	"nose"
+	"head"
+	"paws"
+	"fluffy bits"
+}
+
+bMotion_abstract_register "nice_paintbodyparts" {
+	"noses"
+	"heads"
+	"paws"
+	"fluffy bits"
+}
+
+bMotion_abstract_register "nice_beingverb" {
+	"pouring %VAR{nice_paintstuff} over"
+	"petting"
+	"hugging"
+	"stroking"
+	"admiring"
+	"dancing with"
+	"squeezing"
+}
+
+bMotion_abstract_register "nice_place" {
+	"lounge"
+	"park"
+	"ballpond"
+	"bedroom"
+	"bouncy castle"
+}
+
+bMotion_abstract_register "nice_thing" {
+	"foam pointing hand"
+	"cup of coffee"
+	"cup of tea"
+	"cup of hot chocolate"
+	"bunch of roses"
+	"cotton wool ball"
+}
+
+bMotion_abstract_register "nice_things" {
+	"foam pointing hands"
+	"cups of coffee"
+	"cups of tea"
+	"cups of hot chocolate"
+	"bunches of roses"
+	"cotton wool balls"
+}
+
+bMotion_abstract_register "nice_thingverb" {
+	"hugging"
+	"enjoying"
+	"drinking"
+	"admiring"
+	"waving"
+}
+
+bMotion_abstract_register "nice_selfverb" {
+	"hugging each other"
+	"enjoying each other"
+	"petting each other"
+	"stroking each other"
+	"admiring each other"
+}
+
 bMotion_abstract_register "inon" {
 "in"
 "on"
@@ -642,11 +784,22 @@ bMotion_abstract_register "coveredin" {
 "%VAR{paintstuff} covered"
 }
 
+bMotion_abstract_register "nice_coveredin" {
+	"%VAR{nice_paintstuff} covered"
+}
+
 bMotion_abstract_register "fulladjective" {
 "%VAR{adjective}"
 "%VAR{adjective}, %VAR{adjective}"
 "%VAR{coveredin}"
 "%VAR{adjective}, %VAR{coveredin}"
+}
+
+bMotion_abstract_register "nice_fulladjective" {
+	"%VAR{nice_adjective}"
+	"%VAR{nice_adjective}, %VAR{nice_adjective}"
+	"%VAR{nice_coveredin}"
+	"%VAR{nice_adjective}, %VAR{nice_coveredin}"
 }
 
 bMotion_abstract_register "fulladjectives" {
@@ -656,9 +809,20 @@ bMotion_abstract_register "fulladjectives" {
 "%VAR{amount} %VAR{adjective}, %VAR{coveredin}"
 }
 
+bMotion_abstract_register "nice_fulladjectives" {
+	"%VAR{amount} %VAR{nice_adjective}"
+	"%VAR{amount} %VAR{nice_adjective}, %VAR{nice_adjective}"
+	"%VAR{amount{ %VAR{nice_coveredin}"
+	"%VAR{amount} %VAR{nice_adjective}, %VAR{nice_coveredin}"
+
 bMotion_abstract_register "fullbeing" {
 "%VAR{being}"
 "%VAR{fulladjective} %VAR{being}"
+}
+
+bMotion_abstract_register "nice_fullbeing" {
+	"%VAR{nice_being}"
+	"%VAR{nice_fulladjective} %VAR{nice_being}"
 }
 
 bMotion_abstract_register "fullbeings" {
@@ -666,9 +830,19 @@ bMotion_abstract_register "fullbeings" {
 "%VAR{amount} %VAR{fulladjective} %VAR{beings}"
 }
 
+bMotion_abstract_register "nice_fullbeings" {
+	"%VAR{amount} %VAR{nice_beings}"
+	"%VAR{amount} %VAR{nice_fulladjectives} %VAR{nice_beings}"
+}
+
 bMotion_abstract_register "fullbodypart" {
 "%VAR{paintbodypart}"
 "%VAR{paintbodyparts}"
+}
+
+bMotion_abstract_register "nice_fullbodypart" {
+	"%VAR{nice_paintbodypart}"
+	"%VAR{nice_paintbodyparts}"
 }
 
 bMotion_abstract_register "fullthing" {
@@ -690,6 +864,131 @@ bMotion_abstract_register "fullplace" {
 "%VAR{place} of %VAR{material}"
 "%VAR{fulladjective} %VAR{place}"
 "%VAR{fulladjective} %VAR{place} of %VAR{material}"
+}
+
+bMotion_abstract_register "nicemare" {
+	"a %VAR{fullthing} %VAR{thingverb} a %VAR{fullthing}"
+	"a %VAR{fullthings} %VAR{thingverb} a %VAR{fullthing}"
+	"a %VAR{fullthing} %VAR{thingverb} a %VAR{fullthings}"
+	"a %VAR{fullthings} %VAR{thingverb} a %VAR{fullthings}"
+	"a %VAR{fullthing} %VAR{thingverb} a %VAR{fullplace}"
+	"a %VAR{fullthings} %VAR{thingverb} a %VAR{fullplace}"
+	"a %VAR{fullthing} %VAR{thingverb} a %VAR{fullthing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullthings} %VAR{thingverb} a %VAR{fullthing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullthing} %VAR{thingverb} a %VAR{fullthings} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullthings} %VAR{thingverb} a %VAR{fullthings} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{thingverb} a %VAR{fullthing}"
+	"a %VAR{fullbeings} %VAR{thingverb} a %VAR{fullthing}"
+	"a %VAR{fullbeing} %VAR{thingverb} a %VAR{fullthings}"
+	"a %VAR{fullbeings} %VAR{thingverb} a %VAR{fullthings}"
+	"a %VAR{fullbeing} %VAR{thingverb} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{thingverb} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{thingverb} a %VAR{fullthing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{thingverb} a %VAR{fullthing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{thingverb} a %VAR{fullthings} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{thingverb} a %VAR{fullthings} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullthing} %VAR{thingverb} a %VAR{fullbeing}"
+	"a %VAR{fullthings} %VAR{thingverb} a %VAR{fullbeing}"
+	"a %VAR{fullthing} %VAR{thingverb} a %VAR{fullbeings}"
+	"a %VAR{fullthings} %VAR{thingverb} a %VAR{fullbeings}"
+	"a %VAR{fullthing} %VAR{thingverb} a %VAR{fullplace}"
+	"a %VAR{fullthings} %VAR{thingverb} a %VAR{fullplace}"
+	"a %VAR{fullthing} %VAR{thingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullthings} %VAR{thingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullthing} %VAR{thingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullthings} %VAR{thingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{beingverb} a %VAR{fullbeing}"
+	"a %VAR{fullbeings} %VAR{beingverb} a %VAR{fullbeing}"
+	"a %VAR{fullbeing} %VAR{beingverb} a %VAR{fullbeings}"
+	"a %VAR{fullbeings} %VAR{beingverb} a %VAR{fullbeings}"
+	"a %VAR{fullbeing} %VAR{beingverb} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{beingverb} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{beingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{beingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{beingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{beingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{beingverb} a %VAR{fullbeing}"
+	"a %VAR{fullbeings} %VAR{beingverb} a %VAR{fullbeing}"
+	"a %VAR{fullbeing} %VAR{beingverb} a %VAR{fullbeings}"
+	"a %VAR{fullbeings} %VAR{beingverb} a %VAR{fullbeings}"
+	"a %VAR{fullbeing} %VAR{beingverb} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{beingverb} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{beingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{beingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{beingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{beingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullplace}"
+	"a %VAR{fullplace}"
+	"a %VAR{fullplace}"
+	"a %VAR{fullplace}"
+	"a %VAR{fullplace}"
+	"a %VAR{fullplace}"
+	"a %VAR{fullplace}"
+	"a %VAR{fullplace}"
+	"a %VAR{fullplace}"
+	"a %VAR{fullplace}"
+	"a %VAR{fullplace}"
+	"a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{adverb} %VAR{thingverb} a %VAR{fullthing}"
+	"a %VAR{fullbeings} %VAR{adverb} %VAR{thingverb} a %VAR{fullthing}"
+	"a %VAR{fullbeing} %VAR{adverb} %VAR{thingverb} a %VAR{fullthings}"
+	"a %VAR{fullbeings} %VAR{adverb} %VAR{thingverb} a %VAR{fullthings}"
+	"a %VAR{fullbeing} %VAR{adverb} %VAR{thingverb} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{adverb} %VAR{thingverb} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{adverb} %VAR{thingverb} a %VAR{fullthing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{adverb} %VAR{thingverb} a %VAR{fullthing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{adverb} %VAR{thingverb} a %VAR{fullthings} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{adverb} %VAR{thingverb} a %VAR{fullthings} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{adverb} %VAR{beingverb} a %VAR{fullbeing}"
+	"a %VAR{fullbeings} %VAR{adverb} %VAR{beingverb} a %VAR{fullbeing}"
+	"a %VAR{fullbeing} %VAR{adverb} %VAR{beingverb} a %VAR{fullbeings}"
+	"a %VAR{fullbeings} %VAR{adverb} %VAR{beingverb} a %VAR{fullbeings}"
+	"a %VAR{fullbeing} %VAR{adverb} %VAR{beingverb} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{adverb} %VAR{beingverb} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{adverb} %VAR{beingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{adverb} %VAR{beingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{adverb} %VAR{beingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{adverb} %VAR{beingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} and a %VAR{fullbeing} %VAR{selfverb}"
+	"a %VAR{fullbeings} and a %VAR{fullbeing} %VAR{selfverb}"
+	"a %VAR{fullbeing} and a %VAR{fullbeings} %VAR{selfverb}"
+	"a %VAR{fullbeings} and a %VAR{fullbeings} %VAR{selfverb}"
+	"a %VAR{fullbeings} %VAR{selfverb}"
+	"a %VAR{fullbeing} and a %VAR{fullbeing} %VAR{adverb} %VAR{selfverb}"
+	"a %VAR{fullbeings} and a %VAR{fullbeing} %VAR{adverb} %VAR{selfverb}"
+	"a %VAR{fullbeing} and a %VAR{fullbeings} %VAR{adverb} %VAR{selfverb}"
+	"a %VAR{fullbeings} and a %VAR{fullbeings} %VAR{adverb} %VAR{selfverb}"
+	"a %VAR{fullbeings} %VAR{adverb} %VAR{selfverb}"
+	"a %VAR{fullbeing} and a %VAR{fullbeing} %VAR{selfverb} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} and a %VAR{fullbeing} %VAR{selfverb} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} and a %VAR{fullbeings} %VAR{selfverb} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} and a %VAR{fullbeings} %VAR{selfverb} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{selfverb} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} and a %VAR{fullbeing} %VAR{adverb} %VAR{selfverb} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} and a %VAR{fullbeing} %VAR{adverb} %VAR{selfverb} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} and a %VAR{fullbeings} %VAR{adverb} %VAR{selfverb} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} and a %VAR{fullbeings} %VAR{adverb} %VAR{selfverb} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{adverb} %VAR{selfverb} %VAR{inon} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{adverb} %VAR{beingverb} a %VAR{fullbeing} with a %VAR{fullthing}"
+	"a %VAR{fullbeings} %VAR{adverb} %VAR{beingverb} a %VAR{fullbeing} with a %VAR{fullthings}"
+	"a %VAR{fullbeing} %VAR{adverb} %VAR{beingverb} a %VAR{fullbeings} with a %VAR{fullthing}"
+	"a %VAR{fullbeings} %VAR{adverb} %VAR{beingverb} a %VAR{fullbeings} with a %VAR{fullthings}"
+	"a %VAR{fullbeing} %VAR{adverb} %VAR{beingverb} a %VAR{fullplace}"
+	"a %VAR{fullbeings} %VAR{adverb} %VAR{beingverb} a %VAR{fullplace}"
+	"a %VAR{fullbeing} %VAR{adverb} %VAR{beingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace} with a %VAR{fullthing}"
+	"a %VAR{fullbeings} %VAR{adverb} %VAR{beingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace} with a %VAR{fullthings}"
+	"a %VAR{fullbeing} %VAR{adverb} %VAR{beingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace} with a %VAR{fullthing}"
+	"a %VAR{fullbeings} %VAR{adverb} %VAR{beingverb} a %VAR{fullbeing} %VAR{inon} a %VAR{fullplace} with a %VAR{fullthings}"
 }
 
 bMotion_abstract_register "nightmare" {

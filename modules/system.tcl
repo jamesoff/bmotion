@@ -399,53 +399,68 @@ proc bMotionUnSilence {} {
 ### bMotionLike <<<1
 proc bMotionLike {nick { host "" }} {
 	global bMotionInfo mood bMotionSettings
+
+	bMotion_putloglev 4 * "bMotionLike: $nick $host"
+	
+	if {$bMotionSettings(melMode) == 1} {
+		bMotion_putloglev 3 * "like: melmode is on, i'll do anyone"
+		return 1
+	}
+
 	if {$host == ""} {
 		set host [getchanhost $nick]
 	}
 
 	set host "$nick!$host"
 
-	if {$bMotionSettings(melMode) == 1} {
-		return 1
-	}
-
 	set handle [finduser $host]
 	if {$handle == "*"} {
 		# couldn't find a match
 		#if i'm stoned enough, i'll sleep with anyone
 		if {$mood(stoned) > 20} {
+			bMotion_putloglev 3 * "like: i'm sufficiently stoned to do anyone"
 			return 1
 		}
 
 		#if i'm horny enough, i'll sleep with anyone
 		if {$mood(horny) > 10} {
+			bMotion_putloglev 3 * "like: i'm sufficiently horny to do anyone"
 			return 1
 		}
 		#else they can get lost
+		bMotion_putloglev 3 * "like: $host doesn't have a matching handle, so they can go away"
 		return 0
 	}
 
 	#don't like people who aren't my friends
-	if {![bMotionIsFriend $nick]} { return 0 }
+	if {![bMotionIsFriend $nick]} { 
+		bMotion_putloglev 3 * "like: I don't do people I'm not friends with"
+		return 0 
+	}
 
 	# we're friends, now get their gender
 	set gender [getuser $handle XTRA gender]
 	if {$gender == ""} {
+		bMotion_putloglev 3 * "like: $handle is genderless, so I'll do them. it's only 50/50 anyway. i like those odds!"
 		# they don't have a gender. let's assume we'd have sex with them too
 		return 1
 	}
 	if {$gender == $bMotionInfo(gender)} {
 		#they're my gender
 		if {($bMotionInfo(orientation) == "bi") || ($bMotionInfo(orientation) == "gay") || ($bMotionInfo(orientation) == "lesbian")} {
+			bMotion_putloglev 3 * "like: $handle is my gender and I like that"
 			return 1
 		}
+		bMotion_putloglev 3 * "like: $handle is my gender and that's not koo"
 		return 0
 	}
 	#they're not my gender. what now?
 	if {($bMotionInfo(orientation) == "bi") || ($bMotionInfo(orientation) == "straight")} {
+		bMotion_putloglev 3 * "like: $handle isn't my gender and that's not koo"
 		return 1
 	}
 	# that only leaves lesbian and gay who won't sleep with the opposite gender
+	bMotion_putloglev 3 * "like: nope, default case"
 	return 0
 }
 

@@ -345,6 +345,25 @@ proc bMotion_abstract_all { abstract } {
 
 }
 
+# look to see if an abstract contains an item (warning: could be slow)
+proc bMotion_abstract_contains { abstract item } {
+	bMotion_putloglev 4 * "abstract: bMotion_abstract_contains $abstract $item"
+
+	set contents [bMotion_abstract_all $abstract]
+	putlog $contents
+
+	if {[llength $contents] == 0} {
+		return 0
+	}
+
+	set location [lsearch $contents $item]
+	if {$location > -1} {
+		return 1
+	} else {
+		return 0
+	}
+}
+
 proc bMotion_abstract_exists { abstract } {
 	bMotion_putloglev 5 * "bMotion_abstract_exists ($abstract)"
   global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age bMotion_abstract_last_get

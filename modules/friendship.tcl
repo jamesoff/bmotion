@@ -62,12 +62,12 @@ proc getFriendshipHandle { handle } {
 # set friendship on a handle
 proc setFriendshipHandle { handle friendship } {
 	if {$friendship > 100} {
-		bMotion_putloglev 2 * "friendship: friendship for $nick went over 100, capping back to 90"
+		bMotion_putloglev 2 * "friendship: friendship for $handle went over 100, capping back to 90"
 		set friendship 90
 	}
 
 	if {$friendship < 1} {
-		bMotion_putloglev 2 * "friendship: friendship for $nick went under 1, capping back to 10"
+		bMotion_putloglev 2 * "friendship: friendship for $handle went under 1, capping back to 10"
 		set friendship 10
 	}
 
@@ -84,26 +84,12 @@ proc setFriendship { nick friendship } {
 		#perhaps it was already a handle
 		if {![validuser $nick]} {
 			bMotion_putloglev 1 * "friendship: couldn't find a handle for $nick to set friendship."
-			return 50
+			return 0
 		}
 		set handle $nick
 	}
 
-
-	if {$friendship > 100} {
-		bMotion_putloglev 2 * "friendship: friendship for $nick went over 100, capping back to 9"
-		set friendship 99
-	}
-
-	if {$friendship < 0} {
-		bMotion_putloglev 2 * "friendship: friendship for $nick went under 0, capping back to 1"
-		set friendship 1
-	}
-
-
-	catch {
-		setuser $handle XTRA friend $friendship
-	}
+	setFriendshipHandle $handle $friendship
 }
 
 # drift someone's friendship by a given amount

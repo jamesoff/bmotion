@@ -13,28 +13,54 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_complex "love" "(i )?(think )?(you are|you're )?(love|luv|wov|wuv|luvly|lovely)( you)? %botnicks" 100 bMotion_plugin_complex_love "en"
+bMotion_plugin_add_complex "love" "i (love|luv|wov|wuv|luvly|lovely) (you,? %botnicks|%botnicks)" 100 bMotion_plugin_complex_love "en"
+bMotion_plugin_add_complex "love2" "i think (you are|you're) (wuvly|luvly|lovely),? %botnicks" 100 bMotion_plugin_complex_love "en"
+bMotion_plugin_add_complex "love3" "i think %botnicks is (wuvly|luvly|lovely)" 100 bMotion_plugin_complex_love "en"
 
 proc bMotion_plugin_complex_love { nick host handle channel text } {
 	global mood
 
-  if {![bMotionLike $nick $host]} {
-    frightened $nick $channel
-    return 1
-  }
+	# people we don't like can be told where to shove it
+	# but we'll let them get a bit of friendship as a result
+	if {![bMotionIsFriend $nick]} {
+		bMotionDoAction $channel $nick "%VAR{love_failed}"
+		driftFriendship $nick 4
+		return 1
+	}
 
-  driftFriendship $nick 4
+	driftFriendship $nick 8 
+	# people of the wrong gender get the platonic treatment
+	if {![bMotionLike $nick $host]} {
+		bMotionDoAction $channel $nick "%VAR{love_like}"
+		return 1
+	}
 
-  if {$mood(happy) < 15 && $mood(lonely) < 5} {
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{loveresponses}"
-    bMotionGetHappy
-    bMotionGetUnLonely
+	if {$mood(happy) < 15 && $mood(lonely) < 5} {
+		bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{loveresponses}"
+		bMotionGetHappy
+		bMotionGetUnLonely
 		bMotion_plugins_settings_set "system" "lastdonefor" $channel "" $nick
-    return 1
-  } else {
-    bMotionDoAction $channel "" "hehe, want to go out on a date someplace? :)"
-    set mood(happy) [expr $mood(happy) - 10]
+		return 1
+	} else {
+		bMotionDoAction $channel "" "hehe, want to go out on a date someplace? :)"
+		set mood(happy) [expr $mood(happy) - 10]
 		bMotion_plugins_settings_set "system" "lastdonefor" $channel "" $nick
-    return 1
-  }
+		return 1
+	}
 }
+
+bMotion_abstract_register "love_like" {
+	"i love you %%, as a friend"
+	"ok"
+	"/<3 %% as a friend"
+	"%VAR{smiles}"
+}
+
+bMotion_abstract_register "love_failed" {
+	"get away from me"
+	"/pushes %% away"
+	"shame, because i think you're a smelly %VAR{bodypart}"
+	"go away"
+	"shove off you %VAR{PROM}"
+}
+
