@@ -84,41 +84,44 @@ proc bMotion_interbot_next_elect_do { channel } {
 }
 
 proc bMotion_interbot_catch { bot cmd args } {
-  global bMotionInfo
-  bMotion_putloglev 3 * "interbot: incoming !$args!"
-  set args [lindex $args 0]
-  regexp {([^ ]+) (.+)} $args matches function params
+	global bMotionInfo
+	bMotion_putloglev 3 * "interbot: incoming !$args!"
+	set args [lindex $args 0]
+	if [regexp {([^ ]+) (.+)} $args matches function params] {
 
-  bMotion_putloglev 2 * "interbot: got command $function ($params) from $bot"
+		bMotion_putloglev 2 * "interbot: got command $function ($params) from $bot"
 
-  switch -exact $function {
-    "say" {
-      # bmotion say <channel> <text>
-      bMotionCatchSayChan $bot $params
-    }
+		switch -exact $function {
+			"say" {
+				# bmotion say <channel> <text>
+				bMotionCatchSayChan $bot $params
+			}
 
-    "elect_initial" {
-      bMotion_interbot_next_incoming $bot $params
-    }
+			"elect_initial" {
+				bMotion_interbot_next_incoming $bot $params
+			}
 
-    "elect_reply" {
-      bMotion_interbot_next_incoming_reply $bot $params
-    }
+			"elect_reply" {
+				bMotion_interbot_next_incoming_reply $bot $params
+			}
 
-    "fake_event" {
-      bMotion_interbot_fake_catch $bot $params
-    }
+			"fake_event" {
+				bMotion_interbot_fake_catch $bot $params
+			}
 
-    "HAY" {
-      bMotion_interbot_hay $bot $params
-    }
+			"HAY" {
+				bMotion_interbot_hay $bot $params
+			}
 
-    "SUP" {
-      bMotion_interbot_sup $bot $params
-    }
-  }
+			"SUP" {
+				bMotion_interbot_sup $bot $params
+			}
+		}
+	} else {
+		putlog "bMotion: ERROR: received unparsable interbot command from $bot: $cmd $args"
+	}
 
-  return 0
+	return 0
 }
 
 
