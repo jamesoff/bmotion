@@ -12,14 +12,14 @@
 ###############################################################################
 
 #                          name   regexp               chance  callback
-bMotion_plugin_add_complex "calculator" {what('s| is) (\(?\s*[0-9.]+(\s*[+/*x%-]\s*\(?\s*[0-9.]+\s*\)?)+\s*\)?)} 100 "bMotion_plugin_complex_calculator" "en"
+bMotion_plugin_add_complex "calculator" {what('s| is) (\(*\s*[0-9.]+(\s*[+/*x%-]\s*\(*\s*[0-9.]+\s*\)*)+\s*\)*)} 100 "bMotion_plugin_complex_calculator" "en"
 
 #################################################################################################################################
 # Declare plugin functions
 
 proc bMotion_plugin_complex_calculator { nick host handle channel text } {
 	if {[bMotionTalkingToMe $text] || [bMotion_interbot_me_next $channel]} {
-		if [regexp -nocase {(\(?\s*[0-9.]+(\s*[+/*x%-]\s*\(?\s*[0-9.]+\s*\)?)+\s*\)?)} $text matches sum] {
+		if [regexp -nocase {(\(*\s*[0-9.]+(\s*[+/*x%-]\s*\(*\s*[0-9.]+\s*\)*)+\s*\)*)} $text matches sum] {
 			set sum [string map { x * } $sum]
 			set sum [string trim $sum]
 			set result "failed"
