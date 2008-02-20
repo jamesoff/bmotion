@@ -745,7 +745,6 @@ proc bMotion_choose_random_user { channel bot condition } {
 			continue
 		}
 
-
 		#get their handle
 		set handle [nick2hand $user $channel]
 		bMotion_putloglev 4 * "ruser:  handle: $handle"
@@ -829,14 +828,14 @@ proc bMotion_choose_random_user { channel bot condition } {
 				}
 			}
 			"friend" {
-				if {[getFriendshipHandle $user] >= 50} {
+				if {[getFriendshipHandle $handle] >= 50} {
 					bMotion_putloglev 4 * "ruser:  accept: friend"
 					lappend acceptable $handle
 					continue
 				}
 			}
 			"enemy" {
-				if {[getFriendshipHandle $user] < 50} {
+				if {[getFriendshipHandle $handle] < 50} {
 					bMotion_putloglev 4 * "ruser:  accept: enemy"
 					lappend acceptable $handle
 					continue

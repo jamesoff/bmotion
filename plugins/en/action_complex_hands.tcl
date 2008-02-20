@@ -72,6 +72,28 @@ proc bMotion_plugin_complex_action_hands { nick host handle channel text } {
 		#end of "hands dildo"
 
 		#catch everything else
+
+		#check to see if it's a nick
+		# we won't check handles as people will probably just tab-complete nicks
+		if [onchan $item $channel] {
+			if [bMotionIsFriend $item] {
+				if [bMotionLike $item] {
+					# we REALLY like them
+					bMotionDoAction $channel $nick "%VAR{hand_sex_person}"
+					driftFriendship $nick 5
+					return 1
+				}
+				bMotionDoAction $channel $nick "%VAR{hand_like_person}"
+				driftFriendship $nick 3
+				return 1
+			} else {
+				bMotionDoAction $channel $nick "%VAR{hand_dislike_person}"
+				driftFriendship $nick -3
+				return 1
+			}
+		}
+
+		# not a nick, let's carry on with the generic stuff
 		bMotion_abstract_add "sillyThings" $item
 
 		set original_item $item
@@ -256,11 +278,16 @@ bMotion_abstract_register "_bmotion_like"
 bMotion_abstract_register "_bmotion_dislike"
 
 bMotion_abstract_register "hand_like" {
-  "mmm %%"
+  "%REPEAT{3:10:m} %%"
   "/plays with %hisher %%"
   "%VAR{smiles}%|/shares with %2"
   "%VAR{smiles}%|/shares with %ruser{friend}"
   "i like these"
+	"ooh! %VAR{smiles}"
+	"my favourite!"
+	"%2++"
+	"%VAR{thanks}"
+	"just what i've always wanted %VAR{smiles}"
 }
 
 bMotion_abstract_register "hand_dislike" {
@@ -268,5 +295,33 @@ bMotion_abstract_register "hand_dislike" {
   "/throws it in the bin"
   "/throws it at %ruser{enemy}"
   "/jams it up %hisher arse%|that's what i think of that."
+	"/jams it up %2%|do not want"
+	"do not want"
+	"/wipes %hisher %VAR{bodypart} with it"
+	"erk not %%"
+	"thanks very much%|except I hate these"
+	"do i want this?"
 }
 
+bMotion_abstract_register "hand_sex_person" {
+	"oof"
+	"%REPEAT{3:8:m}"
+	"%VAR{hand_like_person}"
+}
+
+bMotion_abstract_register "hand_like_person" {
+	"%VAR{smiles}"
+	"i like %%%|they are my friend %VAR{smiles}"
+}
+
+bMotion_abstract_register "hand_dislike_person" {
+	"ugh"
+	"meh"
+	"do not want"
+	"do not like"
+	"i don't like %%"
+	"get it off me %VAR{unsmiles}"
+	"%VAR{unsmiles}"
+	"%% is not my friend %VAR{unsmiles}"
+	"but %% is nasty to me %VAR{unsmiles}"
+}

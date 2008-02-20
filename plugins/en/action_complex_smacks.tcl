@@ -23,7 +23,7 @@ proc bMotion_plugin_complex_action_smacks { nick host handle channel text } {
   	}
     bMotionGetSad
     bMotionGetUnLonely
-    driftFriendship $nick -2
+    driftFriendship $nick -5
     bMotionDoAction $channel $nick "%VAR{slapped}"
     return 1
   }
