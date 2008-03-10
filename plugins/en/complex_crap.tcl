@@ -29,7 +29,7 @@ bMotion_abstract_register "random_crap_main" {
 	"/crimps off a %VAR{random_crap_adj} %VAR{random_crap_type} and hands it to %ruser{enemy}"
 	"/crimps off a %VAR{random_crap_adj} %VAR{random_crap_type} and hands it to %ruser{enemy}%|present"
 	"/gift wraps a %VAR{random_crap_adj} %VAR{random_crap_type}%|/ships it first class to %ruser{enemy}"
-	"/injects a %VAR{random_crap_adj} %VAR{random_crap_type} in a padded envelope and posts it to %ruser{enemy}"
+	"/injects a %VAR{random_crap_adj} %VAR{random_crap_type} into a padded envelope and posts it to %ruser{enemy}"
 }
 
 bMotion_abstract_register "random_crap_adj"
