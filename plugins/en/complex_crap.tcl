@@ -25,7 +25,11 @@ proc bMotion_plugin_complex_crap { nick host handle channel text } {
 
 bMotion_abstract_register "random_crap_main" {
 	"/does a %VAR{random_crap_adj} %VAR{random_crap_type} and hands it to %ruser{enemy}"
+	"/does a %VAR{random_crap_adj} %VAR{random_crap_type} and hands it to %ruser{enemy}$|present!"
 	"/crimps off a %VAR{random_crap_adj} %VAR{random_crap_type} and hands it to %ruser{enemy}"
+	"/crimps off a %VAR{random_crap_adj} %VAR{random_crap_type} and hands it to %ruser{enemy}%|present"
+	"/gift wraps a %VAR{random_crap_adj} %VAR{random_crap_type}%|/ships it first class to %ruser{enemy}"
+	"/injects a %VAR{random_crap_adj} %VAR{random_crap_type} in a padded envelope and posts it to %ruser{enemy}"
 }
 
 bMotion_abstract_register "random_crap_adj"
@@ -47,3 +51,6 @@ bMotion_abstract_batchadd "random_crap_type" {
 				 "poo"
   }
 
+bMotion_abstract_add "randomStuff" {
+	"%VAR{random_crap_main}"
+}
