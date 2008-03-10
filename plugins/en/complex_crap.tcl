@@ -17,18 +17,24 @@
 bMotion_plugin_add_complex "crap" "^!crap" 100 "bMotion_plugin_complex_crap" "en"
 
 proc bMotion_plugin_complex_crap { nick host handle channel text } {
-       bMotion_putloglev d * "bMotion: i have been made all crappy by $nick"
-       
-       bMotionDoAction $channel $nick "/does a %VAR{random_crap_adj} %VAR{random_crap_type} and hands it to %ruser"
-       return 1
+	if {![bMotion_interbot_me_next $channel]} {
+		bMotionDoAction $channel $nick "
+		return 1
+	}
+}
+
+bMotion_abstract_register "random_crap_main" {
+	"/does a %VAR{random_crap_adj} %VAR{random_crap_type} and hands it to %ruser{enemy}"
+	"/crimps off a %VAR{random_crap_adj} %VAR{random_crap_type} and hands it to %ruser{enemy}"
 }
 
 bMotion_abstract_register "random_crap_adj"
 bMotion_abstract_batchadd "random_crap_adj" {
-         "blue"
-         "yellow"
          "lemon-flavoured"
          "tasty"
+				 "%VAR{colours}"
+				 "delicious"
+				 "yummy"
   }
   
 bMotion_abstract_register "random_crap_type"
@@ -38,5 +44,6 @@ bMotion_abstract_batchadd "random_crap_type" {
          "shit"
          "dingleberry"
          "dollop"
+				 "poo"
   }
 
