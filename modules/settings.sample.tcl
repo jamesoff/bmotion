@@ -151,6 +151,13 @@ set bMotionSettings(typingSpeed) 0.05
 # so that it can talk to them (when they're in the same channel)
 set bMotion_interbot_enable 1
 
+# bias the output probability
+# 0 = never trigger
+# 1 = normal
+# 2 = about twice as likely
+# floating-point is fine
+set bMotionSettings(bias) 1
+
 
 ### Flood checking
 #

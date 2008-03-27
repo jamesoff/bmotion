@@ -200,6 +200,11 @@ proc bMotion_plugin_find_complex { text lang } {
 
   bMotion_putloglev 3 * "Looking for a complex plugin to match !$text!"
 
+	set bias [bMotion_setting_get "bias"]
+	if {$bias == ""} {
+		set bias 1
+	}
+
   foreach key $s {
     if {$key == "dummy"} { continue }
     set val $bMotion_plugins_complex($key)
@@ -212,6 +217,7 @@ proc bMotion_plugin_find_complex { text lang } {
     set rexp [bMotionInsertString $rexp "%botnicks" "${botnicks}"]
       if [regexp -nocase $rexp $text] {
         set c [rand 100]
+				set chance [expr $chance * $bias]
         bMotion_putloglev 4 * "matched complex:$key, chance is $chance, c is $c"
         if {$chance > $c} {
 					bMotion_putloglev 4 * "chance is high enough, adding $callback"
