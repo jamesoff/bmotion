@@ -62,7 +62,11 @@ proc bMotion_plugin_output_english { channel line } {
 	regsub -all "  +" $line " " line
 
 	#fix double-period at end of line
-	regsub -all "\\.\\.$" $line "." line
+	regsub -all "\[^.\]\\.\\.$" $line "." line
+
+	# fix american spellings
+	# TODO: make this an option or US bots can talk wrong english and UK bots can talk right english
+	set line [string map -nocase { color colour neighbor neighbour aluminum aluminium favorite favourite center centre } $line]
 
   return $line
 }
