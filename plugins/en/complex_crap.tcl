@@ -17,7 +17,7 @@
 bMotion_plugin_add_complex "crap" "^!crap" 100 "bMotion_plugin_complex_crap" "en"
 
 proc bMotion_plugin_complex_crap { nick host handle channel text } {
-	if {![bMotion_interbot_me_next $channel]} {
+	if [bMotion_interbot_me_next $channel] {
 		bMotionDoAction $channel $nick "%VAR{random_crap_main}"
 		return 1
 	}
