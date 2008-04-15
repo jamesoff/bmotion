@@ -25,6 +25,10 @@ proc bMotion_plugin_output_append { channel line } {
 				append line "%VAR{appends}"
 			}
 		} else {
+			if {[string first "/" $line] == 0} {
+				# don't do this for /me type lines
+				return $line
+			}
 			set line "%VAR{prepends} $line"
 		}
 
@@ -46,6 +50,7 @@ bMotion_abstract_register "appendslist" {
 	", in accordance with my master's thesis on the Legend of Zelda"
 	" and you're sitting in it right now"
 	" but it's nothing sexual"
+	". In my pants"
 }
 
 bMotion_abstract_register "narfs" {
