@@ -31,11 +31,13 @@ proc bMotion_module_extra_jeffk { line } {
 	if {![rand 6]} {
 		set line [string toupper $line]
 	} else {
+		set word [string map -nocase { "you're" "%VAR{jeffk_ur}" "your" "%VAR{jekkf_ur}"} $line]
+		set word [string map -nocase { "their" "%VAR{jeffk_thr}" "there" "%VAR{jeffk_thr}" "they're" "%VAR{jeffk_thr}"} $line]
+
 		set words [split $line " "]
 		set newline ""
+
 		foreach word $words {
-			set word [string map -nocase { "you're" "%VAR{jeffk_ur}" "your" "%VAR{jekkf_ur}"} $line]
-			set word [string map -nocase { "their" "%VAR{jeffk_thr}" "there" "%VAR{jeffk_thr}" "they're" "%VAR{jeffk_thr}"} $line]
 
 			if {([string length $word] > 5) && (![rand 6])} {
 				set letters [split $word {}]
