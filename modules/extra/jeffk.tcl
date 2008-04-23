@@ -42,7 +42,7 @@ proc bMotion_module_extra_jeffk { line } {
 				set newword ""
 				set first_letter [lindex $letters 0]
 				set last_letter [lindex $letters end]
-				set letters [lrange 1 end-1]
+				set letters [lrange $letters 1 end-1]
 				while {[llength $letters] > 0} {
 					set index [rand [llength $letters]]
 					append newword [lindex $letters $index]
