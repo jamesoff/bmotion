@@ -53,8 +53,7 @@ proc bMotion_module_extra_jeffk { line } {
 
 			if {![rand 3]} {
 				append newline [string toupper $word]
-			}
-			else {
+			} else {
 				append newline $word
 			}
 			append newline " "
