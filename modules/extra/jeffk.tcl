@@ -28,14 +28,29 @@ proc bMotion_module_extra_jeffk { line } {
   set line [bMotionDoInterpolation $line "" "" ""]
   set line [bMotionInterpolation2 $line]
 
-  if {![rand 6]} {
-    set line [string toupper $line]
-  } else {
+	if {![rand 6]} {
+		set line [string toupper $line]
+	} else {
 		set words [split $line " "]
 		set newline ""
 		foreach word $words {
 			set word [string map -nocase { "you're" "%VAR{jeffk_ur}" "your" "%VAR{jekkf_ur}"} $line]
 			set word [string map -nocase { "their" "%VAR{jeffk_thr}" "there" "%VAR{jeffk_thr}" "they're" "%VAR{jeffk_thr}"} $line]
+
+			if {([string length $word] > 5) && (![rand 6])} {
+				set letters [split $word {}]
+				set newword ""
+				set first_letter [lindex $letters 0]
+				set last_letter [lindex $letters end]
+				set letters [lrange 1 end-1]
+				while {[llength $letters] > 0} {
+					set index [rand [llength $letters]]
+					append newword [lindex $letters $index]
+					set letters [lreplace $letters $index $index]
+				}
+				set word "$first_letter$newword$last_letter"
+			}
+
 			if {![rand 3]} {
 				append newline [string toupper $word]
 			}
