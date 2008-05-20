@@ -407,7 +407,7 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 		set condition ""
 		set dobreak 0
 		if {$botcmd == "bot"} {
-		#random
+			#random
 			bMotion_putloglev 1 * "bMotion: %bot detected"
 			regexp {%bot\[([[:digit:]]+),(@[^,]+,)?(.+)\]} $line matches chance condition cmd
 			bMotion_putloglev 1 * "bMotion: %bot chance is $chance"
@@ -419,8 +419,8 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 				set line ""
 			}
 		} else {
-		#non-random
-		regexp {%BOT\[(@[^,]+,)?(.+)\]} $line matches condition cmd
+			#non-random
+			regexp {%BOT\[(@[^,]+,)?(.+)\]} $line matches condition cmd
 		}
 
 		if {($condition != "") && [regexp {^@(.+),$} $condition matches c]} {
@@ -469,10 +469,11 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 	# Run the plugins :D
 
 	if {$noTypo == 0} {
-		set plugins [bMotion_plugin_find_output $bMotionInfo(language)]
+		set plugins [bMotion_plugin_find_output $bMotionInfo(language) $channel]
 		if {[llength $plugins] > 0} {
 			foreach callback $plugins {
 				bMotion_putloglev 1 * "bMotion: output plugin: $callback..."
+				set result ""
 				catch {
 					set result [$callback $channel $line]
 				} err

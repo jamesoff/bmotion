@@ -635,6 +635,9 @@ proc bMotionAdminHandler2 {nick host handle channel text} {
 ### bMotion_putadmin <<<1
 proc bMotion_putadmin { text } {
 
+	# easier than trying to not put tabs in the help stuff ;)
+	set text [string map { "\t" "  " } $text ]
+
 	set output [bMotion_plugins_settings_get "admin" "type" "" ""]
 	if {$output == ""} {
 		return 0
