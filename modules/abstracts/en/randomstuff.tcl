@@ -5,6 +5,9 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"i like a dump to be as devastating as it is memorable"
+	"what am i doing here?! wait, where are my underpants?"
+	"i am %me the mind-taker!%|boooo-woooOOOOoo!"
 	"my speedos!"
 	"there, good as new. except that we're three miles below the surface, we're out of food, and the channel doesn't work underwater%|%BOT\[tempers are wearing thin - let's just hope some bot doesn't kill everybody...\]" 
 	"i can't swallow that!%|%BOT\[well then good news! it's a suppository.\]" 
@@ -454,4 +457,7 @@ bMotion_abstract_register "activeRandomStuff" {
 	"and now what?"
 	"but is it art?"
 	"why don't i just jump out of a plane with a piano glued to my face"
+	"i want mine with sprinkles"
+	"now back to Reducto's to enlarge myself!"
+	"%ruser is under some kind of spell. that's why i don't have to cover my mouth fully while i talk"
 }

@@ -2198,6 +2198,10 @@ bMotion_abstract_register "wake_ups" {
 	"mmm toast"
 	"/eats breakfast"
 	"/awakens from a nightmare about %VAR{nightmare}"
+	"good %daytime%|%VAR{weather}"
+	"good %daytime!%|%VAR{weather}"
+	"%daytime%|%VAR{weather}"
+	"%daytime!%|%VAR{weather}"
 }
 
 bMotion_abstract_register "red_dwarf" {
