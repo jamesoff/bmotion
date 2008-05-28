@@ -144,7 +144,7 @@ proc bMotion_is_active_enough { channel { limit 0 } } {
 
 # check if every channel we can see is idle enough for us to go away
 proc bMotion_random_away {} {
-	global bMotionLastEvent bMotionChannels bMotionInfo 
+	global bMotionLastEvent bMotionChannels bMotionInfo
 
 	set timeNow [clock seconds]
 
@@ -170,15 +170,11 @@ proc bMotion_random_away {} {
 			}
 		}
 	}
-	bMotion_putloglev 1 * "bMotion: most recent: $mostRecent .. timenow $timeNow .. gap [expr $bMotionInfo(maxIdleGap) * 10]"
 
-	set idleEnough 1
+	set gapTime [expr { int($bMotionInfo(maxIdleGap) * 10) }]
+	bMotion_putloglev 1 * "bMotion: most recent: $mostRecent .. timenow $timeNow .. gap $gapTime"
 
-	if {($timeNow - $mostRecent) < ([expr $bMotionInfo(maxIdleGap) * 10])} {
-		set idleEnough 0
-	}
-
-	if {!$idleEnough} {
+	if {($timeNow - $mostRecent) < $gapTime} {
 		return 0
 	}
 
@@ -190,8 +186,10 @@ proc bMotion_random_away {} {
 	if {[rand 4] == 0} {
 		putlog "bMotion: All channels are idle, going away"
 		bMotionSetRandomAway
-		return 0
+		return 1
 	}
+
+	return 0
 }
 
 # periodically sprout randomness (or go /away if idle enough)
@@ -224,12 +222,12 @@ proc doRandomStuff {} {
 	}
 
 	if [bMotion_random_away] {
-		# we went away, so stop here
+	# we went away, so stop here
 		return
 	}
 
 	if {$bMotionInfo(away) == 1} {
-		#away and busy again, return
+	#away and busy again, return
 		bMotionSetRandomBack
 	}
 
@@ -245,19 +243,19 @@ proc doRandomStuff {} {
 	foreach channel $bMotionChannels {
 		if [bMotion_is_active_enough $channel] {
 			if [bMotion_is_active_enough $channel $active_idle_sec] {
-				#channel is fairly busy
-				if [bMotionSaySomethingRandom $channel 1] {
-					lappend saidChannels "$channel/active"
-				} else {
-					lappend silentChannels $channel
-				}
+			#channel is fairly busy
+			if [bMotionSaySomethingRandom $channel 1] {
+			lappend saidChannels "$channel/active"
 			} else {
-				#use a more idle randomstuff
-				if [bMotionSaySomethingRandom $channel 0] {
-					lappend saidChannels $channel
-				} else {
-					lappend silentChannels $channel
-				}
+			lappend silentChannels $channel
+			}
+			} else {
+			#use a more idle randomstuff
+			if [bMotionSaySomethingRandom $channel 0] {
+			lappend saidChannels $channel
+			} else {
+			lappend silentChannels $channel
+			}
 			}
 		} else {
 			lappend silentChannels $channel
