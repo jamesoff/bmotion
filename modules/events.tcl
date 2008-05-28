@@ -191,8 +191,13 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }
 
-	#don't trigger on !seen <<<2
-	if [regexp -nocase "^!seen" $text] {
+	#don't trigger on !seen etc <<<2
+	if [regexp -nocase "^!(last)?seen" $text] {
+		return 0
+	}
+
+	#no bMotion plugin triggers on /^,/ so we can filter them out too
+	if [string match ",*" $text] {
 		return 0
 	}
 	
