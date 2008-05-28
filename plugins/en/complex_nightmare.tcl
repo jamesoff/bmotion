@@ -846,18 +846,39 @@ bMotion_abstract_register "nice_fullbodypart" {
 	"%VAR{nice_paintbodyparts}"
 }
 
+bMotion_abstract_register "fullthing" {
+"%VAR{thing}"
+"%VAR{fulladjective} %VAR{thing}"
+"%VAR{paintbodypart}"
+"%VAR{fulladjective} %VAR{paintbodypart}"
+}
+
 bMotion_abstract_register "nice_fullthing" {
 "%VAR{nice_thing}"
 "%VAR{nice_fulladjective} %VAR{nice_thing}"
-"%VAR{paintbodypart}"
-"%VAR{nice_fulladjective} %VAR{paintbodypart}"
+"%VAR{nice_paintbodypart}"
+"%VAR{nice_fulladjective} %VAR{nice_paintbodypart}"
 }
 
 bMotion_abstract_register "fullthings" {
+"%VAR{amount} %VAR{things}"
+"%VAR{fulladjectives} %VAR{things}"
+"%VAR{amount} %VAR{paintbodyparts}"
+"%VAR{fulladjectives} %VAR{paintbodyparts}"
+}
+
+bMotion_abstract_register "nice_fullthings" {
 "%VAR{amount} %VAR{nice_things}"
 "%VAR{nice_fulladjectives} %VAR{nice_things}"
-"%VAR{amount} %VAR{paintbodyparts}"
-"%VAR{nice_fulladjectives} %VAR{paintbodyparts}"
+"%VAR{amount} %VAR{nice_paintbodyparts}"
+"%VAR{nice_fulladjectives} %VAR{nice_paintbodyparts}"
+}
+
+bMotion_abstract_register "fullplace" {
+"%VAR{place}"
+"%VAR{place} of %VAR{material}"
+"%VAR{fulladjective} %VAR{place}"
+"%VAR{fulladjective} %VAR{place} of %VAR{material}"
 }
 
 bMotion_abstract_register "nice_fullplace" {
@@ -1120,6 +1141,11 @@ bMotion_abstract_register "nightmare" {
 # Add ourselves to places
 bMotion_abstract_add "randomStuff" "A%REPEAT{4:8:R}GH%REPEAT{1:5:!} I had a horrible nightmare of %VAR{nightmare} %VAR{unsmiles}"
 bMotion_abstract_add "goodnights" "Don't have a nightmare about %VAR{nightmare}!"
+
+bMotion_abstract_add "goodnights" "I hope you have a dream about %VAR{nicemare} %VAR{smiles}"
+
+bMotion_abstract_add "randomStuff" "/daydreams about %VAR{nicemare} %VAR{smiles}" 
+bMotion_abstract_add "randomStuff" "aw%REPEAT{2:8:w}... look! It's %VAR{nicemare}%|%VAR{smiles}"
 
 # We don't add plugins, so don't complain
 set bMotion_noplugins 1
