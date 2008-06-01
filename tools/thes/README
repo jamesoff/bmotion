@@ -1,0 +1,20 @@
+Thesaurus support for bMotion
+-----------------------------
+
+So I thought it might be fun for bMotion to be able to replace words with synonyms :)
+
+In order to enable this, you will need:
+
+* SQLite support in your TCL
+* The Moby Thesaurus List by Grady Ward:
+  http://www.gutenberg.org/etext/3202
+* Python
+
+And what you do is this:
+
+* Extract the files from the Thesaurus zip file.
+* Run: python import_thes.py
+* Assuming it all goes OK, you should end up with a nice big .db file.
+* Put the .db file into the local/ dir in your bMotion install.
+
+
