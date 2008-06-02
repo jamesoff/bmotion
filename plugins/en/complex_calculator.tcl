@@ -14,6 +14,8 @@
 #                          name   regexp               chance  callback
 bMotion_plugin_add_complex "calculator" {what('s| is) (\(*\s*[0-9.]+(\s*[+/*x%-]\s*\(*\s*[0-9.]+\s*\)*)+\s*\)*)} 100 "bMotion_plugin_complex_calculator" "en"
 
+bMotion_plugin_add_complex "calculator2" {what('s| is) the diff(erence)? between (.+ )?\d+,? and (.+ )?\d+} 100 "bMotion_plugin_complex_calculator2" "en"
+
 #################################################################################################################################
 # Declare plugin functions
 
@@ -38,11 +40,23 @@ proc bMotion_plugin_complex_calculator { nick host handle channel text } {
 	}
 }
 
+proc bMotion_plugin_complex_calculator2 { nick host handle channel text } {
+	if {[bMotionTalkingToMe $text] || [bMotion_interbot_me_next $channel]} {
+		if [regexp {what('s| is) the diff(erence)? between (.+ )?(\d+),? and (.+ )?(\d+)} $text matches 1 2 3 left 4 right] {
+			set result [expr abs($right - $left)]
+			bMotionDoAction $channel $result "%VAR{calculation_difference}"
+			return 1
+		}
+	} else {
+		return 0
+	}
+}
+
 bMotion_abstract_register "calculation_output" {
 	"%% = %2"
 	"%% is %2"
 	"%% equals %2"
-	"%% = %2%|/= autoabacus 9000"
+	"%% = %2%|/= autoabacus %NUMBER{9}000"
 	"%% = %NUMBER{1000}%|oops, forgot to carry the one %VAR{unsmiles}%|actually, it's %2"
 	"%2"
 	"%% = %2%|honestly, that was an easy one. couldn't you have worked that out yourself"
@@ -59,4 +73,8 @@ bMotion_abstract_register "calculation_error" {
 	"%% == minus %VAR{sillyThings}{strip}"
 	"%% = %VAR{colours}"
 	"%% = yo momma"
+}
+
+bMotion_abstract_register "calculation_difference" {
+	"%%"
 }
