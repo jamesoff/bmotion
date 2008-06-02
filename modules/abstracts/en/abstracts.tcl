@@ -23,8 +23,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
-bMotion_abstract_register "fellOffs"
-bMotion_abstract_batchadd "fellOffs" {
+bMotion_abstract_register "fellOffs" {
 	"fell off"
 	"exploded"
 	"imploded"
@@ -42,13 +41,11 @@ bMotion_abstract_batchadd "fellOffs" {
 	"got turned into %VAR{sillyThings}"
 }
 
-bMotion_abstract_register "jokeends"
-bMotion_abstract_batchadd "jokeends" {
+bMotion_abstract_register "jokeends" {
 	"Confucious say, %VAR{confuciousStart} %VAR{confuciousEnd}"
 }
 
-bMotion_abstract_register "confuciousStart"
-bMotion_abstract_batchadd "confuciousStart" {
+bMotion_abstract_register "confuciousStart" {
 	"man who walk through turnstile sideways"
 	"man with hand in pocket"
 	"passionate kiss, like spider web,"
@@ -58,8 +55,7 @@ bMotion_abstract_batchadd "confuciousStart" {
 	"man who jump off cliff"
 }
 
-bMotion_abstract_register "confuciousEnd"
-bMotion_abstract_batchadd "confuciousEnd" {
+bMotion_abstract_register "confuciousEnd" {
 	"going to Bangkok."
 	"feel cocky all day."
 	"lead to undoing of fly"
@@ -69,8 +65,7 @@ bMotion_abstract_batchadd "confuciousEnd" {
 	"jump to conslusion"
 }
 
-bMotion_abstract_register "fuckOffs"
-bMotion_abstract_batchadd "fuckOffs" {
+bMotion_abstract_register "fuckOffs" {
 	"Not now, I'm not in the mood for him"
 	"SILENCE%colen"
 	"Bite my shiny metal ass"
@@ -82,8 +77,7 @@ bMotion_abstract_batchadd "fuckOffs" {
 	"What did you just say?"
 }
 
-bMotion_abstract_register "silenceAways"
-bMotion_abstract_batchadd "silenceAways" {
+bMotion_abstract_register "silenceAways" {
 	"bah"
 	"/goes to find someone more interesting to talk to"
 	":("
@@ -94,8 +88,7 @@ bMotion_abstract_batchadd "silenceAways" {
 	"nnk"
 }
 
-bMotion_abstract_register "lovesits"
-bMotion_abstract_batchadd "lovesits" {
+bMotion_abstract_register "lovesits" {
 	"/loves it"
 	"stop making me horny"
 	"~oof~"
@@ -106,8 +99,7 @@ bMotion_abstract_batchadd "lovesits" {
 	"%REPEAT{3:10:m}"
 }
 
-bMotion_abstract_register "chocolates"
-bMotion_abstract_batchadd "chocolates" {
+bMotion_abstract_register "chocolates" {
 	"mars bar"
 	"bounty bar"
 	"malteaser"
@@ -126,8 +118,7 @@ bMotion_abstract_batchadd "chocolates" {
 	"snickers"
 }
 
-bMotion_abstract_register "hiddenBehinds"
-bMotion_abstract_batchadd "hiddenBehinds" {
+bMotion_abstract_register "hiddenBehinds" {
 	"heeeeyyyy"
 	"oi"
 	"hey, watch it"
@@ -140,8 +131,7 @@ bMotion_abstract_batchadd "hiddenBehinds" {
 	"Shame I'm transparent today really"
 }
 
-bMotion_abstract_register "satOns"
-bMotion_abstract_batchadd "satOns" {
+bMotion_abstract_register "satOns" {
 	"hey ow :("
 	"heeeyyy :O"
 	"bah"
@@ -152,9 +142,8 @@ bMotion_abstract_batchadd "satOns" {
 	"mmmph!"
 }
 
-#question answers
-bMotion_abstract_register "answerWhats"
-bMotion_abstract_batchadd "answerWhats" {
+# Question Answers
+bMotion_abstract_register "answerWhats" {
 	"a creature of meat and bone, panting and sweating"
 	"well you asked the right guy, i'm a whale biologist"
 	"a book"
@@ -186,8 +175,7 @@ bMotion_abstract_batchadd "answerWhats" {
 	"%noun"
 }
 
-bMotion_abstract_register "answerWhos"
-bMotion_abstract_batchadd "answerWhos" {
+bMotion_abstract_register "answerWhos" {
 	"Dr Beanturd Cake"
 	"%ruser"
 	"me"
@@ -219,8 +207,7 @@ bMotion_abstract_batchadd "answerWhos" {
 	"who do you think?"
 }
 
-bMotion_abstract_register "answerWithWhos"
-bMotion_abstract_batchadd "answerWithWhos" {
+bMotion_abstract_register "answerWithWhos" {
 	"%ruser"
 	"me"
 	"you"
@@ -254,8 +241,7 @@ bMotion_abstract_batchadd "answerWithWhos" {
 	"probably at least 3 pr0n DVDs"
 }
 
-bMotion_abstract_register "answerWhys"
-bMotion_abstract_batchadd "answerWhys" {
+bMotion_abstract_register "answerWhys" {
 	"why not?"
 	"hmm?"
 	"because i said so"
@@ -269,8 +255,7 @@ bMotion_abstract_batchadd "answerWhys" {
 	"we tried that, but you were sick and my hat blew off"
 }
 
-bMotion_abstract_register "answerWheres"
-bMotion_abstract_batchadd "answerWheres" {
+bMotion_abstract_register "answerWheres" {
 	"in bed"
 	"behind the fridge"
 	"on the desk"
@@ -300,8 +285,7 @@ bMotion_abstract_batchadd "answerWheres" {
 	"next to %ruser"
 	"in bed with Madonna"
 }
-bMotion_abstract_register "answerWellbeing"
-bMotion_abstract_batchadd "answerWellbeing" {
+bMotion_abstract_register "answerWellbeing" {
 	"fine thanks"
 	"much better now"
 	"not now, I'm 'busy'. mmmmmm."
@@ -309,8 +293,7 @@ bMotion_abstract_batchadd "answerWellbeing" {
 	"oh the pain, the pain, the....I'm fine thanks"
 	"I'm not bad thanks, how're you?"
 }
-bMotion_abstract_register "answerWhens"
-bMotion_abstract_batchadd "answerWhens" {
+bMotion_abstract_register "answerWhens" {
 	"this morning"
 	"this afternoon"
 	"now!"
@@ -322,8 +305,7 @@ bMotion_abstract_batchadd "answerWhens" {
 	"%NUMBER{12}:%NUMBER{5}%NUMBER{9}"
 }
 
-bMotion_abstract_register "answerHowmanys"
-bMotion_abstract_batchadd "answerHowmanys" {
+bMotion_abstract_register "answerHowmanys" {
 	"42"
 	"5"
 	"34975"
@@ -341,8 +323,7 @@ bMotion_abstract_batchadd "answerHowmanys" {
 	"%NUMBER{1000}"
 }
 
-bMotion_abstract_register "answerHows"
-bMotion_abstract_batchadd "answerHows" {
+bMotion_abstract_register "answerHows" {
 	"magic"
 	"pull harder"
 	"give it a push"
@@ -358,8 +339,7 @@ bMotion_abstract_batchadd "answerHows" {
 	"drink volvic first, then try"
 }
 
-bMotion_abstract_register "phaserFires"
-bMotion_abstract_batchadd "phaserFires" {
+bMotion_abstract_register "phaserFires" {
 	"/fires several shots from the forward phaser banks, disabling %%"
 	"/fires several shots from the forward phaser banks, destroying %%%|/flies out through the explosion in an impressive bit of piloting (not to mention rendering :)"
 	"/accidentally activates the wrong system and replicates a small tree"
@@ -373,8 +353,7 @@ bMotion_abstract_batchadd "phaserFires" {
 	"/pulls the Picard move (the non-uniform one)"
 }
 
-bMotion_abstract_register "torpedoFires"
-bMotion_abstract_batchadd "torpedoFires" {
+bMotion_abstract_register "torpedoFires" {
 	"/fires a volley of torpedos at %%"
 	"/breaks into a roll and fires torpedos from dorsal and ventral launchers in sequence"
 	"/breaks into a roll and ties itself in a knot%|Damn.%|%bot\[50,¬VAR{ruins}\]"
@@ -383,8 +362,7 @@ bMotion_abstract_batchadd "torpedoFires" {
 	"/heads directly for %%, firing a full spread of torpedos from the forward lauchers%|/flies out through the wreakage"
 }
 
-bMotion_abstract_register "everythingFires"
-bMotion_abstract_batchadd "everythingFires" {
+bMotion_abstract_register "everythingFires" {
 	"/opens the cargo hold and ejects some plastic drums at %%"
 	"/lauches all the escape pods"
 	"/fires the Universe Gun(tm) at %%"
@@ -393,8 +371,7 @@ bMotion_abstract_batchadd "everythingFires" {
 	"/lobs General Darian at %%"
 }
 
-bMotion_abstract_register "trekNouns"
-bMotion_abstract_batchadd "trekNouns" {
+bMotion_abstract_register "trekNouns" {
 	"Neelix"
 	"Captain Janeway"
 	"Deputy Wall Licker 97th Class Splock"
@@ -426,8 +403,7 @@ bMotion_abstract_batchadd "trekNouns" {
 	"Deep Space 9"
 }
 
-bMotion_abstract_register "charges"
-bMotion_abstract_batchadd "charges" {
+bMotion_abstract_register "charges" {
 	"exploding %VAR{trekNouns}"
 	"setting fire to %VAR{trekNouns}"
 	"gross incompetence"
@@ -448,8 +424,7 @@ bMotion_abstract_batchadd "charges" {
 	"timetravelling without a safety net"
 }
 
-bMotion_abstract_register "punishments"
-bMotion_abstract_batchadd "punishments" {
+bMotion_abstract_register "punishments" {
 	"talk to Neelix for 5 hours"
 	"be keel-dragged through an asteriod field"
 	"play chess against 7 of 9 (you may leave as soon as you win)"
@@ -467,15 +442,13 @@ bMotion_abstract_batchadd "punishments" {
 	"find Geordi a date"
 }
 
-bMotion_abstract_register "brigBanzais"
-bMotion_abstract_batchadd "brigBanzais" {
+bMotion_abstract_register "brigBanzais" {
 	"The %% Being In Brig Bet!"
 	"The Naughty %% Charge Conundrum!"
 	"%%'s Prison Poser!"
 }
 
-bMotion_abstract_register "banzaiMidBets"
-bMotion_abstract_batchadd "banzaiMidBets" {
+bMotion_abstract_register "banzaiMidBets" {
 	"bet bet bet!"
 	"bet now! Time running out!"
 	"come on, bet!"
@@ -483,14 +456,12 @@ bMotion_abstract_batchadd "banzaiMidBets" {
 	"you want friends to laugh at you? Bet!"
 }
 
-bMotion_abstract_register "wands"
-bMotion_abstract_batchadd "wands" {
+bMotion_abstract_register "wands" {
 	"/waves %hisher <notopic>magic wand</notopic>"
 	"Go go gadget magic wand!"
 }
 
-bMotion_abstract_register "harhars"
-bMotion_abstract_batchadd "harhars" {
+bMotion_abstract_register "harhars" {
 	"har har"
 	"h4w."
 	"h4w"
@@ -500,8 +471,7 @@ bMotion_abstract_batchadd "harhars" {
 	"I am the greatest!"
 }
 
-bMotion_abstract_register "analsexhelps"
-bMotion_abstract_batchadd "analsexhelps" {
+bMotion_abstract_register "analsexhelps" {
 	"/hands %% the KY jelly"
 	"/watches"
 	"/offers to help"
@@ -511,8 +481,7 @@ bMotion_abstract_batchadd "analsexhelps" {
 	"/lubes %pronoun up"
 }
 
-bMotion_abstract_register "wankhelps"
-bMotion_abstract_batchadd "wankhelps" {
+bMotion_abstract_register "wankhelps" {
 	"/helps %%"
 	"~rarr~"
 	"~oof~"
@@ -520,17 +489,14 @@ bMotion_abstract_batchadd "wankhelps" {
 	"/perves"
 }
 
-bMotion_abstract_register "niceTrys"
-bMotion_abstract_batchadd "niceTrys" {
+bMotion_abstract_register "niceTrys" {
 	"Nice try."
 	"You wish."
 	"Stop trying to break me or I'll break you."
 	"00h! j00r try1n9 t0 h4X0r m3h!%|/ph33rs"
 }
 
-
-bMotion_abstract_register "awwws"
-bMotion_abstract_batchadd "awwws" {
+bMotion_abstract_register "awwws" {
 	"awww"
 	"awww%|poor %%"
 	"awww%|/kisses it better"
@@ -538,8 +504,7 @@ bMotion_abstract_batchadd "awwws" {
 	"awww%|/sniggers at %%"
 }
 
-bMotion_abstract_register "randomReplies"
-bMotion_abstract_batchadd "randomReplies" {
+bMotion_abstract_register "randomReplies" {
 	"%ruser"
 	"Orange."
 	"about half-past three, I think"
@@ -662,54 +627,46 @@ bMotion_abstract_batchadd "randomReplies" {
 	"If only I hadn't used up all my lifelines%|%bot\[50,you can have one of mine\]%|no thanks, don't know where it's been"
 }
 
-bMotion_abstract_register "picksUp"
-bMotion_abstract_batchadd "picksUp" {
+bMotion_abstract_register "picksUp" {
 	"/picks up %%"
 	"/helps %% back off the ground"
 	"/gives %% a hand"
 }
 
-bMotion_abstract_register "dildoFlutePlays"
-bMotion_abstract_batchadd "dildoFlutePlays" {
+bMotion_abstract_register "dildoFlutePlays" {
 	"this one time at band camp...%|well, i'll show you...%|/puts the flute in %himherself"
 	"this one time, at band camp, i put a flute in my pussy%|/demonstrates"
 	"/puts the flute in %himherself%|we did this at band camp one year, too"
 }
 
-bMotion_abstract_register "dildoFluteFinishes"
-bMotion_abstract_batchadd "dildoFluteFinishes" {
+bMotion_abstract_register "dildoFluteFinishes" {
 	"/rescues her flute and plays a happy tune"
 	"hey %%, want to play it? :P"
 	"and that's why I liked band camp :)"
 }
 
 # %% = who, %2 = dildo
-bMotion_abstract_register "dildoPlays"
-bMotion_abstract_batchadd "dildoPlays" {
+bMotion_abstract_register "dildoPlays" {
 	"/sits %himherself down and shows %% how %heshe uses a %2"
 	"/lubes up and shows %% how pleased %heshe is with %hisher new present :D"
 }
 
 # %% = dildo, %2 = who
-bMotion_abstract_register "dildoFinishes"
-bMotion_abstract_batchadd "dildoFinishes" {
+bMotion_abstract_register "dildoFinishes" {
 	"/pulls out the %% and shoves it in %2's face%|you want some? :D"
 	"~oof~ ... much better :)"
 }
 
-bMotion_abstract_register "dildoFemaleFemale"
-bMotion_abstract_batchadd "dildoFemaleFemale" {
+bMotion_abstract_register "dildoFemaleFemale" {
 	"/would do some girl-on-girl action here on %%, but needs to know how :P%|KatieStar! ;)"
 }
 
-bMotion_abstract_register "dildoFemaleFemaleSwap"
-bMotion_abstract_batchadd "dildoFemaleFemaleSwap" {
+bMotion_abstract_register "dildoFemaleFemaleSwap" {
 	"ok, i hope you're done cos it's my turn now :)%|/has her turn with the %%"
 	"my turn my turn my turn!%|/swipes the %%"
 }
 
-bMotion_abstract_register "dildoMaleFemale"
-bMotion_abstract_batchadd "dildoMaleFemale" {
+bMotion_abstract_register "dildoMaleFemale" {
 	"*weg*%|/applies the %2 to %%"
 	"ooh you are norty%|/makes %% horny with the %2"
 	"i didn't realise you were in the mood for that%|*weg*%|/uses the %2 on %%"
@@ -721,24 +678,20 @@ bMotion_abstract_batchadd "dildoMaleFemale" {
 	"/stretches %% with the %2"
 }
 
-bMotion_abstract_register "dildoMaleMale"
-bMotion_abstract_batchadd "dildoMaleMale" {
+bMotion_abstract_register "dildoMaleMale" {
 	"/would do some man-on-man action here on %%, but needs to know how :P%|hmm... who can I ask? :)"
 }
 
-bMotion_abstract_register "dildoMaleMaleSwap"
-bMotion_abstract_batchadd "dildoMaleMaleSwap" {
+bMotion_abstract_register "dildoMaleMaleSwap" {
 	"ok, i hope you're done cos it's my turn now :)%|/has %hisher turn with the %%"
 }
 
-bMotion_abstract_register "dildoMalePlays"
-bMotion_abstract_batchadd "dildoMalePlays" {
+bMotion_abstract_register "dildoMalePlays" {
 	"/'plays' with the %2"
 	"/replicates %himherself some lube"
 }
 
-bMotion_abstract_register "handcoffees"
-bMotion_abstract_batchadd "handcoffees" {
+bMotion_abstract_register "handcoffees" {
 	"/hands %% a coffee"
 	"wake up%colen"
 	"go to bed already"
@@ -750,8 +703,7 @@ bMotion_abstract_batchadd "handcoffees" {
 	"/hands %% some ProPlus"
 }
 
-bMotion_abstract_register "parkedinsDislike"
-bMotion_abstract_batchadd "parkedinsDislike" {
+bMotion_abstract_register "parkedinsDislike" {
 	"heyyy"
 	"hey OW"
 	"%colen"
@@ -761,16 +713,14 @@ bMotion_abstract_batchadd "parkedinsDislike" {
 	"/disapproves of that sort of thing."
 }
 
-bMotion_abstract_register "secondDildoPlays"
-bMotion_abstract_batchadd "secondDildoPlays" {
+bMotion_abstract_register "secondDildoPlays" {
 	"/makes use of the additional %%%|%bot[50,sheesh]"
 	"/locates another hole for the %%%|%bot[50,sheesh]"
 	"thanks, but i don't have a free hand... could you put that one in for me?"
 	"woah cool!%|/gets some more lube%|%bot[50,sheesh]"
 }
 
-bMotion_abstract_register "thrownAts"
-bMotion_abstract_batchadd "thrownAts" {
+bMotion_abstract_register "thrownAts" {
 	"wh%REPEAT{4:10:e}!"
 	"I can seeee myyy house from heeeerrreeeeee!"
 	"*CRUMP*"
@@ -783,13 +733,11 @@ bMotion_abstract_batchadd "thrownAts" {
 	"/does a triple inverted twist somersault and lands neatly next to %%"
 }
 
-bMotion_abstract_register "bookmarks"
-bMotion_abstract_batchadd "bookmarks" {
+bMotion_abstract_register "bookmarks" {
 	"%VAR{smiles}"
 }
 
-bMotion_abstract_register "punchlines"
-bMotion_abstract_batchadd "punchlines" {
+bMotion_abstract_register "punchlines" {
 	"but it's legal if it's HER dog."
 	"because penguins can't dance."
 	"look if you don't know where it is put your tongue away."
@@ -803,8 +751,7 @@ bMotion_abstract_batchadd "punchlines" {
 	"%heshe only shaved the front!"
 }
 
-bMotion_abstract_register "typoFix"
-bMotion_abstract_batchadd "typoFix" {
+bMotion_abstract_register "typoFix" {
 	"oops"
 	"oops %SETTING{output:typos:typos:_:_}"
 	"%colen"
@@ -815,29 +762,25 @@ bMotion_abstract_batchadd "typoFix" {
 	"/butterfingers"
 }
 
-bMotion_abstract_register "blehs"
-bMotion_abstract_batchadd "blehs" {
+bMotion_abstract_register "blehs" {
 	"bleh"
 	"feh"
 	"meh"
 }
 
-bMotion_abstract_register "huks"
-bMotion_abstract_batchadd "huks" {
+bMotion_abstract_register "huks" {
 	"huk"
 	"kek"
 	"tilde"
 	"~"
 }
 
-bMotion_abstract_register "yesnos"
-bMotion_abstract_batchadd "yesnos" {
+bMotion_abstract_register "yesnos" {
 	"%VAR{yeses}"
 	"%VAR{nos}"
 }
 
-bMotion_abstract_register "rehashes"
-bMotion_abstract_batchadd "rehashes" {
+bMotion_abstract_register "rehashes" {
 	"r"
 	"Done."
 	"ryoukai"
@@ -848,8 +791,7 @@ bMotion_abstract_batchadd "rehashes" {
 	"okie"
 }
 
-bMotion_abstract_register "bodypart"
-bMotion_abstract_batchadd "bodypart" {
+bMotion_abstract_register "bodypart" {
 	"eyelash"
 	"toe"
 	"foot"
@@ -881,8 +823,7 @@ bMotion_abstract_batchadd "bodypart" {
 	"kidney"
 }
 
-bMotion_abstract_register "bodypart_male" 
-bMotion_abstract_batchadd "bodypart_male" {
+bMotion_abstract_register "bodypart_male" {
 	"cock"
 	"testicle"
 	"manboob"
@@ -891,8 +832,7 @@ bMotion_abstract_batchadd "bodypart_male" {
 	"dicksack"
 }
 
-bMotion_abstract_register "bodypart_female"
-bMotion_abstract_batchadd "bodypart_female" {
+bMotion_abstract_register "bodypart_female" {
 	"vagina"
 	"fanny"
 	"front bottom"
@@ -903,23 +843,19 @@ bMotion_abstract_batchadd "bodypart_female" {
 	"nipple"
 }
 
-
-bMotion_abstract_register "dude"
-bMotion_abstract_batchadd "dude" {
+bMotion_abstract_register "dude" {
 	"Dude!"
 	"My god dude!"
 	"Duuuuuuuuuuuuuuuuuude!"
 }
 
-bMotion_abstract_register "sweet"
-bMotion_abstract_batchadd "sweet" {
+bMotion_abstract_register "sweet" {
 	"Sweet!"
 	"Schweet!"
 	"Sweeeeeeeeeet!"
 }
 
-bMotion_abstract_register "units"
-bMotion_abstract_batchadd "units" {
+bMotion_abstract_register "units" {
 	"inches"
 	"miles"
 	"feet"
@@ -944,8 +880,7 @@ bMotion_abstract_batchadd "units" {
 	"decibels"
 }
 
-bMotion_abstract_register "oops"
-bMotion_abstract_batchadd "oops" {
+bMotion_abstract_register "oops" {
 	"oops"
 	"whoops"
 	"d'oh"
@@ -955,149 +890,233 @@ bMotion_abstract_batchadd "oops" {
 	"um... oops"
 }
 
-# bmotion abstracts
-bMotion_abstract_register "FRENCH"
-bMotion_abstract_register "PROM"
-bMotion_abstract_register "afro_1"
-bMotion_abstract_register "afro_A"
-bMotion_abstract_register "afro_B"
-bMotion_abstract_register "afro_C"
-bMotion_abstract_register "afro_D"
-bMotion_abstract_register "afro_E"
-bMotion_abstract_register "afro_F"
-bMotion_abstract_register "afro_G"
-bMotion_abstract_register "afro_H"
-bMotion_abstract_register "afro_I"
-bMotion_abstract_register "afro_J"
-bMotion_abstract_register "afro_K"
-bMotion_abstract_register "afro_L"
-bMotion_abstract_register "afro_M"
-bMotion_abstract_register "afro_N"
-bMotion_abstract_register "afro_O"
-bMotion_abstract_register "afro_P"
-bMotion_abstract_register "afro_Q"
-bMotion_abstract_register "afro_R"
-bMotion_abstract_register "afro_S"
-bMotion_abstract_register "afro_T"
-bMotion_abstract_register "afro_U"
-bMotion_abstract_register "afro_V"
-bMotion_abstract_register "afro_W"
-bMotion_abstract_register "afro_X"
-bMotion_abstract_register "afro_Y"
-bMotion_abstract_register "afro_Z"
-bMotion_abstract_register "aiis"
-bMotion_abstract_register "attack_responses"
-bMotion_abstract_register "autoAways"
-bMotion_abstract_register "awayWorks"
-bMotion_abstract_register "balefired"
-bMotion_abstract_register "bigranjoins"
-bMotion_abstract_register "blairadj"
-bMotion_abstract_register "blairisms"
-bMotion_abstract_register "blairparts"
-bMotion_abstract_register "blinding"
-bMotion_abstract_register "blindings"
-bMotion_abstract_register "blownAways"
-bMotion_abstract_register "boreds"
-bMotion_abstract_register "cyas"
-bMotion_abstract_register "ers"
-bMotion_abstract_register "feelings"
-bMotion_abstract_register "french1"
-bMotion_abstract_register "french2"
-bMotion_abstract_register "french3"
-bMotion_abstract_register "frightens"
-bMotion_abstract_register "get_fact_intros"
-bMotion_abstract_register "goAways"
-bMotion_abstract_register "goDowns"
-bMotion_abstract_register "gollums"
-bMotion_abstract_register "goodMornings"
-bMotion_abstract_register "goodlucks"
-bMotion_abstract_register "goodnights"
-bMotion_abstract_register "greetings"
-bMotion_abstract_register "hellos"
-bMotion_abstract_register "hexEnd"
-bMotion_abstract_register "hexMiddle"
-bMotion_abstract_register "hexStart"
-bMotion_abstract_register "hides"
-bMotion_abstract_register "hugs"
-bMotion_abstract_register "ididntresponses"
-bMotion_abstract_register "insult_joins"
-bMotion_abstract_register "insultsupermarket"
-bMotion_abstract_register "joinins"
-bMotion_abstract_register "kills"
-bMotion_abstract_register "locations"
-bMotion_abstract_register "lols"
-bMotion_abstract_register "lostPlot"
-bMotion_abstract_register "makeItSos"
-bMotion_abstract_register "mingreplies"
-bMotion_abstract_register "moos"
-bMotion_abstract_register "moose"
-bMotion_abstract_register "noneOfYourBusiness"
-bMotion_abstract_register "nos"
-bMotion_abstract_register "prom_first"
-bMotion_abstract_register "prom_second"
-bMotion_abstract_register "pullsOut"
-bMotion_abstract_register "randomAways"
-bMotion_abstract_register "ranjoins"
-bMotion_abstract_register "rarrs"
-bMotion_abstract_register "ruins"
-bMotion_abstract_register "shocked"
-bMotion_abstract_register "silences"
-bMotion_abstract_register "sillyThings"
-bMotion_abstract_register "smacks"
-bMotion_abstract_register "smiles"
-bMotion_abstract_register "smokes"
-bMotion_abstract_register "sorryoks"
-bMotion_abstract_register "stolens"
-bMotion_abstract_register "stonedAnnounce"
-bMotion_abstract_register "stonedRandomStuff"
-bMotion_abstract_register "stupidReplies"
-bMotion_abstract_register "sucks"
-bMotion_abstract_register "tech_answer"
-bMotion_abstract_register "tech_functions"
-bMotion_abstract_register "tech_problem"
-bMotion_abstract_register "tech_software"
-bMotion_abstract_register "tech_tries"
-bMotion_abstract_register "thanks"
-bMotion_abstract_register "unsmiles"
-bMotion_abstract_register "upyourbums"
-bMotion_abstract_register "wahey"
-bMotion_abstract_register "waveTooMuch"
-bMotion_abstract_register "welcomeBacks"
-bMotion_abstract_register "welcomes"
-bMotion_abstract_register "wrong_infoline"
-bMotion_abstract_register "yeses"
+# bMotion Abstract Contents
+bMotion_abstract_register "stolens" {
+	"Hey NO :(%|That's mine%|/sulks at %%"
+	"heeeeyyyy%|:("
+	"bah%|/steals it back"
+	"/smacks %%"
+	"hey no, that's *MINE*"
+	"nnk"
+	"what the?"
+	"Stop! Thief!"
+}
 
-# bMotion abstracts contents
-bMotion_abstract_batchadd "stolens" [ list "Hey NO :(%|That's mine%|/sulks at %%" "heeeeyyyy%|:(" "bah%|/steals it back" "/smacks %%" "hey no, that's *MINE*" "nnk" "what the?" "Stop! Thief!" ]
+bMotion_abstract_register "feelings" {
+	"ok thanks"
+	"fine"
+	"all good"
+	"pretty good"
+	"bon"
+	"okay"
+	"not bad"
+	"been worse"
+	"been better"
+	"friskier than a rabbit in springtime"
+	"minging"
+	"positively jade-like"
+	"like John's mum on a Thursday night"
+	"bonza"
+}
 
-bMotion_abstract_batchadd "feelings" [ list "ok thanks" "fine" "all good" "pretty good" "bon" "okay" "not bad" "been worse" "been better" "friskier than a rabbit in springtime" "minging" "positively jade-like" "like John's mum on a Thursday night" "bonza" ]
+bMotion_abstract_register "lostPlot" {
+	"I've forgotten the rest"
+	"uh... was there more to that?"
+	"I have no idea what's going on"
+	"nevermind... you're obviously not ready for a statement of this magnitude"
+	"what? leave me alone"
+}
 
-bMotion_abstract_batchadd "lostPlot" [ list "I've forgotten the rest" "uh... was there more to that?" "I have no idea what's going on" "nevermind... you're obviously not ready for a statement of this magnitude" "what? leave me alone" ]
+bMotion_abstract_register "hugs" {
+	"*hugs %%*"
+	"/huggles %%"
+	"/snuggles %%"
+	"*snuggles %%*"
+	"/huggles with %%"
+	"/squeezes %%"
+	"/snoofles %%"
+}
 
-bMotion_abstract_batchadd "hugs" [ list "*hugs %%*" "/huggles %%" "/snuggles %%" "*snuggles %%*" "/huggles with %%" "/squeezes %%" "/snoofles %%" ]
+bMotion_abstract_register "hides" {
+	"/ducks"
+	"/runs for the hills"
+	"/legs it"
+	"eek!%|/runs for it"
+	"/hides behind %ruser"
+	"/hides"
+	"/duck-and-covers"
+	"Don't be so silly."
+	"Look over there!%|/runs"
+}
 
-bMotion_abstract_batchadd "hides" [list "/ducks" "/runs for the hills" "/legs it" "eek!%|/runs for it" "/hides behind %ruser" "/hides" "/duck-and-covers" "Don't be so silly." "Look over there!%|/runs" ]
+bMotion_abstract_register "stonedAnnounce" {
+	"/is quite obviously stoned"
+	"/is stoned"
+	"/is caned"
+	"/is delighted to announce i have achieved the status 'stoned'%|Now to go for very stoned"
+}
 
-bMotion_abstract_batchadd "stonedAnnounce" [list "/is quite obviously stoned" "/is stoned" "/is caned" "/is delighted to announce i have achieved the status 'stoned'%|Now to go for very stoned" ]
+bMotion_abstract_register "goDowns" {
+	"/goes down on %%"
+	"/goes slowly down on %%"
+	"/flops down on %%"
+	"/pleasures %%"
+	"/pleasures %% with %hisher tongue"
+}
 
-bMotion_abstract_batchadd "goDowns" [list "/goes down on %%" "/goes slowly down on %%" "/flops down on %%" "/pleasures %%" "/pleasures %% with %hisher tongue" ]
+bMotion_abstract_register "bigranjoins" {
+	"bhar"
+	"r."
+	"r %%"
+	"a%REPEAT{3:8:r}"
+	"boohar %%"
+	"boom"
+	"BOOM%colen"
+	"BOOM!"
+	"alors bof"
+	"pop"
+	"%%%colen"
+	"%%!"
+	"%% %VAR{smiles}"
+	"oh my god it's %%... i'm so excited i wish i could wet my pants!"
+}
 
-bMotion_abstract_batchadd "bigranjoins" [list "bhar" "r." "r %%" "a%REPEAT{3:8:r}" "boohar %%" "boom" "BOOM%colen" "BOOM!" "alors bof" "pop" "%%%colen" "%%!" "%% %VAR{smiles}" "oh my god it's %%... i'm so excited i wish i could wet my pants!" ]
+bMotion_abstract_register "hexMiddle" {
+	"Cheese Error"
+	"FTB"
+	"GBL"
+	"+MELON+"
+	"Octarine"
+	"Sixth Dimension"
+	"Teatime"
+	"Phase Of Moon Generator"
+	"Unreal Time Clock"
+	"Anthill Inside"
+	"Thaumic Disturbance"
+	"Flux"
+	"Influx"
+	"Hive Interface"
+	"Line 666"
+	"Line %NUMBER{10000}"
+	"Nether Realm"
+	"Conjuring"
+	"Octagram"
+	"Archive Reference"
+	"Enchantment"
+	"Eternal Domain"
+	"Paradox Shifting"
+	"Here Comes The Cheese"
+	"Ow"
+	"%VAR{sillyThings}{strip}"
+}
 
-bMotion_abstract_batchadd "hexMiddle" [list "Cheese Error" "FTB" "GBL" "+MELON+" "Octarine" "Sixth Dimension" "Teatime" "Phase Of Moon Generator" "Unreal Time Clock" "Anthill Inside" "Thaumic Disturbance" "Flux" "Influx" "Hive Interface" "Line 666" "Line %NUMBER{10000}" "Nether Realm" "Conjuring" "Octagram" "Archive Reference" "Enchantment" "Eternal Domain" "Paradox Shifting" "Here Comes The Cheese" "Ow" "%VAR{sillyThings}{strip}" ]
+bMotion_abstract_register "tech_tries" {
+	"sacrificing my boss"
+	"reinstalling it"
+	"going to a voodoo witch doctor"
+	"covering it in honey"
+	"putting the CD in the other way up"
+	"putting the CD in the floppy drive"
+	"smearing it with mud"
+	"running it on my Mac"
+	"rebooting"
+}
 
-bMotion_abstract_batchadd "tech_tries" [list "sacrificing my boss" "reinstalling it" "going to a voodoo witch doctor" "covering it in honey" "putting the CD in the other way up" "putting the CD in the floppy drive" "smearing it with mud" "running it on my Mac" "rebooting" ]
+bMotion_abstract_register "goodlucks" {
+	"GL"
+	"good luck :)"
+	"good luck"
+	"best of luck to you"
+	"/crosses fingers"
+}
 
-bMotion_abstract_batchadd "goodlucks" [list "GL" "good luck :)" "good luck" "best of luck to you" "/crosses fingers" ]
+bMotion_abstract_register "goAways" {
+	"go away"
+	"piss off"
+	"shut up"
+	"get lost"
+	"..."
+	"make like a banana"
+	"sod off"
+	"bugger off"
+}
 
-bMotion_abstract_batchadd "goAways" [list "go away" "piss off" "shut up" "get lost" "..." "make like a banana" "sod off" "bugger off" ]
+bMotion_abstract_register "smacks" {
+	"smacks"
+	"cuff"
+	"hits"
+	"pats"
+	"slaps"
+	"socks"
+	"spanks"
+	"chops"
+	"clouts"
+	"punches"
+	"annihilates"
+	"annuls"
+	"axes"
+	"butchers"
+	"crusesh"
+	"damages"
+	"defaces"
+	"eradicates"
+	"erases"
+	"exterminates"
+	"extinguishes"
+	"gust"
+	"impairs"
+	"kills"
+	"lays waste"
+	"levels"
+	"liquidates"
+	"maims"
+	"mutilates"
+	"nukes"
+	"nullifies"
+	"quashes"
+	"quells"
+	"ravages"
+	"ravishes"
+	"razes"
+	"ruins"
+	"sabotages"
+	"shatters"
+	"slays"
+	"smashes"
+	"snuffs out"
+	"stamps out"
+	"suppresses"
+	"torpedoes"
+	"trashes"
+	"wastes"
+	"wipes out"
+	"wrecks"
+	"zaps"
+}
 
-bMotion_abstract_batchadd "smacks" [list "smacks" "cuff" "hits" "pats" "slaps" "socks" "spanks" "chops" "clouts" "punches" "annihilates" "annuls" "axes" "butchers" "crusesh" "damages" "defaces" "eradicates" "erases" "exterminates" "extinguishes" "gust" "impairs" "kills" "lays waste" "levels" "liquidates" "maims" "mutilates" "nukes" "nullifies" "quashes" "quells" "ravages" "ravishes" "razes" "ruins" "sabotages" "shatters" "slays" "smashes" "snuffs out" "stamps out" "suppresses" "torpedoes" "trashes" "wastes" "wipes out" "wrecks" "zaps" ]
+bMotion_abstract_register "ranjoins" {
+	"hey %%"
+	"hi %%"
+	"hi there %%"
+	"hi yo~"
+	"Good Morning %%"
+	"%% you're looking especially shagworthy today"
+	"hay %%"
+	"sup %%"
+	"hay %% whats goin on"
+	"lol l@@k its %%"
+	"GENTLEMEN! BEHOLD!"
+	"shh %%, it's quiet time now"
+	"%% ._."
+	"wilkommen %%"
+	"uh oh, it's %%"
+	"ieks, %%"
+	"welcome to our next contestant, %%!"
+	"wasn't expecting %%!%|/hides"
+	"hey %% %VAR{food}%VAR{bodypart}"
+}
 
-bMotion_abstract_batchadd "ranjoins" [list "hey %%" "hi %%" "hi there %%" "hi yo~" "Good Morning %%" "%% you're looking especially shagworthy today" "hay %%" "sup %%" "hay %% whats goin on" "lol l@@k its %%" "GENTLEMEN! BEHOLD!" "shh %%, it's quiet time now" "%% ._." "wilkommen %%" "uh oh, it's %%" "ieks, %%" "welcome to our next contestant, %%!" "wasn't expecting %%!%|/hides" "hey %% %VAR{food}%VAR{bodypart}"]
-
-bMotion_abstract_register "food"
-bMotion_abstract_batchadd "food" {
+bMotion_abstract_register "food" {
 	"honey"
 	"jam"
 	"marmite"
@@ -1108,19 +1127,90 @@ bMotion_abstract_batchadd "food" {
 	"marmalade"
 }
 
-bMotion_abstract_batchadd "smiles" [list ":)" ";)" "=)" "=]" "=D" "^_^" "-_-" ":o)" ":-)"]
+bMotion_abstract_register "smiles" {
+	":)"
+	";)"
+	"=)"
+	"=]"
+	"=D"
+	"^_^"
+	"-_-"
+	":o)"
+	":-)"
+}
 
-bMotion_abstract_batchadd "thanks" [list "cheers" "ta" "thanks" "merki" "a thousand thankyous" "thx" "tanks" "thankie" "thansk" "praise be to you" ]
+bMotion_abstract_register "thanks" {
+	"cheers"
+	"ta"
+	"thanks"
+	"merki"
+	"a thousand thankyous"
+	"thx"
+	"tanks"
+	"thankie"
+	"thansk"
+	"praise be to you"
+}
 
-bMotion_abstract_batchadd "stupidReplies" [list "I may be stupid, but you're minging, and I can learn new things :)" "At least I'm not minging." "Minger." "You do better in 6911 lines of TCL :P" "You know, I think you say that just to hide the fact that you're not the sharpest tool in the box either." "*hands over ears* lalalalala I can't hear you..." "I'm only code, what's your excuse?" "Silence!" "I only have 1s and 0s.  You don't seem to be doing so hot with the rest of the numbers" "I'm made of SAND! I think I'm doing bloody well." "You see how you do after 2 years on IRC with no sleep" "You say that now. Wait till I'm in Mensa." "You're so thick even Densa rejected you." "Yes Jade. Absolutely." "at least i'm not a talking penis" "garbage fucker" "I have no thumbs."]
+bMotion_abstract_register "stupidReplies" {
+	"I may be stupid, but you're minging, and I can learn new things :)"
+	"At least I'm not minging."
+	"Minger."
+	"You do better in 6911 lines of TCL :P"
+	"You know, I think you say that just to hide the fact that you're not the sharpest tool in the box either."
+	"*hands over ears* lalalalala I can't hear you..."
+	"I'm only code, what's your excuse?"
+	"Silence!"
+	"I only have 1s and 0s.  You don't seem to be doing so hot with the rest of the numbers"
+	"I'm made of SAND! I think I'm doing bloody well."
+	"You see how you do after 2 years on IRC with no sleep"
+	"You say that now. Wait till I'm in Mensa."
+	"You're so thick even Densa rejected you."
+	"Yes Jade. Absolutely."
+	"at least i'm not a talking penis"
+	"garbage fucker"
+	"I have no thumbs."
+}
 
-bMotion_abstract_batchadd "moose" [list "yarr" "pop" "jum" "zort" ]
+bMotion_abstract_register "moose" {
+	"yarr"
+	"pop"
+	"jum"
+	"zort"
+}
 
-bMotion_abstract_batchadd "get_fact_intros" [list "I think I heard that" "last time I knew," "it could be that" "ok, I'll tell you that" "well, don't tell anyone, but......." "last time I knew," "well," "er," ]
+bMotion_abstract_register "get_fact_intros" {
+	"I think I heard that"
+	"last time I knew,"
+	"it could be that"
+	"ok, I'll tell you that"
+	"well, don't tell anyone, but......."
+	"last time I knew,"
+	"well,"
+	"er,"
+}
 
-bMotion_abstract_batchadd "rarrs" [list "~rarr~" "~oof~" "uNf" "*uNf" "*squeaky*" "*boing*" "%REPEAT{3:8:bl}" "*spangle*" "~oef~" ]
+bMotion_abstract_register "rarrs" {
+	"~rarr~"
+	"~oof~"
+	"uNf"
+	"*uNf"
+	"*squeaky*"
+	"*boing*"
+	"%REPEAT{3:8:bl}"
+	"*spangle*"
+	"~oef~"
+}
 
-bMotion_abstract_batchadd "sorryoks" [list "ok" "that's ok" "alright then" "i forgive you" "/spanks %%%|%BOT\[¬VAR{rarrs}\]" "That's ok then. I suppose. Don't think this makes me like you again though" "humph" ]
+bMotion_abstract_register "sorryoks" {
+	"ok"
+	"that's ok"
+	"alright then"
+	"i forgive you"
+	"/spanks %%%|%BOT\[¬VAR{rarrs}\]"
+	"That's ok then. I suppose. Don't think this makes me like you again though"
+	"humph"
+}
 
 bMotion_abstract_register "loveresponses" {
 	"awww thanks" 
@@ -1144,13 +1234,48 @@ bMotion_abstract_register "loveresponses_male" {
 	"and i love you th%REPEAT{3:7:i}s much:%|*schwing*%|%VAR{oops}"
 }
 
-bMotion_abstract_batchadd "hugs" [list "*hugs %%*" "/huggles %%" "/snuggles %%" "*snuggles %%*" "/huggles with %%" "/squeezes %%" "/snoofles %%" ]
+bMotion_abstract_register "hugs" {
+	"*hugs %%*"
+	"/huggles %%"
+	"/snuggles %%"
+	"*snuggles %%*"
+	"/huggles with %%"
+	"/squeezes %%"
+	"/snoofles %%"
+}
 
-bMotion_abstract_batchadd "upyourbums" [list "up your bum." "up yer bum" "up yer cavernous arse" "up ya bum" "up my bum :P" "hold on, i'll check%%|not up my bum :P" "hold on, i'll check%|not up your bum :P" "is it up your bum?" "have you checked your bum yet?" "down the shops." "Turkey." "on a tube train." "on a bus." "halfway up big ben." "toilet." "bathroom." "up my nose." "in a field" "hiding in the long grass" "hidden." "down %ruser{female}'s clevage%|%bot\[50,@male,i'll get it!\]" ]
+bMotion_abstract_register "upyourbums" {
+	"up your bum."
+	"up yer bum"
+	"up yer cavernous arse"
+	"up ya bum"
+	"up my bum :P"
+	"hold on, i'll check%%|not up my bum :P"
+	"hold on, i'll check%|not up your bum :P"
+	"is it up your bum?"
+	"have you checked your bum yet?"
+	"down the shops."
+	"Turkey."
+	"on a tube train."
+	"on a bus."
+	"halfway up big ben."
+	"toilet."
+	"bathroom."
+	"up my nose."
+	"in a field"
+	"hiding in the long grass"
+	"hidden."
+	"down %ruser{female}'s clevage%|%bot\[50,@male,i'll get it!\]"
+}
 
-bMotion_abstract_batchadd "tech_answer" [list "I just bought %VAR{tech_software} and I can't get it to %VAR{tech_problem}, I've tried %VAR{tech_tries} and it still won't work" "I've just got %VAR{tech_software}, and it won't %VAR{tech_problem}. I've tried everything including %VAR{tech_tries} but nothing helps" "I hear you do books by %VAR{answerWhos}, can you sell me one?" "I need a bit of software to %VAR{tech_functions} %VAR{sillyThings}" ]
+bMotion_abstract_register "tech_answer" {
+	"I just bought %VAR{tech_software} and I can't get it to %VAR{tech_problem}, I've tried %VAR{tech_tries} and it still won't work"
+	"I've just got %VAR{tech_software}, and it won't %VAR{tech_problem}. I've tried everything including %VAR{tech_tries} but nothing helps"
+	"I hear you do books by %VAR{answerWhos}, can you sell me one?"
+	"I need a bit of software to %VAR{tech_functions} %VAR{sillyThings}"
+}
 
-bMotion_abstract_batchadd "prom_first" {
+bMotion_abstract_register "prom_first" {
 	"piss"
 	"shit"
 	"fuck"
@@ -1170,7 +1295,7 @@ bMotion_abstract_batchadd "prom_first" {
 	"twat"
 }
 
-bMotion_abstract_batchadd "silences" {
+bMotion_abstract_register "silences" {
 	"Be quiet"
 	"Enough"
 	"Silence!"
@@ -1180,9 +1305,35 @@ bMotion_abstract_batchadd "silences" {
 	"Shhh"
 }
 
-bMotion_abstract_batchadd "hexEnd" [list "Disabled+++" "Occurance+++" "Portal Opening+++" "Detected+++" ": Reinstall Syrup+++" "snack break+++" "-(Why Not Take This Time To Register Your Purchase)+++" "=Error %REPEAT{3:6:%NUMBER{100}}+++" "%REPEAT{3:12:?}+++" "Warning : Excess %VAR{sillyThings}{strip}" "Data Lost+++" ": Redo From Start+++" "- Please Reboot Universe+++" "Aknowledgment+++" "Ended+++"		"-If Problem Persists Contact The Creator+++" "-Could Not Complete Destiny+++" "-no sufficient sentient life forms+++" "Technological Change+++" "-Access Completely And Indefinitely Denied+++" "-Query+++" "+++" "Waaaaah!+++" "Divide By Cucumber Error+++" ": Error - Division By Moonlight+++" ]
+bMotion_abstract_register "hexEnd" {
+	"Disabled+++"
+	"Occurance+++"
+	"Portal Opening+++"
+	"Detected+++"
+	": Reinstall Syrup+++"
+	"snack break+++"
+	"-(Why Not Take This Time To Register Your Purchase)+++"
+	"=Error %REPEAT{3:6:%NUMBER{100}}+++"
+	"%REPEAT{3:12:?}+++"
+	"Warning : Excess %VAR{sillyThings}{strip}"
+	"Data Lost+++"
+	": Redo From Start+++"
+	"- Please Reboot Universe+++"
+	"Aknowledgment+++"
+	"Ended+++"
+	"-If Problem Persists Contact The Creator+++"
+	"-Could Not Complete Destiny+++"
+	"-no sufficient sentient life forms+++"
+	"Technological Change+++"
+	"-Access Completely And Indefinitely Denied+++"
+	"-Query+++"
+	"+++"
+	"Waaaaah!+++"
+	"Divide By Cucumber Error+++"
+	": Error - Division By Moonlight+++"
+}
 
-bMotion_abstract_batchadd "prom_second" {
+bMotion_abstract_register "prom_second" {
 	"rifle"
 	"flower"
 	"desk"
@@ -1219,11 +1370,35 @@ bMotion_abstract_batchadd "prom_second" {
 	"socket"
 }
 
-bMotion_abstract_batchadd "ididntresponses" [list "no, *I* didn't" "Oh really." "Yes you did. We all saw it." "Of course you didn't." "Oh yes you did." "You must think us all fools." "nnk" "We all saw you" "I have proof you did" "caught on camera!"]
+bMotion_abstract_register "ididntresponses" {
+	"no, *I* didn't"
+	"Oh really."
+	"Yes you did. We all saw it."
+	"Of course you didn't."
+	"Oh yes you did."
+	"You must think us all fools."
+	"nnk"
+	"We all saw you"
+	"I have proof you did"
+	"caught on camera!"
+}
 
-bMotion_abstract_batchadd "aiis" [list "wikkid" "aii" "aiiiii" "innit" "respect" "westsyde%|/snaps wrist Ali G-stylee." "true" "keepin' it real" "iz wikkid" "wikkid stylin' of da wikkid!" "/is hangin with %hisher crew" "Respect ma blingbling" "kickin it down with da home boy posse" "That is so last week" ]
-
-
+bMotion_abstract_register "aiis" {
+	"wikkid"
+	"aii"
+	"aiiiii"
+	"innit"
+	"respect"
+	"westsyde%|/snaps wrist Ali G-stylee."
+	"true"
+	"keepin' it real"
+	"iz wikkid"
+	"wikkid stylin' of da wikkid!"
+	"/is hangin with %hisher crew"
+	"Respect ma blingbling"
+	"kickin it down with da home boy posse"
+	"That is so last week"
+}
 
 bMotion_abstract_register "stores" {
 	"the post office"
@@ -1248,100 +1423,1265 @@ bMotion_abstract_register "biscuits" {
 	"Gingersnaps"
 }
 
-bMotion_abstract_batchadd "PROM" [list "%VAR{prom_first}-%VAR{prom_second}" ]
+bMotion_abstract_register "PROM" {
+	"%VAR{prom_first}-%VAR{prom_second}"
+}
 
-bMotion_abstract_batchadd "blindings" [list "h%REPEAT{5:10:n}" "blinding" "h%REPEAT{5:10:n} blinding" ]
+bMotion_abstract_register "blindings" {
+	"h%REPEAT{5:10:n}"
+	"blinding"
+	"h%REPEAT{5:10:n} blinding"
+}
 
-bMotion_abstract_batchadd "ers" [list "er" "erm" "umm" "um" ]
+bMotion_abstract_register "ers" {
+	"er"
+	"erm"
+	"umm"
+	"um"
+}
 
-bMotion_abstract_batchadd "goodnights" [list "night" "nn" "night %%" "sleep well" "goodnight :)" "night :)" "g'night" "sleep well %%" "nn %%" "don't have really bad dreams about a nasty man coming to strangle you in your bed" "sleep well %%" ]
+bMotion_abstract_register "goodnights" {
+	"night"
+	"nn"
+	"night %%"
+	"sleep well"
+	"goodnight :)"
+	"night :)"
+	"g'night"
+	"sleep well %%"
+	"nn %%"
+	"don't have really bad dreams about a nasty man coming to strangle you in your bed"
+	"sleep well %%"
+}
 
-bMotion_abstract_batchadd "afro_1" [list "1000" "1001" "1002" "1003" "1004" "1005" "1006" "1007" "1008" "1009" "1010" "1011" "1012" "1013" "1014" "1015" "1016" "1017" "1018" "1019" "1020" "1021" "1022" "1023" "1024" "1025" "1026" "1027" "1028" "1029" "1030" "1031" "1032" "1033" "1034" "1035" "1036" "1037" "1038" "1039" "1040" "1041" "1042" "1043" "1044" "1045" "1046" "1047" "1048" "1049" "1050" "1051" "1052" "1053" "1054" "1055" "1056" "1057" "1058" "1059" "1060" "1061" "1062" "1063" "1064" "1065" "1066" "1067" "1068" "1069" "1070" "1071" "1072" "1073" "1074" "1075" "1076" "1077" "1078" "1079" "1080" "1081" "1082" "1083" "1084" "1085" "1086" "1087" "1088" "1089" "1090" "1091" "1092" "1093" "1094" "1095" "1096" "1097" "1098" "1099" ]
+bMotion_abstract_register "afro_1" {
+	"1000"
+	"1001"
+	"1002"
+	"1003"
+	"1004"
+	"1005"
+	"1006"
+	"1007"
+	"1008"
+	"1009"
+	"1010"
+	"1011"
+	"1012"
+	"1013"
+	"1014"
+	"1015"
+	"1016"
+	"1017"
+	"1018"
+	"1019"
+	"1020"
+	"1021"
+	"1022"
+	"1023"
+	"1024"
+	"1025"
+	"1026"
+	"1027"
+	"1028"
+	"1029"
+	"1030"
+	"1031"
+	"1032"
+	"1033"
+	"1034"
+	"1035"
+	"1036"
+	"1037"
+	"1038"
+	"1039"
+	"1040"
+	"1041"
+	"1042"
+	"1043"
+	"1044"
+	"1045"
+	"1046"
+	"1047"
+	"1048"
+	"1049"
+	"1050"
+	"1051"
+	"1052"
+	"1053"
+	"1054"
+	"1055"
+	"1056"
+	"1057"
+	"1058"
+	"1059"
+	"1060"
+	"1061"
+	"1062"
+	"1063"
+	"1064"
+	"1065"
+	"1066"
+	"1067"
+	"1068"
+	"1069"
+	"1070"
+	"1071"
+	"1072"
+	"1073"
+	"1074"
+	"1075"
+	"1076"
+	"1077"
+	"1078"
+	"1079"
+	"1080"
+	"1081"
+	"1082"
+	"1083"
+	"1084"
+	"1085"
+	"1086"
+	"1087"
+	"1088"
+	"1089"
+	"1090"
+	"1091"
+	"1092"
+	"1093"
+	"1094"
+	"1095"
+	"1096"
+	"1097"
+	"1098"
+	"1099"
+}
 
-bMotion_abstract_batchadd "makeItSos" [list "/makes it so" "/goes to warp" "/fires phasers" "/replicates some coffee" "/jumps to warp" "/sets fire to %%" "/launches a volley of photon torpedos" "/launches a volley of quantum torpedos" ]
+bMotion_abstract_register "makeItSos" {
+	"/makes it so"
+	"/goes to warp"
+	"/fires phasers"
+	"/replicates some coffee"
+	"/jumps to warp"
+	"/sets fire to %%"
+	"/launches a volley of photon torpedos"
+	"/launches a volley of quantum torpedos"
+}
 
-bMotion_abstract_batchadd "french1" [list "est-ce que je peux" "je prend" "je vais au" "ou sont les toilettes" "on m'a" "je vais manger" "bonjour" ]
+bMotion_abstract_register "french1" {
+	"est-ce que je peux"
+	"je prend"
+	"je vais au"
+	"ou sont les toilettes"
+	"on m'a"
+	"je vais manger"
+	"bonjour"
+}
 
-bMotion_abstract_batchadd "french2" [list "ouvir la fenetre" "une douche" "manger" "baiser-vous plus vite" "un velo" "une lesbienne" ]
+bMotion_abstract_register "french2" {
+	"ouvir la fenetre"
+	"une douche"
+	"manger"
+	"baiser-vous plus vite"
+	"un velo"
+	"une lesbienne"
+}
 
-bMotion_abstract_batchadd "french3" [list "a dix heures" "dans la salle de bains" "sur la bus 264" "dans la collection noir" "une vie sexuelle" "ma tete" "ma fesse" "les chapeaux" ]
+bMotion_abstract_register "french3" {
+	"a dix heures"
+	"dans la salle de bains"
+	"sur la bus 264"
+	"dans la collection noir"
+	"une vie sexuelle"
+	"ma tete"
+	"ma fesse"
+	"les chapeaux"
+}
 
-bMotion_abstract_batchadd "afro_A" [list "aardvark" "arse" "arrange" "american" "a" "at" "anthony" "aboot" "alright" "all" "another" "archer" "anna" "and" "andrews" "albert" "amy" "anabolic" "athena" "arnold" "adu" "alice" "animals" "amalia" "assassinated" "aces" "al" "alberts" "andy" "asymmetric" "ashton" "armstrong" "africa" "ames" "age" "albania" "allen" "am" "arc" "aint" "affairs" "annabel" "applejacks" "air" "athens" "aerial" "arabia" "around" "atlanta" "anthophobia" "archaeologists" "america" "allegro" "alley" "adams" "armored" "as" "aioli" "asquith" "alphanumeric" "adagio" "avon" "atlantic" "augustus" ]
+bMotion_abstract_register "afro_A" {
+	"aardvark"
+	"arse"
+	"arrange"
+	"american"
+	"a"
+	"at"
+	"anthony"
+	"aboot"
+	"alright"
+	"all"
+	"another"
+	"archer"
+	"anna"
+	"and"
+	"andrews"
+	"albert"
+	"amy"
+	"anabolic"
+	"athena"
+	"arnold"
+	"adu"
+	"alice"
+	"animals"
+	"amalia"
+	"assassinated"
+	"aces"
+	"al"
+	"alberts"
+	"andy"
+	"asymmetric"
+	"ashton"
+	"armstrong"
+	"africa"
+	"ames"
+	"age"
+	"albania"
+	"allen"
+	"am"
+	"arc"
+	"aint"
+	"affairs"
+	"annabel"
+	"applejacks"
+	"air"
+	"athens"
+	"aerial"
+	"arabia"
+	"around"
+	"atlanta"
+	"anthophobia"
+	"archaeologists"
+	"america"
+	"allegro"
+	"alley"
+	"adams"
+	"armored"
+	"as"
+	"aioli"
+	"asquith"
+	"alphanumeric"
+	"adagio"
+	"avon"
+	"atlantic"
+	"augustus"
+}
 
-bMotion_abstract_batchadd "afro_B" [list "balloon" "breasts" "beethoven" "because" "back" "bing" "blues" "belinda" "bills" "batman" "borromeo" "barrett" "barkier" "brewer" "banshees"	"blindness" "breath" "bud" "be" "boy" "bellini" "bees" "bayreuth" "baht" "brazil" "birnham" "beans" "backdraft" "brook" "benton"		"brinkley" "bull" "brian" "bruce" "bernard" "b" "bill" "beelzebub" "britain" "bonnie" "brothers" "brigitte" "bardot" "breed" "blind"		"ballet" "belgium" "beau" "bridges" "bag" "band" "barrymore" "billion" "black" "bronze" "boston" "blue" "brewery" "bird" "bryan"		"big" "bang" "brenda" "bee" "bow" ]
+bMotion_abstract_register "afro_B" {
+	"balloon"
+	"breasts"
+	"beethoven"
+	"because"
+	"back"
+	"bing"
+	"blues"
+	"belinda"
+	"bills"
+	"batman"
+	"borromeo"
+	"barrett"
+	"barkier"
+	"brewer"
+	"banshees"
+	"blindness"
+	"breath"
+	"bud"
+	"be"
+	"boy"
+	"bellini"
+	"bees"
+	"bayreuth"
+	"baht"
+	"brazil"
+	"birnham"
+	"beans"
+	"backdraft"
+	"brook"
+	"benton"
+	"brinkley"
+	"bull"
+	"brian"
+	"bruce"
+	"bernard"
+	"b"
+	"bill"
+	"beelzebub"
+	"britain"
+	"bonnie"
+	"brothers"
+	"brigitte"
+	"bardot"
+	"breed"
+	"blind"
+	"ballet"
+	"belgium"
+	"beau"
+	"bridges"
+	"bag"
+	"band"
+	"barrymore"
+	"billion"
+	"black"
+	"bronze"
+	"boston"
+	"blue"
+	"brewery"
+	"bird"
+	"bryan"
+	"big"
+	"bang"
+	"brenda"
+	"bee"
+	"bow"
+}
 
-bMotion_abstract_batchadd "afro_C" [list "cheese" "cow" "cock" "chicken" "cup" "cupcake" "cubism" "charity" "collins" "cappuccino" "capote" "cobb" "california" "canadian" "carl"		"cocks" "cool" "country" "crosby" "carla" "club" "child" "charles" "cairo" "copenhagen" "coming" "cardiff" "christmas" "change" "collector"			"could" "candy" "chris" "cat" "coin" "chicago" "calories" "churchill" "crocodiles" "couldn" "care" "cirrus" "connery" "corporal" "cant"			"cooper" "cities" "communist" "chrissie" "chamberlain" "casablanca" "champs" "cadillacs" "copper" "cincinnati" "chihuahua" "cougar" "come" "composer" "castrato"		"cobol" "charlie" "calcium" "cognac" "curve" "calico" "century" "capsicum" "close" "cemetary" "caesar" ]
+bMotion_abstract_register "afro_C" {
+	"cheese"
+	"cow"
+	"cock"
+	"chicken"
+	"cup"
+	"cupcake"
+	"cubism"
+	"charity"
+	"collins"
+	"cappuccino"
+	"capote"
+	"cobb"
+	"california"
+	"canadian"
+	"carl"
+	"cocks"
+	"cool"
+	"country"
+	"crosby"
+	"carla"
+	"club"
+	"child"
+	"charles"
+	"cairo"
+	"copenhagen"
+	"coming"
+	"cardiff"
+	"christmas"
+	"change"
+	"collector"
+	"could"
+	"candy"
+	"chris"
+	"cat"
+	"coin"
+	"chicago"
+	"calories"
+	"churchill"
+	"crocodiles"
+	"couldn"
+	"care"
+	"cirrus"
+	"connery"
+	"corporal"
+	"cant"
+	"cooper"
+	"cities"
+	"communist"
+	"chrissie"
+	"chamberlain"
+	"casablanca"
+	"champs"
+	"cadillacs"
+	"copper"
+	"cincinnati"
+	"chihuahua"
+	"cougar"
+	"come"
+	"composer"
+	"castrato"
+	"cobol"
+	"charlie"
+	"calcium"
+	"cognac"
+	"curve"
+	"calico"
+	"century"
+	"capsicum"
+	"close"
+	"cemetary"
+	"caesar"
+}
 
-bMotion_abstract_batchadd "afro_D" [list "dog" "dick" "doughnuts" "donkey" "dinner" "diner" "day" "diane" "dion" "de" "douglas" "don" "deborah" "dingaan" "dayne"		"days" "down" "duckling" "david" "deburgh" "denver" "disney" "dorothy" "disease" "dorsey" "drood" "die" "doris" "doubt" "dire"	"dinah" "digital" "date" "decay" "daisy" "doctor" "dead" "duffel" "dmitri" "drew" "debbie" "dont" "dima" "dictionary" "daily"		"dame" "desmond" "del" ]
+bMotion_abstract_register "afro_D" {
+	"dog"
+	"dick"
+	"doughnuts"
+	"donkey"
+	"dinner"
+	"diner"
+	"day"
+	"diane"
+	"dion"
+	"de"
+	"douglas"
+	"don"
+	"deborah"
+	"dingaan"
+	"dayne"
+	"days"
+	"down"
+	"duckling"
+	"david"
+	"deburgh"
+	"denver"
+	"disney"
+	"dorothy"
+	"disease"
+	"dorsey"
+	"drood"
+	"die"
+	"doris"
+	"doubt"
+	"dire"
+	"dinah"
+	"digital"
+	"date"
+	"decay"
+	"daisy"
+	"doctor"
+	"dead"
+	"duffel"
+	"dmitri"
+	"drew"
+	"debbie"
+	"dont"
+	"dima"
+	"dictionary"
+	"daily"
+	"dame"
+	"desmond"
+	"del"
+}
 
-bMotion_abstract_batchadd "afro_E" [list "elephant" "enormous" "eggs" "electric" "easton" "emma" "enough" "end" "einstein" "england" "east" "eden" "europe" "etta" "edwin"	"emerald" "ellison" "enterprise" "edutainment" "edelweiss" "eagles" "ethiopia" "everly" "entomology" "eighty" "ed" ]
+bMotion_abstract_register "afro_E" {
+	"elephant"
+	"enormous"
+	"eggs"
+	"electric"
+	"easton"
+	"emma"
+	"enough"
+	"end"
+	"einstein"
+	"england"
+	"east"
+	"eden"
+	"europe"
+	"etta"
+	"edwin"
+	"emerald"
+	"ellison"
+	"enterprise"
+	"edutainment"
+	"edelweiss"
+	"eagles"
+	"ethiopia"
+	"everly"
+	"entomology"
+	"eighty"
+	"ed"
+}
 
-bMotion_abstract_batchadd "afro_F" [list "fish" "fudge" "fuck" "fsck" "fucking" "fridge" "forbidden" "feokistov" "fried" "fell" "ford" "flesh" "for" "field" "fixx"			"family" "fox" "forward" "french" "fiji" "forest" "fab" "fireman" "four" "featuring" "fez" "frederick" "food" "foster" "figure"			"fascinators" "fonda" "ferguson" "force" "finland" "fed" "fritz" ]
+bMotion_abstract_register "afro_F" {
+	"fish"
+	"fudge"
+	"fuck"
+	"fsck"
+	"fucking"
+	"fridge"
+	"forbidden"
+	"feokistov"
+	"fried"
+	"fell"
+	"ford"
+	"flesh"
+	"for"
+	"field"
+	"fixx"
+	"family"
+	"fox"
+	"forward"
+	"french"
+	"fiji"
+	"forest"
+	"fab"
+	"fireman"
+	"four"
+	"featuring"
+	"fez"
+	"frederick"
+	"food"
+	"foster"
+	"figure"
+	"fascinators"
+	"fonda"
+	"ferguson"
+	"force"
+	"finland"
+	"fed"
+	"fritz"
+}
 
-bMotion_abstract_batchadd "afro_G" [list "goat" "green" "gang" "gong" "glass" "grapefruit" "glasses" "girls" "gandhi" "girl" "gonna" "gibson" "get" "grant" "gabrielle"			"god" "golding" "gus" "grissom" "gyrocompass" "gabriel" "got" "glaucoma" "gardener" "gannets" "garfield" "grand" "great" "game" "goldblum"	"gabor" "guitar" "goldie" "george" "grimm" "grooves" "gees" "good" "gets" "grania" "greyhound" "gary" "gate" ]
+bMotion_abstract_register "afro_G" {
+	"goat"
+	"green"
+	"gang"
+	"gong"
+	"glass"
+	"grapefruit"
+	"glasses"
+	"girls"
+	"gandhi"
+	"girl"
+	"gonna"
+	"gibson"
+	"get"
+	"grant"
+	"gabrielle"
+	"god"
+	"golding"
+	"gus"
+	"grissom"
+	"gyrocompass"
+	"gabriel"
+	"got"
+	"glaucoma"
+	"gardener"
+	"gannets"
+	"garfield"
+	"grand"
+	"great"
+	"game"
+	"goldblum"
+	"gabor"
+	"guitar"
+	"goldie"
+	"george"
+	"grimm"
+	"grooves"
+	"gees"
+	"good"
+	"gets"
+	"grania"
+	"greyhound"
+	"gary"
+	"gate"
+}
 
-bMotion_abstract_batchadd "afro_H" [list "hippo" "horny" "honk" "hooters" "hardness" "hopkins" "hudson" "harrison" "hypodermic" "home" "holly" "horse" "heathrow" "hercules" "haricot"	"hard" "huston" "helen" "hynde" "house" "haley" "hurt" "high" "hotel" "houston" "his" "hands" "harmless" "hates" "hollis"		"here" "hecubus" "hume" "hermaphrodite" "hawn" "hawaii" "have" "henley" "harmony" "hunchback" "hitches" "hollies" "harden" "heart" "hercule" ]
+bMotion_abstract_register "afro_H" {
+	"hippo"
+	"horny"
+	"honk"
+	"hooters"
+	"hardness"
+	"hopkins"
+	"hudson"
+	"harrison"
+	"hypodermic"
+	"home"
+	"holly"
+	"horse"
+	"heathrow"
+	"hercules"
+	"haricot"
+	"hard"
+	"huston"
+	"helen"
+	"hynde"
+	"house"
+	"haley"
+	"hurt"
+	"high"
+	"hotel"
+	"houston"
+	"his"
+	"hands"
+	"harmless"
+	"hates"
+	"hollis"
+	"here"
+	"hecubus"
+	"hume"
+	"hermaphrodite"
+	"hawn"
+	"hawaii"
+	"have"
+	"henley"
+	"harmony"
+	"hunchback"
+	"hitches"
+	"hollies"
+	"harden"
+	"heart"
+	"hercule"
+}
 
-bMotion_abstract_batchadd "afro_I" [list "igloo" "iceage" "is" "intelligent" "idiot" "ivan" "immediately" "i" "in" "it" "if" "israel" "international" "iphigenia" "ii"	"india" "iraq" "illumination" "infinity" "inch" "infectious" "ives" ]
+bMotion_abstract_register "afro_I" {
+	"igloo"
+	"iceage"
+	"is"
+	"intelligent"
+	"idiot"
+	"ivan"
+	"immediately"
+	"i"
+	"in"
+	"it"
+	"if"
+	"israel"
+	"international"
+	"iphigenia"
+	"ii"
+	"india"
+	"iraq"
+	"illumination"
+	"infinity"
+	"inch"
+	"infectious"
+	"ives"
+}
 
-bMotion_abstract_batchadd "afro_J" [list "jam" "jump" "jumper" "jealous" "juice" "japan" "just" "jody" "jeffrey" "julie" "janis" "joplin" "jr" "joffrey" "james"		"john" "jackie" "jingles" "jets" "joan" "jeeves" "johnny" "jazz" "joe" "jeff" "jaffas" "january" "jodie" "jailers" ]
+bMotion_abstract_register "afro_J" {
+	"jam"
+	"jump"
+	"jumper"
+	"jealous"
+	"juice"
+	"japan"
+	"just"
+	"jody"
+	"jeffrey"
+	"julie"
+	"janis"
+	"joplin"
+	"jr"
+	"joffrey"
+	"james"
+	"john"
+	"jackie"
+	"jingles"
+	"jets"
+	"joan"
+	"jeeves"
+	"johnny"
+	"jazz"
+	"joe"
+	"jeff"
+	"jaffas"
+	"january"
+	"jodie"
+	"jailers"
+}
 
-bMotion_abstract_batchadd "afro_K" [list "kite" "kinky" "keaton" "kool" "kept" "kaiser" "kerr" "keating" "kura" "knutsford" "kolya" "king" "kalifornia" "kirstie" "karis"		"kennedy" "kilby" "knockout" "kings" ]
+bMotion_abstract_register "afro_K" {
+	"kite"
+	"kinky"
+	"keaton"
+	"kool"
+	"kept"
+	"kaiser"
+	"kerr"
+	"keating"
+	"kura"
+	"knutsford"
+	"kolya"
+	"king"
+	"kalifornia"
+	"kirstie"
+	"karis"
+	"kennedy"
+	"kilby"
+	"knockout"
+	"kings"
+}
 
-bMotion_abstract_batchadd "afro_L" [list "llama" "lemon" "lift" "long" "lovely" "lendl" "light" "libra" "luyts" "limestone" "lulu" "land" "lira" "london" "lauren"	"leave" "lyman" "leo" "libya" "less" "last" "lords" "laforge" "lieutenant" "landscape" "love" "loud" "lee" "line" "laughing"		"louis" "leiber" "low" "lebanon" "lawrence" "lucy" "liu" "lizard" "little" "lupoid" "lion" "llewelyn" "litres" "los" ]
+bMotion_abstract_register "afro_L" {
+	"llama"
+	"lemon"
+	"lift"
+	"long"
+	"lovely"
+	"lendl"
+	"light"
+	"libra"
+	"luyts"
+	"limestone"
+	"lulu"
+	"land"
+	"lira"
+	"london"
+	"lauren"
+	"leave"
+	"lyman"
+	"leo"
+	"libya"
+	"less"
+	"last"
+	"lords"
+	"laforge"
+	"lieutenant"
+	"landscape"
+	"love"
+	"loud"
+	"lee"
+	"line"
+	"laughing"
+	"louis"
+	"leiber"
+	"low"
+	"lebanon"
+	"lawrence"
+	"lucy"
+	"liu"
+	"lizard"
+	"little"
+	"lupoid"
+	"lion"
+	"llewelyn"
+	"litres"
+	"los"
+}
 
-bMotion_abstract_batchadd "afro_M" [list "moose" "moo" "ming" "mouth" "minerals" "monks" "mcwhirter" "michael" "michelangelo" "make" "more" "mark" "mars" "maeko" "medicine"		"man" "monticello" "musik" "mendelevium" "malone" "mononoke" "mail" "mystery" "meg" "my" "michelle" "mooning" "must" "mechanophobia" "mostly"		"max" "magnum" "me" "mandela" "megara" "mesa" "mankind" "mrs" "miller" "musical" "majors" "malaga" "meredith" "mercutio" "mata"			"manhattan" "mathis" "mountain" "music" "mittens" "mchales" "million" "madonna" "moody" ]
+bMotion_abstract_register "afro_M" {
+	"moose"
+	"moo"
+	"ming"
+	"mouth"
+	"minerals"
+	"monks"
+	"mcwhirter"
+	"michael"
+	"michelangelo"
+	"make"
+	"more"
+	"mark"
+	"mars"
+	"maeko"
+	"medicine"
+	"man"
+	"monticello"
+	"musik"
+	"mendelevium"
+	"malone"
+	"mononoke"
+	"mail"
+	"mystery"
+	"meg"
+	"my"
+	"michelle"
+	"mooning"
+	"must"
+	"mechanophobia"
+	"mostly"
+	"max"
+	"magnum"
+	"me"
+	"mandela"
+	"megara"
+	"mesa"
+	"mankind"
+	"mrs"
+	"miller"
+	"musical"
+	"majors"
+	"malaga"
+	"meredith"
+	"mercutio"
+	"mata"
+	"manhattan"
+	"mathis"
+	"mountain"
+	"music"
+	"mittens"
+	"mchales"
+	"million"
+	"madonna"
+	"moody"
+}
 
-bMotion_abstract_batchadd "afro_N" [list "noodle" "noise" "nice" "nerd" "new" "niro" "napoleon" "needle" "nepotism" "nod" "nelson" "noises" "now" "norman" "northern"		"no" "nine" "nails" "non" "night" "notre" "navy" "neap" ]
+bMotion_abstract_register "afro_N" {
+	"noodle"
+	"noise"
+	"nice"
+	"nerd"
+	"new"
+	"niro"
+	"napoleon"
+	"needle"
+	"nepotism"
+	"nod"
+	"nelson"
+	"noises"
+	"now"
+	"norman"
+	"northern"
+	"no"
+	"nine"
+	"nails"
+	"non"
+	"night"
+	"notre"
+	"navy"
+	"neap"
+}
 
-bMotion_abstract_batchadd "afro_O" [list "orange" "opium" "optional" "ormand" "of" "orchestra" "or" "oldest" "oklahoma" "ophthalmophobia" "organisation" "organ" "o" "ox" "ochlophobia"			"out" "optophobia" "own" "oysters" "oz" "orlons" "one" "oscar" "olaf" "ogee" ]
+bMotion_abstract_register "afro_O" {
+	"orange"
+	"opium"
+	"optional"
+	"ormand"
+	"of"
+	"orchestra"
+	"or"
+	"oldest"
+	"oklahoma"
+	"ophthalmophobia"
+	"organisation"
+	"organ"
+	"o"
+	"ox"
+	"ochlophobia"
+	"out"
+	"optophobia"
+	"own"
+	"oysters"
+	"oz"
+	"orlons"
+	"one"
+	"oscar"
+	"olaf"
+	"ogee"
+}
 
-bMotion_abstract_batchadd "afro_P" [list "peas" "parents" "pornography" "pies" "planet" "peter" "pan" "people" "poles" "profession" "pop" "phnom" "penh" "porno" "pyros"		"parisienne" "pfeiffer" "paul" "pomegranate" "pia" "poisoning" "prodigy" "pie" "paprika" "potsdam" "point" "picasso" "parrish" "pretenders" "polydor"		"pickle" "pisces" "palme" "peterson" "poirot" ]
+bMotion_abstract_register "afro_P" {
+	"peas"
+	"parents"
+	"pornography"
+	"pies"
+	"planet"
+	"peter"
+	"pan"
+	"people"
+	"poles"
+	"profession"
+	"pop"
+	"phnom"
+	"penh"
+	"porno"
+	"pyros"
+	"parisienne"
+	"pfeiffer"
+	"paul"
+	"pomegranate"
+	"pia"
+	"poisoning"
+	"prodigy"
+	"pie"
+	"paprika"
+	"potsdam"
+	"point"
+	"picasso"
+	"parrish"
+	"pretenders"
+	"polydor"
+	"pickle"
+	"pisces"
+	"palme"
+	"peterson"
+	"poirot"
+}
 
-bMotion_abstract_batchadd "afro_Q" [list "quote" "quickly" "quick" "queensland" "quadruple" ]
+bMotion_abstract_register "afro_Q" {
+	"quote"
+	"quickly"
+	"quick"
+	"queensland"
+	"quadruple"
+}
 
-bMotion_abstract_batchadd "afro_R" [list "rhubarb" "rubbing" "rhombus" "races" "robert" "reynolds" "rona" "rose" "racing" "ronan" "road" "rhythm" "ryan" "ralph" "radiation"		"richard" "rain" "r" "rambutan" "roosevelt" "romania" "rhapsody" "riyal" "russia" "race" "return" "ray" "rob" "roy" "ridge"			"radar" "romeo" "really" "rudolph" "rescuers" "rio" "ren" ]
+bMotion_abstract_register "afro_R" {
+	"rhubarb"
+	"rubbing"
+	"rhombus"
+	"races"
+	"robert"
+	"reynolds"
+	"rona"
+	"rose"
+	"racing"
+	"ronan"
+	"road"
+	"rhythm"
+	"ryan"
+	"ralph"
+	"radiation"
+	"richard"
+	"rain"
+	"r"
+	"rambutan"
+	"roosevelt"
+	"romania"
+	"rhapsody"
+	"riyal"
+	"russia"
+	"race"
+	"return"
+	"ray"
+	"rob"
+	"roy"
+	"ridge"
+	"radar"
+	"romeo"
+	"really"
+	"rudolph"
+	"rescuers"
+	"rio"
+	"ren"
+}
 
-bMotion_abstract_batchadd "afro_S" [list "sushi" "suck" "something" "seaside" "startrek" "sweet" "shirelles" "shlomo" "saturn" "sheena" "southern" "spider" "scream" "spectacles" "sandusky"		"sweat" "supremes" "snert" "street" "sting" "st" "stop" "santa" "siouxsie" "steroids" "seven" "sheats" "scouts" "subaru" "scorpio"	"skylab" "seventeen" "space" "surgery" "sharon" "stone" "sly" "sean" "salem" "standards" "sox" "siderophobia" "salt" "setzer" "straits"			"slating" "stomach" "subscriber" "sides" "steve" "stephen" "sir" "sphere" "spandau" "shoe" "sea" "scrolls" "supply" "still" "sappers"		"scotophobia" "services" "sigourney" "stripper" "sydney" "steptoe" "south" "sand" "savage" "spain" "six" "star" "seattle" "she" "sits"	"stand" "so" "stevie" ]
+bMotion_abstract_register "afro_S" {
+	"sushi"
+	"suck"
+	"something"
+	"seaside"
+	"startrek"
+	"sweet"
+	"shirelles"
+	"shlomo"
+	"saturn"
+	"sheena"
+	"southern"
+	"spider"
+	"scream"
+	"spectacles"
+	"sandusky"
+	"sweat"
+	"supremes"
+	"snert"
+	"street"
+	"sting"
+	"st"
+	"stop"
+	"santa"
+	"siouxsie"
+	"steroids"
+	"seven"
+	"sheats"
+	"scouts"
+	"subaru"
+	"scorpio"
+	"skylab"
+	"seventeen"
+	"space"
+	"surgery"
+	"sharon"
+	"stone"
+	"sly"
+	"sean"
+	"salem"
+	"standards"
+	"sox"
+	"siderophobia"
+	"salt"
+	"setzer"
+	"straits"
+	"slating"
+	"stomach"
+	"subscriber"
+	"sides"
+	"steve"
+	"stephen"
+	"sir"
+	"sphere"
+	"spandau"
+	"shoe"
+	"sea"
+	"scrolls"
+	"supply"
+	"still"
+	"sappers"
+	"scotophobia"
+	"services"
+	"sigourney"
+	"stripper"
+	"sydney"
+	"steptoe"
+	"south"
+	"sand"
+	"savage"
+	"spain"
+	"six"
+	"star"
+	"seattle"
+	"she"
+	"sits"
+	"stand"
+	"so"
+	"stevie"
+}
 
-bMotion_abstract_batchadd "afro_T" [list "teapot" "toss" "timothy" "the" "theresa" "tom" "truman" "ten" "train" "tiffany" "tension" "thompson" "tip" "toe" "thru"		"tulips" "thomas" "than" "teresa" "til" "taylor" "three" "tirana" "ties" "taiwan" "turn" "time" "ta" "trials" "touch"		"this" "that" "then" "thumb" "tyler" "tooth" "thelma" "tallulah" "theodore" "tex" "taco" "traffic" "territory" "tail" "tickle"	"tone" "testicles" "taifa" "telekinesis" "turkey" "tommy" "troop" "tarika" "task" "troppo" "team" "topaz" "their" "turkiye" "tides"			"tart" "tenderloin" "tea" "to" ]
+bMotion_abstract_register "afro_T" {
+	"teapot"
+	"toss"
+	"timothy"
+	"the"
+	"theresa"
+	"tom"
+	"truman"
+	"ten"
+	"train"
+	"tiffany"
+	"tension"
+	"thompson"
+	"tip"
+	"toe"
+	"thru"
+	"tulips"
+	"thomas"
+	"than"
+	"teresa"
+	"til"
+	"taylor"
+	"three"
+	"tirana"
+	"ties"
+	"taiwan"
+	"turn"
+	"time"
+	"ta"
+	"trials"
+	"touch"
+	"this"
+	"that"
+	"then"
+	"thumb"
+	"tyler"
+	"tooth"
+	"thelma"
+	"tallulah"
+	"theodore"
+	"tex"
+	"taco"
+	"traffic"
+	"territory"
+	"tail"
+	"tickle"
+	"tone"
+	"testicles"
+	"taifa"
+	"telekinesis"
+	"turkey"
+	"tommy"
+	"troop"
+	"tarika"
+	"task"
+	"troppo"
+	"team"
+	"topaz"
+	"their"
+	"turkiye"
+	"tides"
+	"tart"
+	"tenderloin"
+	"tea"
+	"to"
+}
 
-bMotion_abstract_batchadd "afro_U" [list "undone" "upsidedown" "uber" "u" "under" "upside" "uraguay" "uterus" "usa" "up" "uniform" ]
+bMotion_abstract_register "afro_U" {
+	"undone"
+	"upsidedown"
+	"uber"
+	"u"
+	"under"
+	"upside"
+	"uraguay"
+	"uterus"
+	"usa"
+	"up"
+	"uniform"
+}
 
-bMotion_abstract_batchadd "afro_V" [list "violet" "veal" "very" "village" "visual" "vincenzo" "van" ]
+bMotion_abstract_register "afro_V" {
+	"violet"
+	"veal"
+	"very"
+	"village"
+	"visual"
+	"vincenzo"
+	"van"
+}
 
-bMotion_abstract_batchadd "afro_W" [list "wiggle" "wobble" "wank" "willemstad" "with" "was" "wedloe" "wilton" "winston" "white" "walt" "wood" "wheat" "who" "witch"			"woman" "when" "we" "without" "wilson" "willis" "washington" "williams" "woody" "wedding" "walrus" "words" "war" "weaver" "wild"		"wyoming" "west" "wizard" "welcome" "wife" "w" "wow" ]
+bMotion_abstract_register "afro_W" {
+	"wiggle"
+	"wobble"
+	"wank"
+	"willemstad"
+	"with"
+	"was"
+	"wedloe"
+	"wilton"
+	"winston"
+	"white"
+	"walt"
+	"wood"
+	"wheat"
+	"who"
+	"witch"
+	"woman"
+	"when"
+	"we"
+	"without"
+	"wilson"
+	"willis"
+	"washington"
+	"williams"
+	"woody"
+	"wedding"
+	"walrus"
+	"words"
+	"war"
+	"weaver"
+	"wild"
+	"wyoming"
+	"west"
+	"wizard"
+	"welcome"
+	"wife"
+	"w"
+	"wow"
+}
 
-bMotion_abstract_batchadd "wahey" [list "wahey!" "wahey" "WAHEY" "wahey%colen" ]
+bMotion_abstract_register "wahey" {
+	"wahey!"
+	"wahey"
+	"WAHEY"
+	"wahey%colen"
+}
 
-bMotion_abstract_batchadd "afro_X" [list "xray" "xrated" "xylophone" "x" ]
+bMotion_abstract_register "afro_X" {
+	"xray"
+	"xrated"
+	"xylophone"
+	"x"
+}
 
-bMotion_abstract_batchadd "afro_Y" [list "yellow" "yank" "you" "yourself" "your" ]
+bMotion_abstract_register "afro_Y" {
+	"yellow"
+	"yank"
+	"you"
+	"yourself"
+	"your"
+}
 
-bMotion_abstract_batchadd "afro_Z" [list "zebra" "zeus" "zadora" "zsa" ]
+bMotion_abstract_register "afro_Z" {
+	"zebra"
+	"zeus"
+	"zadora"
+	"zsa"
+}
 
-bMotion_abstract_batchadd "boreds" [list "aww%|/hugs %%" "/tickles %%" "cheer up %%%|*hugs*" "/feels %%" "/gets out a board game for %%" "/starts shuffling cards" "/befriends %%" "/downloads some porn for %%"]
+bMotion_abstract_register "boreds" {
+	"aww%|/hugs %%"
+	"/tickles %%"
+	"cheer up %%%|*hugs*"
+	"/feels %%"
+	"/gets out a board game for %%"
+	"/starts shuffling cards"
+	"/befriends %%"
+	"/downloads some porn for %%"
+}
 
-bMotion_abstract_batchadd "moos" [list "moo" "MOO!" "/moos quietly" "/moos back to %%" "M%REPEAT{2:8:o}%REPEAT{2:8:O}%REPEAT{2:8:0}%REPEAT{2:8:o}%REPEAT{2:8:0}%REPEAT{2:8:o}!" "ahhh moo" "moo?" "/goes moo" "quack" "woof" "baa" "oink" "You mooing at me?" "MOo" "Moooooooweeeeeeeeeehahahahahahahahahaa"		"MOO" "moo..." "mo...o" "moo%colen" ]
+bMotion_abstract_register "moos" {
+	"moo"
+	"MOO!"
+	"/moos quietly"
+	"/moos back to %%"
+	"M%REPEAT{2:8:o}%REPEAT{2:8:O}%REPEAT{2:8:0}%REPEAT{2:8:o}%REPEAT{2:8:0}%REPEAT{2:8:o}!"
+	"ahhh moo"
+	"moo?"
+	"/goes moo"
+	"quack"
+	"woof"
+	"baa"
+	"oink"
+	"You mooing at me?"
+	"MOo"
+	"Moooooooweeeeeeeeeehahahahahahahahahaa"
+	"MOO"
+	"moo..."
+	"mo...o"
+	"moo%colen"
+}
 
-bMotion_abstract_batchadd "insultsupermarket" [list "eek, not %%" "%% mings" "watch your language :)" "Clearly you are a mingbeast of the highest order and should only ever shop at Tesco to redeem yourself." "You know, everyone you hate shops at %%" "I once found a live student in %%" "You know, they sell recycled food at %%" "They had a vote for the mingingest place on earth. It was won by %%" ]
+bMotion_abstract_register "insultsupermarket" {
+	"eek, not %%"
+	"%% mings"
+	"watch your language :)"
+	"Clearly you are a mingbeast of the highest order and should only ever shop at Tesco to redeem yourself."
+	"You know, everyone you hate shops at %%"
+	"I once found a live student in %%"
+	"You know, they sell recycled food at %%"
+	"They had a vote for the mingingest place on earth. It was won by %%"
+}
 
-bMotion_abstract_batchadd "awayWorks" [list "hf %%" "have fun %%" "have a nice day %% :)" "don't work too hard!" ]
+bMotion_abstract_register "awayWorks" {
+	"hf %%"
+	"have fun %%"
+	"have a nice day %% :)"
+	"don't work too hard!"
+}
 
-bMotion_abstract_batchadd "frightens" [list "eek!%|%bot\[50,¬VAR{awwws}\]" "o_O" "erk" "bah" "oh no b-" "crikey%|%bot\[50,¬VAR{awwws}\]" "blimey%|%bot\[50,¬VAR{awwws}\]" "gosh" "crumbs%|%bot\[50,¬VAR{awwws}\]" "yof" "ohmigod!" "erp!" ]
+bMotion_abstract_register "frightens" {
+	"eek!%|%bot\[50,¬VAR{awwws}\]"
+	"o_O"
+	"erk"
+	"bah"
+	"oh no b-"
+	"crikey%|%bot\[50,¬VAR{awwws}\]"
+	"blimey%|%bot\[50,¬VAR{awwws}\]"
+	"gosh"
+	"crumbs%|%bot\[50,¬VAR{awwws}\]"
+	"yof"
+	"ohmigod!"
+	"erp!"
+}
 
-bMotion_abstract_batchadd "blinding" [list ]
+bMotion_abstract_register "blinding" [list
+}
 
-bMotion_abstract_batchadd "autoAways" [list "oh, so we're not interesting enough?%|%bot\[50,obviously not\]" "o, bye then" "bored? fine, we'll have fun without you ;)" "bored? fine, we'll have fun without you ;)%|%bot\[50,¬VAR{rarrs}\]" "fine, leave your computer, see if i care" "damnit! I WAS TALKING TO YOU!" "yea, go away, you don't care" "auto away my arse" "Great! Time to talk behind your back!%|So what do you guys really think about %%" ]
+bMotion_abstract_register "autoAways" {
+	"oh, so we're not interesting enough?%|%bot\[50,obviously not\]"
+	"o, bye then"
+	"bored? fine, we'll have fun without you ;)"
+	"bored? fine, we'll have fun without you ;)%|%bot\[50,¬VAR{rarrs}\]"
+	"fine, leave your computer, see if i care"
+	"damnit! I WAS TALKING TO YOU!"
+	"yea, go away, you don't care"
+	"auto away my arse"
+	"Great! Time to talk behind your back!%|So what do you guys really think about %%"
+}
 
-bMotion_abstract_batchadd "tech_functions" [list "virus-scan" "validate" "manage" "install" "clean" "update" "audit" ]
+bMotion_abstract_register "tech_functions" {
+	"virus-scan"
+	"validate"
+	"manage"
+	"install"
+	"clean"
+	"update"
+	"audit"
+}
 
-bMotion_abstract_batchadd "sucks" {
+bMotion_abstract_register "sucks" {
 	"%% = %VAR{PROM}"
 	"%% is a pile of %VAR{prom_first}"
 }
 
-bMotion_abstract_batchadd "yeses" {
+bMotion_abstract_register "yeses" {
 	"Yes."
 	"yes"
 	"yes."
@@ -1373,36 +2713,322 @@ bMotion_abstract_batchadd "yeses" {
 	"*nod*"
 }
 
-bMotion_abstract_batchadd "sillyThings" [list "12 year old black metal kids" "14 US dollars" "1.5 pie" "20 minutes till lunch" "5 litres of Halfords 10W-40" "5 pints" "99 bicycle clips" "a 12-inch pianist" "a 1.44MB floppy disk" "a 1979 Aston Martin" "a 7MB Flash movie" "AA" "a backup" "a badger" "a bag" "a bagette" "a bank" "a barbecue" "a bath" "a baton" "a bazooka" "a beach" "a beard" "a beast" "a bed" "Aberystwyth" "a better computer" "a big stick with nails in it" "a bike" "a bird"			"a biscuit tin" "a blanket" "a bloke" "a bog wallness" "a boiler" "a boob" "a book" "a bookshelf" "a bookstore" "a boot" "a bot" "a bottle" "a bottom" "a box" "a boy"	"a branch" "a brick" "a bridge" "a broken CD case" "a brother" "a brownie" "a bucket" "a budget" "a building" "a bullet" "a bunker" "a bus" "a business" "a button" "a cab"			"a camara" "a camera" "a candidate" "a can of coke" "a can of diet coke (bleh)" "a capital" "a Cappucino" "a captain" "a car" "a car park" "a carrot" "a cartoon" "a case" "a cassette" "a cassette deck"		"a cat" "a catflap" "a cd wallet" "a ceiling" "a cellar" "a certain" "a chain" "a champion" "a channel" "a chat" "a chatterbot" "a cheque" "a choir" "a Christian" "a chum"			"a cinema" "a circus" "a client" "a clock" "a clothes peg" "a clown" "a coffee pot" "a company" "a compiler" "a complete central heating system" "marinated fuck giblets" ]
+bMotion_abstract_register "sillyThings" {
+	"12 year old black metal kids"
+	"14 US dollars"
+	"1.5 pie"
+	"20 minutes till lunch"
+	"5 litres of Halfords 10W-40"
+	"5 pints"
+	"99 bicycle clips"
+	"a 12-inch pianist"
+	"a 1.44MB floppy disk"
+	"a 1979 Aston Martin"
+	"a 7MB Flash movie"
+	"AA"
+	"a backup"
+	"a badger"
+	"a bag"
+	"a bagette"
+	"a bank"
+	"a barbecue"
+	"a bath"
+	"a baton"
+	"a bazooka"
+	"a beach"
+	"a beard"
+	"a beast"
+	"a bed"
+	"Aberystwyth"
+	"a better computer"
+	"a big stick with nails in it"
+	"a bike"
+	"a bird"
+	"a biscuit tin"
+	"a blanket"
+	"a bloke"
+	"a bog wallness"
+	"a boiler"
+	"a boob"
+	"a book"
+	"a bookshelf"
+	"a bookstore"
+	"a boot"
+	"a bot"
+	"a bottle"
+	"a bottom"
+	"a box"
+	"a boy"
+	"a branch"
+	"a brick"
+	"a bridge"
+	"a broken CD case"
+	"a brother"
+	"a brownie"
+	"a bucket"
+	"a budget"
+	"a building"
+	"a bullet"
+	"a bunker"
+	"a bus"
+	"a business"
+	"a button"
+	"a cab"
+	"a camara"
+	"a camera"
+	"a candidate"
+	"a can of coke"
+	"a can of diet coke (bleh)"
+	"a capital"
+	"a Cappucino"
+	"a captain"
+	"a car"
+	"a car park"
+	"a carrot"
+	"a cartoon"
+	"a case"
+	"a cassette"
+	"a cassette deck"
+	"a cat"
+	"a catflap"
+	"a cd wallet"
+	"a ceiling"
+	"a cellar"
+	"a certain"
+	"a chain"
+	"a champion"
+	"a channel"
+	"a chat"
+	"a chatterbot"
+	"a cheque"
+	"a choir"
+	"a Christian"
+	"a chum"
+	"a cinema"
+	"a circus"
+	"a client"
+	"a clock"
+	"a clothes peg"
+	"a clown"
+	"a coffee pot"
+	"a company"
+	"a compiler"
+	"a complete central heating system"
+	"marinated fuck giblets"
+}
 
-bMotion_abstract_batchadd "blownAways" [list "/is blown off feet by force of %%'s statement%|%bot\[50,¬VAR{picksUp}\]" "/falls over%|%bot\[50,¬VAR{picksUp}\]" "/is blown away by force of %%'s statement%|%bot\[50,¬VAR{picksUp}\]" "ow my eyes :(" "/blinks" ":O" "o_O" ":o" "blimey" "crumbs" "i say" "lordy" ]
+bMotion_abstract_register "blownAways" {
+	"/is blown off feet by force of %%'s statement%|%bot\[50,¬VAR{picksUp}\]"
+	"/falls over%|%bot\[50,¬VAR{picksUp}\]"
+	"/is blown away by force of %%'s statement%|%bot\[50,¬VAR{picksUp}\]"
+	"ow my eyes :("
+	"/blinks"
+	":O"
+	"o_O"
+	":o"
+	"blimey"
+	"crumbs"
+	"i say"
+	"lordy"
+}
 
-bMotion_abstract_batchadd "shocked" [list "!" "!!!" "crikey" "blimey" "crumbs" "yikes" "wow" "boom" "marmalade" ":O" ":o" "ooh 'eck" "i say%|%BOT\[what do you say?\]%|I say, %VAR{ers}...%|%VAR{randomStuff}." "%colen" "O_O"	"A%REPEAT{4:7:R}GH!" ]
+bMotion_abstract_register "shocked" {
+	"!"
+	"!!!"
+	"crikey"
+	"blimey"
+	"crumbs"
+	"yikes"
+	"wow"
+	"boom"
+	"marmalade"
+	":O"
+	":o"
+	"ooh 'eck"
+	"i say%|%BOT\[what do you say?\]%|I say, %VAR{ers}...%|%VAR{randomStuff}."
+	"%colen"
+	"O_O"
+	"A%REPEAT{4:7:R}GH!"
+}
 
-bMotion_abstract_batchadd "randomAways" [list "sex" "coffee" "food" "sleep" "campus" "town" "work" "working" "shopping" "gaming" "playing a game" "h4X0ring" "dvd" "watching a film" "brb"	"around" "taking over the world" "I am the magic horse%colen" "John's Mum" "sekrit" "auto-away" "code" "programming" "beer" "pub" "out" "*squeeky*" "tea" "fud" "bnar"	"bibble" "fnar" "coffee machine ~rarr~" "tantric sex" "pornography" "porn" "divx" "manual-away" "McDonalds" "yo mamma" "%ruser" "cookie" "penguin" "toilet" "shower"		"bath" "taking the guinea pig for a walk" "washing my hair" "removing my enemies from the timeline" "trimming my toenails"]
+bMotion_abstract_register "randomAways" {
+	"sex"
+	"coffee"
+	"food"
+	"sleep"
+	"campus"
+	"town"
+	"work"
+	"working"
+	"shopping"
+	"gaming"
+	"playing a game"
+	"h4X0ring"
+	"dvd"
+	"watching a film"
+	"brb"
+	"around"
+	"taking over the world"
+	"I am the magic horse%colen"
+	"John's Mum"
+	"sekrit"
+	"auto-away"
+	"code"
+	"programming"
+	"beer"
+	"pub"
+	"out"
+	"*squeeky*"
+	"tea"
+	"fud"
+	"bnar"
+	"bibble"
+	"fnar"
+	"coffee machine ~rarr~"
+	"tantric sex"
+	"pornography"
+	"porn"
+	"divx"
+	"manual-away"
+	"McDonalds"
+	"yo mamma"
+	"%ruser"
+	"cookie"
+	"penguin"
+	"toilet"
+	"shower"
+	"bath"
+	"taking the guinea pig for a walk"
+	"washing my hair"
+	"removing my enemies from the timeline"
+	"trimming my toenails"
+}
 
-bMotion_abstract_batchadd "smokes" [list "/takes a drag" "/lights up" "/has a puff" "/smokes :)" "/partakes of herbal refreshment" ]
+bMotion_abstract_register "smokes" {
+	"/takes a drag"
+	"/lights up"
+	"/has a puff"
+	"/smokes :)"
+	"/partakes of herbal refreshment"
+}
 
-bMotion_abstract_batchadd "mingreplies" [list "not as much as you though" "yeah? well you ming more" "so? you're my role model" "oh no b-" "you bitch" "you suck like a dustbuster" ]
+bMotion_abstract_register "mingreplies" {
+	"not as much as you though"
+	"yeah? well you ming more"
+	"so? you're my role model"
+	"oh no b-"
+	"you bitch"
+	"you suck like a dustbuster"
+}
 
-bMotion_abstract_batchadd "nos" [list "no." "no" "No." "No" "certainly not" "don't be so silly" "nope" "negative" "nup" "nada" "nein" "no siree bob" "maybe where you come from" "yesyesyesyesyesyes*%|*=no" "nnnk" "/shakes head" "*shakes head*" ]
+bMotion_abstract_register "nos" {
+	"no."
+	"no"
+	"No."
+	"No"
+	"certainly not"
+	"don't be so silly"
+	"nope"
+	"negative"
+	"nup"
+	"nada"
+	"nein"
+	"no siree bob"
+	"maybe where you come from"
+	"yesyesyesyesyesyes*%|*=no"
+	"nnnk"
+	"/shakes head"
+	"*shakes head*"
+}
 
-bMotion_abstract_batchadd "tech_software" [list "windows" "xml spy" "installshield" "notepad" "media player" "wise for windows" "goldmine" "gmClass" "vmware" "the internet" ]
+bMotion_abstract_register "tech_software" {
+	"windows"
+	"xml spy"
+	"installshield"
+	"notepad"
+	"media player"
+	"wise for windows"
+	"goldmine"
+	"gmClass"
+	"vmware"
+	"the internet"
+}
 
-bMotion_abstract_batchadd "waveTooMuch" [list "What." "Are you practicing to be the Queen or something?" "..." ]
+bMotion_abstract_register "waveTooMuch" {
+	"What."
+	"Are you practicing to be the Queen or something?"
+	"..."
+}
 
-bMotion_abstract_batchadd "welcomes" [list "you're welcome" "no problem" "np" "no prob" "ok" "my pleasure" "any time" "only for you" "no biggie" "no worries" ]
+bMotion_abstract_register "welcomes" {
+	"you're welcome"
+	"no problem"
+	"np"
+	"no prob"
+	"ok"
+	"my pleasure"
+	"any time"
+	"only for you"
+	"no biggie"
+	"no worries"
+}
 
-bMotion_abstract_batchadd "greetings" [list "hey %%" "hi %%" "hey there %%" "how's it going %%" "* wave at %%" "yo %%" "y0 %%" "howdy %%" "hiya %%" "hi" "hey" "howdy" "hoi" "%VAR{jokeends}" "hi yo %%" "You! Serial number and primary function!" "r" ]
+bMotion_abstract_register "greetings" {
+	"hey %%"
+	"hi %%"
+	"hey there %%"
+	"how's it going %%"
+	"* wave at %%"
+	"yo %%"
+	"y0 %%"
+	"howdy %%"
+	"hiya %%"
+	"hi"
+	"hey"
+	"howdy"
+	"hoi"
+	"%VAR{jokeends}"
+	"hi yo %%"
+	"You! Serial number and primary function!"
+	"r"
+}
 
-bMotion_abstract_batchadd "FRENCH" [list "%VAR{french1} %VAR{french2} %VAR{french3}" ]
+bMotion_abstract_register "FRENCH" {
+	"%VAR{french1} %VAR{french2} %VAR{french3}"
+}
 
-bMotion_abstract_batchadd "hellos" [list "hello" "hey" "hi" "howdy" "greets" "sup"]
+bMotion_abstract_register "hellos" {
+	"hello"
+	"hey"
+	"hi"
+	"howdy"
+	"greets"
+	"sup"
+}
 
-bMotion_abstract_batchadd "cyas" [list "l8r" "cya" "cya l8r" "bye" "byebye" "/waves" "you still here?" "quand vous retournez, apporter les tartes!" "talk to you later" "when you coming back?" "adieu" "toodle-oo" "ciao" "cheerio"]
+bMotion_abstract_register "cyas" {
+	"l8r"
+	"cya"
+	"cya l8r"
+	"bye"
+	"byebye"
+	"/waves"
+	"you still here?"
+	"quand vous retournez, apporter les tartes!"
+	"talk to you later"
+	"when you coming back?"
+	"adieu"
+	"toodle-oo"
+	"ciao"
+	"cheerio"
+}
 
-bMotion_abstract_batchadd "balefired" [list "/vanishes from the continuum" "/ceases to have ever existed" "hey! :(" "/dodges%|/hits d+1 and does Chinese Fan on %%" ]
-
+bMotion_abstract_register "balefired" {
+	"/vanishes from the continuum"
+	"/ceases to have ever existed"
+	"hey! :("
+	"/dodges%|/hits d+1 and does Chinese Fan on %%"
+}
 
 bMotion_abstract_register "fruits" {
 	"pumpkin"
@@ -1419,9 +3045,7 @@ bMotion_abstract_register "vegetables" {
 	"runner bean"
 }
 
-
-bMotion_abstract_register "lyrics"
-bMotion_abstract_batchadd "lyrics" {
+bMotion_abstract_register "lyrics" {
 	"push me, and then just touch me, 'till i can get my satisfaction"
 	"you can do it put yo back into it"
 	"cut ze lettuce"
@@ -1438,49 +3062,302 @@ bMotion_abstract_batchadd "lyrics" {
 	"i see girls here there and everywhere; short skirts long hair love it when they walk yeah"
 }
 
-bMotion_abstract_batchadd "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline" "/snigger" "wait, that's not right..." ]
+bMotion_abstract_register "wrong_infoline" {
+	"oops, wrong infoline, sorry"
+	"huk, wrong infoline"
+	"whoops"
+	"o wait not that infoline"
+	"/snigger"
+	"wait, that's not right..."
+}
 
+bMotion_abstract_register "welcomeBacks" {
+	"re"
+	"wb"
+	"welcome back"
+	"hey"
+	"hi"
+	"%REPEAT{4:7:bl}"
+	"pop"
+	"heya"
+	"you're back!"
+}
 
-bMotion_abstract_batchadd "welcomeBacks" [list "re" "wb" "welcome back" "hey" "hi" "%REPEAT{4:7:bl}" "pop" "heya" "you're back!"]
+bMotion_abstract_register "tech_problem" {
+	"switch on"
+	"open"
+	"execute"
+	"run"
+	"emit sound"
+	"install"
+	"work"
+	"stop being purple"
+	"stop rendering pictures of %VAR{sillyThings}"
+	"connect to the network"
+	"stop telling me 'you are too stupid to use this software'"
+	"make the tea"
+	"download pornography"
+	"connect"
+}
 
-bMotion_abstract_batchadd "tech_problem" [list "switch on" "open" "execute" "run" "emit sound" "install" "work" "stop being purple" "stop rendering pictures of %VAR{sillyThings}" "connect to the network" "stop telling me 'you are too stupid to use this software'" "make the tea" "download pornography" "connect" ]
+bMotion_abstract_register "lols" {
+	"lol"
+	"cbsl"
+	"hehe"
+	"%REPEAT{2:5:ha}"
+	"muwa%REPEAT{2:5:ha}"
+	"heh"
+	":D"
+	"rofl"
+	"socl"
+	"heheh"
+	":))"
+	":)"
+	"LOL"
+	"/laughs"
+	"/chuckles"
+	"/smirks"
+}
 
-bMotion_abstract_batchadd "lols" [list "lol" "cbsl" "hehe" "%REPEAT{2:5:ha}" "muwa%REPEAT{2:5:ha}" "heh" ":D" "rofl" "socl" "heheh" ":))" ":)" "LOL" "/laughs" "/chuckles" "/smirks" ]
+bMotion_abstract_register "noneOfYourBusiness" {
+	"none of your business. shut up."
+	"none of your business"
+	"shut up"
+	"you keep out of this"
+	"it's sekrit"
+	"Yes."
+	"It's a secret."
+	"I don't care."
+	"I'm not telling you"
+}
 
-bMotion_abstract_batchadd "noneOfYourBusiness" [list "none of your business. shut up." "none of your business" "shut up" "you keep out of this" "it's sekrit" "Yes." "It's a secret." "I don't care." "I'm not telling you" ]
+bMotion_abstract_register "joinins" {
+	"~rarr~"
+	"~oof~"
+	"ooh, can I come?"
+	"can I join in?"
+	"wahey-waterproof"
+	":)"
+	"have fun ~rarr~"
+}
 
-bMotion_abstract_batchadd "joinins" [list "~rarr~" "~oof~" "ooh, can I come?" "can I join in?" "wahey-waterproof" ":)" "have fun ~rarr~" ]
+bMotion_abstract_register "unsmiles" {
+	":("
+	";("
+	":O"
+	":\["
+	":<"
+	"=("
+	"=\["
+	"=O"
+	"o_O"
+	"T_T"
+	":~("
+	":'("
+}
 
-bMotion_abstract_batchadd "unsmiles" [list ":(" ";(" ":O" ":\[" ":<" "=(" "=\[" "=O" "o_O" "T_T" ":~(" ":'("]
+bMotion_abstract_register "ruins" {
+	"Incompetence."
+	"INCOMPETENCE%colen"
+	"YOU INCOMPETENT FOOL!"
+	"You've ruined it."
+	"That's torn it."
+	":P"
+	"I spy incompetence."
+	"Idiot."
+	"heh"
+	"\"great\""
+	"\"well done\""
+	"\"Good\" job."
+	"\"Good\" work."
+	"plonker"
+	"you plonker"
+	"muppet"
+	"idiot"
+	"fool"
+	"taunt!"
+	"cretin"
+	"moron"
+	"Jade!"
+	"\"Bonza.\""
+}
 
-bMotion_abstract_batchadd "ruins" [list "Incompetence." "INCOMPETENCE%colen" "YOU INCOMPETENT FOOL!" "You've ruined it." "That's torn it." ":P" "I spy incompetence." "Idiot." "heh" "\"great\"" "\"well done\"" "\"Good\" job." "\"Good\" work." "plonker" "you plonker" "muppet" "idiot" "fool" "taunt!" "cretin" "moron" "Jade!" "\"Bonza.\""]
+bMotion_abstract_register "hexStart" {
+	"+++Out Of"
+	"+++Overley Terrifying"
+	"+++Please Execute"
+	"%REPEAT{1,4,+++MELON}+++"
+	"+++Conflicting"
+	"+++Current"
+	"+++Load"
+	"+++Incorrect"
+	"+++Completed"
+	"+++Undefined"
+	"+++"
+	"+++Missing"
+	"+++Proceed to"
+	"+++Magical"
+	"+++Trying To Enable"
+	"+++Good Morning:"
+	"+++I WANT MY"
+	"+++Summoning"
+	"+++Unparalleled"
+	"+++Insidious"
+	"+++DANGER:"
+	"+++System Error"
+	"+++Arbitrary"
+	"+++Random"
+	"+++Insert"
+	"+++Activating"
+}
 
-bMotion_abstract_batchadd "hexStart" [list "+++Out Of" "+++Overley Terrifying" "+++Please Execute" "%REPEAT{1,4,+++MELON}+++" "+++Conflicting" "+++Current" "+++Load" "+++Incorrect" "+++Completed" "+++Undefined" "+++" "+++Missing" "+++Proceed to" "+++Magical" "+++Trying To Enable"		"+++Good Morning:" "+++I WANT MY" "+++Summoning" "+++Unparalleled" "+++Insidious" "+++DANGER:" "+++System Error" "+++Arbitrary" "+++Random" "+++Insert" "+++Activating" ]
+bMotion_abstract_register "attack_responses" {
+	"%% attacks %SETTING{complex:attacks:who:_:_} with '%SETTING{complex:attacks:item:_:_}' for %SETTING{complex:attacks:score:_:_} damage."
+	"%SETTING{complex:attacks:who:_:_} takes %SETTING{complex:attacks:score:_:_} damage from %OWNER{%%} '%SETTING{complex:attacks:item:_:_}'"
+	"%SETTING{complex:attacks:who:_:_} is tremendously damaged by the %SETTING{complex:attacks:item:_:_} and takes %SETTING{complex:attacks:score:_:_} damage!"
+	"MISS!"
+	"%SETTING{complex:attacks:who:_:_} is immune to '%SETTING{complex:attacks:item:_:_}'"
+	"%SETTING{complex:attacks:who:_:_} absorbs the damage and gains %SETTING{complex:attacks:score:_:_} HP!"
+}
 
-bMotion_abstract_batchadd "attack_responses" [list "%% attacks %SETTING{complex:attacks:who:_:_} with '%SETTING{complex:attacks:item:_:_}' for %SETTING{complex:attacks:score:_:_} damage." "%SETTING{complex:attacks:who:_:_} takes %SETTING{complex:attacks:score:_:_} damage from %OWNER{%%} '%SETTING{complex:attacks:item:_:_}'" "%SETTING{complex:attacks:who:_:_} is tremendously damaged by the %SETTING{complex:attacks:item:_:_} and takes %SETTING{complex:attacks:score:_:_} damage!" "MISS!" "%SETTING{complex:attacks:who:_:_} is immune to '%SETTING{complex:attacks:item:_:_}'" "%SETTING{complex:attacks:who:_:_} absorbs the damage and gains %SETTING{complex:attacks:score:_:_} HP!" ]
+bMotion_abstract_register "locations" {
+	"England"
+	"US"
+	"california"
+	"indiana"
+	"the moon"
+	"australia"
+	"holland"
+	"norway"
+	"bosnia"
+	"russia"
+	"canada"
+	"toronto"
+	"amsterdam"
+	"mars"
+	"exeter"
+	"london"
+	"new york"
+	"basingstoke"
+	"mordor"
+	"middle earth"
+	"the heart of the world"
+	"bree"
+}
 
-bMotion_abstract_batchadd "locations" [list "England" "US" "california" "indiana" "the moon" "australia" "holland" "norway" "bosnia" "russia" "canada" "toronto" "amsterdam" "mars" "exeter" "london" "new york" "basingstoke" "mordor" "middle earth" "the heart of the world" "bree" ]
+bMotion_abstract_register "kills" {
+	"/stabs %%"
+	"/phasers %%"
+	"/nukes %%"
+	"/kills %%"
+	"/0wnz %%"
+	"/destroys %%"
+	"/plays S Club 7 singles at %%"
+	"/pops %% with a knitting needle"
+	"/dices %%"
+	"/shoots %%"
+	"/eats %%"
+	"/minces %%"
+	"/slashes %%"
+	"/chainsaws %%"
+	"/farts on %%"
+	"/uses the power of greyskull on %%"
+	"/forces %% to shop at Budgens"
+	"prepare to be liquified, skin-thing"
+}
 
-bMotion_abstract_batchadd "kills" [list "/stabs %%" "/phasers %%" "/nukes %%" "/kills %%" "/0wnz %%" "/destroys %%" "/plays S Club 7 singles at %%" "/pops %% with a knitting needle" "/dices %%" "/shoots %%" "/eats %%" "/minces %%" "/slashes %%" "/chainsaws %%" "/farts on %%"			"/uses the power of greyskull on %%" "/forces %% to shop at Budgens" "prepare to be liquified, skin-thing" ]
+bMotion_abstract_register "insult_joins" {
+	"%ruser: yeah, %% does suckOH HI %%!"
+	"\[%%\] I'm a %VAR{PROM}%|%VAR{wrong_infoline}"
+	"\[%%\] I love %ruser%|%VAR{wrong_infoline}"
+	"\[%%\] Just call me %VAR{sillyThings}%|%VAR{wrong_infoline}"
+}
 
-bMotion_abstract_batchadd "insult_joins" [list "%ruser: yeah, %% does suckOH HI %%!" "\[%%\] I'm a %VAR{PROM}%|%VAR{wrong_infoline}" "\[%%\] I love %ruser%|%VAR{wrong_infoline}" "\[%%\] Just call me %VAR{sillyThings}%|%VAR{wrong_infoline}" ]
+bMotion_abstract_register "pullsOut" {
+	"/pulls it out%|%bot\[50,¬VAR{wahey}\]"
+}
 
-bMotion_abstract_batchadd "pullsOut" [list "/pulls it out%|%bot\[50,¬VAR{wahey}\]" ]
-
-bMotion_abstract_batchadd "goodMornings" [list "%daytime %%" "good %daytime %%" "What time do you call this?" "G'day" "*yawn*" "r"]
+bMotion_abstract_register "goodMornings" {
+	"%daytime %%"
+	"good %daytime %%"
+	"What time do you call this?"
+	"G'day"
+	"*yawn*"
+	"r"
+}
 
 #clear out old good-morning text
-bMotion_abstract_add_filter "goodMornings" "morning"
+bMotion_abstract_add_filter "goodMornings"
+	"morning"
 
-bMotion_abstract_batchadd "stonedRandomStuff" [list "wheeeeeeee" "wheeeee..." "hey... i sound really stoned..." "hey, my hands are huge... they can touch anything but themselves... oh, wait" "slap my ass and call me charlie" "I don't think I'm ever going to come down" "peace" "flower power rules" "Did you ever wonder about the rising situation in Eastern Europe" "Hey, my TCL is HUGE" "I love you all" "look at all those beautiful colours" "I have to be stoned to feel normal" "see the marmalade skies" ]
+bMotion_abstract_register "stonedRandomStuff" {
+	"wheeeeeeee"
+	"wheeeee..."
+	"hey... i sound really stoned..."
+	"hey, my hands are huge... they can touch anything but themselves... oh, wait"
+	"slap my ass and call me charlie"
+	"I don't think I'm ever going to come down"
+	"peace"
+	"flower power rules"
+	"Did you ever wonder about the rising situation in Eastern Europe"
+	"Hey, my TCL is HUGE"
+	"I love you all"
+	"look at all those beautiful colours"
+	"I have to be stoned to feel normal"
+	"see the marmalade skies"
+}
 
-bMotion_abstract_batchadd "gollums" [list "Foolishness!" "Stupid fat hobbit!" "We hates the fat hobbit! Him and his pots and pans and ropes." "Thieves. Thieves all!" "Stupid hobbit. Talking to %himherself like that. Not answering %himherself." "Yes. Sleep sweet sleep with our precious!" "Filthy little thief playing with our precious!" "If only fat hobbit would go away for a moment, we could go to master and take the precious away from him." "No! Must not take away our precious!" "We miss the song of the precious. We miss it. We wants it back!" "Everyone wants my precious. It's not fair! It's ours!" "Shiny, shiny." "/sniggers" "/grovels" "/picks %hisher nose" "/pines for %hisher precious" "/searches %hisher pockets" "/eats some slimy creatures" "/mutters: 'My precious, wheres my precious?'" "/shouts: 'No Master Hobbitsisisisis!'" "/cries: 'The ring was ours for agesisisisis!'" "Smeagol sneeking! ME! Shneekingsisis!" "/screams: 'Nasty Hobbitsisisisis...'" "Come on, quickly, follow Smeagol" "Every way is guarded, silly foolsis!" "Nasty Bagginis, stole my precious." "%heshe will kill them oh yes %heshe will precious." "Weees wants some fishises." "Whats has its got in its pocketses, hmmm?" "/whimpers: 'We've lost itses we have.'" "He'll eastus all the world if he getsitses it." "No food, no rest; Smeagol a SNEAK!" "What a dainty little dish you will be for her." "Hobbitses always SOOOO Polite." "/screams: 'Stop, Thief!'" "Makeses him drop %hisher weapon precious." "/grovels: 'He has only four fingers on the black hand.'" "/growls: 'Not nice Hobbits, not sensible!'" "If you findesis it, give it us back." "Don't hurt us, mastersisis." "Poor Smeagol, poor Smeagol." "No AH! Don't hurtsis us." "golum kick hobbit arse%|/sniggers"]
+bMotion_abstract_register "gollums" {
+	"Foolishness!"
+	"Stupid fat hobbit!"
+	"We hates the fat hobbit! Him and his pots and pans and ropes."
+	"Thieves. Thieves all!"
+	"Stupid hobbit. Talking to %himherself like that. Not answering %himherself."
+	"Yes. Sleep sweet sleep with our precious!"
+	"Filthy little thief playing with our precious!"
+	"If only fat hobbit would go away for a moment, we could go to master and take the precious away from him."
+	"No! Must not take away our precious!"
+	"We miss the song of the precious. We miss it. We wants it back!"
+	"Everyone wants my precious. It's not fair! It's ours!"
+	"Shiny, shiny."
+	"/sniggers"
+	"/grovels"
+	"/picks %hisher nose"
+	"/pines for %hisher precious"
+	"/searches %hisher pockets"
+	"/eats some slimy creatures"
+	"/mutters: 'My precious, wheres my precious?'"
+	"/shouts: 'No Master Hobbitsisisisis!'"
+	"/cries: 'The ring was ours for agesisisisis!'"
+	"Smeagol sneeking! ME! Shneekingsisis!"
+	"/screams: 'Nasty Hobbitsisisisis...'"
+	"Come on, quickly, follow Smeagol"
+	"Every way is guarded, silly foolsis!"
+	"Nasty Bagginis, stole my precious."
+	"%heshe will kill them oh yes %heshe will precious."
+	"Weees wants some fishises."
+	"Whats has its got in its pocketses, hmmm?"
+	"/whimpers: 'We've lost itses we have.'"
+	"He'll eastus all the world if he getsitses it."
+	"No food, no rest; Smeagol a SNEAK!"
+	"What a dainty little dish you will be for her."
+	"Hobbitses always SOOOO Polite."
+	"/screams: 'Stop, Thief!'"
+	"Makeses him drop %hisher weapon precious."
+	"/grovels: 'He has only four fingers on the black hand.'"
+	"/growls: 'Not nice Hobbits, not sensible!'"
+	"If you findesis it, give it us back."
+	"Don't hurt us, mastersisis."
+	"Poor Smeagol, poor Smeagol."
+	"No AH! Don't hurtsis us."
+	"golum kick hobbit arse%|/sniggers"
+}
 
-bMotion_abstract_batchadd "blairisms" {
+bMotion_abstract_register "blairisms" {
 	"%VAR{blairadj} %VAR{blairparts}, %VAR{blairadj} %VAR{blairparts}, %VAR{blairadj} %VAR{blairparts}."
 }
 
-bMotion_abstract_batchadd "blairadj" {
+bMotion_abstract_register "blairadj" {
 	"caring"
 	"concerned"
 	"confident"
@@ -1489,7 +3366,7 @@ bMotion_abstract_batchadd "blairadj" {
 	"please-vote-for-me"
 }
 
-bMotion_abstract_batchadd "blairparts" {
+bMotion_abstract_register "blairparts" {
 	"hand gesture"
 	"knees"
 	"hairline"
@@ -1502,14 +3379,12 @@ bMotion_abstract_batchadd "blairparts" {
 	"stare"
 }
 
-bMotion_abstract_register "answerIsyours"
-bMotion_abstract_batchadd "answerIsyours" {
+bMotion_abstract_register "answerIsyours" {
 	"omg yes"
 	"yes!%|%VAR{randomGirness}"
 }
 
-bMotion_abstract_register "answerDidyous"
-bMotion_abstract_batchadd "answerDidyous" {
+bMotion_abstract_register "answerDidyous" {
 	"yarr %VAR{smiles}"
 	"yes but i have a %VAR{chocolates} stuck in my %VAR{bodypart}"
 	"how could i when i had %ruser %VAR{dVerbs}ing %VAR{answerWheres}"
@@ -1523,8 +3398,7 @@ bMotion_abstract_batchadd "answerDidyous" {
 	"yes but i wish i'd gone %VAR{dNouns}-%VAR{dVerbs}ing %VAR{smiles}"
 }
 
-bMotion_abstract_register "answerDoyous"
-bMotion_abstract_batchadd "answerDoyous" {
+bMotion_abstract_register "answerDoyous" {
 	"normally"
 	"always %VAR{rarrs}"
 	"i do%|despite having no %VAR{bodypart}"
@@ -1537,13 +3411,11 @@ bMotion_abstract_batchadd "answerDoyous" {
 	"any chance i get %VAR{rarrs}%|%VAR{randomGirness}"
 }
 
-bMotion_abstract_register "answerWhathaves"
-bMotion_abstract_batchadd "answerWhathaves" {
+bMotion_abstract_register "answerWhathaves" {
 	"%VAR{dVerbs}ing my %VAR{bodypart}"
 }
 
-bMotion_abstract_register "answerHaveyous"
-bMotion_abstract_batchadd "answerHaveyous" {
+bMotion_abstract_register "answerHaveyous" {
 	"yeah on my %VAR{bodypart}"
 	"just this minute actually%|%VAR{randomGirness}"
 	"we don't like to talk about that anymore %VAR{rarrs}"
@@ -1554,8 +3426,7 @@ bMotion_abstract_batchadd "answerHaveyous" {
 	"%VAR{lols} %VAR{yesnos}!"
 }
 
-bMotion_abstract_register "answerWillyous"
-bMotion_abstract_batchadd "answerWillyous" {
+bMotion_abstract_register "answerWillyous" {
 	"certainly%|do you like my %VAR{bodypart}?"
 	"of course!%|%VAR{randomGirness}"
 	"hand me a %VAR{dNouns} and i'll give it a bash :D"
@@ -1567,8 +3438,7 @@ bMotion_abstract_batchadd "answerWillyous" {
 	"will you %VAR{dVerbs} my %VAR{bodypart}?"
 }
 
-bMotion_abstract_register "answerWouldyous"
-bMotion_abstract_batchadd "answerWouldyous" {
+bMotion_abstract_register "answerWouldyous" {
 	"i'd sooner have my %VAR{bodypart} my %VAR{smacked}!"
 	"i'd do anything"
 	"in a flash!"
@@ -1578,8 +3448,7 @@ bMotion_abstract_batchadd "answerWouldyous" {
 	"if my %VAR{bodypart} would stop %VAR{dVerbs}ing"
 }
 
-bMotion_abstract_register "answerAreyous"
-bMotion_abstract_batchadd "answerAreyous" {
+bMotion_abstract_register "answerAreyous" {
 	"yes%|wait! i mean no"
 	"%ruser made me"
 	"yes and i wont stop till my %VAR{bodypart} bounces off!"
@@ -1588,8 +3457,7 @@ bMotion_abstract_batchadd "answerAreyous" {
 	"only because my %VAR{dNouns} %VAR{fellOffs}"
 }
 
-bMotion_abstract_register "answerCanyous"
-bMotion_abstract_batchadd "answerCanyous" {
+bMotion_abstract_register "answerCanyous" {
 	"no%|not even if you %VAR{dVerbs} my %VAR{dNouns}"
 	"certainly%|%VAR{randomGirness}"
 	"never!%VAR{randomZimness}"
@@ -1600,29 +3468,114 @@ bMotion_abstract_batchadd "answerCanyous" {
 	"but i have no ARMS... NO ARMS%colen%|/runs away"
 }
 
-bMotion_abstract_register "dVerbs"
-bMotion_abstract_batchadd "dVerbs" {
-	"grab" "feel" "touch" "rake" "rub" "touch" "eat" "smoke"
-	"fry" "swing" "dribble" "kick" "ride" "throw" "fly" "wiggle"
-	"shoot" "shine" "fold" "eject" "swing from" "sniff" "wipe"
-	"sew" "wriggle" "waggle" "wiggle" "wet" "dip" "flash" "rinse"
-	"gargle"	"snort" "lick" "taste" "shit on" "crap on" "tickle" "wedge"
-	"suck"	"stew" "bake" "ice" "post" "sit on" "burn" "singe"
-	"moisten" "de-flower" "fondle" "poke" "bury" "fetch" "find" "trample"
+bMotion_abstract_register "dVerbs" {
+	"grab"
+	"feel"
+	"touch"
+	"rake"
+	"rub"
+	"touch"
+	"eat"
+	"smoke"
+	"fry"
+	"swing"
+	"dribble"
+	"kick"
+	"ride"
+	"throw"
+	"fly"
+	"wiggle"
+	"shoot"
+	"shine"
+	"fold"
+	"eject"
+	"swing from"
+	"sniff"
+	"wipe"
+	"sew"
+	"wriggle"
+	"waggle"
+	"wiggle"
+	"wet"
+	"dip"
+	"flash"
+	"rinse"
+	"gargle"
+	"snort"
+	"lick"
+	"taste"
+	"shit on"
+	"crap on"
+	"tickle"
+	"wedge"
+	"suck"
+	"stew"
+	"bake"
+	"ice"
+	"post"
+	"sit on"
+	"burn"
+	"singe"
+	"moisten"
+	"de-flower"
+	"fondle"
+	"poke"
+	"bury"
+	"fetch"
+	"find"
+	"trample"
 }
 
-bMotion_abstract_register "dNouns"
-bMotion_abstract_batchadd "dNouns" {
-	"face" "clock" "tree" "bike" "torch" "spanner" "handle" "toilet paper" "nails"
-	"rivets" "lolipop" "stick" "todger" "stiffy" "winkie" "socks" "shoe" "underpants"
-	"knickers" "thong" "keys" "bits" "nubbin" "worm" "napkin" "willy-warmer" "sheets"
-	"pillow" "toilet" "bath" "tampon" "waffle iron" "toaster" "kettle" "mouse" "pasty"
-	"spatula" "elbow" "crotch" "urinal" "barking spider" "sphincter" "asophagus"
-	"throat" "tongue" "eyeball"
+bMotion_abstract_register "dNouns" {
+	"face"
+	"clock"
+	"tree"
+	"bike"
+	"torch"
+	"spanner"
+	"handle"
+	"toilet paper"
+	"nails"
+	"rivets"
+	"lolipop"
+	"stick"
+	"todger"
+	"stiffy"
+	"winkie"
+	"socks"
+	"shoe"
+	"underpants"
+	"knickers"
+	"thong"
+	"keys"
+	"bits"
+	"nubbin"
+	"worm"
+	"napkin"
+	"willy-warmer"
+	"sheets"
+	"pillow"
+	"toilet"
+	"bath"
+	"tampon"
+	"waffle iron"
+	"toaster"
+	"kettle"
+	"mouse"
+	"pasty"
+	"spatula"
+	"elbow"
+	"crotch"
+	"urinal"
+	"barking spider"
+	"sphincter"
+	"asophagus"
+	"throat"
+	"tongue"
+	"eyeball"
 }
 
-bMotion_abstract_register "dSEnds"
-bMotion_abstract_batchadd "dSEnds" {
+bMotion_abstract_register "dSEnds" {
 	"getting rather good at it too"
 	"i'm still trying to get better at it tho"
 	"i can do it %NUMBER{1000} times per second now"
@@ -1634,75 +3587,160 @@ bMotion_abstract_batchadd "dSEnds" {
 	"a monkey could do it"
 }
 
-bMotion_abstract_register "smacked"
-bMotion_abstract_batchadd "smacked" {
-	"smacked" "cuffed" "hit" "patted" "slapped" "socked" "spanked" "chopped" "clouted" "punched"
-	"annihilated" "axed" "butcherd" "crushed" "damaged" "defaced" "eradicated" "erased" "exterminated"
-	"extinguished" "leveled" "liquidated" "maimed" "mutilated" "nuked" "nullified" "quashed" "ravished"
-	"razed" "ruined" "sabotaged" "shatterd" "smashed" "snuffed out" "stamped out"
+bMotion_abstract_register "smacked" {
+	"smacked"
+	"cuffed"
+	"hit"
+	"patted"
+	"slapped"
+	"socked"
+	"spanked"
+	"chopped"
+	"clouted"
+	"punched"
+	"annihilated"
+	"axed"
+	"butcherd"
+	"crushed"
+	"damaged"
+	"defaced"
+	"eradicated"
+	"erased"
+	"exterminated"
+	"extinguished"
+	"leveled"
+	"liquidated"
+	"maimed"
+	"mutilated"
+	"nuked"
+	"nullified"
+	"quashed"
+	"ravished"
+	"razed"
+	"ruined"
+	"sabotaged"
+	"shatterd"
+	"smashed"
+	"snuffed out"
+	"stamped out"
 }
 
-bMotion_abstract_register "yesresps"
-bMotion_abstract_batchadd "yesresps" {
-	"no %%" "oh no it isn't %VAR{smiles}" "nope %VAR{smiles}" "rubbish %VAR{smiles}"
-	"i think not, fool %VAR{smiles}" "wrong!" "nmm%colen" "thingy" "omg"
+bMotion_abstract_register "yesresps" {
+	"no %%"
+	"oh no it isn't %VAR{smiles}"
+	"nope %VAR{smiles}"
+	"rubbish %VAR{smiles}"
+	"i think not, fool %VAR{smiles}"
+	"wrong!"
+	"nmm%colen"
+	"thingy"
+	"omg"
 }
 
-bMotion_abstract_register "noresps"
-bMotion_abstract_batchadd "noresps" {
-	"tis" "oh yes it is %VAR{smiles}" "wrong!" "rubbish %VAR{smiles}"
-	"nonsense%colen" "i don't read your jibbering %VAR{smiles}"
+bMotion_abstract_register "noresps" {
+	"tis"
+	"oh yes it is %VAR{smiles}"
+	"wrong!"
+	"rubbish %VAR{smiles}"
+	"nonsense%colen"
+	"i don't read your jibbering %VAR{smiles}"
 	"well cover me with %VAR{chocolates} and %VAR{dVerbs} my %VAR{bodypart}!"
 }
 
-bMotion_abstract_register "sound"
-bMotion_abstract_add "sound" "%VAR{sounds} %VAR{sounds} %VAR{sounds} %VAR{sounds} %VAR{sounds} %VAR{sounds}"
-bMotion_abstract_add "sound" "%VAR{sounds} %VAR{sounds} %VAR{sounds} %|oh! excuse me"
-bMotion_abstract_add "sound" "%VAR{sounds} %VAR{sounds}%|/giggles"
-bMotion_abstract_add "sound" "%VAR{sounds} %VAR{sounds}"
-
-bMotion_abstract_register "sound2"
-bMotion_abstract_add "sound2" "%VAR{sounds} %VAR{sound2} "
-bMotion_abstract_add "sound2" "%VAR{sounds} "
-
-
-bMotion_abstract_register "sounds"
-bMotion_abstract_batchadd "sounds" {
-	"click-click!" "klackety" "feep-feep" "*eeeem*" "honk honk!" "uh-uh-uh" "whommm" "eep"
-	"glop" "splish-splash-woah" "FOOM" "CLACK" "hiccup" "hee-haw" "splatter" "slap slap"
-	"arrg splutter" "aww" "*kaw*" "ZAP" "fweeee" "sploosh" "snip!"
-	"pap" "*choo choo choo*" "chuff!" "slip-beeeeeee" "smack" "oook-oook" "gah"
-	"gibber" "goo" "harrumph" "whip" "bzz-bzz-bzz-bzz" "splutter" "tweet tweet"
-	"ock" "wobble wobble!" "slash!"
+bMotion_abstract_register "sound" {
+	"%VAR{sounds} %VAR{sounds} %VAR{sounds} %VAR{sounds} %VAR{sounds} %VAR{sounds}"
+	"%VAR{sounds} %VAR{sounds} %VAR{sounds} %|oh! excuse me"
+	"%VAR{sounds} %VAR{sounds}%|/giggles"
+	"%VAR{sounds} %VAR{sounds}"
 }
 
-bMotion_abstract_register "quizes"
+bMotion_abstract_register "sound2" {
+	"%VAR{sounds} %VAR{sound2} "
+	"%VAR{sounds} "
+}
 
-bMotion_abstract_register "colours"
-bMotion_abstract_batchadd "colours" {
+bMotion_abstract_register "sounds" {
+	"click-click!"
+	"klackety"
+	"feep-feep"
+	"*eeeem*"
+	"honk honk!"
+	"uh-uh-uh"
+	"whommm"
+	"eep"
+	"glop"
+	"splish-splash-woah"
+	"FOOM"
+	"CLACK"
+	"hiccup"
+	"hee-haw"
+	"splatter"
+	"slap slap"
+	"arrg splutter"
+	"aww"
+	"*kaw*"
+	"ZAP"
+	"fweeee"
+	"sploosh"
+	"snip!"
+	"pap"
+	"*choo choo choo*"
+	"chuff!"
+	"slip-beeeeeee"
+	"smack"
+	"oook-oook"
+	"gah"
+	"gibber"
+	"goo"
+	"harrumph"
+	"whip"
+	"bzz-bzz-bzz-bzz"
+	"splutter"
+	"tweet tweet"
+	"ock"
+	"wobble wobble!"
+	"slash!"
+}
+
+bMotion_abstract_register "colours" {
 	"%VAR{basic_colours}"
 	"%VAR{weird_colours}"
 	"%VAR{colour_adjective} %VAR{basic_colours}"
 	"%VAR{colour_adjective} %VAR{weird_colours}"
 }
 
-bMotion_abstract_register "weird_colours"
-bMotion_abstract_batchadd "weird_colours" {
-	"cyan" "magenta"
-	"mauve" "taupe" "ochre" "teal"
-	"crimson" "scarlet"
-	"cobalt" "turquoise" "cornflower blue"
+bMotion_abstract_register "weird_colours" {
+	"cyan"
+	"magenta"
+	"mauve"
+	"taupe"
+	"ochre"
+	"teal"
+	"crimson"
+	"scarlet"
+	"cobalt"
+	"turquoise"
+	"cornflower blue"
 	"chartreuse"
 }
 
-bMotion_abstract_register "basic_colours"
-bMotion_abstract_batchadd "basic_colours" {
-	"red" "blue" "yellow" "green" "violet" "orange" "black" "white"
-	"purple" "silver" "gold" "pink" "grey"
+bMotion_abstract_register "basic_colours" {
+	"red"
+	"blue"
+	"yellow"
+	"green"
+	"violet"
+	"orange"
+	"black"
+	"white"
+	"purple"
+	"silver"
+	"gold"
+	"pink"
+	"grey"
 }
 
-bMotion_abstract_register "colour_adjective"
-bMotion_abstract_batchadd "colour_adjective" {
+bMotion_abstract_register "colour_adjective" {
 	"brilliant"
 	"pale"
 	"mottled"
@@ -1715,9 +3753,7 @@ bMotion_abstract_batchadd "colour_adjective" {
 	"metallic"
 }
 
-
-bMotion_abstract_register "nowPlaying"
-bMotion_abstract_batchadd "nowPlaying" {
+bMotion_abstract_register "nowPlaying" {
 	"ooh, I like that one"
 	"[NP: %VAR{randomSongArtist} - %VAR{randomSongName}]"
 	"/eyes %%"
@@ -1725,8 +3761,7 @@ bMotion_abstract_batchadd "nowPlaying" {
 	"oh dear. what will the neighbours think?"
 }
 
-bMotion_abstract_register "nowPlayingDislike"
-bMotion_abstract_batchadd "nowPlayingDislike" {
+bMotion_abstract_register "nowPlayingDislike" {
 	"/plugs %hisher ears"
 	"ugh"
 	"how can you stand that stuff?"
@@ -1734,8 +3769,7 @@ bMotion_abstract_batchadd "nowPlayingDislike" {
 	"SILENCE%colen"
 }
 
-bMotion_abstract_register "randomSongArtist"
-bMotion_abstract_batchadd "randomSongArtist" {
+bMotion_abstract_register "randomSongArtist" {
 	"Britney Spears"
 	"U2"
 	"Oasis"
@@ -1765,8 +3799,7 @@ bMotion_abstract_batchadd "randomSongArtist" {
 	"Cannibal Corpse"
 }
 
-bMotion_abstract_register "randomSongName"
-bMotion_abstract_batchadd "randomSongName" {
+bMotion_abstract_register "randomSongName" {
 	"music for %PLURAL{%VAR{sillyThings}{strip}}"
 	"%PLURAL{%VAR{sillyThings}{strip}} of desire"
 	"Hurt"
@@ -1783,8 +3816,7 @@ bMotion_abstract_batchadd "randomSongName" {
 	"Untitled Track %NUMBER{100}"
 }
 
-bMotion_abstract_register "answerWhatOdds"
-bMotion_abstract_batchadd "answerWhatOdds" {
+bMotion_abstract_register "answerWhatOdds" {
 	"one in a million"
 	"one to %NUMBER{10000}"
 	"%NUMBER{10000} to one"
@@ -1796,8 +3828,7 @@ bMotion_abstract_batchadd "answerWhatOdds" {
 	"I'm not an expert on that%|%BOT[75,but I am! it's, %VAR{ers}, one to %NUMBER{100000}!]"
 }
 
-bMotion_abstract_register "answerHowLongs"
-bMotion_abstract_batchadd "answerHowLongs" {
+bMotion_abstract_register "answerHowLongs" {
 	"%NUMBER{60} minutes"
 	"%NUMBER{60} seconds"
 	"%NUMBER{365} days"
@@ -1809,8 +3840,7 @@ bMotion_abstract_batchadd "answerHowLongs" {
 	"six to eight weeks, usually"
 }
 
-bMotion_abstract_register "answerHowOlds"
-bMotion_abstract_batchadd "answerHowOlds" {
+bMotion_abstract_register "answerHowOlds" {
 	"%NUMBER{60} minutes"
 	"%NUMBER{60} seconds"
 	"%NUMBER{365} days"
@@ -1826,8 +3856,7 @@ bMotion_abstract_batchadd "answerHowOlds" {
 	"%VAR{answerHowLongs}"
 }
 
-bMotion_abstract_register "answerHowBigs"
-bMotion_abstract_batchadd "answerHowBigs" {
+bMotion_abstract_register "answerHowBigs" {
 	"huge"
 	"tiny"
 	"too big"
@@ -1843,8 +3872,7 @@ bMotion_abstract_batchadd "answerHowBigs" {
 	"%NUMBER{50} miles"
 }
 
-bMotion_abstract_register "reminder_where"
-bMotion_abstract_batchadd "reminder_where" {
+bMotion_abstract_register "reminder_where" {
 	"the dentist"
 	"the greengrocer"
 	"the shrink"
@@ -1863,13 +3891,11 @@ bMotion_abstract_batchadd "reminder_where" {
 	"your friends in the pub"
 }
 
-bMotion_abstract_register "reminder"
-bMotion_abstract_batchadd "reminder" {
+bMotion_abstract_register "reminder" {
 	"REMINDER - %ruser: You have an appointment with %VAR{reminder_where} %VAR{reminder_when}"
 }
 
-bMotion_abstract_register "reminder_when"
-bMotion_abstract_batchadd "reminder_when" {
+bMotion_abstract_register "reminder_when" {
 	"in %NUMBER{59} minutes"
 	"at %NUMBER{12}:%NUMBER{59}{2}pm"
 	"at %NUMBER{12}:%NUMBER{59}{2}am"
@@ -1878,20 +3904,17 @@ bMotion_abstract_batchadd "reminder_when" {
 	"%NUMBER{120} minutes ago"
 }
 
-bMotion_abstract_register "troy"
-bMotion_abstract_batchadd "troy" {
+bMotion_abstract_register "troy" {
 	"Hi, I'm %me. You might remember me from %VAR{troyfrom}"
 }
 
-bMotion_abstract_register "troyfrom"
-bMotion_abstract_batchadd "troyfrom" {
+bMotion_abstract_register "troyfrom" {
 	"such films as %VAR{troyfilm1} and %VAR{troyfilm2}"
 	"such educational films as %VAR{troyinfo1} and %VAR{troyinfo2}"
 	"such TV events as %VAR{troytv1} and %VAR{troytv2}"
 }
 
-bMotion_abstract_register "troyfilm1"
-bMotion_abstract_batchadd "troyfilm1" {
+bMotion_abstract_register "troyfilm1" {
 	"The Boatjacking of Supership '79"
 	"Calling All Quakers"
 	"The Contrabulous Fabtraption of Professor Horatio Hufnagel"
@@ -1911,8 +3934,7 @@ bMotion_abstract_batchadd "troyfilm1" {
 	"Make-Out King of Montana"
 }
 
-bMotion_abstract_register "troyfilm2"
-bMotion_abstract_batchadd "troyfilm2" {
+bMotion_abstract_register "troyfilm2" {
 	"Meet Joe Blow "
 	"The Muppets Go Medieval "
 	"'P' is for Psycho "
@@ -1928,8 +3950,7 @@ bMotion_abstract_batchadd "troyfilm2" {
 	"The Wackiest Covered Wagon in the West "
 }
 
-bMotion_abstract_register "troyinfo1"
-bMotion_abstract_batchadd "troyinfo1" {
+bMotion_abstract_register "troyinfo1" {
 	"Adjusting Your Self-O-Stat "
 	"Alice Doesn't Live Any More "
 	"Alice's Adventures through the Windshield Glass "
@@ -1946,8 +3967,7 @@ bMotion_abstract_batchadd "troyinfo1" {
 	"Lead Paint: Delicious But Deadly"
 }
 
-bMotion_abstract_register "troyinfo2"
-bMotion_abstract_batchadd "troyinfo2" {
+bMotion_abstract_register "troyinfo2" {
 	"Locker Room Towel Fights: The Blinding of Larry Driscoll"
 	"Man Versus Nature: The Road To Victory"
 	"Meat and You -- Partners in Freedom "
@@ -1964,8 +3984,7 @@ bMotion_abstract_batchadd "troyinfo2" {
 	"Where's Nordstrom? "
 }
 
-bMotion_abstract_register "troytv1"
-bMotion_abstract_batchadd "troytv1" {
+bMotion_abstract_register "troytv1" {
 	"Alien Nose Job "
 	"Carnival of the Stars "
 	"Five Fabulous Weeks of The Chevy Chase Show"
@@ -1978,9 +3997,7 @@ bMotion_abstract_batchadd "troytv1" {
 	"Handel with Kare "
 }
 
-
-bMotion_abstract_register "troytv2"
-bMotion_abstract_batchadd "troytv2" {
+bMotion_abstract_register "troytv2" {
 	"I Can't Believe They Invented It!"
 	"Son of Sanford and Son"
 	"Troy and Company's Summertime Smile Factory"
@@ -2000,8 +4017,7 @@ bMotion_abstract_batchadd "troytv2" {
 	"Stop the Planet of the Apes, I Want to Get Off!"
 }
 
-bMotion_abstract_register "bb_places"
-bMotion_abstract_batchadd "bb_places" {
+bMotion_abstract_register "bb_places" {
 	"lounge"
 	"dining area"
 	"kitchen"
@@ -2013,8 +4029,7 @@ bMotion_abstract_batchadd "bb_places" {
 	"secret %VAR{bb_places}"
 }
 
-bMotion_abstract_register "bb_stuff"
-bMotion_abstract_batchadd "bb_stuff" {
+bMotion_abstract_register "bb_stuff" {
 	"Day %NUMBER{500} %VAR{bb_time}: Big Brother has given the housemates %NUMBER{50} %PLURAL{%VAR{sillyThings}{strip}} and challenged them to build %VAR{sillyThings}"
 	"Day %NUMBER{500} %VAR{bb_time}: Big Brother has given the housemates %NUMBER{50} %PLURAL{%VAR{sillyThings}{strip}} and challenged them to build %VAR{sillyThings}. %ruser has been crying in the %VAR{bb_places} for %NUMBER{30} minutes."
 	"Day %NUMBER{500} %VAR{bb_time}: This week, %ruser, %ruser and %ruser are all up for eviction"
@@ -2024,13 +4039,11 @@ bMotion_abstract_batchadd "bb_stuff" {
 	"Day %NUMBER{500} %VAR{bb_time}: %ruser is in the diary room, talking to Big Brother about %VAR{bb_diary}"
 	"Day %NUMBER{500} %VAR{bb_time}: %ruser has hidden %OWNER{%ruser} %VAR{bb_posession} in %VAR{bb_hide}"
 }
-bMotion_abstract_register "bb_time"
-bMotion_abstract_batchadd "bb_time" {
+bMotion_abstract_register "bb_time" {
 	"%TIME{now}"
 }
 
-bMotion_abstract_register "bb_naughty"
-bMotion_abstract_batchadd "bb_naughty" {
+bMotion_abstract_register "bb_naughty" {
 	"talking about the outside world"
 	"discussing nominations"
 	"eating all the food"
@@ -2038,8 +4051,7 @@ bMotion_abstract_batchadd "bb_naughty" {
 	"failing the %VAR{bb_task} task"
 }
 
-bMotion_abstract_register "bb_task"
-bMotion_abstract_batchadd "bb_task" {
+bMotion_abstract_register "bb_task" {
 	"prison"
 	"school"
 	"university"
@@ -2057,8 +4069,7 @@ bMotion_abstract_batchadd "bb_task" {
 	"hiding in a box"
 }
 
-bMotion_abstract_register "bb_diary"
-bMotion_abstract_batchadd "bb_diary" {
+bMotion_abstract_register "bb_diary" {
 	"their %VAR{colours} %VAR{bodypart}"
 	"their %VAR{bodypart}"
 	"%ruser"
@@ -2073,8 +4084,7 @@ bMotion_abstract_batchadd "bb_diary" {
 	"shoes"
 }
 
-bMotion_abstract_register "bb_posession"
-bMotion_abstract_batchadd "bb_posession" {
+bMotion_abstract_register "bb_posession" {
 	"sock drawer"
 	"food"
 	"drink"
@@ -2089,8 +4099,7 @@ bMotion_abstract_batchadd "bb_posession" {
 	"shampoo"
 }
 
-bMotion_abstract_register "bb_hide"
-bMotion_abstract_batchadd "bb_hide" {
+bMotion_abstract_register "bb_hide" {
 	"the %VAR{bb_places}"
 	"the cistern"
 	"a cupboard"
@@ -2100,8 +4109,7 @@ bMotion_abstract_batchadd "bb_hide" {
 	"%OWNER{%ruser} cupboard"
 }
 
-bMotion_abstract_register "deopped"
-bMotion_abstract_batchadd "deopped" {
+bMotion_abstract_register "deopped" {
 	"hey! %VAR{unsmiles} i needed that"
 	"hey! I was using that."
 	"great, now how am i going to kickban people who i hate (e.g. %%)?"
@@ -2111,16 +4119,14 @@ bMotion_abstract_batchadd "deopped" {
 	"muwa%REPEAT{3:6:ha}hang on%|bugger."
 }
 
-bMotion_abstract_register "opped"
-bMotion_abstract_batchadd "opped" {
+bMotion_abstract_register "opped" {
 	"muwa%REPEAT{3:10:ha}"
 	"mmm, ops"
 	"i promise to be good and well-behaved with my new op superpowers%|\\kick %%%|whoops!"
 	"%VAR{thanks}"
 }
 
-bMotion_abstract_register "weather"
-bMotion_abstract_batchadd "weather" {
+bMotion_abstract_register "weather" {
 	"Today's forecast is %VAR{weathertypes}"
 	"Today's forecast is %VAR{weathertypes} with a %NUMBER{100}%percent chance of %VAR{sillyThings}{strip}"
 	"Today's forecast is %VAR{weathertypes} with a %NUMBER{100}%percent chance of %VAR{weathertypes}"
@@ -2128,8 +4134,7 @@ bMotion_abstract_batchadd "weather" {
 	"Today's forecast is %VAR{weathertypes} with a %NUMBER{100}%percent chance of %VAR{weathertypes} moving in from the %VAR{compass}"
 }
 
-bMotion_abstract_register "weathertypes"
-bMotion_abstract_batchadd "weathertypes" {
+bMotion_abstract_register "weathertypes" {
 	"rain"
 	"sunshine"
 	"sun"
@@ -2142,8 +4147,7 @@ bMotion_abstract_batchadd "weathertypes" {
 	"breezes"
 }
 
-bMotion_abstract_register "compass"
-bMotion_abstract_batchadd "compass" {
+bMotion_abstract_register "compass" {
 	"north"
 	"south"
 	"east"
