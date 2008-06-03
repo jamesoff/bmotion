@@ -2651,9 +2651,6 @@ bMotion_abstract_register "frightens" {
 	"erp!"
 }
 
-bMotion_abstract_register "blinding" [list
-}
-
 bMotion_abstract_register "autoAways" {
 	"oh, so we're not interesting enough?%|%bot\[50,obviously not\]"
 	"o, bye then"
@@ -3287,8 +3284,7 @@ bMotion_abstract_register "goodMornings" {
 }
 
 #clear out old good-morning text
-bMotion_abstract_add_filter "goodMornings"
-	"morning"
+bMotion_abstract_add_filter "goodMornings" "morning"
 
 bMotion_abstract_register "stonedRandomStuff" {
 	"wheeeeeeee"
