@@ -15,6 +15,8 @@
 
 bMotion_plugin_add_complex "spoon" {^([^%/aeiou. ]+)([aeiuo][a-z]+) ([a-z]+ )?([^aeiou. ]*)([aeiuo][a-z]+)$} 1 bMotion_plugin_complex_spoon "en"
 
+bMotion_plugin_add_complex "spoooooon" {^[b-df-hj-np-tv-xz]+[aeiou]{2}[b-df-hj-np-tv-xz]+[.!?]?$} 40 bMotion_plugin_complex_spoon2 "en"
+
 proc bMotion_plugin_complex_spoon { nick host handle channel text } {
 
 	if (![bMotion_interbot_me_next $channel]) {
@@ -28,6 +30,19 @@ proc bMotion_plugin_complex_spoon { nick host handle channel text } {
 		}
 	}
 }
+
+proc bMotion_plugin_complex_spoon2 { nick host handle channel text } {
+
+	if (![bMotion_interbot_me_next $channel]) {
+		return 0
+	}
+
+	if [regexp -nocase {([b-df-hj-np-tv-xz]+)([aeiou]{2})([b-df-hj-np-tv-xz]+[.!?]?)} $text matches 1 2 3 4] {
+		bMotionDoAction $channel $text "$1%REPEAT{2:10:$2}$3$4"
+		return 1
+	}
+}
+
 
 bMotion_abstract_register "spoonerisms"
 bMotion_abstract_batchadd "spoonerisms" [list "%% ... more like %2, am i rite?" "%% ... more like %2, am i right?" "%%? More like %2, am I correct?" "/. o O (%2)"]
