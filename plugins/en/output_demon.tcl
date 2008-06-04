@@ -20,24 +20,34 @@
 proc bMotion_plugin_output_demon { channel line } {
 	bMotion_putloglev 4 * "bMotion_plugin_output_demon $channel $line"
 
-
   set newLine ""
 	
   #split words
 	set line [string trim $line]
   set words [split $line " "]
 
-  foreach word $words {
+	foreach word $words {
 		regsub -all {o([b-df-hj-np-tv-xz])e(s|ing)?\M} $word {oa\1\2} word
+
+		# undo one -> oan (only if entire word)
+		if {$word == "oan"} {
+			set word "one"
+		}
+
+		#other special cases to fix
+		set word [string map -nocase { soam some } $word]
+
+		# moving on...
+		set word [string map -nocase { ain ane } $word]
 		regsub -all {([a-z][aeiou])ck\M} $word {\1q} word
 		regsub -all "don'?t" $word "doan" word
 		regsub -all "didn'?t" $word "din" word
 		append newLine "$word "
-  }
+	}
 
-  set line [string trim $newLine]
+	set line [string trim $newLine]
 
-  return $line
+	return $line
 }
 
 
