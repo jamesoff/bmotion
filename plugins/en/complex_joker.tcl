@@ -61,7 +61,7 @@ proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
 		"it was %r"
 		"no %PLURAL{%VAR{sillyThings}{strip}}"
 		"%n"
-		"%NUMBER{10} to hold the %VAR{sillyThings}{strip} and %NUMBER{10} to %VAR{dVerbs} it"
+		"%NUMBER{10} to hold the %VAR{sillyThings}{strip} and %NUMBER{15} to %VAR{dVerbs} it"
 		"pull the %VAR{sillyThings}{strip} out and throw it back!"
 	}
 
