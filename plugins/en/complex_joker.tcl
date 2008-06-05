@@ -48,7 +48,7 @@ proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
 		"what's %VAR{colours} and invisible?"
 		"what's %VAR{colours} and sticky?"
 		"how many %VAR{sillyThings}{strip}s does it take to change a light bulb?"
-		"what do you do if a blonde throws %VAR{sillyThings}{strip} at you?"
+		"what do you do if a blonde throws %VAR{sillyThings} at you?"
 	}
 
 	# %r is relational
