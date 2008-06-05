@@ -47,6 +47,8 @@ proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
 		"did you hear the one about %n?"
 		"what's %VAR{colours} and invisible?"
 		"what's %VAR{colours} and sticky?"
+		"how many %VAR{sillyThings}{strip}s does it take to change a light bulb?"
+		"what do you do if a blonde throws %VAR{sillyThings}{strip} at you?"
 	}
 
 	# %r is relational
@@ -59,6 +61,8 @@ proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
 		"it was %r"
 		"no %PLURAL{%VAR{sillyThings}{strip}}"
 		"%n"
+		"%NUMBER{10} to hold the %VAR{sillyThings}{strip} and %NUMBER{10} to %VAR{dVerbs} it"
+		"pull the %VAR{sillyThings}{strip} out and throw it back!"
 	}
 
 	set index [ rand [ llength $jokeForms ] ]
