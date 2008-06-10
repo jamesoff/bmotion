@@ -907,7 +907,7 @@ proc bMotionMakeRepeat { text } {
 
 proc bMotion_strip_article { text } {
 	bMotion_putloglev 5 * "bMotion_strip_article ($text)"
-	regsub "(an?|the|some) " $text "" text
+	regsub "(an?|the|some|his|her|their) " $text "" text
 	return $text
 }
 

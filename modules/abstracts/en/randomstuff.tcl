@@ -5,6 +5,7 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"I see it's nearly the end of the channel... but there's just time to squeeze in a round of %VAR{sillyThings}{strip} songbook"
 	"i like a dump to be as devastating as it is memorable"
 	"what am i doing here?! wait, where are my underpants?"
 	"i am %me the mind-taker!%|boooo-woooOOOOoo!"
@@ -299,6 +300,7 @@ bMotion_abstract_register "randomStuff" {
 ### Mixed in with list above
 bMotion_abstract_register "randomStuff_male" {
 	"Come on baby, let's go play schoolgirl and guy who has sex with schoolgirls!"
+	"i think %PLURAL{%VAR{sillyThings}{strip}} should have holes you can put your cock in"
 	"Huh? Mmph? LOL! Buffer overrun! *pant*"
 	"Then I call the cops and jack off as the ambulance shows up"
 	"Yeah baby yeah!"
@@ -329,6 +331,7 @@ bMotion_abstract_register "randomStuff_female" {
 	"/considers sexchange operation%|/looks at %ruser{male}%|Maybe not"
 	"It's good to be female isn't it %ruser{female}"
 	"Absurdly top heavy secretary speaking"
+	"I got a skirt but I ain't go no knickers"
 }
 
 
@@ -460,4 +463,10 @@ bMotion_abstract_register "activeRandomStuff" {
 	"i want mine with sprinkles"
 	"now back to Reducto's to enlarge myself!"
 	"%ruser is under some kind of spell. that's why i don't have to cover my mouth fully while i talk"
+	"who... does... number... two... work... for?"
+	"you show that turd who's boss"
+}
+
+bMotion_abstract_register "activeRandomStuff_female" {
+	"ugh. i hope this is part of the unfreezing process"
 }
