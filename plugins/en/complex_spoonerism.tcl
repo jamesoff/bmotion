@@ -37,7 +37,7 @@ proc bMotion_plugin_complex_spoon2 { nick host handle channel text } {
 		return 0
 	}
 
-	if [regexp -nocase {([b-df-hj-np-tv-xz]+)([aeiou]{2})([b-df-hj-np-tv-xz]+[.!?]?)} $text matches 1 2 3 4] {
+	if [regexp -nocase {([b-df-hj-np-tv-xz]+)(([aeiou])\3)([b-df-hj-np-tv-xz]+[.!?]?)} $text matches 1 2 3 4] {
 		bMotionDoAction $channel $text "$1%REPEAT{2:10:$2}$3$4"
 		return 1
 	}
