@@ -13,7 +13,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_complex "hello" "^(hey|hi|hello|r|greetings|hullo|bonjour|morning|afternoon|evening|yo|y0) %botnicks(!)?$" 100 bMotion_plugin_complex_hello "en"
+bMotion_plugin_add_complex "hello" "^(hey|hi|hello|r|greetings|hullo|bonjour|morning|afternoon|evening|yo|y0|lo) %botnicks(!)?$" 100 bMotion_plugin_complex_hello "en"
 bMotion_plugin_add_complex "hello2" "^%botnicks(!+|\[!\"£\$%^&*()#\]{3,})" 100 bMotion_plugin_complex_hello "en"
 
 proc bMotion_plugin_complex_hello { nick host handle channel text } {
