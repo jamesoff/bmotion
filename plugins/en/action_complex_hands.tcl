@@ -98,7 +98,7 @@ proc bMotion_plugin_complex_action_hands { nick host handle channel text } {
 
 		set original_item $item
 		set item [string tolower [bMotion_strip_article $item]]
-		regsub "e?s$" $item "" item
+		regsub "s$" $item "" item
 
 		# check if we already know if we don't like this
 		if [bMotion_abstract_contains "_bmotion_dislike" $item] {
