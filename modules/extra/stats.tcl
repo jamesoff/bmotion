@@ -215,10 +215,19 @@ proc bMotion_stats_handler { idx text } {
 
 proc bMotion_stats_load { } {
 	global bMotionModules bMotion_stats_id bMotion_stats_time bMotion_stats_key
+	global bMotionLocal
 
 	set line ""
 
 	set bMotion_stats_time 0
+
+	# look for a stats file in the local dir first
+	set statsFile "$bMotionLocal/stats.txt"
+
+	if {![file exists $statsFile]} {
+		# try in the old location
+		set statsFile "$bMotionModules/stats.txt"
+	}
 
 	catch {
 		set fileHandle [open "$bMotionModules/stats.txt" "r"]
@@ -260,7 +269,9 @@ proc bMotion_stats_check { force } {
 proc bMotion_stats_write { } {
 	bMotion_putloglev 4 * "bMotion_stats_write"
 	global bMotion_stats_id bMotion_stats_key bMotionModules
-	set fileHandle [open "$bMotionModules/stats.txt" "w"]
+	global bMotionLocal
+
+	set fileHandle [open "$bMotionLocal/stats.txt" "w"]
 
 	puts $fileHandle [clock seconds]
 	puts $fileHandle $bMotion_stats_id
