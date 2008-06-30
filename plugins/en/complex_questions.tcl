@@ -93,13 +93,14 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
 
   bMotion_putloglev 3 * "Checking question for 'want'"
   ## Want question targetted at me
-  if { [regexp -nocase "^$botnicks,?:? do you (need|want) (a|these|this|some|the|those|that)" $text] ||
-        [regexp -nocase "^do you (want|need) (a|these|this|some|the|those|that) .* $botnicks ?\\?" $text] ||
-        [regexp -nocase "^$botnicks,?:? would you like" $text] ||
-        [regexp -nocase "^would you like .+ $botnicks" $text] ||
-        [regexp -nocase "^$botnicks,?:? (do )?((yo)?u )?wanna" $text] ||
-        [regexp -nocase "^(do )?((yo)?u )?wanna .+ $botnicks" $text] } {
-      bMotion_plugin_complex_question_want $nick $channel $host
+	set item ""
+  if { [regexp -nocase "^$botnicks,?:? do you (need|want) (a|these|this|some|the|those|that) (.+)" $text matches a b c item] ||
+        [regexp -nocase "^do you (want|need) (a|these|this|some|the|those|that) (.*) $botnicks ?\\?" $text matches a b item] ||
+        [regexp -nocase "^$botnicks,?:? would you like (.+)" $text matches a item] ||
+        [regexp -nocase "^(do|would) you like (.+) $botnicks" $text matches item] ||
+        [regexp -nocase "^$botnicks,?:? (do )?((yo)?u )?wanna (.+)" $text matches item] ||
+        [regexp -nocase "^(do )?((yo)?u )?wanna (.+) $botnicks" $text matches item] } {
+      bMotion_plugin_complex_question_want $nick $channel $host $item
       return 1
   }
 
@@ -356,9 +357,53 @@ proc bMotion_plugin_complex_question_who { nick channel host owner } {
   return 1
 }
 
-proc bMotion_plugin_complex_question_want { nick channel host } {
+proc bMotion_plugin_complex_question_want { nick channel host { item "" } } {
     bMotion_putloglev 2 * "$nick Want/need question"
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{question_want_reply_wrapper}"
+
+		if {$item != ""} {
+			# let's try to figure out if this is an item proper or something like "to go home" etc
+			if {[regexp -nocase "^(to)" $item]} {
+				# TODO: scope for improvement --^
+				bMotion_putloglev 3 * "item actually looks like an action, using generic answer for now"
+				bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{question_want_reply_wrapper}"
+				return 1
+			}
+
+			# TODO: check if it's a user
+			# TODO: factorise this code?
+			# TODO: other tests?
+
+			bMotion_putloglev 3 * "item looks like an item!"
+			set original_item $item
+			set item [string tolower [bMotion_strip_article $item]]
+			regsub {\?} $item "" item
+			regsub "s$" $item "" item
+
+			if [bMotion_abstract_contains "_bmotion_like" $item] {
+				bMotionDoAction $channel $original_item "%VAR{want_item_like}" $nick
+				return 1
+			}
+
+			if [bMotion_abstract_contains "_bmotion_dislike" $item] {
+				bMotionDoAction $channel $original_item "%VAR{want_item_dislike}" $nick
+				return 1
+			}
+			
+			if {[rand 100] > 80} {
+				bMotionDoAction $channel $original_item "%VAR{want_item_dislike}" $nick
+				bMotion_abstract_add "_bmotion_dislike" $item
+			} else {
+				bMotionDoAction $channel $original_item "%VAR{want_item_like}" $nick
+				bMotion_abstract_add "_bmotion_like" $item
+			}
+			return 1
+		}
+
+		if {$item == ""} {
+			bMotion_putloglev 3 * "item is blank, using generic want answer"
+			bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{question_want_reply_wrapper}"
+		}
+
     return 1
 }
 
@@ -438,7 +483,7 @@ proc bMotion_plugin_complex_question_canyou { nick channel host } {
 }
 
 proc bMotion_plugin_complex_question_doyou { nick channel host } {
-    bMotion_putloglev 2 * "$nick do you question"
+	bMotion_putloglev 2 * "$nick do you question"
   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerDoyous}"
   return 1
 }
@@ -514,4 +559,32 @@ bMotion_abstract_batchadd "question_colour_wrapper" {
   "%VAR{colours}"
   "%VAR{colours}%|No! %VAR{colours}!"
   "%VAR{colours}"
+}
+
+bMotion_abstract_register "want_item_like" {
+	"ooh yes please"
+	"%REPEAT{3:7:m} %%"
+	"yes please %2"
+	"/<3 %%"
+	"yes"
+	"affirmative"
+	"r"
+	"r %VAR{smiles}"
+	"wh%REPEAT{4:10:e}%|%% == best"
+	"%% <3"
+	"%%++"
+}
+
+bMotion_abstract_register "want_item_dislike" {
+	"e%REPEAT{2:5:w} no thanks"
+	"barf"
+	"bleh"
+	"nnk"
+	"do not want"
+	"blah horrible"
+	"no"
+	"no thanks"
+	"negative"
+	"god no"
+	"not a chance"
 }
