@@ -1,10 +1,9 @@
 #bMotion - Output functions
 #
-# vim: fdm=indent fdn=1
 
 ###############################################################################
 # bMotion - an 'AI' TCL script for eggdrops
-# Copyright (C) James Michael Seward 2000-2002
+# Copyright (C) James Michael Seward 2000-2008
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

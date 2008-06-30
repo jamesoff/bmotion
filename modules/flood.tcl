@@ -1,13 +1,10 @@
 # bMotion - Flood checking
 #
-# $Id$
-#
-# vim: fdm=indent fdn=1
 
 
 ###############################################################################
 # bMotion - an 'AI' TCL script for eggdrops
-# Copyright (C) James Michael Seward 2000-2002
+# Copyright (C) James Michael Seward 2000-2008
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,9 +20,6 @@
 # along with this program; if not, write to the Free Software 
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
-
-# init our counters
-bMotion_counter_init "flood" "checks"
 
 # We're going to track flooding PER NICK globally, not per channel
 # If someone's flooding us in one place, we'll handle it for all channels

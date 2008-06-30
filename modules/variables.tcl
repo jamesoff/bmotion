@@ -1,11 +1,9 @@
 # bMotion - Global variable init
 #
-# $Id$
-#
 
 ###############################################################################
 # bMotion - an 'AI' TCL script for eggdrops
-# Copyright (C) James Michael Seward 2000-2002
+# Copyright (C) James Michael Seward 2000-2008
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -54,20 +52,20 @@ if {![info exists bMotionInfo]} {
   set bMotionInfo(clothing) 5
 }
 
-  set bMotionCache(away) ""
-  set bMotionCache(lastGreeted) ""
-  set bMotionCache(lastHows) ""
-  set bMotionCache(lastDoneFor) ""
-  set bMotionCache(teamRocket) ""
-  set bMotionCache(lastLeft) ""
-  set bMotionCache(opme) ""
-  set bMotionCache(typos) 0
-  set bMotionCache(typoFix) ""
-  set bMotionCache(remoteBot) ""
-  set bMotionCache(randomUser) ""
+set bMotionCache(away) ""
+set bMotionCache(lastGreeted) ""
+set bMotionCache(lastHows) ""
+set bMotionCache(lastDoneFor) ""
+set bMotionCache(teamRocket) ""
+set bMotionCache(lastLeft) ""
+set bMotionCache(opme) ""
+set bMotionCache(typos) 0
+set bMotionCache(typoFix) ""
+set bMotionCache(remoteBot) ""
+set bMotionCache(randomUser) ""
 
-  bMotion_plugins_settings_set "system" "lastPlugin" "" "" ""
-  bMotion_plugins_settings_set "system" "last_simple" "" "" ""
+bMotion_plugins_settings_set "system" "lastPlugin" "" "" ""
+bMotion_plugins_settings_set "system" "last_simple" "" "" ""
 
 #this is set later
 set botnicks ""
