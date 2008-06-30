@@ -24,13 +24,14 @@ proc bMotion_plugin_complex_smiley { nick host handle channel text } {
 
   if {![bMotion_interbot_me_next $channel]} { return 0 }
 
-  foreach i {"smiley" "smiley2" "smiley3" "smiley4" "smiley5"} {
+  foreach i {"smiley" "smiley2"} {
   	bMotion_putloglev 2 * "checking $i"
   	
-    if {[bMotion_plugin_history_check $channel "complex" $i]} {
-	  return 0
+		if {[bMotion_plugin_history_check $channel "complex" "bMotion_plugin_complex_$i"]} {
+			bMotion_putloglev 2 * "can't trigger a smiley so soon"
+			return 0
+		}
 	}
-  }
 
   if {$mood(happy) < 0} {
     return 0
