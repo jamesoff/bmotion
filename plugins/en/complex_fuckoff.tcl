@@ -36,4 +36,4 @@ proc bMotion_plugin_complex_fuckyou { nick host handle channel text } {
 }
 
 bMotion_abstract_register "fuckYous"
-bMotion_abstract_batchadd "fuckYous" [list "stfu" "shut up, you %VAR{PROM}" "eh fuck you buddy" "lalala not listening"]
+bMotion_abstract_batchadd "fuckYous" [list "stfu" "shut up, you %VAR{PROM}" "eh fuck you buddy" "lalala not listening" "suck my balls you %VAR{dNouns}-%VAR{dVerbs}ing %VAR{prom_first}-%VAR{prom_second}" "yeah, whatever *yawn*" "shut it" "leave me alone"]
