@@ -1,5 +1,4 @@
 #
-# Delilah's crap plugin (avec sim-help)
 # vim: fdm=indent fdn=1
 #
 # Altered to new style bMotion_abstract_register/batchadd by Mark Sangster

@@ -1,6 +1,4 @@
-## bMotion plugin: inserts
 #
-# $Id$
 #
 # vim: fdm=indent fdn=1
 
@@ -9,7 +7,7 @@
 
 # This is a bMotion plugin
 
-# Copyright (C) James Michael Seward 2000-2002
+# Copyright (C) James Michael Seward 2000-2008
 
 #
 

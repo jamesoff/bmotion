@@ -1,6 +1,4 @@
-## bMotion plugin: rolls
 #
-# $Id: $
 #
 # vim: fdm=indent fdn=1 sw=4 ts=4:
 

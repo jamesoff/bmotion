@@ -1,6 +1,4 @@
-## bMotion complex plugin: hands
 #
-# $Id$
 #
 # vim: fdm=indent fdn=1
 

@@ -1,6 +1,4 @@
-## bMotion complex plugin: hate_pants
 #
-# $Id: $
 #
 # vim:set fdm=indent fdn=1:
 

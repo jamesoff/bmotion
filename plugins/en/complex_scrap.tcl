@@ -1,5 +1,4 @@
 # 
-# $Id$
 #
 # vim: fdm=indent fdn=1
 

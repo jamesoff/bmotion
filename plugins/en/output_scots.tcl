@@ -1,6 +1,4 @@
-## bMotion output plugin: scots
 #
-# $Id:$
 #
 # vim: fdm=indent fdn=1
 

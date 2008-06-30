@@ -1,12 +1,10 @@
-## bMotion complex plugin: hello
 #
-# $Id: complex_hello.tcl 773 2007-02-28 08:43:49Z james $
 #
 # vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is not just a bMotion plugin
-# Copyright (C) James Michael Seward 2000-2002
+# Copyright (C) James Michael Seward 2000-2008
 #
 # This program is covered by the GPL, please refer the to LICENCE file in the
 # distribution; further information can be found in the headers of the scripts
