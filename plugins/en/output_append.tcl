@@ -51,6 +51,7 @@ bMotion_abstract_register "appendslist" {
 	" and you're sitting in it right now"
 	" but it's nothing sexual"
 	". In my pants"
+	". you poof!"
 }
 
 bMotion_abstract_register "narfs" {
