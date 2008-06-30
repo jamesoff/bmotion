@@ -22,13 +22,10 @@
 ###############################################################################
 
 
-### init our counters <<<1
-bMotion_counter_init "system" "randomstuff"
 
+### Set up the binds 
 
-### Set up the binds <<<1
-
-#General IRC events <<<2
+#General IRC events 
 bind join - *!*@* bMotion_event_onjoin
 bind mode - * bMotion_event_mode
 bind pubm - * bMotion_event_main
@@ -37,7 +34,7 @@ bind nick - * bMotion_event_nick
 bind part - * bMotion_event_onpart
 bind ctcp - ACTION bMotion_event_action
 
-#bMotion IRC events <<<2
+#bMotion IRC events 
 bind pub - "!mood" pubm_moodhandler
 bind pub - "!bminfo" bMotionInfo
 bind pub - "!bmstats" bMotionStats
@@ -46,7 +43,7 @@ bind pub - !bmadmin bMotionAdminHandler
 bind pub - !bmotion bMotionAdminHandler2
 bind pub - .bmotion bMotionAdminHandler2
 
-#DCC commands <<<2
+#DCC commands 
 bind dcc m mood moodhandler
 bind dcc m bmotion* bMotion_dcc_command
 bind dcc m bmadmin* bMotion_dcc_command
@@ -55,7 +52,7 @@ bind dcc m bmhelp bMotion_dcc_help
 #bedtime
 bind time - "* * * * *" bMotion_check_tired2
 
-### bMotion_update_chanlist <<<1
+#
 # rebuilds our channel list based on which channels are +bmotion
 proc bMotion_update_chanlist { } {
 	global bMotionChannels
@@ -67,19 +64,21 @@ proc bMotion_update_chanlist { } {
 		}
 	}
 }
-### Initalise some variables per channel <<<1
+
+#
+# Initalise some variables per channel 
 bMotion_update_chanlist
+
 foreach chan $bMotionChannels {
 	set bMotionLastEvent($chan) [clock seconds]
 	set bMotionInfo(adminSilence,$chan) 0
 	#set to 1 when the bot says something, and 0 when someone else says something
 	#used to make the bot a bit more intelligent (perhaps) at conversations
 	set bMotionCache($chan,last) 0
-	#channel mood tracker
-	#set bMotionCache($chan,mood) 0
 }
 
-### bMotionStats <<<1
+# bMotionStats 
+# TODO: retire this
 proc bMotionStats {nick host handle channel text} {
 	global bMotionInfo botnicks bMotionSettings cvsinfo botnick
 	global bMotionVersion
@@ -112,7 +111,7 @@ proc bMotionStats {nick host handle channel text} {
 }
 
 
-
+#
 # check if a channel is active enough for randomy things
 proc bMotion_is_active_enough { channel { limit 0 } } {
 	global bMotionInfo 
@@ -142,6 +141,7 @@ proc bMotion_is_active_enough { channel { limit 0 } } {
 	return 0
 }
 
+#
 # check if every channel we can see is idle enough for us to go away
 proc bMotion_random_away {} {
 	global bMotionLastEvent bMotionChannels bMotionInfo
@@ -192,6 +192,7 @@ proc bMotion_random_away {} {
 	return 0
 }
 
+#
 # periodically sprout randomness (or go /away if idle enough)
 proc doRandomStuff {} {
 	global bMotionInfo mood stonedRandomStuff bMotionSettings
@@ -264,7 +265,8 @@ proc doRandomStuff {} {
 	bMotion_putloglev d * "bMotion: randomStuff said ($saidChannels) silent ($silentChannels)"
 }
 
-### bMotionSaySomethingRandom <<<1
+#
+# Output random gibberish
 proc bMotionSaySomethingRandom {channel {busy 0}} {
 	global randomStuff stonedRandomStuff mood bMotionInfo bMotionCache
 
@@ -302,9 +304,9 @@ proc bMotionSaySomethingRandom {channel {busy 0}} {
 }
 
 
-### bMotionSetRandomAway <<<1
+#
+#set myself away with a random message
 proc bMotionSetRandomAway {} {
-	#set myself away with a random message
 	global randomAways bMotionInfo bMotionSettings bMotionChannels
 
 	set awayReason [bMotion_abstract_get "randomAways"]
@@ -320,7 +322,8 @@ proc bMotionSetRandomAway {} {
 	bMotion_putloglev d * "bMotion: Going silent"
 }
 
-### bMotionSetRandomBack <<<1
+#
+# set myself back
 proc bMotionSetRandomBack {} {
 	#set myself back
 	global bMotionInfo bMotionSettings bMotionChannels
@@ -342,7 +345,8 @@ proc bMotionSetRandomBack {} {
 	return 0
 }
 
-### bMotionTalkingToMe <<<1
+#
+# check if a line looks like it's addressed to me
 proc bMotionTalkingToMe { text } {
 	global botnicks
 
@@ -366,8 +370,8 @@ proc bMotionTalkingToMe { text } {
 	return 0
 }
 
-### bMotionSilence <<<1
-# Makes the bot shut up
+#
+# We need to shut up
 proc bMotionSilence {nick host channel} {
 	global bMotionInfo silenceAways bMotionSettings
 	if {$bMotionInfo(silence) == 1} {
@@ -383,8 +387,8 @@ proc bMotionSilence {nick host channel} {
 	set bMotionInfo(away) 1
 }
 
-### bMotionUnSilence <<<1
-# Undoes the shut up command
+#
+# Enough shutting up for now
 proc bMotionUnSilence {} {
 	# Timer for silence expires
 	putserv "AWAY"
@@ -394,7 +398,7 @@ proc bMotionUnSilence {} {
 	set bMotionInfo(away) 0
 }
 
-### bMotionLike <<<1
+### bMotionLike 
 proc bMotionLike {nick { host "" }} {
 	global bMotionInfo mood bMotionSettings
 
@@ -462,7 +466,7 @@ proc bMotionLike {nick { host "" }} {
 	return 0
 }
 
-### bMotionGetGender <<<1
+### bMotionGetGender 
 proc bMotionGetGender { nick host } {
 	set host "$nick!$host"
 	set handle [finduser $host]
@@ -473,13 +477,13 @@ proc bMotionGetGender { nick host } {
 	return [getuser $handle XTRA gender]
 }
 
-### getHour <<<1
+### getHour 
 proc getHour {} {
 	return [clock format [clock seconds] -format "%H"]
 }
 
 
-### bMotion_dcc_command <<<1
+### bMotion_dcc_command 
 proc bMotion_dcc_command { handle idx arg } {
 	global bMotionInfo
 
@@ -563,7 +567,7 @@ proc bMotion_dcc_command { handle idx arg } {
 	}
 }
 
-### bMotion_dcc_help <<<1
+### bMotion_dcc_help 
 proc bMotion_dcc_help { handle idx arg } {
 	putidx $idx "Please use .bmotion help"
 	return 0
@@ -571,7 +575,7 @@ proc bMotion_dcc_help { handle idx arg } {
 
 
 ### new admin plugins ("management")
-### bMotionAdminHandler2 <<<1
+### bMotionAdminHandler2 
 proc bMotionAdminHandler2 {nick host handle channel text} {
 	global botnicks bMotionInfo botnick bMotionSettings
 
@@ -630,7 +634,7 @@ proc bMotionAdminHandler2 {nick host handle channel text} {
 }
 
 
-### bMotion_putadmin <<<1
+### bMotion_putadmin 
 proc bMotion_putadmin { text } {
 
 	# easier than trying to not put tabs in the help stuff ;)
@@ -655,7 +659,7 @@ proc bMotion_putadmin { text } {
 	return 0
 }
 
-### bMotionAdminHandler <<<1
+### bMotionAdminHandler 
 #TODO: is this ever used now?
 proc bMotionAdminHandler {nick host handle channel text} {
 	global bMotionAdminFlag botnicks bMotionInfo botnick bMotionSettings
@@ -764,7 +768,7 @@ proc bMotionAdminHandler {nick host handle channel text} {
 	}
 }
 
-### msg_bmotioncommand <<<1
+### msg_bmotioncommand 
 proc msg_bmotioncommand { nick host handle cmd } {
 	bMotion_plugins_settings_set "admin" "type" "" "" "irc"
 	bMotion_plugins_settings_set "admin" "target" "" "" $nick
@@ -807,7 +811,7 @@ proc msg_bmotioncommand { nick host handle cmd } {
 	}
 }
 
-### bMotion_get_number <<<1
+### bMotion_get_number 
 proc bMotion_get_number { num } {
 	if {$num <= 0} {
 		bMotion_putloglev d * "Warning: bMotion_get_number called with invalid parameter: $num"
@@ -816,7 +820,7 @@ proc bMotion_get_number { num } {
 	return [expr [rand $num] + 1]
 }
 
-### bMotion_rand_nonzero <<<1
+### bMotion_rand_nonzero 
 proc bMotion_rand_nonzero { limit } {
 	if {$limit <= 0} {
 		return 0
@@ -828,7 +832,7 @@ proc bMotion_rand_nonzero { limit } {
 	return $limit
 }
 
-### bMotion_startTimers <<<1
+### bMotion_startTimers 
 proc bMotion_startTimers { } {
 	global mooddrifttimer
 	if	{![info exists mooddrifttimer]} {
@@ -841,7 +845,7 @@ proc bMotion_startTimers { } {
 	}
 }
 
-### bMotion_cleanNick <<<1
+### bMotion_cleanNick 
 proc bMotion_cleanNick { nick { handle "" } } {
 	#attempt to clean []s etc out of nicks
 
@@ -864,14 +868,14 @@ proc bMotion_cleanNick { nick { handle "" } } {
 	return $nick
 }
 
-### bMotion_uncolen <<<1
+### bMotion_uncolen 
 # clean out $£(($ off the end
 proc bMotion_uncolen { line } {
 	regsub -all {([!\"\£\$\%\^\&\*\(\)\#\@]{3,})} $line "" line
 	return $line
 }
 
-### bMotion_setting_get <<<1
+### bMotion_setting_get 
 # get a setting out of the two variables that commonly hold them
 proc bMotion_setting_get { setting } {
 	global bMotionSettings

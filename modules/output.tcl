@@ -1,7 +1,5 @@
 #bMotion - Output functions
 #
-# $Id$
-#
 # vim: fdm=indent fdn=1
 
 ###############################################################################
@@ -23,51 +21,96 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
-# init our counters
-bMotion_counter_init "output" "lines"
-bMotion_counter_init "output" "irclines"
-
 set bMotion_output_delay 0
 
+#
+# pick a random element from a list
 proc pickRandom { list } {
 	bMotion_putloglev 5 * "pickRandom ($list)"
 	return [lindex $list [rand [llength $list]]]
 }
 
+#
+# get the pronoun for our gender
 proc getPronoun {} {
 	bMotion_putloglev 5 * "getPronoun"
-	global bMotionInfo
-	if {$bMotionInfo(gender) == "male"} { return "himself" }
-	if {$bMotionInfo(gender) == "female"} { return "herself" }
-	return "itself"
+	set gender [bMotion_setting_get "gender"]
+
+	switch $gender {
+		"male" {
+			return "himself"
+		}
+		"female" {
+			return "herself"
+		}
+		default {
+			return "its"
+		}
+	}
 }
 
+#
+# get "his" or "hers" for our gender
 proc getHisHers {} {
 	bMotion_putloglev 5 * "getHisHers"
-	global bMotionInfo
-	if {$bMotionInfo(gender) == "male"} { return "his" }
-	if {$bMotionInfo(gender) == "female"} { return "hers" }
-	return "its"
+
+	set gender [bMotion_setting_get "gender"]
+
+	switch $gender {
+		"male" {
+			return "his"
+		}
+		"female" {
+			return "hers"
+		}
+		default {
+			return "its"
+		}
+	}
 }
 
+#
+# get "her" or "her" for our gender
 proc getHisHer {} {
 	bMotion_putloglev 5 * "getHisHer"
-	global bMotionInfo
-	if {$bMotionInfo(gender) == "male"} { return "his" }
-	if {$bMotionInfo(gender) == "female"} { return "her" }
-	return "it"
+
+	set gender [bMotion_setting_get "gender"]
+
+	switch $gender {
+		"male" {
+			return "his"
+		}
+		"female" {
+			return "her"
+		}
+		default {
+			return "it"
+		}
+	}
 }
 
-
+#
+# get "he" or "she" for our gender
 proc getHeShe {} {
 	bMotion_putloglev 5 * "getHeShe"
-	global bMotionInfo
-	if {$bMotionInfo(gender) == "male"} { return "he" }
-	if {$bMotionInfo(gender) == "female"} { return "she" }
-	return "it"
+
+	set gender [bMotion_setting_get "gender"]
+
+	switch $gender {
+		"male" {
+			return "he"
+		}
+		"female" {
+			return "she"
+		}
+		default {
+			return "it"
+		}
+	}
 }
 
-
+#
+# do a /me action
 proc mee {channel action {urgent 0} } {
 	bMotion_putloglev 5 * "mee ($channel, $action, $urgent)"
 	set channel [chandname2name $channel]
@@ -78,8 +121,8 @@ proc mee {channel action {urgent 0} } {
 	}
 }
 
-
-## bMotionDoAction ###########################################################
+#
+# our magic output function
 proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 	bMotion_putloglev 5 * "bMotionDoAction($channel,$nick,$text,$moreText,$noTypo)"
 	global bMotionInfo bMotionCache bMotionOriginalInput
@@ -96,8 +139,8 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 	}
 
 	# check if we're asleep
-	if {$bMotionSettings(asleep) == $BMOTION_SLEEP(ASLEEP)} {
-	return 0
+	if {[bMotion_setting_get "asleep"] == $BMOTION_SLEEP(ASLEEP)} {
+		return 0
 	}
 
 	if [regexp "^\[#!\].+" $channel] {
@@ -108,13 +151,12 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 		}
 	}
 
-	if {$bMotionInfo(silence) == 1} { return 0 }
+	if {[bMotion_setting_get "silence"] == 1} { return 0 }
 	catch {
 		if {$bMotionInfo(adminSilence,$channel) == 1} { return 0 }
 	}
 
-	bMotion_counter_incr "output" "lines"
-
+	# TODO: ugly, refactor?
 	switch [rand 3] {
 		0 { }
 		1 { set nick [string tolower $nick] }
@@ -171,8 +213,6 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 				bMotionDoAction $channel "" "%VAR{typoFix}" "" 1
 			}
 			bMotion_plugins_settings_set "output:typos" "typos" "" "" ""
-
-
 		}
 		return 0
 	}
@@ -191,6 +231,9 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 	return 0
 }
 
+
+# 
+# replace things on lines
 proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 	bMotion_putloglev 5 * "bMotionDoInterpolation: line = $line, nick = $nick, moreText = $moreText, channel = $channel"
 	global botnick bMotionCache
@@ -339,6 +382,9 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 	return $line
 }
 
+#
+# more replacements in a line
+# TODO: why was this separate?
 proc bMotionInterpolation2 { line } {
 	bMotion_putloglev 5 * "bMotionInterpolation2 ($line)"
 	#owners
@@ -347,52 +393,55 @@ proc bMotionInterpolation2 { line } {
 	while {[regexp -nocase "%OWNER\{(.*?)\}" $line matches BOOM]} {
 		set BOOM [string map {\\ \\\\ [ \\\[ ] \\\] \{ \\\{ \} \\\} $ \\\$ \" \\\" | \\\|} $BOOM]
 
-	incr loops
-	if {$loops > 10} {
-		putlog "bMotion: ALERT! looping too much in %OWNER code with $line"
-		set line "/has a tremendous error while trying to sort something out :("
+		incr loops
+		if {$loops > 10} {
+			putlog "bMotion: ALERT! looping too much in %OWNER code with $line"
+			set line "/has a tremendous error while trying to sort something out :("
+		}
+		# set line [bMotionInsertString $line "%OWNER\{$BOOM\}" [bMotionMakePossessive $BOOM]]
+		regsub -nocase "%OWNER\{$BOOM\}" $line [bMotionMakePossessive $BOOM] line
+		regsub -all "\\\\" $line "" line
 	}
-	# set line [bMotionInsertString $line "%OWNER\{$BOOM\}" [bMotionMakePossessive $BOOM]]
-	regsub -nocase "%OWNER\{$BOOM\}" $line [bMotionMakePossessive $BOOM] line
-	regsub -all "\\\\" $line "" line
-}
 
-set loops 0
-while {[regexp -nocase "%VERB\{(.*?)\}" $line matches BOOM]} {
-	incr loops
-	if {$loops > 10} {
-		putlog "bMotion: ALERT! looping too much in %VERB code with $line"
-		set line "/has a tremendous error while trying to sort something out :("
+	set loops 0
+	while {[regexp -nocase "%VERB\{(.*?)\}" $line matches BOOM]} {
+		incr loops
+		if {$loops > 10} {
+			putlog "bMotion: ALERT! looping too much in %VERB code with $line"
+			set line "/has a tremendous error while trying to sort something out :("
+		}
+		# set line [bMotionInsertString $line "%VERB\{$BOOM\}" [bMotionMakeVerb $BOOM]]
+		regsub -nocase "%VERB\{$BOOM\}" $line [bMotionMakeVerb $BOOM] line
 	}
-	# set line [bMotionInsertString $line "%VERB\{$BOOM\}" [bMotionMakeVerb $BOOM]]
-	regsub -nocase "%VERB\{$BOOM\}" $line [bMotionMakeVerb $BOOM] line
-}
 
-set loops 0
-while {[regexp -nocase "%PLURAL\{(.*?)\}" $line matches BOOM]} {
-	incr loops
-	if {$loops > 10} {
-		putlog "bMotion: ALERT! looping too much in %PLURAL code with $line"
-		set line "/has a tremendous error while trying to sort something out :("
+	set loops 0
+	while {[regexp -nocase "%PLURAL\{(.*?)\}" $line matches BOOM]} {
+		incr loops
+		if {$loops > 10} {
+			putlog "bMotion: ALERT! looping too much in %PLURAL code with $line"
+			set line "/has a tremendous error while trying to sort something out :("
+		}
+		# set line [bMotionInsertString $line "%PLURAL\{$BOOM\}" [bMotionMakePlural $BOOM]]
+		regsub -nocase "%PLURAL\{$BOOM\}" $line [bMotionMakePlural $BOOM] line
 	}
-	# set line [bMotionInsertString $line "%PLURAL\{$BOOM\}" [bMotionMakePlural $BOOM]]
-	regsub -nocase "%PLURAL\{$BOOM\}" $line [bMotionMakePlural $BOOM] line
-}
 
-set loops 0
-while {[regexp -nocase "%REPEAT\{(.+?)\}" $line matches BOOM]} {
-	incr loops
-	if {$loops > 10} {
-		putlog "bMotion: ALERT! looping too much in %REPEAT code with $line"
-		set line "/has a tremendous error while trying to sort something out :("
+	set loops 0
+	while {[regexp -nocase "%REPEAT\{(.+?)\}" $line matches BOOM]} {
+		incr loops
+		if {$loops > 10} {
+			putlog "bMotion: ALERT! looping too much in %REPEAT code with $line"
+			set line "/has a tremendous error while trying to sort something out :("
+		}
+		set replacement [bMotionMakeRepeat $BOOM]
+		regsub -nocase "%REPEAT\\{$BOOM\\}" $line $replacement line
 	}
-	set replacement [bMotionMakeRepeat $BOOM]
-	regsub -nocase "%REPEAT\\{$BOOM\\}" $line $replacement line
+
+	return $line
 }
 
-return $line
-}
-
+#
+# Process a line
+# TODO: why is this separate or at least such a mess :)
 proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 	bMotion_putloglev 5 * "bMotionSayLine: channel = $channel, nick = $nick, line = $line, moreText = $moreText, noTypo = $noTypo"
 	global mood botnick bMotionInfo bMotionCache bMotionOriginalInput
@@ -401,13 +450,14 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 	set line [bMotionInterpolation2 $line]
 
 	#TODO: Put %ruser and %rbot back in here
+	# XXX: is the above TODO still valid?
 
 	#if it's a bot , put it on the queue on the remote bot
 	if [regexp -nocase {%(BOT)\[(.+?)\]} $line matches botcmd cmd] {
 		set condition ""
 		set dobreak 0
 		if {$botcmd == "bot"} {
-			#random
+		#random
 			bMotion_putloglev 1 * "bMotion: %bot detected"
 			regexp {%bot\[([[:digit:]]+),(@[^,]+,)?(.+)\]} $line matches chance condition cmd
 			bMotion_putloglev 1 * "bMotion: %bot chance is $chance"
@@ -419,8 +469,8 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 				set line ""
 			}
 		} else {
-			#non-random
-			regexp {%BOT\[(@[^,]+,)?(.+)\]} $line matches condition cmd
+		#non-random
+		regexp {%BOT\[(@[^,]+,)?(.+)\]} $line matches condition cmd
 		}
 
 		if {($condition != "") && [regexp {^@(.+),$} $condition matches c]} {
@@ -508,29 +558,31 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 	#protect this block - it'll generate an error if noone's talked yet, and then
 	#we try an admin plugin
 	if [info exists bMotionOriginalInput] {
-	if [string match -nocase $bMotionOriginalInput $line] {
-	bMotion_putloglev 1 * "my output matches the trigger, dropping"
-	return 0
+		if [string match -nocase $bMotionOriginalInput $line] {
+			bMotion_putloglev 1 * "my output matches the trigger, dropping"
+			return 0
+		}
 	}
-	}
 
-set line [bMotionInsertString $line "%slash" "/"]
+	set line [bMotionInsertString $line "%slash" "/"]
 
-global bMotion_output_delay
+	global bMotion_output_delay
 
-if [regexp "^/" $line] {
-#it's an action
-	mee $channel [string range $line 1 end] $urgent
-} else {
-	if {$urgent} {
-		bMotion_queue_add_now [chandname2name $channel] $line
+	if [regexp "^/" $line] {
+	#it's an action
+		mee $channel [string range $line 1 end] $urgent
 	} else {
-		bMotion_queue_add [chandname2name $channel] $line $bMotion_output_delay
+		if {$urgent} {
+			bMotion_queue_add_now [chandname2name $channel] $line
+		} else {
+			bMotion_queue_add [chandname2name $channel] $line $bMotion_output_delay
+		}
 	}
-}
-return 0
+	return 0
 }
 
+#
+# Helper function to swap one thing (like a macro) for another
 proc bMotionInsertString {line swapout toInsert} {
 	bMotion_putloglev 5 * "bMotionInsertString ($line, $swapout, $toInsert)"
 	set loops 0
@@ -547,6 +599,8 @@ proc bMotionInsertString {line swapout toInsert} {
 	return $line
 }
 
+#
+# Get random chars as would be made by shift-numberkeys
 proc bMotionGetColenChars {} {
 	bMotion_putloglev 5 * "bMotionGetColenChars"
 	set randomChar "!£$%^*@#~"
@@ -568,6 +622,9 @@ proc bMotionGetColenChars {} {
 	return $line
 }
 
+#
+# make a smiley representing our mood
+# TOOD: still used?
 proc makeSmiley { mood } {
 	bMotion_putloglev 5 * "makeSmiley"
 	if {$mood > 30} {
@@ -588,9 +645,8 @@ proc makeSmiley { mood } {
 	return ":?"
 }
 
-## Wash nick
-#		 Attempt to clean a nickname up to a proper name
 #
+# Attempt to clean a nickname up to a proper name
 proc bMotionWashNick { nick } {
 	bMotion_putloglev 5 * "bMotionWashNick ($nick)"
 	#remove leading
@@ -602,6 +658,9 @@ proc bMotionWashNick { nick } {
 	return $nick
 }
 
+#
+# replace a nick with one of someone's IRL names
+# TODO: no longer used? if not, delete
 proc OLDbMotionGetRealName { nick { host "" }} {
 	bMotion_putloglev 5 * "bMotion: OLDbMotionGetRealName($nick,$host)"
 
@@ -640,6 +699,8 @@ proc OLDbMotionGetRealName { nick { host "" }} {
 	return [pickRandom $realname]
 }
 
+#
+# replace a nick with one of someone's IRL names
 proc bMotionGetRealName { nick { host "" }} {
 	bMotion_putloglev 5 * "bMotion: bMotionGetRealName($nick,$host)"
 
@@ -678,6 +739,8 @@ proc bMotionGetRealName { nick { host "" }} {
 	return [pickRandom $realname]
 }
 
+#
+#
 proc bMotionTransformNick { target nick {host ""} } {
 	bMotion_putloglev 5 * "bMotionTransformNick($target, $nick, $host)"
 	set newTarget [bMotionTransformTarget $target $host]
@@ -687,6 +750,8 @@ proc bMotionTransformNick { target nick {host ""} } {
 	return $newTarget
 }
 
+#
+#
 proc bMotionTransformTarget { target {host ""} } {
 	bMotion_putloglev 5 * "bMotionTransformTarget($target, $host)"
 	global botnicks
@@ -862,6 +927,8 @@ proc bMotion_choose_random_user { channel bot condition } {
 	}
 }
 
+#
+# turn a name into the posessive form
 proc bMotionMakePossessive { text { altMode 0 }} {
 	bMotion_putloglev 5 * "bMotionMakePossessive ($text, $altMode)"
 	if {$text == ""} {
@@ -888,6 +955,8 @@ proc bMotionMakePossessive { text { altMode 0 }} {
 	return "$text's"
 }
 
+#
+# Function which powers %REPEAT
 proc bMotionMakeRepeat { text } {
 	bMotion_putloglev 5 * "bMotionMakeRepeat ($text)"
 	if [regexp {([0-9]+):([0-9]+):(.+)} $text matches min max repeat] {
@@ -905,12 +974,16 @@ proc bMotionMakeRepeat { text } {
 	return ""
 }
 
+#
+# remove preceeding fluff from a noun
 proc bMotion_strip_article { text } {
 	bMotion_putloglev 5 * "bMotion_strip_article ($text)"
 	regsub "(an?|the|some|his|her|their) " $text "" text
 	return $text
 }
 
+#
+# verbs a noun (like that)
 proc bMotionMakeVerb { text } {
 	bMotion_putloglev 5 * "bMotionMakeVerb ($text)"
 	if [regexp -nocase "(s|x)$" $text matches letter] {
@@ -926,6 +999,9 @@ proc bMotionMakeVerb { text } {
 	append text "s"
 	return $text
 }
+
+#
+# not sure!
 proc chr c {
 	if {[string length $c] > 1 } { error "chr: arg should be a single char"}
 	#		set c [ string range $c 0 0]
@@ -934,7 +1010,8 @@ proc chr c {
 	return $v
 }
 
-
+#
+# pluralise a noun by the simple rules of English
 proc bMotionMakePlural { text } {
 	bMotion_putloglev 5 * "bMotionMakePlural ($text)"
 
