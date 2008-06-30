@@ -75,6 +75,7 @@ bMotion_abstract_register "fuckOffs" {
 	"offline yerself"
 	"I beg your pardon?"
 	"What did you just say?"
+	"you fuck off and smell my socks!"
 }
 
 bMotion_abstract_register "silenceAways" {
@@ -3177,6 +3178,7 @@ bMotion_abstract_register "ruins" {
 	"moron"
 	"Jade!"
 	"\"Bonza.\""
+	"You are a stupid bloody moron with no right to exist as a sentient being"
 }
 
 bMotion_abstract_register "hexStart" {

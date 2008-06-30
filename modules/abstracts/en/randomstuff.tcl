@@ -5,9 +5,13 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"it looks like you're writing a letter!"
+	"is it just coincidence that my finger fits exactly in my %VAR{bodypart}?"
+	"which of you fat bastards did this to my camel!?"
 	"I see it's nearly the end of the channel... but there's just time to squeeze in a round of %VAR{sillyThings}{strip} songbook"
 	"i like a dump to be as devastating as it is memorable"
 	"what am i doing here?! wait, where are my underpants?"
+	"dampen me for dinosaur terror!"
 	"i am %me the mind-taker!%|boooo-woooOOOOoo!"
 	"my speedos!"
 	"there, good as new. except that we're three miles below the surface, we're out of food, and the channel doesn't work underwater%|%BOT\[tempers are wearing thin - let's just hope some bot doesn't kill everybody...\]" 
@@ -36,6 +40,7 @@ bMotion_abstract_register "randomStuff" {
 	"moo."
 	"BOOM"
 	"BLAM"
+	"%VAR{bodypart}."
 	"Knickers.%|%BOT\[¬VAR{rarrs}\]"
 	"/goes for coffee"
 	"bof"
@@ -98,6 +103,8 @@ bMotion_abstract_register "randomStuff" {
 	"penguin"
 	"cheese"
 	"mmm chicken"
+	"%REPEAT{3:7:m} %VAR{_bmotion_like}"
+	"e%REPEAT{3:7:w} %VAR{_bmotion_dislike}"
 	"pie pie pie pie"
 	"m00se"
 	"llama"
@@ -292,6 +299,14 @@ bMotion_abstract_register "randomStuff" {
 	"%ruser++"
 	"%ruser--"
 	"%VAR{lyrics}%|but more on that story later"
+	"i've just noticed i'm wearing odd socks%|they're shaped like underpants"
+	"the %VAR{bodypart} is a hollow shell filled with an explosive"
+	"Set a man on fire and he'll be warm for the dwarf-lords in the toilet. "
+	"The ear is the third planet from the kidneys."
+	"A planet is a domesticated mammal descended from the sun."
+	"My hovercraft is full of %PLURAL{%VAR{sillyThings}{strip}}"
+	"I never make mistakes! Syntax error in line %NUMBER{100}0. Redo from start."
+
 }
 
 
@@ -317,6 +332,7 @@ bMotion_abstract_register "randomStuff_male" {
 }
 
 bMotion_abstract_register "randomStuff_female" {
+	"I'm the sort of girl who goes to the pub with your mates%|and ends the night with an empty mates packet."
 	"This one time, at band camp, I put a flute..."
 	"Does my arse look big in this?"
 	"Does my bum look big in this?"
@@ -331,7 +347,7 @@ bMotion_abstract_register "randomStuff_female" {
 	"/considers sexchange operation%|/looks at %ruser{male}%|Maybe not"
 	"It's good to be female isn't it %ruser{female}"
 	"Absurdly top heavy secretary speaking"
-	"I got a skirt but I ain't go no knickers"
+	"I got a skirt but I ain't got no knickers"
 }
 
 
@@ -394,6 +410,12 @@ bMotion_abstract_register "randomStuff_12_25" {
 ### Used by both genders
 ### Used when the channel is 'active' (default < 300 sec since last line)
 bMotion_abstract_register "activeRandomStuff" {
+	"you've got no piss control!"
+	"So anyway, I'm really attracted to you pardner! Yee haw! Did you like lesbians?"
+	"calm down dear%|it's always been that shape"
+	"i'll eat grass and you brace yourself"
+	"nom nom nom"
+	"That reminds me, I need to write to my solicitor."
 	"*yawn*"
 	"*spangle*"
 	"D'oh!"
