@@ -90,8 +90,6 @@ proc bMotionStats {nick host handle channel text} {
 
 	set mem [llength [array names bMotion_abstract_contents]]
 	set disk [llength $bMotion_abstract_ondisk]
-	set faults [bMotion_counter_get "abstracts" "faults"]
-	set pageouts [bMotion_counter_get "abstracts" "pageouts"]
 	global bMotionFacts
 	set items [lsort [array names bMotionFacts]]
 	set itemcount 0
@@ -101,12 +99,8 @@ proc bMotionStats {nick host handle channel text} {
 		incr factcount [llength $bMotionFacts($item)]
 	}
 
-	putchan $channel "abstracts: [expr $mem + $disk] total, $mem loaded, $disk on disk, $faults faults, $pageouts pageouts. [bMotion_counter_get abstracts gc] garbage collections, [bMotion_counter_get abstracts gets] fetches"
+	putchan $channel "abstracts: [expr $mem + $disk] total, $mem loaded, $disk on disk"
 	putchan $channel "facts: $factcount facts about $itemcount items"
-	putchan $channel "plugins fired: simple [bMotion_counter_get events simpleplugins], complex [bMotion_counter_get events complexplugins]"
-	putchan $channel "output: lines sent to output: [bMotion_counter_get output lines], lines sent to irc: [bMotion_counter_get output irclines]"
-	putchan $channel "system: randomness: [bMotion_counter_get system randomstuff]"
-	putchan $channel "flood: checks: [bMotion_counter_get flood checks]"
 }
 
 

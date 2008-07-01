@@ -239,7 +239,6 @@ proc bMotion_flood_check { nick } {
   set r [rand 2]
   if {!($r < $chance)} {
     putlog "bMotion: FLOOD check on $nick (http://www.bmotion.net:8000/bmotion/wiki/FAQDisableFlood)"
-    bMotion_counter_incr "flood" "checks"
     return 1
   }
   return 0
