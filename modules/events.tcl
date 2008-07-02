@@ -20,7 +20,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
-### bMotionDoEventResponse <<<1
+### bMotionDoEventResponse 
 proc bMotionDoEventResponse { type nick host handle channel text } {
 	#check our global toggle
   global bMotionGlobal bMotionInfo
@@ -67,7 +67,7 @@ proc bMotionDoEventResponse { type nick host handle channel text } {
   return 0
 }
 
-### bMotion_event_onjoin <<<1
+### bMotion_event_onjoin 
 proc bMotion_event_onjoin {nick host handle channel} {
   #ignore me
   if [isbotnick $nick] {
@@ -92,7 +92,7 @@ proc bMotion_event_onjoin {nick host handle channel} {
 }
 
 
-### bMotion_event_onpart <<<1
+### bMotion_event_onpart 
 proc bMotion_event_onpart {nick host handle channel {msg ""}} {
   #check our global toggle
   global bMotionGlobal
@@ -119,7 +119,7 @@ proc bMotion_event_onpart {nick host handle channel {msg ""}} {
   set result [bMotionDoEventResponse "part" $nick $host $handle $channel $msg]
 }
 
-### bMotion_event_onquit <<<1
+### bMotion_event_onquit 
 proc bMotion_event_onquit {nick host handle channel reason} {
   global bMotionSettings bMotionInfo
 
@@ -154,7 +154,7 @@ proc bMotion_event_onquit {nick host handle channel reason} {
   set result [bMotionDoEventResponse "quit" $nick $host $handle $channel $reason ]
 }
 
-### bMotion_event_main <<<1
+### bMotion_event_main 
 proc bMotion_event_main {nick host handle channel text} {
   #check our global toggle
   global bMotionGlobal bMotionPluginHistory
@@ -175,18 +175,18 @@ proc bMotion_event_main {nick host handle channel text} {
 
   set channel [string tolower $channel]
 
-  #ignore other bots <<<2
+  #ignore other bots 
   if {[matchattr $handle b] && (![matchattr $handle I])} {
     set bMotionCache($channel,last) 0
     return 0
   }
 
-	#make sure we're allowed to talk in here <<<2
+	#make sure we're allowed to talk in here 
   if {![channel get $channel bmotion]} {
     return 0
   }
 
-	#don't trigger on !seen etc <<<2
+	#don't trigger on !seen etc 
 	if [regexp -nocase "^!(last)?seen" $text] {
 		return 0
 	}
@@ -196,13 +196,11 @@ proc bMotion_event_main {nick host handle channel text} {
 		return 0
 	}
 	
-	#>>>
-
   bMotion_putloglev 4 * "bMotion: entering bMotion_event_main with nick: $nick host: $host handle: $handle chan: $channel text: $text"
 
   set bMotionOriginalInput $text
 
-  #filter bold, etc codes out <<<2
+  #filter bold, etc codes out 
   regsub -all "\002" $text "" text
   regsub -all "\022" $text "" text
   regsub -all "\037" $text "" text
@@ -217,16 +215,15 @@ proc bMotion_event_main {nick host handle channel text} {
 
 	bMotion_check_botnicks
 
-  #does this look like a paste? <<<2
+  #does this look like a paste? 
   if [regexp -nocase {^[([]?[0-9]{2}[-:.][0-9]{2}. ?[[<(]?[%@+]?[a-z0-9` ]+[@+%]?. \w+} $text] {
     return 0
   }
-	#>>>
 
   ## Update the channel idle tracker 
   set bMotionLastEvent($channel) [clock seconds]
 
-  #don't let people break us <<<2
+  #don't let people break us 
   if {![matchattr $handle n]} {
     if [regexp -nocase "%(pronoun|me|noun|colen|percent|VAR|\\|)" $text] {
       regsub -all "%" $text "%percent" text
@@ -234,26 +231,25 @@ proc bMotion_event_main {nick host handle channel text} {
   }
   regsub -all "\</" $text "%slash" text
 	
-  #If this isn't just a smiley of some kind, trim smilies <<<2
+  #If this isn't just a smiley of some kind, trim smilies 
   if {[string length $text] >= ([string length $botnick] + 4)} {
-    regsub -all -nocase {[;:=]-?[)D>/]} $text "" text
+    regsub -all -nocase {[;:=]-?[()d<>/sp9x]} $text "" text
     regsub -all {([\-^])_*[\-^];*} $text "" text
 		regsub -all {\\o/} $text "" text
   }
 
-  #Trim stuff <<<2
+  #Trim stuff 
   set text [string trim $text]
 
-  ## Dump double+ spaces #
+  ## Dump double+ spaces 
   regsub -all "  +" $text " " text
-	#>>>
 
   ## Update the last-talked flag for the join system
   bMotion_plugins_settings_set "system:join" "lasttalk" $channel "" 0
 
   set bMotionThisText $text
 
-  #if we spoke last, add "$botnick: " if it's not in the line <<<2
+  #if we spoke last, add "$botnick: " if it's not in the line 
   if {![regexp -nocase $botnicks $text] && ([bMotion_did_i_speak_last $channel] || [bMotion_setting_get "bitlbee"])} {
   	if [regexp {^[^:]+:.+} $text] {
 			#since our nick isn't in the line and they're addressing someone, drop this line
@@ -261,22 +257,20 @@ proc bMotion_event_main {nick host handle channel text} {
 		}
     set text "${botnick}: $text"
   }
-	#>>>
  
   if [bMotion_setting_get "bitlbee"] {
     bMotion_putloglev d * "bitlbee incoming from $nick: $text"
   }
 
-  #check for someone breaking the loop of lastSpoke <<<2
+  #check for someone breaking the loop of lastSpoke 
   if {[regexp -nocase "(i'm not talking to|not) you" $text] && $bMotionCache($channel,last)} {
     bMotionDoAction $channel $nick "oh"
     set bMotionCache($channel,last) 0
     return 0
   }
   set bMotionCache($channel,last) 0
-	#>>>
 
-  #Run the simple plugins <<<2
+  #Run the simple plugins 
   set response [bMotion_plugin_find_simple $text $bMotionInfo(language)]
   if {$response != ""} {
     bMotion_flood_add $nick "" $text
@@ -286,7 +280,7 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }
 
-  #Run the complex plugins <<<2
+  #Run the complex plugins 
   set response [bMotion_plugin_find_complex $text $bMotionInfo(language)]
   if {[llength $response] > 0} {
     #set nick [bMotionGetRealName $nick $host]
@@ -315,7 +309,7 @@ proc bMotion_event_main {nick host handle channel text} {
     }
   }
 
-  #Check for all caps <<<2
+  #Check for all caps 
   regsub -all {[^A-Za-z]} $text "" textChars
   regsub -all {[a-z]} $textChars "" textLowerChars
   if {(([string length $textChars] > 4) && ([expr [string length $textLowerChars] / [string length $textChars]] > 0.9)) ||
@@ -326,9 +320,8 @@ proc bMotion_event_main {nick host handle channel text} {
       return 0
     }
   }
-	#>>>
 
-  #Reload config files <<<2
+  #Reload config files 
 	#TODO: move this into a plugin?
   if [regexp -nocase "${botnicks},?:? re(hash|load)( your config files?)?" $text] {
     #putlog "bMotion: $nick asked me to rehash in $channel"
@@ -363,7 +356,7 @@ proc bMotion_event_main {nick host handle channel text} {
     }
   }
 
-	#tell the names we have <<<2
+	#tell the names we have 
 	#TODO: move this into a plugin?
 	if [regexp -nocase "${botnicks}:?,? say my names?(,? bitch)?" $text] {
 		if {($handle == "*") || ($handle == "")}  {
@@ -388,7 +381,7 @@ proc bMotion_event_main {nick host handle channel text} {
 		return 0
 	}
 
-  #shut up <<<2
+  #shut up 
 	#TODO: move this into a plugin?
   if [regexp -nocase "^${botnicks}:?,? (silence|shut up|be quiet|go away)" $text] {
     driftFriendship $nick -10
@@ -402,7 +395,7 @@ proc bMotion_event_main {nick host handle channel text} {
     return 0
   }
 
-	#catch actions in stars <<<2
+	#catch actions in stars 
   #This is the clever bit. If the text is "*blah blah blah*" reinject it into bMotion as an action ##
   if [regexp {^\*(.+)\*$} $text blah action] {
     bMotion_putloglev 1 * "Unhandled *$action* by $nick in $channel... redirecting to action handler"
@@ -411,7 +404,7 @@ proc bMotion_event_main {nick host handle channel text} {
   }
 }
 
-### bMotion_event_action <<<1
+### bMotion_event_action 
 proc bMotion_event_action {nick host handle dest keyword text} {
 
   #check our global toggle
@@ -441,7 +434,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 
   set nick [bMotion_cleanNick $nick $handle]
 
-  #Trim <<<2
+  #Trim 
   set text [string trim $text]
 
   ## Dump double+ spaces ##
@@ -453,7 +446,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 
 	bMotion_check_botnicks
 
-  #Run the simple plugins <<<2
+  #Run the simple plugins 
   set response [bMotion_plugin_find_action_simple $text $bMotionInfo(language)]
   if {$response != ""} {
 		bMotion_flood_add $nick "" $text
@@ -463,7 +456,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
     return 0
   }
 
-  #Run the complex plugins <<<2
+  #Run the complex plugins 
   set response [bMotion_plugin_find_action_complex $text $bMotionInfo(language)]
   if {[llength $response] > 0} {
     #set nick [bMotionGetRealName $nick $host]
@@ -484,10 +477,9 @@ proc bMotion_event_action {nick host handle dest keyword text} {
     }
     return 0
   }
-	#>>>
 }
 
-### bMotion_event_mode <<<1
+### bMotion_event_mode 
 proc bMotion_event_mode {nick host handle channel mode victim} {
   #check our global toggle
   global bMotionGlobal
@@ -529,7 +521,7 @@ proc bMotion_event_mode {nick host handle channel mode victim} {
 
 }
 
-### bMotion_event_nick <<<1
+### bMotion_event_nick 
 proc bMotion_event_nick { nick host handle channel newnick } {
 
   #check our global toggle
@@ -552,5 +544,4 @@ proc bMotion_event_nick { nick host handle channel newnick } {
   set result [bMotionDoEventResponse "nick" $nick $host $handle $channel $newnick ]
 }
 
-# >>>
 bMotion_putloglev d * "bMotion: events module loaded"
