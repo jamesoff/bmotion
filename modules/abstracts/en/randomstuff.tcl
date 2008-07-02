@@ -5,6 +5,7 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"If it wasn't for herpes, I wouldn't have any appointments. "
 	"it looks like you're writing a letter!"
 	"is it just coincidence that my finger fits exactly in my %VAR{bodypart}?"
 	"which of you fat bastards did this to my camel!?"
@@ -306,7 +307,6 @@ bMotion_abstract_register "randomStuff" {
 	"A planet is a domesticated mammal descended from the sun."
 	"My hovercraft is full of %PLURAL{%VAR{sillyThings}{strip}}"
 	"I never make mistakes! Syntax error in line %NUMBER{100}0. Redo from start."
-
 }
 
 
@@ -329,6 +329,7 @@ bMotion_abstract_register "randomStuff_male" {
 	"/considers sexchange operation%|/looks at %ruser{female}%|Maybe not"
 	"It's good to be male isn't it %ruser{male}"
 	"These girls are ace. And their racoon is ace."
+	"hi %ruser! I'm miniature superman!%|no %ruser{prev}, don't touch me there!%|n%REPEAT{5:15:o}! %VAR{unsmiles}"
 }
 
 bMotion_abstract_register "randomStuff_female" {
@@ -348,6 +349,7 @@ bMotion_abstract_register "randomStuff_female" {
 	"It's good to be female isn't it %ruser{female}"
 	"Absurdly top heavy secretary speaking"
 	"I got a skirt but I ain't got no knickers"
+	"hi %ruser! I'm miniature superwoman!%|no %ruser{prev}, don't touch me there!%|n%REPEAT{5:15:o}! %VAR{unsmiles}"
 }
 
 

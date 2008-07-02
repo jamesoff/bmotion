@@ -256,6 +256,10 @@ bMotion_abstract_register "answerWhys" {
 	"we tried that, but you were sick and my hat blew off"
 }
 
+bMotion_abstract_register "answerWhys_male" {
+	"Because it's on the tip of my foreskin."
+}
+
 bMotion_abstract_register "answerWheres" {
 	"in bed"
 	"behind the fridge"
@@ -506,6 +510,7 @@ bMotion_abstract_register "awwws" {
 }
 
 bMotion_abstract_register "randomReplies" {
+	"You can lead a horse to water, but you are the one asking all the stupid questions!"
 	"%ruser"
 	"Orange."
 	"about half-past three, I think"
@@ -627,6 +632,9 @@ bMotion_abstract_register "randomReplies" {
 	"%rbot knows"
 	"If only I hadn't used up all my lifelines%|%bot\[50,you can have one of mine\]%|no thanks, don't know where it's been"
 }
+
+bMotion_abstract_register "randomReplies_male" {
+	"What is it with these silly questions? Anyway, let's talk about dicks! I've got this pretty nice seven incher..."
 
 bMotion_abstract_register "picksUp" {
 	"/picks up %%"
@@ -1336,6 +1344,7 @@ bMotion_abstract_register "hexEnd" {
 
 bMotion_abstract_register "prom_second" {
 	"rifle"
+	"cannon"
 	"flower"
 	"desk"
 	"curtain"
@@ -1369,6 +1378,7 @@ bMotion_abstract_register "prom_second" {
 	"container"
 	"button"
 	"socket"
+	"bag"
 }
 
 bMotion_abstract_register "ididntresponses" {
