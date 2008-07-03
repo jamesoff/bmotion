@@ -80,12 +80,12 @@ if { [bMotion_setting_get "abstractMaxNumber"] != "" } {
 # initialise the arrays
 
 if {![info exists bMotion_abstract_contents]} {
-  set bMotion_abstract_contents(dummy) ""
-  set bMotion_abstract_languages(dummy) "en"
-  set bMotion_abstract_timestamps(dummy) 1
+  array set bMotion_abstract_contents {}
+  array set bMotion_abstract_languages {}
+  array set bMotion_abstract_timestamps {}
   set bMotion_abstract_ondisk [list]
-	set bMotion_abstract_last_get(dummy) ""
-	set bMotion_abstract_filters(dummy) ""
+	array set bMotion_abstract_last_get {}
+	array set bMotion_abstract_filters {}
 }
 
 set bMotion_abstract_dir "$bMotionLocal/abstracts/$bMotionInfo(language)"
@@ -451,15 +451,15 @@ proc bMotion_abstract_flush { } {
   set abstracts [array names bMotion_abstract_contents]
   foreach abstract $abstracts {
     set storedLang $bMotion_abstract_languages($abstract)
-    if { $abstract != "dummy" && $storedLang == $lang } {
+    if { $storedLang == $lang } {
       bMotion_abstract_save $abstract
       unset bMotion_abstract_contents($abstract)
       unset bMotion_abstract_languages($abstract)
     }
   }
-  set bMotion_abstract_contents(dummy) ""
-  set bMotion_abstract_languages(dummy) ""
-  set bMotion_abstract_timestamps(dummy) 1
+  array set bMotion_abstract_contents {}
+  array set bMotion_abstract_languages {}
+  array set bMotion_abstract_timestamps {}
   set bMotion_abstract_ondisk [list]
 }
 
@@ -611,7 +611,7 @@ proc bMotion_abstract_flush_filters { } {
 	global bMotion_abstract_filters
 
 	unset bMotion_abstract_filters
-	set bMotion_abstract_filters(dummy) ""
+	array set bMotion_abstract_filters {}
 }
 
 # implementation-independent way to get all filters
