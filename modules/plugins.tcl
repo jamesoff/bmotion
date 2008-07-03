@@ -82,7 +82,6 @@ proc bMotion_plugin_find_simple { text lang } {
 	set s [lsort [array names bMotion_plugins_simple]]
 
 	foreach key $s {
-		if {$key == "dummy"} { continue }
 		set val $bMotion_plugins_simple($key)
 		set blah [split $val "¦"]
 		set rexp [lindex $blah 0]
@@ -137,7 +136,6 @@ proc bMotion_plugin_find_management { text } {
 	set s [array startsearch bMotion_plugins_management]
 
 	while {[set key [array nextelement bMotion_plugins_management $s]] != ""} {
-		if {$key == "dummy"} { continue }
 		set val $bMotion_plugins_management($key)
 		set blah [split $val "¦"]
 		set rexp [lindex $blah 0]
@@ -158,7 +156,6 @@ proc bMotion_plugin_find_management_help { name } {
 	set s [array startsearch bMotion_plugins_management]
 
 	while {[set key [array nextelement bMotion_plugins_management $s]] != ""} {
-		if {$key == "dummy"} { continue }
 		if [string match -nocase $name $key] {
 			set blah [split $bMotion_plugins_management($key) "¦"]
 			set helpcallback [lindex $blah 3]
@@ -204,7 +201,6 @@ proc bMotion_plugin_find_complex { text lang } {
 	}
 
 	foreach key $s {
-		if {$key == "dummy"} { continue }
 		set val $bMotion_plugins_complex($key)
 		set blah [split $val "¦"]
 		set rexp [lindex $blah 0]
@@ -257,7 +253,6 @@ proc bMotion_plugin_find_output { lang { channel "" } } {
 	set result [list]
 
 	while {[set key [array nextelement bMotion_plugins_output $s]] != ""} {
-		if {$key == "dummy"} { continue }
 		set val $bMotion_plugins_output($key)
 		set blah [split $val "¦"]
 		set callback [lindex $blah 0]
@@ -350,7 +345,6 @@ proc bMotion_plugin_find_action_simple { text lang } {
 	set s [lsort [array names bMotion_plugins_action_simple]]
 
 	foreach key $s {
-		if {$key == "dummy"} { continue }
 		set val $bMotion_plugins_action_simple($key)
 		set blah [split $val "¦"]
 		set rexp [lindex $blah 0]
@@ -398,7 +392,6 @@ proc bMotion_plugin_find_action_complex { text lang } {
 	set result [list]
 
 	foreach key $s {
-		if {$key == "dummy"} { continue }
 		set val $bMotion_plugins_action_complex($key)
 		set blah [split $val "¦"]
 		set rexp [lindex $blah 0]
@@ -515,7 +508,6 @@ proc bMotion_plugin_find_irc_event { text type lang } {
 	set result [list]
 
 	foreach key $s {
-		if {$key == "dummy"} { continue }
 		set val $bMotion_plugins_irc_event($key)
 		set blah [split $val "¦"]
 		set etype [lindex $blah 0]
