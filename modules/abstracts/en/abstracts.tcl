@@ -635,6 +635,7 @@ bMotion_abstract_register "randomReplies" {
 
 bMotion_abstract_register "randomReplies_male" {
 	"What is it with these silly questions? Anyway, let's talk about dicks! I've got this pretty nice seven incher..."
+}
 
 bMotion_abstract_register "picksUp" {
 	"/picks up %%"
