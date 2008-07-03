@@ -22,35 +22,35 @@
 
 ## Simple plugins
 if [info exists bMotion_plugins_simple] { unset bMotion_plugins_simple }
-set bMotion_plugins_simple(dummy) "_{100,100}¦0¦/has a tremendous plugin-related error (wahey)$"
+array set bMotion_plugins_simple {}
 
 ## Admin plugins (.bmotion)
 if [info exists bMotion_plugins_admin] { unset bMotion_plugins_admin }
-set bMotion_plugins_admin(dummy) "none"
+array set bMotion_plugins_admin {}
 
 ## complex plugins
 if [info exists bMotion_plugins_complex] { unset bMotion_plugins_complex }
-set bMotion_plugins_complex(dummy) "none"
+array set bMotion_plugins_complex {}
 
 ## output plugins
 if [info exists bMotion_plugins_output] { unset bMotion_plugins_output }
-set bMotion_plugins_output(dummy) "none"
+array set bMotion_plugins_output {}
 
 ## action simple plugins
 if [info exists bMotion_plugins_action_simple] { unset bMotion_plugins_action_simple }
-set bMotion_plugins_action_simple(dummy) "none"
+array set bMotion_plugins_action_simple {}
 
 ## action complex plugins
 if [info exists bMotion_plugins_action_complex] { unset bMotion_plugins_action_complex }
-set bMotion_plugins_action_complex(dummy) "none"
+array set bMotion_plugins_action_complex {}
 
 ## irc_event plugins
 if [info exists bMotion_plugins_irc_event] { unset bMotion_plugins_irc_event }
-set bMotion_plugins_irc_event(dummy) "none"
+array set bMotion_plugins_irc_event {}
 
 ## management plugins
 if [info exists bMotion_plugins_management] { unset bMotion_plugins_management }
-set bMotion_plugins_management(dummy) "none"
+array set bMotion_plugins_management {}
 
 ##############################################################################################################################
 ## Load a simple plugin
