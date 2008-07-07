@@ -11,7 +11,7 @@
 ###############################################################################
 
 #                          name   regexp               chance  callback
-bMotion_plugin_add_complex "calculator" {what('s| is) (\(*\s*[0-9.]+(\s*[+/*x%-]\s*\(*\s*[0-9.]+\s*\)*)+\s*\)*)} 100 "bMotion_plugin_complex_calculator" "en"
+bMotion_plugin_add_complex "calculator" {what('s| is) (\(*\s*[0-9.]+(\s*([+/*x%-]|\*\*)\s*\(*\s*[0-9.]+\s*\)*)+\s*\)*)} 100 "bMotion_plugin_complex_calculator" "en"
 
 bMotion_plugin_add_complex "calculator2" {what('s| is) the diff(erence)? between (.+ )?\d+,? and (.+ )?\d+} 100 "bMotion_plugin_complex_calculator2" "en"
 
@@ -20,10 +20,20 @@ bMotion_plugin_add_complex "calculator2" {what('s| is) the diff(erence)? between
 
 proc bMotion_plugin_complex_calculator { nick host handle channel text } {
 	if {[bMotionTalkingToMe $text] || [bMotion_interbot_me_next $channel]} {
-		if [regexp -nocase {(\(*\s*[0-9.]+(\s*[+/*x%-]\s*\(*\s*[0-9.]+\s*\)*)+\s*\)*)} $text matches sum] {
+		if [regexp -nocase {(\(*\s*[0-9.]+(\s*([+/*x%-]|\*\*)\s*\(*\s*[0-9.]+\s*\)*)+\s*\)*)} $text matches sum] {
 			set sum [string map { x * } $sum]
 			set sum [string trim $sum]
 			set result "failed"
+
+			# TCL < 8.5 doesn't know **, so we have to use pow()
+			if {[info pa] < 8.5} {
+				if [regexp {\*\*} $sum] {
+					bMotion_putloglev d * "calculator: rewriting $sum using pow()"
+					regsub -all {([0-9]+)\s*\*\*\s*([0-9]+)} $sum {pow(\1,\2)} sum
+					bMotion_putloglev d * "calculator: new expr is $sum"
+				}
+			}
+
 			catch {
 				set result [expr $sum]
 			}
@@ -52,6 +62,8 @@ proc bMotion_plugin_complex_calculator2 { nick host handle channel text } {
 }
 
 bMotion_abstract_register "calculation_output" {
+	"for this problem, i'll need to set my calculator to 'maths'%|%2"
+	"%2%|write that down in your copybooks now"
 	"%% = %2"
 	"%% is %2"
 	"%% equals %2"
