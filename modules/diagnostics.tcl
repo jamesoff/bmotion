@@ -135,7 +135,7 @@ proc bMotion_diagnostic_utimers { } {
 # check some plugins loaded
 proc bMotion_diagnostic_plugins { } {
 	bMotion_putloglev 5 * "bMotion_diagnostic_plugins"
-	foreach t {simple complex admin output action_simple action_complex irc_event} {
+	foreach t {simple complex output action_simple action_complex irc_event management} {
 		set arrayName "bMotion_plugins_$t"
 		upvar #0 $arrayName cheese
 		if {[llength [array names cheese]] == 0} {
