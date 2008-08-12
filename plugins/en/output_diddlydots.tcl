@@ -14,6 +14,7 @@
 bMotion_plugin_add_output "diddlydots" bMotion_plugin_output_diddlydots 1 "en"
 
 proc bMotion_plugin_output_diddlydots { channel line } {
+	if [regexp "^/" $line] { return $line }
 	set words [split $line " "]
 
 	set done 0
