@@ -66,3 +66,6 @@ bMotion_plugin_add_simple "inokunfu" "(i know kungfu|i know kung fu)" 100 [list 
 
 bMotion_plugin_add_simple "cartman1" "not (every|all) of them" 40 [list "no, but most of them are%|and all it takes is most of them..."] "en"
 
+bMotion_plugin_add_simple "nicecar1" {^nice [^ ]+[a-rt-z]!?$} 40 [list "wanna show me what it can do?"] "en"
+bMotion_plugin_add_simple "nicecar2" {^nice [^ ]+s!?$} 40 [list "wanna show me what they can do?"] "en"
+
