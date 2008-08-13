@@ -510,6 +510,7 @@ bMotion_abstract_register "awwws" {
 }
 
 bMotion_abstract_register "randomReplies" {
+	"You are a bottomless pit of questions."
 	"You can lead a horse to water, but you are the one asking all the stupid questions!"
 	"%ruser"
 	"Orange."
@@ -2839,6 +2840,8 @@ bMotion_abstract_register "blownAways" {
 	"crumbs"
 	"i say"
 	"lordy"
+	"gosh"
+	"wowsers"
 }
 
 bMotion_abstract_register "shocked" {
@@ -2858,6 +2861,9 @@ bMotion_abstract_register "shocked" {
 	"%colen"
 	"O_O"
 	"A%REPEAT{4:7:R}GH!"
+	"gosh"
+	"good heavens"
+	"well i never"
 }
 
 bMotion_abstract_register "randomAways" {

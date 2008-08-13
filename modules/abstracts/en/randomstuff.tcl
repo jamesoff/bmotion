@@ -5,6 +5,11 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"where do you have sex with a cake?"
+	"Grab a shovel. I'm one skull short of a goldfish."
+	"Life is a mammal that barks and shits on the floor of my broken heart and i don't think that's funny"
+	"I am a summer soup, mmm"
+	"I'm not mexican enough to be beaten up by a car"
 	"If it wasn't for herpes, I wouldn't have any appointments. "
 	"it looks like you're writing a letter!"
 	"is it just coincidence that my finger fits exactly in my %VAR{bodypart}?"
@@ -307,6 +312,13 @@ bMotion_abstract_register "randomStuff" {
 	"A planet is a domesticated mammal descended from the sun."
 	"My hovercraft is full of %PLURAL{%VAR{sillyThings}{strip}}"
 	"I never make mistakes! Syntax error in line %NUMBER{100}0. Redo from start."
+	"you wouldn't steal a handbag%|you wouldn't steal a car%|you wouldn't steal %VAR{sillyThings}!%|you wouldn't shoot a policeman, and then steal his %VAR{sillyThings}{strip}%|you wouldn't go to the toilet in it and then send it to the policeman's grieving widow%|and then steal it again!%|downloading films is stealing!"
+	"you wouldn't steal a handbag%|you wouldn't steal a car%|you wouldn't steal %VAR{sillyThings}!%|downloading films is stealing!"
+	"my %VAR{bodypart} goes sideways"
+	"adventure follows me like a dog follows a man with bacon trousers"
+	"i'm giving up evil science and taking up even gardening instead"
+	"noooo! enormous naked buttocks heading towards my head!%|i'm being simultaneously crushed and embarrassed to death"
+	"yay! %VAR{bodypart}s!"
 }
 
 
@@ -314,6 +326,7 @@ bMotion_abstract_register "randomStuff" {
 ### Used by the right gender bot in an inactive channel
 ### Mixed in with list above
 bMotion_abstract_register "randomStuff_male" {
+	"so i couldn't tell what it was and it smelled really bad but i ate it anyway%|then i just licked my balls until they hurt"
 	"Come on baby, let's go play schoolgirl and guy who has sex with schoolgirls!"
 	"i think %PLURAL{%VAR{sillyThings}{strip}} should have holes you can put your cock in"
 	"Huh? Mmph? LOL! Buffer overrun! *pant*"
@@ -330,9 +343,13 @@ bMotion_abstract_register "randomStuff_male" {
 	"It's good to be male isn't it %ruser{male}"
 	"These girls are ace. And their racoon is ace."
 	"hi %ruser! I'm miniature superman!%|no %ruser{prev}, don't touch me there!%|n%REPEAT{5:15:o}! %VAR{unsmiles}"
+	"May I come now?%|%BOT\[No, wait\]%|Too late.%|Sorry about your dress"
+	"Est-ce que je peux venir maintenant?%|%BOT\[Non, attends.\]%|Trop trad%|Desole pour ta robe"
+	"no touchy touchy%|no rubby rubby patty%|and no looky looky touchy"
 }
 
 bMotion_abstract_register "randomStuff_female" {
+	"excuse me, i need to go powder my ... nose"
 	"I'm the sort of girl who goes to the pub with your mates%|and ends the night with an empty mates packet."
 	"This one time, at band camp, I put a flute..."
 	"Does my arse look big in this?"
@@ -412,6 +429,7 @@ bMotion_abstract_register "randomStuff_12_25" {
 ### Used by both genders
 ### Used when the channel is 'active' (default < 300 sec since last line)
 bMotion_abstract_register "activeRandomStuff" {
+"You will be a winner today. Pick a fight with a four-year-old."
 	"you've got no piss control!"
 	"So anyway, I'm really attracted to you pardner! Yee haw! Did you like lesbians?"
 	"calm down dear%|it's always been that shape"
@@ -489,6 +507,7 @@ bMotion_abstract_register "activeRandomStuff" {
 	"%ruser is under some kind of spell. that's why i don't have to cover my mouth fully while i talk"
 	"who... does... number... two... work... for?"
 	"you show that turd who's boss"
+	"i've been to some conventions like that"
 }
 
 bMotion_abstract_register "activeRandomStuff_female" {

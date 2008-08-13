@@ -250,7 +250,7 @@ proc bMotion_event_main {nick host handle channel text} {
   set bMotionThisText $text
 
   #if we spoke last, add "$botnick: " if it's not in the line 
-  if {![regexp -nocase $botnicks $text] && ([bMotion_did_i_speak_last $channel] || [bMotion_setting_get "bitlbee"])} {
+  if {![regexp -nocase $botnicks $text] && ([bMotion_did_i_speak_last $channel] || ([bMotion_setting_get "bitlbee"] == "1"))} {
   	if [regexp {^[^:]+:.+} $text] {
 			#since our nick isn't in the line and they're addressing someone, drop this line
 			return 0
@@ -258,7 +258,7 @@ proc bMotion_event_main {nick host handle channel text} {
     set text "${botnick}: $text"
   }
  
-  if [bMotion_setting_get "bitlbee"] {
+  if {[bMotion_setting_get "bitlbee"] == "1"} {
     bMotion_putloglev d * "bitlbee incoming from $nick: $text"
   }
 

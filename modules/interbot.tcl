@@ -335,7 +335,6 @@ proc bMotion_interbot_hay { bot channels } {
   set bMotion_interbot_otherbots($bot) $channels
   bMotion_putloglev d * "interbot: Met bMotion bot $bot on channels $channels"
   putbot $bot "bmotion SUP $bMotionChannels"
-  array unset bMotion_interbot_otherbots dummy
 }
 
 # bMotion_interbot_sup
@@ -351,10 +350,9 @@ proc bMotion_interbot_sup { bot channels } {
 
   set bMotion_interbot_otherbots($bot) $channels
   bMotion_putloglev d * "interbot: bMotion bot $bot on channels $channels"
-  array unset bMotion_interbot_otherbots dummy
 }
 
-set bMotion_interbot_otherbots(dummy) ""
+array set bMotion_interbot_otherbots {}
 
 # bMotion_interbot_resync
 #
@@ -371,7 +369,7 @@ proc bMotion_interbot_resync { } {
 
 	bMotion_update_chanlist
   unset bMotion_interbot_otherbots
-  set bMotion_interbot_otherbots(dummy) ""
+  array set bMotion_interbot_otherbots {}
 
   putloglev d * "interbot: Resyncing with botnet for bMotion bots"
   putallbots "bmotion HAY $bMotionChannels ($network)"

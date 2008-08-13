@@ -42,6 +42,8 @@ set bMotion_queue_runny 1
 proc bMotion_queue_run { {force 0} } {
   global bMotion_queue bMotion_queue_runny
 
+	bMotion_putloglev 4 * "bMotion_queue_run $force"
+
 	if {$bMotion_queue_runny == 0} {
 		if {$force == 0} {
 			#queue is frozen

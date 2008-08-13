@@ -805,7 +805,7 @@ proc bMotion_choose_random_user { channel bot condition } {
 			continue 
 		}
 
-		if {[bMotion_setting_get "bitlbee"] && ($user == "root")} {
+		if {([bMotion_setting_get "bitlbee"] == "1") && ($user == "root")} {
 			bMotion_putloglev 4 * "ruser:  reject: bitlbee root user"
 			continue
 		}
