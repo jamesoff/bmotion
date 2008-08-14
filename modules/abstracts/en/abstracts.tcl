@@ -3466,10 +3466,20 @@ bMotion_abstract_register "answerWouldyous" {
 bMotion_abstract_register "answerAreyous" {
 	"yes%|wait! i mean no"
 	"%ruser made me"
-	"yes and i wont stop till my %VAR{bodypart} bounces off!"
+	"yes and i wont stop till my %VAR{bodypart} %VAR{fallsoff}!"
 	"i was feeling horny"
 	"yeah want a go? :)"
 	"only because my %VAR{dNouns} %VAR{fellOffs}"
+}
+
+bMotion_abstract_register "fallsoff" {
+	"bounces off"
+	"falls off"
+	"wears out"
+	"explodes"
+	"implodes"
+	"fails"
+	"gives up the ghost"
 }
 
 bMotion_abstract_register "answerCanyous" {
