@@ -203,15 +203,15 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 				#1 stops continuation after a failed %bot[n,]
 				break
 			}
-		}
-		set typosDone [bMotion_plugins_settings_get "output:typos" "typosDone" "" ""]
-		bMotion_putloglev 2 * "bMotion: typosDone (multipart) is !$typosDone!"
-		if {$typosDone != ""} {
-			bMotion_plugins_settings_set "output:typos" "typosDone" "" "" ""
-			if [rand 2] {
-				bMotionDoAction $channel "" "%VAR{typoFix}" "" 1
+			set typosDone [bMotion_plugins_settings_get "output:typos" "typosDone" "" ""]
+			bMotion_putloglev 2 * "bMotion: typosDone (multipart) is !$typosDone!"
+			if {$typosDone != ""} {
+				bMotion_plugins_settings_set "output:typos" "typosDone" "" "" ""
+				if [rand 2] {
+					bMotionDoAction $channel "" "%VAR{typoFix}" "" 1
+				}
+				bMotion_plugins_settings_set "output:typos" "typos" "" "" ""
 			}
-			bMotion_plugins_settings_set "output:typos" "typos" "" "" ""
 		}
 		return 0
 	}

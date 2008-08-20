@@ -29,9 +29,9 @@ set bMotion_queue_runny 1
 
 # queue format is:
 #  list of:
-#    int: number of seconds until line should be output
-#    str: target
-#    str: content
+#		 int: number of seconds until line should be output
+#		 str: target
+#		 str: content
 
 
 # bMotion_queue_run
@@ -40,60 +40,60 @@ set bMotion_queue_runny 1
 # 0 then it is sent to output
 # This also sends stuff to remote bots
 proc bMotion_queue_run { {force 0} } {
-  global bMotion_queue bMotion_queue_runny
+	global bMotion_queue bMotion_queue_runny
 
 	bMotion_putloglev 4 * "bMotion_queue_run $force"
 
 	if {$bMotion_queue_runny == 0} {
 		if {$force == 0} {
-			#queue is frozen
+		#queue is frozen
 			return 0
 		} else {
 			bMotion_putloglev d * "Running queue once while frozen"
 		}
 	}
 
-  set tempqueue [list]
-  bMotion_putloglev 3 * "Running output queue..."
-  foreach item $bMotion_queue {
-    set sec [lindex $item 0]
-    incr sec -1
-    set target [lindex $item 1]
-    set content [lindex $item 2]
-    if {$sec < 1} {
-      #time to output this
-      bMotion_putloglev 4 * "queue: NOW $target :$content"
-      if [regexp {^@([^@]+)?@(.+)} $content matches bot text] {
-        if {$bot == ""} {
-          bMotion_putloglev d * "bMotion: WARNING - tried to send text to a null bot o_O"
-        } else {
-          bMotionSendSayChan $target $text $bot
-        }
-      } else {
-        if {$content != ""} {
-	  if [bMotion_setting_get "bitlbee"] {
-	    global bMotionOriginalNick
-	    #make sure the line doesn't start with the nick already
-	    if {$bMotionOriginalNick == ""} {
-	      set bMotionOriginalNick [bMotion_choose_random_user $target 0 ""]
-            }
-	    if {![regexp -nocase "^$bMotionOriginalNick:" $content]} {
-              set content "$bMotionOriginalNick: $content"
-	    }
-	    set bMotionOriginalNick ""
-            bMotion_putloglev d * "bitlbee outgoing: $content"
-	  }
-          puthelp "PRIVMSG $target :$content"
+	set tempqueue [list]
+	bMotion_putloglev 3 * "Running output queue..."
+	foreach item $bMotion_queue {
+		set sec [lindex $item 0]
+		incr sec -1
+		set target [lindex $item 1]
+		set content [lindex $item 2]
+		if {$sec < 1} {
+		#time to output this
+			bMotion_putloglev 4 * "queue: NOW $target :$content"
+			if [regexp {^@([^@]+)?@(.+)} $content matches bot text] {
+				if {$bot == ""} {
+					bMotion_putloglev d * "bMotion: WARNING - tried to send text to a null bot o_O"
+				} else {
+					bMotionSendSayChan $target $text $bot
+				}
+			} else {
+				if {$content != ""} {
+					if [bMotion_setting_get "bitlbee"] {
+						global bMotionOriginalNick
+						#make sure the line doesn't start with the nick already
+						if {$bMotionOriginalNick == ""} {
+							set bMotionOriginalNick [bMotion_choose_random_user $target 0 ""]
+						}
+						if {![regexp -nocase "^$bMotionOriginalNick:" $content]} {
+							set content "$bMotionOriginalNick: $content"
+						}
+						set bMotionOriginalNick ""
+						bMotion_putloglev d * "bitlbee outgoing: $content"
+					}
+					puthelp "PRIVMSG $target :$content"
 
-        }
-      }
-    } else {
-      #put it back into queue
-      bMotion_putloglev 4 * "queue: ${sec}s: $target :$content"
-      lappend tempqueue [list $sec $target $content]
-    }
-  }
-  set bMotion_queue $tempqueue
+				}
+			}
+		} else {
+		#put it back into queue
+		bMotion_putloglev 4 * "queue: ${sec}s: $target :$content"
+			lappend tempqueue [list $sec $target $content]
+		}
+	}
+	set bMotion_queue $tempqueue
 }
 
 
@@ -101,43 +101,43 @@ proc bMotion_queue_run { {force 0} } {
 #
 # Returns the number of seconds something to wait to be last in the queue
 proc bMotion_queue_get_delay { } {
-  global bMotion_queue
-  return [expr 2 + [llength $bMotion_queue]]
+	global bMotion_queue
+	return [expr 2 + [llength $bMotion_queue]]
 }
 
 # bMotion_queue_add
 #
 # Adds some output to the queue
 proc bMotion_queue_add { target content {delay 0} } {
-  global bMotion_queue
+	global bMotion_queue
 
-  #calculate line delay
-  set delay [expr $delay == 0 ? [bMotion_queue_get_delay] : $delay]
-  bMotion_putloglev 1 * "queuing output '$content' for '$target' with ${delay}s delay"
-  lappend bMotion_queue [list $delay $target $content]
+	#calculate line delay
+	set delay [expr $delay == 0 ? [bMotion_queue_get_delay] : $delay]
+	bMotion_putloglev 1 * "queuing output '$content' for '$target' with ${delay}s delay"
+	lappend bMotion_queue [list $delay $target $content]
 }
 
 # bMotion_queue_add_now
 #
 # Adds some output to the head of the queue
 proc bMotion_queue_add_now { target content } {
-  global bMotion_queue
+	global bMotion_queue
 
-  #no delay
-  set delay 0
-  bMotion_putloglev 1 * "queuing output '$content' for '$target' with 0s delay"
-  lappend bMotion_queue [list $delay $target $content]
+	#no delay
+	set delay 0
+	bMotion_putloglev 1 * "queuing output '$content' for '$target' with 0s delay"
+	lappend bMotion_queue [list $delay $target $content]
 }
 
 # bMotion_queue_callback
 #
 # This is the timer function
 proc bMotion_queue_callback { } {
-  global bMotion_queue
-  utimer 2 bMotion_queue_callback
-  if {[llength $bMotion_queue] > 0} {
-    bMotion_queue_run
-  }
+	global bMotion_queue
+	utimer 2 bMotion_queue_callback
+	if {[llength $bMotion_queue] > 0} {
+		bMotion_queue_run
+	}
 }
 
 # bMotion_queue_size
@@ -171,6 +171,37 @@ proc bMotion_queue_thaw { } {
 
 	set bMotion_queue_runny 1
 	bMotion_putloglev d * "Thawing output queue"
+}
+
+proc bMotion_queue_dupecheck { text channel } {
+	global bMotion_queue
+
+	bMotion_putloglev 4 * "bMotion_queue_dupecheck $text"
+	
+	set text [string tolower $text]
+
+	# TODO: maybe remove some punctuation, but not things like :)
+
+	set tempqueue [list]
+
+	foreach item $bMotion_queue {
+		if {$channel == [lindex $item 1]} {
+			lappend tempqueue $item
+			continue
+		}
+
+		set content [string tolower [lindex $item 2]]
+
+		if {$content == $text} {
+			# delete this entry by setting it to nothing; the next queue run will remove it
+			set item [lreplace $item 2 2 ""]
+			bMotion_putloglev 2 * "queue: removed item '$content' as it's similar to text '$text'"
+		}
+
+		lappend tempqueue $item
+	}
+
+	set bMotion_queue $tempqueue
 }
 
 # init timer
