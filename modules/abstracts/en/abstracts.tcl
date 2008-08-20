@@ -3196,6 +3196,10 @@ bMotion_abstract_register "ruins" {
 	"Jade!"
 	"\"Bonza.\""
 	"You are a stupid bloody moron with no right to exist as a sentient being"
+	"Player 2: Things are looking very bronze"
+	"fail"
+	"epic suck"
+	"lol"
 }
 
 bMotion_abstract_register "hexStart" {
@@ -4227,11 +4231,35 @@ bMotion_abstract_register "wake_ups" {
 	"mmm toast"
 	"/eats breakfast"
 	"/awakens from a nightmare about %VAR{nightmare}"
+	"ugh, i had a horrible dream about %VAR{nightmare}"
+	"/wakes up from a lovely dream about %VAR{nicemare}"
+	"i had a nice dream about %VAR{nicemare}"
 	"good %daytime%|%VAR{weather}"
 	"good %daytime!%|%VAR{weather}"
 	"%daytime%|%VAR{weather}"
 	"%daytime!%|%VAR{weather}"
+	"%daytime!%|%VAR{todays_episode}"
+	"%daytime%|%VAR{todays_episode}"
 }
+
+bMotion_abstract_register "todays_episode" {
+	"A Substantial Gift"
+	"Ring of Fear"
+	"The Butler Did It"
+	"Revenge and Remorse"
+	"Rendezvous at Big Gulch"
+	"A Dangerous Assignment"
+	"A Bird in the Hand"
+	"The Guilty Alibi"
+	"Terror in the Neighbourhood"
+	"Testimony of Evil"
+	"Dead Men Don't Laugh"
+	"There Go My Trousers"
+	"Terror in the Night"
+	"Operation Undercover"
+	"The Secret Assignment"
+}
+
 
 bMotion_abstract_register "red_dwarf" {
 	"Have you ever been hit on the head with a sledgehammer?"
