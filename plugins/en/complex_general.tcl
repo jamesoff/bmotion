@@ -13,8 +13,8 @@
 ###############################################################################
 
 #                          name   regexp               chance  callback
-bMotion_plugin_add_complex "test" "^%botnicks: test$"         100     "bMotion_plugin_complex_test" "en"
-bMotion_plugin_add_complex "test2" "^%botnicks: test2$"         100     "bMotion_plugin_complex_test2" "en"
+bMotion_plugin_add_complex "test" "^%botnicks:? test$"         100     "bMotion_plugin_complex_test" "en"
+bMotion_plugin_add_complex "test2" "^%botnicks:? test2$"         100     "bMotion_plugin_complex_test2" "en"
 bMotion_plugin_add_complex "opme" "^!?op ?me$"               100     "bMotion_plugin_complex_opme" "en"
 
 
