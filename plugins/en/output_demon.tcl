@@ -18,13 +18,15 @@
 proc bMotion_plugin_output_demon { channel line } {
 	bMotion_putloglev 4 * "bMotion_plugin_output_demon $channel $line"
 
-  set newLine ""
-	
-  #split words
+	set newLine ""
+
+	#split words
 	set line [string trim $line]
-  set words [split $line " "]
+	set words [split $line " "]
 
 	foreach word $words {
+
+		regsub -all {c?k\M} $word {q} word
 		regsub -all {o([b-df-hj-np-tv-xz])e(s|ing)?\M} $word {oa\1\2} word
 
 		# undo one -> oan (only if entire word)
