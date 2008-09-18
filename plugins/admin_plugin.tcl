@@ -47,7 +47,7 @@ proc bMotion_plugin_management_plugins { handle { arg "" }} {
 		}
 
 		#invalid plugin to enable
-		bMotion_putadmin "That's not a valid plugin type."
+		bMotion_putadmin "That's not a valid plugin type for enabling."
 	}
 
 	#disable a plugin
@@ -71,7 +71,7 @@ proc bMotion_plugin_management_plugins { handle { arg "" }} {
 		}
 
 		#invalid plugin to enable
-		bMotion_putadmin "That's not a valid plugin type."
+		bMotion_putadmin "That's not a valid plugin type for disabling."
 	}
 
 	if [regexp -nocase {info ([^ ]+) (.+)} $arg matches t id] {
@@ -81,73 +81,108 @@ proc bMotion_plugin_management_plugins { handle { arg "" }} {
 		upvar #0 $full_array_name_for_upvar TEH_ARRAY
 
 		set details $TEH_ARRAY($id)
-		set blah [split $details "¦"]
-		set callback [lindex $blah 0]
-		set enabled [lindex $blah 1]
-		set language [lindex $blah 2]
-		if {$enabled} {
-			set e "yes"
-		} else {
-			set e "no"
-		}
 
-		bMotion_putadmin "plugin details for ${t}:$id: language=$language, enabled=$e"
-
-		if {$t == "output"} {
-			set current [list]
-			catch {
-				set current $bMotion_plugins_output_perchan($id)
+		switch $t {
+			"simple" -
+			"action_simple" {
+				global BMOTION_PLUGIN_SIMPLE_MATCH BMOTION_PLUGIN_SIMPLE_CHANCE BMOTION_PLUGIN_SIMPLE_RESPONSE BMOTION_PLUGIN_SIMPLE_LANGUAGE
+				bMotion_putadmin "Plugin details for ${t}:$id ([lindex $details $BMOTION_PLUGIN_SIMPLE_LANGUAGE]) [lindex $details $BMOTION_PLUGIN_SIMPLE_CHANCE]%"
+				bMotion_putadmin "  Match on: [lindex $details $BMOTION_PLUGIN_SIMPLE_MATCH]"
+				bMotion_putadmin "  Response list: [lindex $details $BMOTION_PLUGIN_SIMPLE_RESPONSE]"
+				return 0
 			}
-			if {[llength $current] > 0} {
-				bMotion_putadmin "  enabled on channels $current"
+			"complex" -
+			"action_complex" {
+				global BMOTION_PLUGIN_COMPLEX_MATCH BMOTION_PLUGIN_COMPLEX_CHANCE BMOTION_PLUGIN_COMPLEX_CALLBACK BMOTION_PLUGIN_COMPLEX_LANGUAGE
+				bMotion_putadmin "Plugin details for ${t}:$id ([lindex $details $BMOTION_PLUGIN_COMPLEX_LANGUAGE]) [lindex $details $BMOTION_PLUGIN_COMPLEX_CHANCE]%"
+				bMotion_putadmin "  Match on: [lindex $details $BMOTION_PLUGIN_COMPLEX_MATCH]"
+				bMotion_putadmin "  Callback: [lindex $details $BMOTION_PLUGIN_COMPLEX_CALLBACK]"
+				return 0
+			}
+			"output" {
+				global BMOTION_PLUGIN_OUTPUT_PRIORITY BMOTION_PLUGIN_OUTPUT_ENABLED BMOTION_PLUGIN_OUTPUT_LANGUAGE BMOTION_PLUGIN_OUTPUT_CALLBACK
+				bMotion_putadmin "Plugin details for output:$id ([lindex $details $BMOTION_PLUGIN_OUTPUT_LANGUAGE]) Priority:[lindex $details $BMOTION_PLUGIN_OUTPUT_PRIORITY]"
+				if {[lindex $details $BMOTION_PLUGIN_OUTPUT_ENABLED] == 1} {
+					bMotion_putadmin "  Enabled on: all channels"
+				} else {
+					set current [list]
+					catch {
+						set current $bMotion_plugins_output_perchan($id)
+					}
+					if {[llength $current] > 0} {
+						bMotion_putadmin "  Enabled on channels: $current"
+					} else {
+						bMotion_putadmin "  Enabled: no"
+					}
+				}
+				bMotion_putadmin "  Callback: [lindex $details $BMOTION_PLUGIN_OUTPUT_CALLBACK]"
+				return 0
+			}
+			"event" -
+			"irc_event" {
+				global BMOTION_PLUGIN_EVENT_TYPE BMOTION_PLUGIN_EVENT_MATCH BMOTION_PLUGIN_EVENT_CHANCE BMOTION_PLUGIN_EVENT_CALLBACK BMOTION_PLUGIN_EVENT_LANGUAGE
+				bMotion_putadmin "Plugin details for irc_event:$id ([lindex $details $BMOTION_PLUGIN_EVENT_LANGUAGE]) [lindex $details $BMOTION_PLUGIN_EVENT_CHANCE]%"
+				bMotion_putadmin "  Event type: [lindex $details $BMOTION_PLUGIN_EVENT_TYPE], match on: [lindex $details $BMOTION_PLUGIN_EVENT_MATCH]"
+				bMotion_putadmin "  Callback: [lindex $details $BMOTION_PLUGIN_EVENT_CALLBACK]"
+				return 0
+			}
+			"management" {
+				global BMOTION_PLUGIN_MANAGEMENT_MATCH BMOTION_PLUGIN_MANAGEMENT_FLAGS BMOTION_PLUGIN_MANAGEMENT_CALLBACK BMOTION_PLUGIN_MANAGEMENT_HELPCALLBACK
+				bMotion_putadmin "Plugin details for management:$id ([lindex $details $BMOTION_PLUGIN_MANAGEMENT_FLAGS])"
+				bMotion_putadmin "  Match: [lindex $details $BMOTION_PLUGIN_MANAGEMENT_MATCH]"
+				bMotion_putadmin "  Callback: [lindex $details $BMOTION_PLUGIN_MANAGEMENT_CALLBACK]"
+				bMotion_putadmin "  Help callback: [lindex $details $BMOTION_PLUGIN_MANAGEMENT_HELPCALLBACK]"
+				return 0
+			}
+			default {
+				bMotion_putadmin "?"
+				return 0
 			}
 		}
-
-		return 0
 	}
 
 	#all else fails, list the modules:
 	if [regexp -nocase {list( (.+))?} $arg matches what re] {
-	set total 0
+		global BMOTION_PLUGIN_OUTPUT_ENABLED BMOTION_PLUGIN_OUTPUT_PRIORITY
+
+		set total 0
 		if {$re != ""} {
 			bMotion_putadmin "Installed bMotion plugins (filtered for '$re'):"
 		} else {
 			bMotion_putadmin "Installed bMotion plugins:"
 		}
-		foreach t {simple complex output admin action_simple action_complex irc_event management} {
+		foreach t {simple complex output action_simple action_complex irc_event management} {
 			set arrayName "bMotion_plugins_$t"
-			upvar #0 $arrayName cheese
-			set plugins [array names cheese]
-			set plugins [lsort $plugins]
+			upvar #0 $arrayName plugins
+			set plugin_names [lsort [array names plugins]]
 			set a "\002$t\002: "
 			set count 0
-			foreach n $plugins {
+			foreach n $plugin_names {
 				if {($re == "") || [regexp -nocase $re $n]} {
 					if {[string length $a] > 55} {
 						bMotion_putadmin "$a"
 						set a "			"
 					}
-					if {$n != "dummy"} {
-						incr count
-						incr total
-						if {$t == "output"} {
-							set details $cheese($n)
-							set blah [split $details "¦"]
-							set enabled [lindex $blah 1]
-							if {$enabled} {
-								append a "$n\[on\], "
-							} else {
-								append a "$n\[off\], "
-							}
+					incr count
+					incr total
+					if {$t == "output"} {
+						set details $plugins($n)
+						append a [lindex $plugins($n) $BMOTION_PLUGIN_OUTPUT_PRIORITY]
+						if {[lindex $plugins($n) $BMOTION_PLUGIN_OUTPUT_ENABLED] == 1} {
+							append a "/$n\[on\], "
 						} else {
-							append a "$n, "
+							append a "/$n\[off\], "
 						}
+					} else {
+						append a "$n, "
 					}
 				}
 			}
-			set a [string range $a 0 [expr [string length $a] - 3]]
+			regsub ", *\$" $a "" a
 			if {($re != "") && $count} {
 				bMotion_putadmin "$a ($count)\n"
+			} else {
+				bMotion_putadmin $a
 			}
 		}
 		bMotion_putadmin "Total plugins: $total"

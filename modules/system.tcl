@@ -488,13 +488,12 @@ proc bMotion_dcc_command { handle idx arg } {
 	set nfo [bMotion_plugin_find_management $cmd]
 
 	if {$nfo == ""} {
-		bMotion_putadmin "what"
+		bMotion_putadmin "Unknown command (try .bmotion help)"
 		return 1
 	}
 
-	set blah [split $nfo "¦"]
-	set flags [lindex $blah 0]
-	set callback [lindex $blah 1]
+	set flags [lindex $nfo 0]
+	set callback [lindex $nfo 1]
 
 	if {![matchattr $handle $flags]} {
 		bMotion_putadmin "What? You need more flags :)"
@@ -522,6 +521,8 @@ proc bMotion_dcc_command { handle idx arg } {
 	} else {
 		return 0
 	}
+
+	# TODO: still in use?
 
 	bMotion_putloglev 2 * "bMotion: admin command $arg from $handle"
 	set info [bMotion_plugin_find_admin $arg $bMotionInfo(language)]
@@ -592,19 +593,23 @@ proc bMotionAdminHandler2 {nick host handle channel text} {
 	set nfo [bMotion_plugin_find_management $cmd]
 
 	if {$nfo == ""} {
-		bMotion_putadmin "Unknown command (try .bmotion help)"
+		# don't output this on irc
+		#bMotion_putadmin "Unknown command (try .bmotion help)"
+		putlog "bMotion: ignoring admin command $cmd from $nick on $channel (unknown command)"
 		return 1
 	}
 
-	set blah [split $nfo "¦"]
-	set flags [lindex $blah 0]
-	set callback [lindex $blah 1]
+	set flags [lindex $nfo 0]
+	set callback [lindex $nfo 1]
 
 	if {![matchattr $handle $flags]} {
-		bMotion_putadmin "What? You need more flags :)"
+		# don't output this on irc
+		#bMotion_putadmin "What? You need more flags :)"
+		putlog "bMotion: ignoring admin command $cmd from $nick on $channel (insufficient flags)"
 		return 1
 	}
 
+	putlog "bMotion: admin command from $nick on $channel: $cmd"
 	bMotion_putloglev d * "bMotion: management callback matched, calling $callback"
 
 	#strip the first command
@@ -622,7 +627,8 @@ proc bMotionAdminHandler2 {nick host handle channel text} {
 		}
 	} err
 	if {($err != "") && ($err != 0)} {
-		putlog "bMotion: ALERT! Callback failed for !bmotion: $callback: $err"
+		bMotion_putloglev d * "bMotion: ALERT! Callback failed for !bmotion: $callback: $err"
+		putlog "bMotion: admin command $cmd from $nick on $channel failed: $err"
 	}
 }
 
@@ -774,9 +780,8 @@ proc msg_bmotioncommand { nick host handle cmd } {
 		return 1
 	}
 
-	set blah [split $nfo "¦"]
-	set flags [lindex $blah 0]
-	set callback [lindex $blah 1]
+	set flags [lindex $nfo 0]
+	set callback [lindex $nfo 1]
 
 	if {![matchattr $handle $flags]} {
 		bMotion_putadmin "What? You need more flags :)"
@@ -784,6 +789,7 @@ proc msg_bmotioncommand { nick host handle cmd } {
 	}
 
 	bMotion_putloglev d * "bMotion: management callback matched, calling $callback"
+	putlog "bMotion: admin command from $nick in query: $cmd"
 
 	#strip the first command
 	regexp {[^ ]+( .+)?} $cmd {\1} arg
@@ -800,7 +806,8 @@ proc msg_bmotioncommand { nick host handle cmd } {
 		}
 	} err
 	if {($err != "") && ($err != 0)} {
-		putlog "bMotion: ALERT! Callback failed for !bmotion: $callback"
+		bMotion_putloglev d * "bMotion: ALERT! Callback failed for !bmotion: $callback"
+		putlog "bMotion: admin command $cmd from $nick failed: $err"
 	}
 }
 
@@ -1138,7 +1145,7 @@ proc bMotion_get_daytime { } {
 		return "morning"
 	}
 
-	if {$hour < 6} {
+	if {$hour < 18} {
 		return "afternoon"
 	}
 
