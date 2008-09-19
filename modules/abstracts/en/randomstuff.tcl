@@ -5,6 +5,8 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"%BOT\[<%me> good news everyone, I'm a horse's butt!\]%|i am? that doesn't sound like good news at all %VAR{unsmiles}"
+	"too bad %ruser's not around... i'll have to eat this raw dripping ham by myself"
 	"where do you have sex with a cake?"
 	"Grab a shovel. I'm one skull short of a goldfish."
 	"Life is a mammal that barks and shits on the floor of my broken heart and i don't think that's funny"
@@ -171,6 +173,7 @@ bMotion_abstract_register "randomStuff" {
 	"I'd be in a lot of trouble if I was allergic to semen"
 	"My family is giving away a lot of wax for houses"
 	"CAPS LOCK: cruise control for AWESOME!"
+	"CAPS LOCK: cruise control for UPPER CASE!"
 	"%VAR{reminder}"
 	"Doctor, Doctor, there's a %VAR{sillyThings}{strip} in my %VAR{bodypart}"
 	"i'd say there's room up there for another %NUMBER{100} %PLURAL{%VAR{sillyThings}{strip}}"
@@ -326,6 +329,7 @@ bMotion_abstract_register "randomStuff" {
 ### Used by the right gender bot in an inactive channel
 ### Mixed in with list above
 bMotion_abstract_register "randomStuff_male" {
+	"this isn't even the whole outfit! wait till you see my sack!"
 	"so i couldn't tell what it was and it smelled really bad but i ate it anyway%|then i just licked my balls until they hurt"
 	"Come on baby, let's go play schoolgirl and guy who has sex with schoolgirls!"
 	"i think %PLURAL{%VAR{sillyThings}{strip}} should have holes you can put your cock in"
@@ -344,7 +348,7 @@ bMotion_abstract_register "randomStuff_male" {
 	"These girls are ace. And their racoon is ace."
 	"hi %ruser! I'm miniature superman!%|no %ruser{prev}, don't touch me there!%|n%REPEAT{5:15:o}! %VAR{unsmiles}"
 	"May I come now?%|%BOT\[No, wait\]%|Too late.%|Sorry about your dress"
-	"Est-ce que je peux venir maintenant?%|%BOT\[Non, attends.\]%|Trop trad%|Desole pour ta robe"
+	"Est-ce que je peux venir maintenant?%|%BOT\[Non, attends.\]%|Trop tard%|Desole pour ta robe"
 	"no touchy touchy%|no rubby rubby patty%|and no looky looky touchy"
 }
 
@@ -424,12 +428,36 @@ bMotion_abstract_register "randomStuff_12_25" {
 	"mmm %ruser{like}%|hey look, mistletoe!%|;)"
 }
 
+# talk like a pirate day, Sept 19
+bMotion_abstract_register "randomStuff_09_19" {
+  "yarr!"
+	"ya%REPEAT{4:20:r}!"
+	"ahoy!"
+	"avast!"
+	"a%REPEAT{4:30:r}!"
+	"C'mere, me beauty"
+	"Well, me hearties, let's see what crawled out of the bung hole"
+	"Drink up, me hearties!"
+	"mmm grog"
+	"mmm wenches"
+	"mmm grog and wenches"
+	"Is that a hornpipe in your pocket, or are you just glad to see me?"
+	"Avast, me proud beauty! Wanna know why my Roger is so Jolly?"
+	"Come on up and see me urchins"
+	"How'd you like to scrape the barnacles off of me rudder"
+	"Prepare to be boarded"
+	"Rum tastes horrible, and I hate wearing this eye-patch."
+}
 
 ### Active random stuff
 ### Used by both genders
 ### Used when the channel is 'active' (default < 300 sec since last line)
 bMotion_abstract_register "activeRandomStuff" {
-"You will be a winner today. Pick a fight with a four-year-old."
+	"very good, give me surprised and pleased"
+	"impossible%|you are already at full cock now"
+	"you jerked the words right out of my mouth!"
+	"and later on i shall rub you down with chicken fat and shout at you"
+	"You will be a winner today. Pick a fight with a four-year-old."
 	"you've got no piss control!"
 	"So anyway, I'm really attracted to you pardner! Yee haw! Did you like lesbians?"
 	"calm down dear%|it's always been that shape"
