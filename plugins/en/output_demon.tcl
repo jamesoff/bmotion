@@ -45,10 +45,11 @@ proc bMotion_plugin_output_demon { channel line } {
 		append newLine "$word "
 	}
 
+	set line [string map { senior seior junior juior genius geious } $line]
+
 	set line [string trim $newLine]
 
 	return $line
 }
-
 
 bMotion_plugin_add_output "demon" bMotion_plugin_output_demon 0 "en"
