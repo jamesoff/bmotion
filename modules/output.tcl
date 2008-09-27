@@ -162,71 +162,77 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 		2 { set nick "[string range $nick 0 0][string tolower [string range $nick 1 end]]" }
 	}
 
-	#do this first now
+
+	# Run the plugins :D
+
+	# First run the core plugins
+	set plugins [bMotion_plugin_find_output $bMotionInfo(language) $channel 0 10]
+	if {[llength $plugins] > 0} {
+		foreach callback $plugins {
+			bMotion_putloglev 1 * "bMotion: output plugin: $callback..."
+			set result ""
+			catch {
+				set result [$callback $channel $text]
+			} err
+			bMotion_putloglev 3 * "bMotion: returned from output $callback ($result)"
+			# TODO: Still used?
+			if {$result == ""} {
+				return 0
+			}
+			set text $result
+		}
+	}
+
 	set text [bMotionDoInterpolation $text $nick $moreText $channel]
 
-	set multiPart 0
-	if [string match "*%|*" $text] {
-		set multiPart 1
-		# we have many things to do
-		set thingsToSay ""
-		set loopCount 0
-		set blah 0
-
-		#make sure we get the last section
-		set text "$text%|"
-
-		while {[string match "*%|*" $text]} {
-			set origtext $text
-			set sentence [string range $text 0 [expr [string first "%|" $text] -1]]
-			if {$sentence != ""} {
-				if {$blah == 0} {
-					set thingsToSay [list $sentence]
-					set blah 1
-				} else {
-					lappend thingsToSay $sentence
+	# now the rest
+	if {$noTypo == 0} {
+		set plugins [bMotion_plugin_find_output $bMotionInfo(language) $channel 11]
+		if {[llength $plugins] > 0} {
+			foreach callback $plugins {
+				bMotion_putloglev 1 * "bMotion: output plugin: $callback..."
+				set result ""
+				catch {
+					set result [$callback $channel $text]
+				} err
+				bMotion_putloglev 3 * "bMotion: returned from output $callback ($result)"
+				if {$result == ""} {
+					return 0
 				}
-			}
-			set text [string range $text [expr [string first "%|" $text] + 2] end]
-			if {$text == $origtext} {
-				putlog "bMotion ALERT! Bailed in bMotionDoAction with $text. Lost output."
-				return 0
+				set text $result
 			}
 		}
 	}
 
-	if {$multiPart == 1} {
-		foreach lineIn $thingsToSay {
-			set temp [bMotionSayLine $channel $nick $lineIn $moreText $noTypo $urgent]
-			if {$temp == 1} {
-				bMotion_putloglev 1 * "bMotion: bMotionSayLine returned 1, skipping rest of output"
-				#1 stops continuation after a failed %bot[n,]
-				break
-			}
-			set typosDone [bMotion_plugins_settings_get "output:typos" "typosDone" "" ""]
-			bMotion_putloglev 2 * "bMotion: typosDone (multipart) is !$typosDone!"
-			if {$typosDone != ""} {
-				bMotion_plugins_settings_set "output:typos" "typosDone" "" "" ""
-				if [rand 2] {
-					bMotionDoAction $channel "" "%VAR{typoFix}" "" 1
-				}
-				bMotion_plugins_settings_set "output:typos" "typos" "" "" ""
-			}
-		}
+	#make sure the line wasn't set to blank by a plugin (may be trying to block output)
+	set line [string trim $text]
+	if {$line == ""} {
 		return 0
 	}
 
-	bMotionSayLine $channel $nick $text $moreText $noTypo $urgent
-	set typosDone [bMotion_plugins_settings_get "output:typos" "typosDone" "" ""]
-	bMotion_putloglev 2 * "bMotion: typosDone is !$typosDone!"
-	if {$typosDone != ""} {
-		bMotion_plugins_settings_set "output:typos" "typosDone" "" "" ""
-		if [rand 2] {
-			bMotionDoAction $channel "" "%VAR{typoFix}" "" 1
-		}
-		bMotion_plugins_settings_set "output:typos" "typos" "" "" ""
-	}
+	# Explode line into lines
+	# We map %| to NUL and split on that, since [split] can't
+	# handle multichar boundaries
+	set lines [split [string map [list "%|" \x00] $line] \x00]
 
+	foreach lineIn $lines {
+		set temp [bMotionSayLine $channel $nick $lineIn $moreText $noTypo $urgent]
+		if {$temp == 1} {
+			bMotion_putloglev 1 * "bMotion: bMotionSayLine returned 1, skipping rest of output"
+			#1 stops continuation after a failed %bot[n,]
+			break
+		}
+		#set typosDone [bMotion_plugins_settings_get "output:typos" "typosDone" "" ""]
+		#bMotion_putloglev 2 * "bMotion: typosDone is !$typosDone!"
+		## TODO: fix this
+		#if {$typosDone != ""} {
+		#	bMotion_plugins_settings_set "output:typos" "typosDone" "" "" ""
+		#	if [rand 2] {
+		#		bMotionDoAction $channel "" "%VAR{typoFix}" "" 1
+		#	}
+		#	bMotion_plugins_settings_set "output:typos" "typos" "" "" ""
+		#}
+	}
 	return 0
 }
 
@@ -237,109 +243,10 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 	bMotion_putloglev 5 * "bMotionDoInterpolation: line = $line, nick = $nick, moreText = $moreText, channel = $channel"
 	global botnick bMotionCache
 
-	if [string match "*%noun*" $line] {
-		set line [bMotionInsertString $line "%noun" "%VAR{sillyThings}"]
-	}
-
-	#set loops 0
-	bMotion_putloglev 4 * "doing VAR processing"
-	set lastloop ""
-	while {[regexp -nocase {%VAR\{([^\}]+)\}(\{strip\})?} $line matches BOOM clean]} {
-		global $BOOM
-		#see if we have a new-style abstract available
-		set newText [bMotion_abstract_get $BOOM]
-		set replacement ""
-		if {$newText == ""} {
-			bMotion_putloglev d * "abstract '$BOOM' doesn't exist in new abstracts system!"
-			#insert old style
-			set var [subst $$BOOM]
-			set replacement [pickRandom $var]
-		} else {
-			set replacement $newText
-		}
-		if {$clean != ""} {
-			set replacement [bMotion_strip_article $replacement]
-		}
-		regsub -nocase "%VAR\{$BOOM\}$clean" $line $replacement line
-		if [string match "*%noun*" $line] {
-			set line [bMotionInsertString $line "%noun" "%VAR{sillyThings}"]
-		}
-		if {$lastloop == $line} {
-			putlog "bMotion: ALERT! looping too much in %VAR code with $line (no change since last parse)"
-			set line "/has a tremendous error while trying to sort something out :("
-			break
-		}
-		set lastloop $line
-	}
-
-	set loops 0
-	bMotion_putloglev 4 * "doing SETTING processing"
-	while {[regexp "%SETTING\{(.+?)\}" $line matches settingString]} {
-		set var ""
-		if [regexp {([^:]+:[^:]+):([^:]+):([^:]+):([^:]+)} $settingString matches plugin setting ch ni] {
-			set var [bMotion_plugins_settings_get $plugin $setting $ch $ni]
-		}
-		incr loops
-		if {$loops > 10} {
-			putlog "bMotion: ALERT! looping too much in %SETTING code with $line"
-			set line "/has a tremendous error while trying to infer the meaning of life :("
-		}
-		if {$var == ""} {
-			putlog "bMotion: ALERT! couldn't find setting $settingString (dropping output)"
-			return ""
-		}
-		set line [bMotionInsertString $line "%SETTING{$settingString}" $var]
-	}
-
-	set loops 0
-	bMotion_putloglev 4 * "doing NUMBER processing"
-	set padding 0
-	while {[regexp "%NUMBER\{(\[0-9\]+)\}(\{(\[0-9\]+)\})?" $line matches numberString paddingOpt padding]} {
-		set var [bMotion_get_number [bMotion_rand_nonzero $numberString]]
-		if {$padding > 0} {
-			set fmt "%0$padding"
-			append fmt "u"
-			set var [format $fmt $var]
-		}
-		incr loops
-		if {$loops > 10} {
-			putlog "bMotion: ALERT! looping too much in %NUMBER code with $line"
-			set line "/has a tremendous error while trying to think of a number :("
-		}
-		set line [bMotionInsertString $line "%NUMBER\\{$numberString\\}(\\{\[0-9\]+\\})?" $var]
-		set padding 0
-	}
-
-	set loops 0
-	bMotion_putloglev 4 * "doing TIME processing"
-	while {[regexp "%TIME\{(\[a-zA-Z0-9 -\]+)\}" $line matches timeString]} {
-		bMotion_putloglev 2 * "found timestring $timeString"
-		set origtime $timeString
-		regsub -nocase {^-([0-9]) minutes?$} $timeString "\\1 minutes ago" timeString
-		set var [clock scan $timeString]
-		set var [clock format $var -format "%I:%M %p"]
-		bMotion_putloglev 2 * "using time $var"
-		incr loops
-		if {$loops > 10} {
-			putlog "bMotion: ALERT! looping too much in %TIME code with %line"
-			set line "/has a tremendous error while trying to do complex time mathematics :("
-		}
-		set line [bMotionInsertString $line "%TIME\\{$origtime\\}" $var]
-	}
-
 	bMotion_putloglev 4 * "doing misc interpolation processing for $line"
 	set line [bMotionInsertString $line "%%" $nick]
-	set line [bMotionInsertString $line "%pronoun" [getPronoun]]
-	set line [bMotionInsertString $line "%himherself" [getPronoun]]
-	set line [bMotionInsertString $line "%me" $botnick]
-	set line [bMotionInsertString $line "%colen" [bMotionGetColenChars]]
-	set line [bMotionInsertString $line "%hishers" [getHisHers]]
-	set line [bMotionInsertString $line "%heshe" [getHeShe]]
-	set line [bMotionInsertString $line "%hisher" [getHisHer]]
 	set line [bMotionInsertString $line "%2" $moreText]
 	set line [bMotionInsertString $line "%percent" "%"]
-	set line [bMotionInsertString $line "%daytime" [bMotion_get_daytime]]
-
 
 	bMotion_putloglev 4 * "done misc"
 
@@ -386,54 +293,6 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 # TODO: why was this separate?
 proc bMotionInterpolation2 { line } {
 	bMotion_putloglev 5 * "bMotionInterpolation2 ($line)"
-	#owners
-	set loops 0
-
-	while {[regexp -nocase "%OWNER\{(.*?)\}" $line matches BOOM]} {
-		set BOOM [string map {\\ \\\\ [ \\\[ ] \\\] \{ \\\{ \} \\\} $ \\\$ \" \\\" | \\\|} $BOOM]
-
-		incr loops
-		if {$loops > 10} {
-			putlog "bMotion: ALERT! looping too much in %OWNER code with $line"
-			set line "/has a tremendous error while trying to sort something out :("
-		}
-		# set line [bMotionInsertString $line "%OWNER\{$BOOM\}" [bMotionMakePossessive $BOOM]]
-		regsub -nocase "%OWNER\{$BOOM\}" $line [bMotionMakePossessive $BOOM] line
-		regsub -all "\\\\" $line "" line
-	}
-
-	set loops 0
-	while {[regexp -nocase "%VERB\{(.*?)\}" $line matches BOOM]} {
-		incr loops
-		if {$loops > 10} {
-			putlog "bMotion: ALERT! looping too much in %VERB code with $line"
-			set line "/has a tremendous error while trying to sort something out :("
-		}
-		# set line [bMotionInsertString $line "%VERB\{$BOOM\}" [bMotionMakeVerb $BOOM]]
-		regsub -nocase "%VERB\{$BOOM\}" $line [bMotionMakeVerb $BOOM] line
-	}
-
-	set loops 0
-	while {[regexp -nocase "%PLURAL\{(.*?)\}" $line matches BOOM]} {
-		incr loops
-		if {$loops > 10} {
-			putlog "bMotion: ALERT! looping too much in %PLURAL code with $line"
-			set line "/has a tremendous error while trying to sort something out :("
-		}
-		# set line [bMotionInsertString $line "%PLURAL\{$BOOM\}" [bMotionMakePlural $BOOM]]
-		regsub -nocase "%PLURAL\{$BOOM\}" $line [bMotionMakePlural $BOOM] line
-	}
-
-	set loops 0
-	while {[regexp -nocase "%REPEAT\{(.+?)\}" $line matches BOOM]} {
-		incr loops
-		if {$loops > 10} {
-			putlog "bMotion: ALERT! looping too much in %REPEAT code with $line"
-			set line "/has a tremendous error while trying to sort something out :("
-		}
-		set replacement [bMotionMakeRepeat $BOOM]
-		regsub -nocase "%REPEAT\\{$BOOM\\}" $line $replacement line
-	}
 
 	return $line
 }
@@ -445,8 +304,6 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 	bMotion_putloglev 5 * "bMotionSayLine: channel = $channel, nick = $nick, line = $line, moreText = $moreText, noTypo = $noTypo"
 	global mood botnick bMotionInfo bMotionCache bMotionOriginalInput
 	global bMotion_output_delay
-
-	set line [bMotionInterpolation2 $line]
 
 	#TODO: Put %ruser and %rbot back in here
 	# XXX: is the above TODO still valid?
@@ -469,7 +326,7 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 			}
 		} else {
 		#non-random
-		regexp {%BOT\[(@[^,]+,)?(.+)\]} $line matches condition cmd
+			regexp {%BOT\[(@[^,]+,)?(.+)\]} $line matches condition cmd
 		}
 
 		if {($condition != "") && [regexp {^@(.+),$} $condition matches c]} {
@@ -513,34 +370,6 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 				set line "$line dude..."
 			}
 		}
-	}
-
-	# Run the plugins :D
-
-	if {$noTypo == 0} {
-		set plugins [bMotion_plugin_find_output $bMotionInfo(language) $channel]
-		if {[llength $plugins] > 0} {
-			foreach callback $plugins {
-				bMotion_putloglev 1 * "bMotion: output plugin: $callback..."
-				set result ""
-				catch {
-					set result [$callback $channel $line]
-				} err
-				bMotion_putloglev 3 * "bMotion: returned from output $callback ($result)"
-				if [regexp "1¦(.+)" $result matches line] {
-					break
-				}
-				if {$result == ""} {
-					return 0
-				}
-				set line $result
-			}
-		}
-	}
-
-	#make sure the line wasn't set to blank by a plugin (may be trying to block output)
-	if {($line == "") || [regexp "^ +$" $line]} {
-		return 0
 	}
 
 	if {[string index $line end] == " "} {

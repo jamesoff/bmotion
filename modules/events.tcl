@@ -347,7 +347,7 @@ proc bMotion_event_main {nick host handle channel text} {
 			bMotion_plugins_settings_set "system" "rehash" "" "" $channel
 			set bMotion_testing 0
 			if {[matchattr $handle m]} {
-				putchan $channel [bMotionDoInterpolation "%VAR{rehashes}" "" ""]
+				putchan $channel [bMotion_abstract_get "rehashes"]
 				rehash
 				return 0
 			}

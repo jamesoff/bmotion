@@ -115,7 +115,8 @@ bMotion_abstract_register "failsafes_a"
 bMotion_abstract_batchadd "failsafes_a" [list "%VAR{rarrs}" "%REPEAT{3:7:m}" "%VAR{thanks}" "what" "/loves it" "/passes it on to %ruser" "/. o O ( ? )" "i do love a good %%ing"]
 
 bMotion_abstract_register "failsafes_b"
-bMotion_abstract_batchadd "failsafes_b" [list "/%% %2 %SETTING{complex:failsafe:last:nick:moo} back with %VAR{sillyThings}" "/%% %2 %SETTING{complex:failsafe:last:nick:moo}" "/%VERB{%VAR{sillyThings}{strip}} %2 %SETTING{complex:failsafe:last:nick:moo} in return" "i do love a good %%ing"]
+bMotion_abstract_batchadd "failsafes_b" [list "/%% %2 %SETTING{complex:failsafe:last:nick:moo} back with %VAR{sillyThings}" "/%% %2 %SETTING{complex:failsafe:last:nick:moo}" "/%VAR{sillyThings:verb,strip} %2 %SETTING{complex:failsafe:last:nick:moo} in return" "i do love a good %%ing"]
+bMotion_abstract_add_filter "failsafes_b" "%VERB"
 
 bMotion_abstract_register "squeezeds"
 bMotion_abstract_batchadd "squeezeds" [list "/pops" "/bursts" "/is compressed to a singularity and sucks in all of spacetime%|whoops" "/deflates" "%VAR{smiles}"]

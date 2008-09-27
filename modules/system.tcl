@@ -238,18 +238,18 @@ proc doRandomStuff {} {
 		if [bMotion_is_active_enough $channel] {
 			if [bMotion_is_active_enough $channel $active_idle_sec] {
 			#channel is fairly busy
-			if [bMotionSaySomethingRandom $channel 1] {
-			lappend saidChannels "$channel/active"
-			} else {
-			lappend silentChannels $channel
-			}
+				if [bMotionSaySomethingRandom $channel 1] {
+					lappend saidChannels "$channel/active"
+				} else {
+					lappend silentChannels $channel
+				}
 			} else {
 			#use a more idle randomstuff
-			if [bMotionSaySomethingRandom $channel 0] {
-			lappend saidChannels $channel
-			} else {
-			lappend silentChannels $channel
-			}
+				if [bMotionSaySomethingRandom $channel 0] {
+					lappend saidChannels $channel
+				} else {
+					lappend silentChannels $channel
+				}
 			}
 		} else {
 			lappend silentChannels $channel

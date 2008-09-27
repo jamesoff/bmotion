@@ -11,7 +11,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_output "fix" bMotion_plugin_output_fix 1 "all"
+bMotion_plugin_add_output "fix" bMotion_plugin_output_fix 1 "all" 1
 
 
 #  Fix broken output

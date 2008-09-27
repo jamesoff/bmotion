@@ -11,7 +11,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_output "colloq" bMotion_plugin_output_colloq 1 "en"
+bMotion_plugin_add_output "colloq" bMotion_plugin_output_colloq 1 "en" 11
 
 
 #    Attempt to make contractions etc similar to real people

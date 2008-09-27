@@ -11,7 +11,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_output "welsh" bMotion_plugin_output_welsh 0 "en"
+bMotion_plugin_add_output "welsh" bMotion_plugin_output_welsh 0 "en" 11
 
 
 proc bMotion_plugin_output_welsh { channel line } {

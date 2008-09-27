@@ -5,6 +5,7 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"/washes %hisher %VAR{bodypart}"
 	"%BOT\[<%me> good news everyone, I'm a horse's butt!\]%|i am? that doesn't sound like good news at all %VAR{unsmiles}"
 	"too bad %ruser's not around... i'll have to eat this raw dripping ham by myself"
 	"where do you have sex with a cake?"
@@ -453,6 +454,7 @@ bMotion_abstract_register "randomStuff_09_19" {
 ### Used by both genders
 ### Used when the channel is 'active' (default < 300 sec since last line)
 bMotion_abstract_register "activeRandomStuff" {
+	"that's nice dear"
 	"very good, give me surprised and pleased"
 	"impossible%|you are already at full cock now"
 	"you jerked the words right out of my mouth!"

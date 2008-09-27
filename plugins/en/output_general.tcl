@@ -12,12 +12,12 @@
 # in the modules directory.
 ###############################################################################
 
-#                          name     callback                       enabled at load (1 = yes)
-bMotion_plugin_add_output  "leet"   bMotion_plugin_output_leet     0 "en"
-bMotion_plugin_add_output "pickuser" bMotion_plugin_output_pickuser 1 "en"
+#                          name     callback                       enabled at load (1 = yes) #pri (<=10 = core)
+bMotion_plugin_add_output  "leet"   bMotion_plugin_output_leet     0 "en" 11
+bMotion_plugin_add_output "pickuser" bMotion_plugin_output_pickuser 1 "en" 5
 
 if [bMotion_plugin_check_depend "complex:dutchify"] {
-  bMotion_plugin_add_output  "dutch"  bMotion_plugin_output_dutch    0 "en"
+  bMotion_plugin_add_output  "dutch"  bMotion_plugin_output_dutch    0 "en" 11
 }
 
 proc bMotion_plugin_output_leet { channel text } {

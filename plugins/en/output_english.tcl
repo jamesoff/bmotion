@@ -11,7 +11,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_output "english" bMotion_plugin_output_english 1 "en"
+bMotion_plugin_add_output "english" bMotion_plugin_output_english 1 "en" 13
 
 
 #    Tries to straighten out b0rk3d English

@@ -3262,7 +3262,11 @@ bMotion_abstract_register "locations" {
 	"mordor"
 	"middle earth"
 	"the heart of the world"
-	"bree"
+	"behind the fridge"
+	"down the back of the sofa"
+	"up my cavernous arse"
+	"up your cavernous arse"
+	"up %OWNER{%ruser} cavernous arse"
 }
 
 bMotion_abstract_register "kills" {
@@ -3291,6 +3295,11 @@ bMotion_abstract_register "insult_joins" {
 	"\[%%\] I'm a %VAR{PROM}%|%VAR{wrong_infoline}"
 	"\[%%\] I love %ruser%|%VAR{wrong_infoline}"
 	"\[%%\] Just call me %VAR{sillyThings}%|%VAR{wrong_infoline}"
+}
+
+# someone we don't know joins the channel
+bMotion_abstract_register "unknown_joins" {
+	"%VAR{ranjoins}"
 }
 
 bMotion_abstract_register "pullsOut" {
@@ -4067,7 +4076,19 @@ bMotion_abstract_register "bb_stuff" {
 	"Day %NUMBER{500} %VAR{bb_time}: %ruser is in the %VAR{bb_places}. The other housemates are in the %VAR{bb_places}, talking about %OWNER{%ruser{prev}} %VAR{bodypart}"
 	"Day %NUMBER{500} %VAR{bb_time}: %ruser is in the diary room, talking to Big Brother about %VAR{bb_diary}"
 	"Day %NUMBER{500} %VAR{bb_time}: %ruser has hidden %OWNER{%ruser} %VAR{bb_posession} in %VAR{bb_hide}"
+	"Day %NUMBER{500} %VAR{bb_time}: %ruser has been crying in the %VAR{bb_room} for %NUMBER{100} minutes"
+	"Day %NUMBER{500} %VAR{bb_time}: %ruser had a dream about %VAR{nightmare}. %ruser hides in the %VAR{bb_room}"
 }
+
+bMotion_abstract_register "bb_room" {
+	"diary room"
+	"kitchen"
+	"dining area"
+	"lounge"
+	"garden"
+	"roof"
+}
+
 bMotion_abstract_register "bb_time" {
 	"%TIME{now}"
 }
@@ -4240,6 +4261,7 @@ bMotion_abstract_register "wake_ups" {
 	"%daytime!%|%VAR{weather}"
 	"%daytime!%|%VAR{todays_episode}"
 	"%daytime%|%VAR{todays_episode}"
+	"%VAR{bb_stuff}"
 }
 
 bMotion_abstract_register "todays_episode" {
@@ -4343,6 +4365,15 @@ bMotion_abstract_register "red_dwarf" {
 	"Let's at least ask someone who's at least going to give us a slightly more intelligent opinion. Hello, wall! What do you think?"
 	"This is the first time I've ever been seduced by predeterminism theory."
 	"Have you any idea how irritating you've just been? There are things that you could teach to tropical skin diseases!"
+}
+
+bMotion_abstract_register "noun_prefix" {
+	"space"
+	"surprise"
+	"lovely"
+	"minging"
+	"nice"
+	"horrible"
 }
 
 source "$bMotionModules/abstracts/en/randomstuff.tcl"

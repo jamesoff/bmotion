@@ -11,7 +11,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_output "diddlydots" bMotion_plugin_output_diddlydots 1 "en"
+bMotion_plugin_add_output "diddlydots" bMotion_plugin_output_diddlydots 1 "en" 13
 
 proc bMotion_plugin_output_diddlydots { channel line } {
 	if [regexp "^/" $line] { return $line }

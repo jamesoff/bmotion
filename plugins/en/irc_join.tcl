@@ -47,46 +47,53 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 		return 1
 	}
 	
-	global botnick mood
-	set chance [rand 10]
-
-	set greetings [bMotion_abstract_all "ranjoins"]
-	set lastLeft [bMotion_plugins_settings_get "system:join" "lastleft" $channel ""]
-
 	if {[bMotion_setting_get "friendly"] == "2"} {
 		# don't greet anyone
 		return 0
 	}
 
+	global botnick mood
+
+	set greetings "ranjoins"
+	set lastLeft [bMotion_plugins_settings_get "system:join" "lastleft" $channel ""]
+
+	if {$handle == "*"} {
+		if {[bMotion_setting_get "friendly"] != "1"} {
+			return 0
+		}
+		set greetings "unknown_joins"
+	}
+
+	bMotion_plugins_settings_set "system:join" "lastgreeted" $channel "" $nick
+	bMotion_plugins_settings_set "system:join" "lasttalk" $channel "" 1
+
 	if {$handle != "*"} {
 		if {![rand 10]} {
-			set greetings [concat $greetings [bMotion_abstract_all "insult_joins"]]
-		}
-		if {$nick == $lastLeft} {
-			set greetings [bMotion_abstract_all "welcomeBacks"]
-			bMotion_plugins_settings_set "system:join" "lastleft" $channel "" ""
+			set greetings "insult_joins"
 		}
 		bMotionGetHappy
 		bMotionGetUnLonely
-	} else {
-		#don't greet people we don't know
-		if {[bMotion_setting_get "friendly"] != 1} {
-			return 0
-		}
 	}
 
 	#set nick [bMotion_cleanNick $nick $handle]
-	if {[getFriendship $nick] < 40} {
+	if {[getFriendship $nick] < 50} {
 		set greetings [bMotion_abstract_all "dislike_joins"]
 	}
 
-	if {[getFriendship $nick] > 60} {
-		set greetings [concat $greetings [bMotion_abstract_all "bigranjoins"]]
+	if {[getFriendship $nick] > 50} {
+		set greetings "bigranjoins"
+
+		if {$nick == $lastLeft} {
+			set greetings "welcomeBacks"
+			bMotion_plugins_settings_set "system:join" "lastleft" $channel "" ""
+		}
 	}
 
-	bMotionDoAction $channel [bMotionGetRealName $nick $host] [pickRandom $greetings]
-	bMotion_plugins_settings_set "system:join" "lastgreeted" $channel "" $nick
-	bMotion_plugins_settings_set "system:join" "lasttalk" $channel "" 1
+	# ranjoins = generic greeting
+	# bigranjoins = friend greeting
+	# dislike_joins = enemy greeting
+
+	bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{$greetings}"
 
 	return 1
 }

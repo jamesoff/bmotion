@@ -17,7 +17,7 @@
 #
 
 
-bMotion_plugin_add_output "scots" bMotion_plugin_output_scots 100 "en"
+bMotion_plugin_add_output "scots" bMotion_plugin_output_scots 100 "en" 11
 
 proc bMotion_plugin_output_scots { channel line } {
 	bMotion_putloglev 4 * "bMotion_plugin_output_scots $channel $line"

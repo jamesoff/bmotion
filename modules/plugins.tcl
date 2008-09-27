@@ -257,7 +257,7 @@ proc bMotion_plugin_find_complex { text lang } {
 
 #
 # Load an output plugin
-proc bMotion_plugin_add_output { id callback enabled language { priority 2 } } {
+proc bMotion_plugin_add_output { id callback enabled language { priority 11 } } {
 	global bMotion_plugins_output plugins bMotion_testing bMotion_noplugins
 
 	if {$bMotion_testing == 0} {
@@ -282,7 +282,7 @@ proc bMotion_plugin_add_output { id callback enabled language { priority 2 } } {
 # Return a list of callbacks of output plugins
 # Sorted by priority then name
 # Includes plugins only enabled for the given channel
-proc bMotion_plugin_find_output { lang { channel "" } } {
+proc bMotion_plugin_find_output { lang { channel "" } { min_priority 0} { max_priority 100 } } {
 	global bMotion_plugins_output botnicks
 	global bMotion_plugins_output_perchan
 	global BMOTION_PLUGIN_OUTPUT_PRIORITY BMOTION_PLUGIN_OUTPUT_ENABLED BMOTION_PLUGIN_OUTPUT_LANGUAGE BMOTION_PLUGIN_OUTPUT_CALLBACK
@@ -294,17 +294,19 @@ proc bMotion_plugin_find_output { lang { channel "" } } {
 		set enabled [lindex $val $BMOTION_PLUGIN_OUTPUT_ENABLED]
 		set language [lindex $val $BMOTION_PLUGIN_OUTPUT_LANGUAGE]
 		set priority [lindex $val $BMOTION_PLUGIN_OUTPUT_PRIORITY]
-		if {[string match $lang $language] || ($language == "any")|| ($language == "all")} {
-			if {$enabled == 1} {
-				lappend result [list $callback $priority]
-			} else {
-				bMotion_putloglev 1 * "Searching $key for channel $channel"
-				if {$channel != ""} {
-					catch {
-						set chanlist $bMotion_plugins_output_perchan($key)
-						if {[lsearch $chanlist $channel] > -1} {
-							lappend result [list $callback $priority]
-							bMotion_putloglev d * "Plugin $key is enabled for $channel"
+		if {($priority >= $min_priority) && ($priority <= $max_priority)} {
+			if {[string match $lang $language] || ($language == "any")|| ($language == "all")} {
+				if {$enabled == 1} {
+					lappend result [list $callback $priority]
+				} else {
+					bMotion_putloglev 1 * "Searching $key for channel $channel"
+					if {$channel != ""} {
+						catch {
+							set chanlist $bMotion_plugins_output_perchan($key)
+							if {[lsearch $chanlist $channel] > -1} {
+								lappend result [list $callback $priority]
+								bMotion_putloglev d * "Plugin $key is enabled for $channel"
+							}
 						}
 					}
 				}

@@ -48,6 +48,7 @@ bMotion_abstract_batchadd "slapped" {
 	"ow! my %VAR{bodypart}! that was my %VAR{counts} one"
 	"arrgh my %VAR{bodypart}! now i only have %NUMBER{50} left"
 	"arrgh my %VAR{bodypart}! now i only have %NUMBER{50} left%|look, here in this box"
+	"a%REPEAT{3:6:r}gh my %VAR{bodypart}! now i only have %NUMBER{50}%NUMBER{100}%NUMBER{100} left%|look, here in this warehouse"
 	"%VAR{frightens}"
 }
 
@@ -61,4 +62,8 @@ bMotion_abstract_batchadd "counts" {
 	"spare"
 	"most important"
 	"least relavant"
+	"primary"
+	"secondary"
+	"emergency spare"
+	" "
 }

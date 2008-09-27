@@ -78,4 +78,4 @@ bMotion_abstract_register "prepends" {
 bMotion_abstract_add_filter "preciouses" {^[^ ]}
 bMotion_abstract_add_filter "narfs" {^[^ ]}
 
-bMotion_plugin_add_output "append" bMotion_plugin_output_append 1 "en"
+bMotion_plugin_add_output "append" bMotion_plugin_output_append 1 "en" 1

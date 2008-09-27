@@ -11,7 +11,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_output "jeffk" bMotion_plugin_output_jeffk 0 "en"
+bMotion_plugin_add_output "jeffk" bMotion_plugin_output_jeffk 0 "en" 11
 
 proc bMotion_plugin_output_jeffk { channel line } {
 

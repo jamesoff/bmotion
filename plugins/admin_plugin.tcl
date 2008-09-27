@@ -53,7 +53,6 @@ proc bMotion_plugin_management_plugins { handle { arg "" }} {
 	#disable a plugin
 	if [regexp -nocase {disable ([^ ]+) (.+?)( .+)?} $arg matches t id channel] {
 		if {$t == "output"} {
-			bMotion_putadmin "Disabling output plugin $id..."
 			if {$channel != ""} {
 				set channel [string trim $channel]
 				bMotion_putadmin "Disabling output plugin $id on channel $channel..."

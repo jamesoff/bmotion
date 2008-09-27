@@ -22,7 +22,7 @@ catch {
 	set bMotion_plugin_output_synonym_enabled 1
 }
 
-bMotion_plugin_add_output "synonym" bMotion_plugin_output_synonym $bMotion_plugin_output_synonym_enabled "en"
+bMotion_plugin_add_output "synonym" bMotion_plugin_output_synonym $bMotion_plugin_output_synonym_enabled "en" 11
 
 proc bMotion_plugin_output_synonym { channel line } {
 
