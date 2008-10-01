@@ -25,4 +25,4 @@ proc bMotion_plugin_output_preprocess { channel line } {
 	return $line
 }
 
-bMotion_plugin_add_output "preprocess" bMotion_plugin_output_preprocess 1 "en" 1
+bMotion_plugin_add_output "preprocess" bMotion_plugin_output_preprocess 1 "en" 13
