@@ -926,12 +926,13 @@ bMotion_abstract_register "hermes" {
 	"sweet lamprey of santa fe"
 	"sweet lion of zion"
 	"sweet cow of Moscow"
-	"sweet guinea pig of winniped"
+	"sweet guinea pig of winnipeg"
 	"sweet bongo of the congo"
 	"sweet yeti of the Serengeti"
 	"great three-toed sloth of ice planet Hoth"
 	"sweet squid of Madrid"
 }
+bMotion_abstract_add_filter "hermes" "winniped" ;# oops
 
 # bMotion Abstract Contents
 bMotion_abstract_register "stolens" {
