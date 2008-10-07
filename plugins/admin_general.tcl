@@ -135,11 +135,16 @@ proc bMotion_plugin_management_parse { handle { arg "" } } {
 				}
 		}
 
-		putlog "Parsing '$arg', requested in $target"
-
-		#we've been requested from a channel
-		puthelp $target
-		bMotionDoAction $target "somenick" $arg
+		#puthelp $target
+		if [regexp {^-n ?([0-9]+) (.+)} $arg matches repeat parse] {
+			putlog "Parsing '$parse' * $repeat in $target"
+			for { set i 0 } { $i < $repeat } { incr i } {
+				bMotionDoAction $target "somenick" $parse
+			}
+		} else {
+			putlog "Parsing '$arg', requested in $target"
+			bMotionDoAction $target "somenick" $arg
+		}
 		return 0
 }
 
