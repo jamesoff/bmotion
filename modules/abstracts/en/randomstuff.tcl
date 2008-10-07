@@ -5,6 +5,8 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"/. o O ( I AM NO LONGER EATING PORK )%|I just telepathically communicated that I am no longer eating pork.%|%BOT[yeah, i got that]"
+	"A sammich without bread isn't a sammich. It's meat with mustard on your hands!"
 	"/washes %hisher %VAR{bodypart}"
 	"%BOT\[<%me> good news everyone, I'm a horse's butt!\]%|i am? that doesn't sound like good news at all %VAR{unsmiles}"
 	"too bad %ruser's not around... i'll have to eat this raw dripping ham by myself"
@@ -168,7 +170,8 @@ bMotion_abstract_register "randomStuff" {
 	"I would be delicious."
 	"I am the underwear ninja!%|%BOT[Goddamnit that's MY underwear]"
 	"Apparently it is easier to cast spells in a thong"
-	"I have elbows!"
+	"I have %VAR{bodypart:plural}!"
+	"this little piggy went to %VAR{locations}%|this little piggy stayed home%|this little piggy had %VAR{foods}%|this little piggy had none%|and this little piggy went wee wee wee all the way home!"
 	"So do you want some coffee, or would you just prefer a quick fuck on the counter?"
 	"Hello! I've come to fix your fax modem!"
 	"I'd be in a lot of trouble if I was allergic to semen"
@@ -228,7 +231,7 @@ bMotion_abstract_register "randomStuff" {
 	"I feel like I'm about to vomit everywhere."
 	"Waiter, my soup's got %VAR{sillyThings} in it."
 	"I look good in hot pants."
-	"I just have a thing about toes."
+	"I just have a thing about %VAR{bodypart:plural}."
 	"Oh boy, my subscription is running out."
 	"I think it's getting bigger."
 	"Blondes DO have more fun!"
@@ -330,7 +333,15 @@ bMotion_abstract_register "randomStuff" {
 ### Used by the right gender bot in an inactive channel
 ### Mixed in with list above
 bMotion_abstract_register "randomStuff_male" {
+	"Looks like the squirrel's been showing everyone where he keeps his nuts."
+	"You wanna see some stuff I'm not supposed to show anyone?"
+	"Ha ha! Body in a woodchipper."
+	"Ha ha! Multiple entendre!"
+	"I can finally build that lakehouse, and I'll run around naked all day. Ha ha... dangly parts."
 	"this isn't even the whole outfit! wait till you see my sack!"
+	"My office! Burgled! Plundered! Purloined! Ha, ha... loins"
+	"To die, to sleep. To sleep, perchance to dream. Aye, there's the rub. Ha ha!... rub."
+	"Shake hand, Kiss baby, Shake hand, kiss baby, Shake hand, Kiss hand, Shake baby, Shake baby, Kiss hand, Shake baby, Shake baby, kiss hand."
 	"so i couldn't tell what it was and it smelled really bad but i ate it anyway%|then i just licked my balls until they hurt"
 	"Come on baby, let's go play schoolgirl and guy who has sex with schoolgirls!"
 	"i think %PLURAL{%VAR{sillyThings}{strip}} should have holes you can put your cock in"
@@ -355,6 +366,7 @@ bMotion_abstract_register "randomStuff_male" {
 
 bMotion_abstract_register "randomStuff_female" {
 	"excuse me, i need to go powder my ... nose"
+	"which one of you bastards did this to my camel toe?"
 	"I'm the sort of girl who goes to the pub with your mates%|and ends the night with an empty mates packet."
 	"This one time, at band camp, I put a flute..."
 	"Does my arse look big in this?"
@@ -538,6 +550,15 @@ bMotion_abstract_register "activeRandomStuff" {
 	"who... does... number... two... work... for?"
 	"you show that turd who's boss"
 	"i've been to some conventions like that"
+}
+
+bMotion_abstract_register "activeRandomStuff_male" {
+	"Ha ha! Surprise twist!"
+	"Well, I'm not a vet, but I do have these pliers."
+	"Hey lady, I need a yank! Ha ha! Dislocation."
+	"I'll take the case!"
+	"That means in the future I'm going to have sex! With a woman!"
+	"Oooh that's hot! Say it again!"
 }
 
 bMotion_abstract_register "activeRandomStuff_female" {

@@ -348,7 +348,7 @@ bMotion_abstract_register "phaserFires" {
 	"/fires several shots from the forward phaser banks, disabling %%"
 	"/fires several shots from the forward phaser banks, destroying %%%|/flies out through the explosion in an impressive bit of piloting (not to mention rendering :)"
 	"/accidentally activates the wrong system and replicates a small tree"
-	"/misses a gear and stalls%|Oops%|%bot\[50,¬VAR{ruins}\]"
+	"/misses a gear and stalls%|%VAR{oops}%|%bot\[50,¬VAR{ruins}\]"
 	"/uses attack pattern alpha, spiralling towards %%, firing all phaser banks%|* %% is blown to pieces as %me flies off into the middle distance"
 	"/anchors %% to a small asteriod, paints a target on their upper hull, and fires a full phaser blast at them"
 	"/rolls over, flying over %% upside down, firing the dorsal phaser arrays on the way past"
@@ -763,8 +763,8 @@ bMotion_abstract_register "punchlines" {
 }
 
 bMotion_abstract_register "typoFix" {
-	"oops"
-	"oops %SETTING{output:typos:typos:_:_}"
+	"%VAR{oops}"
+	"%VAR{oops} %SETTING{output:typos:typos:_:_}"
 	"%colen"
 	"ffs"
 	"grrr %SETTING{output:typos:typos:_:_}"
@@ -832,6 +832,23 @@ bMotion_abstract_register "bodypart" {
 	"shin"
 	"solar plexus"
 	"kidney"
+	"hair"
+	"wrist"
+	"eye"
+	"eyebrow"
+	"shoulder"
+	"elbow"
+	"knuckle"
+	"index finger"
+	"middle finger"
+	"ring finger"
+	"little finger"
+	"spine"
+	"thigh"
+	"ankle"
+	"big toe"
+	"little toe"
+	"toe"
 }
 
 bMotion_abstract_register "bodypart_male" {
@@ -899,6 +916,21 @@ bMotion_abstract_register "oops" {
 	"huk"
 	"heh"
 	"um... oops"
+	"bloody hell"
+	"oh arse"
+	"drat"
+}
+
+bMotion_abstract_register "hermes" {
+	"sweet gorilla of manila"
+	"sweet lamprey of santa fe"
+	"sweet lion of zion"
+	"sweet cow of Moscow"
+	"sweet guinea pig of winniped"
+	"sweet bongo of the congo"
+	"sweet yeti of the Serengeti"
+	"great three-toed sloth of ice planet Hoth"
+	"sweet squid of Madrid"
 }
 
 # bMotion Abstract Contents
@@ -990,6 +1022,10 @@ bMotion_abstract_register "bigranjoins" {
 	"%%!"
 	"%% %VAR{smiles}"
 	"oh my god it's %%... i'm so excited i wish i could wet my pants!"
+	"good %daytime %%"
+	"%daytime %%"
+	"%daytime %% %VAR{smiles}"
+	"%REPEAT{3:7:m} %%"
 }
 
 bMotion_abstract_register "hexMiddle" {
@@ -2724,6 +2760,7 @@ bMotion_abstract_register "yeses" {
 }
 
 bMotion_abstract_register "sillyThings" {
+	"the crrrrrrrrest on birdman's helmet"
 	"12 year old black metal kids"
 	"14 US dollars"
 	"1.5 pie"
@@ -2845,6 +2882,13 @@ bMotion_abstract_register "blownAways" {
 }
 
 bMotion_abstract_register "shocked" {
+	"deary me"
+	"egad!"
+	"gadzooks"
+	"good grief"
+	"great scott!"
+	"omg"
+	"sacrebleu!"
 	"!"
 	"!!!"
 	"crikey"
@@ -2864,6 +2908,16 @@ bMotion_abstract_register "shocked" {
 	"gosh"
 	"good heavens"
 	"well i never"
+	"oh my"
+	"sufferin' succatash!"
+	"shucks"
+	"well slap my ass and call me susan"
+	"well slap my ass and call me %me"
+	"well blow me down"
+	"well i'll be a monkey's uncle"
+	"yikes"
+	"cor"
+	"%VAR{hermes}"
 }
 
 bMotion_abstract_register "randomAways" {
@@ -3078,9 +3132,9 @@ bMotion_abstract_register "lyrics" {
 }
 
 bMotion_abstract_register "wrong_infoline" {
-	"oops, wrong infoline, sorry"
-	"huk, wrong infoline"
-	"whoops"
+	"%VAR{oops}, wrong infoline, sorry"
+	"%VAR{oops}huk, wrong infoline"
+	"%VAR{oops}whoops"
 	"o wait not that infoline"
 	"/snigger"
 	"wait, that's not right..."
@@ -4172,7 +4226,7 @@ bMotion_abstract_register "deopped" {
 bMotion_abstract_register "opped" {
 	"muwa%REPEAT{3:10:ha}"
 	"mmm, ops"
-	"i promise to be good and well-behaved with my new op superpowers%|\\kick %%%|whoops!"
+	"i promise to be good and well-behaved with my new op superpowers%|\\kick %%%|%VAR{oops}!"
 	"%VAR{thanks}"
 }
 
@@ -4259,9 +4313,16 @@ bMotion_abstract_register "wake_ups" {
 	"good %daytime!%|%VAR{weather}"
 	"%daytime%|%VAR{weather}"
 	"%daytime!%|%VAR{weather}"
-	"%daytime!%|%VAR{todays_episode}"
-	"%daytime%|%VAR{todays_episode}"
+	"%daytime!%|%VAR{todays_ep}"
+	"%daytime%|%VAR{todays_ep}"
 	"%VAR{bb_stuff}"
+}
+
+# originally this was wrong
+bMotion_abstract_add_filter "wake_ups" "todays_episode"
+
+bMotion_abstract_register "todays_ep" {
+	"Today's episode: %VAR{todays_episode}"
 }
 
 bMotion_abstract_register "todays_episode" {
@@ -4374,6 +4435,31 @@ bMotion_abstract_register "noun_prefix" {
 	"minging"
 	"nice"
 	"horrible"
+}
+
+bMotion_abstract_register "foods" {
+	"roast beef"
+	"pork"
+	"omelette"
+	"cornflakes"
+	"ketchup"
+	"quiche"
+	"sausages"
+	"rich tea"
+	"cheese"
+	"apples"
+	"oranges"
+	"birthday pie"
+	"pork cylinder"
+	"potato grid"
+	"sandwich casserole"
+	"garlic pudding"
+	"pasta pillows"
+	"bonbonbonbons"
+	"Mcfortune cookies"
+	"egg 'n' ham slab"
+	"during-dinner mints"
+	"%NUMBER{100} cheese omelette"
 }
 
 source "$bMotionModules/abstracts/en/randomstuff.tcl"
