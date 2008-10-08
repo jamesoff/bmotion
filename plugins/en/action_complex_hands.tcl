@@ -91,8 +91,10 @@ proc bMotion_plugin_complex_action_hands { nick host handle channel text } {
 			}
 		}
 
-		# not a nick, let's carry on with the generic stuff
-		bMotion_abstract_add "sillyThings" $item
+		if {![regexp -nocase "for$" $item]} {
+			# not a nick, let's carry on with the generic stuff
+			bMotion_abstract_add "sillyThings" $item
+		}
 
 		set original_item $item
 		set item [string tolower [bMotion_strip_article $item]]

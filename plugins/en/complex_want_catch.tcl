@@ -22,6 +22,9 @@ bMotion_plugin_add_complex "zzz-noun-catch" {\m(?:a|an|the) ([[:alpha:]]+)} 100 
 proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
   if [regexp -nocase "i (want|need) (?!to)(.+? )" $text matches verb item] {
     #that's a negative lookahead ---^
+		if [regexp -nocase "for$" $item] {
+			return 1
+		}
     bMotion_abstract_add "sillyThings" $item
     if {[rand 100] > 95} {
     	bMotionDoAction $channel "" "%VAR{gotone}"
@@ -34,6 +37,10 @@ proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
 	global botnicks
   if [regexp -nocase {^mm+[,.]* (.+)} $text matches item] {
     
+		if [regexp -nocase "for$" $item] {
+			return 1
+		}
+
     if [regexp -nocase "\ybmotion|$botnicks\y" $item] {
     	bMotionDoAction $channel "" "%VAR{wins}"
     	return 1
@@ -53,7 +60,12 @@ proc bMotion_plugin_complex_plusplus_catcher { nick host handle channel text } {
 	global botnicks
   if [regexp -nocase {^(.+)\+{2}$} $text matches item] {
     
-    if [regexp -nocase "\ybmotion|$botnicks\y" $item] {
+		if [regexp -nocase "for$" $item] {
+			return 1
+		}
+
+    if [regexp -nocase "^(bmotion|$botnicks)$" $item] {
+			driftFriendship $handle 2
     	bMotionDoAction $channel "" "%VAR{wins}"
     	return 1
     }
@@ -71,7 +83,12 @@ proc bMotion_plugin_complex_minmin_catcher { nick host handle channel text } {
   global botnicks
   if [regexp -nocase {^(.+)-{2}$} $text matches item] {
 
-    if [regexp -nocase "\ybmotion|$botnicks\y" $item] {
+		if [regexp -nocase "for$" $item] {
+			return 1
+		}
+
+    if [regexp -nocase "^(bmotion|$botnicks)$" $item] {
+			driftFriendship $handle -2
       bMotionDoAction $channel "" "%VAR{unsmiles}"
       return 1
     }
@@ -93,6 +110,10 @@ proc bMotion_plugin_complex_noun_catcher { nick host handle channel text } {
     if [regexp "(ly)$" $item] {
       return 0
     }
+
+		if [regexp -nocase "for$" $item] {
+			return 1
+		}
 
     if [regexp "(ing|ed)$" $item] {
       if {$second == ""} {
@@ -116,7 +137,7 @@ proc bMotion_plugin_complex_noun_catcher { nick host handle channel text } {
 }
 
 bMotion_abstract_register "gotone"
-bMotion_abstract_batchadd "gotone" [list "I've already got one%|%BOT\[are you sure?\]%|yes yes, it's very nice" "I already have one of those." "I had one of them the other week. They're very nice, aren't they?"]
+bMotion_abstract_batchadd "gotone" [list "I've already got one%|%BOT\[are you sure?\]%|yes yes, it's very nice" "I already have one of those." "I had one of them the other week. They're very nice, aren't they?" "r"]
 
 bMotion_abstract_register "betters"
 bMotion_abstract_batchadd "betters" [list "mm%REPEAT{1:5:m}, %VAR{sillyThings}{strip}" "%VAR{sillyThings}{strip} > %%" "%% < %VAR{sillyThings}{strip}" "%%++"]

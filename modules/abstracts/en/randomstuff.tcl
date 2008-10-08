@@ -5,6 +5,8 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"/shuffles %OWNER{%ruser} %VAR{foods:plural}"
+	"/eats %OWNER{%ruser} %VAR{foods}"
 	"/. o O ( I AM NO LONGER EATING PORK )%|I just telepathically communicated that I am no longer eating pork.%|%BOT[yeah, i got that]"
 	"A sammich without bread isn't a sammich. It's meat with mustard on your hands!"
 	"/washes %hisher %VAR{bodypart}"
@@ -466,6 +468,7 @@ bMotion_abstract_register "randomStuff_09_19" {
 ### Used by both genders
 ### Used when the channel is 'active' (default < 300 sec since last line)
 bMotion_abstract_register "activeRandomStuff" {
+	"that's the most sensible thing i've heard all day. now let's go sniff some butt"
 	"that's nice dear"
 	"very good, give me surprised and pleased"
 	"impossible%|you are already at full cock now"

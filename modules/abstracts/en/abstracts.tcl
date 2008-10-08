@@ -934,7 +934,7 @@ bMotion_abstract_register "hermes" {
 }
 bMotion_abstract_add_filter "hermes" "winniped" ;# oops
 
-# bMotion Abstract Contents
+a bMotion Abstract Contents
 bMotion_abstract_register "stolens" {
 	"Hey NO :(%|That's mine%|/sulks at %%"
 	"heeeeyyyy%|:("
@@ -4461,6 +4461,8 @@ bMotion_abstract_register "foods" {
 	"egg 'n' ham slab"
 	"during-dinner mints"
 	"%NUMBER{100} cheese omelette"
+	"carrots"
+	"turnips"
 }
 
 source "$bMotionModules/abstracts/en/randomstuff.tcl"

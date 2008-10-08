@@ -61,6 +61,10 @@ proc bMotion_plugin_output_VAR { channel line } {
 			set options_list [list]
 		}
 
+		if {$clean == "{strip}"} {
+			lappend options_list "clean"
+		}
+
 		if {[lsearch $options_list "strip"] > -1} {
 			set replacement [bMotion_strip_article $replacement]
 		}

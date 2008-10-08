@@ -71,8 +71,10 @@ proc bMotion_plugin_complex_action_shows { nick host handle channel text } {
     #catch everything for now
     bMotionDoAction $channel $properitem "%VAR{show_generic}"
 
-    #we'll add it to our random things list for this session too
-    bMotion_abstract_add "sillyThings" $learnitem
+		if {![regexp -nocase "for$" $text]} {
+			#we'll add it to our random things list for this session too
+			bMotion_abstract_add "sillyThings" $learnitem
+		}
     return 1
   }
   #end of "shows" handler
