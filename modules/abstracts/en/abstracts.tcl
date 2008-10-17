@@ -934,7 +934,6 @@ bMotion_abstract_register "hermes" {
 }
 bMotion_abstract_add_filter "hermes" "winniped" ;# oops
 
-a bMotion Abstract Contents
 bMotion_abstract_register "stolens" {
 	"Hey NO :(%|That's mine%|/sulks at %%"
 	"heeeeyyyy%|:("
