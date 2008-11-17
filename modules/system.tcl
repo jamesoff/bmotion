@@ -863,7 +863,8 @@ proc bMotion_cleanNick { nick { handle "" } } {
 
 	#have we STILL got illegal chars?
 	if {[regexp {[\\\[\]\{\}]} $nick]} {
-		return [string map { \[ "_" \] "_" \{ "_" \} "_" } $nick]
+		#set nick [string map { \[ "_" \] "_" \{ "_" \} "_" } $nick]
+		set nick [string map { \[ "" \] "" \{ "" \} "" } $nick]
 	}
 	return $nick
 }
