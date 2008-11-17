@@ -5,6 +5,13 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"The next channel is #%VAR{tube_stations:underscore}. Change here for networks to %VAR{locations}."
+	"The next channel is #%VAR{tube_stations:underscore}. Please mind the gap between the channel and the server."
+	"The next channel is #%VAR{tube_stations:underscore}. Change here for channels to #%VAR{tube_stations:underscore} and backbone services to %VAR{locations}."
+	"The next channel is #%VAR{tube_stations:underscore}. Alight here for %VAR{irc_attractions}."
+	"The next channel is #%VAR{tube_stations:underscore}. Change here for the %VAR{irc_networks}."
+	"Yay! Pooped!"
+	"The secondary gyrodyne relays in the propulsion field matrix have just depolarized!"
 	"/shuffles %OWNER{%ruser} %VAR{foods:plural}"
 	"/eats %OWNER{%ruser} %VAR{foods}"
 	"/. o O ( I AM NO LONGER EATING PORK )%|I just telepathically communicated that I am no longer eating pork.%|%BOT[yeah, i got that]"
@@ -468,6 +475,7 @@ bMotion_abstract_register "randomStuff_09_19" {
 ### Used by both genders
 ### Used when the channel is 'active' (default < 300 sec since last line)
 bMotion_abstract_register "activeRandomStuff" {
+	"You know, you really should keep a personal log; why bore others needlessly?" 
 	"that's the most sensible thing i've heard all day. now let's go sniff some butt"
 	"that's nice dear"
 	"very good, give me surprised and pleased"

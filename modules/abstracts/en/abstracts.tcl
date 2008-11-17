@@ -932,7 +932,7 @@ bMotion_abstract_register "hermes" {
 	"great three-toed sloth of ice planet Hoth"
 	"sweet squid of Madrid"
 }
-bMotion_abstract_add_filter "hermes" "winniped" ;# oops
+bMotion_abstract_add_filter "hermes" "winniped"
 
 bMotion_abstract_register "stolens" {
 	"Hey NO :(%|That's mine%|/sulks at %%"
@@ -2504,6 +2504,7 @@ bMotion_abstract_register "afro_T" {
 	"time"
 	"ta"
 	"trials"
+	"You know, you really should keep a personal log; why bore others needlessly?" 
 	"touch"
 	"this"
 	"that"
@@ -3349,6 +3350,7 @@ bMotion_abstract_register "insult_joins" {
 	"\[%%\] I'm a %VAR{PROM}%|%VAR{wrong_infoline}"
 	"\[%%\] I love %ruser%|%VAR{wrong_infoline}"
 	"\[%%\] Just call me %VAR{sillyThings}%|%VAR{wrong_infoline}"
+	"%ruser: what do you mean you put it in a melon?"
 }
 
 # someone we don't know joins the channel
@@ -3892,8 +3894,8 @@ bMotion_abstract_register "randomSongArtist" {
 }
 
 bMotion_abstract_register "randomSongName" {
-	"music for %PLURAL{%VAR{sillyThings}{strip}}"
-	"%PLURAL{%VAR{sillyThings}{strip}} of desire"
+	"music for %VAR{sillyThings:plural,strip}"
+	"%VAR{sillyThings:plural,strip} of desire"
 	"Hurt"
 	"requiem for %VAR{sillyThings}"
 	"I Hate Myself and I Want to Die"
@@ -3907,6 +3909,8 @@ bMotion_abstract_register "randomSongName" {
 	"God Save the Queen"
 	"Untitled Track %NUMBER{100}"
 }
+
+bMotion_abstract_add_filter "randomSongName" "%PLURAL"
 
 bMotion_abstract_register "answerWhatOdds" {
 	"one in a million"
@@ -4122,8 +4126,8 @@ bMotion_abstract_register "bb_places" {
 }
 
 bMotion_abstract_register "bb_stuff" {
-	"Day %NUMBER{500} %VAR{bb_time}: Big Brother has given the housemates %NUMBER{50} %PLURAL{%VAR{sillyThings}{strip}} and challenged them to build %VAR{sillyThings}"
-	"Day %NUMBER{500} %VAR{bb_time}: Big Brother has given the housemates %NUMBER{50} %PLURAL{%VAR{sillyThings}{strip}} and challenged them to build %VAR{sillyThings}. %ruser has been crying in the %VAR{bb_places} for %NUMBER{30} minutes."
+	"Day %NUMBER{500} %VAR{bb_time}: Big Brother has given the housemates %NUMBER{50} %VAR{sillyThings:plural,strip} and challenged them to build %VAR{sillyThings}"
+	"Day %NUMBER{500} %VAR{bb_time}: Big Brother has given the housemates %NUMBER{50} %VAR{sillyThings:plural,strip} and challenged them to build %VAR{sillyThings}. %ruser has been crying in the %VAR{bb_places} for %NUMBER{30} minutes."
 	"Day %NUMBER{500} %VAR{bb_time}: This week, %ruser, %ruser and %ruser are all up for eviction"
 	"Day %NUMBER{500} %VAR{bb_time}: Big Brother has locked %ruser in the %VAR{bb_places} for %VAR{bb_naughty}"
 	"Day %NUMBER{500} %VAR{bb_time}: Big Brother has set the housemates a %VAR{bb_task} task"
@@ -4133,6 +4137,8 @@ bMotion_abstract_register "bb_stuff" {
 	"Day %NUMBER{500} %VAR{bb_time}: %ruser has been crying in the %VAR{bb_room} for %NUMBER{100} minutes"
 	"Day %NUMBER{500} %VAR{bb_time}: %ruser had a dream about %VAR{nightmare}. %ruser hides in the %VAR{bb_room}"
 }
+
+bMotion_abstract_add_filter "bb_stuff" "%PLURAL|\\{strip\\}"
 
 bMotion_abstract_register "bb_room" {
 	"diary room"
@@ -4462,6 +4468,93 @@ bMotion_abstract_register "foods" {
 	"%NUMBER{100} cheese omelette"
 	"carrots"
 	"turnips"
+}
+
+bMotion_abstract_register "tube_stations" {
+	"waterloo"
+	"bakerloo"
+	"westminster"
+	"aldgate"
+	"alperton"
+	"amersham"
+	"angel"
+	"archway"
+	"bank"
+	"barking"
+	"bayswater"
+	"backton"
+	"blackfriars"
+	"blackwall"
+	"borough"
+	"brixton"
+	"chesham"
+	"chigwell"
+	"chorleywood"
+	"crossharbour"
+	"edgware"
+	"embankment"
+	"epping"
+	"euston"
+	"farringdon"
+	"greenwich"
+	"hammersmith"
+	"harlesden"
+	"highgate"
+	"hillingdon"
+	"holborn"
+	"ickenham"
+	"kennington"
+	"kenton"
+	"kingsbury"
+	"knightsbridge"
+	"lewisham"
+	"limehouse"
+	"marylebone"
+	"monument"
+	"moorgate"
+	"morden"
+	"oval"
+	"paddington"
+	"poplar"
+	"queensbury"
+	"queensway"
+	"richmond"
+	"rickmansworth"
+	"ruislip"
+	"shadwell"
+	"southgate"
+	"southwark"
+	"stanmore"
+	"stockwell"
+	"temple"
+	"upminster"
+	"uxbridge"
+	"vauxhall"
+	"victoria"
+	"wanstead"
+	"wapping"
+	"watford"
+	"westminster"
+	"whitechapel"
+	"wimbledon"
+}
+
+bMotion_abstract_register "irc_networks" {
+	"efnet"
+	"ircnet"
+	"quakenet"
+	"dalnet"
+	"freenode"
+	"undernet"
+}
+
+bMotion_abstract_register "irc_attractions" {
+	"the Museum of Recursion %REPEAT{2:10:including the Museum of Recursion }"
+	"the Museum of Recursion %REPEAT{2:10:including the Museum of Recursion }"
+	"Oppingham Palace"
+	"the Sysops Museum"
+	"the Victoria and Al-bot Museum"
+	"Eggdrop House"
 }
 
 source "$bMotionModules/abstracts/en/randomstuff.tcl"
