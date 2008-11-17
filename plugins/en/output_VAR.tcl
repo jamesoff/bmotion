@@ -88,13 +88,16 @@ proc bMotion_plugin_output_VAR { channel line } {
 			set replacement [bMotionMakePossessive $replacement]
 		}
 
+		if {[lsearch $options_list "underscore"] > -1} {
+			set replacement [string map { " " "_" } $replacement]
+		}
+
 		# actually do the replacement
 		regsub $whole_thing $line $replacement line
 
 		# check if what we swapped in gave us a %noun
 		if [string match "*%noun*" $line] {
 			set line [bMotionInsertString $line "%noun" "%VAR{sillyThings}"]
-
 		}
 
 		if {$lastloop == $line} {
