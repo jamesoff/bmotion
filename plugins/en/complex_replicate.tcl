@@ -11,13 +11,13 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_complex "replicate" "^%botnicks:?,? (please )?(replicate|create|send|make) (.+?\[^?\])$" 100 bMotion_plugin_complex_replicate "en"
-bMotion_plugin_add_complex "replicate2" "^%botnicks:?,? (please )?(replicate|create|send|make) (.+) (for|to) (.+)" 100 bMotion_plugin_complex_replicate2 "en"
+bMotion_plugin_add_complex "replicate" "^%botnicks:?,? (please )?(replicate|create|send|make|turn) (.+?\[^?\])$" 100 bMotion_plugin_complex_replicate "en"
+bMotion_plugin_add_complex "replicate2" "^%botnicks:?,? (please )?(replicate|create|send|make|turn) (.+) (for|to) (.+)" 100 bMotion_plugin_complex_replicate2 "en"
 
 proc bMotion_plugin_complex_replicate { nick host handle channel text } {
   global botnicks
 
-  regexp -nocase "^${botnicks}:?,? (please )?(replicate|create|send|make) (.+)" $text matches bot please action details
+  regexp -nocase "^${botnicks}:?,? (please )?(replicate|create|send|make|turn) (.+)" $text matches bot please action details
 
   #make it so
   if [regexp -nocase "^it so$" $details] { 
@@ -44,7 +44,7 @@ proc bMotion_plugin_complex_replicate { nick host handle channel text } {
   if {$who == "me"} { set whom $nick }
   if {[regexp -nocase "(yourself|you)" $who]} { set whom [getPronoun] }
   if {$whom == ""} { set whom $who }
-  if {[string tolower $action] == "make"} {
+  if {[string tolower $action] == "make" || [string tolower $action] == "turn" } {
     if {($whom == [getPronoun]) && [regexp -nocase "(come|cum|ejaculate|squirt)" $item]} {
       cum $channel $nick
       return 1
