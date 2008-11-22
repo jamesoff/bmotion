@@ -23,11 +23,11 @@ proc bMotion_plugin_output_colloq { channel line } {
   set oldLine $line
 
   if [bMotion_plugin_output_colloq_chance $colloq_rate] {
-    regsub -all -nocase "\mshould( have|\'ve| of)\M" $line "%VAR{colloq_shouldhave}" line
+    regsub -all -nocase "\mshould( have|\'ve| of)\M" $line [bMotion_abstract_get "colloq_shouldhave"] line
   }
 
   if [bMotion_plugin_output_colloq_chance $colloq_rate] {
-    regsub -all -nocase "\mshouldn't( have|\'ve| of)\M" $line "%VAR{colloq_shouldhavenot}" line
+    regsub -all -nocase "\mshouldn't( have|\'ve| of)\M" $line [bMotion_abstract_get "colloq_shouldhavenot"] line
   }
 
   if [bMotion_plugin_output_colloq_chance $colloq_rate] {
@@ -48,8 +48,8 @@ proc bMotion_plugin_output_colloq { channel line } {
   }
 
   if [bMotion_plugin_output_colloq_chance $colloq_rate] {
-    regsub -all -nocase {\myou\M} $line "%VAR{colloq_you}" line
-    regsub -all -nocase {\myour\M} $line "%VAR{colloq_your}" line
+    regsub -all -nocase {\myou\M} $line [bMotion_abstract_get "colloq_you"] line
+    regsub -all -nocase {\myour\M} $line [bMotion_abstract_get "colloq_your"] line
   }
 
   if [bMotion_plugin_output_colloq_chance $colloq_rate] {
@@ -57,7 +57,7 @@ proc bMotion_plugin_output_colloq { channel line } {
   }
 
   if [bMotion_plugin_output_colloq_chance $colloq_rate] {
-    if {![regexp "\.$" $line]} {
+    if {[regexp -nocase "[a-z0-9]$" $line]} {
       append line "."
     }
   }
