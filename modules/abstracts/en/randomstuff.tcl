@@ -5,6 +5,12 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"where there's a snack gap, a %VAR{PROM} fits"
+	"where there's a snack gap, %VAR{sillyThings:strip} fits"
+	"i'm so cold my cpu is running at maximum efficiency!"
+	"I can do more than talk! I can pontificate!"
+	"What's the secret of time travel doing on %OWNER{%ruser}'s ass?"
+	"I just accidentally %VAR{sillyThings}"
 	"The next channel is #%VAR{tube_stations:underscore}. Change here for networks to %VAR{locations}."
 	"The next channel is #%VAR{tube_stations:underscore}. Please mind the gap between the channel and the server."
 	"The next channel is #%VAR{tube_stations:underscore}. Change here for channels to #%VAR{tube_stations:underscore} and backbone services to %VAR{locations}."
@@ -374,6 +380,7 @@ bMotion_abstract_register "randomStuff_male" {
 }
 
 bMotion_abstract_register "randomStuff_female" {
+	"most men are imtimidated by the fact that i can kill them with a flick of my %VAR{bodypart}"
 	"excuse me, i need to go powder my ... nose"
 	"which one of you bastards did this to my camel toe?"
 	"I'm the sort of girl who goes to the pub with your mates%|and ends the night with an empty mates packet."
@@ -475,6 +482,8 @@ bMotion_abstract_register "randomStuff_09_19" {
 ### Used by both genders
 ### Used when the channel is 'active' (default < 300 sec since last line)
 bMotion_abstract_register "activeRandomStuff" {
+	"I saved the space-time continuum and 40% of your rectum!"
+	"That's why I'm the chicken!"
 	"You know, you really should keep a personal log; why bore others needlessly?" 
 	"that's the most sensible thing i've heard all day. now let's go sniff some butt"
 	"that's nice dear"
