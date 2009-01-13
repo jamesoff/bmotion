@@ -76,6 +76,7 @@ bMotion_abstract_register "fuckOffs" {
 	"I beg your pardon?"
 	"What did you just say?"
 	"you fuck off and smell my socks!"
+	"fuck you you %VAR{insults}"
 }
 
 bMotion_abstract_register "silenceAways" {
@@ -1026,6 +1027,7 @@ bMotion_abstract_register "bigranjoins" {
 	"%daytime %%"
 	"%daytime %% %VAR{smiles}"
 	"%REPEAT{3:7:m} %%"
+	"helle%REPEAT{4:8:w}"
 }
 
 bMotion_abstract_register "hexMiddle" {
@@ -1216,6 +1218,7 @@ bMotion_abstract_register "stupidReplies" {
 	"Yes Jade. Absolutely."
 	"at least i'm not a talking penis"
 	"garbage fucker"
+	"shut up you %VAR{prom_first}"
 	"I have no thumbs."
 }
 
@@ -1323,6 +1326,7 @@ bMotion_abstract_register "tech_answer" {
 }
 
 bMotion_abstract_register "prom_first" {
+	"fart"
 	"piss"
 	"shit"
 	"fuck"
@@ -1340,6 +1344,27 @@ bMotion_abstract_register "prom_first" {
 	"ass"
 	"bum"
 	"twat"
+	"pissy"
+	"weiner"
+	"pap"
+	"fag"
+	"poop"
+	"special"
+	"prick"
+	"bastard"
+	"bitch"
+	"tranny"
+	"whore"
+	"toss"
+	"bender"
+	"vomit"
+	"sausage"
+	"asshole"
+	"tit"
+	"twat"
+	"puke"
+	"gypsy"
+	"bollock"
 }
 
 bMotion_abstract_register "silences" {
@@ -1417,6 +1442,36 @@ bMotion_abstract_register "prom_second" {
 	"button"
 	"socket"
 	"bag"
+	"engine"
+	"basket"
+	"terrorist"
+	"cake"
+	"lance"
+	"octopus"
+	"utensil"
+	"chaser"
+	"stabber"
+	"lord"
+	"harmonica"
+	"mole"
+	"mustard"
+	"rocket"
+	"plank"
+	"captain"
+	"pipe"
+	"spanner"
+	"princess"
+	"alley"
+	"stirrer"
+	"cellist"
+	"pimp"
+	"trumpet"
+	"cheese"
+	"artist"
+	"master"
+	"numpty"
+	"badger"
+	"holster"
 }
 
 bMotion_abstract_register "ididntresponses" {
@@ -2919,6 +2974,24 @@ bMotion_abstract_register "shocked" {
 	"yikes"
 	"cor"
 	"%VAR{hermes}"
+	"%VAR{ulysses}"
+}
+
+bMotion_abstract_register "ulysses" {
+	"quivering quasars!"
+	"by the great galaxy!"
+	"cursing comets!"
+	"by all the constellations!"
+	"by the multiphased moon!"
+	"by the countless constellations!"
+	"by the tail of the great comet!"
+	"by the cosmic dust!"
+	"by the big bang!"
+	"by the supernova!"
+	"pounding pulsars!"
+	"by the great space-warp!"
+	"great shimmering suns!"
+	"what in the name of jupiter can it mean!"
 }
 
 bMotion_abstract_register "randomAways" {
@@ -3255,6 +3328,7 @@ bMotion_abstract_register "ruins" {
 	"fail"
 	"epic suck"
 	"lol"
+	"you blithering idiot!"
 }
 
 bMotion_abstract_register "hexStart" {
@@ -4322,6 +4396,7 @@ bMotion_abstract_register "wake_ups" {
 	"%daytime!%|%VAR{todays_ep}"
 	"%daytime%|%VAR{todays_ep}"
 	"%VAR{bb_stuff}"
+	"%channel is recorded in front of a live studio audience"
 }
 
 # originally this was wrong
@@ -4555,6 +4630,12 @@ bMotion_abstract_register "irc_attractions" {
 	"the Sysops Museum"
 	"the Victoria and Al-bot Museum"
 	"Eggdrop House"
+}
+
+bMotion_abstract_register "insults" {
+	"%VAR{prom_first}osaurus rex"
+	"%VAR{prom_first}"
+	"%VAR{prom_first}-wizard"
 }
 
 source "$bMotionModules/abstracts/en/randomstuff.tcl"
