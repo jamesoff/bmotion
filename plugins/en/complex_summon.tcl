@@ -35,7 +35,7 @@ proc bMotion_plugin_complex_summon { nick host handle channel text } {
 			return 2
 		}	
 		# now we can do our main checks
-		if { $name != "" && $name != $nick } {
+		if { $name != "" && [string tolower $name] != [string tolower $nick] } {
 			# summon the best we can
 			if { ![onchan $name $channel] } {
  				# the botnick could be non-existant
