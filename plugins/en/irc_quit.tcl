@@ -75,4 +75,4 @@ bMotion_abstract_register "departs-nice"
 bMotion_abstract_batchadd "departs-nice" [list "bye %%" "i like them %VAR{smiles}" "i wish they didn't have to go %VAR{unsmiles}" "mmm %%"]
 
 bMotion_abstract_register "departs-nasty"
-bMotion_abstract_batchadd "departs-nasty" [list "bye sucker" "i don't like them" "i hope they don't come back" "%%: AND DON'T COME BACK!" "See You Next Tuesday, %%!" "%%: don't let the door hit your ass on the way out%|because I don't want ass-prints on my new door!"]
+bMotion_abstract_batchadd "departs-nasty" [list "bye sucker" "i don't like them" "i hope they don't come back" "%%: AND DON'T COME BACK!" "See You Next Tuesday, %%!" "%%: don't let the door hit your ass on the way out%|because I don't want ass-prints on my new door!" "what a %VAR{insults} %VAR{unsmiles}"]

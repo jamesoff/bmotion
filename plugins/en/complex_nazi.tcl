@@ -12,7 +12,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_complex "nazi-your" "^your (a |the )?\[a-z\]+$" 60 bMotion_plugin_complex_nazi1 "en"
+bMotion_plugin_add_complex "nazi-your" "^your (a|the) \[a-z\]+$" 60 bMotion_plugin_complex_nazi1 "en"
 bMotion_plugin_add_complex "nazi-regexp" "^s/\[^/\]+/\[^/\]+$" 80 bMotion_plugin_complex_nazi2 "en"
 
 proc bMotion_plugin_complex_nazi1 {nick host handle channel text} {

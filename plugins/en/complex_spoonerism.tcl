@@ -15,6 +15,9 @@ bMotion_plugin_add_complex "spoon" {^([^%/aeiou. ]+)([aeiuo][a-z]+) ([a-z]+ )?([
 
 bMotion_plugin_add_complex "spoooooon" {^[b-df-hj-np-tv-xz]+[aeiou]{2}[b-df-hj-np-tv-xz]+[.!?]?$} 40 bMotion_plugin_complex_spoon2 "en"
 
+bMotion_plugin_add_complex "somethingless" {[a-z]+less [a-z]+} 40 bMotion_plugin_complex_spoon3 "en"
+
+
 proc bMotion_plugin_complex_spoon { nick host handle channel text } {
 
 	if (![bMotion_interbot_me_next $channel]) {
@@ -37,6 +40,23 @@ proc bMotion_plugin_complex_spoon2 { nick host handle channel text } {
 
 	if [regexp -nocase {([b-df-hj-np-tv-xz]+)(([aeiou])\3)([b-df-hj-np-tv-xz]+[.!?]?)} $text matches 1 2 3 4] {
 		bMotionDoAction $channel $text "$1%REPEAT{2:10:$2}$3$4"
+		return 1
+	}
+}
+
+
+proc bMotion_plugin_complex_spoon3 { nick host handle channel text } {
+
+	if (![bMotion_interbot_me_next $channel]) {
+		return 0
+	}
+
+	if [regexp -nocase {([a-z]+)less ([a-z]+)\M} $text matches one two] {
+		if {[string range $two end end] == "s"} {
+			append one "s"
+			set two [string range $two 0 end-1]
+		}
+		bMotionDoAction $channel "" "${two}less $one"
 		return 1
 	}
 }
