@@ -1136,7 +1136,7 @@ if {[bMotion_setting_get "sleepy"] == 1} {
 }
 
 proc bMotion_get_daytime { } {
-	set hour [clock format [clock seconds] -format "%H"]
+	set hour [clock format [clock seconds] -format "%k"]
 
 	if {$hour < 1} {
 		return "evening"
@@ -1152,6 +1152,8 @@ proc bMotion_get_daytime { } {
 
 	return "evening"
 }
+
+
 
 bMotion_putloglev d * "bMotion: system module loaded"
 
