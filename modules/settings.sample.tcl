@@ -158,6 +158,18 @@ set bMotion_interbot_enable 1
 # floating-point is fine
 set bMotionSettings(bias) 1
 
+# Censor output plugin
+# The censor output plugin replaces words in output with "beep"
+# This setting gives the words to be replaced. Some work is done to let these
+#   be stems, so you don't need to add both "fuck" and "fucking". This is a space
+#   separated list of words
+# CAVEAT: Some of bMotion's humour comes from double-entendres, and this doesn't
+#         filter those out!
+set bMotionSettings(censorwords) "cunt shit piss decaf"
+
+# Word to replace with, defaults to BEEP
+#set bMotionSettings(censorbeep) "BEEP"
+
 
 ### Flood checking
 #
