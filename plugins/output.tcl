@@ -30,3 +30,37 @@ foreach bMotion_language $languages {
 		}
   }
 }
+
+# enable or disable plugins as per the settings file
+# setting format:
+# pluginname1:1,pluginname2=#channel,pluginname3:0
+# enables pluginname1 globally, pluginname2 on #channel, and disables pluginname3
+
+set output_preenables [split [bMotion_setting_get "output_preenables"] ","]
+
+foreach output_preenable $output_preenables {
+	if {[string range $output_preenable end-1 end] == ":1"} {
+		set plugin [string range $output_preenable 0 [expr [string last ":1" $output_preenable] - 1]]
+		bMotion_putloglev d * "Globally enabling output plugin $plugin from settings file"
+		bMotion_plugin_set_output $plugin 1
+		continue
+	}
+
+	if {[string range $output_preenable end-1 end] == ":0"} {
+		set plugin [string range $output_preenable 0 [expr [string last ":1" $output_preenable] - 1]]
+		bMotion_putloglev d * "Globally disabling output plugin $plugin from settings file"
+		bMotion_plugin_set_output $plugin 0
+		continue
+	}
+
+	if [string match "*=*" $output_preenable] {
+		set plugin [string range $output_preenable 0 [expr [string last "=" $output_preenable] - 1]]
+		set chan [string range $output_preenable [expr [string last "=" $output_preenable] + 1] end]
+		bMotion_putloglev d * "Enabling output plugin $plugin on channel $chan from settings file"
+		bMotion_plugin_set_output_channel $plugin $chan 1
+		continue
+	}
+
+	putlog "bMotion: ERROR parsing output_preenables: not sure what to do with $output_preenable"
+}
+

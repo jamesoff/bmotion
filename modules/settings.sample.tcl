@@ -170,6 +170,13 @@ set bMotionSettings(censorwords) "cunt shit piss decaf"
 # Word to replace with, defaults to BEEP
 #set bMotionSettings(censorbeep) "BEEP"
 
+# Enable or disable output plugins at startup
+# Format:
+#    plugin1:1,plugin2:0,plugin3=#channel
+# Enable plugin1 globally, disable plugin2 globally, and enable plugin3 on #channel
+# To enable a plugin on more than one channel, list it more than once
+# Example: "typos:0,welsh=#wales,dutch:1"
+set bMotionSettings(output_preenable) ""
 
 ### Flood checking
 #
