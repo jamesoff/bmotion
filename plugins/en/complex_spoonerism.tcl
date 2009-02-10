@@ -26,7 +26,11 @@ proc bMotion_plugin_complex_spoon { nick host handle channel text } {
 
 	if {[regexp -nocase {^([^%/aeiou. ]+)([aeiuo][a-z]+) ([a-z]+ )?([^aeiou. ]*)([aeiuo][a-z]+)$} $text matches 1 2 3 4 5 6 7]} {
 		if {![string equal -nocase "$4$2 $3$1$5" $text]} {
-			bMotionDoAction $channel $text "%VAR{spoonerisms}" "$4$2 $3$1$5"
+			if [rand 1] {
+				bMotionDoAction $channel $text "%VAR{spoonerisms}" "$4$2 $3$1$5"
+			} else {
+				bMotionDoAction $channel "$1$2" "%VAR{xhery}" "$4$5"
+			}
 			return 1
 		}
 	}
@@ -56,6 +60,10 @@ proc bMotion_plugin_complex_spoon3 { nick host handle channel text } {
 			return 0
 		}
 
+		if [regexp -nocase "(one)" $two] {
+			return 0
+		}
+
 		if {[string range $two end end] == "s"} {
 			append one "s"
 			set two [string range $two 0 end-1]
@@ -68,3 +76,9 @@ proc bMotion_plugin_complex_spoon3 { nick host handle channel text } {
 
 bMotion_abstract_register "spoonerisms"
 bMotion_abstract_batchadd "spoonerisms" [list "%% ... more like %2, am i rite?" "%% ... more like %2, am i right?" "%%? More like %2, am I correct?" "/. o O (%2)"]
+
+bMotion_abstract_register "xhery_male" [list "I'd %% her %2"]
+bMotion_abstract_register "xhery_female" [list "I'd %% his %2"]
+
+# We need this blank one for the two above to work
+bMotion_abstract_register "xhery"
