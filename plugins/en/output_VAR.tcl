@@ -67,12 +67,26 @@ proc bMotion_plugin_output_VAR { channel line } {
 
 		if {[lsearch $options_list "strip"] > -1} {
 			set replacement [bMotion_strip_article $replacement]
-		}
+		} 
 
 		if {$abstract == "sillyThings"} {
-			if {![rand 100]} {
-				regsub "((an?|the|some|his|her|their) )?" $replacement "\\1%VAR{noun_prefix} " replacement
-				set replacement [string trim $replacement]
+			if {[rand 100] > 75} {
+				set prefixes [list]
+				set replacement [bMotion_strip_article $replacement]
+				if [regexp -nocase "s$" $replacement] {
+					set prefixes [list "des " "les "]
+				} elseif [regexp -nocase "^\[aeiouy\]" $replacement] {
+					set prefixes [list "d'" "l'"]
+				} else {
+					set prefixes [list "de la " "du " "la " "le " "un " "une "]
+				}
+				set prefix [pickRandom $prefixes]
+				set replacement "$prefix$replacement"
+			} else {
+				if {![rand 100]} {
+					regsub "((an?|the|some|his|her|their) )?" $replacement "\\1%VAR{noun_prefix} " replacement
+					set replacement [string trim $replacement]
+				}
 			}
 		}
 
