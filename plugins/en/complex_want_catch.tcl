@@ -22,9 +22,10 @@ bMotion_plugin_add_complex "zzz-noun-catch" {\m(?:a|an|the) ([[:alpha:]]+)} 100 
 proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
   if [regexp -nocase "i (want|need) (?!to)(.+? )" $text matches verb item] {
     #that's a negative lookahead ---^
-		if [regexp -nocase "for$" $item] {
-			return 1
+		if {![bMotion_filter_sillyThings $item]} {
+			return 0
 		}
+
     bMotion_abstract_add "sillyThings" $item
     if {[rand 100] > 95} {
     	bMotionDoAction $channel "" "%VAR{gotone}"
@@ -37,8 +38,8 @@ proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
 	global botnicks
   if [regexp -nocase {^mm+[,.]* (.+)} $text matches item] {
     
-		if [regexp -nocase "for$" $item] {
-			return 1
+		if {![bMotion_filter_sillyThings $item]} {
+			return 0
 		}
 
     if [regexp -nocase "\ybmotion|$botnicks\y" $item] {
@@ -60,8 +61,8 @@ proc bMotion_plugin_complex_plusplus_catcher { nick host handle channel text } {
 	global botnicks
   if [regexp -nocase {^(.+)\+{2}$} $text matches item] {
     
-		if [regexp -nocase "for$" $item] {
-			return 1
+		if {![bMotion_filter_sillyThings $item]} {
+			return 0
 		}
 
     if [regexp -nocase "^(bmotion|$botnicks)$" $item] {
@@ -83,8 +84,8 @@ proc bMotion_plugin_complex_minmin_catcher { nick host handle channel text } {
   global botnicks
   if [regexp -nocase {^(.+)-{2}$} $text matches item] {
 
-		if [regexp -nocase "for$" $item] {
-			return 1
+		if {![bMotion_filter_sillyThings $item]} {
+			return 0
 		}
 
     if [regexp -nocase "^(bmotion|$botnicks)$" $item] {
@@ -107,13 +108,13 @@ proc bMotion_plugin_complex_noun_catcher { nick host handle channel text } {
   if [regexp -nocase {\m(a|an|the|some) ([[:alpha:]]+)( [[:alpha:]]+\M)?} $text matches prefix item second] {
     set item [string tolower $item]
 
+		if {![bMotion_filter_sillyThings $item]} {
+			return 0
+		}
+
     if [regexp "(ly)$" $item] {
       return 0
     }
-
-		if [regexp -nocase "for$" $item] {
-			return 1
-		}
 
     if [regexp "(ing|ed)$" $item] {
       if {$second == ""} {
