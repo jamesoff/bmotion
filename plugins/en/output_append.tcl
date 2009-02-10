@@ -14,7 +14,7 @@
 # appends random stuff to the output; evolved from the gollum plugin by Kev
 
 proc bMotion_plugin_output_append { channel line } {
-	if {([string length $line] > 10) && ([rand 100] > 98)} {
+	if {([string length $line] > 10) && ([rand 100] > 75)} {
 		set line [string trim $line]
 		# make sure the line ends with a letter (other than D)
 		# this is so we don't make ourselves look dumb(er) by adding
@@ -47,11 +47,13 @@ bMotion_abstract_register "preciouses" {
 bMotion_abstract_register "appendslist" {
 	", in accordance with the prophecy"
 	", in accordance with my master's thesis on the Legend of Zelda"
-	" and you're sitting in it right now"
-	" but it's nothing sexual"
+	"%spaceand you're sitting in it right now"
+	"%spacebut it's nothing sexual"
 	". In my pants"
 	". you poof!"
+	"%space\[citation needed\]"
 }
+bMotion_abstract_add_filter "appendslist" "^ "
 
 bMotion_abstract_register "narfs" {
   " zort!"
