@@ -1153,6 +1153,29 @@ proc bMotion_get_daytime { } {
 	return "evening"
 }
 
+# check something aginst our stoplist before we learn it
+proc bMotion_filter_sillyThings { item } {
+	if [regexp {[^A-Za-z0-9 '-]} $item] {
+		return false
+	}
+
+	if [regexp -nocase {^(for|i)\M} $item] {
+		return false
+	}
+
+	# -rty, -ted?
+
+	if [regexp -nocase {\m(and|for|to|be)$} $item] {
+		return false
+	}
+
+	if [regexp -nocase {(ly)$} $item] {
+		return false
+	}
+
+	return true
+}
+
 
 
 bMotion_putloglev d * "bMotion: system module loaded"
