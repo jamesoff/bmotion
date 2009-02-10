@@ -850,6 +850,7 @@ bMotion_abstract_register "bodypart" {
 	"big toe"
 	"little toe"
 	"toe"
+	"thigh"
 }
 
 bMotion_abstract_register "bodypart_male" {
@@ -2699,6 +2700,7 @@ bMotion_abstract_register "boreds" {
 	"/starts shuffling cards"
 	"/befriends %%"
 	"/downloads some porn for %%"
+	"aww%|what's the matter, actual-size %%?"
 }
 
 bMotion_abstract_register "moos" {

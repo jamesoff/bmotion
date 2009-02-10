@@ -5,6 +5,9 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"Check out my %VAR{bodypart:plural}"
+	"I have expendable %VAR{bodypart:plural}"
+	"%BOT[The Ambassador's receptions are noted in society for their host's exquisite taste that captivates his guests.]%|Monsieur, with this %VAR{sillyThings:strip} you are really spoiling us!"
 	"where there's a snack gap, a %VAR{PROM} fits"
 	"where there's a snack gap, %VAR{sillyThings:strip} fits"
 	"i'm so cold my cpu is running at maximum efficiency!"
@@ -56,6 +59,12 @@ bMotion_abstract_register "randomStuff" {
 	
 	"fuck%|that's another box of tissues i've gone through"
 	"damnit i've run out of %VAR{sillyThings:strip} %VAR{unsmiles}"
+
+	"honk"
+	"*honk*"
+
+	"Error: full of useless crap"
+	"execute directive: b%REPEAT{5:10:e}s"
 	
 	"i have to to go to %VAR{stores} to pick up a parcel for Mr S. %VAR{biscuits}" 
 	"I'm a doctor not %VAR{sillyThings}" 
@@ -482,6 +491,7 @@ bMotion_abstract_register "randomStuff_09_19" {
 ### Used by both genders
 ### Used when the channel is 'active' (default < 300 sec since last line)
 bMotion_abstract_register "activeRandomStuff" {
+	"I don't know but i am tripping on a bun"
 	"I saved the space-time continuum and 40% of your rectum!"
 	"That's why I'm the chicken!"
 	"You know, you really should keep a personal log; why bore others needlessly?" 
