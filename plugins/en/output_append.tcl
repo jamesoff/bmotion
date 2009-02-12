@@ -14,7 +14,7 @@
 # appends random stuff to the output; evolved from the gollum plugin by Kev
 
 proc bMotion_plugin_output_append { channel line } {
-	if {([string length $line] > 10) && ([rand 100] > 75)} {
+	if {([string length $line] > 10) && ([rand 100] > 90)} {
 		set line [string trim $line]
 		# make sure the line ends with a letter (other than D)
 		# this is so we don't make ourselves look dumb(er) by adding
@@ -24,8 +24,8 @@ proc bMotion_plugin_output_append { channel line } {
 				append line "%VAR{appends}"
 			}
 		} else {
-			if {[string first "/" $line] == 0} {
-				# don't do this for /me type lines
+			if {![regexp {^[:;=/]} $line} {
+				# don't do this for /me type lines and smilies
 				return $line
 			}
 			set line "%VAR{prepends} $line"
@@ -52,6 +52,10 @@ bMotion_abstract_register "appendslist" {
 	". In my pants"
 	". you poof!"
 	"%space\[citation needed\]"
+	"%spacebut that's just one bot's opinion"
+	"%spacebut what would I know"
+	", i think"
+	"%spaceor something totally different perhaps"
 }
 bMotion_abstract_add_filter "appendslist" "^ "
 
@@ -73,6 +77,7 @@ bMotion_abstract_register "prepends" {
   "basically,"
   "well,"
   "so, like,"
+	"r"
 }
 
 # delete old preciouses contents if it exists
