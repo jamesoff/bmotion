@@ -178,6 +178,7 @@ bMotion_abstract_register "answerWhats" {
 }
 
 bMotion_abstract_register "answerWhos" {
+	"Captain Porklord-Chocolate II"
 	"Dr Beanturd Cake"
 	"%ruser"
 	"me"
@@ -1024,6 +1025,7 @@ bMotion_abstract_register "bigranjoins" {
 	"%%!"
 	"%% %VAR{smiles}"
 	"oh my god it's %%... i'm so excited i wish i could wet my pants!"
+	"oh my god it's %%... i'm so excited i wish i could wet my %VAR{clothes}!"
 	"good %daytime %%"
 	"%daytime %%"
 	"%daytime %% %VAR{smiles}"
@@ -1473,6 +1475,7 @@ bMotion_abstract_register "prom_second" {
 	"numpty"
 	"badger"
 	"holster"
+	"souffle"
 }
 
 bMotion_abstract_register "ididntresponses" {
@@ -4638,6 +4641,20 @@ bMotion_abstract_register "insults" {
 	"%VAR{prom_first}osaurus rex"
 	"%VAR{prom_first}"
 	"%VAR{prom_first}-wizard"
+}
+
+bMotion_abstract_register "clothes" {
+	"pants"
+	"trousers"
+	"socks"
+	"shoes"
+	"slippers"
+	"jumper"
+	"shirt"
+	"t-shirt"
+	"suit"
+	"shorts"
+	"jacket"
 }
 
 source "$bMotionModules/abstracts/en/randomstuff.tcl"

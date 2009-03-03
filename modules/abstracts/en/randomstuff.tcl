@@ -5,6 +5,8 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"this one time, at %VAR{sillyThings:strip} camp, i put %VAR{sillyThings}..."
+	"/shits %hisher %VAR{clothes}"
 	"Check out my %VAR{bodypart:plural}"
 	"I have expendable %VAR{bodypart:plural}"
 	"%BOT[The Ambassador's receptions are noted in society for their host's exquisite taste that captivates his guests.]%|Monsieur, with this %VAR{sillyThings:strip} you are really spoiling us!"
