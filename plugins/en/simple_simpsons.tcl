@@ -14,4 +14,4 @@
 
 #                         name  regexp            %  responses
 bMotion_plugin_add_simple "lisabraces" {^[^ ]+ needs braces!*} 100 [list "dental plan!"] "en"
-
+bMotion_plugin_add_simple "bingo" {bingo} 100 [list "you just sunk my battleship"] "en"
