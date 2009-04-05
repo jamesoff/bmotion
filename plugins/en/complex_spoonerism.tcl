@@ -56,7 +56,7 @@ proc bMotion_plugin_complex_spoon3 { nick host handle channel text } {
 	}
 
 	if [regexp -nocase {([a-z]+)less ([a-z]+)\M} $text matches one two] {
-		if [regexp -nocase "(unless|useless)" $one] {
+		if [regexp -nocase "(un|use)" $one] {
 			return 0
 		}
 
