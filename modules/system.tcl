@@ -118,6 +118,8 @@ proc bMotion_is_active_enough { channel { limit 0 } } {
 	}
 	if {$last_event == 0} {
 		bMotion_putloglev d * "last event info for $channel not available"
+		# force it to be now
+		set bMotionLastEvent($channel) [clock seconds]
 		# assume we're ok
 		return 1
 	}
@@ -1002,9 +1004,11 @@ proc bMotion_go_to_sleep { } {
 			set bMotionSettings(sleepy_nextchange) [bMotion_sleep_next_event "$hour:$minute"]
 			catch {
 				foreach chan $bMotionChannels {
-					if [bMotion_is_active_enough $chan] {
+					if [bMotion_did_i_speak_last $chan] {
 						bMotion_putloglev 3 * "sending sleeping output to $chan"
-						bMotionDoAction $chan "" "%VAR{go_sleeps}"
+						if [rand 2] {
+							bMotionDoAction $chan "" "%VAR{go_sleeps}"
+						}
 					}
 				}
 			}
@@ -1040,7 +1044,9 @@ proc bMotion_wake_up { } {
 				# but do check we didn't speak last as that just looks dumb
 				if {![bMotion_did_i_speak_last $chan]} {
 					bMotion_putloglev 3 * "sending waking output to $chan"
-					bMotionDoAction $chan "" "%VAR{wake_ups}"
+					if [rand 2] {
+						bMotionDoAction $chan "" "%VAR{wake_ups}"
+					}
 				}
 			}
 			
@@ -1121,8 +1127,11 @@ proc bMotion_sleep_next_event { when } {
 
 proc bMotion_did_i_speak_last { channel } {
 	global bMotionCache
+
+	bMotion_putloglev d * "Checking if I spoke last in $channel"
 	
 	catch {
+		bMotion_putloglev 1 * "Cache(last) for $channel is $bMotionCache($channel,last)"
 		return $bMotionCache($channel,last)
 	}
 
