@@ -13,5 +13,5 @@
 ###############################################################################
 
 #                         name  regexp            %  responses
-bMotion_plugin_add_simple "numberwang" {^[0-9]+!*} 5 [list "%%: that's numberwang!" "%%: that's wangernumb!"] "en"
+bMotion_plugin_add_simple "numberwang" {^[0-9]+!*$} 5 [list "%%: that's numberwang!" "%%: that's wangernumb!"] "en"
 
