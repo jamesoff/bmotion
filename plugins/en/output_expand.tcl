@@ -16,7 +16,7 @@
 bMotion_plugin_add_output  "expand"   bMotion_plugin_output_expand     1 "en" 20
 
 proc bMotion_plugin_output_expand { channel text } {
-	if {[rand 100] > 80} {
+	if {[rand 100] > 90} {
 		if [regexp -nocase "^\[a-z\]{4,}$" $text] {
 			set letters [split $text {}]
 			set word [string toupper [lrange $letters 0 0]]
