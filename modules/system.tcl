@@ -103,23 +103,47 @@ proc bMotionStats {nick host handle channel text} {
 	putchan $channel "facts: $factcount facts about $itemcount items"
 }
 
-
 #
-# check if a channel is active enough for randomy things
-proc bMotion_is_active_enough { channel { limit 0 } } {
-	global bMotionInfo 
-	global bMotionLastEvent 
+# get the last event for a channel, or 0 if not available
+proc bMotion_get_last_event { channel } {
+	bMotion_putloglev 4 * "bMotion_get_last_event $channel"
 
-	bMotion_putloglev 4 * "bMotion_is_active_enough $channel"
+	global bMotionLastEvent
 
 	set last_event 0
 	catch {
 		set last_event $bMotionLastEvent($channel)
 	}
 	if {$last_event == 0} {
+		bMotion_putloglev 1 * "last event for $channel is not available, returning 0"
+	}
+
+	return $last_event
+}
+
+#
+# set the last event time for a channel to now
+proc bMotion_set_last_event { channel } {
+	bMotion_putloglev 4 * "bMotion_set_last_event $channel"
+
+	global bMotionLastEvent
+
+	set bMotionLastEvent($channel) [clock seconds]
+}
+
+#
+# check if a channel is active enough for randomy things
+proc bMotion_is_active_enough { channel { limit 0 } } {
+	global bMotionInfo 
+
+	bMotion_putloglev 4 * "bMotion_is_active_enough $channel"
+
+	set last_event [bMotion_get_last_event $channel]
+
+	if {$last_event == 0} {
 		bMotion_putloglev d * "last event info for $channel not available"
 		# force it to be now
-		set bMotionLastEvent($channel) [clock seconds]
+		bMotion_set_last_event $channel
 		# assume we're ok
 		return 1
 	}
@@ -139,7 +163,7 @@ proc bMotion_is_active_enough { channel { limit 0 } } {
 #
 # check if every channel we can see is idle enough for us to go away
 proc bMotion_random_away {} {
-	global bMotionLastEvent bMotionChannels bMotionInfo
+	global bMotionChannels bMotionInfo
 
 	set timeNow [clock seconds]
 
@@ -159,9 +183,10 @@ proc bMotion_random_away {} {
 	set line "comparing idle times: "
 	foreach channel $bMotionChannels {
 		catch {
-			append line "$channel=$bMotionLastEvent($channel) "
-			if {$bMotionLastEvent($channel) > $mostRecent} {
-				set mostRecent $bMotionLastEvent($channel)
+			set last_event [bMotion_get_last_event $channel]
+			append line "$channel=$last_event "
+			if {$last_event > $mostRecent} {
+				set mostRecent $last_event
 			}
 		}
 	}
@@ -191,7 +216,7 @@ proc bMotion_random_away {} {
 # periodically sprout randomness (or go /away if idle enough)
 proc doRandomStuff {} {
 	global bMotionInfo mood stonedRandomStuff bMotionSettings
-	global bMotionLastEvent bMotionOriginalNick bMotionChannels
+	global bMotionOriginalNick bMotionChannels
 	global BMOTION_SLEEP
 
 	set saidChannels [list]
