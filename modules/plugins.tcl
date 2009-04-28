@@ -187,6 +187,7 @@ proc bMotion_plugin_find_management_help { name } {
 
 	foreach key [array names bMotion_plugins_management] {
 		if [string match -nocase $name $key] {
+			set blah $bMotion_plugins_management($key)
 			set helpcallback [lindex $blah $BMOTION_PLUGIN_MANAGEMENT_HELPCALLBACK]
 			return $helpcallback
 		}

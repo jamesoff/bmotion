@@ -1,12 +1,9 @@
 # bMotion admin plugins
 #
-#
-# $Id$
-#
 
 ###############################################################################
 # This is a bMotion plugin
-# Copyright (C) James Michael Seward 2000-2002
+# Copyright (C) James Michael Seward 2000-2009
 #
 # This program is covered by the GPL, please refer the to LICENCE file in the
 # distribution; further information can be found in the headers of the scripts
@@ -23,6 +20,7 @@ bMotion_plugin_add_management "settings" "^settings" n bMotion_plugin_management
 bMotion_plugin_add_management "global" "^global" n bMotion_plugin_management_global "any"
 bMotion_plugin_add_management "interbot" "^interbot" n bMotion_plugin_management_interbot "any" bMotion_plugin_management_interbot_help
 bMotion_plugin_add_management "flux" "^flux capacitors?" n bMotion_plugin_management_flux "any"
+bMotion_plugin_add_management "away" "^away" n bMotion_plugin_management_away "any" bMotion_plugin_management_away_help
 
 #################################################################################################################################
 # Declare plugin functions
@@ -66,7 +64,10 @@ proc bMotion_plugin_management_status { handle { args "" } } {
 
 	bMotion_putadmin "Random stuff happens at least every [bMotion_setting_get minRandomDelay]min, at most every [bMotion_setting_get maxRandomDelay]min, and not if channel quiet for more than [bMotion_setting_get maxIdleGap]min. Active channels have a line in the last [bMotion_setting_get active_idle_sec]sec."
 	if [bMotion_setting_get silence] {
-		bMotion_putadmin "Running silent"
+		bMotion_putadmin "I am silent."
+	}
+	if [bMotion_setting_get "away"] {
+		bMotion_putadmin "I am away."
 	}
 
 	return 0
@@ -312,3 +313,34 @@ proc bMotion_plugin_management_flux { handle { text "" } } {
 				return
 		}
 }
+
+proc bMotion_plugin_management_away { handle { text "" } } {
+	global bMotionInfo
+
+	if {$text == ""} {
+		if {$bMotionInfo(away)} {
+			bMotion_putadmin "I am currently away."
+		} else {
+			bMotion_putadmin "I am not away."
+			}
+		return
+	}
+
+	if {$text == "off"} {
+		bMotion_putadmin "Coming back from being away."
+		set bMotionInfo(away) 0
+		set bMotionInfo(silent) 0
+		return
+	}
+
+	bMotion_putadmin "Use: .bmotion away [off]"
+}
+
+proc bMotion_plugin_management_away_help { } {
+	bMotion_putadmin "Check and adjust the bot's away status"
+	bMotion_putadmin "  .bmotion away"
+	bMotion_putadmin "    Show if the bot is away or not"
+	bMotion_putadmin "  .bmotion away off"
+	bMotion_putadmin "    Make the bot be not-away"
+}
+

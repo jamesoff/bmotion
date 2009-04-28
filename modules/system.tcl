@@ -165,16 +165,20 @@ proc bMotion_is_active_enough { channel { limit 0 } } {
 proc bMotion_random_away {} {
 	global bMotionChannels bMotionInfo
 
+	bMotion_putloglev 4 * "bMotion_random_away"
+
 	set timeNow [clock seconds]
 
 	# check if it's worth doing anything
 	if {[bMotion_setting_get "bitlbee"]} {
 		#never go away in bitlbee
+		bMotion_putloglev "going away is disabled in bitlbee mode"
 		return 0
 	}
 
 	#override if we should never go away
 	if {[bMotion_setting_get "useAway"] != 1} {
+		bMotion_putloglev "going away is disabled"
 		return 0
 	}
 
@@ -195,11 +199,13 @@ proc bMotion_random_away {} {
 	bMotion_putloglev 1 * "bMotion: most recent: $mostRecent .. timenow $timeNow .. gap $gapTime"
 
 	if {($timeNow - $mostRecent) < $gapTime} {
+		bMotion_putloglev 1 * "most recent is busy enough, not going away"
 		return 0
 	}
 
 	if {$bMotionInfo(away) == 1} {
 		#away, don't do anything (and don't do randomstuff)
+		bMotion_putloglev d * "I'm already away, not going away again"
 		return 0
 	}
 
@@ -207,6 +213,8 @@ proc bMotion_random_away {} {
 		putlog "bMotion: All channels are idle, going away"
 		bMotionSetRandomAway
 		return 1
+	} else {
+		bMotion_putloglev d * "All channels are idle, not going away though"
 	}
 
 	return 0
@@ -218,6 +226,8 @@ proc doRandomStuff {} {
 	global bMotionInfo mood stonedRandomStuff bMotionSettings
 	global bMotionOriginalNick bMotionChannels
 	global BMOTION_SLEEP
+
+	bMotion_putloglev 4 * "doRandomStuff"
 
 	set saidChannels [list]
 	set silentChannels [list]
@@ -232,7 +242,7 @@ proc doRandomStuff {} {
 	}
 	set temp [expr [rand $upperLimit] + $bMotionInfo(minRandomDelay)]
 	timer $temp doRandomStuff
-	bMotion_putloglev d * "bMotion: randomStuff next ($temp minutes)"
+	bMotion_putloglev d * "bMotion: randomStuff next in $temp minutes"
 
 	# don't bother if we're asleep
 	if {$bMotionSettings(asleep) != $BMOTION_SLEEP(AWAKE)} {
@@ -243,16 +253,19 @@ proc doRandomStuff {} {
 	}
 
 	if [bMotion_random_away] {
-	# we went away, so stop here
+		# we went away, so stop here
+		bMotion_putloglev d * "we went away, returning from doRandomStuff"
 		return
 	}
 
 	if {$bMotionInfo(away) == 1} {
-	#away and busy again, return
+		#away and busy again, return
+		bMotion_putloglev d * "was away, setting myself back"
 		bMotionSetRandomBack
 	}
 
 	if {[bMotion_setting_get "bitlbee"] == "1"} {
+		bMotion_putloglev d * "aborting randomstuff, don't do it in bitlbee mode"
 		return 0
 	}
 
@@ -328,6 +341,7 @@ proc bMotionSaySomethingRandom {channel {busy 0}} {
 #set myself away with a random message
 proc bMotionSetRandomAway {} {
 	global randomAways bMotionInfo bMotionSettings bMotionChannels
+	bMotion_putloglev 4 * "bMotionSetRandomAway"
 
 	set awayReason [bMotion_abstract_get "randomAways"]
 	foreach channel $bMotionChannels {
@@ -347,11 +361,13 @@ proc bMotionSetRandomAway {} {
 proc bMotionSetRandomBack {} {
 	#set myself back
 	global bMotionInfo bMotionSettings bMotionChannels
+	bMotion_putloglev 4 * "bMotionSetRandomBack"
 
 	bMotion_update_chanlist
 
 	set bMotionInfo(away) 0
 	set bMotionInfo(silence) 0
+	bMotion_putloglev d * "No longer silent or away"
 	foreach channel $bMotionChannels {
 		if {[lsearch $bMotionSettings(noAwayFor) $channel] == -1} {
 			bMotionDoAction $channel "" "/is back"
