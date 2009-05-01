@@ -2,7 +2,7 @@
 
 ###############################################################################
 # This is a bMotion plugin
-# Copyright (C) James Seward 2000-2008
+# Copyright (C) James Seward 2000-2009
 #
 # This program is covered by the GPL, please refer the to LICENCE file in the
 # distribution; further information can be found in the headers of the scripts
@@ -11,11 +11,13 @@
 
 
 proc bMotion_plugins_irc_default_join { nick host handle channel text } { 
-  #if the user isban then dont bother
-  if {[ischanban $nick $channel] == 1 } {
-    bMotion_putloglev d * "dropping greeting for $nick on $channel as user is banned"
-    return 0
-  }
+	bMotion_putloglev 4 * "bMotion_plugins_irc_default_join $nick $host $handle $channel $text"
+
+	#if the user isban then dont bother
+	if {[ischanban $nick $channel] == 1 } {
+		bMotion_putloglev d * "dropping greeting for $nick on $channel as user is banned"
+		return 0
+	}
 
 	#has something happened since we last greeted?
 	set lasttalk [bMotion_plugins_settings_get "system:join" "lasttalk" $channel ""]
@@ -28,7 +30,7 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 	}
 
 	# skip this check if handle is * as it's pointless
-	if {$handle == "*"} {
+	if {$handle != "*"} {
 		# check if the user is already in the channel - probably means they've joined a 2nd client
 		# or that they're about to ping out or something
 		set count 0
@@ -84,7 +86,7 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 
 	#set nick [bMotion_cleanNick $nick $handle]
 	if {[getFriendship $nick] < 50} {
-		set greetings [bMotion_abstract_all "dislike_joins"]
+		set greetings "dislike_joins"
 	}
 
 	if {[getFriendship $nick] > 50} {
