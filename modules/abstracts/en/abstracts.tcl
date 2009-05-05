@@ -4402,11 +4402,42 @@ bMotion_abstract_register "wake_ups" {
 	"%daytime%|%VAR{todays_ep}"
 	"%VAR{bb_stuff}"
 	"%channel is recorded in front of a live studio audience"
+	"%VAR{captains_logs}"
 }
 
 # originally this was wrong
 bMotion_abstract_add_filter "wake_ups" "todays_episode"
 
+bMotion_abstract_register "captains_logs" {
+	"%VAR{captains_log_sensible}"
+	"%VAR{captains_log_sensible} %VAR{captains_log_silly}"
+}
+
+bMotion_abstract_register "captains_log_start" {
+	"Captain's log, Stardate 46%NUMBER{8}%NUMBER{8}%NUMBER{8}"
+}
+
+bMotion_abstract_register "captains_log_sensible" {
+	"%VAR{captains_log_start}: we have arrived without incident at %channel to meet Ambassador %ruser."
+	"%VAR{captains_log_start}: the reprogrammed biofilter was effective in removing the alien microbes from %ruser{enemy}."
+	"%VAR{captains_log_start}: %ruser and %ruser have found the cause of the malfunctions have been plaguing the channel."
+	"%VAR{captains_log_start}: %channel has arrived at Deep Space %NUMBER{9}."
+	"%VAR{captains_log_start}: I've summoned the ops to discuss Commander %ruser's theory that %VAR{sillyThings:strip,plural} are a lifeform. Doctor %ruser has attended reluctantly."
+	"%VAR{captains_log_start}: after placing the modified %VAR{sillythings:strip} on the Romulan ship, we have returned to %channel."
+	"%VAR{captains_log_start}: We are approching %VAR{irc_networks}, where many Bajorans have resettled."
+	"%VAR{captains_log_start}: temporary repairs have been completed. Our attention now turns to matters of a more festive nature."
+	"%VAR{captains_log_start}: %channel is charting six IRC servers that make up %VAR{irc_networks}, an area being considered for colonisation."
+}
+
+bMotion_abstract_register "captains_log_silly" {
+	"My pants are really chafing."
+	"Meanwhile the replicators are only making decaff %VAR{unsmiles}"
+	"My sonic shower is stuck playing %VAR{randomSongName}"
+	"Still unable to explain lack of toilet facilities here."
+	"%ruser{enemy} is spending a suspiciously large amount of time on the holodeck."
+
+}
+	
 bMotion_abstract_register "todays_ep" {
 	"Today's episode: %VAR{todays_episode}"
 }

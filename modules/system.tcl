@@ -172,13 +172,13 @@ proc bMotion_random_away {} {
 	# check if it's worth doing anything
 	if {[bMotion_setting_get "bitlbee"]} {
 		#never go away in bitlbee
-		bMotion_putloglev "going away is disabled in bitlbee mode"
+		bMotion_putloglev d * "going away is disabled in bitlbee mode"
 		return 0
 	}
 
 	#override if we should never go away
 	if {[bMotion_setting_get "useAway"] != 1} {
-		bMotion_putloglev "going away is disabled"
+		bMotion_putloglev d * "going away is disabled"
 		return 0
 	}
 
