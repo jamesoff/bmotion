@@ -1,0 +1,13 @@
+This subdirectory contains additional plugins that are
+not considered desirable for a default install.
+
+If you want to use any of these, symlink or copy them into
+the directory above.
+
+
+Plugin             Function
+------------------ -------------------------------------------------
+complex_respondall Makes the bot say a randomStuff-type line for ANY
+                   line including its botnicks
+
+
