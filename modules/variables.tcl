@@ -38,8 +38,6 @@ if {![info exists got]} {
 
 if {![info exists bMotionInfo]} {
   set bMotionInfo(pokemon) "pikachu"
-  set bMotionInfo(lowerWatershed) 8
-  set bMotionInfo(upperWatershed) 21
   set bMotionInfo(cloaked) 0
   set bMotionInfo(warp) 0
   set bMotionInfo(impulse) 0
