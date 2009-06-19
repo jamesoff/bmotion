@@ -115,6 +115,10 @@ proc bMotion_plugin_complex_action_verb_catch { nick host handle channel text } 
 	}
 
 	if {$stem != ""} {
+		if {[string length $stem] < 3} {
+			return 0
+		}
+
 		if [string match -nocase "*e" $stem] {
 			set stem [string range $stem 0 end-1]
 		}
