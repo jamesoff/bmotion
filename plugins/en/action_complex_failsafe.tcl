@@ -14,6 +14,7 @@
 
 bMotion_plugin_add_action_complex "zzz-failsafe" {^(.+?)s?( at|with)? %botnicks} 100 bMotion_plugin_complex_action_failsafe "en"
 bMotion_plugin_add_action_complex "aaa-autogender" {[a-z]+s (his|her) } 100 bMotion_plugin_complex_action_autolearn_gender "en"
+bMotion_plugin_add_action_complex "aaa-verbcatch" {(\w+s)\M} 100 bMotion_plugin_complex_action_verb_catch "en"
 
 proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
   regexp {^([^ ]+) ((across|near|at|with|to|against|from|over|under|in|on|next to) )?} $text matches verb dir
@@ -107,6 +108,24 @@ proc bMotion_plugin_complex_action_autolearn_gender { nick host handle channel t
 	return 0
 }
 
+proc bMotion_plugin_complex_action_verb_catch { nick host handle channel text } {
+
+	set stem ""
+	if [regexp -nocase {^((\w+)s)\M} $text matches verb stem] {
+	}
+
+	if {$stem != ""} {
+		if [string match -nocase "*e" $stem] {
+			set stem [string range $stem 0 end-1]
+		}
+		# TODO: Handle any obvious cases where the stem isn't just lopping off the s!
+		bMotion_putloglev 1 * "found verb $verb ($stem)"
+		bMotion_abstract_add "sillyVerbs" $stem
+	}
+
+	return 0
+}
+
 bMotion_abstract_register "failsafe_nice"
 bMotion_abstract_batchadd "failsafe_nice" [list "mmm" "%VAR{smiles}" "%VAR{smiles}%|/gives %% %VAR{sillyThings}" "i do love a good %2ing"]
 
@@ -133,4 +152,4 @@ bMotion_abstract_batchadd "failsafe_wtfs" [list "%VAR{satOns}" "%VAR{shocked}" ]
 bMotion_abstract_register "failsafe_niceactions"
 bMotion_abstract_batchadd "failsafe_niceactions" [list "wh%REPEAT{3:7:e} %VAR{smiles}" "%VAR{smiles}" "/bounces around" "*drool*" ]
 
-
+bMotion_abstract_register "sillyVerbs"

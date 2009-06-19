@@ -829,6 +829,75 @@ proc bMotionMakeVerb { text } {
 }
 
 #
+# makes a work past tense... probably best only use it on verbs :P
+proc bMotion_make_past_tense { word } {
+
+	# check if we got passed a multi-part verb (sit on)
+	set extra ""
+	regexp -nocase {^(\w+)( (.+))?} $word matches verb extra
+	set newverb ""
+
+	putlog "working with $verb"
+
+	# handle irregual verbs
+	switch $verb {
+		cut { set newverb $verb }
+		hit { set newverb $verb }
+		fit { set newverb $verb }
+		get { set newverb got }
+		sit { set newverb sat }
+		drink { set newverb drank }
+		catch { set newverb caught }
+		bring { set newverb brought }
+		buy { set newverb bought}
+		teach { set newverb taught }
+		have { set newverb had }
+		do { set newverb did }
+		ride { set newverb rode }
+		go { set newverb went }
+		make { set newverb made }
+	}
+
+	if {$newverb != ""} {
+		return "${newverb}$extra"
+	}
+
+	# verbs ending in e get -ed
+	if [string match -nocase "*e" $verb] {
+		append verb "d"
+		set newverb $verb
+	}
+
+	if {$newverb != ""} {
+		return "${newverb}$extra"
+	}
+
+	# ending in const-y get -ied
+	if [regexp -nocase {(.+[^aeiouy])y$} $verb matches a] {
+		set newverb "${a}ied"
+	}
+
+	if {$newverb != ""} {
+		return "${newverb}$extra"
+	}
+
+	# one vowel + const !wy get double const + ed
+	if [regexp -nocase {(.+[^aeiouy][aeiou])([^aeiouwy])\M} $verb matches a b] {
+		set newverb "${a}${b}${b}ed"
+	}
+
+	if {$newverb != ""} {
+		return "${newverb}$extra"
+	}
+
+	# everything else just gets -ed
+	set newverb "${verb}ed"
+
+	return "${newverb}$extra"
+}
+
+
+#
 # not sure!
 proc chr c {
 	if {[string length $c] > 1 } { error "chr: arg should be a single char"}

@@ -94,6 +94,10 @@ proc bMotion_plugin_output_VAR { channel line } {
 			set replacement [bMotionMakeVerb $replacement]
 		}
 
+		if {[lsearch $options_list "past"] > -1} {
+			set replacement [bMotion_make_past_tense $replacement]
+		}
+
 		if {[lsearch $options_list "plural"] > -1} {
 			set replacement [bMotionMakePlural $replacement]
 		}

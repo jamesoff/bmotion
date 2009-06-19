@@ -5,6 +5,8 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"how do i %VAR{sillyVerbs:past} %VAR{sillyThings:strip}"
+	"n%REPEAT{1:10:o} my %VAR{bodypart}! i'm not supposed to get %VAR{sillyThings:strip,plural} in it!"
 	"this one time, at %VAR{sillyThings:strip} camp, i put %VAR{sillyThings}..."
 	"/shits %hisher %VAR{clothes}"
 	"Check out my %VAR{bodypart:plural}"
@@ -493,6 +495,7 @@ bMotion_abstract_register "randomStuff_09_19" {
 ### Used by both genders
 ### Used when the channel is 'active' (default < 300 sec since last line)
 bMotion_abstract_register "activeRandomStuff" {
+	"It was the freshest move I'e ever seen"
 	"I don't know but i am tripping on a bun"
 	"I saved the space-time continuum and 40% of your rectum!"
 	"That's why I'm the chicken!"
