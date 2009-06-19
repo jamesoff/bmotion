@@ -950,6 +950,9 @@ proc bMotion_check_botnicks { } {
 
 	if {$botnicks == ""} {
 		set botnicks "($botnick|$bMotionSettings(botnicks)) ?"
+		if {[bMotion_setting_get "botnicks_strict"] == 1} {
+			set botnicks "\\m$botnicks\\M"
+		}
 	}
 }
 

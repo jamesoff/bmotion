@@ -53,6 +53,17 @@ set bMotionInfo(orientation) "straight"
 # your bot will automatically add its own nick to this
 set bMotionSettings(botnicks) "nt|bots|the bots|notopic"
 
+# should the bot strictly match the botnicks?
+# "old" behaviour did not require the botnicks to be a word by itself,
+# which could cause the bot to respond when it shouldn't really
+# 
+# for the regexp-inclined, this setting makes bMotion surround the
+# botnicks value with \m...\M
+#
+# old behaviour = 0
+# new behaviour = 1
+set bMotionSettings(botnicks_strict) 1
+
 # does the bot like 'kinky' stuff (e.g. see action_complex:fucks)
 set bMotionSettings(kinky) 0
 
