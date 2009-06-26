@@ -3828,12 +3828,14 @@ bMotion_abstract_register "sound" {
 }
 
 bMotion_abstract_register "sound_short" {
-	"%VAR{sounds} %VAR{sounds} %VAR{sounds} %VAR{sound2}"
+	"%VAR{sfx} %VAR{sfx} %VAR{sfx} %VAR{sound2}"
 }
 
 bMotion_abstract_register "sound2" {
 	"%VAR{sounds} %VAR{sound2} "
+	"%VAR{sfx} %VAR{sound2} "
 	"%VAR{sounds} "
+	"%VAR{sfx} "
 }
 
 bMotion_abstract_register "sounds" {
@@ -3877,6 +3879,32 @@ bMotion_abstract_register "sounds" {
 	"ock"
 	"wobble wobble!"
 	"slash!"
+	"ulp-schwip"
+	"drip"
+	"splish"
+	"cough"
+	"wobble"
+	"blaff"
+	"flick"
+	"slep"
+	"rustle"
+	"whack"
+	"arf"
+	"voom"
+	"yuck"
+	"tsk"
+	"tick"
+	"noooo"
+	"hop"
+	"bep"
+	"dong-doof"
+}
+
+bMotion_abstract_register "sfx" {
+	"%VAR{sounds}"
+	"*%VAR{sounds}*"
+	"(%VAR{sounds})"
+	"%VAR{sounds}!"
 }
 
 bMotion_abstract_register "colours" {
