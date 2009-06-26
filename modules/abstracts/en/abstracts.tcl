@@ -3827,6 +3827,10 @@ bMotion_abstract_register "sound" {
 	"%VAR{sounds} %VAR{sounds}"
 }
 
+bMotion_abstract_register "sound_short" {
+	"%VAR{sounds} %VAR{sounds} %VAR{sounds} %VAR{sound2}"
+}
+
 bMotion_abstract_register "sound2" {
 	"%VAR{sounds} %VAR{sound2} "
 	"%VAR{sounds} "

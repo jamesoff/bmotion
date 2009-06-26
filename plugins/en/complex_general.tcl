@@ -16,6 +16,7 @@
 bMotion_plugin_add_complex "test" "^%botnicks:? test$"         100     "bMotion_plugin_complex_test" "en"
 bMotion_plugin_add_complex "test2" "^%botnicks:? test2$"         100     "bMotion_plugin_complex_test2" "en"
 bMotion_plugin_add_complex "opme" "^!?op ?me$"               100     "bMotion_plugin_complex_opme" "en"
+bMotion_plugin_add_complex "sound" "^!sound" 100 bMotion_plugin_complex_sound "en"
 
 
 #################################################################################################################################
@@ -50,4 +51,9 @@ proc bMotion_plugin_complex_opme { nick host handle channel text } {
   putkick $channel $nick "oops, missed."
   bMotion_plugins_settings_set "opme" "lastnick" $channel "" $nick
   return 0
+}
+
+proc bMotion_plugin_complex_sound { nick host handle channel text} {
+	bMotionDoAction $channel $nick "%VAR{sound_short}"
+	return 1
 }
