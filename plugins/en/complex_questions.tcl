@@ -32,6 +32,13 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
       return 1
   }
 
+	bMotion_putloglev 3 * "checking question for sound: $text"
+	if {[regexp -nocase "^$botnicks,?:? what sound " $text] || [regexp -nocase "what sound .+${botnicks}\\?$" $text]} {
+		bMotion_putloglev 3 * "it's a sound question"
+		bMotionDoAction $channel $nick "%VAR{sound_answer}"
+		return 1
+	}
+
   ## moved here from further down because it'd never be triggered otherwise   --szrof
   bMotion_putloglev 3 * "Checking question for 'what have'"
   ## What have question targeted at me
