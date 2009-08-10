@@ -829,15 +829,13 @@ proc bMotionMakeVerb { text } {
 }
 
 #
-# makes a work past tense... probably best only use it on verbs :P
+# makes a word past tense... probably best only use it on verbs :P
 proc bMotion_make_past_tense { word } {
 
 	# check if we got passed a multi-part verb (sit on)
 	set extra ""
 	regexp -nocase {^(\w+)( (.+))?} $word matches verb extra
 	set newverb ""
-
-	putlog "working with $verb"
 
 	# handle irregual verbs
 	switch $verb {
@@ -896,6 +894,26 @@ proc bMotion_make_past_tense { word } {
 	return "${newverb}$extra"
 }
 
+#
+# makes a word into present participle
+proc bMotion_make_present_participle { word } {
+
+	# check if we got passed a multi-part verb (sit on)
+	set extra ""
+	regexp -nocase {^(\w+)( (.+))?} $word matches verb extra
+	set newverb ""
+
+
+	if [regexp -nocase {(.+[^i])e$} $verb matches a] {
+		return "${a}ing$extra"
+	}
+
+	if [regexp -nocase {(.+[aeiou])([^aeiouy])$} $verb matches a b] {
+		return "${a}${b}${b}ing$extra"
+	}
+
+	return "${verb}ing$extra"
+}
 
 #
 # not sure!
