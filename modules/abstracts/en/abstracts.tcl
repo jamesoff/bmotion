@@ -3334,6 +3334,7 @@ bMotion_abstract_register "ruins" {
 	"epic suck"
 	"lol"
 	"you blithering idiot!"
+	"should've gone to specsavers"
 }
 
 bMotion_abstract_register "hexStart" {
@@ -3831,6 +3832,13 @@ bMotion_abstract_register "sound_short" {
 	"%VAR{sfx} %VAR{sfx} %VAR{sfx} %VAR{sound2}"
 }
 
+bMotion_abstract_register "sound_answer" {
+	"%VAR{sound_short}"
+	"a bit like %VAR{sound_short}"
+	"kinda %VAR{sound_short}"
+	"%VAR{sound_short}, ish"
+}
+
 bMotion_abstract_register "sound2" {
 	"%VAR{sounds} %VAR{sound2} "
 	"%VAR{sfx} %VAR{sound2} "
@@ -3839,6 +3847,16 @@ bMotion_abstract_register "sound2" {
 }
 
 bMotion_abstract_register "sounds" {
+	"kyaaah"
+	"squelch"
+	"poke"
+	"ph%REPEAT{3:7:b}t"
+	"FLARPT"
+	"neigh"
+	"ffworpp"
+	"gwaab" 
+	"ffffflout"
+	"arooga"
 	"click-click!"
 	"klackety"
 	"feep-feep"

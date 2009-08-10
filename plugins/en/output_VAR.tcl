@@ -98,6 +98,10 @@ proc bMotion_plugin_output_VAR { channel line } {
 			set replacement [bMotion_make_past_tense $replacement]
 		}
 
+		if {[lsearch $options_list "presentpart"] > -1} {
+			set replacement [bMotion_make_present_participle $replacement]
+		}
+
 		if {[lsearch $options_list "plural"] > -1} {
 			set replacement [bMotionMakePlural $replacement]
 		}
@@ -108,6 +112,10 @@ proc bMotion_plugin_output_VAR { channel line } {
 
 		if {[lsearch $options_list "underscore"] > -1} {
 			set replacement [string map { " " "_" } $replacement]
+		}
+
+		if {[lsearch $options_list "caps"] > -1} {
+			set replacement [string toupper $replacement]
 		}
 
 		# actually do the replacement
