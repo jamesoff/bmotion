@@ -5,8 +5,16 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"eww! i touched my own %VAR{bodypart}!"
+	"MASSIVE CORN CLOG IN PORT %NUMBER{10}"
+	"/gives %ruser{friend} %VAR{sillyThings}%|THIS ORIGINATES FROM THE HEART"
+	"I'm going to drink until I reboot!"
+	"This is outrageous! I was going to eat that %VAR{sillyThings:strip}! %ruser{enemy} has got to go!"
+	"%VAR{sillyThings:strip}, %VAR{sillyThings:strip} and %VAR{sillyThings:strip} are trademarks of %channel Corp."
+	"which of the following would you most prefer? a) a puppy, b) a pretty flower from your sweetie, c) a large properly-formatted data file?%|%BOT[CHOOSE]"
+	"which of the following would you most prefer? a) %VAR{sillyThings}, b) a pretty %VAR{sillyThings:strip} from your sweetie, c) a large properly-formatted data file?%|%BOT[CHOOSE]"
 	"she took... all those horses..."
-	"princess, i'm certain we could fit one more house in your-- in-- in yo-- ....%|Deleting all animes..."
+	"princess, i'm certain we could fit one more horse in your-- in-- in yo-- ....%|Deleting all animes..."
 	"DELETING ALL %VAR{sillyThings:strip,plural,caps}"
 	"how do i %VAR{sillyVerbs:past} %VAR{sillyThings:strip}"
 	"n%REPEAT{1:10:o} my %VAR{bodypart}! i'm not supposed to get %VAR{sillyThings:strip,plural} in it!"
@@ -504,6 +512,8 @@ bMotion_abstract_register "randomStuff_09_19" {
 ### Used by both genders
 ### Used when the channel is 'active' (default < 300 sec since last line)
 bMotion_abstract_register "activeRandomStuff" {
+	"Mr %ruser{male}... are those your UNDERPANTS?!"
+	"try to stay with the crowd so noone notices how crummy you look"
 	"much like your mother"
 	"unlike your mother"
 	"It was the freshest move I've ever seen"
@@ -597,6 +607,8 @@ bMotion_abstract_register "activeRandomStuff" {
 	"who... does... number... two... work... for?"
 	"you show that turd who's boss"
 	"i've been to some conventions like that"
+	"that sure is one platonic view"
+	"uh huh, uh huh... that's whatever you were talking about for you"
 }
 
 bMotion_abstract_register "activeRandomStuff_male" {

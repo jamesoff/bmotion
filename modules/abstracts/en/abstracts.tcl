@@ -805,6 +805,8 @@ bMotion_abstract_register "rehashes" {
 }
 
 bMotion_abstract_register "bodypart" {
+	"lip"
+	"mouth flaps"
 	"eyelash"
 	"toe"
 	"foot"
@@ -1147,6 +1149,8 @@ bMotion_abstract_register "smacks" {
 }
 
 bMotion_abstract_register "ranjoins" {
+	"are you here to fumigate the moose head?"
+	"are you here to fumigate the moose %VAR{bodypart}?"
 	"hey %%"
 	"hi %%"
 	"hi there %%"
@@ -5439,6 +5443,23 @@ bMotion_abstract_register "sillyVerbs" {
 	"yell"
 	"zip"
 }
+
+bMotion_abstract_register "animals" {
+	"cow"
+	"goat"
+	"sheep"
+	"giraffe"
+	"cat"
+	"dog"
+	"mouse"
+	"rat"
+	"goose"
+	"elephant"
+	"anteater"
+	"panther"
+	"pig"
+}
+
 
 source "$bMotionModules/abstracts/en/randomstuff.tcl"
 
