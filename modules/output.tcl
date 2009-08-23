@@ -123,19 +123,19 @@ proc mee {channel action {urgent 0} } {
 #
 # our magic output function
 proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
-	bMotion_putloglev 5 * "bMotionDoAction($channel,$nick,$text,$moreText,$noTypo)"
+	bMotion_putloglev 5 * "bMotionDoAction($channel,$nick,$text,$moreText,$noTypo,$urgent)"
 	global bMotionInfo bMotionCache bMotionOriginalInput
 	global bMotion_output_delay bMotionSettings BMOTION_SLEEP
 
 	set bMotion_output_delay 0
-
-	set bMotionCache($channel,last) 1
 
 	#check our global toggle
 	global bMotionGlobal
 	if {$bMotionGlobal == 0} {
 		return 0
 	}
+
+	set bMotionCache($channel,last) 1
 
 	# check if we're asleep
 	if {[bMotion_setting_get "asleep"] == $BMOTION_SLEEP(ASLEEP)} {
@@ -150,38 +150,107 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 		}
 	}
 
-	if {[bMotion_setting_get "silence"] == 1} { return 0 }
+	if {[bMotion_setting_get "silence"] == 1} { 
+		return 0 
+	}
 	catch {
-		if {$bMotionInfo(adminSilence,$channel) == 1} { return 0 }
+		if {$bMotionInfo(adminSilence,$channel) == 1} { 
+			return 0 
+		}
 	}
 
-	# TODO: ugly, refactor?
 	switch [rand 3] {
 		0 { }
 		1 { set nick [string tolower $nick] }
 		2 { set nick "[string range $nick 0 0][string tolower [string range $nick 1 end]]" }
 	}
 
+	# Process macros
+
+	set done 0
+	set current_pos 0
+	while {$done == 0} {
+		bMotion_putloglev d * "macro: starting loop with $text and current pos=$current_pos"
+		set current_pos [string first "%" $text $current_pos]
+		if {$current_pos == -1} {
+			# no more matches
+			set done 1
+			continue
+		} 
+		bMotion_putloglev d * "macro: found a % at $current_pos"
+		if {$current_pos < [string length $text]} {
+			# this isn't a % at the end of the line
+			if {[string index $text [expr $current_pos + 1]] == "|"} {
+				set current_pos [expr $current_pos + 2]
+				continue
+			}
+
+			#find the element following this %
+			set substring [string range $text $current_pos end]
+			if [regexp -nocase {%([a-z]+)} $text matches macro] {
+				bMotion_putloglev d * "macro: found macro $macro at $current_pos"
+				set plugin [bMotion_plugin_find_output "en" "" 0 10 $macro]
+				if {[llength $plugin] == 1} {
+					# call plugin
+					bMotion_putloglev d * "macro: found matching plugin for macro [lindex $plugin 0]"
+					set result ""
+					catch {
+						set result [[lindex $plugin 0] $channel $text]
+						if {$result == ""} {
+							bMotion_putloglev d * "macro: [lindex $plugin 0] returned nothing, aborting output"
+							return 0
+						}
+					}
+					if {$result == ""} {
+						continue
+					}
+
+					if {$text != $result} {
+						set text $result
+						# reset current pos
+						set current_pos 0
+						continue
+					} else {
+						bMotion_putloglev d * "macro: [lindex $plugin 0] did nothing at position $current_pos in output $text"
+					}
+				} else {
+					bMotion_putloglev d * "macro: unexpectly got too many matching plugins back: $plugin"
+				}
+
+				incr current_pos
+				continue
+			} else {
+				bMotion_putloglev d * "macro: couldn't find a macro in $substring"
+				# skip it
+				incr current_pos
+				continue
+			}
+		}
+
+		# hmm
+		bMotion_putloglev d * "macro: got to end of macro loop o_O"
+		incr current_pos
+	}
 
 	# Run the plugins :D
 
 	# First run the core plugins
-	set plugins [bMotion_plugin_find_output $bMotionInfo(language) $channel 0 10]
-	if {[llength $plugins] > 0} {
-		foreach callback $plugins {
-			bMotion_putloglev 1 * "bMotion: output plugin: $callback..."
-			set result ""
-			catch {
-				set result [$callback $channel $text]
-			} err
-			bMotion_putloglev 3 * "bMotion: returned from output $callback ($result)"
-			# TODO: Still used?
-			if {$result == ""} {
-				return 0
-			}
-			set text $result
-		}
-	}
+	#set plugins [bMotion_plugin_find_output $bMotionInfo(language) $channel 0 10]
+	#if {[llength $plugins] > 0} {
+	#	foreach callback $plugins {
+	#		bMotion_putloglev 1 * "bMotion: output plugin: $callback..."
+	#		set result ""
+	#		catch {
+	#			set result [$callback $channel $text]
+	#		} err
+	#		bMotion_putloglev 3 * "bMotion: returned from output $callback ($result)"
+	#		# TODO: Still used?
+	#		if {$result == ""} {
+	#			return 0
+	#		}
+	#		set text $result
+	#	}
+	#}
 
 	set text [bMotionDoInterpolation $text $nick $moreText $channel]
 
@@ -247,42 +316,6 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 	set line [bMotionInsertString $line "%%" $nick]
 	set line [bMotionInsertString $line "%2" $moreText]
 	set line [bMotionInsertString $line "%percent" "%"]
-
-	bMotion_putloglev 4 * "done misc"
-
-	#ruser:
-	set loops 0
-	while {[regexp "%ruser(\{(\[^\}\]+)\})?" $line matches param condition]} {
-		set ruser [bMotionGetRealName [bMotion_choose_random_user $channel 0 $condition] ""]
-		if {$condition == ""} {
-			set findString "%ruser"
-		} else {
-			set findString "%ruser$param"
-		}
-		regsub $findString $line $ruser line
-		incr loops
-		if {$loops > 10} {
-			putlog "bMotion: ALERT! looping too much in %ruser code with $line"
-			return ""
-		}
-	}
-
-	#rbot:
-	set loops 0
-	while {[regexp "%rbot(\{(\[^\}\]+)\})?" $line matches param condition]} {
-		set ruser [bMotionGetRealName [bMotion_choose_random_user $channel 1 $condition] ""]
-		if {$condition == ""} {
-			set findString "%rbot"
-		} else {
-			set findString "%rbot$param"
-		}
-		regsub $findString $line $ruser line
-		incr loops
-		if {$loops > 10} {
-			putlog "bMotion: ALERT! looping too much in %rbot code with $line"
-			return ""
-		}
-	}
 
 	bMotion_putloglev 4 * "bMotionDoInterpolation returning: $line"
 	return $line

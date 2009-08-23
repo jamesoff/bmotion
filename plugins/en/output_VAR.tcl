@@ -1,11 +1,9 @@
-#
-#
 # vim: fdm=indent fdn=1
 #
  
 ###############################################################################
 # This is a bMotion plugin
-# Copyright (C) James Michael Seward 2000-2008
+# Copyright (C) James Michael Seward 2000-2009
 #
 # This program is covered by the GPL, please refer the to LICENCE file in the
 # distribution; further information can be found in the headers of the scripts
@@ -31,9 +29,7 @@ proc bMotion_plugin_output_VAR { channel line } {
 	# transform %VAR{abstract}{strip} to new form
 	regsub {%VAR\{([^\}]+)\}\{strip\}} $line "%VAR{\\1:strip}" line
 
-	set lastloop ""
-
-	while {[regexp -nocase {(%VAR\{([^\}:]+)(:[^\}]+)?\}(\{strip\})?)} $line matches whole_thing abstract options clean]} {
+	if {[regexp -nocase {(%VAR\{([^\}:]+)(:[^\}]+)?\}(\{strip\})?)} $line matches whole_thing abstract options clean]} {
 		global $abstract
 		#see if we have a new-style abstract available
 		set newText [bMotion_abstract_get $abstract]
@@ -125,13 +121,6 @@ proc bMotion_plugin_output_VAR { channel line } {
 		if [string match "*%noun*" $line] {
 			set line [bMotionInsertString $line "%noun" "%VAR{sillyThings}"]
 		}
-
-		if {$lastloop == $line} {
-			putlog "bMotion: ALERT! looping too much in %VAR code with $line (no change since last parse)"
-			set line "/has a tremendous error while trying to sort something out :("
-			break
-		}
-		set lastloop $line
 	}
 
 	return $line

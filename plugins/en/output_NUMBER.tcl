@@ -1,11 +1,9 @@
-#
-#
 # vim: fdm=indent fdn=1
 #
  
 ###############################################################################
 # This is a bMotion plugin
-# Copyright (C) James Michael Seward 2000-2008
+# Copyright (C) James Michael Seward 2000-2009
 #
 # This program is covered by the GPL, please refer the to LICENCE file in the
 # distribution; further information can be found in the headers of the scripts
@@ -20,10 +18,8 @@
 proc bMotion_plugin_output_NUMBER { channel line } {
 	bMotion_putloglev 4 * "bMotion_plugin_output_NUMBER $channel $line"
 
-	set lastline ""
-
 	set padding 0
-	while {[regexp "%NUMBER\{(\[0-9\]+)\}(\{(\[0-9\]+)\})?" $line matches numberString paddingOpt padding]} {
+	if {[regexp "%NUMBER\{(\[0-9\]+)\}(\{(\[0-9\]+)\})?" $line matches numberString paddingOpt padding]} {
 		set var [bMotion_get_number [bMotion_rand_nonzero $numberString]]
 		if {$padding > 0} {
 			set fmt "%0$padding"
@@ -32,13 +28,6 @@ proc bMotion_plugin_output_NUMBER { channel line } {
 		}
 		set line [bMotionInsertString $line "%NUMBER\\{$numberString\\}(\\{\[0-9\]+\\})?" $var]
 		set padding 0
-
-		if {$lastline == $line} {
-			putlog "bMotion: ALERT! unable to process %NUMBER in $line (dropping output)"
-			set line ""
-			break
-		}
-		set lastline $line
 	}
 
 	return $line
