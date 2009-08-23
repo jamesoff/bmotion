@@ -215,6 +215,8 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 					}
 				} else {
 					bMotion_putloglev d * "macro: unexpectly got too many matching plugins back: $plugin"
+					incr current_pos
+					continue
 				}
 
 				incr current_pos
