@@ -187,7 +187,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 
 			#find the element following this %
 			set substring [string range $text $current_pos end]
-			if [regexp -nocase {%([a-z]+)} $text matches macro] {
+			if [regexp -nocase {%([a-z]+)} $substring matches macro] {
 				bMotion_putloglev d * "macro: found macro $macro at $current_pos"
 				set plugin [bMotion_plugin_find_output "en" "" 0 10 $macro]
 				if {[llength $plugin] == 1} {
