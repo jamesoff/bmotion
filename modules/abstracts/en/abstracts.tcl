@@ -5461,6 +5461,12 @@ bMotion_abstract_register "animals" {
 	"pig"
 }
 
+bMotion_abstract_register "theRs" {
+	"r"
+	"r %VAR{smiles}"
+	"r %VAR{sads}"
+	"r "
+}
 
 source "$bMotionModules/abstracts/en/randomstuff.tcl"
 
