@@ -4477,11 +4477,12 @@ bMotion_abstract_register "captains_log_sensible" {
 	"%VAR{captains_log_start}: %ruser and %ruser have found the cause of the malfunctions have been plaguing the channel."
 	"%VAR{captains_log_start}: %channel has arrived at Deep Space %NUMBER{9}."
 	"%VAR{captains_log_start}: I've summoned the ops to discuss Commander %ruser's theory that %VAR{sillyThings:strip,plural} are a lifeform. Doctor %ruser has attended reluctantly."
-	"%VAR{captains_log_start}: after placing the modified %VAR{sillythings:strip} on the Romulan ship, we have returned to %channel."
+	"%VAR{captains_log_start}: after placing the modified %VAR{sillyThings:strip} on the Romulan ship, we have returned to %channel."
 	"%VAR{captains_log_start}: We are approching %VAR{irc_networks}, where many Bajorans have resettled."
 	"%VAR{captains_log_start}: temporary repairs have been completed. Our attention now turns to matters of a more festive nature."
 	"%VAR{captains_log_start}: %channel is charting six IRC servers that make up %VAR{irc_networks}, an area being considered for colonisation."
 }
+bMotion_abstract_add_filter "captains_log_sensible" "sillythings"
 
 bMotion_abstract_register "captains_log_silly" {
 	"My pants are really chafing."

@@ -563,7 +563,7 @@ proc bMotion_abstract_filter { abstract filter_text } {
 
 	foreach element $contents {
 		bMotion_putloglev 2 * "considering $element for filtering"
-		if [regexp -nocase $filter_text $element] {
+		if [regexp $filter_text $element] {
 			bMotion_putloglev 1 * "abstract $abstract element $element matches filter, dropping"
 			continue
 		}

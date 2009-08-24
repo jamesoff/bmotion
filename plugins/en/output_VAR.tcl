@@ -42,8 +42,7 @@ proc bMotion_plugin_output_VAR { channel line } {
 				set replacement [pickRandom $var]
 			}] { 
 				bMotion_putloglev d * "Unable to handle %VAR{$abstract}"
-				set line ""
-				break
+				return ""
 			}
 		} else {
 			set replacement $newText

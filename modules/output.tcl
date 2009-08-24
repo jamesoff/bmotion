@@ -202,6 +202,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 						}
 					}
 					if {$result == ""} {
+						incr current_pos
 						continue
 					}
 
