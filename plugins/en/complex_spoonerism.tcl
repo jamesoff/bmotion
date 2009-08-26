@@ -29,7 +29,19 @@ proc bMotion_plugin_complex_spoon { nick host handle channel text } {
 			if [rand 1] {
 				bMotionDoAction $channel $text "%VAR{spoonerisms}" "$4$2 $3$1$5"
 			} else {
-				bMotionDoAction $channel "$1$2" "%VAR{xhery}" "$4$5"
+
+				# smash heteronormativity!
+				if [regexp -nocase "straight" $bMotionInfo(orientation)] {
+					bMotionDoAction $channel "$1$2" "%VAR{xhery}" "$4$5"
+				} else if [regexp -nocase "(bi|queer)" $bMotionInfo(orientation)] {
+					bMotionDoAction $channel "$1$2" "%VAR{xhery_bi}" "$4$5"
+				} else if [regexp -nocase "(gay|lesbian|homo)" $bMotionInfo(orientation)] {
+					bMotionDoAction $channel "$1$2" "%VAR{xhery_gay}" "$4$5"
+				} else {
+					# wait, what? panic! default!
+					bMotionDoAction $channel "$1$2" "%VAR{xhery}" "$4$5"
+					bMotion_putloglev 1 * "bMotion: failed to find sexuality pigeonhole (if you know what i mean)"
+				}
 			}
 			return 1
 		}
@@ -79,6 +91,8 @@ bMotion_abstract_batchadd "spoonerisms" [list "%% ... more like %2, am i rite?" 
 
 bMotion_abstract_register "xhery_male" [list "I'd %% her %2"]
 bMotion_abstract_register "xhery_female" [list "I'd %% his %2"]
+bMotion_abstract_register "xhery_bi" [list "%VAR{xhery_male}" "%VAR{xhery_female}"]
+bMotion_abstract_register "xhery_gay" [list "I'd %% %hisher %2"]
 
 # We need this blank one for the two above to work
 bMotion_abstract_register "xhery"
