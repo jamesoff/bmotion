@@ -5,6 +5,7 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"ok, we've got the hot tub hot, the wine cooler's cool: it's %VAR{sillyThings:strip} time!"
 	"eww! i touched my own %VAR{bodypart}!"
 	"MASSIVE CORN CLOG IN PORT %NUMBER{10}"
 	"/gives %ruser{friend} %VAR{sillyThings}%|THIS ORIGINATES FROM THE HEART"
