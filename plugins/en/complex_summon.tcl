@@ -62,7 +62,7 @@ proc bMotion_plugin_complex_summon { nick host handle channel text } {
 				#set msg [pickRandom $summon_privmsg_response]
 				set msg [doInterpolation "%VAR{summon_privmsg_response}" $nick ""]
 				# replacements (TODO: may not be needed after doInterpolation)
-				regsub "%chan" $msg $channel msg 
+				regsub "%channel" $msg $channel msg 
 				regsub "%%" $msg $nick msg
 				# notify
 				puthelp "PRIVMSG $name :$msg"
@@ -103,13 +103,14 @@ bMotion_abstract_batchadd "summon_channel_response" {
 
 bMotion_abstract_register "summon_privmsg_response"
 bMotion_abstract_batchadd "summon_privmsg_response" {
-	"FYI: %% was looking for you on %chan"
-	"just so you know %% was asking about you on %chan"
-	"%% was too lazy to message you from %chan themselves so I had to"
-	"life was good until %% started shouting for you on %chan"
-	"once upon a time, in a land called %chan, %% was asking about you"
-	"Oi! %chan now! %% looking for you!"
+	"FYI: %% was looking for you on %channel"
+	"just so you know %% was asking about you on %channel"
+	"%% was too lazy to message you from %channel themselves so I had to"
+	"life was good until %% started shouting for you on %channel"
+	"once upon a time, in a land called %channel, %% was asking about you"
+	"Oi! %channel now! %% looking for you!"
 }
+bMotion_abstract_add_filter "summon_privmsg_response" "%chan(?!nel)"
 
 bMotion_abstract_register "summon_channel_idiot"
 bMotion_abstract_batchadd "summon_channel_idiot" {

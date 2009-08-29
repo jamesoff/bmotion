@@ -424,7 +424,7 @@ bMotion_abstract_register "randomStuff_female" {
 	"I wonder what happens when I put that in here...%|oooooooh!"
 	"/plays with herself"
 	"That ain't my belly button"
-	"This one time, at band camp, I put %noun..."
+	"This one time, at band camp, I put %VAR{sillyThings}..."
 	"/considers breast implants%|%BOT\[/feels up %ruser{female} to check¬|true, they aren't as good as %ruser{prev}'s¬|/feels up ¬ruser{prev}'s breasts¬|mmmm ¬VAR{smiles}\]"
 	"/considers sexchange operation%|/looks at %ruser{male}%|Maybe not"
 	"It's good to be female isn't it %ruser{female}"
@@ -432,6 +432,7 @@ bMotion_abstract_register "randomStuff_female" {
 	"I got a skirt but I ain't got no knickers"
 	"hi %ruser! I'm miniature superwoman!%|no %ruser{prev}, don't touch me there!%|n%REPEAT{5:15:o}! %VAR{unsmiles}"
 }
+bMotion_abstract_add_filter "randomStuff_female" "%noun"
 
 
 ### Date-specific stuff

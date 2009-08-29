@@ -29,7 +29,7 @@ bMotion_abstract_register "fellOffs" {
 	"imploded"
 	"caught fire"
 	"got eaten"
-	"turned into %noun"
+	"turned into %VAR{sillyThings}"
 	"got discontinued"
 	"ran out"
 	"ran off"
@@ -40,6 +40,7 @@ bMotion_abstract_register "fellOffs" {
 	"got sat on by a fat person"
 	"got turned into %VAR{sillyThings}"
 }
+bMotion_abstract_add_filter "fellOffs" "%noun"
 
 bMotion_abstract_register "jokeends" {
 	"Confucious say, %VAR{confuciousStart} %VAR{confuciousEnd}"
@@ -174,8 +175,9 @@ bMotion_abstract_register "answerWhats" {
 	"cheese"
 	"rainbows"
 	"kittens"
-	"%noun"
+	"%VAR{sillyThings}"
 }
+bMotion_abstract_add_filter "answerWhats" "%noun"
 
 bMotion_abstract_register "answerWhos" {
 	"Captain Porklord-Chocolate II"
@@ -5464,9 +5466,10 @@ bMotion_abstract_register "animals" {
 bMotion_abstract_register "theRs" {
 	"r"
 	"r %VAR{smiles}"
-	"r %VAR{sads}"
+	"r %VAR{unsmiles}"
 	"r "
 }
+bMotion_abstract_add_filter "theRs" "sads"
 
 source "$bMotionModules/abstracts/en/randomstuff.tcl"
 
