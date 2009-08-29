@@ -620,6 +620,11 @@ proc bMotion_abstract_list_filters { } {
 	return $bMotion_abstract_filters
 }
 
+# implementation-independent way to get all abstract names
+proc bMotion_abstract_get_names { } {
+	global bMotion_abstract_contents
+	return [array names bMotion_abstract_contents]
+}
 
 bind time - "* * * * *" bMotion_abstract_auto_gc
 

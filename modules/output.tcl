@@ -120,6 +120,79 @@ proc mee {channel action {urgent 0} } {
 	}
 }
 
+proc bMotion_process_macros { channel text } {
+
+	set done 0
+	set current_pos 0
+	while {$done == 0} {
+		bMotion_putloglev d * "macro: starting loop with $text and current pos=$current_pos"
+		set current_pos [string first "%" $text $current_pos]
+		if {$current_pos == -1} {
+		# no more matches
+			set done 1
+			continue
+		} 
+		bMotion_putloglev d * "macro: found a % at $current_pos"
+		if {$current_pos < [string length $text]} {
+		# this isn't a % at the end of the line
+			if {[string index $text [expr $current_pos + 1]] == "|"} {
+				set current_pos [expr $current_pos + 2]
+				continue
+			}
+
+			#find the element following this %
+			set substring [string range $text $current_pos end]
+			if [regexp -nocase {%([a-z]+)} $substring matches macro] {
+				bMotion_putloglev d * "macro: found macro $macro at $current_pos"
+				set plugin [bMotion_plugin_find_output "en" "" 0 10 $macro]
+				if {[llength $plugin] == 1} {
+				# call plugin
+					bMotion_putloglev d * "macro: found matching plugin for macro [lindex $plugin 0]"
+					set result ""
+					catch {
+						set result [[lindex $plugin 0] $channel $text]
+						if {$result == ""} {
+							bMotion_putloglev d * "macro: [lindex $plugin 0] returned nothing, aborting output"
+							return 0
+						}
+					}
+					if {$result == ""} {
+						incr current_pos
+						continue
+					}
+
+					if {$text != $result} {
+						set text $result
+						# reset current pos
+						set current_pos 0
+						continue
+					} else {
+						bMotion_putloglev d * "macro: [lindex $plugin 0] did nothing at position $current_pos in output $text"
+					}
+				} else {
+					bMotion_putloglev d * "macro: unexpectly got too many matching plugins back: $plugin"
+					incr current_pos
+					continue
+				}
+
+				incr current_pos
+				continue
+			} else {
+				bMotion_putloglev d * "macro: couldn't find a macro in $substring"
+				# skip it
+				incr current_pos
+				continue
+			}
+		}
+
+		# hmm
+		bMotion_putloglev d * "macro: got to end of macro loop o_O"
+		incr current_pos
+	}
+
+	return $text
+}
+
 #
 # our magic output function
 proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
@@ -167,73 +240,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 
 	# Process macros
 
-	set done 0
-	set current_pos 0
-	while {$done == 0} {
-		bMotion_putloglev d * "macro: starting loop with $text and current pos=$current_pos"
-		set current_pos [string first "%" $text $current_pos]
-		if {$current_pos == -1} {
-			# no more matches
-			set done 1
-			continue
-		} 
-		bMotion_putloglev d * "macro: found a % at $current_pos"
-		if {$current_pos < [string length $text]} {
-			# this isn't a % at the end of the line
-			if {[string index $text [expr $current_pos + 1]] == "|"} {
-				set current_pos [expr $current_pos + 2]
-				continue
-			}
-
-			#find the element following this %
-			set substring [string range $text $current_pos end]
-			if [regexp -nocase {%([a-z]+)} $substring matches macro] {
-				bMotion_putloglev d * "macro: found macro $macro at $current_pos"
-				set plugin [bMotion_plugin_find_output "en" "" 0 10 $macro]
-				if {[llength $plugin] == 1} {
-					# call plugin
-					bMotion_putloglev d * "macro: found matching plugin for macro [lindex $plugin 0]"
-					set result ""
-					catch {
-						set result [[lindex $plugin 0] $channel $text]
-						if {$result == ""} {
-							bMotion_putloglev d * "macro: [lindex $plugin 0] returned nothing, aborting output"
-							return 0
-						}
-					}
-					if {$result == ""} {
-						incr current_pos
-						continue
-					}
-
-					if {$text != $result} {
-						set text $result
-						# reset current pos
-						set current_pos 0
-						continue
-					} else {
-						bMotion_putloglev d * "macro: [lindex $plugin 0] did nothing at position $current_pos in output $text"
-					}
-				} else {
-					bMotion_putloglev d * "macro: unexpectly got too many matching plugins back: $plugin"
-					incr current_pos
-					continue
-				}
-
-				incr current_pos
-				continue
-			} else {
-				bMotion_putloglev d * "macro: couldn't find a macro in $substring"
-				# skip it
-				incr current_pos
-				continue
-			}
-		}
-
-		# hmm
-		bMotion_putloglev d * "macro: got to end of macro loop o_O"
-		incr current_pos
-	}
+	set text [bMotion_process_macros $channel $text]
 
 	# Run the plugins :D
 
@@ -481,7 +488,7 @@ proc bMotionGetColenChars {} {
 		append line [pickRandom $randomChars]
 	}
 
-	regsub -all "%%" $line "%percent" line
+	regsub -all "%" $line "%percent" line
 
 	return $line
 }

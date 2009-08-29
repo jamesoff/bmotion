@@ -117,9 +117,7 @@ proc bMotion_plugin_output_VAR { channel line } {
 		regsub $whole_thing $line $replacement line
 
 		# check if what we swapped in gave us a %noun
-		if [string match "*%noun*" $line] {
-			set line [bMotionInsertString $line "%noun" "%VAR{sillyThings}"]
-		}
+		set line [string map { "%noun" "%VAR{sillyThings}" } $line]
 	}
 
 	return $line

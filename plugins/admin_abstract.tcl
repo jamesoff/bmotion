@@ -80,6 +80,11 @@ proc bMotion_plugin_admin_abstract { handle { arg "" }} {
 		return 0
 	}
 
+	if [regexp -nocase "diagnose" $arg] {
+		bMotion_diagnostic_parsing
+		return 0
+	}
+
 	if [regexp -nocase "filter (\[a-z\]+)( (\[^ \]+)( .+)?)?" $arg matches cmd parms abstract filter] {
 		switch $cmd {
 			"list" {
@@ -160,6 +165,8 @@ proc bMotion_plugin_admin_abstract_help { } {
 	bMotion_putadmin "    Purge all filters"
 	bMotion_putadmin "  .bmotion abstract filter apply <abstract>"
 	bMotion_putadmin "    For an abstract to be filtered now"
+	bMotion_putadmin "  .bmotion abstract diagnose"
+	bMotion_putadmin "    Test all abstracts for parsability and report any broken ones"
 	return 0
 }
 

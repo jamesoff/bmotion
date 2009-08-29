@@ -327,6 +327,54 @@ proc bMotion_diagnostic_bitlbee { } {
 	}
 }
 
+### bMotion_diagnostic_parsing
+# Try to build every abstract we can and make sure it parses ok
+# This is not run automatically!
+# This is run as an admin plugin, so it tries to output to the admin stuff
+proc bMotion_diagnostic_parsing { } {
+	bMotion_putadmin "Counting abstracts..."
+	set all_abstracts [bMotion_abstract_get_names]
+	set all_abstracts_size [llength $all_abstracts]
+	bMotion_putadmin "Found $all_abstracts_size abstracts"
+
+	set broken [list]
+	set errors 0
+	set count_abstract 0
+	set count_lines 0
+	set i 0
+
+	foreach abstract $all_abstracts {
+		incr i
+		if {[expr $i % 10] == 0} {
+			bMotion_putadmin "Processing abstract $i: $abstract..."
+		}
+		set abstract_contents [bMotion_abstract_all $abstract]
+		bMotion_putloglev d * "Processing [llength $abstract_contents] items for abstract $abstract"
+		incr count_abstract
+		foreach content $abstract_contents {
+			incr count_lines
+			set line ""
+			set fail ""
+			catch {
+				set line [bMotion_process_macros "" $content]
+				set line [bMotionDoInterpolation $line "JamesOff" "moretext" "#diagnostics"]
+				# bit of a hack!
+				set line [bMotion_plugin_output_preprocess "#diagnostics" $line]
+			} 
+			if {($line == "") || [regexp {%(?!(SETTING|ruser|r?bot|BOT|percent|channel))[^%2\| ]} $line matches moo]} {
+				incr errors
+				lappend broken "$abstract:$content\r\n  -> $line"
+			}
+		}
+	}
+
+	bMotion_putadmin "Finished."
+	bMotion_putadmin "$errors errors found in $count_lines lines in $count_abstract abstracts."
+	foreach line $broken {
+		bMotion_putadmin $line
+	}
+}
+
 ### bMotion_diagnostic_auto <<<1
 proc bMotion_diagnostic_auto { min hr a b c } {
 	bMotion_putloglev 5 * "bMotion_diagnostic_auto"
