@@ -1209,24 +1209,24 @@ proc bMotion_get_daytime { } {
 # check something aginst our stoplist before we learn it
 proc bMotion_filter_sillyThings { item } {
 	if [regexp {[^A-Za-z0-9 '-]} $item] {
-		return false
+		return 0
 	}
 
 	if [regexp -nocase {^(for|i)\M} $item] {
-		return false
+		return 0
 	}
 
 	# -rty, -ted?
 
-	if [regexp -nocase {\m(and|for|to|be)$} $item] {
-		return false
+	if [regexp -nocase {\m(better|bigger|clever|other|rather|the|and|for|to|be)$} $item] {
+		return 0
 	}
 
-	if [regexp -nocase {(ly)$} $item] {
-		return false
+	if [regexp -nocase {(est|ly)$} $item] {
+		return 0
 	}
 
-	return true
+	return 1
 }
 
 
