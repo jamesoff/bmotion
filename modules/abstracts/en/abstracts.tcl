@@ -4609,6 +4609,14 @@ bMotion_abstract_register "noun_prefix" {
 	"minging"
 	"nice"
 	"horrible"
+	"%VAR{noun_swearing}"
+}
+
+bMotion_abstract_register "noun_swearing" {
+	"fucking"
+	"bloody"
+	"blasted"
+	"faffing"
 }
 
 bMotion_abstract_register "foods" {

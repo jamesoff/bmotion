@@ -112,10 +112,6 @@ proc bMotion_plugin_complex_noun_catcher { nick host handle channel text } {
 			return 0
 		}
 
-    if [regexp "(ly)$" $item] {
-      return 0
-    }
-
     if [regexp "(ing|ed)$" $item] {
       if {$second == ""} {
         return 0

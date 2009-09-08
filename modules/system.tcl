@@ -1212,6 +1212,10 @@ proc bMotion_filter_sillyThings { item } {
 		return 0
 	}
 
+	if {[string length $item] == 1} {
+		return 0
+	}
+
 	if [regexp -nocase {^(for|i)\M} $item] {
 		return 0
 	}
