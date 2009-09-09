@@ -1226,7 +1226,7 @@ proc bMotion_filter_sillyThings { item } {
 		return 0
 	}
 
-	if [regexp -nocase {(est|ly)$} $item] {
+	if [regexp -nocase {(ful|est|ly)$} $item] {
 		return 0
 	}
 
