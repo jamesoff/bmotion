@@ -561,7 +561,7 @@ bMotion_abstract_register "activeRandomStuff" {
 	"Truely I have been scandalized by your scarcely-clad shenanigans"
 	"r"
 	"*schwing*"
-	"oh really well what do you think, talking %VAR{bodypart}?"
+	"oh really well what do you think, talking %VAR{bodypart:bothmixin}?"
 	"oh yeah? fuck your theory."
 	"PUT YOUR KNICKERS ON AND GO GET ME A CUP OF TEA"
 	"Do it again in a deeper voice"

@@ -1152,7 +1152,7 @@ bMotion_abstract_register "smacks" {
 
 bMotion_abstract_register "ranjoins" {
 	"are you here to fumigate the moose head?"
-	"are you here to fumigate the moose %VAR{bodypart}?"
+	"are you here to fumigate the moose %VAR{bodypart:bothmixin}?"
 	"hey %%"
 	"hi %%"
 	"hi there %%"
@@ -1171,7 +1171,7 @@ bMotion_abstract_register "ranjoins" {
 	"ieks, %%"
 	"welcome to our next contestant, %%!"
 	"wasn't expecting %%!%|/hides"
-	"hey %% %VAR{food}%VAR{bodypart}"
+	"hey %% %VAR{food}%VAR{bodypart:bothmixin}"
 }
 
 bMotion_abstract_register "food" {
@@ -3564,7 +3564,7 @@ bMotion_abstract_register "answerDidyous" {
 	"yeah %VAR{oops} %VAR{smiles}"
 	"yarr%|%VAR{randomZimness}"
 	"%VAR{lols} %VAR{smiles} %colen%|/%VAR{smacks} %himherself in the %VAR{bodypart}"
-	"no i spent my time contemplating how i %VAR{smacked} %ruser in the %VAR{bodypart}"
+	"no i spent my time contemplating how i %VAR{smacked} %ruser in the %VAR{bodypart:nomixin}"
 	"yes but i wish i'd gone %VAR{dNouns}-%VAR{dVerbs}ing %VAR{smiles}"
 }
 
@@ -3576,7 +3576,7 @@ bMotion_abstract_register "answerDoyous" {
 	"does it mean i get pie?"
 	"yahyahayayahayahahayh%colen"
 	"indeed i do%|%VAR{randomZimness}"
-	"yarr or i would be %VAR{smacked} with %rusers %VAR{bodypart}!"
+	"yarr or i would be %VAR{smacked} with %rusers %VAR{bodypart:nomixin}!"
 	"omg yes"
 	"any chance i get %VAR{rarrs}%|%VAR{randomGirness}"
 }
@@ -4039,7 +4039,7 @@ bMotion_abstract_register "randomSongName" {
 	"the sound of one hand clapping"
 	"%VAR{sounds} %VAR{sounds} %VAR{sounds}"
 	"ode to %ruser"
-	"shake your %VAR{bodypart}"
+	"shake your %VAR{bodypart:bothmixin}"
 	"the Doom Song"
 	"God Save the Queen"
 	"Untitled Track %NUMBER{100}"
@@ -4266,7 +4266,7 @@ bMotion_abstract_register "bb_stuff" {
 	"Day %NUMBER{500} %VAR{bb_time}: This week, %ruser, %ruser and %ruser are all up for eviction"
 	"Day %NUMBER{500} %VAR{bb_time}: Big Brother has locked %ruser in the %VAR{bb_places} for %VAR{bb_naughty}"
 	"Day %NUMBER{500} %VAR{bb_time}: Big Brother has set the housemates a %VAR{bb_task} task"
-	"Day %NUMBER{500} %VAR{bb_time}: %ruser is in the %VAR{bb_places}. The other housemates are in the %VAR{bb_places}, talking about %OWNER{%ruser{prev}} %VAR{bodypart}"
+	"Day %NUMBER{500} %VAR{bb_time}: %ruser is in the %VAR{bb_places}. The other housemates are in the %VAR{bb_places}, talking about %OWNER{%ruser{prev}} %VAR{bodypart:nomixin}"
 	"Day %NUMBER{500} %VAR{bb_time}: %ruser is in the diary room, talking to Big Brother about %VAR{bb_diary}"
 	"Day %NUMBER{500} %VAR{bb_time}: %ruser has hidden %OWNER{%ruser} %VAR{bb_posession} in %VAR{bb_hide}"
 	"Day %NUMBER{500} %VAR{bb_time}: %ruser has been crying in the %VAR{bb_room} for %NUMBER{100} minutes"
@@ -4315,8 +4315,8 @@ bMotion_abstract_register "bb_task" {
 }
 
 bMotion_abstract_register "bb_diary" {
-	"their %VAR{colours} %VAR{bodypart}"
-	"their %VAR{bodypart}"
+	"their %VAR{colours} %VAR{bodypart:nomixin}"
+	"their %VAR{bodypart:nomixin}"
 	"%ruser"
 	"how much they like the %VAR{bb_places}"
 	"how much they like %VAR{sillyThings}{strip}"

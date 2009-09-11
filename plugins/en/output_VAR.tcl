@@ -23,7 +23,7 @@
 
 proc bMotion_plugin_output_VAR { channel line } {
 	bMotion_putloglev 4 * "bMotion_plugin_output_VAR $channel $line"
-	global BMOTION_MIXIN_NONE BMOTION_MIXIN_REVERSE BMOTION_MIXIN_DEFAULT
+	global BMOTION_MIXIN_NONE BMOTION_MIXIN_REVERSE BMOTION_MIXIN_DEFAULT BMOTION_MIXIN_BOTH
 
 	set line [string map { "%noun" "%VAR{sillyThings}" } $line]
 
@@ -55,6 +55,9 @@ proc bMotion_plugin_output_VAR { channel line } {
 		} elseif {[lsearch $options_list "nomixin"] > -1} {
 			bMotion_putloglev 1 * "mixin type for $abstract is none"
 			set mixin_type $BMOTION_MIXIN_NONE
+		} elseif {[lsearch $options_list "bothmixin"] > -1} {
+			bMotion_putloglev 1 * "mixin type for $abstract is both"
+			set mixin_type $BMOTION_MIXIN_BOTH
 		}
 
 		#see if we have a new-style abstract available
@@ -73,7 +76,6 @@ proc bMotion_plugin_output_VAR { channel line } {
 		} else {
 			set replacement $newText
 		}
-
 
 		if {[lsearch $options_list "strip"] == -1} {
 			if {$abstract == "sillyThings"} {
@@ -117,6 +119,7 @@ proc bMotion_plugin_output_VAR { channel line } {
 					set replacement [bMotion_make_present_participle $replacement]
 				}
 				"plural" {
+					bMotion_putloglev 1 * "pluralising $replacement"
 					set replacement [bMotionMakePlural $replacement]
 				}
 				"owner" {
