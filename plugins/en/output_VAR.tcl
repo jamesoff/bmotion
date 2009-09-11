@@ -121,6 +121,7 @@ proc bMotion_plugin_output_VAR { channel line } {
 				"plural" {
 					bMotion_putloglev 1 * "pluralising $replacement"
 					set replacement [bMotionMakePlural $replacement]
+					putlog $replacement
 				}
 				"owner" {
 					set replacement [bMotionMakePossessive $replacement]
@@ -132,14 +133,16 @@ proc bMotion_plugin_output_VAR { channel line } {
 					set replacement [string toupper $replacement]
 				}
 			}
-
-			# actually do the replacement
-			regsub $whole_thing $line $replacement line
+			bMotion_putloglev 1 * "current replacement is $replacement"
 		}
 
-		if {[llength $options_list] == 0} {
-			regsub $whole_thing $line $replacement line
+		set location [string first $whole_thing $line]
+		if {$location == -1} {
+			# something's broken
+			putlog "bMotion: error parsing $whole_thing in $line, unable to insert $replacement"
+			return ""
 		}
+		set line [string replace $line $location [expr $location + [string length $matches] - 1] $replacement]
 
 		# check if what we swapped in gave us a %noun
 		set line [string map { "%noun" "%VAR{sillyThings}" } $line]
