@@ -23,6 +23,7 @@ bMotion_abstract_register "randomStuff" {
 	"/shits %hisher %VAR{clothes}"
 	"Check out my %VAR{bodypart:plural}"
 	"I have expendable %VAR{bodypart:plural}"
+	"I have expandable %VAR{bodypart:plural}"
 	"%BOT[The Ambassador's receptions are noted in society for their host's exquisite taste that captivates his guests.]%|Monsieur, with this %VAR{sillyThings:strip} you are really spoiling us!"
 	"where there's a snack gap, a %VAR{PROM} fits"
 	"where there's a snack gap, %VAR{sillyThings:strip} fits"
@@ -206,7 +207,7 @@ bMotion_abstract_register "randomStuff" {
 	"%VAR{weather}"
 
 	"WHOOSH *DONG*"
-	"i'm awash with %VAR{bodypart}s"
+	"i'm awash with %VAR{bodypart:plural}"
 	"I feel a great disatisfaction within my bowels."
 	"Pardon me. Do you have any grey poupon?"
 	"PENIS BECOMES ARM"
@@ -371,7 +372,7 @@ bMotion_abstract_register "randomStuff" {
 	"adventure follows me like a dog follows a man with bacon trousers"
 	"i'm giving up evil science and taking up even gardening instead"
 	"noooo! enormous naked buttocks heading towards my head!%|i'm being simultaneously crushed and embarrassed to death"
-	"yay! %VAR{bodypart}s!"
+	"yay! %VAR{bodypart:plural}!"
 }
 
 
@@ -379,6 +380,7 @@ bMotion_abstract_register "randomStuff" {
 ### Used by the right gender bot in an inactive channel
 ### Mixed in with list above
 bMotion_abstract_register "randomStuff_male" {
+	"I always thought the most sensual part of a woman was the %VAR{bodypart:revmixin}"
 	"Looks like the squirrel's been showing everyone where he keeps his nuts."
 	"You wanna see some stuff I'm not supposed to show anyone?"
 	"Ha ha! Body in a woodchipper."

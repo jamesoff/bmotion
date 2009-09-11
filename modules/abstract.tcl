@@ -65,6 +65,13 @@
 # The abstracts will be stored in ./abstracts/<language>/<abstract name>.txt in the bMotion directory. The
 # fileformat is simply one per line.
 
+# default = mixin own gender
+# reverse = mixin opposite gender
+# none = don't mixin at all
+set BMOTION_MIXIN_DEFAULT 0
+set BMOTION_MIXIN_REVERSE 1
+set BMOTION_MIXIN_NONE 2
+
 if { [bMotion_setting_get "abstractMaxAge"] != "" } {
   set bMotion_abstract_max_age [bMotion_setting_get "abstractMaxAge"]
 } else {
@@ -339,7 +346,6 @@ proc bMotion_abstract_contains { abstract item } {
 	bMotion_putloglev 4 * "abstract: bMotion_abstract_contains $abstract $item"
 
 	set contents [bMotion_abstract_all $abstract]
-	putlog $contents
 
 	if {[llength $contents] == 0} {
 		return 0
@@ -365,8 +371,8 @@ proc bMotion_abstract_exists { abstract } {
 	return 1
 }
 
-proc bMotion_abstract_get { abstract } {
-	bMotion_putloglev 5 * "bMotion_abstract_get ($abstract)"
+proc bMotion_abstract_get { abstract { mixin_type 0 } } {
+	bMotion_putloglev 5 * "bMotion_abstract_get ($abstract $mixin_type)"
   global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age bMotion_abstract_last_get bMotionInfo
 
   bMotion_putloglev 2 * "getting abstract $abstract"
@@ -387,14 +393,38 @@ proc bMotion_abstract_get { abstract } {
 	}
 
 	# look for male and female versions, and merge in if needed
-	if [bMotion_abstract_exists "${abstract}_$bMotionInfo(gender)"] {
-		# mix-in the gender one with the vanilla one
-		bMotion_putloglev 1 * "mixing in $bMotionInfo(gender) version of $abstract"
-		set final_version [concat [bMotion_abstract_all $abstract] [bMotion_abstract_all "${abstract}_$bMotionInfo(gender)"]]
-	} else {
-		set final_version [bMotion_abstract_all $abstract]
+	set final_version [bMotion_abstract_all $abstract]
+	switch $mixin_type {
+		0 {
+			if [bMotion_abstract_exists "${abstract}_$bMotionInfo(gender)"] {
+			# mix-in the gender one with the vanilla one
+				bMotion_putloglev 1 * "mixing in $bMotionInfo(gender) version of $abstract"
+				set final_version $final_version [bMotion_abstract_all "${abstract}_$bMotionInfo(gender)"]]
+			} else {
+				set final_version [bMotion_abstract_all $abstract]
+			}
+		}
+		1 {
+			if {[bMotion_setting_get "gender"] == "male"} {
+				set gender "female"
+			} else {
+				set gender "male"
+			}
+			if [bMotion_abstract_exists "${abstract}_$gender"] {
+			# mix-in the gender one with the vanilla one
+				bMotion_putloglev 1 * "mixing in $gender version of $abstract"
+				set final_version [concat $final_version [bMotion_abstract_all "${abstract}_$gender"]]
+			} else {
+				set final_version [bMotion_abstract_all $abstract]
+			}
+		}
+		2 {
+			# noop, we did it already before the switch
+		}
+		default {
+			putlog "bMotion ERROR: unknown mixin type $mixin_type for abstract $abstract"
+		}
 	}
-
 
 	if {[llength $final_version] == 0} {
 		bMotion_putloglev d * "abstract '$abstract' is empty!"
@@ -632,5 +662,6 @@ bind time - "* * * * *" bMotion_abstract_auto_gc
 bMotion_abstract_check
 # we have to revive at least one language
 bMotion_abstract_revive_language
+
 
 bMotion_putloglev d * "abstract module loaded"

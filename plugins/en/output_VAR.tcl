@@ -23,16 +23,42 @@
 
 proc bMotion_plugin_output_VAR { channel line } {
 	bMotion_putloglev 4 * "bMotion_plugin_output_VAR $channel $line"
+	global BMOTION_MIXIN_NONE BMOTION_MIXIN_REVERSE BMOTION_MIXIN_DEFAULT
 
 	set line [string map { "%noun" "%VAR{sillyThings}" } $line]
 
 	# transform %VAR{abstract}{strip} to new form
 	regsub {%VAR\{([^\}]+)\}\{strip\}} $line "%VAR{\\1:strip}" line
 
-	if {[regexp -nocase {(%VAR\{([^\}:]+)(:[^\}]+)?\}(\{strip\})?)} $line matches whole_thing abstract options clean]} {
+	if {[regexp -nocase {(%VAR\{([^\}:]+)(:([^\}]+))?\}(\{strip\})?)} $line matches whole_thing abstract 1 options clean]} {
 		global $abstract
+
+		bMotion_putloglev 1 * "options for $abstract are $options"
+
+		# check options
+		if {$options != ""} {
+			set options_list [split $options ","]
+		} else {
+			set options_list [list]
+		}
+		bMotion_putloglev 1 * "options list is $options_list"
+
+		if {$clean == "{strip}"} {
+			lappend options_list "clean"
+		}
+
+		set mixin_type $BMOTION_MIXIN_DEFAULT
+
+		if {[lsearch $options_list "revmixin"] > -1} {
+			bMotion_putloglev 1 * "mixin type for $abstract is reverse"
+			set mixin_type $BMOTION_MIXIN_REVERSE
+		} elseif {[lsearch $options_list "nomixin"] > -1} {
+			bMotion_putloglev 1 * "mixin type for $abstract is none"
+			set mixin_type $BMOTION_MIXIN_NONE
+		}
+
 		#see if we have a new-style abstract available
-		set newText [bMotion_abstract_get $abstract]
+		set newText [bMotion_abstract_get $abstract $mixin_type]
 		set replacement ""
 		if {$newText == ""} {
 			bMotion_putloglev d * "abstract '$abstract' doesn't exist in new abstracts system!"
@@ -48,17 +74,6 @@ proc bMotion_plugin_output_VAR { channel line } {
 			set replacement $newText
 		}
 
-		# check options
-		set options [string range $options 1 end]
-		if {$options != ""} {
-			set options_list [split $options ","]
-		} else {
-			set options_list [list]
-		}
-
-		if {$clean == "{strip}"} {
-			lappend options_list "clean"
-		}
 
 		if {[lsearch $options_list "strip"] == -1} {
 			if {$abstract == "sillyThings"} {
@@ -129,5 +144,6 @@ proc bMotion_plugin_output_VAR { channel line } {
 
 	return $line
 }
+
 
 bMotion_plugin_add_output "VAR" bMotion_plugin_output_VAR 1 "en" 3
