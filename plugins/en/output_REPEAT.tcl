@@ -16,7 +16,16 @@
 proc bMotion_plugin_output_REPEAT { channel line } {
 	if {[regexp -nocase "%REPEAT\{(.+?)\}" $line matches BOOM]} {
 		set replacement [bMotionMakeRepeat $BOOM]
-		regsub -nocase "%REPEAT\\{$BOOM\\}" $line $replacement line
+		putlog "replacement is $replacement"
+		set location [string first $matches $line]
+		if {$location == -1} {
+			# something's broken
+			return ""
+		}
+		putlog "location is $location"
+		putlog "matches is $matches"
+		set line [string replace $line $location [expr $location + [string length $matches] - 1] $replacement]
+		putlog "line is now $line"
 	}
 	return $line
 }
