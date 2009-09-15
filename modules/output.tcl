@@ -973,7 +973,7 @@ proc chr c {
 proc bMotionMakePlural { text } {
 	bMotion_putloglev 5 * "bMotionMakePlural ($text)"
 
-	if [regexp -nocase "(us|is|x|ch)$" $text] {
+	if [regexp -nocase "(us|is|x|ch|sh)$" $text] {
 		append text "es"
 		return $text
 	}
