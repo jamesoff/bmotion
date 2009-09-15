@@ -521,7 +521,7 @@ bMotion_abstract_register "randomReplies" {
 	"about half-past three, I think"
 	"r"
 	"more fun than a bucket of anchovies"
-	"more fun than a bucket of %VAR{sillyThings}{strip}"
+	"more fun than a bucket of %VAR{sillyThings:strip}"
 	"yes"
 	"no"
 	"maybe"
@@ -1063,7 +1063,7 @@ bMotion_abstract_register "hexMiddle" {
 	"Paradox Shifting"
 	"Here Comes The Cheese"
 	"Ow"
-	"%VAR{sillyThings}{strip}"
+	"%VAR{sillyThings:strip}"
 }
 
 bMotion_abstract_register "tech_tries" {
@@ -1396,7 +1396,7 @@ bMotion_abstract_register "hexEnd" {
 	"-(Why Not Take This Time To Register Your Purchase)+++"
 	"=Error %REPEAT{3:6:%NUMBER{100}}+++"
 	"%REPEAT{3:12:?}+++"
-	"Warning : Excess %VAR{sillyThings}{strip}"
+	"Warning : Excess %VAR{sillyThings:strip}"
 	"Data Lost+++"
 	": Redo From Start+++"
 	"- Please Reboot Universe+++"
@@ -4022,7 +4022,7 @@ bMotion_abstract_register "randomSongArtist" {
 	"KOMPRESSOR"
 	"Nine Inch Nails"
 	"Nirvana"
-	"DJ %VAR{sillyThings}{strip}"
+	"DJ %VAR{sillyThings:strip}"
 	"%ruser"
 	"Unknown Artist"
 	"Cannibal Corpse"
@@ -4319,7 +4319,7 @@ bMotion_abstract_register "bb_diary" {
 	"their %VAR{bodypart:nomixin}"
 	"%ruser"
 	"how much they like the %VAR{bb_places}"
-	"how much they like %VAR{sillyThings}{strip}"
+	"how much they like %VAR{sillyThings:strip}"
 	"how much they like %me"
 	"nominations"
 	"nuclear physics"
@@ -4373,9 +4373,9 @@ bMotion_abstract_register "opped" {
 
 bMotion_abstract_register "weather" {
 	"Today's forecast is %VAR{weathertypes}"
-	"Today's forecast is %VAR{weathertypes} with a %NUMBER{100}%percent chance of %VAR{sillyThings}{strip}"
+	"Today's forecast is %VAR{weathertypes} with a %NUMBER{100}%percent chance of %VAR{sillyThings:strip}"
 	"Today's forecast is %VAR{weathertypes} with a %NUMBER{100}%percent chance of %VAR{weathertypes}"
-	"Today's forecast is %VAR{weathertypes} with a %NUMBER{100}%percent chance of %VAR{sillyThings}{strip} moving in from the %VAR{compass}"
+	"Today's forecast is %VAR{weathertypes} with a %NUMBER{100}%percent chance of %VAR{sillyThings:strip} moving in from the %VAR{compass}"
 	"Today's forecast is %VAR{weathertypes} with a %NUMBER{100}%percent chance of %VAR{weathertypes} moving in from the %VAR{compass}"
 }
 
