@@ -375,6 +375,8 @@ bMotion_abstract_register "randomStuff" {
 	"i'm giving up evil science and taking up even gardening instead"
 	"noooo! enormous naked buttocks heading towards my head!%|i'm being simultaneously crushed and embarrassed to death"
 	"yay! %VAR{bodypart:plural}!"
+	"Press X to %VAR{sillyVerbs}"
+	"Press X to not %VAR{sillyVerbs}"
 }
 
 
