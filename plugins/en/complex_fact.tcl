@@ -34,7 +34,7 @@ proc bMotion_plugin_complex_fact { nick host handle channel text } {
   if [regexp -nocase {\m([^ !"]+)[!" ]+(is|was|==?|am) ?([a-z0-9 '_/-]+)} $text matches item blah fact] {
     set item [string tolower $item]
     if {([string length $fact] < 3) || ([string length $fact] > 30)} { return 0 }
-    if [regexp "(what|which|have|it|that|when|where|there|then|this|who|you|you|yours|why|he|she)" $item] {
+    if [regexp "(like|what|which|have|it|that|when|where|there|then|this|who|you|you|yours|why|he|she)" $item] {
       return 0
     }
     if {$item == "i"} {
