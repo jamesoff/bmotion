@@ -135,12 +135,13 @@ proc bMotion_abstract_register { abstract { stuff "" } } {
   global bMotion_abstract_contents bMotion_abstract_timestamps
   global bMotionModules bMotion_testing bMotion_loading
   global bMotionInfo bMotion_abstract_languages bMotion_abstract_dir
-	global bMotion_abstract_last_get
+	global bMotion_abstract_last_get bMotion_abstract_filters
 
   #set timestamp to now
   set bMotion_abstract_timestamps($abstract) [clock seconds]
   set lang $bMotionInfo(language)
 	set bMotion_abstract_last_get($abstract) ""
+	set bMotion_abstract_filters($abstract) ""
 
   #load any existing abstracts
   if [file exists "$bMotion_abstract_dir/${abstract}.txt"] {
@@ -507,9 +508,10 @@ proc bMotion_abstract_flush { } {
 # this loads language abstracts for the current language in bMotionInfo
 proc bMotion_abstract_revive_language { } {
   global bMotionSettings bMotionInfo bMotionModules
-  global bMotion_abstract_contents bMotionLocal
+  global bMotion_abstract_contents bMotionLocal bMotion_abstract_filters
 
   set lang $bMotionInfo(language)
+
 
   bMotion_putloglev 2 * "bMotion: reviving language ($lang) abstracts"
   set languages [split $bMotionSettings(languages) ","]
@@ -581,7 +583,7 @@ proc bMotion_abstract_check {  } {
 }
 
 # filter out stuff from an abstract
-proc bMotion_abstract_filter { abstract filter_text } {
+proc bMotion_abstract_filter { abstract filter } {
 	global bMotion_abstract_contents bMotion_abstract_ondisk
 
   set index [lsearch -exact $bMotion_abstract_ondisk $abstract]
@@ -595,7 +597,9 @@ proc bMotion_abstract_filter { abstract filter_text } {
 	}
 
 	if {[llength $contents] == 0} {
-		bMotion_putloglev d * "can't get contents for $abstract"
+		if {$abstract != "_all"} {
+			bMotion_putloglev d * "can't get contents for $abstract"
+		}
 		return
 	}
 
@@ -604,16 +608,21 @@ proc bMotion_abstract_filter { abstract filter_text } {
 
 	foreach element $contents {
 		bMotion_putloglev 2 * "considering $element for filtering"
-		if [regexp $filter_text $element] {
-			bMotion_putloglev 1 * "abstract $abstract element $element matches filter, dropping"
-			continue
+		set do_filter 0
+		foreach filter_text $filter {
+			if {(!$do_filter) && [regexp $filter_text $element]} {
+				bMotion_putloglev 1 * "abstract $abstract element $element matches filter $filter_text, dropping"
+				set do_filter 1
+			}
 		}
-		lappend new_contents $element
+		if {!$do_filter} {
+			lappend new_contents $element
+		}
 	}
 
 	set new_size [llength $new_contents]
   set diff [expr $initial_size - $new_size]
-	bMotion_putloglev d * "abstract $abstract reduced by $diff items with filter $filter_text"
+	bMotion_putloglev d * "abstract $abstract reduced by $diff items with filter $filter"
 
 	if {$diff > 0} {
 		set bMotion_abstract_contents($abstract) $new_contents
@@ -634,13 +643,18 @@ proc bMotion_abstract_apply_filter { abstract } {
 	}
 
 	bMotion_abstract_filter $abstract $filter
+	catch {
+		set filter $bMotion_abstract_filter(_all)
+		bMotion_abstract_filter $abstract $filter
+	}
 }
 
 # register a filter for an abstract
 proc bMotion_abstract_add_filter { abstract filter_text } {
 	global bMotion_abstract_filters
 
-	set bMotion_abstract_filters($abstract) $filter_text
+	lappend bMotion_abstract_filters($abstract) $filter_text
+
 	bMotion_putloglev d * "registered filter /$filter_text/ for abstract $abstract"
 
 	# apply it now
