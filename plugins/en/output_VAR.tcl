@@ -118,6 +118,9 @@ proc bMotion_plugin_output_VAR { channel line } {
 				"presentpart" {
 					set replacement [bMotion_make_present_participle $replacement]
 				}
+				"present" {
+					set replacement [bMotion_make_simple_present $replacement]
+				}
 				"plural" {
 					bMotion_putloglev 1 * "pluralising $replacement"
 					set replacement [bMotionMakePlural $replacement]
