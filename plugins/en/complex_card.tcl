@@ -28,5 +28,8 @@ bMotion_abstract_register "card_value" {
 }
 
 bMotion_abstract_register "card_suits" {
-	"clubs" "hearts" "spades" "diamonds" "%PLURAL{%VAR{sillyThings}{strip}}"
+	"clubs" "hearts" "spades" "diamonds" "%VAR{sillyThings:strip,plural}"
 }
+
+bMotion_abstract_add_filter "card_suits" "%PLURAL"
+
