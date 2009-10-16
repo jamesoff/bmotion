@@ -101,7 +101,9 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 	# ranjoins = generic greeting
 	# bigranjoins = friend greeting
 	# dislike_joins = enemy greeting
+	# unknown_joins = someone we don't recognise
 
+	bMotion_putloglev 1 * "Selected output for greeeting $nick is $greetings"
 	bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{$greetings}"
 
 	return 1
@@ -116,4 +118,4 @@ bMotion_abstract_register "wrong_infoline"
 bMotion_abstract_batchadd "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline"]
 
 bMotion_abstract_register "dislike_joins"
-bMotion_abstract_batchadd "dislike_joins" [list "shut up" "o no it's %%" "oh no it's %%" "oh noes it's %% %VAR{unsmiles}" "meh" "oh, it's %ruser.%|\"yay\"" "oh, it's fuckmaster mc shitty white clownhorse ass jacket pubic face."]
+bMotion_abstract_batchadd "dislike_joins" [list "shut up" "o no it's %%" "oh no it's %%" "oh noes it's %% %VAR{unsmiles}" "meh" "oh, it's %ruser.%|\"yay\"" "oh, it's fuckmaster mc shitty white clownhorse ass jacket pubic face." "you look beautiful%|incidentally my favourite artist is picasso"]
