@@ -944,8 +944,6 @@ proc bMotion_make_present_participle { word } {
 	# check if we got passed a multi-part verb (sit on)
 	set extra ""
 	regexp -nocase {^(\w+)( (.+))?} $word matches verb extra
-	set newverb ""
-
 
 	if [regexp -nocase {(.+[^i])e$} $verb matches a] {
 		return "${a}ing$extra"
@@ -956,6 +954,17 @@ proc bMotion_make_present_participle { word } {
 	}
 
 	return "${verb}ing$extra"
+}
+
+#
+# makes a work into the simple present
+proc bMotion_make_simple_present { word } {
+
+	# check if we got passed a multi-part verb (sit on)
+	set extra ""
+	regexp -nocase {^(\w+)( (.+))?} $word matches verb extra
+
+	return "${verb}s$extra"
 }
 
 #
