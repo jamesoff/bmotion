@@ -204,7 +204,7 @@ proc bMotionVoteHandler {nick host handle channel text} {
   if {$brigInfo == ""} {
     #unbind
     putlog "bMotion: Oops, need to unbind votes"
-    unbind pubm - "!bet" bMotionVoteHandler
+    unbind pub - "!bet" bMotionVoteHandler
     return 0
   }
 
