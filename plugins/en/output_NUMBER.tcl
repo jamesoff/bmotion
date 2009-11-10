@@ -26,7 +26,7 @@ proc bMotion_plugin_output_NUMBER { channel line } {
 			append fmt "u"
 			set var [format $fmt $var]
 		}
-		set line [bMotionInsertString $line "%NUMBER\\{$numberString\\}(\\{\[0-9\]+\\})?" $var]
+		regsub "%NUMBER\\{$numberString\\}(\\{\[0-9\]+\\})?" $line $var line
 		set padding 0
 	}
 
