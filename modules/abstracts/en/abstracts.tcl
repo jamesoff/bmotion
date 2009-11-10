@@ -1035,6 +1035,8 @@ bMotion_abstract_register "bigranjoins" {
 	"%daytime %% %VAR{smiles}"
 	"%REPEAT{3:7:m} %%"
 	"helle%REPEAT{4:8:w}"
+	"%ruser!%|*%VAR{sillyVerbs}* %VAR{smiles}"
+	"%ruser!%|/%VAR{sillyVerbs:present}"
 }
 
 bMotion_abstract_register "hexMiddle" {
@@ -5478,6 +5480,9 @@ bMotion_abstract_register "theRs" {
 	"r "
 }
 bMotion_abstract_add_filter "theRs" "sads"
+
+bMotion_abstract_add_filter "_all" "\{strip\}\}"
+bMotion_abstract_add_filter "_all" "\}\{strip\}"
 
 source "$bMotionModules/abstracts/en/randomstuff.tcl"
 

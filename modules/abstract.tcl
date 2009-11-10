@@ -171,9 +171,10 @@ proc bMotion_abstract_register { abstract { stuff "" } } {
 	}
 }
 
-proc bMotion_abstract_load { abstract } {
-	bMotion_putloglev 5 * "bMotion_abstract_load ($abstract)"
-  global bMotion_abstract_contents bMotion_abstract_timestamps
+proc bMotion_abstract_load { abstract } { 
+	bMotion_putloglev 5 * "bMotion_abstract_load ($abstract)" 
+	
+	global bMotion_abstract_contents bMotion_abstract_timestamps
   global bMotionModules bMotion_abstract_ondisk
   global bMotion_loading bMotion_testing
   global bMotionInfo bMotion_abstract_languages
@@ -645,6 +646,7 @@ proc bMotion_abstract_apply_filter { abstract } {
 	bMotion_abstract_filter $abstract $filter
 	catch {
 		set filter $bMotion_abstract_filter(_all)
+		bMotion_putloglev d * "abstract: found an _all filter, applying to $abstract"
 		bMotion_abstract_filter $abstract $filter
 	}
 }

@@ -240,29 +240,20 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 
 	# Process macros
 
-	set text [bMotion_process_macros $channel $text]
+	set original_line $text
+	set done 0
+	while {$done == 0} {
+		set text [bMotion_process_macros $channel $text]
 
-	# Run the plugins :D
+		set text [bMotionDoInterpolation $text $nick $moreText $channel]
 
-	# First run the core plugins
-	#set plugins [bMotion_plugin_find_output $bMotionInfo(language) $channel 0 10]
-	#if {[llength $plugins] > 0} {
-	#	foreach callback $plugins {
-	#		bMotion_putloglev 1 * "bMotion: output plugin: $callback..."
-	#		set result ""
-	#		catch {
-	#			set result [$callback $channel $text]
-	#		} err
-	#		bMotion_putloglev 3 * "bMotion: returned from output $callback ($result)"
-	#		# TODO: Still used?
-	#		if {$result == ""} {
-	#			return 0
-	#		}
-	#		set text $result
-	#	}
-	#}
-
-	set text [bMotionDoInterpolation $text $nick $moreText $channel]
+		if {$text == $original_line} {
+			set done 1
+		} else {
+			set original_line $text
+			bMotion_putloglev d * "output: going round macro loop again"
+		}
+	}
 
 	# now the rest
 	if {$noTypo == 0} {
