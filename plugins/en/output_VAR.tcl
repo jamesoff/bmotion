@@ -24,7 +24,7 @@
 proc bMotion_plugin_output_VAR { channel line } {
 	bMotion_putloglev 4 * "bMotion_plugin_output_VAR $channel $line"
 	global BMOTION_MIXIN_NONE BMOTION_MIXIN_REVERSE BMOTION_MIXIN_DEFAULT BMOTION_MIXIN_BOTH
-
+	
 	set line [string map { "%noun" "%VAR{sillyThings}" } $line]
 
 	# transform %VAR{abstract}{strip} to new form
@@ -106,6 +106,9 @@ proc bMotion_plugin_output_VAR { channel line } {
 
 		foreach option $options_list {
 			switch $option {
+				"prev" {
+					set replacement [bMotion_plugins_settings_get "output:VAR" "last" $channel "$abstract"]
+				}
 				"strip" {
 					set replacement [bMotion_strip_article $replacement]
 				}
@@ -145,6 +148,8 @@ proc bMotion_plugin_output_VAR { channel line } {
 			putlog "bMotion: error parsing $whole_thing in $line, unable to insert $replacement"
 			return ""
 		}
+
+		bMotion_plugins_settings_set "output:VAR" "last" $channel $abstract $replacement
 		set line [string replace $line $location [expr $location + [string length $matches] - 1] $replacement]
 
 		# check if what we swapped in gave us a %noun
