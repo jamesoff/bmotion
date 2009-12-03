@@ -856,6 +856,12 @@ bMotion_abstract_register "bodypart" {
 	"little toe"
 	"toe"
 	"thigh"
+	"spleen"
+	"wrist"
+	"forearm"
+	"shoulder"
+	"thigh"
+	"neck"
 }
 
 bMotion_abstract_register "bodypart_male" {

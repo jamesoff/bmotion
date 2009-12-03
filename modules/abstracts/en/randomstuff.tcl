@@ -7,6 +7,11 @@
 bMotion_abstract_register "randomStuff" {
 	"%VAR{adjective} %VAR{sillyThings:strip} is %VAR{adjective:prev}"
 	"%VAR{nice_adjective} %VAR{sillyThings:strip} is %VAR{nice_adjective:prev}"
+	"/%VAR{sillyVerbs:present} %ruser in the %VAR{bodypart:nomixin}"
+	"/%VAR{sillyVerbs:present} %ruser{:owner} %VAR{bodypart:nomixin}"
+	"my %VAR{bodypart} is %VAR{sillyVerbs:presentpart} %VAR{unsmiles}"
+	"my %VAR{bodypart} is %VAR{sillyVerbs:presentpart} %VAR{smiles}"
+	"/%VAR{sillyVerbs:present} %hisher %VAR{bodypart}"
 	"ok, we've got the hot tub hot, the wine cooler's cool: it's %VAR{sillyThings:strip} time!"
 	"eww! i touched my own %VAR{bodypart}!"
 	"MASSIVE CORN CLOG IN PORT %NUMBER{10}"
