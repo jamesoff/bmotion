@@ -3349,6 +3349,10 @@ bMotion_abstract_register "ruins" {
 	"lol"
 	"you blithering idiot!"
 	"should've gone to specsavers"
+	"you're doing it wrong"
+	"%VAR{sillyVerbs:presentpart} %VAR{sillyThings}: you're doing it wrong"
+	"doing it right: you're doing it wrong"
+	"doing it right: you're not doing it"
 }
 
 bMotion_abstract_register "hexStart" {
@@ -5487,8 +5491,40 @@ bMotion_abstract_register "theRs" {
 }
 bMotion_abstract_add_filter "theRs" "sads"
 
+bMotion_abstract_register "booms" {
+	"boom"
+	"bang"
+	"pop"
+	"blam"
+	"kerpow"
+	"kerboom"
+	"boom%colen"
+	"blam%colen"
+	"kerboom%colen"
+}
+
+bMotion_abstract_register "yays" {
+	"yay"
+	"woo"
+	"whee"
+	"hooray"
+	"winnar"
+	"best"
+	"har"
+}
+
+bMotion_abstract_register "boos" {
+	"boo"
+	"bah"
+	"aww"
+	"gah"
+	"feh"
+	"blah"
+}
+
 bMotion_abstract_add_filter "_all" "\{strip\}\}"
 bMotion_abstract_add_filter "_all" "\}\{strip\}"
+
 
 source "$bMotionModules/abstracts/en/randomstuff.tcl"
 
