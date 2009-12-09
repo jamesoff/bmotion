@@ -619,7 +619,11 @@ proc bMotionAdminHandler2 {nick host handle channel text} {
 	#first, check botnicks (this is to get round empty-nick-on-startup
 	if {$botnicks == ""} {
 		# need to set this
-		set botnicks "($botnick|$bMotionSettings(botnicks)) ?"
+		if {[bMotion_setting_get "botnicks"] == ""} {
+			set botnicks "$botnicks ?"
+		} else {
+			set botnicks "($botnick|$bMotionSettings(botnicks)) ?"
+		}
 	}
 
 	if {![regexp -nocase "^($botnicks|all) (.+)" $text matches yarr bn cmd]} {
@@ -949,7 +953,11 @@ proc bMotion_check_botnicks { } {
 	global botnicks bMotionSettings botnick
 
 	if {$botnicks == ""} {
-		set botnicks "($botnick|$bMotionSettings(botnicks)) ?"
+		if {[bMotion_setting_get "botnicks"] == ""} {
+			set botnicks "($botnick) ?"
+		} else {
+			set botnicks "($botnick|$bMotionSettings(botnicks)) ?"
+		}
 		if {[bMotion_setting_get "botnicks_strict"] == 1} {
 			set botnicks "\\m$botnicks\\M"
 		}
