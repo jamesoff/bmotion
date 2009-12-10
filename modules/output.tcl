@@ -114,9 +114,17 @@ proc mee {channel action {urgent 0} } {
 	bMotion_putloglev 5 * "mee ($channel, $action, $urgent)"
 	set channel [chandname2name $channel]
 	if {$urgent} {
-		bMotion_queue_add_now $channel "\001ACTION $action\001"
+		if [rand 10] {
+			bMotion_queue_add_now $channel "\001ACTION $action\001"
+		} else {
+			bMotion_queue_add_now $channel "*$action*"
+		}
 	} else {
-		bMotion_queue_add $channel "\001ACTION $action\001"
+		if [rand 10] {
+			bMotion_queue_add $channel "\001ACTION $action\001"
+		} else {
+			bMotion_queue_add $channel "*$action*"
+		}
 	}
 }
 
