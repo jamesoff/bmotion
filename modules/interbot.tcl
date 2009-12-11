@@ -71,7 +71,7 @@ proc bMotion_interbot_next_elect_do { channel } {
 			bMotion_putloglev 4 * "interbot: checking $bot for election in $channel"
 			set handle [nick2hand $bot $channel]
 			bMotion_putloglev 4 * "interbot: checking $bot's handle; $handle"
-			if {[matchattr $handle b&K $channel] && [islinked $handle]} {
+			if {[matchattr $handle b $channel] && [islinked $handle]} {
 				bMotion_putloglev 2 * "interbot: sending elect_initial to $bot for $channel"
 				putbot $handle "bmotion elect_initial $channel $myScore"
 			}
@@ -163,7 +163,7 @@ proc bMotion_interbot_next_incoming { bot params } {
 			#not me you idiot
 			if [isbotnick $bot] { continue }
 			set handle [nick2hand $bot $channel]
-			if [matchattr $handle b&K $channel] {
+			if [matchattr $handle b $channel] {
 				putbot $handle "bmotion elect_reply $channel $myScore"
 			}
 		}
@@ -279,7 +279,7 @@ proc bMotion_interbot_me_next { channel } {
 
 # send a fake event
 proc bMotion_interbot_fake_event { botnick channel fromnick line } {
-	if {[matchattr $botnick b&K $channel] && [islinked $botnick]} {
+	if {[matchattr $botnick b $channel] && [islinked $botnick]} {
 		putbot $botnick "bmotion fake_event $channel $fromnick $line"
 
 		return 1
