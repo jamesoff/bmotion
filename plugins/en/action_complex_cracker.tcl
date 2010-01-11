@@ -4,7 +4,7 @@
 
 ###############################################################################
 # This is a bMotion plugin
-# Copyright (C) Mark Sangster 2006
+# Copyright (C) James "Off" Seward 2009
 #
 # This program is covered by the GPL, please refer the to LICENCE file in the
 # distribution; further information can be found in the headers of the scripts
