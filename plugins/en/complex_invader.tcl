@@ -206,7 +206,7 @@ bMotion_abstract_batchadd "randomZimness" {
 	"as president, I will ensure that all mankind HAS ITS LEGS SAWN OFF .... and replaced with legs of PURE GOLD!"
 	"%ruser: Debate.. now! OR SUFFER!"
 	"only now can I reveal that, if elected, I will ensure that every student is given a zombie wiener-dog to do their bidding. Can %ruser say that?"
-	"the grotesque monster-boy avoids the issues! just what does he plan on doing about the size of %OWNER{%ruser} giant head? If I am elected, %OWNER{%ruser} head will be removed, and filled with salted nuts!"
+	"the grotesque monster-boy avoids the issues! just what does he plan on doing about the size of %ruser{:owner} giant head? If I am elected, %ruser{prev:owner} head will be removed, and filled with salted nuts!"
 	"the child shrieks like a fruitbat!"
 	"well, time to work on my next evil plan."
 	"the giant flesh-eating demon squid has escaped! security! protect your master! GIR! Defensive mode!"

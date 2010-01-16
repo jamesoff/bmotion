@@ -80,9 +80,10 @@ bMotion_abstract_batchadd "ick_wraps" {
 bMotion_abstract_register "ick_covereds"
 bMotion_abstract_batchadd "ick_covereds" { 
   "custard" "cooking oil" "motor oil" "baby oil" "cream" "whipped cream" "KY" "strawberry jam"
-  "Raspberry yogurt *eg*" "chocolate sauce" "coconut oil" "peanut butter" "dairylea" "%OWNER{%ruser} love juice"
+  "Raspberry yogurt *eg*" "chocolate sauce" "coconut oil" "peanut butter" "dairylea" "%ruser{:owner} love juice"
   "jelly" "assorted food stuffs" "3 week old toffee yogurt"
 }
+bMotion_abstract_add_filter "ick_covereds" "%OWNER"
 
 bMotion_abstract_register "ick_locations"
 bMotion_abstract_batchadd "ick_locations" { 
@@ -92,7 +93,7 @@ bMotion_abstract_batchadd "ick_locations" {
   "on a train" "on a bus" "in a swimming pool" "at the bus stop" "in your parents' bed" "under that bush" 
    "under your desk" "at the local Tesco" "over there -->" "in the shower" "behind the bikesheds"
      "in Essex" "in Wales" "on a hilltop" "at Pontins" "for a porn site"
-  "in %OWNER{%ruser} bed"
+  "in %ruser{:owner} bed"
 }
 
 bMotion_abstract_register "ick_fucks"

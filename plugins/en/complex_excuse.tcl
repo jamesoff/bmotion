@@ -26,7 +26,7 @@ bMotion_abstract_register "excuses" {
 
 bMotion_abstract_register "excuse_people" {
 	"my"
-	"%OWNER{%ruser}"
+	"%ruser{:owner}"
 	"my landlord's"
 	"the"
 	"my friend's"
@@ -38,6 +38,7 @@ bMotion_abstract_register "excuse_people" {
 	"the Prime-Minister's"
 	"the President's"
 }
+bMotion_abstract_add_filter "excuse_people" "%OWNER"
 
 bMotion_abstract_register "excuse_nouns" {
 	"%VAR{dNouns}"

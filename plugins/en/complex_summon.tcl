@@ -92,7 +92,7 @@ bMotion_abstract_batchadd "summon_channel_response_notthere" {
 
 bMotion_abstract_register "summon_channel_response"
 bMotion_abstract_batchadd "summon_channel_response" {
-	"/prods at %% with %noun"
+	"/prods at %% with %VAR{sillyThings}"
 	"through my awesome powers of telepathy, I shall summon %%!!"
 	"/uses a smoke signal to get %%'s attention"
 	"/stands behind %% poking them in the back till they turn around"
@@ -100,6 +100,7 @@ bMotion_abstract_batchadd "summon_channel_response" {
 	"why do you want to talk to %%?"
 	"*pager on desk goes off*%|oh, %OWNER{%%} pager%|better let them know we've got it%|!summon %%%|*pager on desk goes off*%|oh %VAR{unsmiles}"
 }
+bMotion_abstract_add_filter "summon_channel_response" "%noun"
 
 bMotion_abstract_register "summon_privmsg_response"
 bMotion_abstract_batchadd "summon_privmsg_response" {

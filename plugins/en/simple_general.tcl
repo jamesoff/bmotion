@@ -69,3 +69,4 @@ bMotion_plugin_add_simple "cartman1" "not (every|all) of them" 40 [list "no, but
 bMotion_plugin_add_simple "nicecar1" {^nice [^ ]+[a-rt-z]!?$} 40 [list "wanna show me what it can do?"] "en"
 bMotion_plugin_add_simple "nicecar2" {^nice [^ ]+s!?$} 40 [list "wanna show me what they can do?"] "en"
 
+bMotion_plugin_add_simple "luggage" {^[0-9 -]$} 40 [list "amazing, that's the same combination as my luggage!"] "en"
