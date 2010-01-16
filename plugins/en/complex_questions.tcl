@@ -39,6 +39,12 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
 		return 1
 	}
 
+	if {[regexp -nocase "^$botnicks,?:? what did you do to" $text] || [regexp -nocase "what did you do to .+${botnicks}\\?$" $text]} {
+		bMotion_putloglev 3 * "it's a what did you do question"
+		bMotionDoAction $channel $nick "%VAR{whatdiddos}"
+		return 1
+	}
+
   ## moved here from further down because it'd never be triggered otherwise   --szrof
   bMotion_putloglev 3 * "Checking question for 'what have'"
   ## What have question targeted at me
@@ -354,7 +360,7 @@ proc bMotion_plugin_complex_question_with { nick channel host prop } {
 proc bMotion_plugin_complex_question_who { nick channel host owner } {
     bMotion_putloglev 2 * "$nick who question"
   if {$owner == "se"} {
-    set line "%OWNER{%VAR{answerWhos}}"
+    set line "%VAR{answerWhos:owner}"
   } else {
     set line "%VAR{answerWhos}"
   }
@@ -592,4 +598,9 @@ bMotion_abstract_register "want_item_dislike" {
 	"negative"
 	"god no"
 	"not a chance"
+}
+
+bMotion_abstract_register "whatdiddos" {
+	"i %VAR{sillyVerbs:past} it %VAR{smiles}"
+	"i %VAR{sillyVerbs:past} it %VAR{unsmiles}"
 }
