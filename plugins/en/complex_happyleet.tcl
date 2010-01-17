@@ -15,9 +15,9 @@ bMotion_plugin_add_complex "happyleet" "happy \[1l\]\[3e\]{2}\[:.-\]?\[t7\]" 100
 
 proc bMotion_plugin_complex_happyleet { nick host handle channel text } {
 
-	#if {![bMotion_interbot_me_next $channel]} {
-		#return 0
-	#}
+	if {![bMotion_interbot_me_next $channel]} {
+		return 0
+	}
 
 	set hour [clock format [clock seconds] -format "%H"]
 	set minute [clock format [clock seconds] -format "%M"]
