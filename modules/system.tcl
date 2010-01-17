@@ -952,11 +952,12 @@ proc bMotion_setting_get { setting } {
 proc bMotion_check_botnicks { } {
 	global botnicks bMotionSettings botnick
 
+	set safe_botnick [string map { "|" "\\|" "^" "\\^" "{" "\\{" "}" "\\}" "\[" "\\\[" "\]" "\\\]" } $botnick]
 	if {$botnicks == ""} {
 		if {[bMotion_setting_get "botnicks"] == ""} {
-			set botnicks "($botnick) ?"
+			set botnicks "($safe_botnick) ?"
 		} else {
-			set botnicks "($botnick|$bMotionSettings(botnicks)) ?"
+			set botnicks "($safe_botnick|$bMotionSettings(botnicks)) ?"
 		}
 		if {[bMotion_setting_get "botnicks_strict"] == 1} {
 			set botnicks "\\m$botnicks\\M"
