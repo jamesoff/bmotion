@@ -40,16 +40,25 @@ proc bMotion_plugin_output_welsh { channel line } {
 			set word [string range $word 1 end]
 		}
 
+		if {![regexp -nocase {^[a-z0-9']+$} $word]} {
+			append newline "$word "
+			continue
+		}
+
 		#delete the vowels
 		regsub -nocase -all {[aeiou]} $word "" word
 
 		#randomise letters
-		set letters [split $word {}]
-		set newword ""
-		while {[llength $letters] > 0} {
-			set index [rand [llength $letters]]
-			append newword [lindex $letters $index]
-			set letters [lreplace $letters $index $index]
+		if [regexp -nocase {^[a-z]+$} $word] {
+			set letters [split $word {}]
+			set newword ""
+			while {[llength $letters] > 0} {
+				set index [rand [llength $letters]]
+				append newword [lindex $letters $index]
+				set letters [lreplace $letters $index $index]
+			}
+		} else {
+			set newword $word
 		}
 
 		#possibly double the first letter
