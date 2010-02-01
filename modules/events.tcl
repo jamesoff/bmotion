@@ -265,7 +265,7 @@ proc bMotion_event_main {nick host handle channel text} {
 	}
 
 	#check for someone breaking the loop of lastSpoke 
-	if {[regexp -nocase "(i'm not talking to|not) you" $text] && $bMotionCache($channel,last)} {
+	if {[regexp -nocase "(i'm not talking to|not) you" $text] && [bMotion_did_i_speak_last $channel]} {
 		bMotionDoAction $channel $nick "oh"
 		set bMotionCache($channel,last) 0
 		return 0
@@ -277,6 +277,8 @@ proc bMotion_event_main {nick host handle channel text} {
 	if {$response != ""} {
 		bMotion_flood_add $nick "" $text
 		if [bMotion_flood_check $nick] { return 0 }
+		if [bMotion_flood_check $channel] { return 0 }
+		bMotion_flood_add $channel "" $text
 		set nick [bMotionGetRealName $nick $host]
 		bMotionDoAction $channel $nick [pickRandom $response]
 		return 0
@@ -286,6 +288,7 @@ proc bMotion_event_main {nick host handle channel text} {
 	set response [bMotion_plugin_find_complex $text $bMotionInfo(language)]
 	if {[llength $response] > 0} {
 	#set nick [bMotionGetRealName $nick $host]
+		if [bMotion_flood_check $channel] { return 0 }
 		bMotion_putloglev 1 * "going to run plugins: $response"
 		foreach callback $response {
 			bMotion_putloglev 1 * "bMotion: doing flood for $callback..."
@@ -294,6 +297,7 @@ proc bMotion_event_main {nick host handle channel text} {
 			bMotion_putloglev 1 * "bMotion: `- running callback $callback"
 			set result 0
 			set result [$callback $nick $host $handle $channel $text]
+			bMotion_putloglev d * "returned from $callback"
 			set bMotionCache(lastPlugin) $callback
 			bMotion_plugin_history_add $channel "complex" $callback
 
@@ -303,7 +307,9 @@ proc bMotion_event_main {nick host handle channel text} {
 
 			if {$result > 0} {
 				if {$result == 1} {
+					bMotion_putloglev 1 * "adding flood counters"
 					bMotion_flood_add $nick $callback $text
+					bMotion_flood_add $channel $callback $text
 				}
 				bMotion_putloglev 2 * "bMotion:		 `-$callback returned $result, breaking out..."
 				break
@@ -452,6 +458,9 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 	set response [bMotion_plugin_find_action_simple $text $bMotionInfo(language)]
 	if {$response != ""} {
 		bMotion_flood_add $nick "" $text
+		if [bMotion_flood_check $nick] { return 0 }
+		if [bMotion_flood_check $channel] { return - }
+		bMotion_flood_add $channel "" $text
 		bMotion_putloglev 1 * "bMotion: matched simple action plugin, outputting $response..."
 		set nick [bMotionGetRealName $nick $host]
 		bMotionDoAction $channel $nick [pickRandom $response]
@@ -462,6 +471,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 	set response [bMotion_plugin_find_action_complex $text $bMotionInfo(language)]
 	if {[llength $response] > 0} {
 	#set nick [bMotionGetRealName $nick $host]
+		if [bMotion_flood_check $channel] { return 0 }
 		bMotion_putloglev 1 * "going to run action plugins: $response"
 		foreach callback $response {
 			bMotion_putloglev 1 * "bMotion: doing flood for $callback..."
@@ -472,6 +482,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 			if {$result > 0} {
 				if {$result == 1} {
 					bMotion_flood_add $nick $callback $text
+					bMotion_flood_add $channel $callback $text
 				}
 				bMotion_putloglev 2 * "bMotion:		 `-$callback returned $result, breaking out..."
 				break

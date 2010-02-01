@@ -81,14 +81,20 @@ proc bMotion_flood_add { nick { callback "" } { text "" } } {
   global bMotion_flood_info bMotion_flood_last bMotion_flood_lasttext bMotion_flood_last bMotion_flood_undo
 
   set val 1
-  if [validuser $nick] {
-    set handle $nick
-  } else {
-    set handle [nick2hand $nick]
-    if {$handle == "*"} {
-      set handle $nick
-    }
-  }
+	if {[string index $nick 0] != "#"} {
+		if [validuser $nick] {
+			set handle $nick
+		} else {
+			set handle [nick2hand $nick]
+			if {$handle == "*"} {
+				set handle $nick
+			}
+			bMotion_putloglev d * "Using handle $handle as flood target (was $nick)"
+		}
+	} else {
+		bMotion_putloglev d * "Using channel $nick as flood target"
+		set handle $nick
+	}
   set lastCallback ""
   catch {
     set lastCallback $bMotion_flood_last($handle)
@@ -195,17 +201,21 @@ proc bMotion_flood_undo { nick } {
 }
 
 proc bMotion_flood_get { nick } {
-  global bMotion_flood_info
-  if [validuser $nick] {
-    set handle $nick
-  } else {
-    set handle [nick2hand $nick]
-    if {$handle == "*"} {
-      set handle $nick
-    }
-  }
-  set flood 0
-  catch {
+	global bMotion_flood_info
+	if {[string index $nick 0] != "#"} {
+		if [validuser $nick] {
+			set handle $nick
+		} else {
+			set handle [nick2hand $nick]
+			if {$handle == "*"} {
+				set handle $nick
+			}
+		}
+	} else {
+		set handle $nick
+	}
+	set flood 0
+	catch {
     set flood $bMotion_flood_info($handle)
   }
   return $flood
@@ -225,22 +235,36 @@ proc bMotion_flood_check { nick } {
   bMotion_putloglev 3 * "checking flood for $nick"
   set flood [bMotion_flood_get $nick]
   set chance 2
-  if {$flood > 35} {
-    set chance -1
-  }
 
-  if {$flood > 25} {
-    set chance -1
-  }
+	if {[string index $nick 0] == "#"} {
+		set is_chan 1
+	} else {
+		set is_chan 0
+	}
 
-  if {$flood > 15} {
-    set chance 1
-  }
-  set r [rand 2]
-  if {!($r < $chance)} {
-    putlog "bMotion: FLOOD check on $nick (http://www.bmotion.net:8000/bmotion/wiki/FAQDisableFlood)"
-    return 1
-  }
+	if {!$is_chan} {
+		if {$flood > 35} {
+			set chance -1
+		}
+
+		if {$flood > 25} {
+			set chance -1
+		}
+
+		if {$flood > 15} {
+			set chance 1
+		}
+		set r [rand 2]
+		if {!($r < $chance)} {
+			putlog "bMotion: FLOOD check on $nick (http://www.bmotion.net:8000/bmotion/wiki/FAQDisableFlood)"
+			return 1
+		}
+	} else {
+		if {$flood > 35} {
+			putlog "bMotion: FLOOD protection for $nick (http://www.bmotion.net:8000/bmotion/wiki/FAQDisableFlood)"
+			return 1
+		}
+	}
   return 0
 }
 
