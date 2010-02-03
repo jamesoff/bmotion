@@ -604,8 +604,16 @@ proc bMotionGetRealName { nick { host "" }} {
 		bMotion_putloglev 2 * "no IRL set, using nick"
 		return $nick
 	}
+	
 	bMotion_putloglev 2 * "bMotion: IRLs for $handle are $realname"
-	return [pickRandom $realname]
+	
+	set chosen_realname [pickRandom $realname]
+
+	if {[string first "%" $chosen_realname] > -1} {
+		bMotion_putloglev d * "not using $chosen_realname for $handle as it has a macro"
+		set chosen_realname $handle
+	}
+	return $chosen_realname
 }
 
 #
