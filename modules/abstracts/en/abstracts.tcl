@@ -938,6 +938,8 @@ bMotion_abstract_register "rehashes" {
 }
 
 bMotion_abstract_register "bodypart" {
+	"buttock"
+	"arse"
 	"lip"
 	"mouth flaps"
 	"eyelash"
@@ -3719,10 +3721,11 @@ bMotion_abstract_register "answerDoyous" {
 	"does it mean i get pie?"
 	"yahyahayayahayahahayh%colen"
 	"indeed i do%|%VAR{randomZimness}"
-	"yarr or i would be %VAR{smacked} with %rusers %VAR{bodypart:nomixin}!"
+	"yarr or i would be %VAR{smacked} with %ruser{:owner} %VAR{bodypart:nomixin}!"
 	"omg yes"
 	"any chance i get %VAR{rarrs}%|%VAR{randomGirness}"
 }
+bMotion_abstract_add_filter "answerDoyous" "%rusers"
 
 bMotion_abstract_register "answerWhathaves" {
 	"%VAR{dVerbs}ing my %VAR{bodypart}"
