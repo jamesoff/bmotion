@@ -69,6 +69,9 @@ proc bMotion_plugin_management_status { handle { args "" } } {
 	if [bMotion_setting_get "away"] {
 		bMotion_putadmin "I am away."
 	}
+	
+	global bMotion_loaded_settings_from
+	bMotion_putadmin "I loaded my configuration from: $bMotion_loaded_settings_from"
 
 	return 0
 }
