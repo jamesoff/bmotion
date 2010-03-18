@@ -17,6 +17,8 @@ proc bMotion_plugin_complex_action_shows { nick host handle channel text } {
 	if {[regexp -nocase "(shows) $botnicks (a|an|the|some|his|her|its)? ?(.+)" $text bling act bot preposition item]} {
 	  bMotion_putloglev d * "bMotion: Was shown !$preposition $item! by $nick in $channel"
 
+		bMotion_plugins_settings_set "system" "ruser_skip" $channel "" $nick
+
       # the following code is HORRIBLE, but that's just because I can't figure out TCL
 	  if {($preposition == "a") || ($preposition == "an" ) || ($preposition == "some")} {
 
@@ -143,10 +145,13 @@ bMotion_abstract_batchadd "show_generic" {
   "%VAR{show_whoas}.. that's %VAR{show_comparisons} than %VAR{sillyThings}!"
   "%REPEAT{3:6:o}h, %VAR{show_adjectives}!%|/steals %% and runs off%|ALL MINE NOW%colen%|/sells %% on ebay"
   "now that's %VAR{show_adjectives}"
-  "p%REPEAT{2:5:f}t.. wait until you see my %VAR{sillyThings}{strip}"
+  "p%REPEAT{2:5:f}t.. wait until you see my %VAR{sillyThings:strip}"
   "/takes a picture"
-  "/contemplates%|it'd be nicer if it had %PLURAL{%VAR{sillyThings}{strip}}"
-  "I prefer %OWNER{%ruser}"
+  "/contemplates%|it'd be nicer if it had %VAR{sillyThings:strip,plural}"
+  "I prefer %ruser{:owner}"
   "/admires %%"
   "/replaces %% with a cheap %VAR{colours} plastic copy%|bwaha%REPEAT{1:4:ha}"
 }
+bMotion_abstract_add_filter "show_generic" "%PLURAL"
+bMotion_abstract_add_filter "show_generic" "%OWNER"
+
