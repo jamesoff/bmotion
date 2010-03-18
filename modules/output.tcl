@@ -665,6 +665,12 @@ proc bMotion_choose_random_user { channel bot condition } {
 	set users [chanlist $channel]
 	set acceptable [list]
 
+	set skip_nick [bMotion_plugins_settings_get "system" "ruser_skip" $channel ""]
+	bMotion_plugins_settings_set "system" "ruser_skip" $channel "" ""
+	if {$skip_nick != ""} {
+		bMotion_putloglev d * "ruser skipping $skip_nick"
+	}
+
 	#check if we want the previous ruser
 	if {$condition == "prev"} {
 		set what [list "" ""]
@@ -685,6 +691,11 @@ proc bMotion_choose_random_user { channel bot condition } {
 
 		if {([bMotion_setting_get "bitlbee"] == "1") && ($user == "root")} {
 			bMotion_putloglev 4 * "ruser:  reject: bitlbee root user"
+			continue
+		}
+
+		if {$user == $skip_nick} {
+			bMotion_putloglev 4 * "ruser:  reject: $user is skip_user"
 			continue
 		}
 

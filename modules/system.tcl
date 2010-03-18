@@ -417,6 +417,7 @@ proc bMotionSilence {nick host channel} {
 	}
 	timer $bMotionSettings(silenceTime) bMotionUnSilence
 	putlog "bMotion: Was told to be silent for $bMotionSettings(silenceTime) minutes by $nick in $channel"
+	bMotion_plugins_settings_set "system" "ruser_skip" $channel "" $nick
 	bMotionDoAction $channel $nick "%VAR{silenceAways}"
 	putserv "AWAY :afk ($nick $channel)"
 	set bMotionInfo(silence) 1
