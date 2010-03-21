@@ -282,7 +282,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 	}
 
 	# clear this in case a plugin ended up not using it in an abstract
-	bMotion_plugins_settings_set "system" "ruser_skip" $channel ""
+	bMotion_plugins_settings_set "system" "ruser_skip" $channel "" ""
 
 	#make sure the line wasn't set to blank by a plugin (may be trying to block output)
 	set line [string trim $text]
