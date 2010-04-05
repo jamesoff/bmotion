@@ -13,9 +13,20 @@
 ###############################################################################
 
 bMotion_plugin_add_complex "fry1" "i'?ve been as (dumb|stupid) as $botnicks" 100 bMotion_plugin_complex_fry1 "en"
+bMotion_plugin_add_complex "technically" "technically \[a-z\]+\\M" 60 bMotion_plugin_complex_technically "en"
+
+proc bMotion_plugin_complex_technically { nick host handle channel text } {
+	if {![bMotion_interbot_me_next $channel]} {
+		return 0
+	}
+
+	if [regexp -nocase "technically (\[a-z\]+)\\M" $text matches thing] {
+		bMotionDoAction $channel $thing "The best kind of $thing"
+		return 1
+	}
+}
 
 proc bMotion_plugin_complex_fry1 {nick host handle channel text} {
-	global botnicks
 
 	bMotionDoAction $channel "" "am not %VAR{unsmiles}"
 
