@@ -3725,7 +3725,7 @@ bMotion_abstract_register "answerDoyous" {
 	"omg yes"
 	"any chance i get %VAR{rarrs}%|%VAR{randomGirness}"
 }
-bMotion_abstract_add_filter "answerDoyous" "%rusers"
+bMotion_abstract_add_filter "answerDoyous" "%ruser"
 
 bMotion_abstract_register "answerWhathaves" {
 	"%VAR{dVerbs}ing my %VAR{bodypart}"
