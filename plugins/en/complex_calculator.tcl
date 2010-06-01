@@ -81,7 +81,7 @@ bMotion_abstract_register "calculation_output" {
 bMotion_abstract_register "calculation_error" {
 	"%% is%|er%|dunno %VAR{smiles}"
 	"/shrug"
-	"%% == minus %VAR{sillyThings}{strip}"
+	"%% == minus %VAR{sillyThings:strip}"
 	"%% = %VAR{colours}"
 	"%% = yo momma"
 }
