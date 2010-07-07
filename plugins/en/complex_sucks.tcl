@@ -22,7 +22,7 @@ proc bMotion_plugin_complex_sucks { nick host handle channel text } {
 	}
 
 	if [regexp -nocase {^([a-z0-9]+) sucks} $text matches item] {
-		if [regexp -nocase "^(that|you|which|that|it|what)$" $item] {
+		if [regexp -nocase "^(teh|the|that|you|which|that|it|what)$" $item] {
 			return 0
 		}
 		bMotionDoAction $channel $item "%VAR{sucks}"
