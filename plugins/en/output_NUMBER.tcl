@@ -20,7 +20,7 @@ proc bMotion_plugin_output_NUMBER { channel line } {
 
 	set padding 0
 	if {[regexp "%NUMBER\{(\[0-9\]+)\}(\{(\[0-9\]+)\})?" $line matches numberString paddingOpt padding]} {
-		set var [bMotion_get_number [bMotion_rand_nonzero $numberString]]
+		set var [bMotion_rand_nonzero $numberString]
 		if {$padding > 0} {
 			set fmt "%0$padding"
 			append fmt "u"

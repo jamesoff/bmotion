@@ -874,10 +874,9 @@ proc bMotion_rand_nonzero { limit } {
 		return 0
 	}
 
-	incr limit 1
 	set result [rand $limit]
-	incr limit
-	return $limit
+	incr result
+	return $result
 }
 
 ### bMotion_startTimers 
