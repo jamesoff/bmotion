@@ -153,7 +153,7 @@ proc bMotion_interbot_next_incoming { bot params } {
 
 	bMotion_putloglev 2 * "interbot: My score is $myScore"
 
-	if {$myScore > $bMotion_interbot_nextbot_score($channel)} {
+	if {(![info exists $bMotion_interbot_nextbot_score($channel)]) || ($myScore > $bMotion_interbot_nextbot_score($channel))} {
 		bMotion_putloglev 2 * "interbot: Actually, I have highest score on $channel, sending out reply"
 		set bMotion_interbot_nextbot_score($channel) $myScore
 		set bMotion_interbot_nextbot_nick($channel) $botnick

@@ -160,10 +160,11 @@ proc bMotion_process_macros { channel text } {
 						set result [[lindex $plugin 0] $channel $text]
 						if {$result == ""} {
 							bMotion_putloglev d * "macro: [lindex $plugin 0] returned nothing, aborting output"
-							return 0
+							return ""
 						}
 					}
 					if {$result == ""} {
+						return ""
 						incr current_pos
 						continue
 					}

@@ -646,6 +646,7 @@ bMotion_abstract_register "awwws" {
 
 bMotion_abstract_register "randomReplies" {
 	"You are a bottomless pit of questions."
+	"fuck your riddles, you gigantic mystic arsehole!"
 	"You can lead a horse to water, but you are the one asking all the stupid questions!"
 	"%ruser"
 	"Orange."
@@ -1015,6 +1016,7 @@ bMotion_abstract_register "bodypart_female" {
 	"boob"
 	"wab"
 	"nipple"
+	"labia"
 }
 
 bMotion_abstract_register "dude" {
@@ -3121,12 +3123,15 @@ bMotion_abstract_register "shocked" {
 	"shucks"
 	"well slap my ass and call me susan"
 	"well slap my ass and call me %me"
+	"well slap my %VAR{bodypart} and call me %me"
 	"well blow me down"
 	"well i'll be a monkey's uncle"
 	"yikes"
 	"cor"
 	"%VAR{hermes}"
 	"%VAR{ulysses}"
+	"shocking"
+	"wtf"
 }
 
 bMotion_abstract_register "ulysses" {
@@ -3197,6 +3202,7 @@ bMotion_abstract_register "randomAways" {
 	"washing my hair"
 	"removing my enemies from the timeline"
 	"trimming my toenails"
+	"intimate time with my %VAR{fruits}"
 }
 
 bMotion_abstract_register "smokes" {
@@ -3331,6 +3337,27 @@ bMotion_abstract_register "fruits" {
 	"apple"
 	"grape"
 	"banana"
+	"pear"
+	"apricot"
+	"cherry"
+	"peach"
+	"plum"
+	"blackberry"
+	"raspberry"
+	"blueberry"
+	"cranberry"
+	"gooseberry"
+	"grapefruit"
+	"lemon"
+	"lime"
+	"orange"
+	"tangerine"
+	"avocado"
+	"lychee"
+	"passion fruit"
+	"strawberry"
+	"coconut"
+	"kiwi"
 }
 
 bMotion_abstract_register "vegetables" {
@@ -3524,6 +3551,7 @@ bMotion_abstract_register "attack_responses" {
 	"MISS!"
 	"%SETTING{complex:attacks:who:_:_} is immune to '%SETTING{complex:attacks:item:_:_}'"
 	"%SETTING{complex:attacks:who:_:_} absorbs the damage and gains %SETTING{complex:attacks:score:_:_} HP!"
+	"%SETTING{complex:attacks:who:_:_} casts a Spell of %VAR{sillyThings:strip} and takes only %SETTING{complex:attacks:score:_:_} damage!"
 }
 
 bMotion_abstract_register "locations" {
@@ -3581,7 +3609,7 @@ bMotion_abstract_register "insult_joins" {
 	"\[%%\] I'm a %VAR{PROM}%|%VAR{wrong_infoline}"
 	"\[%%\] I love %ruser%|%VAR{wrong_infoline}"
 	"\[%%\] Just call me %VAR{sillyThings}%|%VAR{wrong_infoline}"
-	"%ruser: what do you mean you put it in a melon?"
+	"%ruser: what do you mean you put it in a %VAR{fruits}?"
 }
 
 # someone we don't know joins the channel
@@ -4536,10 +4564,16 @@ bMotion_abstract_register "weathertypes" {
 	"thunderstorms"
 	"a plague of locusts"
 	"breezes"
+	"a hurricane"
+	"a tornado"
 }
 
 bMotion_abstract_register "compass" {
 	"north"
+	"northwest"
+	"northeast"
+	"southwest"
+	"southeast"
 	"south"
 	"east"
 	"west"
@@ -4589,8 +4623,13 @@ bMotion_abstract_register "wake_ups" {
 	"good %daytime!"
 	"good %daytime"
 	"%daytime"
+	"%daytime all"
+	"/powers up"
+	"/fails to resume from hibernated state and reboots"
+	"/boots"
 	"r"
 	"mmm toast"
+	"mmm breakfast"
 	"/eats breakfast"
 	"/awakens from a nightmare about %VAR{nightmare}"
 	"ugh, i had a horrible dream about %VAR{nightmare}"
@@ -4661,6 +4700,7 @@ bMotion_abstract_register "todays_episode" {
 	"Terror in the Night"
 	"Operation Undercover"
 	"The Secret Assignment"
+	"The Heat Thickens"
 }
 
 
@@ -4897,6 +4937,24 @@ bMotion_abstract_register "clothes" {
 	"suit"
 	"shorts"
 	"jacket"
+}
+
+bMotion_abstract_register "clothes_female" {
+	"knickers"
+	"tights"
+	"stockings"
+	"bra"
+	"skirt"
+	"thong"
+}
+
+bMotion_abstract_register "clothes_male" {
+	"Y-fronts"
+	"braces"
+	"top hat"
+	"cummerbund"
+	"bowtie"
+	"tie"
 }
 
 bMotion_abstract_register "spams" {
@@ -5615,6 +5673,9 @@ bMotion_abstract_register "animals" {
 	"anteater"
 	"panther"
 	"pig"
+	"bear"
+	"zebra"
+	"horse"
 }
 
 bMotion_abstract_register "theRs" {

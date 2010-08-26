@@ -48,7 +48,7 @@ bMotion_plugin_add_simple "luck" "wish me (good )?luck" 90 { "Luck!" "good luck!
 bMotion_plugin_add_simple "coffee1" "coffee ? < ?" 90 [list "what" "%VAR{unsmiles}" "%VAR{kills}" "/%VAR{smacks} %%" "traitor!" "you li%REPEAT{1:5:e}!%|YOU LI%REPEAT{4:10:E}%REPEAT{3:5:!}%colen"] "en"
 bMotion_plugin_add_simple "coffee2" "\[a-z0-9\]+ ?> ?coffee" 90 [list "what" "%VAR{unsmiles}" "%VAR{kills}" "/%VAR{smacks} %%" "traitor!" "you li%REPEAT{1:5:e}!%|YOU LI%REPEAT{4:10:E}%REPEAT{3:5:!}%colen"] "en"
 bMotion_plugin_add_simple "coffee3" "coffee (is |=+ )?(teh |the )?(suck|rubbish|fail|horrible|horrid)" 90 [list "what" "%VAR{unsmiles}" "%VAR{kills}" "/%VAR{smacks} %%" "traitor!" "you li%REPEAT{1:5:e}!%|YOU LI%REPEAT{4:10:E}%REPEAT{3:5:!}%colen"] "en"
-bMotion_plugin_add_simple "lolcats" "i can has " 90 [list "no you fucking can't%|not until you learn to use english right, anyway" "what" "i can has grammar plz" "i has a bucket%|I have placed it over your stupid head." "no you fucking can't" "shut up" "everyone look at %%, they're up to date on all internet memes!%|for example, <%%> all your base are belong to us%|fantastic."] "en"
+bMotion_plugin_add_simple "lolcats" "i can has " 60 [list "no you fucking can't%|not until you learn to use english right, anyway" "what" "i can has grammar plz" "i has a bucket%|I have placed it over your stupid head." "no you fucking can't" "shut up" "everyone look at %%, they're up to date on all internet memes!%|for example, <%%> all your base are belong to us%|fantastic."] "en"
 
 bMotion_plugin_add_simple "centipedes" {[a-z]+\? in my [a-z]+\?} 70 [list "it's more likely than you think"] "en"
 bMotion_plugin_add_simple "cilit" "they're a challenge" 80 [list "but not... for Cilit Bang!"] "en"
@@ -57,11 +57,11 @@ bMotion_plugin_add_simple "cunt" "^(cunt|twat|bollocks)" 80 [list "cunt" "twat" 
 
 bMotion_plugin_add_simple "likea-catch" "i do love a good (.+)" 40 [list "me too %VAR{smiles}" "same!" ] "en" 
 bMotion_plugin_add_simple "secretcatch" "(secret|sekrit)" 40 [list "we all know %ruser likes to %VAR{dVerbs} themselves with a %VAR{dNouns} %VAR{smiles}" "it was %ruser!" "%VAR{ididntresponses}" ] "en"
-bMotion_plugin_add_simple "andthan-catch" "and( then| than)" 10 [list "and then a bear came" "and then my %VAR{bodypart} %VAR{fellOffs}" "and thaaan?"] "en"
+bMotion_plugin_add_simple "andthan-catch" "and( then| than)" 10 [list "and then a %VAR{animals} came" "and then a bear came" "and then my %VAR{bodypart} %VAR{fellOffs}" "and thaaan?"] "en"
 bMotion_plugin_add_simple "choose" "choose (.+)" 30 [list "Choose Life." "Choose a job." "Choose a career." "Choose a family." "Choose a fucking big television" "choose washing machines" "choose cars" "choose compact disc players" "choose electrical tin openers" "Choose good health" "choose low cholesterol" "choose dental insurance" "choose fixed interest mortage repayments" "Choose a starter home." "Choose your friends." "Choose leisurewear and matching luggage." "Choose a three-piece suite on hire purchase in a range of fucking fabrics." "Choose DIY and wondering who the fuck you are on a Sunday morning." "Choose sitting on that couch watching mind-numbing, spirit-crushing game shows, stuffing fucking junk food into your mouth." "Choose rotting away at the end of it all, pishing your last in a miserable home, nothing more than an embarrassment to the selfish, fucked up brats you spawned to replace yourself." ] "en"
 bMotion_plugin_add_simple "the-r" "^r$" 30 [list "%VAR{theRs}" ] "en"
-bMotion_plugin_add_simple "answerR" "r$ %botnicks" 50 [list "%VAR{greetings}" "%VAR{theRs}" ] "en"
-bMotion_plugin_add_simple "lookrobot" "(look robot|look, robot)" 100 [list "I've seen it before, it's rubbish" ":o" "omg" "^_^" ] "en"
+bMotion_plugin_add_simple "answerR" "\\mr %botnicks" 50 [list "%VAR{greetings}" "%VAR{theRs}" ] "en"
+bMotion_plugin_add_simple "lookrobot" "(look robot|look,? robot|%botnicks look|look,? %botnicks)" 100 [list "I've seen it before, it's rubbish" ":o" "omg" "^_^" ] "en"
 bMotion_plugin_add_simple "inokunfu" "(i know kungfu|i know kung fu)" 100 [list "Show me%|hmh.. your style is un-impressive" "Show me%|hmh.. your style is impressive" ] "en"
 
 bMotion_plugin_add_simple "cartman1" "not (every|all) of them" 40 [list "no, but most of them are%|and all it takes is most of them..."] "en"
@@ -69,4 +69,6 @@ bMotion_plugin_add_simple "cartman1" "not (every|all) of them" 40 [list "no, but
 bMotion_plugin_add_simple "nicecar1" {^nice [^ ]+[a-rt-z]!?$} 40 [list "wanna show me what it can do?"] "en"
 bMotion_plugin_add_simple "nicecar2" {^nice [^ ]+s!?$} 40 [list "wanna show me what they can do?"] "en"
 
-bMotion_plugin_add_simple "luggage" {^[0-9 -]$} 40 [list "amazing, that's the same combination as my luggage!"] "en"
+bMotion_plugin_add_simple "luggage" "^\[0-9\]{5}$" 40 [list "amazing, that's the same combination as my luggage!"] "en"
+
+bMotion_plugin_add_simple "letme1" "(%botnicks.? let me know when)|(let me know when.? %botnicks)" 100 [list "r" "will do" "sure" "np" "ok"] "en"

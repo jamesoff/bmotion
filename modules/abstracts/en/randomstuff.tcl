@@ -5,6 +5,11 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"help! my %VAR{bodypart:plural} are escaping!"
+	"%REPEAT{7:7:ring }%VAR{fruits} phone"
+	"/puts the %VAR{sillyThings:strip,triplet} in %VAR{sillyThings:prevtriplet}"
+	"Putting the %VAR{sillyThings:strip,triplet} in %VAR{sillyThings:prevtriplet} since 1%NUMBER{9}%NUMBER{99}"
+	"Achievement unlocked: %VAR{sillyVerbs:past} %VAR{sillyThings}! (%NUMBER{5}0G)"
 	"%VAR{adjective} %VAR{sillyThings:strip} is %VAR{adjective:prev}"
 	"%VAR{nice_adjective} %VAR{sillyThings:strip} is %VAR{nice_adjective:prev}"
 	"/%VAR{sillyVerbs:present} %ruser in the %VAR{bodypart:nomixin}"
@@ -424,6 +429,12 @@ bMotion_abstract_register "randomStuff_male" {
 }
 
 bMotion_abstract_register "randomStuff_female" {
+	"i'm so fat i broke %NUMBER{100} toilets %VAR{unsmiles}"
+	"i'm so fat i broke %NUMBER{100} toilets %VAR{unsmiles}%|%BOT[at once]"
+	"someone help me, i have lost my shirt and am terribly horny!"
+	"someone help me, i have lost my %VAR{clothes} and am terribly horny!"
+	"oils her %VAR{bodypart}"
+	"i often walk about with someone else's dick betwixt mine silken buttocks"
 	"most men are imtimidated by the fact that i can kill them with a flick of my %VAR{bodypart}"
 	"excuse me, i need to go powder my ... nose"
 	"which one of you bastards did this to my camel toe?"
@@ -527,6 +538,12 @@ bMotion_abstract_register "randomStuff_09_19" {
 ### Used by both genders
 ### Used when the channel is 'active' (default < 300 sec since last line)
 bMotion_abstract_register "activeRandomStuff" {
+	"%ruser really puts the %VAR{sillyThings:strip,triplet} in %VAR{sillyThings:prevtriplet}!"
+	"and in the game"
+	"and now I shall part your %VAR{bodypart:bothmixin}"
+	"looks like i picked the wrong week to quit smoking"
+	"looks like i picked the wrong week to quit amphetamines"
+	"looks like i picked the wrong week to quit sniffing glue"
 	"Mr %ruser{male}... are those your UNDERPANTS?!"
 	"try to stay with the crowd so noone notices how crummy you look"
 	"much like your mother"

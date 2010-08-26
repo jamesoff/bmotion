@@ -191,4 +191,4 @@ proc bMotion_plugin_output_typos_adderror { channel err } {
   bMotion_plugins_settings_set "output:typos" "typos" "" "" $currentErr
 }
 
-bMotion_plugin_add_output "typos" bMotion_plugin_output_typos 1 "all" 15
+bMotion_plugin_add_output "typos" bMotion_plugin_output_typos 1 "all" 99 

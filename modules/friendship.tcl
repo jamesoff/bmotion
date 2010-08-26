@@ -136,7 +136,7 @@ proc getFriendsList { } {
 proc bMotionIsFriend { nick } {
 	set friendship [getFriendship $nick]
 	bMotion_putloglev 2 * "friendship: friendship for $nick is $friendship"
-	if {$friendship < 35} {
+	if {$friendship <= 40} {
 		return 0
 	}
 	return 1

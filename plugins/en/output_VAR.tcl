@@ -109,6 +109,9 @@ proc bMotion_plugin_output_VAR { channel line } {
 				"prev" {
 					set replacement [bMotion_plugins_settings_get "output:VAR" "last" $channel "$abstract"]
 				}
+				"prevtriplet" {
+					set replacement [bMotion_plugins_settings_get "output:VAR" "last:pretriplet" $channel $abstract]
+				}
 				"strip" {
 					set replacement [bMotion_strip_article $replacement]
 				}
@@ -138,6 +141,16 @@ proc bMotion_plugin_output_VAR { channel line } {
 				"caps" {
 					set replacement [string toupper $replacement]
 				}
+				"triplet" {
+					bMotion_plugins_settings_set "output:VAR" "last:pretriplet" $channel $abstract $replacement
+					set temp [bMotion_find_triplet $replacement]
+					if {$temp == ""} {
+						putlog "triplet is blank"
+						return ""
+					}
+					set replacement $temp
+				}
+					
 			}
 			bMotion_putloglev 1 * "current replacement is $replacement"
 		}
@@ -159,5 +172,24 @@ proc bMotion_plugin_output_VAR { channel line } {
 	return $line
 }
 
+proc bMotion_find_triplet { word } {
+  set start 0
+	if {[string length $word] < 3} {
+		return ""
+	}
+
+	set results [list]
+
+	while {[regexp -start $start -nocase -indices {([^aeiou ][aeiou][^aeiou ])} $word matches a]} {
+		lappend results [string range $word [lindex $a 0] [lindex $a 1]]
+		set start [lindex $a 1]
+	}
+
+	if {[llength $results] == 0} {
+		return ""
+	}
+
+	return [pickRandom $results]
+}
 
 bMotion_plugin_add_output "VAR" bMotion_plugin_output_VAR 1 "en" 3

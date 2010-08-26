@@ -14,7 +14,12 @@
 # appends random stuff to the output; evolved from the gollum plugin by Kev
 
 proc bMotion_plugin_output_append { channel line } {
-	if {([string length $line] > 10) && ([rand 100] > 90)} {
+	putlog "running append plugin"
+	set length [string length $line]
+	set n [rand 100]
+	bMotion_putloglev d * "output_append: length=$length, n=$n"
+	if {($length > 10) && ($n > 90)} {
+		bMotion_putloglev d * "output_append: doing!"
 		set line [string trim $line]
 		# make sure the line ends with a letter (other than D)
 		# this is so we don't make ourselves look dumb(er) by adding
@@ -22,17 +27,22 @@ proc bMotion_plugin_output_append { channel line } {
 		if [rand 2] {
 			if [regexp -nocase {[a-ce-z]$} $line] {
 				append line "%VAR{appends}"
+			} else {
+				bMotion_putloglev d * "output_append: not appending to this line as it may end in a smiley"
 			}
 		} else {
-			if {![regexp {^[:;=/]} $line} {
+			if {![regexp {^[:;=/]} $line]} {
 				# don't do this for /me type lines and smilies
 				return $line
 			}
 			set line "%VAR{prepends} $line"
 		}
+		bMotion_putloglev d * "output_append: preprocessed line is $line"
 
-		set line [bMotionDoInterpolation $line "" "" $channel]
+		set line [bMotion_process_macros $channel $line]
+		regsub -all "%space" $line " " line
 
+		bMotion_putloglev d * "output_append: postprocessed line is $line"
 	}
 	return $line
 }
@@ -56,6 +66,8 @@ bMotion_abstract_register "appendslist" {
 	"%spacebut what would I know"
 	", i think"
 	"%spaceor something totally different perhaps"
+	"%spacein the butt"
+	"%spacein a vagina"
 }
 bMotion_abstract_add_filter "appendslist" "^ "
 
@@ -85,4 +97,4 @@ bMotion_abstract_register "prepends" {
 bMotion_abstract_add_filter "preciouses" {^[^ ]}
 bMotion_abstract_add_filter "narfs" {^[^ ]}
 
-bMotion_plugin_add_output "append" bMotion_plugin_output_append 1 "en" 1
+bMotion_plugin_add_output "append" bMotion_plugin_output_append 1 "en" 11
