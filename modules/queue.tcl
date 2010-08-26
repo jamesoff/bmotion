@@ -83,8 +83,12 @@ proc bMotion_queue_run { {force 0} } {
 						set bMotionOriginalNick ""
 						bMotion_putloglev d * "bitlbee outgoing: $content"
 					}
-					puthelp "PRIVMSG $target :$content"
-
+					if {[bMotion_setting_get "outputpriority"] == 1} {
+						putserv "PRIVMSG $target :$content"
+					} else {
+						puthelp "PRIVMSG $target :$content"
+					}
+					set bMotionCache($target,last) 1
 				}
 			}
 		} else {
