@@ -16,13 +16,17 @@ bMotion_plugin_add_complex "sucks" {sucks?$} 30 bMotion_plugin_complex_sucks "en
 proc bMotion_plugin_complex_sucks { nick host handle channel text } {
 	global botnicks
 
+	set stoplist "^(t|teh|the|that|you|which|that|it|what|they)$"
+
 	if [regexp -nocase {([a-z0-9]+) (all )?suck[.!]*$} $text matches item] {
-		bMotionDoAction $channel $item "%VAR{sucks}"
-		return 1
+		if {![regexp -nocase $stoplist $item]} {
+			bMotionDoAction $channel $item "%VAR{sucks}"
+			return 1
+		}
 	}
 
 	if [regexp -nocase {^([a-z0-9]+) sucks} $text matches item] {
-		if [regexp -nocase "^(teh|the|that|you|which|that|it|what)$" $item] {
+		if [regexp -nocase $stoplist $item] {
 			return 0
 		}
 		bMotionDoAction $channel $item "%VAR{sucks}"

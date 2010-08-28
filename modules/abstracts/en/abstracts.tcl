@@ -391,21 +391,20 @@ bMotion_abstract_register "answerWheres" {
 	"behind the fridge"
 	"on the desk"
 	"in a book"
-	"Devon"
-	"Amsterdam"
+	"in Devon"
+	"in Amsterdam"
 	"a cheese shop"
-	"America"
-	"Mars"
+	"in America"
+	"in Mars"
 	"the USS Enterprise"
-	"north pole"
+	"at the north pole"
 	"in a field"
 	"under a book"
 	"on top of the telly"
 	"in the toilet"
-	"Chippenham"
-	"New York"
-	"%OWNER{%ruser} house"
-	"hidden."
+	"in Chippenham"
+	"in New York"
+	"at %ruser{:owner} house"
 	"in the coffee pot"
 	"down the local shop"
 	"in the car"
@@ -413,7 +412,8 @@ bMotion_abstract_register "answerWheres" {
 	"over thair%|*point*"
 	"next to %ruser"
 	"in bed with Madonna"
-	"%VAR{cities}"
+	"in bed with %ruser{like}"
+	"in %VAR{cities}"
 }
 bMotion_abstract_register "answerWellbeing" {
 	"fine thanks"
@@ -450,6 +450,13 @@ bMotion_abstract_register "answerHowmanys" {
   "minus %NUMBER{10}"
   "%NUMBER{10}.%NUMBER{10}"
   "zero"
+}
+
+bMotion_abstract_register "answerHowmuch" {
+	"just enough"
+	"too much"
+	"too little"
+	"the right amount"
 }
 
 bMotion_abstract_add_filter "answerHowmanys" "^e$"
@@ -1008,6 +1015,7 @@ bMotion_abstract_register "bodypart_male" {
 }
 
 bMotion_abstract_register "bodypart_female" {
+	"front lumps"
 	"vagina"
 	"fanny"
 	"front bottom"
@@ -1317,15 +1325,22 @@ bMotion_abstract_register "ranjoins" {
 	"hey %% %VAR{food}%VAR{bodypart:bothmixin}"
 }
 
+bMotion_abstract_add_filter "ranjoins" "%VAR\{food\}"
+
 bMotion_abstract_register "food" {
 	"honey"
 	"jam"
 	"marmite"
 	"bovril"
-	"chocolatespread"
+	"chocolate spread"
 	"nutella"
-	"peanutbutter"
+	"peanut butter"
 	"marmalade"
+	"potato croquettes"
+	"bacon"
+	"toasted sandwich"
+	"pizza"
+	"corn flakes"
 }
 
 bMotion_abstract_register "smiles" {
@@ -3126,6 +3141,7 @@ bMotion_abstract_register "shocked" {
 	"well slap my %VAR{bodypart} and call me %me"
 	"well blow me down"
 	"well i'll be a monkey's uncle"
+	"well shut me up"
 	"yikes"
 	"cor"
 	"%VAR{hermes}"
@@ -4830,6 +4846,8 @@ bMotion_abstract_register "foods" {
 	"%NUMBER{100} cheese omelette"
 	"carrots"
 	"turnips"
+	"pizza"
+	"corn flakes"
 }
 
 bMotion_abstract_register "tube_stations" {
@@ -5715,6 +5733,39 @@ bMotion_abstract_register "boos" {
 	"gah"
 	"feh"
 	"blah"
+}
+
+bMotion_abstract_register "rooms" {
+	"bathroom"
+	"lounge"
+	"kitchen"
+	"bedroom"
+	"living room"
+	"basement"
+	"cellar"
+	"walk-in wardrobe"
+}
+
+bMotion_abstract_register "musicalinstruments" {
+	"piano"
+	"trombone"
+	"trumpet"
+	"tuba"
+	"xylophone"
+	"harp"
+	"flute"
+	"clarinet"
+	"oboe"
+	"french horn"
+}
+
+bMotion_abstract_register "pluralprefix" {
+	"a bunch of"
+	"a load of"
+	"a lot of"
+	"a metric fucktonne of"
+	"an imperial fuckton of"
+	"a buttload of"
 }
 
 bMotion_abstract_add_filter "_all" "\{strip\}\}"

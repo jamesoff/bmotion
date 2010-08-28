@@ -5,6 +5,7 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"i have a MIGHTY NEED to use the %VAR{rooms}"
 	"help! my %VAR{bodypart:plural} are escaping!"
 	"%REPEAT{7:7:ring }%VAR{fruits} phone"
 	"/puts the %VAR{sillyThings:strip,triplet} in %VAR{sillyThings:prevtriplet}"
@@ -259,6 +260,7 @@ bMotion_abstract_register "randomStuff" {
 	"what d'you say we just hit a strip joint?%|%BOT\[i was waiting for one of us to say that!\]"
 	"i hope you won't think it \"evil\" of me to ask how you got that stylish headwound"
 	"getting my brain out was the easy part. the hard part was getting my brain out%|muwahahahahaha"
+	"getting my %VAR{bodypart} out was the easy part. the hard part was getting my %VAR{bodypart:prev} out%|muwahahahahaha"
 	"they're all like, stop spraying me with ink, %me, stop eating the garbage, %me"
 	"Meanwhile in Universe A, %me A heads towards the Sun%|A."
 	"If i know parallel %me, %heshe's in the sun by now!"
@@ -301,6 +303,7 @@ bMotion_abstract_register "randomStuff" {
 	"Chicks can't resist me."
 	"I didn't touch it."
 	"my zipper's stuck %VAR{unsmiles}"
+	"my %VAR{clothes}'s stuck %VAR{unsmiles}"
 	"my %VAR{bodypart} is hurting %VAR{unsmiles}"
 	"my %VAR{bodypart} is %VAR{sillyVerbs:presentpart}"
 	"%VAR{hexStart} %VAR{hexMiddle} %VAR{hexEnd}"
@@ -327,6 +330,7 @@ bMotion_abstract_register "randomStuff" {
 	"For private functions I do pigs on spits. I fill their cavities... "
 	"How do you make %ruser{enemy} laugh on Friday? A: Tell him a joke on Monday!"
 	"my knees feel lovely %VAR{smiles}"
+	"my %VAR{bodypart:plural} feel lovely %VAR{smiles}"
 	"that was a fucking rough game up yours"
 	"very flickable considering its length and bulk"
 	"I just picked a very drunk irish bloke up"
@@ -345,6 +349,7 @@ bMotion_abstract_register "randomStuff" {
 	"I'll be holding mine in the pub"
 	"if he's good enough for %ruser, he's good enough for me"
 	"here's a photograph of my fist"
+	"here's a photograph of my %VAR{bodypart}"
 	"i've had a fiddle with it but never used it properly"
 	"I often walk about with someone elses dick in my arse					"
 	"what to do, what to do... three hundred one-dollar hookerbots or one three hundred dollar hooker bot?"
@@ -353,7 +358,8 @@ bMotion_abstract_register "randomStuff" {
 	"I really like brian eno's \"music for %VAR{sillyThings:strip,plural}\""
 	"Dodongo dislikes %VAR{sillyThings}"
 	"%ruser needs food, badly! %VAR{unsmiles}"
-	"%ruser has shot the food! %VAR{unsmiles}"
+	"%ruser needs food, badly! %VAR{unsmiles}%|/gives %ruser{prev} some %VAR{foods}%|/helped."
+	"%ruser has shot the food! %VAR{unsmiles}%}%BOT[noooo my %VAR{foods}]"
 	"%ruser has shot the potion! %VAR{unsmiles}"
 	"%ruser now has reflecting shots! %VAR{smiles}"
 	"good.. bad.. I'm the bot with the gun%colen"
@@ -396,7 +402,7 @@ bMotion_abstract_register "randomStuff" {
 ### Used by the right gender bot in an inactive channel
 ### Mixed in with list above
 bMotion_abstract_register "randomStuff_male" {
-	"I always thought the most sensual part of a woman was the %VAR{bodypart:revmixin}"
+	"I always thought the most sensual part of a woman was the %VAR{bodypart:female_mixin}%|mmm... %ruser{female}%VAR{bodypart:prev,plural}"
 	"Looks like the squirrel's been showing everyone where he keeps his nuts."
 	"You wanna see some stuff I'm not supposed to show anyone?"
 	"Ha ha! Body in a woodchipper."
@@ -429,6 +435,7 @@ bMotion_abstract_register "randomStuff_male" {
 }
 
 bMotion_abstract_register "randomStuff_female" {
+	"I always thought the most sensual part of a man was the %VAR{bodypart:male_mixin}%|mmm... %ruser{male}%VAR{bodypart:prev,plural}"
 	"i'm so fat i broke %NUMBER{100} toilets %VAR{unsmiles}"
 	"i'm so fat i broke %NUMBER{100} toilets %VAR{unsmiles}%|%BOT[at once]"
 	"someone help me, i have lost my shirt and am terribly horny!"
@@ -611,7 +618,7 @@ bMotion_abstract_register "activeRandomStuff" {
 	"then one night some of her friends were over and they wanted to join in"
 	"i don't know what you're talking about"
 	"do we have any solaris 9 boxes with solaris 9 on?"
-	"that's not chocolate anyway %ruser{enemy}"
+	"that's not a %VAR{fruits} anyway %ruser{enemy}"
 	"Yeah, I was up that"
 	"yeah, keep it open until I'm sure"
 	"you know that stuff you did for me last night? "
@@ -619,7 +626,9 @@ bMotion_abstract_register "activeRandomStuff" {
 	"well i fully intend to be an utter burden and piss myself"
 	"didn't you just pump it out on the ground"
 	"er, not that far in, would be really painful at this time of night"
+	"er, not that far in, would be really painful at this time of %daytime"
 	"shouldn't be a problem unless you keep re-using the same tissue"
+	"shouldn't be a problem unless you keep re-using the same %VAR{sillyThings:strip}"
 	"push the stinky dribbling fuck into the sea		"
 	"mount them so you can alter their thrust										"
 	"mine is flapping pointlessly somewhere round my ankles			"
@@ -632,11 +641,12 @@ bMotion_abstract_register "activeRandomStuff" {
 	"which was nice"
 	"and now what?"
 	"but is it art?"
-	"why don't i just jump out of a plane with a piano glued to my face"
+	"why don't i just jump out of a plane with a %VAR{musicalinstruments} glued to my face"
 	"i want mine with sprinkles"
 	"now back to Reducto's to enlarge myself!"
 	"%ruser is under some kind of spell. that's why i don't have to cover my mouth fully while i talk"
 	"who... does... number... two... work... for?"
+	"who... does... number... %NUMBER{50}... work... for?"
 	"you show that turd who's boss"
 	"i've been to some conventions like that"
 	"that sure is one platonic view"
@@ -651,6 +661,7 @@ bMotion_abstract_register "activeRandomStuff_male" {
 	"Hey lady, I need a yank! Ha ha! Dislocation."
 	"I'll take the case!"
 	"That means in the future I'm going to have sex! With a woman!"
+	"That means in the future I'm going to have sex! With %VAR{sillyThings}!"
 	"Oooh that's hot! Say it again!"
 }
 

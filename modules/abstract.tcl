@@ -72,6 +72,8 @@ set BMOTION_MIXIN_DEFAULT 0
 set BMOTION_MIXIN_REVERSE 1
 set BMOTION_MIXIN_NONE 2
 set BMOTION_MIXIN_BOTH 3
+set BMOTION_MIXIN_FEMALE 4
+set BMOTION_MIXIN_MALE 5
 
 if { [bMotion_setting_get "abstractMaxAge"] != "" } {
   set bMotion_abstract_max_age [bMotion_setting_get "abstractMaxAge"]
@@ -434,6 +436,19 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 				set final_version [concat $final_version [bMotion_abstract_all "${abstract}_female"]]
 			}
 		}
+		5 {
+			if [bMotion_abstract_exists "${abstract}_male"] {
+				bMotion_putloglev 1 * "mixing in male version of $abstract"
+				set final_version [concat $final_version [bMotion_abstract_all "${abstract}_male"]]
+			}
+		}
+		4 {
+			if [bMotion_abstract_exists "${abstract}_female"] {
+				bMotion_putloglev 1 * "mixing in female version of $abstract"
+				set final_version [concat $final_version [bMotion_abstract_all "${abstract}_female"]]
+			}
+		}
+
 		default {
 			putlog "bMotion ERROR: unknown mixin type $mixin_type for abstract $abstract"
 		}

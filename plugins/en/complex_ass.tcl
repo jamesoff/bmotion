@@ -20,6 +20,12 @@ proc bMotion_plugin_complex_ass { nick host handle channel text } {
 	}
 
 	if [regexp -nocase {([a-z]+)[- ]ass ([a-z]+)} $text matches 1 2] {
-		bMotionDoAction $channel "" "$1 ass-$2"
+		if {![regexp -nocase "so" $2]} {
+			bMotionDoAction $channel "" "$1 ass-$2"
+		} else {
+			return 0
+		}
+	} else {
+		return 0
 	}
 }

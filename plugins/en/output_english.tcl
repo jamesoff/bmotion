@@ -36,8 +36,6 @@ proc bMotion_plugin_output_english { channel line } {
     }
   }
 
-	#"a an" and "an a" are wrong
-	regsub -nocase -all "(a an|an a) " $line "" "a"
 
   #"a" before a vowel needs to be "an"
   regsub -nocase -all {\m(a) ([aeiou].+)\M} $line {\1n \2} line
@@ -47,6 +45,9 @@ proc bMotion_plugin_output_english { channel line } {
 
 	# a(n) before a number is wrong more often than it is right
 	regsub -nocase -all {an? ([0-9]+)} $line {\1} line
+
+	#"a an" and "an a" are wrong
+	regsub -nocase -all "(a an|an a) " $line "" "a"
 
   if {[rand 100] > 60} {
     #captials at start, . at end
@@ -59,6 +60,12 @@ proc bMotion_plugin_output_english { channel line } {
     }
   }
 
+	regsub -all "an? some" $line "some" line
+
+	regsub -all "you is " $line "you are " line
+
+	regsub -all "the an?" $line "the" line
+
 	#fix double (or more) spaces
 	regsub -all "  +" $line " " line
 
@@ -66,6 +73,11 @@ proc bMotion_plugin_output_english { channel line } {
 	regsub -all "\[^.\]\\.\\.$" $line "." line
 
 	regsub -all {\myou is\M} $line "you are" line
+
+	#fix gap before full stop
+
+	#TODO: fix
+	regexp -all { +\\.} $line "." line
 
 	# fix american spellings
 	# TODO: make this an option or US bots can talk wrong english and UK bots can talk right english

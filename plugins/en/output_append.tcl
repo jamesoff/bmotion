@@ -14,7 +14,6 @@
 # appends random stuff to the output; evolved from the gollum plugin by Kev
 
 proc bMotion_plugin_output_append { channel line } {
-	putlog "running append plugin"
 	set length [string length $line]
 	set n [rand 100]
 	bMotion_putloglev d * "output_append: length=$length, n=$n"

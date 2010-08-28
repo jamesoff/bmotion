@@ -24,6 +24,7 @@
 proc bMotion_plugin_output_VAR { channel line } {
 	bMotion_putloglev 4 * "bMotion_plugin_output_VAR $channel $line"
 	global BMOTION_MIXIN_NONE BMOTION_MIXIN_REVERSE BMOTION_MIXIN_DEFAULT BMOTION_MIXIN_BOTH
+	global BMOTION_MIXIN_MALE BMOTION_MIXIN_FEMALE
 	
 	set line [string map { "%noun" "%VAR{sillyThings}" } $line]
 
@@ -58,6 +59,12 @@ proc bMotion_plugin_output_VAR { channel line } {
 		} elseif {[lsearch $options_list "bothmixin"] > -1} {
 			bMotion_putloglev 1 * "mixin type for $abstract is both"
 			set mixin_type $BMOTION_MIXIN_BOTH
+		} elseif {[lsearch $options_list "malemixin"] > -1} {
+			bMotion_putloglev 1 * "mixin type for $abstract is male"
+			set mixin_type $BMOTION_MIXIN_MALE
+		} elseif {[lsearch $options_list "femalemixin"] > -1} {
+			bMotion_putloglev 1 * "mixin type for $abstract is female"
+			set mixin_type $BMOTION_MIXIN_FEMALE
 		}
 
 		#see if we have a new-style abstract available
@@ -130,7 +137,13 @@ proc bMotion_plugin_output_VAR { channel line } {
 				"plural" {
 					bMotion_putloglev 1 * "pluralising $replacement"
 					set replacement [bMotionMakePlural $replacement]
-					putlog $replacement
+					if {[rand 100] > 90} {
+						set replacement [bMotion_strip_article $replacement]
+						set replacement "%VAR{pluralprefix} $replacement"
+						if {[lsearch "strip" $options_list] > -1} {
+							set replacement [bMotion_strip_article $replacement]
+						}
+					}
 				}
 				"owner" {
 					set replacement [bMotionMakePossessive $replacement]

@@ -453,7 +453,7 @@ proc bMotion_plugin_complex_question_whathave { nick channel host } {
 
 proc bMotion_plugin_complex_question_much { nick channel host } {
     bMotion_putloglev 2 * "$nick how much question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowmanys}"
+  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowmuch}"
   return 1
 }
 

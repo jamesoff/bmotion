@@ -19,8 +19,8 @@ bMotion_plugin_add_action_simple "moo" "^(goes |does a )?moo+s?( at %botnicks)?"
 
 
 # now autoload the rest from plugins/action_simple_*.tcl
-
-set files [glob -nocomplain "$bMotionPlugins/action_simple_*.tcl"]
+set currentlang $bMotionInfo(language)
+set files [glob -nocomplain "$bMotionPlugins/$currentlang/action_simple_*.tcl"]
 foreach f $files {
 	set count [llength [array names bMotion_plugins_action_simple]]
   bMotion_putloglev 1 * "bMotion: loading simple action plugin file $f"
