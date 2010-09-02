@@ -26,7 +26,7 @@ proc bMotion_plugin_output_demon { channel line } {
 
 	foreach word $words {
 
-		regsub -all {([^aeiou])i([^aeiuo])} $word {\1y\2} word
+		regsub -all {([^aeiou])i([^aeinuo])} $word {\1y\2} word
 		regsub -all {c?k\M} $word {q} word
 
 		regsub -all {o([b-df-hj-np-tv-xz])e(s|ing)?\M} $word {oa\1\2} word
