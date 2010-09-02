@@ -114,7 +114,7 @@ proc mee {channel action {urgent 0} } {
 	bMotion_putloglev 5 * "mee ($channel, $action, $urgent)"
 	set channel [chandname2name $channel]
 	regsub "^\"(.+)\"?$" $action {\1} action
-	if {([string index $action 0] != ".") && ([rand 10] == 0)} {
+	if {([string index $action 0] != ".") && (![regexp -nocase "^is" $action]) && ([rand 10] == 0)} {
 		set action "*$action*"
 	} else {
 		set action "\001ACTION $action\001"
@@ -1003,7 +1003,7 @@ proc chr c {
 proc bMotionMakePlural { text } {
 	bMotion_putloglev 5 * "bMotionMakePlural ($text)"
 
-	if [regexp -nocase "(us|is|x|ch|sh)$" $text] {
+	if [regexp -nocase "(ss|ts|us|is|x|ch|sh)$" $text] {
 		append text "es"
 		return $text
 	}
