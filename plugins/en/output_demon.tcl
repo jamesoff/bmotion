@@ -26,7 +26,6 @@ proc bMotion_plugin_output_demon { channel line } {
 
 	foreach word $words {
 
-		regsub -all {([^aeiou])i([^aeinuoy])} $word {\1y\2} word
 		regsub -all {c?k\M} $word {q} word
 
 		regsub -all {o([b-df-hj-np-tv-xz])e(s|ing)?\M} $word {oa\1\2} word
@@ -38,6 +37,9 @@ proc bMotion_plugin_output_demon { channel line } {
 
 		#other special cases to fix
 		set word [string map -nocase { soam some someoan someone } $word]
+
+		# [@     enid] i can not be represented by mere regexps.
+		set word [string map -nocase { chick chyq } $word]
 
 		regsub -all {le(s)?\M} $word {al\1} word
 
