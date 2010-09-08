@@ -946,6 +946,7 @@ bMotion_abstract_register "rehashes" {
 }
 
 bMotion_abstract_register "bodypart" {
+	"brain"
 	"buttock"
 	"arse"
 	"lip"
@@ -1532,6 +1533,8 @@ bMotion_abstract_register "prom_first" {
 	"puke"
 	"gypsy"
 	"bollock"
+	"dog"
+	"bog"
 }
 
 bMotion_abstract_register "silences" {
@@ -1573,6 +1576,9 @@ bMotion_abstract_register "hexEnd" {
 }
 
 bMotion_abstract_register "prom_second" {
+	"wipe"
+	"cloth"
+	"polish"
 	"rifle"
 	"cannon"
 	"flower"
@@ -3137,6 +3143,8 @@ bMotion_abstract_register "shocked" {
 	"sufferin' succatash!"
 	"shucks"
 	"well slap my ass and call me susan"
+	"well slap my ass and call me a %VAR{PROM}"
+	"well slap my %VAR{bodypart} and call me a %VAR{PROM}"
 	"well slap my ass and call me %me"
 	"well slap my %VAR{bodypart} and call me %me"
 	"well blow me down"
@@ -4822,6 +4830,7 @@ bMotion_abstract_register "noun_swearing" {
 }
 
 bMotion_abstract_register "foods" {
+	outlog "running append plugin"
 	"roast beef"
 	"pork"
 	"omelette"

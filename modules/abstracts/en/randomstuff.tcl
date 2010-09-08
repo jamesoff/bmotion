@@ -42,7 +42,7 @@ bMotion_abstract_register "randomStuff" {
 	"where there's a snack gap, %VAR{sillyThings:strip} fits"
 	"i'm so cold my cpu is running at maximum efficiency!"
 	"I can do more than talk! I can pontificate!"
-	"What's the secret of time travel doing on %OWNER{%ruser}'s ass?"
+	"What's the secret of time travel doing on %ruser{:owner} ass?"
 	"I just accidentally %VAR{sillyThings}"
 	"The next channel is #%VAR{tube_stations:underscore}. Change here for networks to %VAR{locations}."
 	"The next channel is #%VAR{tube_stations:underscore}. Please mind the gap between the channel and the server."
@@ -338,7 +338,7 @@ bMotion_abstract_register "randomStuff" {
 	"always been a bit rough	 "
 	"%ruser{enemy} in talking shit shocker		"
 	"why just the other day i watched a film with a plot	"
-	"ha ha i don't live in norwich anymore, i don't fuck pigs anymore  "
+	"ha ha i don't live in norwich anymore, i don't fuck pigs anymore "
 	"i have a battery operated tree \o/"
 	"i have an enormous battery operated vibrator"
 	"there's usually someone fiddling with me		"
@@ -359,7 +359,7 @@ bMotion_abstract_register "randomStuff" {
 	"Dodongo dislikes %VAR{sillyThings}"
 	"%ruser needs food, badly! %VAR{unsmiles}"
 	"%ruser needs food, badly! %VAR{unsmiles}%|/gives %ruser{prev} some %VAR{foods}%|/helped."
-	"%ruser has shot the food! %VAR{unsmiles}%}%BOT[noooo my %VAR{foods}]"
+	"%ruser has shot the food! %VAR{unsmiles}%|%BOT[noooo my %VAR{foods}]"
 	"%ruser has shot the potion! %VAR{unsmiles}"
 	"%ruser now has reflecting shots! %VAR{smiles}"
 	"good.. bad.. I'm the bot with the gun%colen"
@@ -670,3 +670,4 @@ bMotion_abstract_register "activeRandomStuff_female" {
 	"ugh. i hope this is part of the unfreezing process"
 	"I'd %VAR{sillyVerbs} his %VAR{sillyThings:strip}"
 }
+
