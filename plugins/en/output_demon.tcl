@@ -39,7 +39,7 @@ proc bMotion_plugin_output_demon { channel line } {
 		set word [string map -nocase { soam some someoan someone } $word]
 
 		# [@     enid] i can not be represented by mere regexps.
-		set word [string map -nocase { chick chyq } $word]
+		set word [string map -nocase { chiq chyq } $word]
 
 		regsub -all {le(s)?\M} $word {al\1} word
 
