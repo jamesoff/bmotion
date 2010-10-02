@@ -69,28 +69,27 @@ proc bMotionDoEventResponse { type nick host handle channel text } {
 
 ### bMotion_event_onjoin 
 proc bMotion_event_onjoin {nick host handle channel} {
-#ignore me
-if [isbotnick $nick] {
-return 0
-}
+	#ignore me
+	if [isbotnick $nick] {
+		return 0
+	}
 
-#ignore the J flag users
-if [matchattr $handle J] {
-return 0
-}
+	#ignore the J flag users
+	if [matchattr $handle J] {
+		return 0
+	}
 
-#ignore bots without the I flag
-if [matchattr $handle b-I] {
-return 0
-}
+	#ignore bots without the I flag
+	if [matchattr $handle b-I] {
+		return 0
+	}
 
-if {![channel get $channel bmotion]} {
-	return 0
-}
+	if {![channel get $channel bmotion]} {
+		return 0
+	}
 
-set result [bMotionDoEventResponse "join" $nick $host $handle $channel ""]
+	set result [bMotionDoEventResponse "join" $nick $host $handle $channel ""]
 }
-
 
 ### bMotion_event_onpart 
 proc bMotion_event_onpart {nick host handle channel {msg ""}} {
