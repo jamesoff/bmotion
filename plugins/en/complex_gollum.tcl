@@ -23,7 +23,6 @@ proc bMotion_plugin_complex_gollum { nick host handle channel text } {
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{gollums}"
     return 1 
     #this allows us to still respond to questions, right?
-  }
 }
 
 bMotion_abstract_register "gollums"

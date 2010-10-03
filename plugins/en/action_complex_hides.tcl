@@ -17,5 +17,4 @@ proc bMotion_plugin_complex_action_hides { nick host handle channel text } {
     bMotionGetUnLonely
     bMotionGetHappy
     return 1
-  }
 }

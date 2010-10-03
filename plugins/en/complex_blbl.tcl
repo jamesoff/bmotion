@@ -19,5 +19,4 @@ proc bMotion_plugin_complex_blbl { nick host handle channel text } {
     if {![bMotion_interbot_me_next $channel]} { return 0 }
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{rarrs}"
     return 1
-  }
 }
