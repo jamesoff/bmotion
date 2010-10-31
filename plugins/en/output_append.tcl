@@ -24,13 +24,15 @@ proc bMotion_plugin_output_append { channel line } {
 		# this is so we don't make ourselves look dumb(er) by adding
 		# on the end of a line with a smiley
 		if [rand 2] {
+			bMotion_putloglev 2 * "output_append: appending"
 			if [regexp -nocase {[a-ce-z]$} $line] {
 				append line "%VAR{appends}"
 			} else {
 				bMotion_putloglev d * "output_append: not appending to this line as it may end in a smiley"
 			}
 		} else {
-			if {![regexp {^[:;=/]} $line]} {
+			bMotion_putloglev 2 * "output_append: prepending"
+			if {[regexp {[:;=/]} $line]} {
 				# don't do this for /me type lines and smilies
 				return $line
 			}
