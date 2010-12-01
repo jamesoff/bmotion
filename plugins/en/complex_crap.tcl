@@ -29,8 +29,9 @@ bMotion_abstract_register "random_crap_main" {
 	"/crimps off a %VAR{random_crap_adj} %VAR{random_crap_type} and hands it to %ruser{enemy}%|present"
 	"/gift wraps a %VAR{random_crap_adj} %VAR{random_crap_type}%|/ships it first class to %ruser{enemy}"
 	"/injects a %VAR{random_crap_adj} %VAR{random_crap_type} into a padded envelope and posts it to %ruser{enemy}"
-	"/does a %VAR{random_crap_adj} %VAR{random_crap_type} in a flan base%|/cooks it%|Here you go, $ruser{enemy}, I made you this flan!"
+	"/does a %VAR{random_crap_adj} %VAR{random_crap_type} in a flan base%|/cooks it%|Here you go, %ruser{enemy}, I made you this flan!"
 }
+bMotion_abstract_add_filter "random_crap_main" "\$ruser"
 
 bMotion_abstract_register "random_crap_adj"
 bMotion_abstract_batchadd "random_crap_adj" {

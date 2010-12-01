@@ -19,7 +19,6 @@ bMotion_plugin_add_complex "somethingless" {[a-z]+less [a-z]+} 40 bMotion_plugin
 
 
 proc bMotion_plugin_complex_spoon { nick host handle channel text } {
-
 	if (![bMotion_interbot_me_next $channel]) {
 		return 0
 	}
@@ -49,7 +48,6 @@ proc bMotion_plugin_complex_spoon { nick host handle channel text } {
 }
 
 proc bMotion_plugin_complex_spoon2 { nick host handle channel text } {
-
 	if (![bMotion_interbot_me_next $channel]) {
 		return 0
 	}
@@ -65,7 +63,6 @@ proc bMotion_plugin_complex_spoon2 { nick host handle channel text } {
 
 
 proc bMotion_plugin_complex_spoon3 { nick host handle channel text } {
-
 	if (![bMotion_interbot_me_next $channel]) {
 		return 0
 	}
@@ -75,7 +72,7 @@ proc bMotion_plugin_complex_spoon3 { nick host handle channel text } {
 			return 0
 		}
 
-		if [regexp -nocase {^(one|of|n)$} $two] {
+		if [regexp -nocase {^(and|one|of|n)$} $two] {
 			return 0
 		}
 

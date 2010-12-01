@@ -159,6 +159,8 @@ bMotion_abstract_batchadd "scrap_qualities" {
   "super"
   "legendary"
   "excellent"
+	"ultimate"
+	"as-seen-on-TV"
 }
 
 bMotion_abstract_register "scrap_adjectives"
@@ -198,6 +200,8 @@ bMotion_abstract_batchadd "scrap_adjectives" {
   "miniscule"
   "stiff"
   "flexible"
+	"brand new"
+	"power assisted"
 
   "dirt driving"
   "muck mulching"
@@ -235,6 +239,8 @@ bMotion_abstract_batchadd "scrap_power_adjectives" {
   "winched"
   "chain driven"
   "pressurised"
+	"nuclear"
+	"atomic"
 }
 
 bMotion_abstract_register "scrap_construction"
@@ -308,6 +314,7 @@ bMotion_abstract_batchadd "scrap_silly_qualities_t" {
   "orcish"
   "goblinoid"
   "magical"
+	"spooky"
 }
 
 bMotion_abstract_register "scrap_silly_adjectives_t"

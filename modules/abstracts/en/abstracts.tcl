@@ -1342,6 +1342,13 @@ bMotion_abstract_register "food" {
 	"toasted sandwich"
 	"pizza"
 	"corn flakes"
+	"chicken"
+	"beef"
+	"venison"
+	"veal"
+	"pork"
+	"mince"
+	"sausages"
 }
 
 bMotion_abstract_register "smiles" {
@@ -4830,7 +4837,6 @@ bMotion_abstract_register "noun_swearing" {
 }
 
 bMotion_abstract_register "foods" {
-	outlog "running append plugin"
 	"roast beef"
 	"pork"
 	"omelette"

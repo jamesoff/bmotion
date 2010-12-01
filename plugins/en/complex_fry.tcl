@@ -20,8 +20,13 @@ proc bMotion_plugin_complex_technically { nick host handle channel text } {
 		return 0
 	}
 
-	if [regexp -nocase "technically (\[a-z\]+)\\M" $text matches thing] {
-		bMotionDoAction $channel $thing "The best kind of $thing"
+	if [regexp -nocase "technically ((not (a )?)?(\[a-z\]+))\\M" $text matches thing b c d] {
+		putlog "a=$thing, b=$b, c=$c, d=$d"
+		set response "The best kind of $thing"
+		if {$b == "not a "} {
+			set response "%VAR{technically_worst}"
+		}
+		bMotionDoAction $channel $d $response 
 		return 1
 	}
 }
@@ -33,3 +38,8 @@ proc bMotion_plugin_complex_fry1 {nick host handle channel text} {
   return 1
 }
 
+
+bMotion_abstract_register "technically_worst" {
+	"The best kind of non-%%"
+	"The worst kind of %%"
+}
