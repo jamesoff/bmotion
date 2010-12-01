@@ -935,6 +935,7 @@ bMotion_abstract_register "yesnos" {
 }
 
 bMotion_abstract_register "rehashes" {
+	"k"
 	"r"
 	"Done."
 	"ryoukai"
