@@ -41,7 +41,8 @@ proc bMotion_plugin_output_demon { channel line } {
 		# [@     enid] i can not be represented by mere regexps.
 		set word [string map -nocase { chiq chyq } $word]
 
-		regsub -all {le(s)?\M} $word {al\1} word
+		# doesn't really work right
+		#regsub -all {le(s)?\M} $word {al\1} word
 
 		# moving on...
 		set word [string map -nocase { ain ane } $word]
