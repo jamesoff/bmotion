@@ -36,7 +36,7 @@ proc bMotion_plugin_output_demon { channel line } {
 		}
 
 		#other special cases to fix
-		set word [string map -nocase { soam some someoan someone oq ok } $word]
+		set word [string map -nocase { soam some someoan someone oq ok looas loose } $word]
 
 		# [@     enid] i can not be represented by mere regexps.
 		set word [string map -nocase { chiq chyq } $word]
