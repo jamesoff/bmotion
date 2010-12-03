@@ -516,7 +516,17 @@ proc bMotion_event_mode {nick host handle channel mode victim} {
 		#check to see if i was opped before
 		if [wasop $botnick $channel] { return 0 }
 
-		bMotionDoAction $channel $nick "%VAR{opped}"
+		set deoptime [bMotion_plugins_settings_get "system" "deoptime" $channel ""]
+		set diff 901
+		if {$deoptime != ""} {
+			set diff [expr [clock seconds] - $deoptime]
+		}
+		if {$diff > 900} {
+			bMotionDoAction $channel $nick "%VAR{opped}"
+		} else {
+			bMotion_putloglev d * "Not responding to +o in $channel as I was only deopped $diff seconds ago"
+		}
+		bMotion_plugins_settings_set "system" "optime" $channel "" [clock seconds]
 		return 0
 	}
 
@@ -525,7 +535,18 @@ proc bMotion_event_mode {nick host handle channel mode victim} {
 			return 0
 		}
 
-		bMotionDoAction $channel $nick "%VAR{deopped}"
+		# stop this spamming so much; won't do anything unless we were opped > 15mins ago
+		set optime [bMotion_plugins_settings_get "system" "optime" $channel ""]
+		set diff 901
+		if {$optime != ""} {
+			set diff [expr [clock seconds] - $optime]
+		}
+		if {$diff > 900} {
+			bMotionDoAction $channel $nick "%VAR{deopped}"
+		} else {
+			bMotion_putloglev d * "Not responding to -o in $channel as I was only opped $diff seconds ago"
+		}
+		bMotion_plugins_settings_set "system" "deoptime" $channel "" [clock seconds]
 		return 0
 	}
 
