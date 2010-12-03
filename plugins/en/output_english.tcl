@@ -52,7 +52,9 @@ proc bMotion_plugin_output_english { channel line } {
   if {[rand 100] > 60} {
     #captials at start, . at end
     if [regexp {^([a-z])(.+)} $line matches first rest] {
-      set line "[string toupper $first]$rest"
+			if {!([string range $line 0 1] == "r ")} {
+				set line "[string toupper $first]$rest"
+			}
     }
 
     if [regexp -nocase {^[a-z].*[^:][a-z0-9]$} $line] {
@@ -64,7 +66,7 @@ proc bMotion_plugin_output_english { channel line } {
 
 	regsub -all "you is " $line "you are " line
 
-	regsub -all "the an?" $line "the" line
+	regsub -all "the an? " $line "the " line
 
 	#fix double (or more) spaces
 	regsub -all "  +" $line " " line
