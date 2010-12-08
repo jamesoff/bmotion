@@ -189,7 +189,7 @@ bMotion_abstract_batchadd "scrap_adjectives" {
   "composite"
   "layered"
   "over-tuned"
-  "mamoth"
+  "mammoth"
   "oscillating"
   "tiny"
   "small"
@@ -216,6 +216,7 @@ bMotion_abstract_batchadd "scrap_adjectives" {
   "fully automatic"
   "semi automatic"
 }
+bMotion_abstract_add_filter "scrap_adjectives" "mamoth"
 
 bMotion_abstract_register "scrap_power_adjectives"
 bMotion_abstract_batchadd "scrap_power_adjectives" {
@@ -390,7 +391,7 @@ bMotion_abstract_batchadd "scrap_silly_construction_t" {
   "hula skirt"
   "dunce's cap"
   "crown"
-  "coktail machine"
+  "cocktail machine"
   "beer keg"
   "action hero"
   "taunt"
@@ -405,6 +406,7 @@ bMotion_abstract_batchadd "scrap_silly_construction_t" {
   "printing press"
   "cash printing machine"
 }
+bMotion_abstract_add_filter "scrap_silly_construction_t" "coktail machine"
 
 bMotion_abstract_register "scrap_adult_qualities_t"
 bMotion_abstract_batchadd "scrap_adult_qualities_t" {
@@ -438,7 +440,7 @@ bMotion_abstract_batchadd "scrap_adult_adjectives_t" {
   "tight"
   "curvy"
   "undulating"
-  "girating"
+  "gyrating"
   "shafting"
   "vibrating"
   "lubricating"
@@ -456,10 +458,11 @@ bMotion_abstract_batchadd "scrap_adult_adjectives_t" {
   "pole dancing"
   "stripping"
 }
+bMotion_abstract_add_filter "scrap_adult_adjectives_t" "girating"
 
 bMotion_abstract_register "scrap_adult_power_adjectives_t"
 bMotion_abstract_batchadd "scrap_adult_power_adjectives_t" {
-  "jiz powered"
+  "jizz powered"
   "love juice powered"
   "sweat powered"
   "motion powered"
@@ -475,7 +478,7 @@ bMotion_abstract_batchadd "scrap_adult_construction_t" {
   "whip"
   "melon"
   "shaft"
-  "girator"
+  "gyrator"
   "stroking device"
   "n0rty bits"
   "nipple tweaker"
@@ -500,6 +503,7 @@ bMotion_abstract_batchadd "scrap_adult_construction_t" {
   "box"
   "dominatrix"
 }
+bMotion_abstract_add_filter "scrap_adult_construction_t" "girator"
 
 #create the big lists :)
 bMotion_abstract_register "scrap_silly_qualities"
