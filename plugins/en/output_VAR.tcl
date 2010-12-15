@@ -139,9 +139,11 @@ proc bMotion_plugin_output_VAR { channel line } {
 					set replacement [bMotionMakePlural $replacement]
 					if {[rand 100] > 90} {
 						set replacement [bMotion_strip_article $replacement]
-						set replacement "%VAR{pluralprefix} $replacement"
-						if {[lsearch "strip" $options_list] > -1} {
-							set replacement [bMotion_strip_article $replacement]
+						putlog "plural: options list is $options_list"
+						if {[lsearch $options_list "strip"] > -1} {
+							set replacement "%VAR{pluralprefix:strip} $replacement"
+						} else {
+							set replacement "%VAR{pluralprefix} $replacement"
 						}
 					}
 				}
@@ -163,7 +165,14 @@ proc bMotion_plugin_output_VAR { channel line } {
 					}
 					set replacement $temp
 				}
-					
+				"like" {
+					bMotion_putloglev d * "Learning to like $replacement during %VAR expansion"
+					bMotion_abstract_add "_bmotion_like" $replacement
+				}
+				"dislike" {
+					bMotion_putloglev d * "Learning to dislike $replacement during %VAR expansion"
+					bMotion_abstract_add "_bmotion_dislike" $replacement
+				}
 			}
 			bMotion_putloglev 1 * "current replacement is $replacement"
 		}

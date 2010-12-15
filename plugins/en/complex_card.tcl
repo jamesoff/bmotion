@@ -20,7 +20,7 @@ proc bMotion_plugin_complex_card {nick host handle channel text} {
 		set modifier ""
 		regexp -nocase "^!card( (adult))?" $text matches 1 modifier
 		if {[string tolower $modifier] == "adult"} {
-			bMotionDoAction $channel $nick "%%: the %VAR{card_value} of %VAR{scrap_adult_adjectives_t} %VAR{scrap_adult_construction_t:plural}"
+			bMotionDoAction $channel $nick "%%: the %VAR{card_value} of %VAR{scrap_adult_adjectives_t} %VAR{scrap_adult_construction_t:strip,plural}"
 			return 1
 		}
 

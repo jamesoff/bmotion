@@ -68,6 +68,8 @@ proc bMotion_plugin_output_english { channel line } {
 
 	regsub -all "the an? " $line "the " line
 
+	regsub -all "(an?) (his|her|the)" $line "\\1 " line
+
 	#fix double (or more) spaces
 	regsub -all "  +" $line " " line
 
