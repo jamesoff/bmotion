@@ -3510,6 +3510,14 @@ bMotion_abstract_register "unsmiles" {
 	":'("
 }
 
+bMotion_abstract_register "surprises" {
+	"o_O"
+	":o"
+	":O"
+	"=O"
+	"/o\\"
+}
+
 bMotion_abstract_register "ruins" {
 	"Incompetence."
 	"INCOMPETENCE%colen"

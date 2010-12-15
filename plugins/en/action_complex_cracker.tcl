@@ -22,7 +22,7 @@ proc bMotion_plugin_complex_action_cracker { nick host handle channel text } {
 		return
 	}
 
-	bMotionDoAction $channel $nick "%VAR{booms}"
+	bMotionDoAction $channel $nick "%VAR{cracker_boom}"
 
 	if [rand 2] {
 		# i won
@@ -41,22 +41,26 @@ proc bMotion_plugin_complex_action_cracker { nick host handle channel text } {
 	}
 
 }
+bMotion_abstract_register "cracker_boom" {
+	"%VAR{booms}"
+	"%VAR{sfx} %VAR{surprises}"
+}
 
 bMotion_abstract_register "cracker_win" {
-	"%VAR{yays}! i won!%|/got %VAR{sillyThings} %VAR{smiles}"
-	"%VAR{yays}! i won!%|/got %VAR{sillyThings}. hmm %VAR{unsmiles}"
-	"%VAR{yays}! i won!%|i got %VAR{sillyThings} %VAR{smiles}"
-	"%VAR{yays}! i won!%|oh, i got %VAR{sillyThings} %VAR{unsmiles}"
-	"%VAR{yays}! i won %VAR{sillyThings}... but I'd rather have had a %VAR{_bmotion_like}"
-	"%VAR{yays}! i won %VAR{sillyThings}%|glad I didn't get a %VAR{_bmotion_dislike}, i hate those"
+	"%VAR{yays}! i won!%|/got %VAR{cracker_want_item} %VAR{smiles}"
+	"%VAR{yays}! i won!%|/got %VAR{cracker_nowant_item}. hmm %VAR{unsmiles}"
+	"%VAR{yays}! i won!%|i got %VAR{cracker_want_item} %VAR{smiles}"
+	"%VAR{yays}! i won!%|oh, i got %VAR{cracker_nowant_item} %VAR{unsmiles}"
+	"%VAR{yays}! i won %VAR{cracker_nowant_item}... but I'd rather have had a %VAR{_bmotion_like}"
+	"%VAR{yays}! i won %VAR{cracker_want_item}%|glad I didn't get a %VAR{_bmotion_dislike}, i hate those"
 }
 
 bMotion_abstract_register "cracker_lose" {
-	"%VAR{boos} i didn't win%|%VAR{yays}! you got %VAR{sillyThings}"
-	"%VAR{boos} i didn't win%|%VAR{yays}! you got %VAR{sillyThings} *jealous*"
-	"%VAR{boos} i didn't win%|%VAR{yays}! you got a %VAR{_bmotion_like} %VAR{unsmiles} wish i'd got that"
-	"%VAR{boos} i didn't win%|oh you got a %VAR{_bmotion_dislike} %VAR{smiles} glad i didn't get that!"
-	"%VAR{boos} you won%|%VAR{sillyThings}! nice!"
+	"%VAR{boos} i didn't win%|%VAR{yays}! you got %VAR{cracker_neutral_item}"
+	"%VAR{boos} i didn't win%|%VAR{yays}! you got %VAR{cracker_want_item} *jealous*"
+	"%VAR{boos} i didn't win%|%VAR{yays}! you got a %VAR{cracker_want_item} %VAR{unsmiles} wish i'd got that"
+	"%VAR{boos} i didn't win%|oh you got a %VAR{cracker_nowant_item} %VAR{smiles} glad i didn't get that!"
+	"%VAR{boos} you won%|%VAR{cracker_want_item}! nice!"
 }
 
 bMotion_abstract_register "cracker_win_hat" {
@@ -69,4 +73,22 @@ bMotion_abstract_register "cracker_lose_hat" {
 	"don't forget to put on your hat"
 	"here's your hat!"
 	"put on your hat!"
+}
+
+bMotion_abstract_register "cracker_want_item" {
+	"%VAR{sillyThings:like}"
+	"a %VAR{scrap_adult_adjectives_t} %VAR{scrap_adult_construction_t:strip,plural}"
+	"a %VAR{scrap_silly_qualities} %VAR{scrap_silly_adjectives} %VAR{scrap_silly_construction}"
+}
+
+bMotion_abstract_register "cracker_neutral_item" {
+	"%VAR{sillyThings}"
+	"a %VAR{scrap_adult_adjectives_t} %VAR{scrap_adult_construction_t:strip,plural}"
+	"a %VAR{scrap_silly_qualities} %VAR{scrap_silly_adjectives} %VAR{scrap_silly_construction}"
+}
+
+bMotion_abstract_register "cracker_nowant_item" {
+	"%VAR{sillyThings:dislike}"
+	"a %VAR{scrap_adult_adjectives_t} %VAR{scrap_adult_construction_t:strip,plural}"
+	"a %VAR{scrap_silly_qualities} %VAR{scrap_silly_adjectives} %VAR{scrap_silly_construction}"
 }
