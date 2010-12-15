@@ -47,7 +47,7 @@ proc bMotion_plugin_output_english { channel line } {
 	regsub -nocase -all {an? ([0-9]+)} $line {\1} line
 
 	#"a an" and "an a" are wrong
-	regsub -nocase -all "(a an|an a) " $line "a" line
+	regsub -nocase -all "(a an|an a) " $line "a " line
 
   if {[rand 100] > 60} {
     #captials at start, . at end
