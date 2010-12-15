@@ -77,18 +77,18 @@ bMotion_abstract_register "cracker_lose_hat" {
 
 bMotion_abstract_register "cracker_want_item" {
 	"%VAR{sillyThings:like}"
-	"a %VAR{scrap_adult_adjectives_t} %VAR{scrap_adult_construction_t:strip,plural}"
+	"a %VAR{scrap_adult_adjectives_t} %VAR{scrap_adult_construction_t:strip}"
 	"a %VAR{scrap_silly_qualities} %VAR{scrap_silly_adjectives} %VAR{scrap_silly_construction}"
 }
 
 bMotion_abstract_register "cracker_neutral_item" {
 	"%VAR{sillyThings}"
-	"a %VAR{scrap_adult_adjectives_t} %VAR{scrap_adult_construction_t:strip,plural}"
+	"a %VAR{scrap_adult_adjectives_t} %VAR{scrap_adult_construction_t:strip}"
 	"a %VAR{scrap_silly_qualities} %VAR{scrap_silly_adjectives} %VAR{scrap_silly_construction}"
 }
 
 bMotion_abstract_register "cracker_nowant_item" {
 	"%VAR{sillyThings:dislike}"
-	"a %VAR{scrap_adult_adjectives_t} %VAR{scrap_adult_construction_t:strip,plural}"
+	"a %VAR{scrap_adult_adjectives_t} %VAR{scrap_adult_construction_t:strip}"
 	"a %VAR{scrap_silly_qualities} %VAR{scrap_silly_adjectives} %VAR{scrap_silly_construction}"
 }
