@@ -11,11 +11,10 @@
 ###############################################################################
 
 # "specific" typos
-bMotion_plugin_add_complex "wrong console(tm)" "^rm|^cp|^su( -)?$|^make$|^ls" 20 "bMotion_plugin_complex_wrong_console" "en"
+bMotion_plugin_add_complex "wrong console(tm)" "^(rm|cp|su|ls)\\\M" 20 "bMotion_plugin_complex_wrong_console" "en"
 
 # bMotion_plugin_complex_wrong_console
 proc bMotion_plugin_complex_wrong_console { nick host handle channel text } {
-	global randomWrongConsoleReply botnick
 	if {![bMotion_interbot_me_next $channel]} { 
 		return 0
 	}
