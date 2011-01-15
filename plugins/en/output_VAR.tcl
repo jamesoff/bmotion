@@ -147,6 +147,21 @@ proc bMotion_plugin_output_VAR { channel line } {
 						}
 					}
 				}
+				"title" {
+					set replacement [string totitle $replacement]
+				}
+				"camel" {
+					set newreplacement ""
+					foreach word $replacement {
+						set word [string totitle $word]
+						#TODO: generalise
+						if {[string range $word 0 3] == "%var"} {
+							set word [string replace $word 0 3 "%VAR"]
+						}
+						append newreplacement "$word "
+					}
+					set replacement [string trim $newreplacement]
+				}
 				"owner" {
 					set replacement [bMotionMakePossessive $replacement]
 				}
