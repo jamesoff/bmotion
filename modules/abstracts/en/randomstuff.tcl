@@ -5,6 +5,7 @@
 ### Used by both genders
 ### Used when the channel is not 'active' (default > 300s since last line)
 bMotion_abstract_register "randomStuff" {
+	"my %VAR{bodypart} is itchy, is that normal?"
 	"i have a MIGHTY NEED to use the %VAR{rooms}"
 	"help! my %VAR{bodypart:plural} are escaping!"
 	"%REPEAT{7:7:ring }%VAR{fruits} phone"
@@ -226,6 +227,7 @@ bMotion_abstract_register "randomStuff" {
 	"I feel a great disatisfaction within my bowels."
 	"Pardon me. Do you have any grey poupon?"
 	"PENIS BECOMES ARM"
+	"%VAR{bodypart:caps} BECOMES %VAR{bodypart:caps}"
 	"UH OH YES IT IS LAUNDRY NIGHT FOR ME HA HA HA"
 	"I'm eating cake mix!"
 	"I would be delicious."

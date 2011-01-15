@@ -33,7 +33,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
   }
 
 	bMotion_putloglev 3 * "checking question for sound: $text"
-	if {[regexp -nocase "^$botnicks,?:? what sound " $text] || [regexp -nocase "what sound .+${botnicks}\\?$" $text]} {
+	if {[regexp -nocase "^$botnicks,?:? what (noise|sound)s? " $text] || [regexp -nocase "what (noise|sound)s? .+${botnicks}\\?$" $text]} {
 		bMotion_putloglev 3 * "it's a sound question"
 		bMotionDoAction $channel $nick "%VAR{sound_answer}"
 		return 1

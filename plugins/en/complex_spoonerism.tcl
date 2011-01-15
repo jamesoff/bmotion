@@ -52,13 +52,16 @@ proc bMotion_plugin_complex_spoon2 { nick host handle channel text } {
 		return 0
 	}
 
-	if [regexp -nocase {([b-df-hj-np-tv-xz]+)(([aeiou])\3)([b-df-hj-np-tv-xz]+[.!?]?)} $text matches 1 2 3 4] {
-		if {$matches == "cool"} {
-			return 0
+	if [bMotion_sufficient_gap 300 "complex:spoonerism" $channel] {
+		if [regexp -nocase {([b-df-hj-np-tv-xz]+)(([aeiou])\3)([b-df-hj-np-tv-xz]+[.!?]?)} $text matches 1 2 3 4] {
+			if {$matches == "cool"} {
+				return 0
+			}
+			bMotionDoAction $channel $text "$1%REPEAT{2:10:$2}$3$4"
+			return 1
 		}
-		bMotionDoAction $channel $text "$1%REPEAT{2:10:$2}$3$4"
-		return 1
 	}
+	return 0
 }
 
 
@@ -67,22 +70,25 @@ proc bMotion_plugin_complex_spoon3 { nick host handle channel text } {
 		return 0
 	}
 
-	if [regexp -nocase {([a-z]+)less ([a-z]+)\M} $text matches one two] {
-		if [regexp -nocase {^(un|use|b|regard)$} $one] {
-			return 0
-		}
+	if [bMotion_sufficient_gap 300 "complex:spoonerism" $channel] {
+		if [regexp -nocase {([a-z]+)less ([a-z]+)\M} $text matches one two] {
+			if [regexp -nocase {^(un|use|b|regard)$} $one] {
+				return 0
+			}
 
-		if [regexp -nocase {^(and|one|of|n)$} $two] {
-			return 0
-		}
+			if [regexp -nocase {^(and|one|of|n)$} $two] {
+				return 0
+			}
 
-		if {[string range $two end end] == "s"} {
-			append one "s"
-			set two [string range $two 0 end-1]
+			if {[string range $two end end] == "s"} {
+				append one "s"
+				set two [string range $two 0 end-1]
+			}
+			bMotionDoAction $channel "" "${two}less $one"
+			return 1
 		}
-		bMotionDoAction $channel "" "${two}less $one"
-		return 1
 	}
+	return 0
 }
 
 

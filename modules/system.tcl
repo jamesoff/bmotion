@@ -199,8 +199,12 @@ proc bMotion_random_away {} {
 	bMotion_putloglev 1 * "bMotion: most recent: $mostRecent .. timenow $timeNow .. gap $gapTime"
 
 	if {($timeNow - $mostRecent) < $gapTime} {
-		bMotion_putloglev 1 * "most recent is busy enough, not going away"
-		return 0
+		set chance [rand 100]
+		if ($chance > [bMotion_setting_get "awaychance"]) {
+			bMotion_putloglev 1 * "most recent is busy enough, not going away"
+			return 0
+		}
+		bMotion_putloglev 1 * "most recent is busy enough but going away anyway"
 	}
 
 	if {$bMotionInfo(away) == 1} {
@@ -209,7 +213,7 @@ proc bMotion_random_away {} {
 		return 0
 	}
 
-	if {[rand 4] == 0} {
+	if {[rand 3] == 0} {
 		putlog "bMotion: All channels are idle, going away"
 		bMotionSetRandomAway
 		return 1
@@ -1242,7 +1246,29 @@ proc bMotion_filter_sillyThings { item } {
 	return 1
 }
 
+# generic time-since handler
+# mingap is in seconds
+# other params are as for plugin settings
+# returns 1 if gap since last is > mingap
+# updates last to be now regardless
+# nick is optional for this
+proc bMotion_sufficient_gap { mingap plugin channel {nick ""} } {
+	bMotion_putloglev 5 * "bMotion_sufficient_gap: $mingap $plugin $channel $nick"
+		set lasttime [bMotion_plugins_settings_get $plugin "lasttime" $channel $nick]
+		set diff [expr $mingap + 1]
+		set gap_ok 0
 
+		if {$lasttime != ""} {
+			set diff [expr [clock seconds] - $lasttime]
+		}
+		bMotion_putloglev 1 * "sufficient_gap: last=$lasttime, now=[clock seconds], gap=$diff"
+		if {$diff > $mingap} {
+			set gap_ok 1
+		} 
+		bMotion_plugins_settings_set $plugin "lasttime" $channel $nick [clock seconds]
+		bMotion_putloglev 1 * "sufficient_gap: returning $gap_ok for $plugin $channel ($nick) > $mingap"
+		return $gap_ok
+}
 
 bMotion_putloglev d * "bMotion: system module loaded"
 

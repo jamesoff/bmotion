@@ -15,7 +15,6 @@
 bMotion_plugin_add_complex "card" "^(!card( (adult))?)|(pick a card)" 100 bMotion_plugin_complex_card "en"
 
 proc bMotion_plugin_complex_card {nick host handle channel text} {
-
 	if {[bMotionTalkingToMe $text] || [bMotion_interbot_me_next $channel]} {
 		set modifier ""
 		regexp -nocase "^!card( (adult))?" $text matches 1 modifier

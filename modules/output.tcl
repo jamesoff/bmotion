@@ -1003,12 +1003,13 @@ proc chr c {
 proc bMotionMakePlural { text } {
 	bMotion_putloglev 5 * "bMotionMakePlural ($text)"
 
-	if [regexp -nocase "(ss|ts|us|is|x|ch|sh)$" $text] {
+	if [regexp -nocase "(ss|us|is|x|ch|sh)$" $text] {
 		append text "es"
 		return $text
 	}
 
-	if [regexp -nocase "s$" $text] {
+
+	if [regexp -nocase {s$} $text] {
 		return $text
 	}
 

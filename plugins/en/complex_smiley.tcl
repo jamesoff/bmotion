@@ -22,23 +22,17 @@ proc bMotion_plugin_complex_smiley { nick host handle channel text } {
 
   if {![bMotion_interbot_me_next $channel]} { return 0 }
 
-  foreach i {"smiley" "smiley2"} {
-  	bMotion_putloglev 2 * "checking $i"
-  	
-		if {[bMotion_plugin_history_check $channel "complex" "bMotion_plugin_complex_$i"]} {
-			bMotion_putloglev 2 * "can't trigger a smiley so soon"
+	if [bMotion_sufficient_gap 120 "complex:smiley" $channel] {
+		if {$mood(happy) < 0} {
 			return 0
 		}
+
+		bMotionDoAction $channel "" "%VAR{smiles}"
+		bMotionGetHappy
+		bMotionGetUnLonely
+		return 1
 	}
-
-  if {$mood(happy) < 0} {
-    return 0
-  }
-
-  bMotionDoAction $channel "" "%VAR{smiles}"
-  bMotionGetHappy
-  bMotionGetUnLonely
-  return 1
+	return 0
 }
 
 proc bMotion_plugin_complex_smiley2 { nick host handle channel text } {
@@ -46,12 +40,15 @@ proc bMotion_plugin_complex_smiley2 { nick host handle channel text } {
 
   if {![bMotion_interbot_me_next $channel]} { return 0 }
 
-  if {$mood(happy) < 0} {
-    return 0
-  }
+	if [bMotion_sufficient_gap 120 "complex:smiley" $channel] {
+		if {$mood(happy) < 0} {
+			return 0
+		}
 
-  bMotionDoAction $channel "" "%VAR{smiles}"
-  bMotionGetHappy
-  bMotionGetUnLonely
-  return 1
+		bMotionDoAction $channel "" "%VAR{smiles}"
+		bMotionGetHappy
+		bMotionGetUnLonely
+		return 1
+	}
+	return 0
 }
