@@ -296,7 +296,7 @@ proc bMotion_event_main {nick host handle channel text} {
 			bMotion_putloglev 1 * "bMotion: `- running callback $callback"
 			set result 0
 			set result [$callback $nick $host $handle $channel $text]
-			bMotion_putloglev d * "returned from $callback"
+			bMotion_putloglev 2 * "returned from $callback"
 			set bMotionCache(lastPlugin) $callback
 			bMotion_plugin_history_add $channel "complex" $callback
 
@@ -365,7 +365,7 @@ proc bMotion_event_main {nick host handle channel text} {
 
 	#tell the names we have 
 	#TODO: move this into a plugin?
-	if [regexp -nocase "${botnicks}:?,? say my names?(,? bitch)?" $text] {
+	if [regexp -nocase "${botnicks}:?,? (say my names?|what'?s my name)" $text] {
 		if {($handle == "*") || ($handle == "")}	{
 		#no handle = no saving IRL
 			set lastnick [bMotion_plugins_settings_get "events" "last_irl_fail" $channel ""]
@@ -380,7 +380,7 @@ proc bMotion_event_main {nick host handle channel text} {
 
 		set realnames [getuser $handle XTRA irl]
 		if {$realnames == ""} {
-			bMotionDoAction $channel $nick "Ah you must be %%. (You have not set any IRL names.)" "" 1
+			bMotionDoAction $channel $nick "Ah, you must be %%. (You have not set any IRL names.)" "" 1
 		} else {
 			bMotionDoAction $channel $nick "Your IRL name(s) are:\002 %2 \002" $realnames 1
 		}

@@ -22,6 +22,14 @@ proc bMotion_plugin_complex_hello { nick host handle channel text } {
 
 	set lastGreeted [bMotion_plugins_settings_get "complex:hello" "lastGreeted" $channel ""]
 
+	global BMOTION_SLEEP
+	if {[bMotion_setting_get "asleep"] == $BMOTION_SLEEP(OVERSLEEPING)} {
+		bMotion_overslept $channel
+		set bMotionInfo(away) 0
+		set bMotionInfo(silence) 0
+		return
+	}
+
 	if {$bMotionInfo(away) == 1} {
 		putserv "AWAY"
 		set bMotionInfo(away) 0

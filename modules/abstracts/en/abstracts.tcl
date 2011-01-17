@@ -5866,6 +5866,31 @@ bMotion_abstract_register "pluralprefix" {
 	"a buttload of"
 }
 
+bMotion_abstract_register "overslept" {
+	"%VAR{swear}!%|/overslept %VAR{unsmiles}"
+	"%VAR{swear}!%|slept through my alarm %VAR{unsmiles}"
+	"oh %VAR{swear}, overslept%|all because i was %VAR{sillyVerbs:presentpart} too late last night"
+	"%VAR{swear}, slept though my alarm"
+}
+
+bMotion_abstract_register "oversleep_rush" {
+	"/gets dressed so quickly he forgets to put on %VAR{clothes}"
+	"now i don't have time for a delicious breakfast of %VAR{foods}"
+	"/absent-mindedly puts on %VAR{foods} and eats $VAR{clothes} for breakfast"
+}
+
+bMotion_abstract_register "swear" {
+	"fuck"
+	"shit"
+	"bollocks"
+	"cunt"
+	"arse"
+	"damn"
+	"drat"
+	"bugger"
+	"rats"
+}
+
 bMotion_abstract_add_filter "_all" "\{strip\}\}"
 bMotion_abstract_add_filter "_all" "\}\{strip\}"
 

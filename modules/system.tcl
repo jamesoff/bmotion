@@ -1081,12 +1081,50 @@ proc bMotion_go_to_sleep { } {
 	bMotion_putloglev d * "What th... bMotion_go_to_sleep called but I'm already asleep!"
 }
 
+
+# realise we overslept
+proc bMotion_overslept { { onlychan "" } } {
+	global bMotionSettings BMOTION_SLEEP
+	if {[bMotion_setting_get "asleep"] != $BMOTION_SLEEP(OVERSLEEPING)} {
+		bMotion_putloglev d * "overslept timer fired but I wasn't oversleeping"
+		return
+	}
+
+	set bMotionSettings(asleep) $BMOTION_SLEEP(AWAKE)
+
+	if {$onlychan == ""} {
+		set chanlist $bMotionChannels
+	} else {
+		set chanlist [list $onlychan]
+	}
+
+	foreach chan $chanlist {
+		if {[bMotion_is_active_enough $chan]} {
+			bMotionDoAction $chan "" "%VAR{overslept}"
+		}
+	}
+}
+
 proc bMotion_wake_up { } {
 	global bMotionSettings BMOTION_SLEEP bMotionChannels
 	bMotion_update_chanlist
 
 	if {$bMotionSettings(asleep) == $BMOTION_SLEEP(ASLEEP)} {
 		bMotion_putloglev 3 * "considering asleep -> awake"
+		if {[rand 100] > 95} {
+			putlog "bMotion: really quite tired today... think I'll stay in bed a bit longer"
+			set snooze [expr [rand 120] + 30]
+			timer $snooze bMotion_overslept
+			putlog "bMotion: going to oversleep by $snooze minutes"
+			set bMotionSettings(asleep) $BMOTION_SLEEP(OVERSLEEPING)
+
+			set hour [bMotion_setting_get "bedtime_hour"]
+			set minute [bMotion_setting_get "bedtime_minute"]
+			set bMotionSettings(sleepy_nextchange) [bMotion_sleep_next_event "$hour:$minute"]
+
+			return
+		}
+
 		if {[rand 10] > 7} {
 			putlog "bMotion: woke up!"
 			set bMotionSettings(asleep) $BMOTION_SLEEP(AWAKE)

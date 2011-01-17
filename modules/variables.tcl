@@ -91,6 +91,7 @@ set bMotionChannels [list]
 set BMOTION_SLEEP(AWAKE) 0
 set BMOTION_SLEEP(BEDTIME) 1
 set BMOTION_SLEEP(ASLEEP) 2
+set BMOTION_SLEEP(OVERSLEEPING) 3
 
 # start off awake
 set bMotionSettings(asleep) $BMOTION_SLEEP(AWAKE)
