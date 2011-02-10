@@ -19,6 +19,8 @@ bMotion_plugin_add_complex "somethingless" {[a-z]+less [a-z]+} 40 bMotion_plugin
 
 
 proc bMotion_plugin_complex_spoon { nick host handle channel text } {
+	global bMotionInfo
+
 	if (![bMotion_interbot_me_next $channel]) {
 		return 0
 	}
