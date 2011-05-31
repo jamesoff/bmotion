@@ -41,7 +41,7 @@ proc bMotion_plugin_complex_bitlbee2 { nick host handle channel text } {
 
 proc bMotion_plugin_complex_bitlbee3 { nick host handle channel text } {
 	#we disconnected
-	if [bMotion_setting_get "bitlbee" {
+	if [bMotion_setting_get "bitlbee"] {
 		#reconnect
 		putserv "PRIVMSG $channel :account on 0"
 		return 2

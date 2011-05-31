@@ -20,7 +20,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
-if {![info exists bMotion_plguins_settings]} {
+if {![info exists bMotion_plugins_settings]} {
   set bMotion_plugins_settings(dummy,setting,channel,nick) "dummy"
 }
 

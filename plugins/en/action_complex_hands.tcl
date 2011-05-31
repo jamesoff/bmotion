@@ -142,7 +142,7 @@ proc bMotion_plugin_complex_action_hands_coffee { channel nick } {
 	bMotionDoAction $channel "" "/drinks the coffee %VAR{smiles}"
 	bMotion_plugins_settings_set "complexaction:hands" "coffee_nick" "" "" $nick
 	bMotion_plugins_settings_set "complexaction:hands" "coffee_channel" "" "" $channel
-	utimer 45 { bMotion_plugin_complex_action_hands_finishcoffee }
+	utimer 45 bMotion_plugin_complex_action_hands_finishcoffee
 	return 1
 }
 

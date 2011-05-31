@@ -200,7 +200,7 @@ proc bMotion_random_away {} {
 
 	if {($timeNow - $mostRecent) < $gapTime} {
 		set chance [rand 100]
-		if ($chance > [bMotion_setting_get "awaychance"]) {
+		if {$chance > [bMotion_setting_get "awaychance"]} {
 			bMotion_putloglev 1 * "most recent is busy enough, not going away"
 			return 0
 		}
@@ -1084,7 +1084,7 @@ proc bMotion_go_to_sleep { } {
 
 # realise we overslept
 proc bMotion_overslept { { onlychan "" } } {
-	global bMotionSettings BMOTION_SLEEP
+	global bMotionSettings BMOTION_SLEEP bMotionChannels
 	if {[bMotion_setting_get "asleep"] != $BMOTION_SLEEP(OVERSLEEPING)} {
 		bMotion_putloglev d * "overslept timer fired but I wasn't oversleeping"
 		return
