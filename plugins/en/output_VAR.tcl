@@ -165,6 +165,9 @@ proc bMotion_plugin_output_VAR { channel line } {
 				"owner" {
 					set replacement [bMotionMakePossessive $replacement]
 				}
+				"removeowner" {
+					regsub -nocase "'s?$" $replacement "" replacement
+				}
 				"underscore" {
 					set replacement [string map { " " "_" } $replacement]
 				}

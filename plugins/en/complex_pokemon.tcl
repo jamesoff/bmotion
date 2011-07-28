@@ -41,7 +41,7 @@ proc bMotion_plugin_complex_attack { nick host handle channel text } {
           bMotionDoAction $channel $nick "pikaa...."
           bMotionDoAction $channel $nick "/collapses"
           putserv "NOTICE $nick :Sorry, I don't have enough power for a thunder$actualAttack at the moment :("
-          bMotionDoAction $channel $nick "... pikachu :("
+          bMotionDoAction $channel $nick "... pikachu %SMILEY{sad}"
           return 1
         }
         incr mood(electricity) -3
@@ -67,7 +67,7 @@ proc bMotion_plugin_complex_attack { nick host handle channel text } {
           bMotionDoAction $channel $nick "pikaa...."
           bMotionDoAction $channel $nick "/collapses"
           putserv "NOTICE $nick :Sorry, I don't have enough power for a lightning attack at the moment :("
-          bMotionDoAction $channel $nick "... pikachu :("
+          bMotionDoAction $channel $nick "... pikachu %SMILEY{sad}"
           return 1
         }
         incr mood(electricity) -2

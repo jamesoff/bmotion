@@ -272,6 +272,7 @@ proc bMotion_interbot_me_next { channel } {
 	}
 	#bMotion_putloglev 4 * "interbot: nextbot_nick is not me" 
 	#if it's noone, the winning bot will force an election anyway
+	bMotion_putloglev 2 * "interbot: returning $me"
 	return $me 
 	#return 0
 	## /|\ KIS hack, was 0, hacked to $me to force single botnet workings
@@ -333,7 +334,7 @@ proc bMotion_interbot_hay { bot channels } {
 		set channels $chans
 	}
 	set bMotion_interbot_otherbots($bot) $channels
-	bMotion_putloglev d * "interbot: Met bMotion bot $bot on channels $channels"
+	bMotion_putloglev 1 * "interbot: Met bMotion bot $bot on channels $channels"
 	putbot $bot "bmotion SUP $bMotionChannels"
 }
 
@@ -349,7 +350,7 @@ proc bMotion_interbot_sup { bot channels } {
 	}
 
 	set bMotion_interbot_otherbots($bot) $channels
-	bMotion_putloglev d * "interbot: bMotion bot $bot on channels $channels"
+	bMotion_putloglev 1 * "interbot: bMotion bot $bot on channels $channels"
 }
 
 array set bMotion_interbot_otherbots {}

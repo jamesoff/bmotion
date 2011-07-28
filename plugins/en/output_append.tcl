@@ -16,9 +16,9 @@
 proc bMotion_plugin_output_append { channel line } {
 	set length [string length $line]
 	set n [rand 100]
-	bMotion_putloglev d * "output_append: length=$length, n=$n"
+	bMotion_putloglev 1 * "output_append: length=$length, n=$n"
 	if {($length > 10) && ($n > 90)} {
-		bMotion_putloglev d * "output_append: doing!"
+		bMotion_putloglev 1 * "output_append: doing!"
 		set line [string trim $line]
 		# make sure the line ends with a letter (other than D)
 		# this is so we don't make ourselves look dumb(er) by adding
@@ -38,12 +38,12 @@ proc bMotion_plugin_output_append { channel line } {
 			}
 			set line "%VAR{prepends} $line"
 		}
-		bMotion_putloglev d * "output_append: preprocessed line is $line"
+		bMotion_putloglev 1 * "output_append: preprocessed line is $line"
 
 		set line [bMotion_process_macros $channel $line]
 		regsub -all "%space" $line " " line
 
-		bMotion_putloglev d * "output_append: postprocessed line is $line"
+		bMotion_putloglev 1 * "output_append: postprocessed line is $line"
 	}
 	return $line
 }

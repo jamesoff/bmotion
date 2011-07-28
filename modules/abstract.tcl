@@ -128,7 +128,7 @@ proc bMotion_abstract_gc { } {
   }
 
   if {$expiredList != ""} {
-    bMotion_putloglev d * "expired $expiredCount abstracts: $expiredList"
+    bMotion_putloglev 1 * "expired $expiredCount abstracts: $expiredList"
   }
 }
 
@@ -147,7 +147,7 @@ proc bMotion_abstract_register { abstract { stuff "" } } {
 
   #load any existing abstracts
   if [file exists "$bMotion_abstract_dir/${abstract}.txt"] {
-    bMotion_abstract_load $abstract
+    bMotion_abstract_load $abstract 
   } else {
     # check that the language directory exists while we're at it
     if { ![file exists $bMotion_abstract_dir] } {
@@ -168,7 +168,7 @@ proc bMotion_abstract_register { abstract { stuff "" } } {
 
 	if {$stuff != ""} {
 		# batch-add at the same time
-		bMotion_putloglev d * "Batchadding during registration for $abstract"
+		bMotion_putloglev 1 * "Batchadding during registration for $abstract"
 		bMotion_abstract_batchadd $abstract $stuff
 	}
 }
@@ -223,6 +223,18 @@ proc bMotion_abstract_load { abstract } {
 	set newcount [llength $bMotion_abstract_contents($abstract)]
 	if {$newcount < $count} {
 		bMotion_putloglev d * "Shrunk abstract $abstract by [expr $count - $newcount] items by de-duping"
+		set needReSave 1
+	}
+
+	if {$abstract == "sillyThings"} {
+		bMotion_putloglev 1 * "Performing 'sillyThings' filtering"
+		set newlist [list]
+		foreach element $bMotion_abstract_contents($abstract) {
+			if {[bMotion_filter_sillyThings $element] == 1} {
+				lappend newlist $element
+			}
+		}
+		set bMotion_abstract_contents($abstract) $newlist
 		set needReSave 1
 	}
 
@@ -387,7 +399,7 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
   }
 
   if {$bMotion_abstract_timestamps($abstract) < [expr [clock seconds] - $bMotion_abstract_max_age]} {
-    bMotion_putloglev d * "abstract $abstract has been unloaded, reloading..."
+    bMotion_putloglev 1 * "abstract $abstract has been unloaded, reloading..."
     bMotion_abstract_load $abstract
   }
 
@@ -462,7 +474,7 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 		if {[llength $final_version] > 1} {
 			set count 0
 			while {$retval == $bMotion_abstract_last_get($abstract)} {
-				bMotion_putloglev d * "fetched repeat value for abstract $abstract, trying again"
+				bMotion_putloglev 1 * "fetched repeat value for abstract $abstract, trying again"
 				bMotion_putloglev 1 * "this: $retval ... last: $bMotion_abstract_last_get($abstract)"
 				set retval [lindex $final_version [rand [llength $final_version]]]
 				incr count
@@ -614,7 +626,7 @@ proc bMotion_abstract_filter { abstract filter } {
 
 	if {[llength $contents] == 0} {
 		if {$abstract != "_all"} {
-			bMotion_putloglev d * "can't get contents for $abstract"
+			bMotion_putloglev d * "bMotion_abstract_filter: can't get contents for $abstract"
 		}
 		return
 	}
@@ -638,9 +650,9 @@ proc bMotion_abstract_filter { abstract filter } {
 
 	set new_size [llength $new_contents]
   set diff [expr $initial_size - $new_size]
-	bMotion_putloglev d * "abstract $abstract reduced by $diff items with filter $filter"
 
 	if {$diff > 0} {
+		bMotion_putloglev d * "abstract $abstract reduced by $diff items with filter $filter"
 		set bMotion_abstract_contents($abstract) $new_contents
 		bMotion_abstract_save $abstract
 	}
@@ -661,9 +673,10 @@ proc bMotion_abstract_apply_filter { abstract } {
 	bMotion_abstract_filter $abstract $filter
 	catch {
 		set filter $bMotion_abstract_filter(_all)
-		bMotion_putloglev d * "abstract: found an _all filter, applying to $abstract"
+		bMotion_putloglev 1 * "abstract: found an _all filter, applying to $abstract"
 		bMotion_abstract_filter $abstract $filter
 	}
+	
 }
 
 # register a filter for an abstract
@@ -672,7 +685,7 @@ proc bMotion_abstract_add_filter { abstract filter_text } {
 
 	lappend bMotion_abstract_filters($abstract) $filter_text
 
-	bMotion_putloglev d * "registered filter /$filter_text/ for abstract $abstract"
+	bMotion_putloglev 1 * "registered filter /$filter_text/ for abstract $abstract"
 
 	# apply it now
 	bMotion_abstract_apply_filter $abstract

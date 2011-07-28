@@ -84,7 +84,7 @@ bMotion_abstract_register "fuckOffs" {
 bMotion_abstract_register "silenceAways" {
 	"bah"
 	"/goes to find someone more interesting to talk to"
-	":("
+	"%SMILE{sad}"
 	"fine"
 	"/stamps foot%|*sulk*"
 	"/talks to %ruser instead"
@@ -136,7 +136,7 @@ bMotion_abstract_register "hiddenBehinds" {
 }
 
 bMotion_abstract_register "satOns" {
-	"hey ow :("
+	"hey ow %SMILE{sad}"
 	"heeeyyy :O"
 	"bah"
 	"arrrrgh"
@@ -488,7 +488,7 @@ bMotion_abstract_register "answerHows" {
 
 bMotion_abstract_register "phaserFires" {
 	"/fires several shots from the forward phaser banks, disabling %%"
-	"/fires several shots from the forward phaser banks, destroying %%%|/flies out through the explosion in an impressive bit of piloting (not to mention rendering :)"
+	"/fires several shots from the forward phaser banks, destroying %%%|/flies out through the explosion in an impressive bit of piloting (not to mention rendering %SMILEY{smile}"
 	"/accidentally activates the wrong system and replicates a small tree"
 	"/misses a gear and stalls%|%VAR{oops}%|%bot\[50,¬VAR{ruins}\]"
 	"/uses attack pattern alpha, spiralling towards %%, firing all phaser banks%|* %% is blown to pieces as %me flies off into the middle distance"
@@ -684,7 +684,7 @@ bMotion_abstract_register "randomReplies" {
 	"it wasn't me"
 	"exeter"
 	"amsterdam"
-	"you should ask Domilijn :)"
+	"you should ask Domilijn %SMILEY{smile}"
 	"i'd rather not"
 	"not particularly, no"
 	"last night, yes"
@@ -796,7 +796,7 @@ bMotion_abstract_register "dildoFlutePlays" {
 bMotion_abstract_register "dildoFluteFinishes" {
 	"/rescues her flute and plays a happy tune"
 	"hey %%, want to play it? :P"
-	"and that's why I liked band camp :)"
+	"and that's why I liked band camp %SMILEY{smile}"
 }
 
 # %% = who, %2 = dildo
@@ -808,7 +808,7 @@ bMotion_abstract_register "dildoPlays" {
 # %% = dildo, %2 = who
 bMotion_abstract_register "dildoFinishes" {
 	"/pulls out the %% and shoves it in %2's face%|you want some? :D"
-	"~oof~ ... much better :)"
+	"~oof~ ... much better %SMILEY{smile}"
 }
 
 bMotion_abstract_register "dildoFemaleFemale" {
@@ -816,7 +816,7 @@ bMotion_abstract_register "dildoFemaleFemale" {
 }
 
 bMotion_abstract_register "dildoFemaleFemaleSwap" {
-	"ok, i hope you're done cos it's my turn now :)%|/has her turn with the %%"
+	"ok, i hope you're done cos it's my turn now %SMILEY{smile}%|/has her turn with the %%"
 	"my turn my turn my turn!%|/swipes the %%"
 }
 
@@ -833,11 +833,11 @@ bMotion_abstract_register "dildoMaleFemale" {
 }
 
 bMotion_abstract_register "dildoMaleMale" {
-	"/would do some man-on-man action here on %%, but needs to know how :P%|hmm... who can I ask? :)"
+	"/would do some man-on-man action here on %%, but needs to know how :P%|hmm... who can I ask? %SMILEY{smile}"
 }
 
 bMotion_abstract_register "dildoMaleMaleSwap" {
-	"ok, i hope you're done cos it's my turn now :)%|/has %hisher turn with the %%"
+	"ok, i hope you're done cos it's my turn now %SMILEY{smile}%|/has %hisher turn with the %%"
 }
 
 bMotion_abstract_register "dildoMalePlays" {
@@ -879,10 +879,10 @@ bMotion_abstract_register "thrownAts" {
 	"I can seeee myyy house from heeeerrreeeeee!"
 	"*CRUMP*"
 	"/flattens %%"
-	"hey :("
+	"hey %SMILE{sad}"
 	"oi"
 	"/sails through the air towards %%"
-	"loookkk ooouuuttt beellooww!%|*CRUMP*%|ow :("
+	"loookkk ooouuuttt beellooww!%|*CRUMP*%|ow %SMILE{sad}"
 	"/flies through the air with the greatest of ease"
 	"/does a triple inverted twist somersault and lands neatly next to %%"
 }
@@ -1093,8 +1093,8 @@ bMotion_abstract_register "hermes" {
 bMotion_abstract_add_filter "hermes" "winniped"
 
 bMotion_abstract_register "stolens" {
-	"Hey NO :(%|That's mine%|/sulks at %%"
-	"heeeeyyyy%|:("
+	"Hey NO %SMILE{sad}%|That's mine%|/sulks at %%"
+	"heeeeyyyy%|%SMILE{sad}"
 	"bah%|/steals it back"
 	"/smacks %%"
 	"hey no, that's *MINE*"
@@ -1165,7 +1165,7 @@ bMotion_abstract_register "goDowns" {
 	"/pleasures %% with %hisher tongue"
 }
 
-bMotion_abstract_register "bigranjoins" {
+bMotion_abstract_register "friend_greeting" {
 	"bhar"
 	"r."
 	"r %%"
@@ -1188,6 +1188,7 @@ bMotion_abstract_register "bigranjoins" {
 	"helle%REPEAT{4:8:w}"
 	"%ruser!%|*%VAR{sillyVerbs}* %VAR{smiles}"
 	"%ruser!%|/%VAR{sillyVerbs:present}"
+	"%% you're looking especially shagworthy today"
 }
 
 bMotion_abstract_register "hexMiddle" {
@@ -1233,7 +1234,7 @@ bMotion_abstract_register "tech_tries" {
 
 bMotion_abstract_register "goodlucks" {
 	"GL"
-	"good luck :)"
+	"good luck %SMILEY{smile}"
 	"good luck"
 	"best of luck to you"
 	"/crosses fingers"
@@ -1303,15 +1304,14 @@ bMotion_abstract_register "smacks" {
 	"zaps"
 }
 
-bMotion_abstract_register "ranjoins" {
+bMotion_abstract_register "generic_greeting" {
 	"are you here to fumigate the moose head?"
-	"are you here to fumigate the moose %VAR{bodypart:bothmixin}?"
+	"are you here to fumigate the %VAR{animals} %VAR{bodypart:bothmixin}?"
 	"hey %%"
 	"hi %%"
 	"hi there %%"
 	"hi yo~"
 	"Good Morning %%"
-	"%% you're looking especially shagworthy today"
 	"hay %%"
 	"sup %%"
 	"hay %% whats goin on"
@@ -1327,7 +1327,7 @@ bMotion_abstract_register "ranjoins" {
 	"hey %% %VAR{food}%VAR{bodypart:bothmixin}"
 }
 
-bMotion_abstract_add_filter "ranjoins" "%VAR\{food\}"
+bMotion_abstract_add_filter "generic_greeting" "%VAR\{food\}"
 
 bMotion_abstract_register "food" {
 	"honey"
@@ -1353,16 +1353,9 @@ bMotion_abstract_register "food" {
 }
 
 bMotion_abstract_register "smiles" {
-	":)"
-	";)"
-	"=)"
-	"=]"
-	"=D"
-	"^_^"
-	"-_-"
-	":o)"
-	":-)"
+	"%SMILEY{smile}"
 }
+
 
 bMotion_abstract_register "thanks" {
 	"cheers"
@@ -1378,7 +1371,7 @@ bMotion_abstract_register "thanks" {
 }
 
 bMotion_abstract_register "stupidReplies" {
-	"I may be stupid, but you're minging, and I can learn new things :)"
+	"I may be stupid, but you're minging, and I can learn new things %SMILEY{smile}"
 	"At least I'm not minging."
 	"Minger."
 	"You do better in 6911 lines of TCL :P"
@@ -1731,8 +1724,8 @@ bMotion_abstract_register "goodnights" {
 	"nn"
 	"night %%"
 	"sleep well"
-	"goodnight :)"
-	"night :)"
+	"goodnight %SMILEY{smile}"
+	"night %SMILEY{smile}"
 	"g'night"
 	"sleep well %%"
 	"nn %%"
@@ -2909,7 +2902,7 @@ bMotion_abstract_register "moos" {
 bMotion_abstract_register "insultsupermarket" {
 	"eek, not %%"
 	"%% mings"
-	"watch your language :)"
+	"watch your language %SMILEY{smile}"
 	"Clearly you are a mingbeast of the highest order and should only ever shop at Tesco to redeem yourself."
 	"You know, everyone you hate shops at %%"
 	"I once found a live student in %%"
@@ -2920,7 +2913,7 @@ bMotion_abstract_register "insultsupermarket" {
 bMotion_abstract_register "awayWorks" {
 	"hf %%"
 	"have fun %%"
-	"have a nice day %% :)"
+	"have a nice day %% %SMILEY{smile}"
 	"don't work too hard!"
 }
 
@@ -3107,7 +3100,7 @@ bMotion_abstract_register "blownAways" {
 	"/is blown off feet by force of %%'s statement%|%bot\[50,¬VAR{picksUp}\]"
 	"/falls over%|%bot\[50,¬VAR{picksUp}\]"
 	"/is blown away by force of %%'s statement%|%bot\[50,¬VAR{picksUp}\]"
-	"ow my eyes :("
+	"ow my eyes %SMILE{sad}"
 	"/blinks"
 	":O"
 	"o_O"
@@ -3241,7 +3234,7 @@ bMotion_abstract_register "smokes" {
 	"/takes a drag"
 	"/lights up"
 	"/has a puff"
-	"/smokes :)"
+	"/smokes %SMILEY{smile}"
 	"/partakes of herbal refreshment"
 }
 
@@ -3359,7 +3352,7 @@ bMotion_abstract_register "cyas" {
 bMotion_abstract_register "balefired" {
 	"/vanishes from the continuum"
 	"/ceases to have ever existed"
-	"hey! :("
+	"hey! %SMILE{sad}"
 	"/dodges%|/hits d+1 and does Chinese Fan on %%"
 }
 
@@ -3491,23 +3484,12 @@ bMotion_abstract_register "joinins" {
 	"ooh, can I come?"
 	"can I join in?"
 	"wahey-waterproof"
-	":)"
+	"%SMILEY{smile}"
 	"have fun ~rarr~"
 }
 
 bMotion_abstract_register "unsmiles" {
-	":("
-	";("
-	":O"
-	":\["
-	":<"
-	"=("
-	"=\["
-	"=O"
-	"o_O"
-	"T_T"
-	":~("
-	":'("
+	"%SMILEY{sad}"
 }
 
 bMotion_abstract_register "surprises" {
@@ -3654,7 +3636,7 @@ bMotion_abstract_register "insult_joins" {
 
 # someone we don't know joins the channel
 bMotion_abstract_register "unknown_joins" {
-	"%VAR{ranjoins}"
+	"%VAR{generic_greeting}"
 }
 
 bMotion_abstract_register "pullsOut" {
@@ -3785,7 +3767,7 @@ bMotion_abstract_register "answerDoyous" {
 	"normally"
 	"always %VAR{rarrs}"
 	"i do%|despite having no %VAR{bodypart}"
-	"i did till my %VAR{bodypart} %VAR{fellOffs} :("
+	"i did till my %VAR{bodypart} %VAR{fellOffs} %SMILE{bigsad}"
 	"does it mean i get pie?"
 	"yahyahayayahayahahayh%colen"
 	"indeed i do%|%VAR{randomZimness}"
@@ -3828,7 +3810,7 @@ bMotion_abstract_register "answerWouldyous" {
 	"in a flash!"
 	"love to%|%VAR{randomZimness}"
 	"only if %ruser can watch"
-	"if i had any arms i would%|:("
+	"if i had any arms i would%|%SMILE{sad}"
 	"if my %VAR{bodypart} would stop %VAR{dVerbs}ing"
 }
 
@@ -3837,7 +3819,7 @@ bMotion_abstract_register "answerAreyous" {
 	"%ruser made me"
 	"yes and i wont stop till my %VAR{bodypart} %VAR{fallsoff}!"
 	"i was feeling horny"
-	"yeah want a go? :)"
+	"yeah want a go? %SMILEY{smile}"
 	"only because my %VAR{dNouns} %VAR{fellOffs}"
 }
 
@@ -3856,7 +3838,7 @@ bMotion_abstract_register "answerCanyous" {
 	"certainly%|%VAR{randomGirness}"
 	"never!%VAR{randomZimness}"
 	"sure%|%VAR{dSEnds}"
-	"i'd love to! :)"
+	"i'd love to! %SMILEY{smile}"
 	"just show me where to sign %VAR{rarrs}"
 	"yeah no prob boss"
 	"but i have no ARMS... NO ARMS%colen%|/runs away"

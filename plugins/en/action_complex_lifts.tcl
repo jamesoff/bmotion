@@ -31,7 +31,7 @@ proc bMotion_plugin_complex_action_lifts { nick host handle channel text } {
 
 bMotion_abstract_register "nolift_channel_response"
 bMotion_abstract_batchadd "nolift_channel_response" {
-	"hmmmph :("
+	"hmmmph %SMILEY{sad}"
 	"OI! Don't do that"
 	"Stop that right now!"
 	"I was happy until %% started pushing me around"

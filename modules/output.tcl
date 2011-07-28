@@ -132,14 +132,14 @@ proc bMotion_process_macros { channel text } {
 	set done 0
 	set current_pos 0
 	while {$done == 0} {
-		bMotion_putloglev d * "macro: starting loop with $text and current pos=$current_pos"
+		bMotion_putloglev 1 * "macro: starting loop with $text and current pos=$current_pos"
 		set current_pos [string first "%" $text $current_pos]
 		if {$current_pos == -1} {
 		# no more matches
 			set done 1
 			continue
 		} 
-		bMotion_putloglev d * "macro: found a % at $current_pos"
+		bMotion_putloglev 2 * "macro: found a % at $current_pos"
 		if {$current_pos < [string length $text]} {
 		# this isn't a % at the end of the line
 			if {[string index $text [expr $current_pos + 1]] == "|"} {
@@ -150,16 +150,16 @@ proc bMotion_process_macros { channel text } {
 			#find the element following this %
 			set substring [string range $text $current_pos end]
 			if [regexp -nocase {%([a-z]+)} $substring matches macro] {
-				bMotion_putloglev d * "macro: found macro $macro at $current_pos"
+				bMotion_putloglev 2 * "macro: found macro $macro at $current_pos"
 				set plugin [bMotion_plugin_find_output "en" "" 0 10 $macro]
 				if {[llength $plugin] == 1} {
 				# call plugin
-					bMotion_putloglev d * "macro: found matching plugin for macro [lindex $plugin 0]"
+					bMotion_putloglev 2 * "macro: found matching plugin for macro [lindex $plugin 0]"
 					set result ""
 					catch {
 						set result [[lindex $plugin 0] $channel $text]
 						if {$result == ""} {
-							bMotion_putloglev d * "macro: [lindex $plugin 0] returned nothing, aborting output"
+							bMotion_putloglev 2 * "macro: [lindex $plugin 0] returned nothing, aborting output"
 							return ""
 						}
 					}
@@ -175,7 +175,7 @@ proc bMotion_process_macros { channel text } {
 						set current_pos 0
 						continue
 					} else {
-						bMotion_putloglev d * "macro: [lindex $plugin 0] did nothing at position $current_pos in output $text"
+						bMotion_putloglev 1 * "macro: [lindex $plugin 0] did nothing at position $current_pos in output $text"
 					}
 				} else {
 					bMotion_putloglev d * "macro: unexpectly got too many matching plugins back: $plugin"
@@ -259,7 +259,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 			set done 1
 		} else {
 			set original_line $text
-			bMotion_putloglev d * "output: going round macro loop again"
+			bMotion_putloglev 1 * "output: going round macro loop again"
 		}
 	}
 
@@ -1029,5 +1029,115 @@ proc bMotionMakePlural { text } {
 	return $text
 
 }
+
+#
+# get a smiley
+proc bMotion_get_smiley { type } {
+	set smiley_type [bMotion_setting_get "smiley_type"]
+
+	if {($smiley_type == "") || ($smiley_type == "auto")} {
+		#need to auto-calculate it
+		bMotion_auto_smiley
+		set smiley_type [bMotion_setting_get "smiley_type"]
+	}
+
+	set nose_type [bMotion_setting_get "smiley_nose"]
+	set eyes_type [bMotion_setting_get "smiley_eyes"]
+
+	bMotion_putloglev d * "smiley type=$smiley_type nose=$nose_type eyes=$eyes_type"
+
+	switch $nose_type {
+		none {
+			set nose ""
+		}
+
+		dash {
+			set nose "-"
+		}
+
+		o {
+			set nose "o"
+		}
+
+		default {
+			set nose ""
+		}
+	}
+
+	switch $eyes_type {
+		colon {
+			set eyes ":"
+		}
+
+		equals {
+			set eyes "="
+			if {$nose == "-"} {
+				set nose "o"
+			}
+		}
+
+		default {
+			set eyes ":"
+		}
+	}
+
+
+	# smile, bigsmile, sad, bigsad, horror, surprise, bigsurprise,
+	# uneasy, embarrassed, cry, cat, yum
+	switch $smiley_type {
+		paren {
+			bMotion_putloglev d * "using paren"
+			set smileys {)D(CDoO/x(39}
+		}
+
+		bracket {
+			bMotion_putloglev d * "using bracket"
+			set smileys {]D[CDoO/x[39}
+		}
+
+		angle {
+			bMotion_putloglev d * "using angle"
+			set nose ""
+			set smileys {>D<CDoO/x<39}
+		}
+
+		default {
+			bMotion_putloglev d * "using default"
+			set smileys {)D(CDoO/x(39}
+		}
+	}
+	
+	bMotion_putloglev d * "smiley list is $smileys"
+
+	set reverse 0
+	set index -1
+	set termlist [list "smile" "bigsmile" "sad" "bigsad" "horror" "surprise" "bigsurprise" "uneasy" "embarrassed" "cry" "cat" "yum"]
+	set index [lsearch $termlist $type]
+	if {$index == -1} {
+		bMotion_putloglev d * "Unable to determine smiley type for $type"
+		return ""
+	}
+
+	set smile [string range $smileys $index $index]
+
+	if {$type == "horror"} {
+		set reverse 1
+	}
+
+	if {$type == "cry"} {
+		set nose "'"
+	}
+
+	if {$reverse == 0} {
+		return "${eyes}${nose}${smile}"
+	}
+
+	return "${smile}${nose}${eyes}"
+}
+
+
+
+
+
 
 bMotion_putloglev d * "bMotion: output module loaded"

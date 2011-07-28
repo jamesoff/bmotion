@@ -44,10 +44,10 @@ proc bMotion_plugin_output_english { channel line } {
 	regsub -nocase -all {[[:<:]](an) ([^aeiou][a-z]+)[[:>:]]} $line {a \2} line
 
 	# a(n) before a number is wrong more often than it is right
-	regsub -nocase -all {an? ([0-9]+)} $line {\1} line
+	regsub -nocase -all {\man? ([0-9]+)} $line {\1} line
 
 	#"a an" and "an a" are wrong
-	regsub -nocase -all "(a an|an a) " $line "a " line
+	regsub -nocase -all {\m(a an|an a)\M} $line "a " line
 
   if {[rand 100] > 60} {
     #captials at start, . at end
@@ -77,6 +77,11 @@ proc bMotion_plugin_output_english { channel line } {
 	regsub -all "\[^.\]\\.\\.$" $line "." line
 
 	regsub -all {\myou is\M} $line "you are" line
+
+	#fix "r" at start of line followed by capital
+	if {[regexp {^r ([A-Z]).} $line matches 1]} {
+		set line [string tolower [string range $line 0 2]][string range $line 3 end]
+	}
 
 	#fix gap before full stop
 

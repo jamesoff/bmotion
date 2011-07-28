@@ -41,7 +41,7 @@ proc bMotion_plugin_complex_love { nick host handle channel text } {
 		bMotion_plugins_settings_set "system" "lastdonefor" $channel "" $nick
 		return 1
 	} else {
-		bMotionDoAction $channel "" "hehe, want to go out on a date someplace? :)"
+		bMotionDoAction $channel "" "hehe, want to go out on a date someplace? %SMILEY{smile}
 		set mood(happy) [expr $mood(happy) - 10]
 		bMotion_plugins_settings_set "system" "lastdonefor" $channel "" $nick
 		return 1

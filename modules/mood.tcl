@@ -77,10 +77,10 @@ proc checkmood {nick channel} {
   foreach r {happy horny lonely electricity stoned} {
     if {$r < -30} {
       set mood($r) -30
-      bMotion_putloglev d * "bMotion: Mood($r) went OOB, resetting to -30"
+      bMotion_putloglev d * "bMotion: mood $r went OOB, resetting to -30"
     }
     if {$mood($r) > 30} {
-      bMotion_putloglev d * "bMotion: Mood($r) went OOB, resetting to 30"
+      bMotion_putloglev d * "bMotion: mood $r went OOB, resetting to 30"
       set mood($r) 30
     }
   }
@@ -104,19 +104,19 @@ proc driftmood {} {
     set driftString ""
     if {$mood($r) > $moodtarget($r)} {
       set drift -1
-      set driftString "$moodtarget($r)<$mood($r)"
+      set driftString "$moodtarget($r)--($drift)-->$mood($r)"
     }
     if {$mood($r) < $moodtarget($r)} {
       set drift 2
-      set driftString "$mood($r)>$moodtarget($r)"
+      set driftString "$mood($r)--(+$drift)-->$moodtarget($r)"
     }
     if {$drift != 0} {
       set mood($r) [expr $mood($r) + $drift]
-      set driftSummary "$driftSummary $r ($driftString) "
+      set driftSummary "$driftSummary $r:($driftString) "
     }
   }
   if {$driftSummary != ""} {
-    bMotion_putloglev d * "bMotion: driftMood $driftSummary"
+    bMotion_putloglev d * "bMotion: drifted mood $driftSummary"
   }
   checkmood "" ""
   set mooddrifttimer 1

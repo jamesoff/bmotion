@@ -61,7 +61,7 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 
 	global botnick mood
 
-	set greetings "ranjoins"
+	set greetings "generic_greeting"
 	set lastLeft [bMotion_plugins_settings_get "system:join" "lastleft" $channel ""]
 
 	if {$handle == "*"} {
@@ -90,7 +90,7 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 	}
 
 	if {[getFriendship $nick] > 50} {
-		set greetings "bigranjoins"
+		set greetings "friend_greeting"
 
 		if {$nick == $lastLeft} {
 			set greetings "welcomeBacks"
@@ -98,8 +98,8 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 		}
 	}
 
-	# ranjoins = generic greeting
-	# bigranjoins = friend greeting
+	# generic_greeting = generic greeting
+	# friend_greeting = friend greeting
 	# dislike_joins = enemy greeting
 	# unknown_joins = someone we don't recognise
 

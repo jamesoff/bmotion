@@ -107,6 +107,9 @@ set bMotionSettings(useAway) 0
 # some channels don't like public aways, so don't piss them off :)
 set bMotionSettings(noAwayFor) { "#irssi" }
 
+# is all channels are active enough, go away anyway this much of the time
+# 0-100
+set bMotionSettings(awaychance) 50
 
 
 ## SYSTEM SETTINGS

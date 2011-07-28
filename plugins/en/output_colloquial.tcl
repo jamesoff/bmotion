@@ -90,28 +90,28 @@ proc bMotion_plugin_output_colloq_chance { freq } {
   return 0
 }
 
-set colloq_shouldhave {
+bMotion_abstract_register "colloq_shouldhave" {
   "should've"
   "should of"
 }
 
-set colloq_shouldhavenot {
+bMotion_abstract_register "colloq_shouldhavenot" {
   "shouldnt've"
   "shouldn't of"
   "shouldnt of"
   "shouldnt have"
 }
 
-set colloq_you {
+bMotion_abstract_register "colloq_you" {
   "u"
   "ya"
 }
 
-set colloq_your {
+bMotion_abstract_register "colloq_your" {
   "ur"
 }
 
-set colloq_negative {
+bMotion_abstract_register "colloq_negative" {
   "dis"
   "un"
   "anti"

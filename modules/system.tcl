@@ -246,7 +246,7 @@ proc doRandomStuff {} {
 	}
 	set temp [expr [rand $upperLimit] + $bMotionInfo(minRandomDelay)]
 	timer $temp doRandomStuff
-	bMotion_putloglev d * "bMotion: randomStuff next in $temp minutes"
+	bMotion_putloglev d * "randomStuff next in $temp minutes"
 
 	# don't bother if we're asleep
 	if {$bMotionSettings(asleep) != $BMOTION_SLEEP(AWAKE)} {
@@ -299,7 +299,7 @@ proc doRandomStuff {} {
 			lappend silentChannels $channel
 		}
 	}
-	bMotion_putloglev d * "bMotion: randomStuff said ($saidChannels) silent ($silentChannels)"
+	bMotion_putloglev d * "randomStuff said ($saidChannels) silent ($silentChannels)"
 }
 
 #
@@ -332,7 +332,7 @@ proc bMotionSaySomethingRandom {channel {busy 0}} {
 			return 1
 		}
 
-		bMotion_putloglev d * "no special day abstract found for randomStuff in $channel"
+		bMotion_putloglev 1 * "no special day abstract found for randomStuff in $channel"
 		bMotionDoAction $channel "" "%VAR{${base_abstract}}"
 		return 1
 	}
@@ -548,7 +548,7 @@ proc bMotion_dcc_command { handle idx arg } {
 		return 1
 	}
 
-	bMotion_putloglev d * "bMotion: management callback matched, calling $callback"
+	bMotion_putloglev 1 * "bMotion: management callback matched, calling $callback"
 
 	#strip the first command
 	regexp {[^ ]+( .+)?} $cmd {\1} arg
@@ -588,7 +588,7 @@ proc bMotion_dcc_command { handle idx arg } {
 		return 1
 	}
 
-	bMotion_putloglev d * "bMotion: admin callback matched, calling $callback"
+	bMotion_putloglev 1 * "bMotion: admin callback matched, calling $callback"
 
 	#strip the first command
 	regexp {[^ ]+( .+)?} $arg {\1} arg
@@ -662,7 +662,7 @@ proc bMotionAdminHandler2 {nick host handle channel text} {
 	}
 
 	putlog "bMotion: admin command from $nick on $channel: $cmd"
-	bMotion_putloglev d * "bMotion: management callback matched, calling $callback"
+	bMotion_putloglev 1 * "bMotion: management callback matched, calling $callback"
 
 	#strip the first command
 	regexp {[^ ]+( .+)?} $cmd {\1} arg
@@ -679,7 +679,6 @@ proc bMotionAdminHandler2 {nick host handle channel text} {
 		}
 	} err
 	if {($err != "") && ($err != 0)} {
-		bMotion_putloglev d * "bMotion: ALERT! Callback failed for !bmotion: $callback: $err"
 		putlog "bMotion: admin command $cmd from $nick on $channel failed: $err"
 	}
 }
@@ -840,7 +839,7 @@ proc msg_bmotioncommand { nick host handle cmd } {
 		return 1
 	}
 
-	bMotion_putloglev d * "bMotion: management callback matched, calling $callback"
+	bMotion_putloglev 1 * "bMotion: management callback matched, calling $callback"
 	putlog "bMotion: admin command from $nick in query: $cmd"
 
 	#strip the first command
@@ -858,7 +857,6 @@ proc msg_bmotioncommand { nick host handle cmd } {
 		}
 	} err
 	if {($err != "") && ($err != 0)} {
-		bMotion_putloglev d * "bMotion: ALERT! Callback failed for !bmotion: $callback"
 		putlog "bMotion: admin command $cmd from $nick failed: $err"
 	}
 }
@@ -1223,7 +1221,7 @@ proc bMotion_sleep_next_event { when } {
 proc bMotion_did_i_speak_last { channel } {
 	global bMotionCache
 
-	bMotion_putloglev d * "Checking if I spoke last in $channel"
+	bMotion_putloglev 1 * "Checking if I spoke last in $channel"
 	
 	catch {
 		bMotion_putloglev 1 * "Cache(last) for $channel is $bMotionCache($channel,last)"
@@ -1260,24 +1258,29 @@ proc bMotion_get_daytime { } {
 # check something aginst our stoplist before we learn it
 proc bMotion_filter_sillyThings { item } {
 	if [regexp {[^A-Za-z0-9 '-]} $item] {
+		bMotion_putloglev 2 * "sillyThing $item rejected for non-alpha chars"
 		return 0
 	}
 
-	if {[string length $item] == 1} {
+	if {[string length $item] == 2} {
+		bMotion_putloglev 2 * "sillyThing $item rejected for length"
 		return 0
 	}
 
-	if [regexp -nocase {^(for|i)\M} $item] {
+	if [regexp -nocase {^(for|i|but)\M} $item] {
+		bMotion_putloglev 2 * "sillyThing $item rejected for bad ending"
 		return 0
 	}
 
 	# -rty, -ted?
 
-	if [regexp -nocase {\m(better|bigger|clever|other|rather|the|and|for|to|be)$} $item] {
+	if [regexp -nocase {\m(like|better|bigger|clever|other|rather|the|and|for|to|be|cool|dizzy|different|dry|entire|end|expensive|faster|federal|this|illegitimate|illiteracy|implicit|kind|lack|last|late|later|left|less|little|long|maybe|maybeok|meantime|mathematical|mechanical|more|most|much|multi|new|newer|next|particular|past|pure|quick|same|sheer|short|small|sort|specific|ultra|tubal|total|were|what|whole|weird|wrong)$} $item] {
+		bMotion_putloglev 2 * "sillyThing $item rejected for stoplist"
 		return 0
 	}
 
-	if [regexp -nocase {(ful|est|ly)$} $item] {
+	if [regexp -nocase {(ful|est|ly|ive| he|edible|icable|tty)$} $item] {
+		bMotion_putloglev 2 * "sillyThing $item rejected for word ending"
 		return 0
 	}
 
@@ -1307,6 +1310,55 @@ proc bMotion_sufficient_gap { mingap plugin channel {nick ""} } {
 		bMotion_putloglev 1 * "sufficient_gap: returning $gap_ok for $plugin $channel ($nick) > $mingap"
 		return $gap_ok
 }
+
+# automatically pick a type of smiley
+# store in local/
+# use version in local if available
+
+proc bMotion_auto_smiley { } {
+	bMotion_putloglev 5 * "bMotion_auto_smiley"
+
+	global bMotionLocal
+	set smileyfile "${bMotionLocal}/smiley"
+
+		if {[file exists $smileyfile]} {
+			set fileHandle [open $smileyfile]
+			set line [gets $fileHandle]
+			if {$line == "bMotion smiley configuration (autogenerated)"} {
+				set bMotionSettings(smiley_type) [gets $fileHandle]
+				set bMotionSettings(smiley_nose) [gets $fileHandle]
+				set bMotionSettings(smiley_eyes) [gets $fileHandle]
+				close $fileHandle
+
+				bMotion_putloglev d * "Loaded auto-generated smiley info"
+			} else {
+				putlog "bMotion: attempted to load smiley configuration but file is corrupt"
+			}
+		} else {
+			bMotion_putloglev d * "Generating new smiley configuration"
+			set smiley_type_list [list "paren" "bracket" "angle"]
+			set smiley_nose_list [list "none" "o" "dash"]
+			set smiley_eyes_list [list "colon" "equals"]
+
+			global bMotionSettings
+
+			set bMotionSettings(smiley_type) [pickRandom $smiley_type_list]
+			set bMotionSettings(smiley_nose) [pickRandom $smiley_nose_list]
+			set bMotionSettings(smiley_eyes) [pickRandom $smiley_eyes_list]
+
+			set fileHandle [open $smileyfile "w"]
+			puts $fileHandle "bMotion smiley configuration (autogenerated)"
+			puts $fileHandle [bMotion_setting_get "smiley_type"]
+			puts $fileHandle [bMotion_setting_get "smiley_nose"]
+			puts $fileHandle [bMotion_setting_get "smiley_eyes"]
+
+			putlog "bMotion: auto-generated smiley configuration"
+			close $fileHandle
+		}
+}
+
+
+
 
 bMotion_putloglev d * "bMotion: system module loaded"
 
