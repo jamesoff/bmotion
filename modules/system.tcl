@@ -1268,7 +1268,7 @@ proc bMotion_filter_sillyThings { item } {
 	}
 
 	if [regexp -nocase {^(for|i|but)\M} $item] {
-		bMotion_putloglev 2 * "sillyThing $item rejected for bad ending"
+		bMotion_putloglev 2 * "sillyThing $item rejected for bad start"
 		return 0
 	}
 
@@ -1281,6 +1281,11 @@ proc bMotion_filter_sillyThings { item } {
 
 	if [regexp -nocase {(ful|est|ly|ive| he|edible|icable|tty)$} $item] {
 		bMotion_putloglev 2 * "sillyThing $item rejected for word ending"
+		return 0
+	}
+
+	if [regexp -nocase {\m(is)$} $item] {
+		bMotion_putloglev 2 * "sillyThing $item rejected for bad sentence end"
 		return 0
 	}
 
