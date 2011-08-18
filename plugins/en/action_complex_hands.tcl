@@ -235,7 +235,9 @@ proc bMotion_plugin_complex_action_hands_bodypaint { channel nick } {
 proc bMotion_plugin_complex_action_hands_finishPaint { } {
 	set bodyPaintNick [bMotion_plugins_settings_get "complexaction:hands" "paint_nick" "" ""]
 	set bodyPaintChannel [bMotion_plugins_settings_get "complexaction:hands" "paint_channel" "" ""]
-	bMotionDoAction $bodyPaintChannel $bodyPaintNick "/gets bored of waiting for %% and licks the body paint off by herself instead"
+	if {$bodyPaintNick != ""} {
+	  bMotionDoAction $bodyPaintChannel $bodyPaintNick "/gets bored of waiting for %% and licks the body paint off by herself instead"
+	}
 	bMotion_plugins_settings_set "complexaction:hands" "paint_nick" "" "" ""
 	bMotionGetHorny
 	bMotionGetLonely

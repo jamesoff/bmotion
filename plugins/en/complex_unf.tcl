@@ -14,6 +14,14 @@
 bMotion_plugin_add_complex "unf" "((~(rarr|oof|unf)~)|unf|lick(s)?) %botnicks" 100 bMotion_plugin_complex_unf "en"
   
 proc bMotion_plugin_complex_unf { nick host handle channel text } {
+  set bodyPaintNick [bMotion_plugins_settings_get "complexaction:hands" "paint_nick" "" ""]
+  set bodyPaintChannel [bMotion_plugins_settings_get "complexaction:hands" "paint_channel" "" ""]
+  
+  if {$bodyPaintNick != "" && $bodyPaintChannel == $channel && $nick == $bodyPaintNick} {
+    bMotionDoAction $channel $bodyPaintNick "OOoooooooooooo thanks %%, thats some good tongue action"
+    bMotion_plugins_settings_set "complexaction:hands" "paint_nick" "" "" "" 
+    bMotion_plugins_settings_set "complexaction:hands" "paint_channel" "" "" "" 
+  }
   bMotionGetHorny
   return 2
 }
