@@ -500,6 +500,12 @@ bMotion_abstract_register "phaserFires" {
 	"/pulls the Picard move (the non-uniform one)"
 }
 
+bMotion_abstract_register "cheesecakeFires" {
+	"SAVE THE CHEESECAKE%|/eats cheesecake"
+	"/splurges the cheesecake at %%"
+	"/rams cheesecake down %% throat"
+}
+
 bMotion_abstract_register "torpedoFires" {
 	"/fires a volley of torpedos at %%"
 	"/breaks into a roll and fires torpedos from dorsal and ventral launchers in sequence"

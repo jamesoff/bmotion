@@ -75,6 +75,11 @@ proc bMotion_plugin_complex_startrek_fire { nick host handle channel text } {
       bMotionDoAction $channel $target "%VAR{torpedoFires}"
     }
 
+    if {$weapon == "cheesecake"} {
+      global cheesecakeFires
+      bMotionDoAction $channel $target "%VAR{cheesecakeFires}"
+    }
+
     if {$weapon == "everything"} {
       global everythingFires
       bMotionDoAction $channel $target "%VAR{everythingFires}"
