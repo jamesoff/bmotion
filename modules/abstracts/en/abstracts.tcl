@@ -504,6 +504,9 @@ bMotion_abstract_register "cheesecakeFires" {
 	"SAVE THE CHEESECAKE%|/eats cheesecake"
 	"/splurges the cheesecake at %%"
 	"/rams cheesecake down %% throat"
+	"/throws a large %VAR{fruits} cheesecake directly at %%"
+	"/lobs a %VAR{colours} %VAR{fruits} cheesecake at %%"
+	"/launches a fleet of %VAR{colours} %VAR{fruits} cheesecakes at %%"
 }
 
 bMotion_abstract_register "torpedoFires" {
