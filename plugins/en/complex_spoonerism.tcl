@@ -34,9 +34,9 @@ proc bMotion_plugin_complex_spoon { nick host handle channel text } {
 				# smash heteronormativity!
 				if [regexp -nocase "straight" $bMotionInfo(orientation)] {
 					bMotionDoAction $channel "$1$2" "%VAR{xhery}" "$4$5"
-				} else if [regexp -nocase "(bi|queer)" $bMotionInfo(orientation)] {
+				} elseif [regexp -nocase "(bi|queer)" $bMotionInfo(orientation)] {
 					bMotionDoAction $channel "$1$2" "%VAR{xhery_bi}" "$4$5"
-				} else if [regexp -nocase "(gay|lesbian|homo)" $bMotionInfo(orientation)] {
+				} elseif [regexp -nocase "(gay|lesbian|homo)" $bMotionInfo(orientation)] {
 					bMotionDoAction $channel "$1$2" "%VAR{xhery_gay}" "$4$5"
 				} else {
 					# wait, what? panic! default!
