@@ -22,6 +22,12 @@ proc bMotion_plugin_complex_technically { nick host handle channel text } {
 
 	if [regexp -nocase "technically (not )?(an? )?(\[a-z\]+)\\M" $text matches a b thing] {
 		putlog "thing=$thing, a=$a, b=$b"
+
+		#check stoplist
+		if [regexp -nocase "(at)" $thing] {
+			return 0
+		}
+
 		set response "The best kind of $thing"
 		if {$a == "not "} {
 			set response "%VAR{technically_worst}"
