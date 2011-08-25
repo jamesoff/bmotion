@@ -12,7 +12,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_complex "fry1" "i'?ve been as (dumb|stupid) as $botnicks" 100 bMotion_plugin_complex_fry1 "en"
+bMotion_plugin_add_complex "fry1" "i'?ve been as (dumb|stupid) as %botnicks" 100 bMotion_plugin_complex_fry1 "en"
 bMotion_plugin_add_complex "technically" "technically \[a-z\]+\\M" 60 bMotion_plugin_complex_technically "en"
 
 proc bMotion_plugin_complex_technically { nick host handle channel text } {
@@ -20,20 +20,20 @@ proc bMotion_plugin_complex_technically { nick host handle channel text } {
 		return 0
 	}
 
-	if [regexp -nocase "technically ((not (a )?)?(\[a-z\]+))\\M" $text matches thing b c d] {
-		putlog "a=$thing, b=$b, c=$c, d=$d"
+	if [regexp -nocase "technically (not )?(an? )?(\[a-z\]+)\\M" $text matches a b thing] {
+		putlog "thing=$thing, a=$a, b=$b"
 		set response "The best kind of $thing"
-		if {$b == "not a "} {
+		if {$a == "not "} {
 			set response "%VAR{technically_worst}"
 		}
-		bMotionDoAction $channel $d $response 
+		bMotionDoAction $channel $thing $response 
 		return 1
 	}
 }
 
 proc bMotion_plugin_complex_fry1 {nick host handle channel text} {
 
-	bMotionDoAction $channel "" "am not %VAR{unsmiles}"
+	bMotionDoAction $channel "" "am not %SMILEY{sad}"
 
   return 1
 }
