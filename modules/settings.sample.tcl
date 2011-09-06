@@ -124,6 +124,9 @@ set bMotionSettings(colloq) 10
 # percent of leet changes (output:leet plugin)
 set bMotionSettings(leetRandom) 0.5
 
+# percent of homophones (output:homophone plugin)
+set bMotionSettings(homophone) 5
+
 # plugins we shouldn't load
 set bMotionSettings(noPlugin) "simple:huk,complex:wb"
 
