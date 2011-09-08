@@ -60,7 +60,7 @@ proc bMotion_plugin_complex_summon { nick host handle channel text } {
 				}
 				bMotionDoAction $channel $name "%VAR{summon_channel_response}"
 				#set msg [pickRandom $summon_privmsg_response]
-				set msg [doInterpolation "%VAR{summon_privmsg_response}" $nick ""]
+				set msg [bMotionDoInterpolation "%VAR{summon_privmsg_response}" $nick ""]
 				# replacements (TODO: may not be needed after doInterpolation)
 				regsub "%channel" $msg $channel msg 
 				regsub "%%" $msg $nick msg
