@@ -211,6 +211,12 @@ proc bMotion_diagnostic_settings { } {
 		set errors 1
 	}
 
+	if {![info exists bMotionSettings(homophone)]} {
+		putlog "bMotion: diagnostics: homophone not defined, check settings file!"
+		set errors 1
+	}
+
+
 	if {![info exists bMotionInfo(minRandomDelay)]} {
 		putlog "bMotion: diagnostics: minRandomDelay not defined, check settings file!"
 		set errors 1
