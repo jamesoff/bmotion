@@ -916,14 +916,15 @@ bMotion_abstract_register "punchlines" {
 
 bMotion_abstract_register "typoFix" {
 	"%VAR{oops}"
-	"%VAR{oops} %SETTING{output:typos:typos:_:_}"
+	"%VAR{oops}, %%"
 	"%colen"
 	"ffs"
-	"grrr %SETTING{output:typos:typos:_:_}"
-	"%SETTING{output:typos:typos:_:_}"
+	"grrr %%"
+	"%%"
 	"-typo"
 	"/butterfingers"
 }
+bMotion_abstract_add_filter "typoFix" "SETTING"
 
 bMotion_abstract_register "blehs" {
 	"bleh"
@@ -3296,6 +3297,7 @@ bMotion_abstract_register "waveTooMuch" {
 }
 
 bMotion_abstract_register "welcomes" {
+	"r"
 	"you're welcome"
 	"no problem"
 	"np"
