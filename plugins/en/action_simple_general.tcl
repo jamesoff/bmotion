@@ -16,3 +16,4 @@ bMotion_plugin_add_action_simple "moo" "^(goes |does a )?moo+s?( at %botnicks)?"
 
 bMotion_plugin_add_action_simple "calls" "calls %botnicks \[a-z\]" 100 [list "r" "%VAR{smiles}" "well slap my ass and call me that thing you said!" "that's not my name!"] "en"
 
+bMotion_plugin_add_action_simple "finger" "pulls %botnicks's? finger" 100 [list "%VAR{sound_short}"] "en"
