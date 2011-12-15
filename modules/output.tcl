@@ -303,20 +303,31 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 			#1 stops continuation after a failed %bot[n,]
 			break
 		}
-		#set typosDone [bMotion_plugins_settings_get "output:typos" "typosDone" "" ""]
-		#bMotion_putloglev 2 * "bMotion: typosDone is !$typosDone!"
-		## TODO: fix this
-		#if {$typosDone != ""} {
-		#	bMotion_plugins_settings_set "output:typos" "typosDone" "" "" ""
-		#	if [rand 2] {
-		#		bMotionDoAction $channel "" "%VAR{typoFix}" "" 1
-		#	}
-		#	bMotion_plugins_settings_set "output:typos" "typos" "" "" ""
-		#}
+		global bMotion_typo_mutex bMotion_typos
+
+		if {$bMotion_typo_mutex == ""} {
+			set bMotion_typo_mutex "locked"
+			if [llength $bMotion_typos] {
+				set output [join $bMotion_typos]
+				bMotionDoAction $channel $output "%VAR{typoFix}" "" 1
+				set bMotion_typos [list]
+			}
+			set bMotion_typo_mutex ""
+		}
 	}
 	return 0
 }
 
+
+proc bMotion_add_typofix { fix } {
+	global bMotion_typos bMotion_typo_mutex
+
+	if {$bMotion_typo_mutex != ""} {
+		return
+	}
+
+	lappend bMotion_typos $fix
+}
 
 # 
 # replace things on lines

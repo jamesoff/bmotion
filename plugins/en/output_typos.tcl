@@ -138,6 +138,7 @@ proc bMotion_plugin_output_typos { channel line } {
 
 	if {[rand 100] > $typochance} {
 		#don't typo at all
+		bMotion_putloglev 2 * "Not doing typos for $line"
 		return $line
 	}
 
@@ -182,13 +183,7 @@ proc bMotion_plugin_output_typos { channel line } {
 }
 
 proc bMotion_plugin_output_typos_adderror { channel err } {
-  set currentErr [bMotion_plugins_settings_get "output:typos" "typos" "" ""]
-  if {$currentErr == ""} {
-    set currentErr $err
-  } else {
-    append currentErr " $err"
-  }
-  bMotion_plugins_settings_set "output:typos" "typos" "" "" $currentErr
+	bMotion_add_typofix $err
 }
 
 bMotion_plugin_add_output "typos" bMotion_plugin_output_typos 1 "all" 99 

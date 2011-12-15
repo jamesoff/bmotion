@@ -62,6 +62,9 @@ set bMotionCache(typoFix) ""
 set bMotionCache(remoteBot) ""
 set bMotionCache(randomUser) ""
 
+set bMotion_typos [list]
+set bMotion_typo_mutex ""
+
 bMotion_plugins_settings_set "system" "lastPlugin" "" "" ""
 bMotion_plugins_settings_set "system" "last_simple" "" "" ""
 
