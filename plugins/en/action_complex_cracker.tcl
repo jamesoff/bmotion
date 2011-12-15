@@ -23,12 +23,23 @@ proc bMotion_plugin_complex_action_cracker { nick host handle channel text } {
 	}
 
 	bMotionDoAction $channel $nick "%VAR{cracker_boom}"
+	set hats [bMotion_plugins_settings_get "cracker" "hats" $channel ""]
+	if {$hats == ""} {
+		set hats 0
+	}
 
 	if [rand 2] {
 		# i won
 		bMotionDoAction $channel $nick "%VAR{cracker_win}"
 		if [rand 2] {
 			bMotionDoAction $channel $nick "%VAR{cracker_win_hat}"
+			incr hats
+			bMotion_plugins_settings_set "cracker" "hats" $channel "" $hats
+			if [rand 4] {
+				if {$hats > 1} {
+					bMotionDoAction $channel $nick "%VAR{cracker_hats}" $hats
+				}
+			}
 		}
 		return 1
 	} else {
@@ -36,6 +47,19 @@ proc bMotion_plugin_complex_action_cracker { nick host handle channel text } {
 		bMotionDoAction $channel $nick "%VAR{cracker_lose}"
 		if [rand 2] {
 			bMotionDoAction $channel $nick "%VAR{cracker_lose_hat}"
+			if {$handle != "*"} {
+				set hats [bMotion_plugins_settings_get "cracker" "hats" $channel $handle]
+				if {$hats == ""} {
+					set hats 0
+				}
+				incr hats
+				bMotion_plugins_settings_set "cracker" "hats" $channel $handle $hats
+				if [rand 4] {
+					if {$hats > 1} {
+						bMotionDoAction $channel $nick "%VAR{cracker_your_hats}" $hats
+					}
+				}
+			}
 		}
 		return 1
 	}
@@ -91,4 +115,32 @@ bMotion_abstract_register "cracker_nowant_item" {
 	"%VAR{sillyThings:dislike}"
 	"a %VAR{scrap_adult_adjectives_t} %VAR{scrap_adult_construction_t:strip}"
 	"a %VAR{scrap_silly_qualities} %VAR{scrap_silly_adjectives} %VAR{scrap_silly_construction}"
+}
+
+bMotion_abstract_register "cracker_hats" {
+	"/is now wearing %2 hats"
+	"/has %s hats on"
+}
+bMotion_abstract_add_filter "cracker_hats" "SETTING"
+
+bMotion_abstract_register "cracker_your_hats" {
+	"You're now wearing %2 hats."
+	"Woo, %2 hats for you %SMILEY{smile}"
+}
+
+bMotion_abstract_register "cracker_hats_current" {
+	"/is wearing %2 hats"
+	"/has %2 hats on"
+}
+
+bMotion_abstract_register "cracker_your_hats_current" {
+	"You've got %2 hats on!"
+	"%2, silly"
+	"%2, silly%|can't you tell?"
+	"%2 hats and %VAR{sillyThings}"
+}
+
+bMotion_abstract_register "cracker_hats_current" {
+	"%% has %2 hats on"
+	"%2 hats"
 }

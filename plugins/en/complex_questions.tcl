@@ -135,7 +135,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
   ## How many question targeted at me
   if { [regexp -nocase "^$botnicks,?:? how ?many" $text] ||
        [regexp -nocase "^how ?many .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_many $nick $channel $host
+    bMotion_plugin_complex_question_many $nick $channel $host $text
     return 1
   }
 
@@ -431,8 +431,56 @@ proc bMotion_plugin_complex_question_why { nick channel host } {
 #   return 1
 # }
 
-proc bMotion_plugin_complex_question_many { nick channel host } {
+proc bMotion_plugin_complex_question_many { nick channel host line } {
     bMotion_putloglev 2 * "$nick how many question"
+		set handle [nick2hand $nick]
+		if [regexp -nocase "how many (xmas |cracker |christmas )?hats (am|are|do|is) (.+) " $line matches 1 2 3] {
+			if {$3 == "you"} {
+				set hats [bMotion_plugins_settings_get "cracker" "hats" $channel ""]
+				if {($hats == "") || ($hats == 0)} {
+					bMotionDoAction $channel "" "No hats for me %SMILEY{sad}"
+					return 1
+				}
+				if {$hats == 1} {
+					bMotionDoAction $channel "" "One hat only"
+					return 1
+				}
+				bMotionDoAction $channel "" "%VAR{cracker_hats_current}" $hats
+				return 1
+			}
+
+			if {$3 == "i"} {
+				set hats [bMotion_plugins_settings_get "cracker" "hats" $channel $handle]
+				if {($hats == "") || ($hats == 0)} {
+					bMotionDoAction $channel "" "No hats for you %SMILEY{sad}"
+					return 1
+				}
+				if {$hats == 1} {
+					bMotionDoAction $channel "" "One hat only"
+					return 1
+				}
+				bMotionDoAction $channel "" "%VAR{cracker_your_hats_current}" 
+				return 1
+			}
+
+			set handle [nick2hand $3]
+			if {$handle == "*"} {
+				bMotionDoAction $channel "" "No idea"
+				return 1
+			}
+				set hats [bMotion_plugins_settings_get "cracker" "hats" $channel $handle]
+				if {($hats == "") || ($hats == 0)} {
+					bMotionDoAction $channel $handle "No hats for %% %SMILEY{sad}"
+					return 1
+				}
+				if {$hats == 1} {
+					bMotionDoAction $channel "" "One hat only"
+					return 1
+				}
+				bMotionDoAction $channel $handle "%VAR{cracker_handle_hats_current}" 
+				return 1
+
+		}
   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowmanys}"
   return 1
 }
