@@ -19,9 +19,7 @@ bMotion_plugin_add_output "homophone" bMotion_plugin_output_homophone 1 "en" 98
 # code mostly stolen from output_colloquial.tcl
 #
 proc bMotion_plugin_output_homophone { channel line } {
-  global bMotionSettings
-
-  set homophone_rate $bMotionSettings(homophone)
+  set homophone_rate [bMotion_setting_get "homophone"]
   set oldLine $line
 
   set newLine ""
@@ -72,6 +70,10 @@ proc bMotion_plugin_output_homophone { channel line } {
     }
     append newLine "$word "
   }
+	set newLine [string trim $newLine]
+	if {$newLine == ""} {
+		return $oldLine
+	}
   set line $newLine
 
   #don't waste time updating if the line didn't change
