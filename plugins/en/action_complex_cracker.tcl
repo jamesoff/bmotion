@@ -119,10 +119,11 @@ bMotion_abstract_register "cracker_nowant_item" {
 
 bMotion_abstract_register "cracker_hats" {
 	"/is now wearing %2 hats"
-	"/has %% hats on"
+	"/has %2 hats on"
 }
 bMotion_abstract_add_filter "cracker_hats" "SETTING"
 bMotion_abstract_add_filter "cracker_hats" "%s"
+bMotion_abstract_add_filter "cracker_hats" "%%"
 
 bMotion_abstract_register "cracker_your_hats" {
 	"You're now wearing %2 hats."
