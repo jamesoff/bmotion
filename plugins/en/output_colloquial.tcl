@@ -84,12 +84,11 @@ proc bMotion_plugin_output_colloq { channel line } {
   }
 
   #let's break some words
-  global colloq_negative
   set newLine ""
   set words [split $line { }]
   foreach word $words {
     if {[bMotion_plugin_output_colloq_chance $colloq_rate]} {
-      regsub -nocase {\m(dis|anti|un|im)} $word [pickRandom $colloq_negative] word
+      regsub -nocase {\m(dis|anti|un|im)} $word [bMotion_abstract_get "colloq_negative"] word
     }
     append newLine "$word "
   }
