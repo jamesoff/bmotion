@@ -85,6 +85,12 @@ proc bMotion_plugin_admin_abstract { handle { arg "" }} {
 		return 0
 	}
 
+	if [regexp -nocase "reset (.+)" $arg matches name] {
+		bMotion_putadmin "Removing all entries from $name"
+		bMotion_abstract_reset $name
+		return 0
+	}
+
 	if [regexp -nocase "filter (\[a-z\]+)( (\[^ \]+)( .+)?)?" $arg matches cmd parms abstract filter] {
 		switch $cmd {
 			"list" {
@@ -167,6 +173,8 @@ proc bMotion_plugin_admin_abstract_help { } {
 	bMotion_putadmin "    For an abstract to be filtered now"
 	bMotion_putadmin "  .bmotion abstract diagnose"
 	bMotion_putadmin "    Test all abstracts for parsability and report any broken ones"
+	bMotion_putadmin "  .bmotion abstract reset <abstract>"
+	bMotion_putadmin "    Remove everything from an abstract and save it"
 	return 0
 }
 

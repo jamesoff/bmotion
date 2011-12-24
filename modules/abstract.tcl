@@ -711,6 +711,21 @@ proc bMotion_abstract_get_names { } {
 	return [array names bMotion_abstract_contents]
 }
 
+# clear an abstract (used when there have been significant changes to distribution)
+# abstract must have been registered in advance!
+proc bMotion_abstract_reset { abstract } {
+	bMotion_putloglev 4 * "bMotion_abstract_reset $abstract"
+	global bMotion_abstract_contents bMotion_abstract_ondisk
+	
+  set index [lsearch -exact $bMotion_abstract_ondisk $abstract]
+	if {$index > -1} {
+		bMotion_abstract_load $abstract
+	}
+	
+	set bMotion_abstract_contents($abstract) [list]
+	bMotion_abstract_save $abstract
+}
+
 bind time - "* * * * *" bMotion_abstract_auto_gc
 
 # the check has to be run to update old systems

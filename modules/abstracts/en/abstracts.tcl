@@ -1015,6 +1015,7 @@ bMotion_abstract_register "bodypart" {
 	"shoulder"
 	"thigh"
 	"neck"
+	"heart"
 }
 
 bMotion_abstract_register "bodypart_male" {
@@ -1042,13 +1043,13 @@ bMotion_abstract_register "bodypart_female" {
 bMotion_abstract_register "dude" {
 	"Dude!"
 	"My god dude!"
-	"Duuuuuuuuuuuuuuuuuude!"
+	"D%REPEAT{5:10:u}de!"
 }
 
 bMotion_abstract_register "sweet" {
 	"Sweet!"
 	"Schweet!"
-	"Sweeeeeeeeeet!"
+	"Sw%REPEAT{5:10:e}t!"
 }
 
 bMotion_abstract_register "units" {
@@ -1175,7 +1176,9 @@ bMotion_abstract_register "goDowns" {
 	"/pleasures %% with %hisher tongue"
 }
 
-bMotion_abstract_register "friend_greeting" {
+bMotion_abstract_register "friend_greeting" 
+bMotion_abstract_reset "friend_greeting"
+bMotion_abstract_batchadd "friend_greeting" {
 	"bhar"
 	"r."
 	"r %%"
@@ -1192,12 +1195,11 @@ bMotion_abstract_register "friend_greeting" {
 	"oh my god it's %%... i'm so excited i wish i could wet my pants!"
 	"oh my god it's %%... i'm so excited i wish i could wet my %VAR{clothes}!"
 	"good %daytime %%"
-	"%daytime %%"
-	"%daytime %% %VAR{smiles}"
+	"%daytime %%%! %VAR{smiles}"
 	"%REPEAT{3:7:m} %%"
 	"helle%REPEAT{4:8:w}"
-	"%ruser!%|*%VAR{sillyVerbs}* %VAR{smiles}"
-	"%ruser!%|/%VAR{sillyVerbs:present}"
+	"%%!%|*%VAR{sillyVerbs}* %VAR{smiles}"
+	"%%ruser!%|/%VAR{sillyVerbs:present}"
 	"%% you're looking especially shagworthy today"
 }
 
@@ -1558,7 +1560,9 @@ bMotion_abstract_register "silences" {
 	"Shhh"
 }
 
-bMotion_abstract_register "hexEnd" {
+bMotion_abstract_register "hexEnd"
+bMotion_abstract_register "hexEnd"
+bMotion_abstract_batchadd "hexEnd" {
 	"Disabled+++"
 	"Occurance+++"
 	"Portal Opening+++"
@@ -1566,7 +1570,7 @@ bMotion_abstract_register "hexEnd" {
 	": Reinstall Syrup+++"
 	"snack break+++"
 	"-(Why Not Take This Time To Register Your Purchase)+++"
-	"=Error %REPEAT{3:6:%NUMBER{100}}+++"
+	"=Error %NUMBER{100}+++"
 	"%REPEAT{3:12:?}+++"
 	"Warning : Excess %VAR{sillyThings:strip}"
 	"Data Lost+++"
@@ -1701,6 +1705,7 @@ bMotion_abstract_register "stores" {
 	"Dixons (D-Dixons)"
 	"the Lube Emporium"
 	"the supermarket"
+	"the cafe"
 }
 
 bMotion_abstract_register "biscuits" {
@@ -3613,8 +3618,9 @@ bMotion_abstract_register "locations" {
 	"down the back of the sofa"
 	"up my cavernous arse"
 	"up your cavernous arse"
-	"up %OWNER{%ruser} cavernous arse"
+	"up %ruser{:owner} cavernous arse"
 }
+bMotion_abstract_add_filter "locations" "%OWNER"
 
 bMotion_abstract_register "kills" {
 	"/stabs %%"
@@ -5848,6 +5854,12 @@ bMotion_abstract_register "musicalinstruments" {
 	"clarinet"
 	"oboe"
 	"french horn"
+	"drum"
+	"cymbal"
+	"violin"
+	"double bass"
+	"guitar"
+	"cowbell"
 }
 
 bMotion_abstract_register "pluralprefix" {
@@ -5869,7 +5881,7 @@ bMotion_abstract_register "overslept" {
 bMotion_abstract_register "oversleep_rush" {
 	"/gets dressed so quickly he forgets to put on %VAR{clothes}"
 	"now i don't have time for a delicious breakfast of %VAR{foods}"
-	"/absent-mindedly puts on %VAR{foods} and eats $VAR{clothes} for breakfast"
+	"/absent-mindedly puts on %VAR{foods} and eats %VAR{clothes} for breakfast"
 }
 
 bMotion_abstract_register "swear" {
