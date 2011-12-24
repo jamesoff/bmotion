@@ -289,6 +289,8 @@ proc bMotion_plugin_find_output { lang { channel "" } { min_priority 0} { max_pr
 	global BMOTION_PLUGIN_OUTPUT_PRIORITY BMOTION_PLUGIN_OUTPUT_ENABLED BMOTION_PLUGIN_OUTPUT_LANGUAGE BMOTION_PLUGIN_OUTPUT_CALLBACK
 	set result [list]
 
+	bMotion_putloglev 5 * "bMotion_plugin_find_output lang=$lang channel=$channel min=$min_priority max=$max_priority name=$name"
+
 	foreach key [lsort [array names bMotion_plugins_output]] {
 		set val $bMotion_plugins_output($key)
 		set callback [lindex $val $BMOTION_PLUGIN_OUTPUT_CALLBACK]
@@ -306,9 +308,9 @@ proc bMotion_plugin_find_output { lang { channel "" } { min_priority 0} { max_pr
 			continue
 		}
 
-		if {!([string match $lang $language] && ($language != "any") && ($language != "all"))} {
+		if {(![string match $lang $language] && ($language != "any") && ($language != "all"))} {
 			bMotion_putloglev 3 * "macro: ignoring $key on language"
-			bMotion_putloglev 3 * "macro: plugin is $lang, want $language"
+			bMotion_putloglev 3 * "macro: plugin is $language, want $lang"
 			continue
 		}
 
@@ -335,6 +337,7 @@ proc bMotion_plugin_find_output { lang { channel "" } { min_priority 0} { max_pr
 		lappend result2 [lindex $entry 0]
 	}
 
+	bMotion_putloglev 4 * "Returning list of plugins for $channel: $result2"
 	return $result2
 }
 

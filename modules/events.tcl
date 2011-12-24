@@ -522,7 +522,12 @@ proc bMotion_event_mode {nick host handle channel mode victim} {
 			set diff [expr [clock seconds] - $deoptime]
 		}
 		if {$diff > 900} {
-			bMotionDoAction $channel $nick "%VAR{opped}"
+			if [bMotion_interbot_is_bmotion $handle] {
+				bMotionDoAction $channel $nick "%VAR{thanks}"
+				bMotionDoAction $channel $nick "%BOT[@$handle,VAR{welcomes}"
+			} else {
+				bMotionDoAction $channel $nick "%VAR{opped}"
+			}
 		} else {
 			bMotion_putloglev d * "Not responding to +o in $channel as I was only deopped $diff seconds ago"
 		}

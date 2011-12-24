@@ -7,6 +7,8 @@
 bMotion_abstract_register "randomStuff"
 bMotion_abstract_reset "randomStuff"
 bMotion_abstract_batchadd "randomStuff" {
+	"%VAR{sillyThings:strip} just kicked in yo!%|%VAR{sound}"
+	"my %VAR{bodypart} is itchy, is that normal?"
 	"%VAR{FRENCH}"
 	"%VAR{blairisms}"
 	"%VAR{tech_answer}"
@@ -547,6 +549,9 @@ bMotion_abstract_register "randomStuff_09_19" {
 ### Used by both genders
 ### Used when the channel is 'active' (default < 300 sec since last line)
 bMotion_abstract_register "activeRandomStuff" {
+	"and near the milkshake"
+	"just think how sexy you'd look with my %VAR{bodypart} in your mouth"
+	"just think how sexy you'd look with my %VAR{bodypart} in your %VAR{bodypart}"
 	"%ruser really puts the %VAR{sillyThings:strip,triplet} in %VAR{sillyThings:prevtriplet}!"
 	"and in the game"
 	"and now I shall part your %VAR{bodypart:bothmixin}"

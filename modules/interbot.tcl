@@ -392,6 +392,20 @@ proc bMotion_interbot_otherbots { channel } {
 	return $otherbots
 }
 
+
+# bMotion_interbot_is_bmotion
+#
+# checks if another bot is a bmotion bot
+proc bMotion_interbot_is_bmotion { handle } {
+	global bMotion_interbot_otherbots
+
+	if [info exists bMotion_interbot_otherbots($handle)] {
+		return 1
+	}
+	return 0
+}
+
+
 # set up our binds
 bind bot - "bmotion" bMotion_interbot_catch
 bind link - * bMotion_interbot_link
