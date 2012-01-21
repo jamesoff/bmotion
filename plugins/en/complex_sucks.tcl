@@ -20,6 +20,9 @@ proc bMotion_plugin_complex_sucks { nick host handle channel text } {
 
 	if [regexp -nocase {([a-z0-9]+) (all )?suck[.!]*$} $text matches item] {
 		if {![regexp -nocase $stoplist $item]} {
+			if {($item == "I") || ($item == "i")} {
+				set item $nick
+			}
 			bMotionDoAction $channel $item "%VAR{sucks}"
 			return 1
 		}
@@ -28,6 +31,9 @@ proc bMotion_plugin_complex_sucks { nick host handle channel text } {
 	if [regexp -nocase {^([a-z0-9]+) sucks} $text matches item] {
 		if [regexp -nocase $stoplist $item] {
 			return 0
+		}
+		if {($item == "I") || ($item == "i")} {
+			set item $nick
 		}
 		bMotionDoAction $channel $item "%VAR{sucks}"
 		return 1
