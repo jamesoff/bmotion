@@ -1274,7 +1274,7 @@ proc bMotion_filter_sillyThings { item } {
 
 	# -rty, -ted?
 
-	if [regexp -nocase {\m(like|better|bigger|clever|other|rather|the|and|for|to|be|cool|dizzy|different|dry|entire|end|expensive|faster|federal|this|illegitimate|illiteracy|implicit|kind|lack|last|late|later|left|less|little|long|maybe|maybeok|meantime|mathematical|mechanical|more|most|much|multi|new|newer|next|particular|past|pure|quick|same|sheer|short|small|sort|specific|ultra|tubal|total|were|what|whole|weird|wrong)$} $item] {
+	if [regexp -nocase {\m(should|like|better|bigger|clever|other|rather|the|and|for|to|be|cool|dizzy|different|dry|entire|end|expensive|faster|federal|this|illegitimate|illiteracy|implicit|kind|lack|last|late|later|left|less|little|long|maybe|maybeok|meantime|mathematical|mechanical|more|most|much|multi|new|newer|next|particular|past|pure|quick|same|sheer|short|small|sort|specific|ultra|tubal|total|were|what|whole|weird|wrong)$} $item] {
 		bMotion_putloglev 2 * "sillyThing $item rejected for stoplist"
 		return 0
 	}

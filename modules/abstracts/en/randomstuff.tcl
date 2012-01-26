@@ -349,6 +349,7 @@ bMotion_abstract_batchadd "randomStuff" {
 	"always been a bit rough	 "
 	"%ruser{enemy} in talking shit shocker		"
 	"why just the other day i watched a film with a plot	"
+	"why just the other day i watched a film with %VAR{sillyThings}"
 	"ha ha i don't live in norwich anymore, i don't fuck pigs anymore "
 	"i have a battery operated tree \\o/"
 	"i have a battery operated %VAR{sillyThings:strip} \\o/"

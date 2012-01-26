@@ -10,11 +10,11 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_action_complex "smacks" "^(kicks|smacks|twats|injures|beats up|punches|hits|thwaps|slaps|pokes|kills|destroys) %botnicks" 100 bMotion_plugin_complex_action_smacks "en"
+bMotion_plugin_add_action_complex "smacks" "^(kiqs|kicks|smacks|twats|injures|beats up|punches|hits|thwaps|slaps|pokes|kills|destroys) %botnicks" 100 bMotion_plugin_complex_action_smacks "en"
 
 proc bMotion_plugin_complex_action_smacks { nick host handle channel text } {
   global botnicks
-  if [regexp -nocase "(kicks|smacks|twats|injures|beats up|punches|hits|thwaps|slaps|pokes|kills|destroys) ${botnicks}\\M" $text] {
+  if [regexp -nocase "(kicks|smacks|twats|injures|beats up|punches|hits|thwaps|slaps|pokes|kills|destroys) ${botnicks}(('s| in the) (\[a-z \]+))" $text matches 1 2 3 4 where] {
   	if [regexp -nocase "slaps $botnicks around( a bit)? with a( large)? trout" $text] {
   		bMotionDoAction $channel $nick "%VAR{trouts}"
   		return 1
@@ -22,7 +22,12 @@ proc bMotion_plugin_complex_action_smacks { nick host handle channel text } {
     bMotionGetSad
     bMotionGetUnLonely
     driftFriendship $nick -5
-    bMotionDoAction $channel $nick "%VAR{slapped}"
+		if {$where != ""} {
+			bMotionDoAction $channel $nick "%VAR{slapped_where}" $where
+			bMotion_abstract_add "bodypart" $where
+		} else {
+			bMotionDoAction $channel $nick "%VAR{slapped}"
+		}
     return 1
   }
 }
@@ -44,12 +49,18 @@ bMotion_abstract_batchadd "slapped" {
 	"they took my squeezing arm!%|WHY MY SQUEEZING ARM?!?%|WHHHYYYYY?"
 	"/%VAR{smacks} %% back with %VAR{sillyThings}"
 	"/%VAR{smacks} %% back with %ruser"
-	"ow! my %VAR{bodypart}!"
-	"ow! my %VAR{bodypart}! that was my %VAR{counts} one"
-	"arrgh my %VAR{bodypart}! now i only have %NUMBER{50} left"
-	"arrgh my %VAR{bodypart}! now i only have %NUMBER{50} left%|look, here in this box"
+	"%={ow:arrgh}! my %VAR{bodypart}!%! that was my %VAR{counts} one"
+	"%={ow:arrgh} my %VAR{bodypart}! now i only have %NUMBER{50} left"
+	"%={ow:arrgh} my %VAR{bodypart}! now i only have %NUMBER{50} left%|look, here in this box"
 	"a%REPEAT{3:6:r}gh my %VAR{bodypart}! now i only have %NUMBER{50}%NUMBER{100}%NUMBER{100} left%|look, here in this warehouse"
 	"%VAR{frightens}"
+}
+
+bMotion_abstract_register "slapped_where" {
+	"ow%={: hey}! that was my %VAR{counts} %2 %SMILEY{sad}"
+	"ow! my %2 %SMILEY{sad}%! that was my %VAR{counts} one"
+	"arrgh! my %2! now i only have %NUMBER{50} left%!%|look, here in this box"
+	"arrgh! my %2! now I only have %NUMBER{50}%NUMBER{100}%NUMBER{100} left%|look, here in this warehouse"
 }
 
 bMotion_abstract_register "counts"

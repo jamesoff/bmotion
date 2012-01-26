@@ -11,7 +11,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_action_complex "fuck" "((s(e|3)x(o|0)r(s|z|5))|(fluffles)|fucks|paalt|shags|paalt|fondles|ravages|rapes|spanks|kisses|zoent|snogs) %botnicks" 100 bMotion_plugin_complex_action_fucks "en"
+bMotion_plugin_add_action_complex "fuck" "((s(e|3)x(o|0)r(s|z|5))|(fluffles)|bofs|fucks|paalt|shags|paalt|fondles|ravages|rapes|spanks|kisses|zoent|snogs) %botnicks" 100 bMotion_plugin_complex_action_fucks "en"
 
 proc bMotion_plugin_complex_action_fucks { nick host handle channel text } {
 	global botnicks

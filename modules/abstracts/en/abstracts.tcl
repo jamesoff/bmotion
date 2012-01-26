@@ -5898,6 +5898,10 @@ bMotion_abstract_register "swear" {
 	"rats"
 }
 
+bMotion_abstract_register "fuckoff" {
+	"%={fuck:cunt:shit:sod} off%! you %VAR{PROM}"
+}
+
 bMotion_abstract_add_filter "_all" "\{strip\}\}"
 bMotion_abstract_add_filter "_all" "\}\{strip\}"
 

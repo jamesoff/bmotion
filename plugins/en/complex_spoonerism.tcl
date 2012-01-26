@@ -78,7 +78,7 @@ proc bMotion_plugin_complex_spoon3 { nick host handle channel text } {
 				return 0
 			}
 
-			if [regexp -nocase {^(and|one|of|n)$} $two] {
+			if [regexp -nocase {^(doesn|and|one|of|n)$} $two] {
 				return 0
 			}
 
