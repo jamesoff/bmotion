@@ -139,7 +139,6 @@ bMotion_abstract_batchadd "scrap_qualities" {
   "bad"
   "very bad"
   "terrible"
-
   "average"
   "amateur"
   "passable"
@@ -147,7 +146,6 @@ bMotion_abstract_batchadd "scrap_qualities" {
   "good"
   "normal"
   "fair"
-
   "master crafted"
   "perfect"
   "expensive"
@@ -215,6 +213,7 @@ bMotion_abstract_batchadd "scrap_adjectives" {
   "remote controlled"
   "fully automatic"
   "semi automatic"
+	"gritty"
 }
 bMotion_abstract_add_filter "scrap_adjectives" "mamoth"
 
@@ -417,7 +416,6 @@ bMotion_abstract_batchadd "scrap_adult_qualities_t" {
   "slim"  
   "voluptuous"
   "bound"
-
   "minging"
   "doggish"
 }
@@ -538,6 +536,7 @@ bMotion_abstract_batchadd "scrap_adult_construction_t" {
 	"anus"
 	"blowjob"
 	"gentials"
+	"fart"
 	"dick"
 }
 bMotion_abstract_add_filter "scrap_adult_construction_t" "girator"

@@ -84,7 +84,7 @@ bMotion_abstract_register "fuckOffs" {
 bMotion_abstract_register "silenceAways" {
 	"bah"
 	"/goes to find someone more interesting to talk to"
-	"%SMILE{sad}"
+	"%SMILEY{sad}"
 	"fine"
 	"/stamps foot%|*sulk*"
 	"/talks to %ruser instead"
@@ -136,7 +136,7 @@ bMotion_abstract_register "hiddenBehinds" {
 }
 
 bMotion_abstract_register "satOns" {
-	"hey ow %SMILE{sad}"
+	"hey ow %SMILEY{sad}"
 	"heeeyyy :O"
 	"bah"
 	"arrrrgh"
@@ -888,10 +888,10 @@ bMotion_abstract_register "thrownAts" {
 	"I can seeee myyy house from heeeerrreeeeee!"
 	"*CRUMP*"
 	"/flattens %%"
-	"hey %SMILE{sad}"
+	"hey %SMILEY{sad}"
 	"oi"
 	"/sails through the air towards %%"
-	"loookkk ooouuuttt beellooww!%|*CRUMP*%|ow %SMILE{sad}"
+	"loookkk ooouuuttt beellooww!%|*CRUMP*%|ow %SMILEY{sad}"
 	"/flies through the air with the greatest of ease"
 	"/does a triple inverted twist somersault and lands neatly next to %%"
 }
@@ -917,7 +917,6 @@ bMotion_abstract_register "punchlines" {
 bMotion_abstract_register "typoFix" {
 	"%VAR{oops}"
 	"%VAR{oops}, %%"
-	"%colen"
 	"ffs"
 	"grrr %%"
 	"%%"
@@ -925,6 +924,9 @@ bMotion_abstract_register "typoFix" {
 	"/butterfingers"
 }
 bMotion_abstract_add_filter "typoFix" "SETTING"
+
+# %colen doesn't work when in typoFix mode, for now
+bMotion_abstract_add_filter "typoFix" "%colen"
 
 bMotion_abstract_register "blehs" {
 	"bleh"
@@ -1104,8 +1106,8 @@ bMotion_abstract_register "hermes" {
 bMotion_abstract_add_filter "hermes" "winniped"
 
 bMotion_abstract_register "stolens" {
-	"Hey NO %SMILE{sad}%|That's mine%|/sulks at %%"
-	"heeeeyyyy%|%SMILE{sad}"
+	"Hey NO %SMILEY{sad}%|That's mine%|/sulks at %%"
+	"heeeeyyyy%|%SMILEY{sad}"
 	"bah%|/steals it back"
 	"/smacks %%"
 	"hey no, that's *MINE*"
@@ -3115,7 +3117,7 @@ bMotion_abstract_register "blownAways" {
 	"/is blown off feet by force of %%'s statement%|%bot\[50,¬VAR{picksUp}\]"
 	"/falls over%|%bot\[50,¬VAR{picksUp}\]"
 	"/is blown away by force of %%'s statement%|%bot\[50,¬VAR{picksUp}\]"
-	"ow my eyes %SMILE{sad}"
+	"ow my eyes %SMILEY{sad}"
 	"/blinks"
 	":O"
 	"o_O"
@@ -3368,7 +3370,7 @@ bMotion_abstract_register "cyas" {
 bMotion_abstract_register "balefired" {
 	"/vanishes from the continuum"
 	"/ceases to have ever existed"
-	"hey! %SMILE{sad}"
+	"hey! %SMILEY{sad}"
 	"/dodges%|/hits d+1 and does Chinese Fan on %%"
 }
 
@@ -3784,7 +3786,7 @@ bMotion_abstract_register "answerDoyous" {
 	"normally"
 	"always %VAR{rarrs}"
 	"i do%|despite having no %VAR{bodypart}"
-	"i did till my %VAR{bodypart} %VAR{fellOffs} %SMILE{bigsad}"
+	"i did till my %VAR{bodypart} %VAR{fellOffs} %SMILEY{bigsad}"
 	"does it mean i get pie?"
 	"yahyahayayahayahahayh%colen"
 	"indeed i do%|%VAR{randomZimness}"
@@ -3827,7 +3829,7 @@ bMotion_abstract_register "answerWouldyous" {
 	"in a flash!"
 	"love to%|%VAR{randomZimness}"
 	"only if %ruser can watch"
-	"if i had any arms i would%|%SMILE{sad}"
+	"if i had any arms i would%|%SMILEY{sad}"
 	"if my %VAR{bodypart} would stop %VAR{dVerbs}ing"
 }
 

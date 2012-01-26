@@ -43,6 +43,10 @@ proc bMotion_plugin_complex_nazi2 {nick host handle channel text} {
 proc bMotion_plugin_complex_nazi3 {nick host handle channel text} {
 
 	if [regexp -nocase "\\mme and (\[a-z\]+)( \[a-z\]+)?" $text matches other verb] {
+		if {($other == "I") || ($other == "i")} {
+			return 0
+		}
+
 		if {$verb == ""} {
 			if {![bMotion_interbot_me_next $channel]} {
 				return 0

@@ -152,6 +152,11 @@ proc bMotion_process_macros { channel text } {
 			if [regexp -nocase {%([a-z!=]+)} $substring matches macro] {
 				bMotion_putloglev 2 * "macro: found macro $macro at $current_pos"
 				set plugin [bMotion_plugin_find_output "en" "" 0 10 $macro]
+				if {[llength $plugin] == 0} {
+					# oh no
+					bMotion_putloglev d * "macro: didn't get any plugins for $macro"
+				}
+
 				if {[llength $plugin] == 1} {
 				# call plugin
 					bMotion_putloglev 2 * "macro: found matching plugin for macro [lindex $plugin 0]"
@@ -280,6 +285,8 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 				set text $result
 			}
 		}
+	} else {
+		bMotion_putloglev 1 * "skipped plugin processing on $text due to noTypo being set"
 	}
 
 	# clear this in case a plugin ended up not using it in an abstract
