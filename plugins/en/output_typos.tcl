@@ -131,7 +131,7 @@ proc bMotion_plugin_output_typos_do { line } {
 #
 proc bMotion_plugin_output_typos { channel line } {
 	bMotion_putloglev 4 * "bMotion_plugin_output_typos $channel $line"
-  global bMotionSettings 
+  global bMotionSettings
 
   set typochance $bMotionSettings(typos)
   set oldLine $line
@@ -186,4 +186,4 @@ proc bMotion_plugin_output_typos_adderror { channel err } {
 	bMotion_add_typofix $err
 }
 
-bMotion_plugin_add_output "typos" bMotion_plugin_output_typos 1 "all" 99 
+bMotion_plugin_add_output "typos" bMotion_plugin_output_typos 1 "all" 99

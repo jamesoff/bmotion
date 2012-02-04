@@ -11,7 +11,7 @@
 ###############################################################################
 
 bMotion_plugin_add_complex "asl" {\ma/?s/?l\??\M} 100 bMotion_plugin_complex_asl "en"
-  
+
 proc bMotion_plugin_complex_asl { nick host handle channel text } {
   if {[bMotionTalkingToMe $text] || [rand 2]} {
     set age [expr [rand 20] + 13]

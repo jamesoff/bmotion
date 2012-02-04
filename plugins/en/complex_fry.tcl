@@ -32,7 +32,7 @@ proc bMotion_plugin_complex_technically { nick host handle channel text } {
 		if {$a == "not "} {
 			set response "%VAR{technically_worst}"
 		}
-		bMotionDoAction $channel $thing $response 
+		bMotionDoAction $channel $thing $response
 		return 1
 	}
 }

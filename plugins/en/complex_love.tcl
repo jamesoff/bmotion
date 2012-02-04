@@ -27,7 +27,7 @@ proc bMotion_plugin_complex_love { nick host handle channel text } {
 		return 1
 	}
 
-	driftFriendship $nick 8 
+	driftFriendship $nick 8
 	# people of the wrong gender get the platonic treatment
 	if {![bMotionLike $nick $host]} {
 		bMotionDoAction $channel $nick "%VAR{love_like}"

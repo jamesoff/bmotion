@@ -94,8 +94,7 @@ proc bMotion_plugin_complex_spoon3 { nick host handle channel text } {
 }
 
 
-bMotion_abstract_register "spoonerisms"
-bMotion_abstract_batchadd "spoonerisms" [list "%% ... more like %2, am i rite?" "%% ... more like %2, am i right?" "%%? More like %2, am I correct?" "/. o O (%2)"]
+bMotion_abstract_register "spoonerisms" [list "%% ... more like %2, am i rite?" "%% ... more like %2, am i right?" "%%? More like %2, am I correct?" "/. o O (%2)"]
 
 bMotion_abstract_register "xhery_male" [list "I'd %% her %2"]
 bMotion_abstract_register "xhery_female" [list "I'd %% his %2"]

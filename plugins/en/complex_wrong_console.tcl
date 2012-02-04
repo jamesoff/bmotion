@@ -15,7 +15,7 @@ bMotion_plugin_add_complex "wrong console(tm)" "^(rm|cp|su|ls)\\\M" 20 "bMotion_
 
 # bMotion_plugin_complex_wrong_console
 proc bMotion_plugin_complex_wrong_console { nick host handle channel text } {
-	if {![bMotion_interbot_me_next $channel]} { 
+	if {![bMotion_interbot_me_next $channel]} {
 		return 0
 	}
 	bMotionDoAction $channel "" "%VAR{randomWrongConsoleReply}"
@@ -25,8 +25,7 @@ proc bMotion_plugin_complex_wrong_console { nick host handle channel text } {
 # end bMotion_plugin_complex_wrong_console
 
 # random wrong console responses
-bMotion_abstract_register "randomWrongConsoleReply"
-bMotion_abstract_batchadd "randomWrongConsoleReply" {
+bMotion_abstract_register "randomWrongConsoleReply" {
 	"yay! %% can't get it right"
 	"why don't you tell us your password as well?"
 	"try the other window"

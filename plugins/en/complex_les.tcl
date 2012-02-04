@@ -11,7 +11,7 @@
 
 bMotion_plugin_add_complex "les" "^les .+" 40 bMotion_plugin_complex_les "en"
 
-proc bMotion_plugin_complex_les { nick host handle channel text } {  
+proc bMotion_plugin_complex_les { nick host handle channel text } {
 	if {![bMotion_interbot_me_next $channel]} {
 		return 0
 	}

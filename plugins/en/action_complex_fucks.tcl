@@ -20,7 +20,7 @@ proc bMotion_plugin_complex_action_fucks { nick host handle channel text } {
 			driftFriendship $nick -5
 			frightened $nick $channel
 			return 1
-		}		 
+		}
 
 		if [bMotionLike $nick $host] {
 			driftFriendship $nick 4

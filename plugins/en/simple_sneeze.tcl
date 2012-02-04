@@ -14,8 +14,7 @@ bMotion_plugin_add_simple "sneeze" "^(\\*?hatsjoe\\*?|wachoo|\\*sneezes?\\*|\\*?
 bMotion_plugin_add_action_simple "sneeze" "^sneezes" 60 "%VAR{blessyous}" "en"
 
 # abstracts
-bMotion_abstract_register "blessyous"
-bMotion_abstract_batchadd "blessyous" {
+bMotion_abstract_register "blessyous" {
   "gesuntheit"
   "bless you"
   "Bless you"
@@ -25,7 +24,7 @@ bMotion_abstract_batchadd "blessyous" {
   "good thing I bought this haz-mat suit"
   "Rogue bogey!"
   "/ducks"
-  "/hides behind %ruser"   
+  "/hides behind %ruser"
   "Great. Now I'm gonna get a cold %VAR{unsmiles}"
   "Eek. Don't give it to me"
   "%% - I recommend %VAR{sillyThings}"

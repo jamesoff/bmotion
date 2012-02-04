@@ -19,8 +19,7 @@ proc bMotion_plugin_complex_action_rolls { nick host handle channel text } {
 	return 1
 }
 
-bMotion_abstract_register "rolls_channel_response"
-bMotion_abstract_batchadd "rolls_channel_response" {
+bMotion_abstract_register "rolls_channel_response" {
 	"keep them doggies rolling RAWHIDE"
 	"rolls a joint"
 	". o O ( ? )"

@@ -1,25 +1,25 @@
-# 
+#
 # vim: fdm=indent fdn=1
 
 ###############################################################################
 # This is a bMotion plugin
 # Copyright (C) Kevin Smith 2003
 #
-# This program is covered by the GPL, please refer the to LICENCE file in the 
-# distribution; further information can be found in the headers of the scripts 
-# in the modules directory. 
+# This program is covered by the GPL, please refer the to LICENCE file in the
+# distribution; further information can be found in the headers of the scripts
+# in the modules directory.
 ###############################################################################
 
 #
 # Makes the bot return a random fact
 #
 # Usage:
-#	!fact  
-#	botname what do you know 
+#	!fact
+#	botname what do you know
 #	botname tell me something new
 
 bMotion_plugin_add_complex "getfact1" "^!fact" 100 bMotion_plugin_complex_get_fact "en"
-bMotion_plugin_add_complex "getfact2" "^%botnicks,?:? what do you know" 100 bMotion_plugin_complex_get_fact "en" 
+bMotion_plugin_add_complex "getfact2" "^%botnicks,?:? what do you know" 100 bMotion_plugin_complex_get_fact "en"
 bMotion_plugin_add_complex "getfact3" "^%botnicks,?:? tell me something new" 100 bMotion_plugin_complex_get_fact "en"
 
 proc bMotion_plugin_complex_get_fact { nick host handle channel text } {
@@ -30,7 +30,7 @@ proc bMotion_plugin_complex_get_fact { nick host handle channel text } {
 	#this gets a random item to give a fact about
 	set i [lindex $items [rand [llength $items]]]
 	if {[regexp "what,(.+)" $i matches item]} {
-		#set item 
+		#set item
 	}
 	#set property $bMotionFacts(what,$item)
 	set property [lindex $bMotionFacts(what,$item) [rand [llength $bMotionFacts(what,$item)]]]
@@ -41,8 +41,7 @@ proc bMotion_plugin_complex_get_fact { nick host handle channel text } {
 	return 1
 }
 
-bMotion_abstract_register "get_fact_intros"
-bMotion_abstract_batchadd "get_fact_intros" {
+bMotion_abstract_register "get_fact_intros" {
   "I think I heard that"
   "last time I knew, "
   "it could be that"

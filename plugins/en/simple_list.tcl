@@ -16,13 +16,11 @@ bMotion_plugin_add_simple "list-2" {^\?msg %botnicks ftp} 100 "%VAR{list2}" "en"
 
 
 # abstracts
-bMotion_abstract_register "list1"
-bMotion_abstract_batchadd "list1" {
+bMotion_abstract_register "list1" {
   "No. Try \002/msg NoTopic ftp?? ...\002 instead of saying it in the channel. Sheesh."
 }
 
-bMotion_abstract_register "list2"
-bMotion_abstract_batchadd "list2" {
+bMotion_abstract_register "list2" {
   "Heh, idiot."
   "Fool."
 }

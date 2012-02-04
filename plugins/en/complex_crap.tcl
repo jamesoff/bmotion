@@ -1,7 +1,5 @@
 #
 # vim: fdm=indent fdn=1
-#
-# Altered to new style bMotion_abstract_register/batchadd by Mark Sangster
 
 ###############################################################################
 # This is a bMotion plugin
@@ -33,17 +31,15 @@ bMotion_abstract_register "random_crap_main" {
 }
 bMotion_abstract_add_filter "random_crap_main" "\$ruser"
 
-bMotion_abstract_register "random_crap_adj"
-bMotion_abstract_batchadd "random_crap_adj" {
+bMotion_abstract_register "random_crap_adj" {
          "lemon-flavoured"
          "tasty"
 				 "%VAR{colours}"
 				 "delicious"
 				 "yummy"
   }
-  
-bMotion_abstract_register "random_crap_type"
-bMotion_abstract_batchadd "random_crap_type" {
+
+bMotion_abstract_register "random_crap_type" {
          "poop"
          "crap"
          "shit"

@@ -1144,7 +1144,7 @@ bMotion_abstract_add "goodnights" "Don't have a nightmare about %VAR{nightmare}!
 
 bMotion_abstract_add "goodnights" "I hope you have a dream about %VAR{nicemare} %VAR{smiles}"
 
-bMotion_abstract_add "randomStuff" "/daydreams about %VAR{nicemare} %VAR{smiles}" 
+bMotion_abstract_add "randomStuff" "/daydreams about %VAR{nicemare} %VAR{smiles}"
 bMotion_abstract_add "randomStuff" "aw%REPEAT{2:8:w}... look! It's %VAR{nicemare}%|%VAR{smiles}"
 
 # We don't add plugins, so don't complain

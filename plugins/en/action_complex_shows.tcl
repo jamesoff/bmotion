@@ -87,8 +87,7 @@ proc bMotion_plugin_complex_action_shows { nick host handle channel text } {
 
 # abstracts
 
-bMotion_abstract_register "show_amazements"
-bMotion_abstract_batchadd "show_amazements" {
+bMotion_abstract_register "show_amazements" {
   "amazement"
   "astonishment"
   "wonderment"
@@ -97,8 +96,7 @@ bMotion_abstract_batchadd "show_amazements" {
   "surprise"
 }
 
-bMotion_abstract_register "show_whoas"
-bMotion_abstract_batchadd "show_whoas" {
+bMotion_abstract_register "show_whoas" {
   "whoa"
   "wow"
   "wh%REPEAT{3:6:e}"
@@ -107,8 +105,7 @@ bMotion_abstract_batchadd "show_whoas" {
   "hohoho"
 }
 
-bMotion_abstract_register "show_comparisons"
-bMotion_abstract_batchadd "show_comparisons" {
+bMotion_abstract_register "show_comparisons" {
   "bigger"
   "smaller"
   "longer"
@@ -127,8 +124,7 @@ bMotion_abstract_batchadd "show_comparisons" {
   "softer"
 }
 
-bMotion_abstract_register "show_adjectives"
-bMotion_abstract_batchadd "show_adjectives" {
+bMotion_abstract_register "show_adjectives" {
   "shiny"
   "pretty"
   "colourful"
@@ -138,8 +134,7 @@ bMotion_abstract_batchadd "show_adjectives" {
   "perfect"
 }
 
-bMotion_abstract_register "show_generic"
-bMotion_abstract_batchadd "show_generic" {
+bMotion_abstract_register "show_generic" {
   "/gasps in %VAR{show_amazements}"
   "%VAR{show_whoas}%colen"
   "%VAR{show_whoas}.. that's %VAR{show_comparisons} than %VAR{sillyThings}!"

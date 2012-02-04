@@ -43,5 +43,4 @@ proc bMotion_plugin_complex_eitheror {nick host handle channel text} {
   return 0
 }
 
-bMotion_abstract_register "eitherors"
-bMotion_abstract_batchadd "eitherors" [list "%%: %2" "/thinks%|%%: %2" "/ponders%|%%: %2" "/flips a coin%|%%: %2" "%%: %2%|Or you could just use a placebo" "%%: none of the above" "%%: actually, i think it's %VAR{sillyThings}"]
+bMotion_abstract_register "eitherors" [list "%%: %2" "/thinks%|%%: %2" "/ponders%|%%: %2" "/flips a coin%|%%: %2" "%%: %2%|Or you could just use a placebo" "%%: none of the above" "%%: actually, i think it's %VAR{sillyThings}"]

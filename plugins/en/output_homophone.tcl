@@ -30,38 +30,38 @@ proc bMotion_plugin_output_homophone { channel line } {
 
   foreach word $words {
     if {[bMotion_plugin_output_homophone_chance $homophone_rate]} {
-    
+
       bMotion_putloglev 1 * "trying to trigger homophone on $word"
-      
+
       # we might want to replace this word. iterate through all homophone sets.
-      
+
       foreach homSet $homList {
         set homItems [split $homSet ":"]
-        
+
         bMotion_putloglev 1 * "working with $homSet"
-        
+
         set haveReplaced 0
-        
+
         foreach item $homItems {
           # only try to keep replacing things if we haven't done so yet, to avoid cyclical replacements
           if {$haveReplaced == 0} {
             # is it a word we can replace, possibly with some punctuation around it?
             if {[regexp -nocase "^\[\\\,\\\:\\\;\\\.\\\!\\\?\\\-\\\"\\\'\]*($item)\[\\\,\\\:\\\;\\\.\\\!\\\?\\\-\\\"\\\'\]*$" $word fullWord cleanWord]} {
-            
+
               # found a match! replace with a random word from the list
-            
+
               bMotion_putloglev 1 * "$word matches $item, cleanWord is $cleanWord"
-            
+
               set newWord [pickRandom $homItems]
               while { [string equal -nocase $cleanWord $newWord] } {
                 set newWord [pickRandom $homItems]
               }
-            
+
               set haveReplaced 1
-            
+
               # now just change the word and it will be output below
               regsub -all -nocase "\\\w\+" $word $newWord word
-            
+
               bMotion_putloglev 1 * "leaving with $word"
             }
           }

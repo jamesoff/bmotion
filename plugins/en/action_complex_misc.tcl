@@ -13,7 +13,7 @@
 
 bMotion_plugin_add_action_complex "freshens" "^freshens %botnicks" 100 bMotion_plugin_complex_action_freshen "en"
 
-proc bMotion_plugin_complex_action_freshen { nick host handle channel text } {  
+proc bMotion_plugin_complex_action_freshen { nick host handle channel text } {
 	global botnicks
 	if [regexp -nocase "freshens ${botnicks}('s (.+))?" $text matches 1 2 what] {
 		if {$what == ""} {
@@ -41,7 +41,7 @@ bMotion_abstract_register "freshened_thing" {
 
 bMotion_plugin_add_action_complex "fallsout" "^falls out with %botnicks" 100 bMotion_plugin_complex_action_fallsout "en"
 
-proc bMotion_plugin_complex_action_fallsout { nick host handle channel text } {  
+proc bMotion_plugin_complex_action_fallsout { nick host handle channel text } {
 	if [bMotionIsFriend $nick] {
 		bMotionDoAction $channel $nick "%VAR{felloutfriend}"
 		driftFriendship $nick -10

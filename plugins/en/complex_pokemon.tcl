@@ -81,7 +81,7 @@ proc bMotion_plugin_complex_attack { nick host handle channel text } {
       if [string match "*monkey*" $attack] {
         checkPokemon "Damoachu" $channel
         bMotionDoAction $channel $nick "Damoa...chu!"
-        if {$who == ""} { 
+        if {$who == ""} {
           bMotionDoAction $channel $nick "*monkey* *monkey* *monkey* *squirtle*"
         } else {
           bMotionDoAction $channel $who  "*monkey* *monkey* *monkey* *squitle at %%*"

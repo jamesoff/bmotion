@@ -10,7 +10,7 @@
 ###############################################################################
 
 
-proc bMotion_plugins_irc_default_quit { nick host handle channel text } { 
+proc bMotion_plugins_irc_default_quit { nick host handle channel text } {
 
 	#has something happened since we last spoke?
 	set lasttalk [bMotion_plugins_settings_get "system:join" "lasttalk" $channel ""]
@@ -71,8 +71,6 @@ proc bMotion_plugins_irc_default_quit { nick host handle channel text } {
 bMotion_plugin_add_irc_event "default quit" "quit" ".*" 15 "bMotion_plugins_irc_default_quit" "en"
 bMotion_plugin_add_irc_event "default part" "part" ".*" 15 "bMotion_plugins_irc_default_quit" "en"
 
-bMotion_abstract_register "departs-nice"
-bMotion_abstract_batchadd "departs-nice" [list "bye %%" "i like them %VAR{smiles}" "i wish they didn't have to go %VAR{unsmiles}" "mmm %%"]
+bMotion_abstract_register "departs-nice" [list "bye %%" "i like them %VAR{smiles}" "i wish they didn't have to go %VAR{unsmiles}" "mmm %%"]
 
-bMotion_abstract_register "departs-nasty"
-bMotion_abstract_batchadd "departs-nasty" [list "bye sucker" "i don't like them" "i hope they don't come back" "%%: AND DON'T COME BACK!" "See You Next Tuesday, %%!" "%%: don't let the door hit your ass on the way out%|because I don't want ass-prints on my new door!" "what a %VAR{insults} %VAR{unsmiles}"]
+bMotion_abstract_register "departs-nasty" [list "bye sucker" "i don't like them" "i hope they don't come back" "%%: AND DON'T COME BACK!" "See You Next Tuesday, %%!" "%%: don't let the door hit your ass on the way out%|because I don't want ass-prints on my new door!" "what a %VAR{insults} %VAR{unsmiles}"]

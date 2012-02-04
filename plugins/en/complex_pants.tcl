@@ -31,8 +31,7 @@ proc bMotion_plugin_complex_hate_pants { nick host handle channel text } {
 	}
 }
 
-bMotion_abstract_register "hateitem"
-bMotion_abstract_batchadd "hateitem" {
+bMotion_abstract_register "hateitem" {
   "so, i hate your %% too"
   "yeah me too, %ruser gave them to me and i've never liked them"
   "what are you trying to say?"

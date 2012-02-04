@@ -24,8 +24,7 @@ proc bMotion_plugin_complex_sport { nick host handle channel text } {
   }
 }
 
-bMotion_abstract_register "sport_superadjectives"
-bMotion_abstract_batchadd "sport_superadjectives" {
+bMotion_abstract_register "sport_superadjectives" {
   "extreme"
   "super"
   "ultra"
@@ -64,8 +63,7 @@ bMotion_abstract_batchadd "sport_superadjectives" {
 	"boring"
 }
 
-bMotion_abstract_register "sport_adjectives"
-bMotion_abstract_batchadd "sport_adjectives" {
+bMotion_abstract_register "sport_adjectives" {
   "downhill"
   "uphill"
   "sideways"
@@ -101,8 +99,7 @@ bMotion_abstract_batchadd "sport_adjectives" {
   "thimble"
 }
 
-bMotion_abstract_register "sport_sports"
-bMotion_abstract_batchadd "sport_sports" {
+bMotion_abstract_register "sport_sports" {
 	"archery"
 	"athletics"
 	"badminton"
@@ -190,8 +187,7 @@ bMotion_abstract_batchadd "sport_sports" {
   "circus"
 }
 
-bMotion_abstract_register "sport_adult_superadjectives_t"
-bMotion_abstract_batchadd "sport_adult_superadjectives_t" {
+bMotion_abstract_register "sport_adult_superadjectives_t" {
   "nude"
   "horny"
   "sticky"
@@ -200,8 +196,7 @@ bMotion_abstract_batchadd "sport_adult_superadjectives_t" {
   "animated"
 }
 
-bMotion_abstract_register "sport_adult_adjectives_t"
-bMotion_abstract_batchadd "sport_adult_adjectives_t" {
+bMotion_abstract_register "sport_adult_adjectives_t" {
   "bent"
   "%ruser"
   "facial"
@@ -218,8 +213,7 @@ bMotion_abstract_batchadd "sport_adult_adjectives_t" {
   "paedophile"
 }
 
-bMotion_abstract_register "sport_adult_sports_t"
-bMotion_abstract_batchadd "sport_adult_sports_t" {
+bMotion_abstract_register "sport_adult_sports_t" {
   "chicken fancying"
 	"vomiting"
   "horthy riding (wahey)"
@@ -235,20 +229,17 @@ bMotion_abstract_batchadd "sport_adult_sports_t" {
 }
 
 #create the big lists :)
-bMotion_abstract_register "sport_adult_superadjectives"
-bMotion_abstract_batchadd "sport_adult_superadjectives" {
+bMotion_abstract_register "sport_adult_superadjectives" {
   "%VAR{sport_adjectives}"
   "%VAR{sport_adult_superadjectives_t}"
 	"%VAR{scrap_adult_adjectives_t}"
 }
-bMotion_abstract_register "sport_adult_adjectives"
-bMotion_abstract_batchadd "sport_adult_adjectives" {
+bMotion_abstract_register "sport_adult_adjectives" {
   "%VAR{sport_adjectives}"
   "%VAR{sport_adult_adjectives_t}"
 	"%VAR{scrap_adult_construction_t}"
 }
-bMotion_abstract_register "sport_adult_sports"
-bMotion_abstract_batchadd "sport_adult_sports" {
+bMotion_abstract_register "sport_adult_sports" {
   "%VAR{sport_sports}"
   "%VAR{sport_adult_sports_t}"
 }

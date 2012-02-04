@@ -1,6 +1,6 @@
 # vim: fdm=indent fdn=1
 #
- 
+
 ###############################################################################
 # This is a bMotion plugin
 # Copyright (C) James Michael Seward 2000-2009
@@ -76,7 +76,7 @@ proc bMotion_plugin_output_VAR { channel line } {
 			if [catch {
 				set var [subst $$abstract]
 				set replacement [pickRandom $var]
-			}] { 
+			}] {
 				bMotion_putloglev d * "Unable to handle %VAR{$abstract}"
 				return ""
 			}
@@ -101,7 +101,7 @@ proc bMotion_plugin_output_VAR { channel line } {
 							}
 							set prefix [pickRandom $prefixes]
 							set replacement "$prefix$replacement"
-						} 
+						}
 						1 {
 							regsub "((an?|the|some|his|her|their) )?" $replacement "\\1%VAR{noun_prefix} " replacement
 							set replacement [string trim $replacement]

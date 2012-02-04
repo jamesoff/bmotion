@@ -60,12 +60,9 @@ proc bMotion_plugin_complex_knock2 { nick host handle channel text } {
 		return 1
 	}
 }
-bMotion_abstract_register "knock1"
-bMotion_abstract_batchadd "knock1" [list "%%: Who's there?" "who's there?"]
+bMotion_abstract_register "knock1" [list "%%: Who's there?" "who's there?"]
 
-bMotion_abstract_register "knock2"
-bMotion_abstract_batchadd "knock2" [list "%% who?"]
+bMotion_abstract_register "knock2" [list "%% who?"]
 
-bMotion_abstract_register "knock3"
-bMotion_abstract_batchadd "knock3" [list "%REPEAT{3:10:ha}" "%REPEAT{3:10:ha}%|I don't get it." "..." "?" "lol" "what" "%VAR{smiles}"]
+bMotion_abstract_register "knock3" [list "%REPEAT{3:10:ha}" "%REPEAT{3:10:ha}%|I don't get it." "..." "?" "lol" "what" "%VAR{smiles}"]
 

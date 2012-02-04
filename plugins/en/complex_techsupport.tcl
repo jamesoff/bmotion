@@ -23,8 +23,7 @@ bMotion_plugin_add_complex "techsup" "^!techsupport$" 100 bMotion_plugin_complex
 
 # abstracts
 
-bMotion_abstract_register "tech_software"
-bMotion_abstract_batchadd "tech_software" {
+bMotion_abstract_register "tech_software" {
   "windows"
   "xml spy"
   "installshield"
@@ -37,16 +36,14 @@ bMotion_abstract_batchadd "tech_software" {
   "the internet"
 }
 
-bMotion_abstract_register "tech_answer"
-bMotion_abstract_batchadd "tech_answer" {
+bMotion_abstract_register "tech_answer" {
   "I just bought %VAR{tech_software} and I can't get it to %VAR{tech_problem}, I've tried %VAR{tech_tries} and it still won't work"
   "I've just got %VAR{tech_software}, and it won't %VAR{tech_problem}. I've tried everything including %VAR{tech_tries} but nothing helps"
   "I hear you do books by %VAR{answerWhos}, can you sell me one?"
   "I need a bit of software to %VAR{tech_functions} %VAR{sillyThings}"
 }
 
-bMotion_abstract_register "tech_problem"
-bMotion_abstract_batchadd "tech_problem" {
+bMotion_abstract_register "tech_problem" {
   "install"
   "work"
   "stop being purple"
@@ -58,8 +55,7 @@ bMotion_abstract_batchadd "tech_problem" {
   "connect"
 }
 
-bMotion_abstract_register "tech_tries"
-bMotion_abstract_batchadd "tech_tries" {
+bMotion_abstract_register "tech_tries" {
   "sacrificing my boss"
   "reinstalling it"
   "going to a voodoo witch doctor"
@@ -71,8 +67,7 @@ bMotion_abstract_batchadd "tech_tries" {
   "rebooting"
 }
 
-bMotion_abstract_register "tech_functions"
-bMotion_abstract_batchadd "tech_functions" {
+bMotion_abstract_register "tech_functions" {
   "virus-scan"
   "validate"
   "manage"

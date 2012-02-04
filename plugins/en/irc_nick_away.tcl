@@ -57,9 +57,9 @@ proc bMotion_plugins_nick_returned { nick host handle channel newnick } {
   #save as newnick because if they do a /me next it'll be their new nick
   bMotion_plugins_settings_set "complex:returned" "lastnick" $channel "" $newnick
 
-  if {[regexp -nocase "(away|sleep|gone|afk|zzz+|bed|slaap|w(0|e|3|o)rk|school)" $nick] && 
+  if {[regexp -nocase "(away|sleep|gone|afk|zzz+|bed|slaap|w(0|e|3|o)rk|school)" $nick] &&
        ![regexp -nocase "(away|sleep|gone|afk|slaap|w(0|e|3|o)rk|school)" $newnick]} {
-    
+
     bMotion_plugins_settings_set "system" "lastdonefor" $channel "" $nick
     bMotion_plugins_settings_set "system:join" "lastgreeted" $channel "" $newnick
 

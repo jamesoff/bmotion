@@ -19,7 +19,7 @@ proc bMotion_plugin_complex_snap { nick host handle channel text } {
     }
 
     set ctime [clock seconds]
-    
+
     if {
         ($text == [bMotion_plugins_settings_get "complex:snap" $channel "" "text"]) &&
         ($nick != [bMotion_plugins_settings_get "complex:snap" $channel "" "nick"]) &&

@@ -29,8 +29,7 @@ proc bMotion_plugin_complex_activate { nick host handle channel text } {
   }
 }
 
-bMotion_abstract_register "activateses"
-bMotion_abstract_batchadd "activateses" {
+bMotion_abstract_register "activateses" {
   "/increases power to %%"
   "/brings %% online"
   "%% engaged%colen"

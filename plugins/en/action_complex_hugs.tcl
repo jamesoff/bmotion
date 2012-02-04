@@ -13,7 +13,7 @@
 
 bMotion_plugin_add_action_complex "hugs" "^(hugs|snuggles|huggles|knuffelt) %botnicks" 100 bMotion_plugin_complex_action_hugs "en"
 
-proc bMotion_plugin_complex_action_hugs { nick host handle channel text } {  
+proc bMotion_plugin_complex_action_hugs { nick host handle channel text } {
   bMotionGetUnLonely
   bMotionGetHappy
   if [bMotionLike $nick $host] {

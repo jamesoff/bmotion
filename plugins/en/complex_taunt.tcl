@@ -48,8 +48,7 @@ proc bMotion_plugin_complex_taunt {nick host handle channel text} {
 }
 
 ### and our abstracts...
-bMotion_abstract_register "randomTauntPrefixes"
-bMotion_abstract_batchadd "randomTauntPrefixes" {
+bMotion_abstract_register "randomTauntPrefixes" {
   "idiot"
   "stupid"
   "minging"
@@ -75,8 +74,7 @@ bMotion_abstract_batchadd "randomTauntPrefixes" {
   "lemon-flavoured"
 }
 
-bMotion_abstract_register "randomTauntSuffixes"
-bMotion_abstract_batchadd "randomTauntSuffixes" {
+bMotion_abstract_register "randomTauntSuffixes" {
   "fool"
   "idiot"
   "buffoon"

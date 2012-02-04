@@ -23,7 +23,7 @@ proc bMotion_plugin_output_ebonics { channel line } {
   foreach word $words {
 		if [regexp -nocase {^([aeiou]?[^aeiou]+[aeiou])\w{2,}$} $word matches first] {
 			set word "${first}zzle"
-		} 
+		}
 
 		set word [string map -nocase {for fo} $word]
 

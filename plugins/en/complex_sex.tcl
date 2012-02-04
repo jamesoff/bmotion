@@ -16,8 +16,8 @@ bMotion_plugin_add_complex "sex-oral2" "^%botnicks eat (.+) out" 100 "bMotion_pl
 
 proc bMotion_plugin_complex_sex_go_down_on { nick host handle channel text } {
   global botnicks
-  if [regexp -nocase "${botnicks}:?,? (please)?go down on (.+)" $text ming ming1 ming2 details] {    
-    bMotionGoDownOn $channel $details $nick    
+  if [regexp -nocase "${botnicks}:?,? (please)?go down on (.+)" $text ming ming1 ming2 details] {
+    bMotionGoDownOn $channel $details $nick
     return 1
   }
 }
@@ -33,10 +33,10 @@ proc bMotion_plugin_complex_sex_go_down_on_2 { nick host handle channel text } {
 ## supporting functions
 
 proc bMotionGoDownOn {channel nick forNick} {
-    global mood botnick 
+    global mood botnick
     regsub {^([^ ]+)( .+)?} $nick {\1} nick
     bMotion_putloglev d * "bMotion: Was asked to go down on '$nick' in $channel by $forNick"
-    if {[regexp -nocase "(himself|herself|your?self)" $nick] || [isbotnick $nick]} { 
+    if {[regexp -nocase "(himself|herself|your?self)" $nick] || [isbotnick $nick]} {
       bMotionDoAction $channel "" "No. (ERR_EXCESS_RIBS)"
       return 0
     }

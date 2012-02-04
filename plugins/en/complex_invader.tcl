@@ -81,8 +81,7 @@ proc bMotion_plugin_complex_invader_nick { nick host handle channel newnick } {
 # end bMotion_plugin_complex_invader_nick
 
 # random zimlike phrases
-bMotion_abstract_register "randomZimness"
-bMotion_abstract_batchadd "randomZimness" {
+bMotion_abstract_register "randomZimness" {
 	"yes, my tallest!"
 	"how can you have an operation impending doom 2 without me?"
 	"doom. doooom."
@@ -181,9 +180,6 @@ bMotion_abstract_batchadd "randomZimness" {
 	"the taste of human annihilation grows stronger in my amazing head"
 	"people of earth! prepare to meet the mighty foot of my planet"
 	"well... yes... i'm an unstoppable death machine"
-	}
-
-bMotion_abstract_batchadd "randomZimness" {
 	"i congratulate you in recognising my superiority and choosing me to be your love pig!"
 	"your magical love adventure begins now"
 	"now cry... CRY like you've never cried...... before"
@@ -224,8 +220,7 @@ bMotion_abstract_batchadd "randomZimness" {
 }
 
 # random girlike phrases
-bMotion_abstract_register "randomGirness"
-bMotion_abstract_batchadd "randomGirness" {
+bMotion_abstract_register "randomGirness" {
 	"i don't know... weee hoo hoo hoo!"
 	"I'm gonna sing the doom song now... dooom doom doom"
 	"that's my favourite show"
@@ -290,8 +285,7 @@ bMotion_abstract_batchadd "randomGirness" {
 }
 
 # random "duty" responses... inevitable Gir
-bMotion_abstract_register "randomDootie"
-bMotion_abstract_batchadd "randomDootie" {
+bMotion_abstract_register "randomDootie" {
 	"dootie %VAR{smiles}"
 	"doootie dootie dooootie dootie"
 	"i like dootie"
@@ -303,8 +297,7 @@ bMotion_abstract_batchadd "randomDootie" {
 }
 
 # random zim/gir name change responses
-bMotion_abstract_register "randomZimNameChange"
-bMotion_abstract_batchadd "randomZimNameChange" {
+bMotion_abstract_register "randomZimNameChange" {
 	"master, where did you go? I can't see you"
 	"master?"
 	"where'd my moose go?"
@@ -325,4 +318,3 @@ bMotion_plugin_add_complex "invader(gir)" "w(h)?oo+|chicken|gir(!+| )|doo+m|pigg
 
 # nick change response
 bMotion_plugin_add_irc_event "invader(nick)" "nick" ".*" 5 "bMotion_plugin_complex_invader_nick" "en"
-

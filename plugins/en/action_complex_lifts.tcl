@@ -29,8 +29,7 @@ proc bMotion_plugin_complex_action_lifts { nick host handle channel text } {
 	return 1
 }
 
-bMotion_abstract_register "nolift_channel_response"
-bMotion_abstract_batchadd "nolift_channel_response" {
+bMotion_abstract_register "nolift_channel_response" {
 	"hmmmph %SMILEY{sad}"
 	"OI! Don't do that"
 	"Stop that right now!"
@@ -38,8 +37,7 @@ bMotion_abstract_batchadd "nolift_channel_response" {
 	"%%: stop bothering me"
 }
 
-bMotion_abstract_register "lift_channel_response"
-bMotion_abstract_batchadd "lift_channel_response" {
+bMotion_abstract_register "lift_channel_response" {
 	"Weeeeeeeeeeeeeeeeeeeee, do that again!"
 	"Ooo aren't we strong"
 	"ATTENTION PLEASE: %% is touching my bum!"

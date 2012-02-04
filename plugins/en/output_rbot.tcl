@@ -1,6 +1,6 @@
 # vim: fdm=indent fdn=1
 #
- 
+
 ###############################################################################
 # This is a bMotion plugin
 # Copyright (C) James Michael Seward 2000-2009

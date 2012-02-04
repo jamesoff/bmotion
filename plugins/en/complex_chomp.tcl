@@ -12,7 +12,7 @@
 
 bMotion_plugin_add_complex "chomp" "^%botnicks,?:? ?(please )?chomp" 100 bMotion_plugin_complex_chomp "en"
 
-proc bMotion_plugin_complex_chomp { nick host handle channel text } {  
+proc bMotion_plugin_complex_chomp { nick host handle channel text } {
   global botnicks
   if [regexp -nocase "^$botnicks,?:? ?(please )?chomp (.+)" $text matches ming ming2 who] {
     global bMotionInfo

@@ -1,7 +1,7 @@
 #
 #
 # vim: fdm=indent fdn=1
- 
+
 ###############################################################################
 # This is a bMotion plugin
 # Copyright (C) James Michael Seward 2000-2008
@@ -26,8 +26,7 @@ proc bMotion_plugin_complex_readings { nick host handle channel text } {
   }
 }
 
-bMotion_abstract_register "readings_scan"
-bMotion_abstract_batchadd "readings_scan" {
+bMotion_abstract_register "readings_scan" {
   "/scans %%"
   "/analyses %%"
   "/checks %%"
@@ -35,8 +34,7 @@ bMotion_abstract_batchadd "readings_scan" {
   "/looks at %ruser"
 }
 
-bMotion_abstract_register "readings_result"
-bMotion_abstract_batchadd "readings_result" {
+bMotion_abstract_register "readings_result" {
   "%%: That reads as %NUMBER{10000} %VAR{units}."
   "%SETTING{complex:readings:reading:reading:_} levels of %NUMBER{101} percent detected."
 }

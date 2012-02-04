@@ -15,15 +15,14 @@ bMotion_plugin_add_action_complex "light" "^(lights?|sets fire to) %botnicks" 10
 
 bMotion_plugin_add_action_complex "light2" "^sets %botnicks (alight|on fire)" 100 bMotion_plugin_complex_action_light "en"
 
-proc bMotion_plugin_complex_action_light { nick host handle channel text } {  
+proc bMotion_plugin_complex_action_light { nick host handle channel text } {
   bMotionDoAction $channel $nick "%VAR{burns}"
   bMotionGetUnLonely
   driftFriendship $nick -1
   return 1
 }
 
-bMotion_abstract_register "burns"
-bMotion_abstract_batchadd "burns" {
+bMotion_abstract_register "burns" {
   "/burns%|%bot[50,¬VAR{extinguishes}]"
   "*flames*%|%bot[50,¬VAR{extinguishes}]"
   "B%REPEAT{2:5:O}M"
@@ -39,8 +38,7 @@ bMotion_abstract_batchadd "burns" {
   "/informs the world 'It's time to burn'"
 }
 
-bMotion_abstract_register "extinguishes"
-bMotion_abstract_batchadd "extinguishes" {
+bMotion_abstract_register "extinguishes" {
   "/puts %% out"
   "/pours water on %%"
   "/wraps %% in a fire blanket"

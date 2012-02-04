@@ -62,25 +62,24 @@ proc bMotion_plugin_complex_summon { nick host handle channel text } {
 				#set msg [pickRandom $summon_privmsg_response]
 				set msg [bMotionDoInterpolation "%VAR{summon_privmsg_response}" $nick ""]
 				# replacements (TODO: may not be needed after doInterpolation)
-				regsub "%channel" $msg $channel msg 
+				regsub "%channel" $msg $channel msg
 				regsub "%%" $msg $nick msg
 				# notify
 				puthelp "PRIVMSG $name :$msg"
 			}
 			return 1
 		}
-	} 
+	}
 	bMotion_putloglev d * "bMotion: (summon) $nick doesn't know what they're doing"
 	# poke fun at the idiot
 	bMotionDoAction $channel $nick "%VAR{summon_channel_idiot}"
-	return 1 
+	return 1
 }
 
 # register the summon callback
 bMotion_plugin_add_complex "summon" "^!summon" 100 "bMotion_plugin_complex_summon" "en"
 
-bMotion_abstract_register "summon_channel_response_notthere"
-bMotion_abstract_batchadd "summon_channel_response_notthere" {
+bMotion_abstract_register "summon_channel_response_notthere" {
 	"yoooo hooooo! %%!"
 	"hello there, %%?"
 	"how should I know where %% is?"
@@ -90,8 +89,7 @@ bMotion_abstract_batchadd "summon_channel_response_notthere" {
 	"/searches all over the channel for %%"
 }
 
-bMotion_abstract_register "summon_channel_response"
-bMotion_abstract_batchadd "summon_channel_response" {
+bMotion_abstract_register "summon_channel_response" {
 	"/prods at %% with %VAR{sillyThings}"
 	"through my awesome powers of telepathy, I shall summon %%!!"
 	"/uses a smoke signal to get %%'s attention"
@@ -102,8 +100,7 @@ bMotion_abstract_batchadd "summon_channel_response" {
 }
 bMotion_abstract_add_filter "summon_channel_response" "%noun"
 
-bMotion_abstract_register "summon_privmsg_response"
-bMotion_abstract_batchadd "summon_privmsg_response" {
+bMotion_abstract_register "summon_privmsg_response" {
 	"FYI: %% was looking for you on %channel"
 	"just so you know %% was asking about you on %channel"
 	"%% was too lazy to message you from %channel themselves so I had to"
@@ -113,8 +110,7 @@ bMotion_abstract_batchadd "summon_privmsg_response" {
 }
 bMotion_abstract_add_filter "summon_privmsg_response" "%chan(?!nel)"
 
-bMotion_abstract_register "summon_channel_idiot"
-bMotion_abstract_batchadd "summon_channel_idiot" {
+bMotion_abstract_register "summon_channel_idiot" {
 	"ANNOUNCEMENT: %% is an idiot. That is all."
 	"Pay no attention to %%, the village idiot."
 	"oOoOooOO very good %%... now who are you looking for?"
@@ -126,8 +122,7 @@ bMotion_abstract_batchadd "summon_channel_idiot" {
 	"it's not your fault, %%, you must have walked into a door"
 }
 
-bMotion_abstract_register "summon_bot"
-bMotion_abstract_batchadd "summon_bot" {
+bMotion_abstract_register "summon_bot" {
 	"oh! here i am!"
 	"sup"
 	"hello, yes?"

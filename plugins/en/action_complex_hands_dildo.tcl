@@ -45,7 +45,7 @@ proc bMotion_plugin_complex_action_hands_dildo { channel nick item item2 } {
       return 0
     }
 
-    #play with it 
+    #play with it
     #TODO: Rationalise this!
     if {$got(dildo,count) == 1} {
       set got(dildo,count) 2
@@ -58,7 +58,7 @@ proc bMotion_plugin_complex_action_hands_dildo { channel nick item item2 } {
     #> with it.
 
     if {[bMotionGetGender $nick $host] == "male"} {
-      #-- hander is male          
+      #-- hander is male
       if [string match -nocase "*flute*" $item] {
         bMotionDoAction $channel $item "%VAR{dildoFlutePlays}" $nick
         set useTimer 1
@@ -128,7 +128,7 @@ proc bMotion_plugin_complex_action_hands_dildo { channel nick item item2 } {
         bMotionDoAction $channel $nick "/discards the $item"
         return 0
       } else {
-        bMotionDoAction $channel $nick "%VAR{dildoMaleMale}" $item            
+        bMotionDoAction $channel $nick "%VAR{dildoMaleMale}" $item
         #take turns
         set useTimer 1
         set style "m_swap"
@@ -148,8 +148,8 @@ proc bMotion_plugin_complex_action_hands_dildo { channel nick item item2 } {
         bMotionDoAction $channel $nick "%VAR{dildoMalePlays}" $item
         set useTimer 1
         set style "normal"
-      }          
-    } 
+      }
+    }
     #male bot, female hander
     bMotion_putloglev 1 * "bMotion: dildo (male) timer starting"
     if {$useTimer == 1} {

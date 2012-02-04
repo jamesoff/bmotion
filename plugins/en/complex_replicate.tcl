@@ -20,7 +20,7 @@ proc bMotion_plugin_complex_replicate { nick host handle channel text } {
   regexp -nocase "^${botnicks}:?,? (please )?(replicate|create|send|make|turn) (.+)" $text matches bot please action details
 
 	#make it so
-	if [regexp -nocase "^it so$" $details] { 
+	if [regexp -nocase "^it so$" $details] {
 		bMotionDoAction $channel $nick "/makes it so for %%"
 		bMotion_plugins_settings_set "system" "lastdonefor" $channel "" $nick
 		return 1

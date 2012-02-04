@@ -28,5 +28,4 @@ proc bMotion_plugin_complex_action_waves { nick host handle channel text } {
   return 1
 }
 
-bMotion_abstract_register "waveTooMuch"
-bMotion_abstract_batchadd "waveTooMuch" [list "What." "Are you practicing to be the Queen or something?" "..."]
+bMotion_abstract_register "waveTooMuch" [list "What." "Are you practicing to be the Queen or something?" "..."]

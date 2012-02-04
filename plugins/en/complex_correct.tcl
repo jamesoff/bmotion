@@ -23,8 +23,7 @@ proc bMotion_plugin_complex_correct { nick host handle channel text } {
   }
 }
 
-bMotion_abstract_register "shouldhaves"
-bMotion_abstract_batchadd "shouldhaves" {
+bMotion_abstract_register "shouldhaves" {
   "\"%% have\" %VAR{smiles}"
   "%% what?"
   "%% HAVE, %% HAVE"

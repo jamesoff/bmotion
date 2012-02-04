@@ -66,7 +66,7 @@ proc bMotion_plugin_complex_action_hands { nick host handle channel text } {
 				bMotion_plugin_complex_action_hands_dildo $channel $nick $item $item2
 			}
 			return 1
-		} 
+		}
 		#end of "hands dildo"
 
 		#catch everything else
@@ -119,7 +119,7 @@ proc bMotion_plugin_complex_action_hands { nick host handle channel text } {
 			bMotion_abstract_add "_bmotion_like" $item
 		}
 		return 1
-	} 
+	}
 	#end of "hands" handler
 }
 

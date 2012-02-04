@@ -51,7 +51,7 @@ proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
 		bMotionGetHappy
 		bMotionGetHorny
 		driftFriendship $nick 10
-	} 
+	}
 
 
 	if [regexp "(look|stare|eye|frown)s?" $verb] {
@@ -130,30 +130,22 @@ proc bMotion_plugin_complex_action_verb_catch { nick host handle channel text } 
 	return 0
 }
 
-bMotion_abstract_register "failsafe_nice"
-bMotion_abstract_batchadd "failsafe_nice" [list "mmm" "%VAR{smiles}" "%VAR{smiles}%|/gives %% %VAR{sillyThings}" "i do love a good %2ing"]
+bMotion_abstract_register "failsafe_nice" [list "mmm" "%VAR{smiles}" "%VAR{smiles}%|/gives %% %VAR{sillyThings}" "i do love a good %2ing"]
 
 
-bMotion_abstract_register "failsafes_a"
-bMotion_abstract_batchadd "failsafes_a" [list "%VAR{rarrs}" "%REPEAT{3:7:m}" "%VAR{thanks}" "what" "/loves it" "/passes it on to %ruser" "/. o O ( ? )" "i do love a good %%ing"]
+bMotion_abstract_register "failsafes_a" [list "%VAR{rarrs}" "%REPEAT{3:7:m}" "%VAR{thanks}" "what" "/loves it" "/passes it on to %ruser" "/. o O ( ? )" "i do love a good %%ing"]
 
-bMotion_abstract_register "failsafes_b"
-bMotion_abstract_batchadd "failsafes_b" [list "/%% %2 %SETTING{complex:failsafe:last:nick:moo} back with %VAR{sillyThings}" "/%% %2 %SETTING{complex:failsafe:last:nick:moo}" "/%VAR{sillyThings:verb,strip} %2 %SETTING{complex:failsafe:last:nick:moo} in the %VAR{bodypart:bothmixin}" "/%VAR{sillyThings:verb,strip} %2 %SETTING{complex:failsafe:last:nick:moo} in return" "i do love a good %%ing"]
+bMotion_abstract_register "failsafes_b" [list "/%% %2 %SETTING{complex:failsafe:last:nick:moo} back with %VAR{sillyThings}" "/%% %2 %SETTING{complex:failsafe:last:nick:moo}" "/%VAR{sillyThings:verb,strip} %2 %SETTING{complex:failsafe:last:nick:moo} in the %VAR{bodypart:bothmixin}" "/%VAR{sillyThings:verb,strip} %2 %SETTING{complex:failsafe:last:nick:moo} in return" "i do love a good %%ing"]
 bMotion_abstract_add_filter "failsafes_b" "%VERB"
 
-bMotion_abstract_register "squeezeds"
-bMotion_abstract_batchadd "squeezeds" [list "/pops" "/bursts" "/is compressed to a singularity and sucks in all of spacetime%|whoops" "/deflates" "%VAR{smiles}"]
+bMotion_abstract_register "squeezeds" [list "/pops" "/bursts" "/is compressed to a singularity and sucks in all of spacetime%|whoops" "/deflates" "%VAR{smiles}"]
 
-bMotion_abstract_register "whats"
-bMotion_abstract_batchadd "whats" [list "what?" "hmm?" "hello? yes?" "er... they did it%|/points at %ruser" "/stares back"]
+bMotion_abstract_register "whats" [list "what?" "hmm?" "hello? yes?" "er... they did it%|/points at %ruser" "/stares back"]
 
- bMotion_abstract_register "failsafe_lookback"
- bMotion_abstract_batchadd "failsafe_lookback" [list "/stares at %%" "hello, yes?" "i can still see you..." "/poses" "/bounces away" "%VAR{smiles}" "/looks at %%" ]
- 
-bMotion_abstract_register "failsafe_wtfs"
-bMotion_abstract_batchadd "failsafe_wtfs" [list "%VAR{satOns}" "%VAR{shocked}" ]
+ bMotion_abstract_register "failsafe_lookback" [list "/stares at %%" "hello, yes?" "i can still see you..." "/poses" "/bounces away" "%VAR{smiles}" "/looks at %%" ]
 
-bMotion_abstract_register "failsafe_niceactions"
-bMotion_abstract_batchadd "failsafe_niceactions" [list "wh%REPEAT{3:7:e} %VAR{smiles}" "%VAR{smiles}" "/bounces around" "*drool*" ]
+bMotion_abstract_register "failsafe_wtfs" [list "%VAR{satOns}" "%VAR{shocked}" ]
+
+bMotion_abstract_register "failsafe_niceactions" [list "wh%REPEAT{3:7:e} %VAR{smiles}" "%VAR{smiles}" "/bounces around" "*drool*" ]
 
 bMotion_abstract_register "sillyVerbs"

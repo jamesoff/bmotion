@@ -23,7 +23,6 @@ proc bMotion_plugin_complex_worried { nick host handle channel text } {
   }
 }
 
-bMotion_abstract_register "dontworrys"
-bMotion_abstract_batchadd "dontworrys" {
+bMotion_abstract_register "dontworrys" {
   "Don't you worry about %%. I'll worry about blank."
 }

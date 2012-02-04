@@ -21,8 +21,7 @@ proc bMotion_plugin_complex_wins { nick host handle channel text } {
    return 1
 }
 
-bMotion_abstract_register "wins"
-bMotion_abstract_batchadd "wins" {
+bMotion_abstract_register "wins" {
   "victory for %me%colen"
   "this victory strengthens the soul of %me!"
   "%VAR{harhars}"

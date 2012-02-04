@@ -12,8 +12,7 @@
 
 bMotion_plugin_add_simple "littlebit" "(what, )?not even a little bit" 40 "%VAR{goonthens}" "en"
 
-bMotion_abstract_register "goonthens"
-bMotion_abstract_batchadd "goonthens" {
+bMotion_abstract_register "goonthens" {
   "sssh sekrit"
   "go on then"
   "oh go on then"

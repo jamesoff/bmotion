@@ -80,7 +80,7 @@ proc bMotion_plugin_complex_phonetic_xform { text style } {
 			}
 		} elseif { $letter == " " } {
 			set line "$line "
-		} 
+		}
 	}
 
 	# are we yelling?
@@ -93,7 +93,7 @@ proc bMotion_plugin_complex_phonetic_xform { text style } {
 		set line "/$line"
 	}
 
-	return $line 
+	return $line
 }
 # end bMotion_plugin_complex_phonetic_xform
 
@@ -123,14 +123,14 @@ proc bMotion_plugin_complex_phonetic { nick host handle channel text } {
 
 #  bMotion_plugin_output_asshat procedure
 # make the phonetic asshat plugin a general output filter
-proc bMotion_plugin_output_asshat { channel text } { 
+proc bMotion_plugin_output_asshat { channel text } {
 	return [ bMotion_plugin_complex_phonetic_xform $text 1 ]
 }
 # end bMotion_plugin_output_asshat
 
 #  bMotion_plugin_output_phonetic procedure
 # make the phonetic plugin a general output filter
-proc bMotion_plugin_output_phonetic { channel text } { 
+proc bMotion_plugin_output_phonetic { channel text } {
 	return [ bMotion_plugin_complex_phonetic_xform $text 0 ]
 }
 # end bMotion_plugin_output_phonetic

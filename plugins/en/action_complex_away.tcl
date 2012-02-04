@@ -37,7 +37,7 @@ proc bMotion_plugin_complex_action_away { nick host handle channel text } {
 
   #save as newnick because if they do a /me next it'll be their new nick
   bMotion_plugins_settings_set "complex:away" "lastnick" $channel "" $nick
-  
+
   #autoaway
   if [regexp -nocase "(auto( |-)?away|idle)" $text] {
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{autoAways}"
@@ -74,7 +74,7 @@ proc bMotion_plugin_complex_action_away { nick host handle channel text } {
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{goodlucks}"
     return 1
   }
-    
+
   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{cyas}"
   return 1
 }
@@ -103,7 +103,7 @@ proc bMotion_plugin_complex_action_back { nick host handle channel text } {
   }
 
   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{welcomeBacks}"
-  
+
 	bMotion_plugins_settings_set "system:join" "lastgreeted" $channel "" $nick
   return 1
 }

@@ -14,8 +14,7 @@ bMotion_plugin_add_simple "notbot" "%botnicks('s| is) a bot" 60 "%VAR{notbots}" 
 
 bMotion_plugin_add_simple "arebot" "((is %botnicks a bot)|(are you a bot,? %botnicks)|(^%botnicks%:? are you a bot))" 60 "%VAR{nos}" "en"
 
-bMotion_abstract_register "notbots"
-bMotion_abstract_batchadd "notbots" {
+bMotion_abstract_register "notbots" {
   "no I'm not"
   "am not %SMILEY{sad}"
   "am not"

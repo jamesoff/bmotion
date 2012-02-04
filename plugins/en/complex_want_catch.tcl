@@ -37,7 +37,7 @@ proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
 proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
 	global botnicks
   if [regexp -nocase {^mm+[,.]* (.+)} $text matches item] {
-    
+
 		if {![bMotion_filter_sillyThings $item]} {
 			return 0
 		}
@@ -46,7 +46,7 @@ proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
     	bMotionDoAction $channel "" "%VAR{wins}"
     	return 1
     }
-    
+
     bMotion_abstract_add "sillyThings" $item
 	
 		if {[rand 100] > 95} {
@@ -60,7 +60,7 @@ proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
 proc bMotion_plugin_complex_plusplus_catcher { nick host handle channel text } {
 	global botnicks
   if [regexp -nocase {^(.+)\+{2}$} $text matches item] {
-    
+
 		if {![bMotion_filter_sillyThings $item]} {
 			return 0
 		}
@@ -70,7 +70,7 @@ proc bMotion_plugin_complex_plusplus_catcher { nick host handle channel text } {
     	bMotionDoAction $channel "" "%VAR{wins}"
     	return 1
     }
-    
+
     bMotion_abstract_add "sillyThings" $item
 	
 		if {[rand 100] > 95} {
@@ -133,8 +133,6 @@ proc bMotion_plugin_complex_noun_catcher { nick host handle channel text } {
   }
 }
 
-bMotion_abstract_register "gotone"
-bMotion_abstract_batchadd "gotone" [list "I've already got one%|%BOT\[are you sure?\]%|yes yes, it's very nice" "I already have one of those." "I had one of them the other week. They're very nice, aren't they?" "r"]
+bMotion_abstract_register "gotone" [list "I've already got one%|%BOT\[are you sure?\]%|yes yes, it's very nice" "I already have one of those." "I had one of them the other week. They're very nice, aren't they?" "r"]
 
-bMotion_abstract_register "betters"
-bMotion_abstract_batchadd "betters" [list "mm%REPEAT{1:5:m}, %VAR{sillyThings:strip}" "%VAR{sillyThings:strip} > %%" "%% < %VAR{sillyThings:strip}" "%%++"]
+bMotion_abstract_register "betters" [list "mm%REPEAT{1:5:m}, %VAR{sillyThings:strip}" "%VAR{sillyThings:strip} > %%" "%% < %VAR{sillyThings:strip}" "%%++"]

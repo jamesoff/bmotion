@@ -11,7 +11,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_output "censor" bMotion_plugin_output_censor 0 "en" 90 
+bMotion_plugin_add_output "censor" bMotion_plugin_output_censor 0 "en" 90
 
 proc bMotion_plugin_output_censor { channel line } {
 	set replacement_list [split [bMotion_setting_get "censorwords"] " "]

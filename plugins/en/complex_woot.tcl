@@ -20,8 +20,7 @@ proc bMotion_plugin_complex_woot { nick host handle channel text } {
   }
 }
 
-bMotion_abstract_register "woots"
-bMotion_abstract_batchadd "woots" {
+bMotion_abstract_register "woots" {
   "i like %%"
   "\\o/"
   "%REPEAT{3:7} %%"

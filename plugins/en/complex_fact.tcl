@@ -29,7 +29,7 @@ proc bMotion_plugin_complex_fact { nick host handle channel text } {
 	if [string match "*answer was*" $text] {
 		return 0
 	}
-  
+
   if {[string range $text end end] == "?"} { return 0 }
   if [regexp -nocase {\m([^ !"]+)[!" ]+(is|was|==?|am) ?([a-z0-9 '_/-]+)} $text matches item blah fact] {
     set item [string tolower $item]

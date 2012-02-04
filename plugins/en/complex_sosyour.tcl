@@ -32,6 +32,5 @@ proc bMotion_plugin_complex_sosyour {nick host handle channel text} {
 	return 0
 }
 
-bMotion_abstract_register "sosyours"
-bMotion_abstract_batchadd "sosyours" [list "so's your face" "you're %2"]
+bMotion_abstract_register "sosyours" [list "so's your face" "you're %2"]
 

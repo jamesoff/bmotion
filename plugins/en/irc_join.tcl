@@ -10,7 +10,7 @@
 ###############################################################################
 
 
-proc bMotion_plugins_irc_default_join { nick host handle channel text } { 
+proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 	bMotion_putloglev 4 * "bMotion_plugins_irc_default_join $nick $host $handle $channel $text"
 
 	#if the user isban then dont bother
@@ -111,11 +111,8 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 
 bMotion_plugin_add_irc_event "default join" "join" ".*" 40 "bMotion_plugins_irc_default_join" "en"
 
-bMotion_abstract_register "insult_joins"
-bMotion_abstract_batchadd "insult_joins" [list "%ruser: yeah, %% does suckOH HI %%!" "\[%%\] I'm a %VAR{PROM}%|%VAR{wrong_infoline}" "\[%%\] I love %ruser%|%VAR{wrong_infoline}" "/looks at %%%|so THAT'S where my oil-skin thong got to!" ]
+bMotion_abstract_register "insult_joins" [list "%ruser: yeah, %% does suckOH HI %%!" "\[%%\] I'm a %VAR{PROM}%|%VAR{wrong_infoline}" "\[%%\] I love %ruser%|%VAR{wrong_infoline}" "/looks at %%%|so THAT'S where my oil-skin thong got to!" ]
 
-bMotion_abstract_register "wrong_infoline"
-bMotion_abstract_batchadd "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline"]
+bMotion_abstract_register "wrong_infoline" [list "oops, wrong infoline, sorry" "huk, wrong infoline" "whoops" "o wait not that infoline"]
 
-bMotion_abstract_register "dislike_joins"
-bMotion_abstract_batchadd "dislike_joins" [list "shut up" "o no it's %%" "oh no it's %%" "oh noes it's %% %VAR{unsmiles}" "meh" "oh, it's %ruser.%|\"yay\"" "oh, it's fuckmaster mc shitty white clownhorse ass jacket pubic face." "you look beautiful%|incidentally my favourite artist is picasso"]
+bMotion_abstract_register "dislike_joins" [list "shut up" "o no it's %%" "oh no it's %%" "oh noes it's %% %VAR{unsmiles}" "meh" "oh, it's %ruser.%|\"yay\"" "oh, it's fuckmaster mc shitty white clownhorse ass jacket pubic face." "you look beautiful%|incidentally my favourite artist is picasso"]

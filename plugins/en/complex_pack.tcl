@@ -27,4 +27,3 @@ proc bMotion_plugin_complex_pack {nick host handle channel text} {
   }
   return 0
 }
-

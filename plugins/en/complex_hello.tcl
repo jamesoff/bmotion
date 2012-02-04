@@ -18,7 +18,7 @@ proc bMotion_plugin_complex_hello { nick host handle channel text } {
 	global botnicks
 	set exclaim ""
 	regexp -nocase "^${botnicks}(!+|\[!\"£\$%^&*()#\]{3,})" $text bling pop exclaim
-	global bMotionInfo 
+	global bMotionInfo
 
 	set lastGreeted [bMotion_plugins_settings_get "complex:hello" "lastGreeted" $channel ""]
 
@@ -64,8 +64,7 @@ proc bMotion_plugin_complex_hello { nick host handle channel text } {
 	return 1
 }
 
-bMotion_abstract_register "hello_familiars"
-bMotion_abstract_batchadd "hello_familiars" {
+bMotion_abstract_register "hello_familiars" {
 	"%%%colen"
 	"%%!"
 	"%% :D"

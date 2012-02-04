@@ -16,4 +16,4 @@ bMotion_abstract_register "notlong_male" {
 	"if you think that's short, you should see my penis"
 }
 
-bMotion_abstract_register "notlong" 
+bMotion_abstract_register "notlong"

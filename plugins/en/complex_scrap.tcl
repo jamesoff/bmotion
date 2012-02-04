@@ -1,4 +1,4 @@
-# 
+#
 #
 # vim: fdm=indent fdn=1
 
@@ -36,10 +36,10 @@ proc bMotion_plugin_complex_scrap { nick host handle channel text } {
       set outputtype [expr $outputtype + 2]
     }
 
-# outputtype = 0 <-- regular output    
-# outputtype = 1 <-- silly output    
-# outputtype = 2 <-- adult output    
-# outputtype = 3 <-- silly adult output    
+# outputtype = 0 <-- regular output
+# outputtype = 1 <-- silly output
+# outputtype = 2 <-- adult output
+# outputtype = 3 <-- silly adult output
 
     # quality
     if [rand 2] {
@@ -128,8 +128,7 @@ proc bMotion_plugin_complex_scrap { nick host handle channel text } {
   }
 }
 
-bMotion_abstract_register "scrap_qualities"
-bMotion_abstract_batchadd "scrap_qualities" {
+bMotion_abstract_register "scrap_qualities" {
   "broken"
   "cheap"
   "irrepairable"
@@ -161,8 +160,7 @@ bMotion_abstract_batchadd "scrap_qualities" {
 	"as-seen-on-TV"
 }
 
-bMotion_abstract_register "scrap_adjectives"
-bMotion_abstract_batchadd "scrap_adjectives" {
+bMotion_abstract_register "scrap_adjectives" {
   "broken down"
   "greasy"
   "dirty"
@@ -217,8 +215,7 @@ bMotion_abstract_batchadd "scrap_adjectives" {
 }
 bMotion_abstract_add_filter "scrap_adjectives" "mamoth"
 
-bMotion_abstract_register "scrap_power_adjectives"
-bMotion_abstract_batchadd "scrap_power_adjectives" {
+bMotion_abstract_register "scrap_power_adjectives" {
   "super powered"
   "steam powered"
   "wind powered"
@@ -243,8 +240,7 @@ bMotion_abstract_batchadd "scrap_power_adjectives" {
 	"atomic"
 }
 
-bMotion_abstract_register "scrap_construction"
-bMotion_abstract_batchadd "scrap_construction" {
+bMotion_abstract_register "scrap_construction" {
   "barge"
   "submarine"
   "torpedo"
@@ -303,8 +299,7 @@ bMotion_abstract_batchadd "scrap_construction" {
   "gyroscope"
 }
 
-bMotion_abstract_register "scrap_silly_qualities_t"
-bMotion_abstract_batchadd "scrap_silly_qualities_t" {
+bMotion_abstract_register "scrap_silly_qualities_t" {
   "weird"
   "strange"
   "bizzare"
@@ -317,8 +312,7 @@ bMotion_abstract_batchadd "scrap_silly_qualities_t" {
 	"spooky"
 }
 
-bMotion_abstract_register "scrap_silly_adjectives_t"
-bMotion_abstract_batchadd "scrap_silly_adjectives_t" {
+bMotion_abstract_register "scrap_silly_adjectives_t" {
   "spotty"
   "funny"
   "furry"
@@ -341,8 +335,7 @@ bMotion_abstract_batchadd "scrap_silly_adjectives_t" {
   "manic mining"
 }
 
-bMotion_abstract_register "scrap_silly_power_adjectives_t"
-bMotion_abstract_batchadd "scrap_silly_power_adjectives_t" {
+bMotion_abstract_register "scrap_silly_power_adjectives_t" {
   "lunar powered"
   "psychicly charged"
   "hamster powered"
@@ -353,8 +346,7 @@ bMotion_abstract_batchadd "scrap_silly_power_adjectives_t" {
   "plasma powered"
 }
 
-bMotion_abstract_register "scrap_silly_construction_t"
-bMotion_abstract_batchadd "scrap_silly_construction_t" {
+bMotion_abstract_register "scrap_silly_construction_t" {
   "blamanche"
   "fork"
   "knife"
@@ -407,21 +399,19 @@ bMotion_abstract_batchadd "scrap_silly_construction_t" {
 }
 bMotion_abstract_add_filter "scrap_silly_construction_t" "coktail machine"
 
-bMotion_abstract_register "scrap_adult_qualities_t"
-bMotion_abstract_batchadd "scrap_adult_qualities_t" {
+bMotion_abstract_register "scrap_adult_qualities_t" {
   "well formed"
   "well rounded"
   "slinky"
   "slender"
-  "slim"  
+  "slim"
   "voluptuous"
   "bound"
   "minging"
   "doggish"
 }
 
-bMotion_abstract_register "scrap_adult_adjectives_t"
-bMotion_abstract_batchadd "scrap_adult_adjectives_t" {
+bMotion_abstract_register "scrap_adult_adjectives_t" {
   "norty"
   "vary norty"
   "sexy"
@@ -448,7 +438,7 @@ bMotion_abstract_batchadd "scrap_adult_adjectives_t" {
   "masturbating"
   "shagging"
   "fucking"
-  "screwing"  
+  "screwing"
   "bulging"
   "tight"
   "loose"
@@ -480,8 +470,7 @@ bMotion_abstract_batchadd "scrap_adult_adjectives_t" {
 }
 bMotion_abstract_add_filter "scrap_adult_adjectives_t" "girating"
 
-bMotion_abstract_register "scrap_adult_power_adjectives_t"
-bMotion_abstract_batchadd "scrap_adult_power_adjectives_t" {
+bMotion_abstract_register "scrap_adult_power_adjectives_t" {
   "jizz powered"
   "love juice powered"
   "sweat powered"
@@ -490,8 +479,7 @@ bMotion_abstract_batchadd "scrap_adult_power_adjectives_t" {
   "cum powered"
 }
 
-bMotion_abstract_register "scrap_adult_construction_t"
-bMotion_abstract_batchadd "scrap_adult_construction_t" {
+bMotion_abstract_register "scrap_adult_construction_t" {
   "dildo"
   "love doll"
   "vibrator"
@@ -512,14 +500,14 @@ bMotion_abstract_batchadd "scrap_adult_construction_t" {
   "arse"
   "tongue"
   "lip"
-  "mouth" 
+  "mouth"
   "teenager"
   "prostitute"
   "rent-boy"
   "whore"
   "wench"
   "bitch"
-  "mistress" 
+  "mistress"
   "box"
   "dominatrix"
 	"butt plug"
@@ -542,83 +530,67 @@ bMotion_abstract_batchadd "scrap_adult_construction_t" {
 bMotion_abstract_add_filter "scrap_adult_construction_t" "girator"
 
 #create the big lists :)
-bMotion_abstract_register "scrap_silly_qualities"
-bMotion_abstract_batchadd "scrap_silly_qualities" {
+bMotion_abstract_register "scrap_silly_qualities" {
   "%VAR{scrap_qualities}"
   "%VAR{scrap_silly_qualities_t}"
 }
-bMotion_abstract_register "scrap_silly_power_adjectives"
-bMotion_abstract_batchadd "scrap_silly_power_adjectives" {
+bMotion_abstract_register "scrap_silly_power_adjectives" {
   "%VAR{scrap_power_adjectives}"
   "%VAR{scrap_silly_power_adjectives_t}"
 }
-bMotion_abstract_register "scrap_silly_adjectives"
-bMotion_abstract_batchadd "scrap_silly_adjectives" {
+bMotion_abstract_register "scrap_silly_adjectives" {
   "%VAR{scrap_adjectives}"
   "%VAR{scrap_silly_adjectives_t}"
 }
-bMotion_abstract_register "scrap_silly_construction"
-bMotion_abstract_batchadd "scrap_silly_construction" {
+bMotion_abstract_register "scrap_silly_construction" {
   "%VAR{scrap_construction}"
   "%VAR{scrap_silly_construction_t}"
 }
 
-bMotion_abstract_register "scrap_adult_qualities"
-bMotion_abstract_batchadd "scrap_adult_qualities" {
+bMotion_abstract_register "scrap_adult_qualities" {
   "%VAR{scrap_qualities}"
   "%VAR{scrap_adult_qualities_t}"
 }
-bMotion_abstract_register "scrap_adult_power_adjectives"
-bMotion_abstract_batchadd "scrap_adult_power_adjectives" {
+bMotion_abstract_register "scrap_adult_power_adjectives" {
   "%VAR{scrap_power_adjectives}"
   "%VAR{scrap_adult_power_adjectives_t}"
 }
-bMotion_abstract_register "scrap_adult_adjectives"
-bMotion_abstract_batchadd "scrap_adult_adjectives" {
+bMotion_abstract_register "scrap_adult_adjectives" {
   "%VAR{scrap_adjectives}"
   "%VAR{scrap_adult_adjectives_t}"
 }
-bMotion_abstract_register "scrap_adult_construction"
-bMotion_abstract_batchadd "scrap_adult_construction" {
+bMotion_abstract_register "scrap_adult_construction" {
   "%VAR{scrap_construction}"
   "%VAR{scrap_adult_construction_t}"
 }
 
-bMotion_abstract_register "scrap_silly_adult_qualities"
-bMotion_abstract_batchadd "scrap_silly_adult_qualities" {
+bMotion_abstract_register "scrap_silly_adult_qualities" {
   "%VAR{scrap_qualities}"
   "%VAR{scrap_silly_qualities_t}"
 }
-bMotion_abstract_register "scrap_silly_adult_power_adjectives"
-bMotion_abstract_batchadd "scrap_silly_adult_power_adjectives" {
+bMotion_abstract_register "scrap_silly_adult_power_adjectives" {
   "%VAR{scrap_power_adjectives}"
   "%VAR{scrap_silly_power_adjectives_t}"
 }
-bMotion_abstract_register "scrap_silly_adult_adjectives"
-bMotion_abstract_batchadd "scrap_silly_adult_adjectives" {
+bMotion_abstract_register "scrap_silly_adult_adjectives" {
   "%VAR{scrap_adjectives}"
   "%VAR{scrap_silly_adjectives_t}"
 }
-bMotion_abstract_register "scrap_silly_adult_construction"
-bMotion_abstract_batchadd "scrap_silly_adult_construction" {
+bMotion_abstract_register "scrap_silly_adult_construction" {
   "%VAR{scrap_construction}"
   "%VAR{scrap_silly_construction_t}"
 }
 
 #duplicate for second adjectives
-bMotion_abstract_register "scrap_silly_adjectives2"
-bMotion_abstract_batchadd "scrap_silly_adjectives2" {
+bMotion_abstract_register "scrap_silly_adjectives2" {
   "%VAR{scrap_silly_adjectives}"
 }
-bMotion_abstract_register "scrap_adult_adjectives2"
-bMotion_abstract_batchadd "scrap_adult_adjectives2" {
+bMotion_abstract_register "scrap_adult_adjectives2" {
   "%VAR{scrap_adult_adjectives}"
 }
-bMotion_abstract_register "scrap_silly_adult_adjectives2"
-bMotion_abstract_batchadd "scrap_silly_adult_adjectives2" {
+bMotion_abstract_register "scrap_silly_adult_adjectives2" {
   "%VAR{scrap_silly_adult_adjectives}"
 }
-bMotion_abstract_register "scrap_adjectives2"
-bMotion_abstract_batchadd "scrap_adjectives2" {
+bMotion_abstract_register "scrap_adjectives2" {
   "%VAR{scrap_adjectives}"
 }

@@ -16,7 +16,7 @@ bMotion_plugin_add_complex "joker" "^(%botnicks:? )?!joke" 100 "bMotion_plugin_c
 
 # random joke callback
 proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
-	global bMotion_abstract_contents jokeInfo 
+	global bMotion_abstract_contents jokeInfo
 
 	# I'll have no part in this if i'm telling a joke already
 	set timestamp [bMotion_plugins_settings_get "complex:joker" $channel "" ""]
@@ -110,7 +110,7 @@ proc bMotion_plugin_complex_invoke_joke { nick host handle channel text } {
 	bMotionDoAction $channel $nick $joke
 	bMotionDoAction $channel $nick "%DELAY{10}%|$answer"
 
-	return 1 
+	return 1
 }
 
 

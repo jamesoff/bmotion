@@ -32,8 +32,7 @@ proc bMotion_plugin_complex_action_smacks { nick host handle channel text } {
   }
 }
 
-bMotion_abstract_register "trouts"
-bMotion_abstract_batchadd "trouts" {
+bMotion_abstract_register "trouts" {
 	"/slaps %% back using a default menu command"
 	"%VAR{goAways}"
 	"omg n00b"
@@ -42,8 +41,7 @@ bMotion_abstract_batchadd "trouts" {
 	"%VAR{goAways} noob"
 }
 
-bMotion_abstract_register "slapped"
-bMotion_abstract_batchadd "slapped" {
+bMotion_abstract_register "slapped" {
 	"ow hey! that was my %VAR{counts} %VAR{bodypart} %VAR{unsmiles}"
 	"ow! that was my %VAR{counts} %VAR{bodypart} %VAR{unsmiles}"
 	"they took my squeezing arm!%|WHY MY SQUEEZING ARM?!?%|WHHHYYYYY?"
@@ -63,8 +61,7 @@ bMotion_abstract_register "slapped_where" {
 	"arrgh! my %2! now I only have %NUMBER{50}%NUMBER{100}%NUMBER{100} left%|look, here in this warehouse"
 }
 
-bMotion_abstract_register "counts"
-bMotion_abstract_batchadd "counts" {
+bMotion_abstract_register "counts" {
 	"last"
 	"penultimate"
 	"2nd-to-last"

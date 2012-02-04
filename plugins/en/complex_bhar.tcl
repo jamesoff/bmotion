@@ -19,11 +19,10 @@ proc bMotion_plugin_complex_bhar { nick host handle channel text } {
     bMotion_plugins_settings_set "complex:bhar" "contents" $channel $nick $text
     bMotionDoAction $channel $nick "%VAR{arrs}"
     return 1
-  }  
+  }
 }
 
-bMotion_abstract_register "arrs"
-bMotion_abstract_batchadd "arrs" {
+bMotion_abstract_register "arrs" {
   "bhar"
   "boohar"
   "a%REPEAT{3:5:r}ha%REPEAT{3:6:r}"
