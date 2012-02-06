@@ -34,4 +34,7 @@ bMotion_abstract_register "attack_responses" {
 	"MISS!"
 	"%SETTING{complex:attacks:who:_:_} is immune to '%SETTING{complex:attacks:item:_:_}'"
 	"%SETTING{complex:attacks:who:_:_} absorbs the damage and gains %SETTING{complex:attacks:score:_:_} HP!"
+	"It's super effective! %SETTING{complex:attacks:who:_:_} takes %SETTING{complex:attacks:score:_:_} damage!"
+	"It's not very effective... %SETTING{complex:attacks:who:_:_} takes %SETTING{complex:attacks:score:_:_} damage!"
+	"It doesn't affect %SETTING{complex:attacks:who:_:_}"
 }
