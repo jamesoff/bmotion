@@ -133,7 +133,7 @@ proc bMotion_plugin_complex_action_hands_coffee { channel nick } {
 	bMotion_putloglev 1 * "bMotion: ...and it's a cup of coffee... mmmmmmm"
 	if {$coffeeNick != ""} {
 		bMotion_putloglev 1 * "bMotion: But I already have one :/"
-		bMotionDoAction $channel $nick "%%: thanks anyway, but I'm already drinking the one $coffeeNick gave me :)"
+		bMotionDoAction $channel $nick "%%: thanks anyway, but I'm already drinking the one $coffeeNick gave me %SMILEY{smile}"
 		return 1
 	}
 	driftFriendship $nick 2
@@ -150,7 +150,7 @@ proc bMotion_plugin_complex_action_hands_finishcoffee { } {
 	global mood
 	set coffeeChannel [bMotion_plugins_settings_get "complexaction:hands" "coffee_channel" "" ""]
 	bMotionDoAction $coffeeChannel "" "/finishes the coffee"
-	bMotionDoAction $coffeeChannel "" "mmmm... thanks :)"
+	bMotionDoAction $coffeeChannel "" "mmmm... thanks %SMILEY{smile}"
 	incr mood(happy) 1
 	bMotion_plugins_settings_set "complexaction:hands" "coffee_nick" "" "" ""
 }
@@ -169,7 +169,7 @@ proc bMotion_plugin_complex_action_hands_tissues { channel nick } {
 	set tissuesNick [bMotion_plugins_settings_get "complexaction:hands" "tissues_nick" "" ""]
 	if {$tissuesNick != ""} {
 		bMotion_putloglev 1 * "bMotion: But I already have one :/"
-		bMotionDoAction $channel "" "$nick: thanks anyway, but I'm already using the tissues $tissuesNick gave me :) *uNF*"
+		bMotionDoAction $channel "" "$nick: thanks anyway, but I'm already using the tissues $tissuesNick gave me %SMILEY{smile} *uNF*"
 	}
 
 	driftFriendship $nick 2
