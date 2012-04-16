@@ -4631,6 +4631,13 @@ bMotion_abstract_register "tireds" {
 	"/puts on jimjams"
 }
 
+bMotion_abstract_register "very_tireds" {
+	"/shattered"
+	"i am the most tired"
+	"ugh what a busy day"
+	"knackered %SMILEY{sad}"
+}
+
 bMotion_abstract_register "tireds_female" {
 	"/puts on nightie"
 }

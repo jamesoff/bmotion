@@ -51,6 +51,10 @@ proc bMotion_plugin_complex_nazi3 {nick host handle channel text} {
 			if {![bMotion_interbot_me_next $channel]} {
 				return 0
 			}
+			# stoplist
+			if [regexp -nocase "doesn" $other] {
+				return 0
+			}
 			bMotionDoAction $channel $nick "%%: %2 and me" $other
 			return 1
 		} else {

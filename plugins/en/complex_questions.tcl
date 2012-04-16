@@ -23,6 +23,11 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
 
   regsub {(.+)[>\/]$} $text {\1?} text
 
+	if [regexp -nocase "^$botnicks,?:? when you (say|said),? (.+),? (did|do) you mean,? (.+)\\??" $text matches botnick a 1 b 2] {
+		bMotionDoAction $channel $1 "%VAR{noimeant}" $2
+		return 1
+	}
+
   bMotion_putloglev 3 * "Checking question for wellbeing"
   ## wellbeing question targeted at me
   if { [regexp -nocase "^$botnicks,?:? how( a|')?re (you|ya)( today|now)?\\??$" $text] ||
@@ -648,4 +653,8 @@ bMotion_abstract_register "want_item_dislike" {
 bMotion_abstract_register "whatdiddos" {
 	"i %VAR{sillyVerbs:past} it %VAR{smiles}"
 	"i %VAR{sillyVerbs:past} it %VAR{unsmiles}"
+}
+
+bMotion_abstract_register "noimeant" {
+	"no when i said %% i meant %%%!%|if i meant %2 i'd have said that, wouldn't i?"
 }

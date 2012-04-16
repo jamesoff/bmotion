@@ -21,6 +21,7 @@ bMotion_plugin_add_management "global" "^global" n bMotion_plugin_management_glo
 bMotion_plugin_add_management "interbot" "^interbot" n bMotion_plugin_management_interbot "any" bMotion_plugin_management_interbot_help
 bMotion_plugin_add_management "flux" "^flux capacitors?" n bMotion_plugin_management_flux "any"
 bMotion_plugin_add_management "away" "^away" n bMotion_plugin_management_away "any" bMotion_plugin_management_away_help
+bMotion_plugin_add_management "debug" "^debug" n bMotion_plugin_management_debug "any" bMotion_plugin_management_debug_help
 
 #################################################################################################################################
 # Declare plugin functions
@@ -347,3 +348,49 @@ proc bMotion_plugin_management_away_help { } {
 	bMotion_putadmin "    Make the bot be not-away"
 }
 
+proc bMotion_plugin_management_debug { handle { text "" } } {
+	global bMotionDebug
+
+	if {$text == "" } {
+		if {[llength $bMotionDebug] == 0} {
+			bMotion_putadmin "bMotion debug mode is currently disabled."
+			return
+		} else {
+			bMotion_putadmin "bMotion debug mode is currently enabled on $bMotionDebug"
+			return
+		}
+	}
+
+	if [regexp -nocase {(on|off) ([#&][^ ]+)} $text matches toggle channel] {
+		if {[string tolower $toggle] == "on"} {
+			if {[lsearch -nocase $bMotionDebug $channel] > -1} {
+				bMotion_putadmin "$channel already has the debug flag enabled."
+				return
+			}
+			lappend bMotionDebug $channel
+			bMotion_putadmin "Enabled debug mode for $channel"
+			return
+		} else {
+			if {[lsearch -nocase $bMotionDebug $channel] == -1} {
+				bMotion_putadmin "$channel does not have debug mode enabled."
+				return
+			}
+			set index [lsearch -nocase $bMotionDebug $channel]
+			set bMotionDebug [lreplace $bMotionDebug $index $index]
+			bMotion_putadmin "Disabled debug mode for $channel"
+			return
+		}
+	} else {
+		bMotion_putadmin "Try .bmotion help debug"
+	}
+}
+
+proc bMotion_plugin_management_debug_help { } {
+	bMotion_putadmin "Enable and disable debug mode on channels. Debug mode makes all plugins fire at 100% chance and disables flood checking."
+	bMotion_putadmin "  .bmotion debug"
+	bMotion_putadmin "    Check the status of debug mode"
+	bMotion_putadmin "  .bmotion debug on #channel"
+	bMotion_putadmin "    Enable debug on #channel"
+	bMotion_putadmin "  .bmotion debug off #channel"
+	bMotion_putadmin "    Disable debug on #channel"
+}

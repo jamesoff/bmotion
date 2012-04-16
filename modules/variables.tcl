@@ -98,4 +98,7 @@ set BMOTION_SLEEP(OVERSLEEPING) 3
 
 # start off awake
 set bMotionSettings(asleep) $BMOTION_SLEEP(AWAKE)
+set bMotionTiredness 0
+
+set bMotionDebug [list]
 

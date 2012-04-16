@@ -23,13 +23,19 @@
 ### bMotionDoEventResponse 
 proc bMotionDoEventResponse { type nick host handle channel text } {
 #check our global toggle
-	global bMotionGlobal bMotionInfo
+	global bMotionGlobal bMotionInfo bMotionDebug
 	if {$bMotionGlobal == 0} {
 		return 0
 	}
 
 	if [matchattr $handle J] {
 		return 0
+	}
+
+	if {[lsearch -nocase $bMotionDebug $channel] > -1} {
+		set debug 1
+	} else {
+		set debug 0
 	}
 
 	set channel [string tolower $channel]
@@ -46,12 +52,14 @@ proc bMotionDoEventResponse { type nick host handle channel text } {
 	}
 
 	global bMotionInfo
-	set response [bMotion_plugin_find_irc_event $text $type $bMotionInfo(language)]
+	set response [bMotion_plugin_find_irc_event $text $type $bMotionInfo(language) $debug]
 	if {[llength $response] > 0} {
 		foreach callback $response {
-			bMotion_putloglev 2 * "adding flood for callback $callback"
-			bMotion_flood_add $nick $callback $text
-			if [bMotion_flood_check $nick] { return 0 }
+			if {!$debug} {
+				bMotion_putloglev 2 * "adding flood for callback $callback"
+				bMotion_flood_add $nick $callback $text
+				if [bMotion_flood_check $nick] { return 0 }
+			}
 
 			bMotion_putloglev 1 * "bMotion: matched irc event plugin, running callback $callback"
 			set result [$callback $nick $host $handle $channel $text ]
@@ -250,6 +258,13 @@ proc bMotion_event_main {nick host handle channel text} {
 
 	set bMotionThisText $text
 
+	global bMotionDebug
+	if {[lsearch -nocase $bMotionDebug $channel] > -1} {
+		set debug 1
+	} else {
+		set debug 0
+	}
+
 	#if we spoke last, add "$botnick: " if it's not in the line 
 	if {![regexp -nocase $botnicks $text] && ([bMotion_did_i_speak_last $channel] || ([bMotion_setting_get "bitlbee"] == "1"))} {
 		if [regexp {^[^:]+:.+} $text] {
@@ -272,26 +287,30 @@ proc bMotion_event_main {nick host handle channel text} {
 	set bMotionCache($channel,last) 0
 
 	#Run the simple plugins 
-	set response [bMotion_plugin_find_simple $text $bMotionInfo(language)]
+	set response [bMotion_plugin_find_simple $text $bMotionInfo(language) $debug]
 	if {$response != ""} {
-		bMotion_flood_add $nick "" $text
-		if [bMotion_flood_check $nick] { return 0 }
-		if [bMotion_flood_check $channel] { return 0 }
-		bMotion_flood_add $channel "" $text
+		if {!$debug} {
+			bMotion_flood_add $nick "" $text
+			if [bMotion_flood_check $nick] { return 0 }
+			if [bMotion_flood_check $channel] { return 0 }
+			bMotion_flood_add $channel "" $text
+		}
 		set nick [bMotionGetRealName $nick $host]
 		bMotionDoAction $channel $nick [pickRandom $response]
 		return 0
 	}
 
 	#Run the complex plugins 
-	set response [bMotion_plugin_find_complex $text $bMotionInfo(language)]
+	set response [bMotion_plugin_find_complex $text $bMotionInfo(language) $debug]
 	if {[llength $response] > 0} {
 	#set nick [bMotionGetRealName $nick $host]
-		if [bMotion_flood_check $channel] { return 0 }
+		if {!$debug && [bMotion_flood_check $channel]} { return 0 }
 		bMotion_putloglev 1 * "going to run plugins: $response"
 		foreach callback $response {
-			bMotion_putloglev 1 * "bMotion: doing flood for $callback..."
-			if [bMotion_flood_check $nick] { return 0 }
+			if (!$debug) {
+				bMotion_putloglev 1 * "bMotion: doing flood for $callback..."
+				if [bMotion_flood_check $nick] { return 0 }
+			}
 
 			bMotion_putloglev 1 * "bMotion: `- running callback $callback"
 			set result 0
@@ -305,7 +324,7 @@ proc bMotion_event_main {nick host handle channel text} {
 			# they should return 0 if they don't trigger
 
 			if {$result > 0} {
-				if {$result == 1} {
+				if {!$debug && ($result == 1)} {
 					bMotion_putloglev 1 * "adding flood counters"
 					bMotion_flood_add $nick $callback $text
 					bMotion_flood_add $channel $callback $text
@@ -453,13 +472,22 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 
 	bMotion_check_botnicks
 
+	global bMotionDebug
+	if {[lsearch -nocase $bMotionDebug $channel] > -1} {
+		set debug 1
+	} else {
+		set debug 0
+	}
+
 	#Run the simple plugins 
-	set response [bMotion_plugin_find_action_simple $text $bMotionInfo(language)]
+	set response [bMotion_plugin_find_action_simple $text $bMotionInfo(language) $debug]
 	if {$response != ""} {
-		bMotion_flood_add $nick "" $text
-		if [bMotion_flood_check $nick] { return 0 }
-		if [bMotion_flood_check $channel] { return - }
-		bMotion_flood_add $channel "" $text
+		if (!$debug) {
+			bMotion_flood_add $nick "" $text
+			if [bMotion_flood_check $nick] { return 0 }
+			if [bMotion_flood_check $channel] { return - }
+			bMotion_flood_add $channel "" $text
+		}
 		bMotion_putloglev 1 * "bMotion: matched simple action plugin, outputting $response..."
 		set nick [bMotionGetRealName $nick $host]
 		bMotionDoAction $channel $nick [pickRandom $response]
@@ -467,19 +495,21 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 	}
 
 	#Run the complex plugins 
-	set response [bMotion_plugin_find_action_complex $text $bMotionInfo(language)]
+	set response [bMotion_plugin_find_action_complex $text $bMotionInfo(language) $debug]
 	if {[llength $response] > 0} {
 	#set nick [bMotionGetRealName $nick $host]
-		if [bMotion_flood_check $channel] { return 0 }
+		if {!$debug && [bMotion_flood_check $channel]} { return 0 }
 		bMotion_putloglev 1 * "going to run action plugins: $response"
 		foreach callback $response {
-			bMotion_putloglev 1 * "bMotion: doing flood for $callback..."
-			if [bMotion_flood_check $nick] { return 0 }
+			if (!$debug) {
+				bMotion_putloglev 1 * "bMotion: doing flood for $callback..."
+				if [bMotion_flood_check $nick] { return 0 }
+			}
 			bMotion_putloglev 1 * "bMotion: matched complex action plugin, running callback $callback"
 			set result 0
 			set result [$callback $nick $host $handle $channel $text]
 			if {$result > 0} {
-				if {$result == 1} {
+				if {(!$debug) && ($result == 1)} {
 					bMotion_flood_add $nick $callback $text
 					bMotion_flood_add $channel $callback $text
 				}

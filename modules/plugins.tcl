@@ -104,7 +104,7 @@ proc bMotion_plugin_add_simple { id match chance response language} {
 
 
 ## Find a simple plugin
-proc bMotion_plugin_find_simple { text lang } {
+proc bMotion_plugin_find_simple { text lang { debug 0 }} {
 	bMotion_putloglev 3 * "bMotion_plugin_find_simple: text = $text, lang = $lang"
 	global bMotion_plugins_simple botnicks
 	global BMOTION_PLUGIN_SIMPLE_MATCH BMOTION_PLUGIN_SIMPLE_CHANCE BMOTION_PLUGIN_SIMPLE_RESPONSE BMOTION_PLUGIN_SIMPLE_LANGUAGE
@@ -124,6 +124,9 @@ proc bMotion_plugin_find_simple { text lang } {
 			set rexp [bMotionInsertString $rexp "%botnicks" "${botnicks}"]
 			if [regexp -nocase $rexp $text] {
 				set c [rand 100]
+				if {$debug} {
+					set c 0
+				}
 				bMotion_putloglev 4 * "simple plugin $key matches"
 				if {[bMotion_plugins_settings_get "system" "last_simple" "" ""] == $key} {
 					bMotion_putloglev 3 * "trying to trigger same simple plugin twice in a row, aborting"
@@ -220,12 +223,12 @@ proc bMotion_plugin_add_complex { id match chance callback language } {
 
 #
 # Find a complex plugin plugin
-proc bMotion_plugin_find_complex { text lang } {
+proc bMotion_plugin_find_complex { text lang { debug 0 }} {
 	global bMotion_plugins_complex botnicks
 	global BMOTION_PLUGIN_COMPLEX_MATCH BMOTION_PLUGIN_COMPLEX_CHANCE BMOTION_PLUGIN_COMPLEX_CALLBACK BMOTION_PLUGIN_COMPLEX_LANGUAGE
 	set result [list]
 
-	bMotion_putloglev 3 * "Looking for a complex plugin to match !$text!"
+	bMotion_putloglev 5 * "bMotion_plugin_find_complex $text $lang $debug"
 
 	set bias [bMotion_setting_get "bias"]
 	if {$bias == ""} {
@@ -243,6 +246,9 @@ proc bMotion_plugin_find_complex { text lang } {
 			if [regexp -nocase $rexp $text] {
 				set chance [lindex $val $BMOTION_PLUGIN_COMPLEX_CHANCE]
 				set c [rand 100]
+				if {$debug} {
+					set c 0
+				}
 				set chance [expr $chance * $bias]
 				bMotion_putloglev 4 * "matched complex:$key, chance is $chance, c is $c"
 				if {$chance > $c} {
@@ -403,7 +409,7 @@ proc bMotion_plugin_add_action_simple { id match chance response language } {
 
 
 ## Find a simple action plugin
-proc bMotion_plugin_find_action_simple { text lang } {
+proc bMotion_plugin_find_action_simple { text lang { debug 0 } } {
 	global bMotion_plugins_action_simple botnicks
 	global BMOTION_PLUGIN_SIMPLE_MATCH BMOTION_PLUGIN_SIMPLE_CHANCE BMOTION_PLUGIN_SIMPLE_RESPONSE BMOTION_PLUGIN_SIMPLE_LANGUAGE
 
@@ -416,6 +422,9 @@ proc bMotion_plugin_find_action_simple { text lang } {
 			if [regexp -nocase $rexp $text] {
 				set chance [lindex $val $BMOTION_PLUGIN_SIMPLE_CHANCE]
 				set c [rand 100]
+				if {$debug} { 
+					set c 0
+				}
 				if {$chance > $c} {
 					set response [lindex $val $BMOTION_PLUGIN_SIMPLE_RESPONSE]
 					return $response
@@ -449,7 +458,7 @@ proc bMotion_plugin_add_action_complex { id match chance callback language } {
 }
 
 ## Find a complex action plugin plugin
-proc bMotion_plugin_find_action_complex { text lang } {
+proc bMotion_plugin_find_action_complex { text lang { debug 0 } } {
 	global bMotion_plugins_action_complex botnicks
 	global BMOTION_PLUGIN_COMPLEX_MATCH BMOTION_PLUGIN_COMPLEX_CHANCE BMOTION_PLUGIN_COMPLEX_CALLBACK BMOTION_PLUGIN_COMPLEX_LANGUAGE
 	set result [list]
@@ -464,6 +473,9 @@ proc bMotion_plugin_find_action_complex { text lang } {
 				set chance [lindex $val $BMOTION_PLUGIN_COMPLEX_CHANCE]
 				bMotion_putloglev 4 * "matched: $key"
 				set c [rand 100]
+				if {$debug} {
+					set c 0
+				}
 				if {$chance > $c} {
 					set callback [lindex $val $BMOTION_PLUGIN_COMPLEX_CALLBACK]
 					lappend result $callback
@@ -562,7 +574,7 @@ proc bMotion_plugin_add_irc_event { id type match chance callback language } {
 }
 
 ## Find an IRC Event response plugin plugin
-proc bMotion_plugin_find_irc_event { text type lang } {
+proc bMotion_plugin_find_irc_event { text type lang { debug 0 } } {
 	if {![regexp -nocase "nick|join|quit|part|split" $type]} {
 		bMotion_putloglev d * "bMotion: IRC Event search type $type is invalid"
 		return 0
@@ -582,6 +594,9 @@ proc bMotion_plugin_find_irc_event { text type lang } {
 				if [regexp -nocase $rexp $text] {
 					set chance [lindex $val $BMOTION_PLUGIN_EVENT_CHANCE]
 					set c [rand 100]
+					if {$debug} {
+						set c 0
+					}
 					if {$chance > $c} {
 						set callback [lindex $val $BMOTION_PLUGIN_EVENT_CALLBACK]
 						lappend result $callback
