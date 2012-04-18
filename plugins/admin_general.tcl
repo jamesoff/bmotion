@@ -362,8 +362,9 @@ proc bMotion_plugin_management_debug { handle { text "" } } {
 	}
 
 	if [regexp -nocase {(on|off) ([#&][^ ]+)} $text matches toggle channel] {
+		set channel [string tolower $channel]
 		if {[string tolower $toggle] == "on"} {
-			if {[lsearch -nocase $bMotionDebug $channel] > -1} {
+			if {[lsearch $bMotionDebug $channel] > -1} {
 				bMotion_putadmin "$channel already has the debug flag enabled."
 				return
 			}
@@ -371,11 +372,11 @@ proc bMotion_plugin_management_debug { handle { text "" } } {
 			bMotion_putadmin "Enabled debug mode for $channel"
 			return
 		} else {
-			if {[lsearch -nocase $bMotionDebug $channel] == -1} {
+			if {[lsearch $bMotionDebug $channel] == -1} {
 				bMotion_putadmin "$channel does not have debug mode enabled."
 				return
 			}
-			set index [lsearch -nocase $bMotionDebug $channel]
+			set index [lsearch $bMotionDebug $channel]
 			set bMotionDebug [lreplace $bMotionDebug $index $index]
 			bMotion_putadmin "Disabled debug mode for $channel"
 			return

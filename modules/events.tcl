@@ -32,13 +32,13 @@ proc bMotionDoEventResponse { type nick host handle channel text } {
 		return 0
 	}
 
-	if {[lsearch -nocase $bMotionDebug $channel] > -1} {
+	set channel [string tolower $channel]
+
+	if {[lsearch $bMotionDebug $channel] > -1} {
 		set debug 1
 	} else {
 		set debug 0
 	}
-
-	set channel [string tolower $channel]
 
 	#ignore other bots
 	if {[matchattr $handle b] && (![matchattr $handle I])} {
@@ -259,7 +259,7 @@ proc bMotion_event_main {nick host handle channel text} {
 	set bMotionThisText $text
 
 	global bMotionDebug
-	if {[lsearch -nocase $bMotionDebug $channel] > -1} {
+	if {[lsearch $bMotionDebug $channel] > -1} {
 		set debug 1
 	} else {
 		set debug 0
@@ -459,6 +459,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 	bMotion_putloglev 4 * "bMotion: entering bMotion_event_action with $nick $host $handle $dest $keyword $text"
 
 	set nick [bMotion_cleanNick $nick $handle]
+	set channel [string tolower $channel]
 
 	#Trim 
 	set text [string trim $text]
@@ -473,7 +474,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 	bMotion_check_botnicks
 
 	global bMotionDebug
-	if {[lsearch -nocase $bMotionDebug $channel] > -1} {
+	if {[lsearch $bMotionDebug $channel] > -1} {
 		set debug 1
 	} else {
 		set debug 0
