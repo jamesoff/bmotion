@@ -114,6 +114,8 @@ proc getFriendsList { } {
 	set best(val) 0
 	set worst(name) ""
 	set worst(val) 100
+	set count 0
+
 	foreach user $users {
 		set f [getuser $user XTRA friend]
 		if {$f != ""} {
@@ -127,8 +129,19 @@ proc getFriendsList { } {
 			set worst(val) $f
 			set worst(name) $user
 		}
+		incr count
+		if {$count % 10 == 0} {
+			append r "\r\n"
+		}
 	}
-	set r "Best friend: $best(name), worst friend: $worst(name). $r"
+	if {$count == 0} {
+		return "No friends :( so lonely"
+	}
+	if {$count == 1} {
+		set r "Only 1 friend :(\r\n$r"
+		return $r
+	}
+	set r "$count friends; Best friend: $best(name), worst friend: $worst(name). \r\n$r"
 	return $r
 }
 
