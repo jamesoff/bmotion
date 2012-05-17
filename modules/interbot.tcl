@@ -55,6 +55,16 @@ proc bMotion_interbot_next_elect { } {
 
 proc bMotion_interbot_next_elect_do { channel } {
 	global bMotion_interbot_nextbot_score bMotion_interbot_nextbot_nick botnick bMotionInfo
+	global bMotion_interbot_pending_channels
+
+	bMotion_putloglev 2 * "interbot: running election on $channel"
+
+	# look to see if this channel is recorded as having a pending election
+	# if it is, remove it. this is slightly a race condition but it's harmless
+	set pos [lsearch $bMotion_interbot_pending_channels [string tolower $channel]]
+	if {$pos > -1 } {
+		set bMotion_interbot_pending_channels [lreplace $bMotion_interbot_pending_channels $pos $pos]
+	}
 
 	set myScore [rand 100]
 	if {$bMotionInfo(away) == 1} {
@@ -78,7 +88,7 @@ proc bMotion_interbot_next_elect_do { channel } {
 			bMotion_putloglev 4 * "interbot: checking $handle over" 
 		}
 	}
-	bMotion_putloglev 3 * "interbot: election over"
+	bMotion_putloglev 3 * "interbot: election over for $channel"
 }
 
 proc bMotion_interbot_catch { bot cmd args } {
@@ -233,7 +243,7 @@ proc bMotionCatchSayChan { bot params } {
 # if yes, then force an election for that channel immediately afterwards
 proc bMotion_interbot_me_next { channel } {
 	global bMotion_interbot_nextbot_nick bMotion_interbot_nextbot_score botnick
-	global bMotion_interbot_enable
+	global bMotion_interbot_enable bMotion_interbot_pending_channels
 
 	set channel [string tolower $channel]
 
@@ -256,26 +266,26 @@ proc bMotion_interbot_me_next { channel } {
 	}
 
 	set me 0 
-	## /|\	KIS hack
 	catch {
 		if {$bMotion_interbot_nextbot_score($channel) < 0} {
 			bMotion_putloglev 4 * "interbot: nextbot_score is <0, I'm not answering"
-			set me 0
 		}
 
 		if {$bMotion_interbot_nextbot_nick($channel) == $botnick} {
 			bMotion_putloglev 4 * "interbot: nextbot_nick is me; calling election and returning 1"
-			bMotion_interbot_next_elect_do $channel
+			if {[lsearch $bMotion_interbot_pending_channels [string tolower $channel]] == -1} {
+				lappend bMotion_interbot_pending_channels [string tolower $channel]
+				utimer 3 " bMotion_interbot_next_elect_do $channel "
+			} else {
+				bMotion_putloglev 4 * "interbot: not calling another election as one is pending for this channel"
+			}
 			set me 1 
-			## /|\ KIS hack
 		}
 	}
-	#bMotion_putloglev 4 * "interbot: nextbot_nick is not me" 
+	#
 	#if it's noone, the winning bot will force an election anyway
-	bMotion_putloglev 2 * "interbot: returning $me"
+	bMotion_putloglev 2 * "interbot: returning $me for $channel"
 	return $me 
-	#return 0
-	## /|\ KIS hack, was 0, hacked to $me to force single botnet workings
 }
 
 # send a fake event
@@ -411,5 +421,9 @@ bind bot - "bmotion" bMotion_interbot_catch
 bind link - * bMotion_interbot_link
 
 utimer [expr [rand 900] + 300] bMotion_interbot_resync
+
+# this list holds names of channels we've got timers to elect on
+# stops multiple timers being set for each channel
+set bMotion_interbot_pending_channels [list]
 
 bMotion_putloglev d * "interbot: interbot module loaded"

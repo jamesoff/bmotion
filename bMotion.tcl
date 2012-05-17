@@ -61,7 +61,16 @@ proc bMotion_putloglev { level star text } {
   set text "bMotion:$text2 $text"
 
   if {$bMotion_testing == 0} {
-    putloglev $level $star "($level)$text"
+		if {[string length $text] < 256} {
+			putloglev $level $star "($level)$text"
+		} else {
+			while {[string length $text] >= 256} {
+				set thistext [string range $text 0 255]
+				set text [string range $text 256 [string length $text]]
+				putloglev $level $star "($level)$thistext"
+			}
+			putloglev $level $star "($level)$text"
+		}
   }
 }
 
