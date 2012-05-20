@@ -147,11 +147,10 @@ proc bMotion_plugin_complex_action_hands_coffee { channel nick } {
 }
 
 proc bMotion_plugin_complex_action_hands_finishcoffee { } {
-	global mood
 	set coffeeChannel [bMotion_plugins_settings_get "complexaction:hands" "coffee_channel" "" ""]
 	bMotionDoAction $coffeeChannel "" "/finishes the coffee"
 	bMotionDoAction $coffeeChannel "" "mmmm... thanks %SMILEY{smile}"
-	incr mood(happy) 1
+	bMotion_mood_adjust happy 1
 	bMotion_plugins_settings_set "complexaction:hands" "coffee_nick" "" "" ""
 }
 
@@ -160,8 +159,7 @@ proc bMotion_plugin_complex_action_hands_finishcoffee { } {
 
 proc bMotion_plugin_complex_action_hands_tissues { channel nick } {
 	bMotion_putloglev 1 * "bMotion: ...and it's a box of tissues! ~rarr~"
-	global mood
-	if {$mood(horny) < -3} {
+	if {[bMotion_mood_get horny] < -3} {
 		bMotion_putloglev 1 * "bMotion: But i'm not in the mood"
 		bMotionDoAction $channel "" "$nick: thanks, but i'm not in the mood for that right now :("
 	}
@@ -178,24 +176,21 @@ proc bMotion_plugin_complex_action_hands_tissues { channel nick } {
 	bMotion_plugins_settings_set "complexaction:hands" "tissues_nick" "" "" $nick
 	bMotion_plugins_settings_set "complexaction:hands" "tissues_channel" "" "" $channel
 
-	#TODO: this mood stuff is OLD
-	incr mood(lonely) -1
-	incr mood(horny) -1
-	incr mood(happy) 2
+	bMotion_mood_adjust lonely -1
+	bMotion_mood_adjust horny -1
+	bMotion_mood_adjust happy 2
 
 	utimer 90 bMotion_plugin_complex_action_hands_finishtissues
 }
 
 proc bMotion_plugin_complex_action_hands_finishtissues { } {
-	global mood
 	set tissuesChannel [bMotion_plugins_settings_get "complexaction:hands" "tissues_channel" "" ""]
 	bMotionDoAction $tissuesChannel "" "uNF *squeaky* *boing* *squirt*"
 	bMotionDoAction $tissuesChannel "" "/finishes using the tissues"
 	bMotion_plugins_settings_set "complexaction:hands" "tissues_nick" "" "" ""
 
-	#TODO: this mood stuff is OLD
-	incr mood(happy) 1
-	incr mood(horny) -2
+	bMotion_mood_adjust happy 1
+	bMotion_mood_adjust horny -2
 }
 
 
@@ -257,13 +252,10 @@ proc bMotion_plugin_complex_action_hands_pie { channel nick } {
 ##### SPLIFF
 
 proc bMotion_plugin_complex_action_hands_spliff { channel nick handle } {
-	global mood
-
 	driftFriendship $nick 1
 	bMotion_putloglev 1 * "bMotion: ... and it's mind-altering drugs! WOOHOO!"
 	bMotion_putloglev 1 * "bMotion: ...... wheeeeeeeeeeeeeeeeeeeeeeeeeeeeeee...."
-	incr mood(stoned) 2
-	checkmood $nick $channel
+	bMotion_mood_adjust stoned 2
 	bMotionDoAction $channel $nick "%VAR{smokes}"
 	return 0
 }

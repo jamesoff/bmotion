@@ -20,7 +20,7 @@
 ###############################################################################
 
 proc finishdildo {} {
-	global got mood 
+	global got 
 
 	set style $got(dildo,style)
 
@@ -30,8 +30,8 @@ proc finishdildo {} {
 
 		set got(dildo,nick) ""
 		set got(dildo,count) 0
-		incr mood(happy) 1
-		incr mood(horny) -2
+		bMotion_mood_adjust happy 1
+		bMotion_mood_adjust horny -2
 		return 0
 	}
 
@@ -55,41 +55,39 @@ proc finishdildo {} {
 	bMotionDoAction $got(dildo,channel) $got(dildo,dildo) "%VAR{dildoFinishes}" $got(dildo,nick)
 	set got(dildo,nick) ""
 	set got(dildo,count) 0
-	incr mood(happy) 1
-	incr mood(horny) -2
+	bMotion_mood_adjust happy 1
+	bMotion_mood_adjust horny -2
 }
 
 
 proc cum {channel nick} {
 	global bMotionInfo
-	global mood
 	if {![bMotionIsFriend $nick]} {
 		bMotionDoAction $channel $nick "%VAR{blehs} I can't cum thinking about someone I don't like"
 		return 0
 	}
 	if {$bMotionInfo(gender) == "male"} {
 		bMotionDoAction $channel $nick "/ejaculates over %%"
-		incr mood(horny) -3
-		incr mood(happy) 2
+		bMotion_mood_adjust horny -3
+		bMotion_mood_adjust happy 2
 		return 0
 	}
 	bMotionDoAction $channel $nick "/makes herself cum thinking about %%"
-	incr mood(horny) -3
-	incr mood(happy) 2
+	bMotion_mood_adjust horny -3
+	bMotion_mood_adjust happy 2
 	return 0
 }
 
 
 proc frightened {nick channel} {
-	global mood
 	bMotionDoAction $channel $nick "%VAR{frightens} %VAR{unsmiles}"
-	incr mood(lonely) -1
-	incr mood(happy) -1
+	bMotion_mood_adjust lonely -1
+	bMotion_mood_adjust happy -1
 }
 
 
 proc checkPokemon {which channel} {
-	global bMotionInfo
+	global bMotionInfo 
 	if {$bMotionInfo(pokemon) != [string tolower $which]} {
 		bMotionDoAction $channel $which "/morphs into %%!"
 		set bMotionInfo(pokemon) [string tolower $which]

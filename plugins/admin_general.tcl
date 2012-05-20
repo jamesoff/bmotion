@@ -224,12 +224,17 @@ proc bMotion_plugin_management_global { handle { text "" } } {
 	if [string match -nocase "off" $text] {
 		bMotion_putadmin "globally disabling bmotion"
 		set bMotionGlobal 0
+		# force an election on the botnet
+		bMotion_interbot_next_elect
+		bMotion_interbot_send_bye
 		return 0
 	}
 
 	if [string match -nocase "on" $text] {
 		bMotion_putadmin "globally enabling bmotion"
 		set bMotionGlobal 1
+		bMotion_interbot_resync
+		bMotion_interbot_next_elect
 		return 0
 	}
 

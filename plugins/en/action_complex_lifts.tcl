@@ -15,11 +15,10 @@ bMotion_plugin_add_action_complex "lifts" "(lifts|picks up|hoists) %botnicks" 10
 
 proc bMotion_plugin_complex_action_lifts { nick host handle channel text } {
 	global botnicks
-	global mood
 
 	bMotion_putloglev d * "bMotion: Got lifted"
 	
-	if {$mood(happy) < -3} {
+	if {[bMotion_mood_get happy] < -3} {
 		bMotion_putloglev 1 * "bMotion: Don't want lifted!"
 		bMotionDoAction $channel $nick "%VAR{nolift_channel_response}"
 	} else {

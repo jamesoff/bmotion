@@ -48,7 +48,9 @@ proc bMotion_plugin_output_append { channel line } {
 	return $line
 }
 
-bMotion_abstract_register "preciouses" {
+bMotion_abstract_register "preciouses"
+bMotion_abstract_reset "preciouses"
+bMotion_abstract_batchadd "preciouses" {
 	" my precious"
 	" precious"
 	" preciouses"
@@ -92,9 +94,5 @@ bMotion_abstract_register "prepends" {
   "so, like,"
 	"r"
 }
-
-# delete old preciouses contents if it exists
-# actually, this might not be needed, but just in case :)
-bMotion_abstract_add_filter "preciouses" {^[^ ]}
 
 bMotion_plugin_add_output "append" bMotion_plugin_output_append 1 "en" 11

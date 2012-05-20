@@ -7,6 +7,7 @@
 bMotion_abstract_register "randomStuff"
 bMotion_abstract_reset "randomStuff"
 bMotion_abstract_batchadd "randomStuff" {
+	"%JOKE"
 	"%VAR{sillyThings:strip} just kicked in yo!%|%VAR{sound}"
 	"my %VAR{bodypart} is itchy, is that normal?"
 	"%VAR{FRENCH}"

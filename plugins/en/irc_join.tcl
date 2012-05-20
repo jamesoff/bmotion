@@ -59,7 +59,7 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 		return 0
 	}
 
-	global botnick mood
+	global botnick 
 
 	set greetings "generic_greeting"
 	set lastLeft [bMotion_plugins_settings_get "system:join" "lastleft" $channel ""]
@@ -87,10 +87,12 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 	#set nick [bMotion_cleanNick $nick $handle]
 	if {[getFriendship $nick] < 50} {
 		set greetings "dislike_joins"
+		driftFriendship $nick 1
 	}
 
 	if {[getFriendship $nick] > 50} {
 		set greetings "friend_greeting"
+		driftFriendship $nick -1
 
 		if {$nick == $lastLeft} {
 			set greetings "welcomeBacks"

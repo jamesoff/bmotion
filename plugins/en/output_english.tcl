@@ -83,6 +83,8 @@ proc bMotion_plugin_output_english { channel line } {
 		set line [string tolower [string range $line 0 2]][string range $line 3 end]
 	}
 
+	regexp -all "no a load of" $line "no" line
+
 	#fix gap before full stop
 
 	#TODO: fix
@@ -91,6 +93,8 @@ proc bMotion_plugin_output_english { channel line } {
 	# fix american spellings
 	# TODO: make this an option or US bots can talk wrong english and UK bots can talk right english
 	set line [string map -nocase { color colour neighbor neighbour aluminum aluminium favorite favourite center centre } $line]
+
+	set line [string map -nocase { tooths teeth } $line]
 
   return $line
 }

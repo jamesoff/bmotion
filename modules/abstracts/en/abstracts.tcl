@@ -3008,19 +3008,29 @@ bMotion_abstract_register "yeses" {
 	"*nod*"
 }
 
+bMotion_abstract_register "currencies" {
+	"US dollars"
+	"pounds"
+	"yen"
+	"euro"
+	"Hong Kong dollar"
+	"Australian dollar"
+	"Danish kronor"
+}
+
 bMotion_abstract_register "sillyThings" {
 	"the crrrrrrrrest on birdman's helmet"
 	"12 year old black metal kids"
-	"14 US dollars"
+	"%NUMBER{100} %VAR{currencies}"
 	"1.5 pie"
-	"20 minutes till lunch"
-	"5 litres of Halfords 10W-40"
-	"5 pints"
-	"99 bicycle clips"
+	"%NUMBER{100} litres of Halfords 10W-40"
+	"%NUMBER{100} pints"
+	"%NUMBER{100} bicycle clips"
 	"a 12-inch pianist"
+	"a %NUMBER{12}-inch pianist"
 	"a 1.44MB floppy disk"
 	"a 1979 Aston Martin"
-	"a 7MB Flash movie"
+	"a %NUMBER{1024}MB Flash movie"
 	"AA"
 	"a backup"
 	"a badger"
@@ -4753,6 +4763,8 @@ bMotion_abstract_register "todays_episode" {
 	"The Secret Assignment"
 	"The Heat Thickens"
 	"There Go My %VAR{clothes:plural,strip,camel}!"
+	"A Substantial %VAR{sillyThings:strip,camel}"
+	"Dead Men Don't %VAR{sillyVerbs:camel}"
 }
 
 
@@ -5802,11 +5814,11 @@ bMotion_abstract_register "animals" {
 	"horse"
 }
 
-bMotion_abstract_register "theRs" {
+bMotion_abstract_register "theRs"
+bMotion_abstract_reset "theRs"
+bMotion_abstract_batchadd "theRs" {
 	"r"
-	"r %VAR{smiles}"
-	"r %VAR{unsmiles}"
-	"r "
+	"r %SMILEY{auto}"
 }
 bMotion_abstract_add_filter "theRs" "sads"
 

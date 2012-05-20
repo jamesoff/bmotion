@@ -18,12 +18,10 @@ bMotion_plugin_add_complex "smiley5" {^%botnicks ([\-^])_*[\-^];*$} 80 bMotion_p
 bMotion_plugin_add_complex "smiley3" {^heh(ehe?)*$} 30 bMotion_plugin_complex_smiley "all"
 
 proc bMotion_plugin_complex_smiley { nick host handle channel text } {
-  global mood
-
   if {![bMotion_interbot_me_next $channel]} { return 0 }
 
 	if [bMotion_sufficient_gap 120 "complex:smiley" $channel] {
-		if {$mood(happy) < 0} {
+		if {[bMotion_mood_get happy] < 0} {
 			return 0
 		}
 
@@ -36,12 +34,10 @@ proc bMotion_plugin_complex_smiley { nick host handle channel text } {
 }
 
 proc bMotion_plugin_complex_smiley2 { nick host handle channel text } {
-  global mood
-
   if {![bMotion_interbot_me_next $channel]} { return 0 }
 
 	if [bMotion_sufficient_gap 120 "complex:smiley" $channel] {
-		if {$mood(happy) < 0} {
+		if {[bMotion_mood_get happy] < 0} {
 			return 0
 		}
 

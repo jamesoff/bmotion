@@ -131,7 +131,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
   bMotion_putloglev 3 * "Checking question for 'where'"
   ## Where question targeted at me
   if { [regexp -nocase "^$botnicks,?:? where" $text] ||
-       [regexp -nocase "^where .* $botnicks ?\\?" $text] } {
+       [regexp -nocase "^where('\[ds\])? .* $botnicks ?\\?" $text] } {
     bMotion_question_where $nick $channel $host
     return 1
   }

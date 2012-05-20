@@ -38,7 +38,7 @@ proc bMotion_complex_action_hands_dildo { channel nick item2 } {
     }
 
     #not horny enough
-    if {$mood(horny) < 3} {
+    if {[bMotion_mood_get horny] < 3} {
       bMotion_putloglev 1 * "bMotion: but not horny enough (!), they'll have to do better (they'll never learn otherwise)"
       bMotionDoAction $channel $nick "I'm not in the mood for that. Haven't you heard of foreplay?"
       bMotionGetUnLonely
@@ -109,7 +109,7 @@ proc bMotion_complex_action_hands_dildo { channel nick item2 } {
     }
 
     #not horny enough
-    if {$mood(horny) < 3} {
+    if {[bMotion_mood_get horny] < 3} {
       bMotion_putloglev 1 * "bMotion: but not horny enough (!), they'll have to do better (they'll never learn otherwise)"
       bMotionDoAction $channel $nick "I'm not in the mood for that. Haven't you heard of foreplay?"
       bMotionGetUnLonely

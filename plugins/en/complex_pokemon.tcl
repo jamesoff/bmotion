@@ -13,14 +13,13 @@
 
 bMotion_plugin_add_complex "attack" "^%botnicks,?:? (use (your )?)?(.+) attack" 100 bMotion_plugin_complex_attack "en"
 bMotion_plugin_add_complex "chooseyou" "^%botnicks:?,? i choose you(,? ?(.+))?" 100 bMotion_plugin_complex_chooseyou "en"
-bMotion_plugin_add_simple "pokemon_return" "^${botnicks},?:? return!?^" 100 [list "/returns to %%'s pokeball"] "en"
+bMotion_plugin_add_simple "pokemon_return" "^%botnicks,?:? return!?^" 100 [list "/returns to %%'s pokeball"] "en"
 
 proc bMotion_plugin_complex_attack { nick host handle channel text } {
-  global botnicks botnick mood
+  global botnicks botnick 
   if [regexp -nocase "^${botnicks}:? (use (your )?)?(.+)" $text ming ming1 ming2 ming2 what] {
     global bMotionInfo botnicks
     if [regexp -nocase {\mattack\M} [string tolower $what]] {
-      global mood
       set attack [string range $what 0 [expr [string first "attack" [string tolower $what]] - 2]]
       bMotion_putloglev d * "bMotion: Requested attack: $attack"
       set onwhom [string range $what [expr [string first "attack" [string tolower $what]] + 6] end]
@@ -37,14 +36,14 @@ proc bMotion_plugin_complex_attack { nick host handle channel text } {
 
       if [regexp -nocase "thunder(bolt|shock)" $attack ming actualAttack] {
         checkPokemon "Pikachu" $channel
-        if {$mood(electricity) < 0} {
+        if {[bMotion_mood_get electricity] < 0} {
           bMotionDoAction $channel $nick "pikaa...."
           bMotionDoAction $channel $nick "/collapses"
           putserv "NOTICE $nick :Sorry, I don't have enough power for a thunder$actualAttack at the moment :("
           bMotionDoAction $channel $nick "... pikachu %SMILEY{sad}"
           return 1
         }
-        incr mood(electricity) -3
+				bMotion_mood_adjust electricity -3
         bMotionDoAction $channel $nick "pikaaa.... CH%REPEAT{3:6:U}"
         if {$who == ""} { bMotionDoAction $channel $nick "/fires [getHisHer] <notopic>thunder$actualAttack</notopic>!" } else {
           bMotionDoAction $channel $who "/fires [getHisHer] <notopic>thunder$actualAttack</notopic> at %%"
@@ -63,14 +62,14 @@ proc bMotion_plugin_complex_attack { nick host handle channel text } {
 
       if [string match "*lightning*" $attack] {
         checkPokemon "Pikachu" $channel
-        if {$mood(electricity) < 0} {
+        if {[bMotion_mood_get electricity] < 0} {
           bMotionDoAction $channel $nick "pikaa...."
           bMotionDoAction $channel $nick "/collapses"
           putserv "NOTICE $nick :Sorry, I don't have enough power for a lightning attack at the moment :("
           bMotionDoAction $channel $nick "... pikachu %SMILEY{sad}"
           return 1
         }
-        incr mood(electricity) -2
+				bMotion_mood_adjust electricity -2
         bMotionDoAction $channel $nick "pikaaa.... CH%REPEAT{3:6:U}"
         if {$who == ""} { bMotionDoAction $channel $nick "/fires [getHisHer] lightning attack!" } else {
           bMotionDoAction $channel $who "/fires [getHisHer] lightning attack at %%"
@@ -115,6 +114,7 @@ proc bMotion_plugin_complex_attack { nick host handle channel text } {
 }
 
 proc bMotion_plugin_complex_chooseyou { nick host handle channel text } {
+	global botnicks
   if [regexp -nocase "^${botnicks}:?,? i choose you(,? ?(.+))?" $text ming ming1 who] {
     if {$who == ""} {
       bMotionDoAction $channel $nick "er, thanks :P"
@@ -123,3 +123,4 @@ proc bMotion_plugin_complex_chooseyou { nick host handle channel text } {
     checkPokemon $who $channel
   }
 }
+

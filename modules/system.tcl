@@ -227,7 +227,7 @@ proc bMotion_random_away {} {
 #
 # periodically sprout randomness (or go /away if idle enough)
 proc doRandomStuff {} {
-	global bMotionInfo mood stonedRandomStuff bMotionSettings
+	global bMotionInfo stonedRandomStuff bMotionSettings
 	global bMotionOriginalNick bMotionChannels
 	global BMOTION_SLEEP
 
@@ -305,7 +305,7 @@ proc doRandomStuff {} {
 #
 # Output random gibberish
 proc bMotionSaySomethingRandom {channel {busy 0}} {
-	global randomStuff stonedRandomStuff mood bMotionInfo bMotionCache
+	global randomStuff stonedRandomStuff bMotionInfo bMotionCache
 
 	bMotion_putloglev 4 * "bMotionSaySomethingRandom $channel $busy"
 
@@ -441,7 +441,7 @@ proc bMotionUnSilence {} {
 
 ### bMotionLike 
 proc bMotionLike {nick { host "" }} {
-	global bMotionInfo mood bMotionSettings
+	global bMotionInfo bMotionSettings
 
 	bMotion_putloglev 4 * "bMotionLike: $nick $host"
 	
@@ -460,13 +460,13 @@ proc bMotionLike {nick { host "" }} {
 	if {$handle == "*"} {
 		# couldn't find a match
 		#if i'm stoned enough, i'll sleep with anyone
-		if {$mood(stoned) > 20} {
+		if {[bMotion_mood_get stoned] > 20} {
 			bMotion_putloglev 3 * "like: i'm sufficiently stoned to do anyone"
 			return 1
 		}
 
 		#if i'm horny enough, i'll sleep with anyone
-		if {$mood(horny) > 10} {
+		if {[bMotion_mood_get horny] > 10} {
 			bMotion_putloglev 3 * "like: i'm sufficiently horny to do anyone"
 			return 1
 		}
@@ -891,6 +891,7 @@ proc bMotion_startTimers { } {
 		set mooddrifttimer 1
 		set delay [expr [rand 200] + 1700]
 		utimer $delay bMotion_interbot_next_elect
+		timer 10 bMotion_mood_drift_timer
 	}
 }
 
@@ -1274,7 +1275,7 @@ proc bMotion_filter_sillyThings { item } {
 
 	# -rty, -ted?
 
-	if [regexp -nocase {\m(should|like|better|bigger|clever|other|rather|the|and|for|to|be|cool|dizzy|different|dry|entire|end|expensive|faster|federal|this|illegitimate|illiteracy|implicit|kind|lack|last|late|later|left|less|little|long|maybe|maybeok|meantime|mathematical|mechanical|more|most|much|multi|new|newer|next|particular|past|pure|quick|same|sheer|short|small|sort|specific|ultra|tubal|total|were|what|whole|weird|wrong)$} $item] {
+	if [regexp -nocase {\m(certain|should|like|better|bigger|clever|other|rather|the|and|for|to|be|cool|dizzy|different|dry|entire|end|expensive|faster|federal|this|illegitimate|illiteracy|implicit|kind|lack|last|late|later|left|less|little|long|maybe|maybeok|meantime|mathematical|mechanical|more|most|much|multi|new|newer|next|particular|past|pure|quick|same|sheer|short|small|sort|specific|ultra|tubal|total|were|what|whole|weird|wrong)$} $item] {
 		bMotion_putloglev 2 * "sillyThing $item rejected for stoplist"
 		return 0
 	}

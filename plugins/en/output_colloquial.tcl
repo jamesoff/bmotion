@@ -78,7 +78,7 @@ proc bMotion_plugin_output_colloq { channel line } {
   }
 
   if [bMotion_plugin_output_colloq_chance $colloq_rate] {
-    if {[regexp -nocase "[a-z0-9]$" $line]} {
+    if {[regexp -nocase "\[a-z0-9\]{2}$" $line]} {
       append line "."
     }
   }

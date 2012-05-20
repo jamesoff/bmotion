@@ -365,7 +365,7 @@ proc bMotionInterpolation2 { line } {
 # TODO: why is this separate or at least such a mess :)
 proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 	bMotion_putloglev 5 * "bMotionSayLine: channel = $channel, nick = $nick, line = $line, moreText = $moreText, noTypo = $noTypo"
-	global mood botnick bMotionInfo bMotionCache bMotionOriginalInput
+	global botnick bMotionInfo bMotionCache bMotionOriginalInput
 	global bMotion_output_delay
 
 	#TODO: Put %ruser and %rbot back in here
@@ -425,7 +425,7 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 		set line ""
 	}
 
-	if {$mood(stoned) > 3} {
+	if {[bMotion_mood_get stoned] > 3} {
 		if [rand 2] {
 			set line "$line man.."
 		} else {
@@ -1126,6 +1126,20 @@ proc bMotion_get_smiley { type } {
 	}
 	
 	bMotion_putloglev d * "smiley list is $smileys"
+
+	if {$type == "auto"} {
+		set happy [bMotion_mood_get happy]
+		if {$happy < -10} {
+			set type bigsad
+		} elseif {$happy < 0} {
+			set type sad
+		} elseif {$happy < 10} {
+			set type smile
+		} else {
+			set type bigsmile
+		}
+		bMotion_putloglev d * "auto smiley picked $type"
+	}
 
 	set reverse 0
 	set index -1

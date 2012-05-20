@@ -55,7 +55,7 @@ proc bMotion_interbot_next_elect { } {
 
 proc bMotion_interbot_next_elect_do { channel } {
 	global bMotion_interbot_nextbot_score bMotion_interbot_nextbot_nick botnick bMotionInfo
-	global bMotion_interbot_pending_channels
+	global bMotion_interbot_pending_channels bMotionGlobal
 
 	bMotion_putloglev 2 * "interbot: running election on $channel"
 
@@ -70,6 +70,10 @@ proc bMotion_interbot_next_elect_do { channel } {
 	if {$bMotionInfo(away) == 1} {
 		set myScore -2
 	}
+	if {$bMotionGlobal == 0} {
+		set myScore -2
+	}
+
 	set bMotion_interbot_nextbot_score($channel) $myScore
 	set bMotion_interbot_nextbot_nick($channel) $botnick
 	bMotion_putloglev 3 * "interbot: assuming I'm the nextbot until I find another"
@@ -95,7 +99,7 @@ proc bMotion_interbot_catch { bot cmd args } {
 	global bMotionInfo
 	bMotion_putloglev 3 * "interbot: incoming !$args!"
 	set args [lindex $args 0]
-	if [regexp {([^ ]+) (.+)} $args matches function params] {
+	if [regexp {([^ ]+)( (.+))?} $args matches function 1 params] {
 
 		bMotion_putloglev 2 * "interbot: got command $function ($params) from $bot"
 
@@ -123,6 +127,10 @@ proc bMotion_interbot_catch { bot cmd args } {
 
 			"SUP" {
 				bMotion_interbot_sup $bot $params
+			}
+
+			"BYE" {
+				bMotion_interbot_bye $bot
 			}
 		}
 	} else {
@@ -318,8 +326,12 @@ bMotion_interbot_next_elect
 #
 # callback for a bot linking to the botnet
 proc bMotion_interbot_link { botname via } {
-	global bMotionChannels
+	global bMotionChannels bMotionGlobal
 	bMotion_update_chanlist
+	if {!$bMotionGlobal} {
+		return
+	}
+
 	#let's announce we're a bmotion bot
 	putbot $botname "bmotion SUP $bMotionChannels"
 }
@@ -329,9 +341,13 @@ proc bMotion_interbot_link { botname via } {
 # Catches a HAY from another bot, replies with a SUP
 proc bMotion_interbot_hay { bot channels } {
 	#we've met another bmotion bot, we need to tell it what channels we're on
-	global bMotion_interbot_otherbots network bMotionChannels bMotion_interbot_enable
+	global bMotion_interbot_otherbots network bMotionChannels bMotion_interbot_enable bMotionGlobal
 
 	if {!$bMotion_interbot_enable} {
+		return
+	}
+
+	if {!$bMotionGlobal} {
 		return
 	}
 
@@ -361,6 +377,26 @@ proc bMotion_interbot_sup { bot channels } {
 
 	set bMotion_interbot_otherbots($bot) $channels
 	bMotion_putloglev 1 * "interbot: bMotion bot $bot on channels $channels"
+}
+
+proc bMotion_interbot_bye { bot } {
+	# sent by a bot when bMotion's disabled
+	global bMotion_interbot_otherbots
+
+	bMotion_putloglev d * "interbot: erasing $bot from history"
+
+	array unset bMotion_interbot_otherbots $bot
+}
+
+
+proc bMotion_interbot_send_bye { } {
+	global bMotion_interbot_enable
+	
+	if {!$bMotion_interbot_enable} {
+		return
+	}
+	bMotion_putloglev d * "interbot: telling all other bots to forget me"
+	putallbots "bmotion BYE"
 }
 
 array set bMotion_interbot_otherbots {}

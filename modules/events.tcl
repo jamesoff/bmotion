@@ -170,7 +170,7 @@ proc bMotion_event_main {nick host handle channel text} {
 	}
 
 	## Global definitions ##
-	global mood botnick
+	global botnick
 	global bMotionLastEvent bMotionSettings botnicks bMotionCache bMotionInfo
 	global bMotionThisText bMotionOriginalInput bMotionOriginalNick
 
@@ -439,7 +439,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 		return 0
 	}
 
-	global botnick mood rarrs smiles unsmiles botnicks bMotionCache bMotionSettings bMotionInfo
+	global botnick rarrs smiles unsmiles botnicks bMotionCache bMotionSettings bMotionInfo
 	set dest [channame2dname $dest]
 	set channel $dest
 
