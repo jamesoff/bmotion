@@ -58,7 +58,7 @@ proc bMotion_update_chanlist { } {
 	set bMotionChannels [list]
 
 	foreach chan [channels] {
-		if {[channel get $chan bmotion]} {
+		if {[channel get $chan bmotion] && ![channel get $chan inactive]} {
 			lappend bMotionChannels $chan
 		}
 	}
