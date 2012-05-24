@@ -1030,6 +1030,7 @@ bMotion_abstract_register "bodypart_male" {
 }
 
 bMotion_abstract_register "bodypart_female" {
+	"haddock flaps"
 	"front lumps"
 	"vagina"
 	"fanny"
