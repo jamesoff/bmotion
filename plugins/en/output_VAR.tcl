@@ -191,6 +191,9 @@ proc bMotion_plugin_output_VAR { channel line } {
 					bMotion_putloglev d * "Learning to dislike $replacement during %VAR expansion"
 					bMotion_abstract_add "_bmotion_dislike" $replacement
 				}
+				"lower" {
+					set replacement [string tolower $replacement]
+				}
 			}
 			bMotion_putloglev 1 * "current replacement is $replacement"
 		}
