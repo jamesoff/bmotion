@@ -7,6 +7,7 @@
 bMotion_abstract_register "randomStuff"
 bMotion_abstract_reset "randomStuff"
 bMotion_abstract_batchadd "randomStuff" {
+	"What's all that gurgling? You call this radar!?%|%BOT[no sir, we call it Mr %VAR{foods:strip,camel}!]%|i knew that! I always have %VAR{foods:prev,lower} before I watch radar!"
 	"Oh no, a %VAR{medical_types} case of %VAR{illness}. My %VAR{bodypart} has turned %VAR{colours} and my %VAR{bodypart} %VAR{fellOffs} %SMILEY{sad}"
 	"%VAR{sound}%|%BOT[are you ok?]%|yeah i'm just having a %={dump:shit}"
 	"My personality matrix can simulate what the real %me would say with %NUMBER{10} percent accuracy!"
