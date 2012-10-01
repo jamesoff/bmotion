@@ -7,6 +7,9 @@
 bMotion_abstract_register "randomStuff"
 bMotion_abstract_reset "randomStuff"
 bMotion_abstract_batchadd "randomStuff" {
+	"Oh no, a %VAR{medical_types} case of %VAR{illness}. My %VAR{bodypart} has turned %VAR{colours} and my %VAR{bodypart} %VAR{fellOffs} %SMILEY{sad}"
+	"%VAR{sound}%|%BOT[are you ok?]%|yeah i'm just having a %={dump:shit}"
+	"My personality matrix can simulate what the real %me would say with %NUMBER{10} percent accuracy!"
 	"%JOKE"
 	"%VAR{sillyThings:strip} just kicked in yo!%|%VAR{sound}"
 	"my %VAR{bodypart} is itchy, is that normal?"
@@ -120,7 +123,7 @@ bMotion_abstract_batchadd "randomStuff" {
 	"BOOM"
 	"BLAM"
 	"%VAR{bodypart}."
-	"Knickers.%|%BOT\[¬VAR{rarrs}\]"
+	"Knickers.%|%BOT\[Â¬VAR{rarrs}\]"
 	"/goes for coffee"
 	"bof"
 	"alors"
@@ -129,7 +132,7 @@ bMotion_abstract_batchadd "randomStuff" {
 	"elbow."		
 	"gorilla"
 	"brb"
-	"lalalala.. ow! I stubbed my toe %SMILEY{sad}%|%bot\[50,¬VAR{awwws}\]"
+	"lalalala.. ow! I stubbed my toe %SMILEY{sad}%|%bot\[50,Â¬VAR{awwws}\]"
 	"ow! I stubbed my %VAR{bodypart} %SMILEY{sad}"
 	"lum de dum de dum..."
 	"/twiddles thumbs"
@@ -152,7 +155,7 @@ bMotion_abstract_batchadd "randomStuff" {
 	"Resistance is futile, you will be %={0wn3d:assimilated}"
 	"Assimilation is futile, you will be resi... D'OH!"
 	"Resistance is futile, you will be %VAR{sillyVerbs:past}"
-	"I *didn't*"		"waCHOO *sniff*%|%BOT\[¬VAR{blessyous}\]"
+	"I *didn't*"		"waCHOO *sniff*%|%BOT\[Â¬VAR{blessyous}\]"
 	"/assimilates the channel"
 	"We are the B0rg. You will be 4551m1la70r3d."
 	"wheeeee"
@@ -166,7 +169,7 @@ bMotion_abstract_batchadd "randomStuff" {
 	"KAZAM"
 	"kazOO"
 	"yaZOO"		
-	"%={Oh my god! There's an axe in my head.:Mon dieu! Il y a une hache dans ma tete.:ghay'cha'! nachwIjDaq betleH tu'lu'!:Deus Meus! Securis in capite meo est.}%|%BOT\[¬VAR{pullsOut}\]"
+	"%={Oh my god! There's an axe in my head.:Mon dieu! Il y a une hache dans ma tete.:ghay'cha'! nachwIjDaq betleH tu'lu'!:Deus Meus! Securis in capite meo est.}%|%BOT\[Â¬VAR{pullsOut}\]"
 	"ALL YOUR BASE ARE BELONG TO US"
 	"For great justice."
 	"nostril"
@@ -281,7 +284,7 @@ bMotion_abstract_batchadd "randomStuff" {
 	"arrgh! it's hot! the butter in my packet is melting"
 	"heads i will, tails i won't%|*flip*%|heads! oh yeah! oh yeah!%|i mean, alrighty then"
 	"it's some guy wearing a %ruser costume! get him!"
-	"omg this %VAR{sillyThings} is the Best Thing Ever"
+	"omg this %VAR{sillyThings:strip} is the Best Thing Ever"
 	"/burps%|er... it was the fish%|/points"
 	"/burps%|() %SMILEY{smile}"
 	"/burps%|it was... er, %ruser"
@@ -410,6 +413,8 @@ bMotion_abstract_batchadd "randomStuff" {
 	"Press X to not %VAR{sillyVerbs}"
 }
 
+bMotion_abstract_add_filter "randomStuff" "\"%VAR.+"
+
 
 ### Gender-specific stuff
 ### Used by the right gender bot in an inactive channel
@@ -466,7 +471,7 @@ bMotion_abstract_register "randomStuff_female" {
 	"/plays with herself"
 	"That ain't my %VAR{bodypart}"
 	"This one time, at band camp, I put %VAR{sillyThings}..."
-	"/considers breast implants%|%BOT\[/feels up %ruser{female} to check¬|true, they aren't as good as %ruser{prev}'s¬|/feels up ¬ruser{prev}'s breasts¬|mmmm ¬VAR{smiles}\]"
+	"/considers breast implants%|%BOT\[/feels up %ruser{female} to checkÂ¬|true, they aren't as good as %ruser{prev}'sÂ¬|/feels up Â¬ruser{prev}'s breastsÂ¬|mmmm Â¬VAR{smiles}\]"
 	"/considers sexchange operation%|/looks at %ruser{male}%|Maybe not"
 	"It's good to be female isn't it %ruser{female}"
 	"Absurdly top heavy secretary speaking"
@@ -551,6 +556,14 @@ bMotion_abstract_register "randomStuff_09_19" {
 ### Used by both genders
 ### Used when the channel is 'active' (default < 300 sec since last line)
 bMotion_abstract_register "activeRandomStuff" {
+	"For this %={physical:mental:skill:mystery} challenge I need to you to take your %VAR{clothes:bothmixin} off"
+	"%VAR{sound2}%|Sorry, my %VAR{illness} is playing up"
+	"My interest in what you are talking about is %={low to moderate:high to extreme}"
+	"For this %={physical:mental:skill:mystery} challenge I need to you to take your %VAR{clothes:bothmixin} off"
+	"/waves around a broken %VAR{sillyThings:strip}%|sorry! i dropped it when i was pretending it was my %VAR{bodypart}"
+	"i could really go for some %VAR{bodypart}-blowing sex right now"
+	"oh, it's a rape %VAR{sillyThings:strip}, but the %VAR{sillyThings:prev} fell off"
+	"would you call what we did last night 'sex'?"
 	"and near the milkshake"
 	"just think how sexy you'd look with my %VAR{bodypart} in your mouth"
 	"just think how sexy you'd look with my %VAR{bodypart} in your %VAR{bodypart}"

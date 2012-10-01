@@ -1204,6 +1204,7 @@ bMotion_abstract_batchadd "friend_greeting" {
 	"%%!%|*%VAR{sillyVerbs}* %VAR{smiles}"
 	"%%ruser!%|/%VAR{sillyVerbs:present}"
 	"%% you're looking especially shagworthy today"
+	"You look lovely this %daytime; have you decreased in mass?"
 }
 
 bMotion_abstract_register "hexMiddle" {
@@ -1338,9 +1339,10 @@ bMotion_abstract_register "generic_greeting" {
 	"uh oh, it's %%"
 	"ieks, %%"
 	"welcome to our next contestant, %%!"
-	"wasn't expecting %%!%|/hides"
+	"wasn't expecting %% %|/hides"
 	"hey %% %VAR{food}%VAR{bodypart:bothmixin}"
 }
+bMotion_abstract_add_filter "generic_greeting" "%%!%"
 
 bMotion_abstract_add_filter "generic_greeting" "%VAR\{food\}"
 
@@ -4706,6 +4708,7 @@ bMotion_abstract_register "wake_ups" {
 	"/scans wardrobe%|I think this is a %VAR{clothes} day."
 	"Today, I will be mostly wearing... my %VAR{clothes} and my %VAR{clothes}"
 	"/puts on %VAR{clothes}%|Important meeting today, got to look my best %VAR{smiles}"
+	"/wakes up with a %VAR{medical_types} case of %VAR{illness} %SMILEY{sad}"
 }
 
 # originally this was wrong
@@ -5920,6 +5923,42 @@ bMotion_abstract_register "swear" {
 
 bMotion_abstract_register "fuckoff" {
 	"%={fuck:cunt:shit:sod} off%! you %VAR{PROM}"
+}
+
+bMotion_abstract_register "medical_types" {
+	"terrible"
+	"bad"
+	"unusual"
+	"highly infectious"
+	"embarrassing"
+	"acute"
+	"advanced"
+	"asymptomatic"
+	"chronic"
+	"crippling"
+	"invasive"
+	"self-inflicted"
+}
+
+bMotion_abstract_register "medical_suffix" {
+	"syndrome"
+	"itis"
+	"disorder"
+	"opathy"
+	"ysis"
+	"osis"
+	"ria"
+	"rrhoea"
+	"ectomy"
+	"derma"
+	"blast"
+	"itis"
+	"lepsy"
+	"oma"
+}
+
+bMotion_abstract_register "illness" {
+	"%VAR{prom_first}%={:-:}%VAR{prom_second}%VAR{medical_suffix}"
 }
 
 bMotion_abstract_add_filter "_all" "\{strip\}\}"
