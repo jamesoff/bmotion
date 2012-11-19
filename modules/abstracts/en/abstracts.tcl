@@ -5961,6 +5961,16 @@ bMotion_abstract_register "illness" {
 	"%VAR{prom_first}%={:-:}%VAR{prom_second}%VAR{medical_suffix}"
 }
 
+bMotion_abstract_register "energydrink_prefix" {
+  "%={Power:Ultra:Mega:Super:Hyper:Turbo:Ace:Energy:Potent:Superb:Fine:Splendid:Wicked:Banging:Fabulous:Perfect:Dazzling:Marvellous}"
+	"%VAR{basic_colours:camel}"
+}
+
+bMotion_abstract_register "energydrink" {
+	"%VAR{energydrink_prefix} %VAR{animals:camel}"
+}
+
+
 bMotion_abstract_add_filter "_all" "\{strip\}\}"
 bMotion_abstract_add_filter "_all" "\}\{strip\}"
 

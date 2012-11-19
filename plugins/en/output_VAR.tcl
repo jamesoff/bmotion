@@ -140,17 +140,13 @@ proc bMotion_plugin_output_VAR { channel line } {
 					if {[rand 100] > 90} {
 						set replacement [bMotion_strip_article $replacement]
 						putlog "plural: options list is $options_list"
-						if {[lsearch $options_list "strip"] > -1} {
-							set replacement "%VAR{pluralprefix:strip} $replacement"
-						} else {
-							set replacement "%VAR{pluralprefix} $replacement"
-						}
 					}
 				}
 				"title" {
 					set replacement [string totitle $replacement]
 				}
 				"camel" {
+					bMotion_putloglev 3 * "camelising $replacement"
 					set newreplacement ""
 					foreach word $replacement {
 						set word [string totitle $word]
@@ -158,6 +154,7 @@ proc bMotion_plugin_output_VAR { channel line } {
 						if {[string range $word 0 3] == "%var"} {
 							set word [string replace $word 0 3 "%VAR"]
 						}
+						bMotion_putloglev 4 * "camelise: adding $word to output"
 						append newreplacement "$word "
 					}
 					set replacement [string trim $newreplacement]

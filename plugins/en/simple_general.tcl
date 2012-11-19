@@ -71,3 +71,4 @@ bMotion_plugin_add_simple "nicecar2" {^nice [^ ]+s!?$} 40 [list "wanna show me w
 bMotion_plugin_add_simple "luggage" "^\[0-9\]{5}$" 40 [list "amazing, that's the same combination as my luggage!"] "en"
 
 bMotion_plugin_add_simple "letme1" "(%botnicks.? let me know when)|(let me know when.? %botnicks)" 100 [list "r" "will do" "sure" "np" "ok"] "en"
+bMotion_plugin_add_simple "energydrink" "^!energy(drink)?" 100 [list "%VAR{energydrink}"] "en"

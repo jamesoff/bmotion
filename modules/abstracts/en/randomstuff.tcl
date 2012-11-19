@@ -7,6 +7,8 @@
 bMotion_abstract_register "randomStuff"
 bMotion_abstract_reset "randomStuff"
 bMotion_abstract_batchadd "randomStuff" {
+	"IQ test: %VAR{sillyThings:strip,caps} is to %VAR{sillyThings:strip,caps} as %VAR{sillyThings:strip,caps} is to ...?"
+	"/endorses %ruser for %VAR{sillyThings:strip,plural,caps}. Now it's your turn: does %me know about %VAR{sillyThings:strip,plural,caps}?"	
 	"What's all that gurgling? You call this radar!?%|%BOT[no sir, we call it Mr %VAR{foods:strip,camel}!]%|i knew that! I always have %VAR{foods:prev,lower} before I watch radar!"
 	"Oh no, a %VAR{medical_types} case of %VAR{illness}. My %VAR{bodypart} has turned %VAR{colours} and my %VAR{bodypart} %VAR{fellOffs} %SMILEY{sad}"
 	"%VAR{sound}%|%BOT[are you ok?]%|yeah i'm just having a %={dump:shit}"
@@ -557,6 +559,7 @@ bMotion_abstract_register "randomStuff_09_19" {
 ### Used by both genders
 ### Used when the channel is 'active' (default < 300 sec since last line)
 bMotion_abstract_register "activeRandomStuff" {
+	"*applause* and next on cbeebies..."
 	"For this %={physical:mental:skill:mystery} challenge I need to you to take your %VAR{clothes:bothmixin} off"
 	"%VAR{sound2}%|Sorry, my %VAR{illness} is playing up"
 	"My interest in what you are talking about is %={low to moderate:high to extreme}"
