@@ -3126,6 +3126,11 @@ bMotion_abstract_register "sillyThings" {
 	"marinated fuck giblets"
 }
 
+bMotion_abstract_add_filter "sillyThings" {^an? ..?$}
+bMotion_abstract_add_filter "sillyThings" {^some ..?$}
+
+
+
 bMotion_abstract_register "blownAways" {
 	"/is blown off feet by force of %%'s statement%|%bot\[50,¬VAR{picksUp}\]"
 	"/falls over%|%bot\[50,¬VAR{picksUp}\]"
@@ -5798,6 +5803,8 @@ bMotion_abstract_register "sillyVerbs" {
 	"yell"
 	"zip"
 }
+bMotion_abstract_add_filter "sillyVerbs" {^..?$}
+
 
 bMotion_abstract_register "animals" {
 	"cow"
