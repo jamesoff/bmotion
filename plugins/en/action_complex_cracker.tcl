@@ -17,10 +17,10 @@ proc bMotion_plugin_complex_action_cracker { nick host handle channel text } {
 	global botnicks
 
 	# don't do this outside of dec
-	set month [clock format [clock seconds] -format "%m"]
-	if {$month != "12"} {
-		return
-	}
+	#set month [clock format [clock seconds] -format "%m"]
+	#if {$month != "12"} {
+	#	return
+	#}
 
 	bMotionDoAction $channel $nick "%VAR{cracker_boom}"
 	set hats [bMotion_plugins_settings_get "cracker" "hats" $channel ""]
@@ -68,6 +68,8 @@ proc bMotion_plugin_complex_action_cracker { nick host handle channel text } {
 bMotion_abstract_register "cracker_boom" {
 	"%VAR{booms}"
 	"%VAR{sfx} %VAR{surprises}"
+	"%VAR{sfx}"
+	"VAR{booms} %SMILEY{bigsmile}"
 }
 
 bMotion_abstract_register "cracker_win" {
@@ -91,6 +93,7 @@ bMotion_abstract_register "cracker_win_hat" {
 	"/puts on hat"
 	"*hat*"
 	"*puts on hat*"
+	"woo hat"
 }
 
 bMotion_abstract_register "cracker_lose_hat" {
@@ -140,9 +143,15 @@ bMotion_abstract_register "cracker_your_hats_current" {
 	"%2, silly"
 	"%2, silly%|can't you tell?"
 	"%2 hats and %VAR{sillyThings}"
+	"%2 hats%!,but one of them looks like %VAR{sillyThings}"
 }
 
 bMotion_abstract_register "cracker_hats_current" {
 	"%% has %2 hats on"
 	"%2 hats"
+}
+
+bMotion_abstract_register "cracker_handle_hats_current" {
+	"%% has %2 hats on"
+	"%2 hats%!, but one of them looks like %VAR{sillyThings}"
 }

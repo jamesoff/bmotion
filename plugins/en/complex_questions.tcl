@@ -464,7 +464,7 @@ proc bMotion_plugin_complex_question_many { nick channel host line } {
 					bMotionDoAction $channel "" "One hat only"
 					return 1
 				}
-				bMotionDoAction $channel "" "%VAR{cracker_your_hats_current}"
+				bMotionDoAction $channel "" "%VAR{cracker_your_hats_current}" $hats 
 				return 1
 			}
 
@@ -482,7 +482,7 @@ proc bMotion_plugin_complex_question_many { nick channel host line } {
 					bMotionDoAction $channel "" "One hat only"
 					return 1
 				}
-				bMotionDoAction $channel $handle "%VAR{cracker_handle_hats_current}"
+				bMotionDoAction $channel $handle "%VAR{cracker_handle_hats_current}" $hats
 				return 1
 
 		}
