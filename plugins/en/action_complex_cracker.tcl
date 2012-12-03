@@ -65,12 +65,14 @@ proc bMotion_plugin_complex_action_cracker { nick host handle channel text } {
 	}
 
 }
+
 bMotion_abstract_register "cracker_boom" {
 	"%VAR{booms}"
 	"%VAR{sfx} %VAR{surprises}"
 	"%VAR{sfx}"
-	"VAR{booms} %SMILEY{bigsmile}"
+	"%VAR{booms} %SMILEY{bigsmile}"
 }
+bMotion_abstract_add_filter "cracker_boom" "^VAR"
 
 bMotion_abstract_register "cracker_win" {
 	"%VAR{yays}! i won!%|/got %VAR{cracker_want_item} %VAR{smiles}"
