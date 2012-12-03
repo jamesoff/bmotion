@@ -79,6 +79,9 @@ bMotion_abstract_register "cracker_win" {
 	"%VAR{yays}! i won!%|/got %VAR{cracker_nowant_item}. hmm %VAR{unsmiles}"
 	"%VAR{yays}! i won!%|i got %VAR{cracker_want_item} %VAR{smiles}"
 	"%VAR{yays}! i won!%|oh, i got %VAR{cracker_nowant_item} %VAR{unsmiles}"
+	"%VAR{yays}! i won %VAR{cracker_want_item} %VAR{smiles}%! much better than %={that time:when} i won %VAR{_bmotion_dislike}"
+	"%VAR{boos}! i won %VAR{cracker_nowant_item} %VAR{unsmiles}%! i'd rather have %={had:won} %VAR{_bmotion_like}"
+	"%VAR{boos}! i won %VAR{cracker_nowant_item} %VAR{unsmiles}%! *%={shoves:jams:inserts} it up %%*"
 	"%VAR{yays}! i won %VAR{cracker_nowant_item}... but I'd rather have had a %VAR{_bmotion_like}"
 	"%VAR{yays}! i won %VAR{cracker_want_item}%|glad I didn't get a %VAR{_bmotion_dislike}, i hate those"
 }
@@ -125,6 +128,8 @@ bMotion_abstract_register "cracker_nowant_item" {
 bMotion_abstract_register "cracker_hats" {
 	"/is now wearing %2 hats"
 	"/has %2 hats on"
+	"HAT STATUS: %2 hats."
+	"%2 hats %VAR{smile}"
 }
 bMotion_abstract_add_filter "cracker_hats" "SETTING"
 bMotion_abstract_add_filter "cracker_hats" "%s"
