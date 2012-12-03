@@ -439,7 +439,7 @@ proc bMotion_plugin_complex_question_why { nick channel host } {
 proc bMotion_plugin_complex_question_many { nick channel host line } {
     bMotion_putloglev 2 * "$nick how many question"
 		set handle [nick2hand $nick]
-		if [regexp -nocase "how many (xmas |cracker |christmas )?hats (am|are|do|is) (.+) " $line matches 1 2 3] {
+		if [regexp -nocase "how many (xmas |cracker |christmas )?hats (am|are|do|is) (\[^ \]+) " $line matches 1 2 3] {
 			if {$3 == "you"} {
 				set hats [bMotion_plugins_settings_get "cracker" "hats" $channel ""]
 				if {($hats == "") || ($hats == 0)} {
