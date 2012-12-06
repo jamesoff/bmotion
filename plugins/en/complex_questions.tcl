@@ -11,6 +11,10 @@
 # in the modules directory.
 ###############################################################################
 
+# NOTICE TO PROGRAMMERS (hi James, how've you been?)
+# Correct format for regexps is now just botnicks: as pre-processing takes
+#   care of other formats and rewrites them
+
 bMotion_plugin_add_complex "question" {[?>/]$} 100 bMotion_plugin_complex_question "en"
 
 proc bMotion_plugin_complex_question { nick host handle channel text } {
@@ -21,305 +25,111 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
 		return
 	}
 
+  # START PREPROCESSING
+
+  # Allow typos for question marks at end
   regsub {(.+)[>\/]$} $text {\1?} text
 
-	if [regexp -nocase "^$botnicks,?:? when you (say|said),? (.+),? (did|do) you mean,? (.+)\\??" $text matches botnick a 1 b 2] {
+  # Move nick from end to start to simplify regexps later on
+  if {[regexp -nocase "(.+?),? $botnicks\\?$" $text matches 1]} {
+    global botnick
+    bMotion_putloglev d * "rewriting question to have my nick at the start"
+    set text "$botnick: $1\?"
+    bMotion_putloglev 1 * "question is now: $text"
+  }
+
+  # Rewrite nick, and nick to nick: to simplify regexps later on
+  if {[regexp -nocase "$botnicks,? (.+)" $text matches 1 2]} {
+    global botnick
+    bMotion_putloglev d * "rewriting question to use colon after my nick"
+    set text "$botnick: $2"
+    bMotion_putloglev 1 * "question is now: $text"
+  }
+
+  # END OF PREPROCESSING
+
+
+	if [regexp -nocase "^$botnicks: when you (say|said),? (.+),? (did|do) you mean,? (.+)\\??" $text matches ignore a 1 b 2] {
 		bMotionDoAction $channel $1 "%VAR{noimeant}" $2
 		return 1
 	}
 
-  bMotion_putloglev 3 * "Checking question for wellbeing"
   ## wellbeing question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? how( a|')?re (you|ya)( today|now)?\\??$" $text] ||
-       [regexp -nocase "^how( a|')?re (you|ya).*$botnicks ?\\?" $text] ||
-       [regexp -nocase "${botnicks},?:? ?(how('?s|z) it going|hoe gaat het|what'?s up|'?sup|how are you),?( ${botnicks})?\\?" $text]} {
+  if { [regexp -nocase "^$botnicks: how( a|')?re (you|ya)( today|now)?\\??$" $text] ||
+       [regexp -nocase "${botnicks}: (how('?s|z) it going|hoe gaat het|what'?s up|'?sup|how are you)\\?" $text]} {
       bMotion_question_wellbeing $nick $channel $host
       return 1
   }
 
-	bMotion_putloglev 3 * "checking question for sound: $text"
-	if {[regexp -nocase "^$botnicks,?:? what (noise|sound)s? " $text] || [regexp -nocase "what (noise|sound)s? .+${botnicks}\\?$" $text]} {
-		bMotion_putloglev 3 * "it's a sound question"
+	if {[regexp -nocase "^$botnicks: what (noise|sound)s? " $text]} {
 		bMotionDoAction $channel $nick "%VAR{sound_answer}"
 		return 1
 	}
 
-	if {[regexp -nocase "^$botnicks,?:? what did you do to" $text] || [regexp -nocase "what did you do to .+${botnicks}\\?$" $text]} {
-		bMotion_putloglev 3 * "it's a what did you do question"
+	if {[regexp -nocase "^$botnicks: what did you do to" $text]} {
 		bMotionDoAction $channel $nick "%VAR{whatdiddos}"
 		return 1
 	}
 
   ## moved here from further down because it'd never be triggered otherwise   --szrof
-  bMotion_putloglev 3 * "Checking question for 'what have'"
   ## What have question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? what ?have" $text] ||
-       [regexp -nocase "^what ?have .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_whathave $nick $channel $host
+  if [regexp -nocase "^$botnicks: what( have|'ve) " $text] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWhathaves}"
     return 1
   }
 
-  bMotion_putloglev 3 * "Checking question for 'which/what colour'"
-  ## What have question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? wh(ich|at) ?colou?r" $text] ||
-       [regexp -nocase "^wh(ich|at) ?colou?r .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_whatcolour $nick $channel $host
+  if { [regexp -nocase "^$botnicks: wh(ich|at) ?colou?r" $text]} {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{question_colour_wrapper}"
     return 1
   }
 
-  bMotion_putloglev 3 * "Checking question for 'what are the odds'"
   ## What have question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? what ?(are|is|'?s|was|were) the (odds|chance|probability)" $text] ||
-       [regexp -nocase "^what ?(are|is|'?s|was|were) the (odds|chance|probability) .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_whatodds $nick $channel $host
+  if { [regexp -nocase "^$botnicks: what( are| is|'?s| was| were|'?re) the (odds|chance|probability|likelihood)" $text]} {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWhatOdds}"
     return 1
   }
 
-  bMotion_putloglev 3 * "Checking question for 'what'"
+  if [regexp -nocase {\ma/?s/?l\M} $text] {
+    if {[bMotionTalkingToMe $text] || ([rand 3] == 0)} {
+      set age [expr [rand 20] + 13]
+      bMotionDoAction $channel $nick "%%: $age/$bMotionInfo(gender)/%VAR{locations}"
+      return 1
+    }
+  }
+
   ## What question targeted at me
+  # TODO: wtf
   if { [regexp -nocase "what('?s)?(.+)" $text matches s question] ||
        [regexp -nocase "what('?s)? (.*)\\?" $text matches s question] } {
     set term ""
+
+    if [regexp -nocase "what time" $text] {
+      bMotionDoAction $channel $nick "%VAR{answerWhens}"
+      return 1
+    }
+
+    # expand what's-type contractions
     if [regexp -nocase {what(\'?s| is| was) ([^ ]+)} $text matches ignore term] {
       set question "is $term"
     }
-    if {($term == "") && (![bMotionTalkingToMe $text])} { return 0 }
-    bMotion_plugin_complex_question_what $nick $channel $host $question
-    return 1
-  }
 
-
-
-
-  bMotion_putloglev 3 * "Checking question for 'with/at/against'"
-  ## With/at/against who question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? (with|at|against|by) who" $text ma mb prop] ||
-       [regexp -nocase "^(with|at|against|by) who .* $botnicks ?\\?" $text ma prop ma] } {
-    bMotion_plugin_complex_question_with $nick $channel $host $prop
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for 'who'"
-  ## Who question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? who(se|'s)? " $text matches bot owner] ||
-       [regexp -nocase "^who(se|'s)? .* $botnicks ?\\?" $text matches owner] } {
-    bMotion_plugin_complex_question_who $nick $channel $host $owner
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for 'want'"
-  ## Want question targetted at me
-	set item ""
-  if { [regexp -nocase "^$botnicks,?:? do you (need|want) (a|these|this|some|the|those|that) (.+)" $text matches a b c item] ||
-        [regexp -nocase "^do you (want|need) (a|these|this|some|the|those|that) (.*) $botnicks ?\\?" $text matches a b item] ||
-        [regexp -nocase "^$botnicks,?:? would you like (.+)" $text matches a item] ||
-        [regexp -nocase "^(do|would) you like (.+) $botnicks" $text matches item] ||
-        [regexp -nocase "^$botnicks,?:? (do )?((yo)?u )?wanna (.+)" $text matches item] ||
-        [regexp -nocase "^(do )?((yo)?u )?wanna (.+) $botnicks" $text matches item] } {
-      bMotion_plugin_complex_question_want $nick $channel $host $item
-      return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for 'why'"
-  ## Why question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? why" $text] ||
-       [regexp -nocase "why.* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_why $nick $channel $host
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for 'where'"
-  ## Where question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? where" $text] ||
-       [regexp -nocase "^where('\[ds\])? .* $botnicks ?\\?" $text] } {
-    bMotion_question_where $nick $channel $host
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for 'how many'"
-  ## How many question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? how ?many" $text] ||
-       [regexp -nocase "^how ?many .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_many $nick $channel $host $text
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for 'how long'"
-  ## How many question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? how ?long" $text] ||
-       [regexp -nocase "^how ?long .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_long $nick $channel $host
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for 'how old'"
-  ## How many question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? how ?old" $text] ||
-       [regexp -nocase "^how ?old .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_age $nick $channel $host
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question 'how big'"
-  ## How big question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? how ?big" $text] ||
-       [regexp -nocase "^how ?big .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_big $nick $channel $host
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for 'when'"
-  ## When question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? (when|what time)" $text] ||
-       [regexp -nocase "^(when|what time) .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_when $nick $channel $host
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for 'how much'"
-  ## How many question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? how ?much" $text] ||
-       [regexp -nocase "^how ?much .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_much $nick $channel $host
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for 'how'"
-  ## How question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? how" $text] ||
-       [regexp -nocase "^how .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_how $nick $channel $host
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for some general questions"
-  # some other random responses, handled here rather than simple_general so as not to break other code
-    if [regexp -nocase  "^${botnicks}:?,? do(n'?t)? you (like|want|find .+ attractive|get horny|(find|think) .+ (is ?)horny|have|keep)" $text] {
-    bMotion_putloglev 2 * "$nick general question"
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{yesnos}"
-    return 1
-  }
-
-  ## begin sid's stuff
-
-  ## moved "what have" to top   --szrof
-
-  ## moved "how much" further up   --szrof
-
-  bMotion_putloglev 3 * "Checking question for 'have you'"
-  ## Have you question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? have ?you" $text] ||
-       [regexp -nocase "^have ?you .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_haveyou $nick $channel $host
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for 'did you'"
-  ## Did you question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? did ?you" $text] ||
-       [regexp -nocase "^did ?you .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_didyou $nick $channel $host
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for 'will you'"
-  ## Will you question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? will ?you" $text] ||
-       [regexp -nocase "^will ?you .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_willyou $nick $channel $host
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for 'would you'"
-  ## Would you question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? would ?you" $text] ||
-       [regexp -nocase "^would ?you .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_wouldyou $nick $channel $host
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for 'are you'"
-  ## Are you question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? are ?you" $text] ||
-       [regexp -nocase "^are ?you .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_areyou $nick $channel $host
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for 'can you'"
-  ## Can you question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? can ?you" $text] ||
-       [regexp -nocase "^can ?you .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_canyou $nick $channel $host
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for 'do you'"
-  ## Do you question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? do ?you" $text] ||
-       [regexp -nocase "^do ?you .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_doyou $nick $channel $host
-    return 1
-  }
-
-  bMotion_putloglev 3 * "Checking question for 'is your'"
-  ## Is your question targeted at me
-  if { [regexp -nocase "^$botnicks,?:? is ?your" $text] ||
-       [regexp -nocase "^is ?your .* $botnicks ?\\?" $text] } {
-    bMotion_plugin_complex_question_isyour $nick $channel $host
-    return 1
-  }
-
-  ##end sid's stuff
-
-  # me .... ?
-  if [regexp -nocase "^${botnicks}:?,? (.+)\\?$" $text ming ming2 question] {
-    bMotion_putloglev 2 * "$nick final question catch"
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{randomReplies}"
-    return 1
-  }
-
-  # ... me?
-  if [regexp -nocase "${botnicks}\\?$" $text bhar ming what] {
-    bMotion_putloglev 2 * "$nick very final question catch"
-    if { [rand 2] == 1 } {
-      bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{randomReplies}"
-      return 1
+    if {($term == "") && (![bMotionTalkingToMe $text])} { 
+      bMotion_putloglev d * "what question handler bailing"
+      return 0 
     }
-  }
 
-  if [bMotionTalkingToMe $text] {
-    bMotion_putloglev 2 * "$nick talkingtome catch"
-    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{randomReplies}"
-    return 1
-  }
-  return 0
-}
-
-proc bMotion_plugin_complex_question_what { nick channel host question } {
-    bMotion_putloglev 2 * "$nick what !$question! question"
     global bMotionInfo bMotionFacts bMotionOriginalInput
+
     #see if we know the answer to it
     if {$question != ""} {
-      if [regexp -nocase {\ma/?s/?l\M} $question] {
-        #asl?
-        set age [expr [rand 20] + 13]
-        bMotionDoAction $channel $nick "%%: $age/$bMotionInfo(gender)/%VAR{locations}"
-        return 1
-      }
-      if [string match -nocase "*time*" $question] {
-        #what time: redirect to when
-        bMotion_plugin_complex_question_when $nick $channel $host
-        return 1
-      }
+
       #let's try to process this with facts
-      if [regexp -nocase {is ((an?|the) )?([^ ]+)} $question ignore ignore3 ignore2 term] {
+      if [regexp -nocase {(are|were|is) ((an?|the) )?([^ ]+)} $question matches ignore ignore3 ignore2 term] {
         set term [string map {"?" ""} $term]
         catch {
           set term [string tolower $term]
           bMotion_putloglev 1 * "looking for what,$term"
           set answers $bMotionFacts(what,$term)
-          #putlog $answers
           if {[llength $answers] > 0} {
             bMotion_putloglev 1 * "I know answers for what,$term"
             if {![bMotionTalkingToMe $bMotionOriginalInput]} {
@@ -347,249 +157,281 @@ proc bMotion_plugin_complex_question_what { nick channel host question } {
       bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWhats}"
       return 1
     }
-}
-
-proc bMotion_plugin_complex_question_when { nick channel host } {
-  bMotion_putloglev 2 * "$nick When question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWhens}"
-  return 1
-}
-
-proc bMotion_plugin_complex_question_with { nick channel host prop } {
-  bMotion_putloglev 2 * "$nick with question"
-  set answer "$prop %VAR{answerWithWhos}"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] $answer
-  return 1
-}
-
-proc bMotion_plugin_complex_question_who { nick channel host owner } {
-    bMotion_putloglev 2 * "$nick who question"
-  if {$owner == "se"} {
-    set line "%VAR{answerWhos:owner}"
-  } else {
-    set line "%VAR{answerWhos}"
+    return 1
   }
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "$line"
-  return 1
-}
 
-proc bMotion_plugin_complex_question_want { nick channel host { item "" } } {
-    bMotion_putloglev 2 * "$nick Want/need question"
 
-		if {$item != ""} {
-			# let's try to figure out if this is an item proper or something like "to go home" etc
-			if {[regexp -nocase "^(to)" $item]} {
-				# TODO: scope for improvement --^
-				bMotion_putloglev 3 * "item actually looks like an action, using generic answer for now"
-				bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{question_want_reply_wrapper}"
-				return 1
-			}
 
-			# TODO: check if it's a user
-			# TODO: factorise this code?
-			# TODO: other tests?
 
-			bMotion_putloglev 3 * "item looks like an item!"
-			set original_item $item
-			set item [string tolower [bMotion_strip_article $item]]
-			regsub {\?} $item "" item
-			regsub "s$" $item "" item
+  ## With/at/against who question targeted at me
+  if { [regexp -nocase "^$botnicks: (with|at|against|by) who" $text ma mb prop]} {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "$prop %VAR{answerWithWhos}"
+    return 1
+  }
 
-			if [bMotion_abstract_contains "_bmotion_like" $item] {
-				bMotionDoAction $channel $original_item "%VAR{want_item_like}" $nick
-				return 1
-			}
+  ## Who question targeted at me
+  if [regexp -nocase "^$botnicks: who(se|'s)? " $text matches bot owner] {
+    if {$owner == "se"} {
+      set line "%VAR{answerWhos:owner}"
+    } else {
+      set line "%VAR{answerWhos}"
+    }
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "$line"
+    return 1
+  }
+  
+  ## Want question targetted at me
+	set item ""
+  if { [regexp -nocase "^$botnicks: do you (need|want) (a|these|this|some|the|those|that) (.+)" $text matches a b c item] ||
+        [regexp -nocase "^$botnicks: would you like (.+)" $text matches a item] } {
 
-			if [bMotion_abstract_contains "_bmotion_dislike" $item] {
-				bMotionDoAction $channel $original_item "%VAR{want_item_dislike}" $nick
-				return 1
-			}
-			
-			if {[rand 100] > 80} {
-				bMotionDoAction $channel $original_item "%VAR{want_item_dislike}" $nick
-				bMotion_abstract_add "_bmotion_dislike" $item
-			} else {
-				bMotionDoAction $channel $original_item "%VAR{want_item_like}" $nick
-				bMotion_abstract_add "_bmotion_like" $item
-			}
-			return 1
-		}
+    if {$item != ""} {
+      # let's try to figure out if this is an item proper or something like "to go home" etc
+      if {[regexp -nocase "^(to)" $item]} {
+        # TODO: scope for improvement --^
+        bMotion_putloglev 3 * "item actually looks like an action, using generic answer for now"
+        bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{question_want_reply_wrapper}"
+        return 1
+      }
 
-		if {$item == ""} {
-			bMotion_putloglev 3 * "item is blank, using generic want answer"
-			bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{question_want_reply_wrapper}"
-		}
+      # TODO: check if it's a user
+      # TODO: factorise this code?
+      # TODO: other tests?
+
+      bMotion_putloglev 3 * "item looks like an item!"
+      regsub {\?} $item "" item
+      set original_item $item
+      set item [string tolower [bMotion_strip_article $item]]
+      regsub "s$" $item "" item
+
+      if [bMotion_abstract_contains "_bmotion_like" $original_item] {
+        bMotion_putloglev d * "I apparently like $original_item"
+        bMotionDoAction $channel $item "%VAR{want_item_like}" $nick
+        return 1
+      }
+
+      if [bMotion_abstract_contains "_bmotion_dislike" $original_item] {
+        bMotion_putloglev d * "I apparently dislike $original_item"
+        bMotionDoAction $channel $item "%VAR{want_item_dislike}" $nick
+        return 1
+      }
+      
+      if {[rand 100] > 80} {
+        bMotionDoAction $channel $item "%VAR{want_item_dislike}" $nick
+        bMotion_putloglev d * "deciding i dislike $original_item"
+        bMotion_abstract_add "_bmotion_dislike" $original_item
+      } else {
+        bMotionDoAction $channel $item "%VAR{want_item_like}" $nick
+        bMotion_putloglev d * "deciding i like $original_item"
+        bMotion_abstract_add "_bmotion_like" $original_item
+      }
+      return 1
+    }
+
+    if {$item == ""} {
+      bMotion_putloglev 3 * "item is blank, using generic want answer"
+      bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{question_want_reply_wrapper}"
+    }
 
     return 1
+  }
+
+  ## Why question targeted at me
+  if [regexp -nocase "^$botnicks: why('s|'d)?\\M" $text] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWhys}"
+    return 1
+  }
+
+  ## Where question targeted at me
+  if [regexp -nocase "^$botnicks: where('s|'d)?\\M" $text] {
+    if {[getFriendship $nick] < 50} {
+      bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{upyourbums}"
+    } else {
+      bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWheres}"
+    }
+    return 1
+  }
+
+  bMotion_putloglev 3 * "Checking question for 'how many'"
+  ## How many question targeted at me
+  if [regexp -nocase "^$botnicks: how ?many( (\[^ \]+))?" $text matches 1 2 3] {
+    # special case for christmas cracker hats
+    if [regexp -nocase "how many (xmas |cracker |christmas )?hats (am|are|do|is|have|has) (\[^ \]+) " $text matches 1 2 3] {
+      if {$3 == "you"} {
+        set hats [bMotion_plugins_settings_get "cracker" "hats" $channel ""]
+        if {($hats == "") || ($hats == 0)} {
+          bMotionDoAction $channel "" "%VAR{cracker_no_hats_own}"
+          return 1
+        }
+        if {$hats == 1} {
+          bMotionDoAction $channel "" "One hat only"
+          return 1
+        }
+        bMotionDoAction $channel $handle "%VAR{cracker_hats_current}" $hats
+        return 1
+      }
+
+      if {$3 == "i"} {
+        set hats [bMotion_plugins_settings_get "cracker" "hats" $channel $handle]
+        if {($hats == "") || ($hats == 0)} {
+          bMotionDoAction $channel "" "%VAR{cracker_no_hats_you}"
+          return 1
+        }
+        if {$hats == 1} {
+          bMotionDoAction $channel "" "One hat only"
+          return 1
+        }
+        bMotionDoAction $channel $handle "%VAR{cracker_your_hats_current}" $hats 
+        return 1
+      }
+
+      set handle [nick2hand $3]
+      if {($handle == "*" || $handle == "")} {
+        bMotionDoAction $channel "" "No idea"
+        return 1
+      }
+        set hats [bMotion_plugins_settings_get "cracker" "hats" $channel $handle]
+        if {($hats == "") || ($hats == 0)} {
+          bMotionDoAction $channel $handle "%VAR{cracker_no_hats_handle}"
+          return 1
+        }
+        if {$hats == 1} {
+          bMotionDoAction $channel "" "One hat only"
+          return 1
+        }
+        bMotionDoAction $channel $handle "%VAR{cracker_handle_hats_current}" $hats
+        return 1
+    }
+    #End of special cracker hats case
+
+    if {$3 == "years"} {
+      bMotionDoAction $channel $nick "%NUMBER{1000}"
+      return 1
+    }
+
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowmanys}"
+    return 1
+  }
+
+  ## How long question targeted at me
+  if [regexp -nocase "^$botnicks: how long" $text] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowLongs}"
+    return 1
+  }
+
+  ## How many question targeted at me
+  if [regexp -nocase "^$botnicks: how old" $text] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowOlds}"
+    return 1
+  }
+
+  ## How big question targeted at me
+  if [regexp -nocase "^$botnicks: how big" $text] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowBigs}"
+    return 1
+  }
+
+  ## When question targeted at me
+  # Note that "what time" is handled above in the 'what' handler
+  if [regexp -nocase "^$botnicks: when" $text] {
+    # TODO: take note of when did vs when will
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWhens}"
+    return 1
+  }
+
+  ## How many question targeted at me
+  if [regexp -nocase "^$botnicks: how much" $text] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowmuch}"
+    return 1
+  }
+
+  ## How question targeted at me
+  if [regexp -nocase "^$botnicks: how" $text] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHows}"
+    return 1
+  }
+
+  # TODO: remove?
+  if [regexp -nocase  "^${botnicks}: do(n'?t)? you (like|want|find .+ attractive|get horny|(find|think) .+ (is ?)horny|have|keep)" $text] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{yesnos}"
+    return 1
+  }
+
+  ## Have you question targeted at me
+  #TODO: handle "have you got" differently
+  if [regexp -nocase "^$botnicks: have you" $text] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHaveyous}"
+    return 1
+  }
+
+  ## Did you question targeted at me
+  if [regexp -nocase "^$botnicks: did you" $text] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerDidyous}"
+    return 1
+  }
+
+  ## Will you question targeted at me
+  if [regexp -nocase "^$botnicks: will you" $text] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWillyous}"
+    return 1
+  }
+
+  ## Would you question targeted at me
+  if [regexp -nocase "^$botnicks: would you" $text] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWouldyous}"
+    return 1
+  }
+
+  ## Are you question targeted at me
+  if [regexp -nocase "^$botnicks: are you" $text] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerAreyous}"
+    return 1
+  }
+
+  ## Can you question targeted at me
+  if [regexp -nocase "^$botnicks: can you" $text] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerCanyous}"
+    return 1
+  }
+
+  ## Do you question targeted at me
+  if [regexp -nocase "^$botnicks: do you" $text] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerDoyous}"
+    return 1
+  }
+
+  ## Is your question targeted at me
+  if [regexp -nocase "^$botnicks: is your" $text] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerIsyours}"
+    return 1
+  }
+
+  # ... me?
+  if [regexp -nocase "^$botnicks\\?$" $text bhar ming what] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{shortRandomReplies}"
+    return 1
+  }
+
+  # me .... ?
+  if [regexp -nocase "^$botnicks: (.+)\\?$" $text ming ming2 question] {
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{randomReplies}"
+    return 1
+  }
+
+
+  if [bMotionTalkingToMe $text] {
+    bMotion_putloglev 2 * "$nick talkingtome catch"
+    bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{randomReplies}"
+    return 1
+  }
+  return 0
 }
 
-proc bMotion_plugin_complex_question_why { nick channel host } {
-    bMotion_putloglev 2 * "$nick why question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWhys}"
-  return 1
+proc bMotion_plugin_complex_question_what { nick channel host question } {
 }
 
-## obsolete, it's been moved
-# proc bMotion_plugin_complex_question_where { nick channel host } {
-#   bMotion_putloglev 2 * "$nick where question"
-#   bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWheres}"
-#   return 1
-# }
 
-proc bMotion_plugin_complex_question_many { nick channel host line } {
-    bMotion_putloglev 2 * "$nick how many question"
-		set handle [nick2hand $nick]
-		if [regexp -nocase "how many (xmas |cracker |christmas )?hats (am|are|do|is) (\[^ \]+) " $line matches 1 2 3] {
-			if {$3 == "you"} {
-				set hats [bMotion_plugins_settings_get "cracker" "hats" $channel ""]
-				if {($hats == "") || ($hats == 0)} {
-					bMotionDoAction $channel "" "No hats for me %SMILEY{sad}"
-					return 1
-				}
-				if {$hats == 1} {
-					bMotionDoAction $channel "" "One hat only"
-					return 1
-				}
-				bMotionDoAction $channel "" "%VAR{cracker_hats_current}" $hats
-				return 1
-			}
-
-			if {$3 == "i"} {
-				set hats [bMotion_plugins_settings_get "cracker" "hats" $channel $handle]
-				if {($hats == "") || ($hats == 0)} {
-					bMotionDoAction $channel "" "No hats for you %SMILEY{sad}"
-					return 1
-				}
-				if {$hats == 1} {
-					bMotionDoAction $channel "" "One hat only"
-					return 1
-				}
-				bMotionDoAction $channel "" "%VAR{cracker_your_hats_current}" $hats 
-				return 1
-			}
-
-			set handle [nick2hand $3]
-			if {$handle == "*"} {
-				bMotionDoAction $channel "" "No idea"
-				return 1
-			}
-				set hats [bMotion_plugins_settings_get "cracker" "hats" $channel $handle]
-				if {($hats == "") || ($hats == 0)} {
-					bMotionDoAction $channel $handle "No hats for %% %SMILEY{sad}"
-					return 1
-				}
-				if {$hats == 1} {
-					bMotionDoAction $channel "" "One hat only"
-					return 1
-				}
-				bMotionDoAction $channel $handle "%VAR{cracker_handle_hats_current}" $hats
-				return 1
-
-		}
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowmanys}"
-  return 1
-}
-
-proc bMotion_plugin_complex_question_how { nick channel host } {
-    bMotion_putloglev 2 * "$nick how question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHows}"
-  return 1
-}
-
-## begin sid's functions
-
-proc bMotion_plugin_complex_question_whathave { nick channel host } {
-    bMotion_putloglev 2 * "$nick what have question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWhathaves}"
-  return 1
-}
-
-proc bMotion_plugin_complex_question_much { nick channel host } {
-    bMotion_putloglev 2 * "$nick how much question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowmuch}"
-  return 1
-}
-
-proc bMotion_plugin_complex_question_haveyou { nick channel host } {
-    bMotion_putloglev 2 * "$nick have you question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHaveyous}"
-  return 1
-}
-
-proc bMotion_plugin_complex_question_didyou { nick channel host } {
-    bMotion_putloglev 2 * "$nick did you question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerDidyous}"
-  return 1
-}
-
-proc bMotion_plugin_complex_question_willyou { nick channel host } {
-    bMotion_putloglev 2 * "$nick will you question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWillyous}"
-  return 1
-}
-
-proc bMotion_plugin_complex_question_wouldyou { nick channel host } {
-    bMotion_putloglev 2 * "$nick would you question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWouldyous}"
-  return 1
-}
-
-proc bMotion_plugin_complex_question_areyou { nick channel host } {
-    bMotion_putloglev 2 * "$nick are you question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerAreyous}"
-  return 1
-}
-
-proc bMotion_plugin_complex_question_canyou { nick channel host } {
-    bMotion_putloglev 2 * "$nick can you question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerCanyous}"
-  return 1
-}
-
-proc bMotion_plugin_complex_question_doyou { nick channel host } {
-	bMotion_putloglev 2 * "$nick do you question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerDoyous}"
-  return 1
-}
-
-proc bMotion_plugin_complex_question_isyour { nick channel host } {
-    bMotion_putloglev 2 * "$nick is your question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerIsyours}"
-  return 1
-}
-
-proc bMotion_plugin_complex_question_whatcolour { nick channel host } {
-    bMotion_putloglev 2 * "$nick what colour question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{question_colour_wrapper}"
-  return 1
-}
-
-proc bMotion_plugin_complex_question_whatodds { nick channel host } {
-    bMotion_putloglev 2 * "$nick what odds question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerWhatOdds}"
-  return 1
-}
-
-proc bMotion_plugin_complex_question_long { nick channel host } {
-    bMotion_putloglev 2 * "$nick how long question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowLongs}"
-  return 1
-}
-
-proc bMotion_plugin_complex_question_age { nick channel host } {
-    bMotion_putloglev 2 * "$nick how old question"
-  bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowOlds}"
-  return 1
-}
-
-proc bMotion_plugin_complex_question_big { nick channel host } {
-	bMotion_putloglev 2 * "$nick how big question"
-	bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowBigs}"
-	return 1
-}
-
-## end sid's functions
-
+### Start abstracts 
 bMotion_abstract_register "question_what_fact_wrapper" {
   "%%"
   "%% i guess"
@@ -634,6 +476,9 @@ bMotion_abstract_register "want_item_like" {
 	"wh%REPEAT{4:10:e}%|%% == best"
 	"%% <3"
 	"%%++"
+  "giev"
+  "gimme"
+  "%% is the best thing"
 }
 
 bMotion_abstract_register "want_item_dislike" {
@@ -648,6 +493,7 @@ bMotion_abstract_register "want_item_dislike" {
 	"negative"
 	"god no"
 	"not a chance"
+  "ugh"
 }
 
 bMotion_abstract_register "whatdiddos" {

@@ -68,7 +68,7 @@ proc bMotion_plugin_complex_action_cracker { nick host handle channel text } {
 
 bMotion_abstract_register "cracker_boom" {
 	"%VAR{booms}"
-	"%VAR{sfx} %VAR{surprises}"
+	"%VAR{sfx} %VAR{surprises}%!%|what a weird sounding cracker"
 	"%VAR{sfx}"
 	"%VAR{booms} %SMILEY{bigsmile}"
 }
@@ -99,12 +99,14 @@ bMotion_abstract_register "cracker_win_hat" {
 	"*hat*"
 	"*puts on hat*"
 	"woo hat"
+	"hats++"
 }
 
 bMotion_abstract_register "cracker_lose_hat" {
 	"don't forget to put on your hat"
 	"here's your hat!"
 	"put on your hat!"
+	"/jams a hat %={on:in:up} %%"
 }
 
 bMotion_abstract_register "cracker_want_item" {
@@ -161,4 +163,22 @@ bMotion_abstract_register "cracker_hats_current" {
 bMotion_abstract_register "cracker_handle_hats_current" {
 	"%% has %2 hats on"
 	"%2 hats%!, but one of them looks like %VAR{sillyThings}"
+}
+
+bMotion_abstract_register "cracker_no_hats_own" {
+	"No hats for me %SMILEY{sad}"
+	"0 %SMILEY{sad}"
+	"none%!, which is good because i hate hats"
+}
+
+bMotion_abstract_register "cracker_no_hats_you" {
+	"no hats for you %SMILEY{sad}%!%|/hugs %%"
+	"none"
+	"haha, you have no hats%! and everyone else has like %NUMBER{100}000 each"
+}
+
+bMotion_abstract_register "cracker_no_hats_handle" {
+	"no hats for %% %SMILEY{sad}"
+	"none"
+	"what a loser, %% has no hats%! at all"
 }

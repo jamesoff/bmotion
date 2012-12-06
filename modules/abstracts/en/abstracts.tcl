@@ -660,6 +660,14 @@ bMotion_abstract_register "awwws" {
 	"awww%|/sniggers at %%"
 }
 
+bMotion_abstract_register "shortRandomReplies" {
+	"yes?"
+	"hello"
+	"hmm?"
+	"what"
+	"wat"
+}
+
 bMotion_abstract_register "randomReplies" {
 	"You are a bottomless pit of questions."
 	"fuck your riddles, you gigantic mystic arsehole!"
@@ -787,7 +795,7 @@ bMotion_abstract_register "randomReplies" {
 }
 
 bMotion_abstract_register "randomReplies_male" {
-	"What is it with these silly questions? Anyway, let's talk about dicks! I've got this pretty nice seven incher..."
+	"What is it with these silly questions? Anyway, let's talk about dicks! I've got this pretty nice %NUMBER{10} incher..."
 }
 
 bMotion_abstract_register "picksUp" {
@@ -877,10 +885,10 @@ bMotion_abstract_register "parkedinsDislike" {
 }
 
 bMotion_abstract_register "secondDildoPlays" {
-	"/makes use of the additional %%%|%bot[50,sheesh]"
-	"/locates another hole for the %%%|%bot[50,sheesh]"
+	"/makes use of the additional %%%|%bot\[50,sheesh\]"
+	"/locates another hole for the %%%|%bot\[50,sheesh\]"
 	"thanks, but i don't have a free hand... could you put that one in for me?"
-	"woah cool!%|/gets some more lube%|%bot[50,sheesh]"
+	"woah cool!%|/gets some more lube%|%bot\[50,sheesh\]"
 }
 
 bMotion_abstract_register "thrownAts" {
@@ -4217,7 +4225,7 @@ bMotion_abstract_register "colour_adjective" {
 
 bMotion_abstract_register "nowPlaying" {
 	"ooh, I like that one"
-	"[NP: %VAR{randomSongArtist} - %VAR{randomSongName}]"
+	"\[NP: %VAR{randomSongArtist} - %VAR{randomSongName}\]"
 	"/eyes %%"
 	"%REPEAT{3:7:m}"
 	"oh dear. what will the neighbours think?"
@@ -4289,7 +4297,7 @@ bMotion_abstract_register "answerWhatOdds" {
 	"that depends. is %ruser involved?"
 	"calculating...%|%VAR{sounds} %VAR{sounds} %VAR{sounds}%|%VAR{hexStart} %VAR{hexMiddle} %VAR{hexEnd}"
 	"that depends entirely on %VAR{sillyThings}"
-	"I'm not an expert on that%|%BOT[75,but I am! it's, %VAR{ers}, one to %NUMBER{100000}!]"
+	"I'm not an expert on that%|%BOT\[75,but I am! it's, %VAR{ers}, one to %NUMBER{100000}!\]"
 }
 
 bMotion_abstract_register "answerHowLongs" {
@@ -4465,18 +4473,13 @@ bMotion_abstract_register "troytv2" {
 	"I Can't Believe They Invented It!"
 	"Son of Sanford and Son"
 	"Troy and Company's Summertime Smile Factory"
-	"[edit]"
 	"Cartoons"
 	"Christmas Ape"
 	"Christmas Ape Goes to Summer Camp"
-	"[edit]"
-	"Other"
-	"[edit]"
 	"Celebrity funerals"
 	"Herschel Shmoikel Krustofsky, aka Krusty the Clown"
 	"André the Giant, We Hardly Knew Ye"
 	"Shemp Howard: Today We Mourn A Stooge"
-	"[edit]"
 	"Musicals"
 	"Stop the Planet of the Apes, I Want to Get Off!"
 }
