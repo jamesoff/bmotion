@@ -145,6 +145,7 @@ bMotion_abstract_register "cracker_your_hats" {
 bMotion_abstract_register "cracker_hats_current" {
 	"/is wearing %2 hats"
 	"/has %2 hats on"
+	"%2 hats"
 }
 
 bMotion_abstract_register "cracker_your_hats_current" {
@@ -153,11 +154,6 @@ bMotion_abstract_register "cracker_your_hats_current" {
 	"%2, silly%|can't you tell?"
 	"%2 hats and %VAR{sillyThings}"
 	"%2 hats%!,but one of them looks like %VAR{sillyThings}"
-}
-
-bMotion_abstract_register "cracker_hats_current" {
-	"%% has %2 hats on"
-	"%2 hats"
 }
 
 bMotion_abstract_register "cracker_handle_hats_current" {
