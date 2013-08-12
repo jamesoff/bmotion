@@ -31,6 +31,14 @@ proc bMotion_plugin_complex_spoon { nick host handle channel text } {
 				bMotionDoAction $channel $text "%VAR{spoonerisms}" "$4$2 $3$1$5"
 			} else {
 
+				if {"$1$2" == "yes"} {
+					return 0
+				}
+
+				if {"$4$5" == "is"} {
+					return 0
+				}
+
 				# smash heteronormativity!
 				if [regexp -nocase "straight" $bMotionInfo(orientation)] {
 					bMotionDoAction $channel "$1$2" "%VAR{xhery}" "$4$5"

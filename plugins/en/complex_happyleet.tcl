@@ -28,11 +28,17 @@ proc bMotion_plugin_complex_happyleet { nick host handle channel text } {
 		return 1
 	}
 
+	incr hour 5
+	if {$hour > 23} {
+		incr hour -24
+	}
+
 	if {$hour != 13} {
 		set my_hour ""
 		if {$hour >= 10} {
 			set my_hour "l"
 			incr hour -10
+			putlog "hour is now $hour"
 		}
 		switch $hour {
 			"0" { append my_hour "o" }
@@ -46,8 +52,13 @@ proc bMotion_plugin_complex_happyleet { nick host handle channel text } {
 			"8" { append my_hour "b" }
 			"9" { append my_hour "g" }
 		}
+		putlog "happyleet: myhour = $my_hour"
 
-		bMotionDoAction $channel $nick "happy %2et, %%!" $my_hour
+		if {$my_hour == ""} {
+			return 0
+		}
+
+		bMotionDoAction $channel $nick "happy ${my_hour}et, %%!" 
 		driftFriendship $nick -1
 		return 1
 	}
