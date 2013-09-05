@@ -63,13 +63,19 @@ proc bMotion_plugin_complex_action_failsafe { nick host handle channel text } {
 
 	set whee [rand 10]
 
+	# check stoplist before doing failsafe stuff
+	if [regexp -nocase "\m(is)\M" $verb] {
+		return 0
+	}
+
 	if {$whee > 5} {
-  	bMotionDoAction $channel $nick "%VAR{failsafes_a}" $verb
-  } else {
-  	bMotionDoAction $channel $verb "%VAR{failsafes_b}" $dir
-  }
-  return 1
+		bMotionDoAction $channel $nick "%VAR{failsafes_a}" $verb
+	} else {
+		bMotionDoAction $channel $verb "%VAR{failsafes_b}" $dir
+	}
+	return 1
 }
+
 
 proc bMotion_plugin_complex_action_autolearn_gender { nick host handle channel text } {
 	if {$handle == "*"} {

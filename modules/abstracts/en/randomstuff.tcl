@@ -559,6 +559,7 @@ bMotion_abstract_register "randomStuff_09_19" {
 ### Used by both genders
 ### Used when the channel is 'active' (default < 300 sec since last line)
 bMotion_abstract_register "activeRandomStuff" {
+	"%VAR{sound_short}%|sound effects added to lessen tragedy"
 	"*applause* and next on cbeebies..."
 	"For this %={physical:mental:skill:mystery} challenge I need to you to take your %VAR{clothes:bothmixin} off"
 	"%VAR{sound2}%|Sorry, my %VAR{illness} is playing up"

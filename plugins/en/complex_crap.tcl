@@ -22,7 +22,7 @@ proc bMotion_plugin_complex_crap { nick host handle channel text } {
 
 bMotion_abstract_register "random_crap_main" {
 	"/does a %VAR{random_crap_adj} %VAR{random_crap_type} and hands it to %ruser{enemy}"
-	"/does a %VAR{random_crap_adj} %VAR{random_crap_type} and hands it to %ruser{enemy}%|present!"
+	"/does a %VAR{random_crap_adj} %VAR{random_crap_type} and hands it to %ruser{enemy}$|present!"
 	"/crimps off a %VAR{random_crap_adj} %VAR{random_crap_type} and hands it to %ruser{enemy}"
 	"/crimps off a %VAR{random_crap_adj} %VAR{random_crap_type} and hands it to %ruser{enemy}%|present"
 	"/gift wraps a %VAR{random_crap_adj} %VAR{random_crap_type}%|/ships it first class to %ruser{enemy}"
@@ -30,7 +30,6 @@ bMotion_abstract_register "random_crap_main" {
 	"/does a %VAR{random_crap_adj} %VAR{random_crap_type} in a flan base%|/cooks it%|Here you go, %ruser{enemy}, I made you this flan!"
 }
 bMotion_abstract_add_filter "random_crap_main" "\$ruser"
-bMotion_abstract_add_filter "random_crap_main" "\$\|"
 
 bMotion_abstract_register "random_crap_adj" {
          "lemon-flavoured"
@@ -38,6 +37,8 @@ bMotion_abstract_register "random_crap_adj" {
 				 "%VAR{colours}"
 				 "delicious"
 				 "yummy"
+                 "uncomfortable"
+                 "comforting"
   }
 
 bMotion_abstract_register "random_crap_type" {

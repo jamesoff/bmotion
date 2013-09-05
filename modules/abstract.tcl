@@ -168,7 +168,7 @@ proc bMotion_abstract_register { abstract { stuff "" } } {
 
 	if {$stuff != ""} {
 		# batch-add at the same time
-		bMotion_putloglev 1 * "Batchadding during registration for $abstract"
+		bMotion_putloglev 2 * "Batchadding during registration for $abstract"
 		bMotion_abstract_batchadd $abstract $stuff
 	}
 }
@@ -183,7 +183,7 @@ proc bMotion_abstract_load { abstract } {
 	global bMotion_abstract_dir
   set lang $bMotionInfo(language)
 
-  bMotion_putloglev 1 * "Attempting to load $bMotion_abstract_dir/${abstract}.txt"
+  bMotion_putloglev 2 * "Attempting to load $bMotion_abstract_dir/${abstract}.txt"
 
   if {![file exists "$bMotion_abstract_dir/${abstract}.txt"]} {
     return
@@ -246,7 +246,7 @@ proc bMotion_abstract_load { abstract } {
     bMotion_abstract_save $abstract
   }
 
-	bMotion_putloglev 1 * "Abstract $abstract loaded, checking for filter"
+	bMotion_putloglev 2 * "Abstract $abstract loaded, checking for filter"
 	bMotion_abstract_apply_filter $abstract
 }
 
@@ -307,7 +307,7 @@ proc bMotion_abstract_save { abstract } {
     return 0
   }
 
-  bMotion_putloglev 1 * "Saving abstracts '$abstract' to disk"
+  bMotion_putloglev 2 * "Saving abstracts '$abstract' to disk"
 
   set fileHandle [open "$bMotion_abstract_dir/${abstract}.txt" "w"]
   set number [llength $bMotion_abstract_contents($abstract)]
@@ -504,7 +504,7 @@ proc bMotion_abstract_auto_gc { min hr a b c } {
 }
 
 proc bMotion_abstract_batchadd { abstract stuff } {
-  bMotion_putloglev 1 * "batch-adding to $abstract"
+  bMotion_putloglev 2 * "batch-adding to $abstract"
   foreach i $stuff {
     bMotion_abstract_add $abstract $i 0
   }

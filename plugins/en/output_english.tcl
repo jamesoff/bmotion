@@ -96,5 +96,8 @@ proc bMotion_plugin_output_english { channel line } {
 
 	set line [string map -nocase { tooths teeth } $line]
 
+    # fix the "omg this a X is the best thing ever"
+    regsub -nocase "this (a|some) (.+) is the Best" $line "this \\2 is the Best" line
+
   return $line
 }

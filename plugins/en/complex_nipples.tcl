@@ -16,9 +16,15 @@ bMotion_plugin_add_complex "nipples" "^i'?m .+$" 20 bMotion_plugin_complex_nippl
 proc bMotion_plugin_complex_nipples { nick host handle channel text } {
   if [regexp -nocase {^i'?m ([a-z]+)$} $text matches word] {
 		if [bMotion_interbot_me_next $channel] {
-	    bMotionDoAction $channel "" "YOU'RE $word? feel these nipples!"
+	    bMotionDoAction $channel "" "%VAR{nipples}"
 			return 1
 		}
     return 0
   }
+}
+
+bMotion_abstract_register "nippes" {
+    "YOU'RE %%? Feel these nipples!"
+    "YOU'RE %%? Feel these %VAR{bodypart:plural}"
+    "No, *I'm* %%"
 }
