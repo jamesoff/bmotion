@@ -175,6 +175,11 @@ set bMotion_interbot_enable 1
 # floating-point is fine
 set bMotionSettings(bias) 1
 
+# Karma plugin
+# 0 = disabled (default)
+# 1 = enabled
+set bMotionSettings(karma_enable) 0
+
 # Censor output plugin
 # The censor output plugin replaces words in output with "beep"
 # This setting gives the words to be replaced. Some work is done to let these
