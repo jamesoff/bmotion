@@ -25,6 +25,8 @@ proc bMotion_plugin_complex_spoon { nick host handle channel text } {
 		return 0
 	}
 
+	set text [string tolower $text]
+
 	if {[regexp -nocase {^([^%/aeiou. ]+)([aeiuo][a-z]+) ([a-z]+ )?([^aeiou. ]*)([aeiuo][a-z]+)$} $text matches 1 2 3 4 5 6 7]} {
 		if {![string equal -nocase "$4$2 $3$1$5" $text]} {
 			if [rand 1] {
