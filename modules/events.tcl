@@ -48,6 +48,7 @@ proc bMotionDoEventResponse { type nick host handle channel text } {
 
 	bMotion_putloglev 4 * "entering bMotionDoEventResponse: $type $nick $host $handle $channel $text"
 	if { ![regexp -nocase "nick|join|quit|part|split" $type] } {
+		bMotion_putloglev 2 * "invalid event type $type"
 		return 0
 	}
 
@@ -71,6 +72,8 @@ proc bMotionDoEventResponse { type nick host handle channel text } {
 			return 1
 		}
 		return 0
+	} else {
+		bMotion_putloglev d * "no irc event plugins matched for $text $type $bMotionInfo(language) $debug"
 	}
 	return 0
 }
@@ -121,7 +124,7 @@ proc bMotion_event_onpart {nick host handle channel {msg ""}} {
 	bMotion_plugins_settings_set "system" "lastleft" $channel "" $nick
 
 	#TODO: Fix this? Passing a cleaned nick around can break things
-	set nick [bMotion_cleanNick $nick $handle]
+	#set nick [bMotion_cleanNick $nick $handle]
 
 	set result [bMotionDoEventResponse "part" $nick $host $handle $channel $msg]
 }

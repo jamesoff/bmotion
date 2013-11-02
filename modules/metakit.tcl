@@ -51,6 +51,8 @@ proc bMotion_metakit_update { tag table cond_field cond_key update_field update_
 
 
 proc bMotion_metakit_get_single { tag table cond_field cond_key field } {
+	# Fetch the value for a single row
+	# If multiple rows match, return nothing
 	if [bMotion_has_metakit] {
 		bMotion_putloglev 2 * "metakit: select $field from $table where $cond_field = $cond_key limit 1"
 		set rows [mk::select $tag.$table -exact $cond_field $cond_key]
@@ -69,6 +71,8 @@ proc bMotion_metakit_get_single { tag table cond_field cond_key field } {
 }
 
 proc bMotion_metakit_dump { tag table } {
+	# Dump a table to the partyline
+	# Strictly a debugging command :)
 	if [bMotion_has_metakit] {
 		putlog "Dumping metakit $tag.$table..."
 		mk::loop c $tag.$table { putlog [ mk::get $c ] }

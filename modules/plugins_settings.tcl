@@ -48,7 +48,17 @@ proc bMotion_plugins_settings_set { plugin setting channel nick val } {
   }
 
   bMotion_putloglev 2 * "bMotion: Saving plugin setting $setting,$channel,$nick -> $val (from plugin $plugin)"
-  set bMotion_plugins_settings($plugin,$setting,$channel,$nick) $val
+	if {[bMotion_has_metakit]} {
+		set rows [mk::select -exact plugin $plugin -exact setting $setting -exact channel $channel -exact nick $nick]
+		foreach i $rows {
+			mk::row delete $i
+		}
+		mk::row append bmotion.psettings plugin $plugin setting $setting channel $channel nick $nick value $val
+		mk::file commit bmotion
+		bMotion_putloglev 2 * "bMotion: saved plugin setting using metakit"
+	} else {
+		set bMotion_plugins_settings($plugin,$setting,$channel,$nick) $val
+	}
   return 0
 }
 
@@ -74,11 +84,27 @@ proc bMotion_plugins_settings_get { plugin setting channel nick } {
   if {$plugin == "dummy"} {
     return ""
   }
+	
+	if [bMotion_has_metakit] {
+		set rows [mk::select -exact plugin $plugin -exact setting $setting -exact channel $channel -exact nick $nick]
+		if {[llength $rows] != 1} {
+			bMotion_putloglev 1 * "bMotion: plugin $plugin tried to fetch $setting,$channel,$nick but got [llength $rows] results"
+			return ""
+		}
+		putlog $rows
+		return [mk::get [lindex $rows 0] value]
+	} else {
+		if [info exists bMotion_plugins_settings($plugin,$setting,$channel,$nick)] {
+			return $bMotion_plugins_settings($plugin,$setting,$channel,$nick)
+		}
 
-  if [info exists bMotion_plugins_settings($plugin,$setting,$channel,$nick)] {
-    return $bMotion_plugins_settings($plugin,$setting,$channel,$nick)
-  }
-
-  bMotion_putloglev 1 * "bMotion: plugin $plugin tried to get non-existent value $setting,$channel,$nick"
-  return ""
+		bMotion_putloglev 1 * "bMotion: plugin $plugin tried to get non-existent value $setting,$channel,$nick"
+		return ""
+	}
 }
+
+if [bMotion_has_metakit] {
+	mk::view layout bmotion.psettings plugin setting channel nick value
+	bMotion_putloglev 1 * "created metakit view for psettings"
+}
+

@@ -142,6 +142,11 @@ if {$bMotion_testing == 1} {
 }
 source "$bMotionModules/system.tcl"
 
+if {$bMotion_testing == 1} {
+	putlog "... loading metakit"
+}
+source "$bMotionModules/metakit.tcl"
+
 #load new abstract system
 if {$bMotion_testing == 1} {
   putlog "... loading abstract system"
