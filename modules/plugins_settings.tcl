@@ -24,8 +24,7 @@ if {![info exists bMotion_plugins_settings]} {
   set bMotion_plugins_settings(dummy,setting,channel,nick) "dummy"
 }
 
-proc bMotion_plugins_settings_set { plugin setting channel nick val } {
-  global bMotion_plugins_settings
+proc bMotion_plugins_settings_set { plugin setting channel nick val {timeout 0}} {
 
   if {$nick == ""} { set nick "_" }
   if {$channel == ""} { set channel "_" }
@@ -48,12 +47,20 @@ proc bMotion_plugins_settings_set { plugin setting channel nick val } {
   }
 
   bMotion_putloglev 2 * "bMotion: Saving plugin setting $setting,$channel,$nick -> $val (from plugin $plugin)"
-  set bMotion_plugins_settings($plugin,$setting,$channel,$nick) $val
+	if [bMotion_redis_available] {
+		if {$timeout > 0} {
+			bMotion_redis_cmd set psettings:$plugin:$setting:$channel:$nick $val EX $timeout
+		} else {
+			bMotion_redis_cmd set psettings:$plugin:$setting:$channel:$nick $val
+		}
+	} else {
+		global bMotion_plugins_settings
+		set bMotion_plugins_settings($plugin,$setting,$channel,$nick) $val
+	}
   return 0
 }
 
 proc bMotion_plugins_settings_get { plugin setting channel nick } {
-  global bMotion_plugins_settings
 
   if {$nick == ""} { set nick "_" }
   if {$channel == ""} { set channel "_" }
@@ -75,7 +82,12 @@ proc bMotion_plugins_settings_get { plugin setting channel nick } {
     return ""
   }
 
+	if [bMotion_redis_available] {
+		return [bMotion_redis_cmd get psettings:$plugin:$setting:$channel:$nick]
+	}
+
   if [info exists bMotion_plugins_settings($plugin,$setting,$channel,$nick)] {
+		global bMotion_plugins_settings
     return $bMotion_plugins_settings($plugin,$setting,$channel,$nick)
   }
 

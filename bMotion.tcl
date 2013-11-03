@@ -136,6 +136,12 @@ if {$bMotion_loaded_settings == 0} {
 	putlog "bMotion: FATAL! Could not load from any settings file! bMotion is not going to work! :("
 }
 
+#load redis
+if {$bMotion_testing == 1} {
+	putlog "... loading redis"
+}
+source "$bMotionModules/redis.tcl"
+
 #load system functions
 if {$bMotion_testing == 1} {
   putlog "... loading system"
