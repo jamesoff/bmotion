@@ -129,7 +129,11 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
         catch {
           set term [string tolower $term]
           bMotion_putloglev 1 * "looking for what,$term"
-          set answers $bMotionFacts(what,$term)
+					if [bMotion_redis_available] {
+						set answers [bMotion_redis_cmd smembers "fact:what:$term"]
+					} else {
+						set answers $bMotionFacts(what,$term)
+					}
           if {[llength $answers] > 0} {
             bMotion_putloglev 1 * "I know answers for what,$term"
             if {![bMotionTalkingToMe $bMotionOriginalInput]} {

@@ -39,6 +39,11 @@
 	}
 
 proc bMotion_facts_load { } {
+	if [bMotion_redis_available] {
+		bMotion_putloglev 4 * "Not running bMotion_facts_load as we're using redis"
+		return
+	}
+
   global bMotionFacts bMotion_facts_file
 	global bMotion_testing
 
@@ -100,6 +105,11 @@ proc bMotion_facts_load { } {
 }
 
 proc bMotion_facts_save { } {
+	if [bMotion_redis_available] {
+		putloglev 4 * "not running bMotion_facts_save as we're using redis"
+		return
+	}
+
   global bMotionFacts bMotion_facts_file
   global bMotion_facts_max_facts
   global bMotion_facts_max_items
@@ -151,11 +161,18 @@ proc bMotion_facts_save { } {
 }
 
 proc bMotion_facts_auto_save { min hr a b c } {
+	if [bMotion_redis_available] {
+		return
+	}
   putlog "bMotion: autosaving facts..."
   bMotion_facts_save
 }
 
 proc bMotion_facts_forget_all { fact } {
+	if [bMotion_redis_available] {
+		putlog "warning: bMotion_redis_available not implemented yet for redis"
+		return
+	}
   global bMotionFacts bMotionLocal
 
   #drop the array element
@@ -181,7 +198,11 @@ proc bMotion_plugin_management_fact { handle { arg "" }} {
 
   #fact show <type> <name>
   if [regexp -nocase {show ([^ ]+) ([^ ]+)} $arg matches t name] {
-    set known $bMotionFacts($t,$name)
+		if [bMotion_redis_available] {
+			set known [bMotion_redis_cmd smembers fact:$t:$name]
+		} else {
+			set known $bMotionFacts($t,$name)
+		}
     bMotion_putadmin "Known '$t' facts about: $name"
     set count 0
     foreach fact $known {
@@ -193,15 +214,22 @@ proc bMotion_plugin_management_fact { handle { arg "" }} {
 
   #status
   if [regexp -nocase {status} $arg] {
-    set items [lsort [array names bMotionFacts]]
-    set itemcount 0
-    set factcount 0
-    #bMotion_putadmin "Known facts:"
-    foreach item $items {
-      #bMotion_putadmin "$item ([llength $bMotionFacts($item)])"
-      incr itemcount
-      incr factcount [llength $bMotionFacts($item)]
-    }
+		set itemcount 0
+		set factcount 0
+
+		if [bMotion_redis_available] {
+			set keys [bMotion_redis_cmd keys "fact:*"]
+			foreach key $keys {
+				incr itemcount
+				incr factcount [bMotion_redis_cmd scard $key]
+			}
+		} else {
+			set items [lsort [array names bMotionFacts]]
+			foreach item $items {
+				incr itemcount
+				incr factcount [llength $bMotionFacts($item)]
+			}
+		}
     bMotion_putadmin "Total: $factcount facts about $itemcount items"
     return 0
   }
@@ -229,20 +257,20 @@ proc bMotion_plugin_management_fact { handle { arg "" }} {
   return 0
 }
 
-	proc bMotion_plugin_management_fact_help { } {
-		bMotion_putadmin "Manage the fact subsystem:"
-		bMotion_putadmin "  .bmotion fact status"
-		bMotion_putadmin "    Show a summary of facts (lots of output!)"
-		bMotion_putadmin "  .bmotion fact show <type> <key>"
-		bMotion_putadmin "    Show defined values for <key>"
-		bMotion_putadmin "    Currently <type> is only 'what'"
-		#bMotion_putadmin "  .bmotion fact list <regexp>"
-		#bMotion_putadmin "    List all items matching the regexp"
-		#bMotion_putadmin "  .bmotion fact purge <regexp>"
-		#bMotion_putadmin "    Deletes ALL facts known about ALL mataching items"
-		#bMotion_putadmin "  .bmotion fact delete <item> <regexp>"
-		#bMotion_putadmin "    Deletes all matching facts about <item>"
-	}
+proc bMotion_plugin_management_fact_help { } {
+	bMotion_putadmin "Manage the fact subsystem:"
+	bMotion_putadmin "  .bmotion fact status"
+	bMotion_putadmin "    Show a summary of facts (lots of output!)"
+	bMotion_putadmin "  .bmotion fact show <type> <key>"
+	bMotion_putadmin "    Show defined values for <key>"
+	bMotion_putadmin "    Currently <type> is only 'what'"
+	#bMotion_putadmin "  .bmotion fact list <regexp>"
+	#bMotion_putadmin "    List all items matching the regexp"
+	#bMotion_putadmin "  .bmotion fact purge <regexp>"
+	#bMotion_putadmin "    Deletes ALL facts known about ALL mataching items"
+	#bMotion_putadmin "  .bmotion fact delete <item> <regexp>"
+	#bMotion_putadmin "    Deletes all matching facts about <item>"
+}
 
 # register the plugin
 if {$bMotion_testing == 0} {

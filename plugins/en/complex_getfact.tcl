@@ -26,6 +26,15 @@ proc bMotion_plugin_complex_get_fact { nick host handle channel text } {
 	set intro "%VAR{get_fact_intros}"
 	global bMotionFacts
 
+	if [bMotion_redis_available] {
+		set fact_keys [bMotion_redis_cmd keys "fact:what:*"]
+		set key [pickRandom $fact_keys]
+		set fact [bMotion_redis_cmd srandmember $key]
+		regsub "(.+:)*(.+)" $key "\\2" key
+		bMotionDoAction $channel $nick "%VAR{get_fact_intros} $key %={was:is} $fact"
+		return 1
+	}
+
 	set items [array names bMotionFacts]
 	#this gets a random item to give a fact about
 	set i [lindex $items [rand [llength $items]]]
