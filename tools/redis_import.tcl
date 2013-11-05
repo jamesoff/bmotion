@@ -53,7 +53,7 @@ while {![eof $fh]} {
 	if {$line != ""} {
 		regexp {([^,]+),([^ ]+) (.+)} $line matches type item fact
 		incr count
-		$r set "fact:$type:item" $fact
+		$r set "fact:$type:$item" $fact
 		set line [gets $fh]
 	}
 }
@@ -86,7 +86,7 @@ foreach dir $abstract_dirs {
 			set line [string trim $line]
 			if {$line != ""} {
 				incr items
-				$r set "abstract:$lang:$abstract" "$line"
+				$r sadd "abstract:$lang:$abstract" "$line"
 			}
 			set line [gets $fh]
 		}
