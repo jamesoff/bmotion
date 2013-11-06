@@ -272,6 +272,19 @@ set bMotionSettings(wakeytime_hour) "06"
 set bMotionSettings(wakeytime_minute) "30"
 
 
+### Redis
+#
+# bMotion will try to use redis if it can
+# Below are settings for the server, port and database
+# All the defaults are fine if you just install redis and that's it
+# If you set a password on your redis server, set it below, else leave blank
+# (Usual caveat about making sure only the right people can read this file etc)
+# bMotion clears the password variable after it's used it
+set bMotionSettings(redis_server) "127.0.0.1"
+set bMotionSettings(redis_port) 6379
+set bMotionSettings(redis_database) 0
+set bMotionSettings(redis_auth) ""
+
 
 ### Stats (entirely optional!)
 #

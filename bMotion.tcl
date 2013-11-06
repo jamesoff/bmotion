@@ -74,18 +74,6 @@ proc bMotion_putloglev { level star text } {
   }
 }
 
-# needed for variables
-if {$bMotion_testing == 1} {
-  putlog "... loading plugin settings"
-}
-source "$bMotionModules/plugins_settings.tcl"
-
-# init default variables
-if {$bMotion_testing == 1} {
-  putlog "... loading variables"
-}
-source "$bMotionModules/variables.tcl"
-
 # load settings
 if {$bMotion_testing == 1} {
   putlog "... loading settings"
@@ -141,6 +129,19 @@ if {$bMotion_testing == 1} {
 	putlog "... loading redis"
 }
 source "$bMotionModules/redis.tcl"
+
+# needed for variables
+if {$bMotion_testing == 1} {
+  putlog "... loading plugin settings"
+}
+source "$bMotionModules/plugins_settings.tcl"
+
+# init default variables
+if {$bMotion_testing == 1} {
+  putlog "... loading variables"
+}
+source "$bMotionModules/variables.tcl"
+
 
 #load system functions
 if {$bMotion_testing == 1} {

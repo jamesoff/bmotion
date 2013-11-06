@@ -32,7 +32,12 @@ if {![file isdirectory "modules"]} {
 set redis_available 0
 catch {
 	source modules/extra/redis/redis.tcl
-	set r [redis]
+	source local/settings.tcl
+	set r [redis $bMotionSettings(redis_server) $bMotionSettings(redis_port)]
+	if {$bMotionSettings(redis_auth) != ""} {
+		$r auth $bMotionSettings(redis_auth)
+	}
+	$r select $bMotionSettings(redis_database)
 	puts "redis initialised :)"
 	set redis_available 1
 }
