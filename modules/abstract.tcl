@@ -457,41 +457,46 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 		
 		set gender $bMotionInfo(gender)
 
-		#TODO: skip generating this if it already exists?
-		switch $mixin_type {
-			0 {
-				# Mix standard abstract with gender specific one (if available)
-				bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract abstract:$lang:${abstract}_$gender
-			}
-			1 {
-				# Mix standard abstract with gender-flipped one (if available)
-				if {$gender == "male"} {
-					set gender "female"
-				} else {
-					set gender "male"
+		if {[bMotion_redis_cmd keys $temp_abstract] != $temp_abstract} {
+			bMotion_putloglev 1 * "compiled abstract $temp_abstract does not exist, creating"
+
+			switch $mixin_type {
+				0 {
+					# Mix standard abstract with gender specific one (if available)
+					bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract abstract:$lang:${abstract}_$gender
 				}
-				bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract abstract:$lang:${abstract}_$gender
+				1 {
+					# Mix standard abstract with gender-flipped one (if available)
+					if {$gender == "male"} {
+						set gender "female"
+					} else {
+						set gender "male"
+					}
+					bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract abstract:$lang:${abstract}_$gender
+				}
+				2 {
+					# Do nothing(?)
+					bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract
+				}
+				3 {
+					# Mix in both
+					bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract abstract:$lang:${abstract}_male abstract:$lang:${abstract}_female
+				}
+				4 {
+					# Mix in male
+					bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract abstract:$lang:${abstract}_male 
+				}
+				5 {
+					# Mix in female
+					bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract abstract:$lang:${abstract}_female
+				}
 			}
-			2 {
-				# Do nothing(?)
-				bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract
-			}
-			3 {
-				# Mix in both
-				bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract abstract:$lang:${abstract}_male abstract:$lang:${abstract}_female
-			}
-			4 {
-				# Mix in male
-				bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract abstract:$lang:${abstract}_male 
-			}
-			5 {
-				# Mix in female
-				bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract abstract:$lang:${abstract}_female
-			}
+				
+			# Set the temporary abstract to expire in 5 mins 
+			bMotion_redis_cmd expire $temp_abstract 900
+		} else {
+			bMotion_putloglev 2 * "compiled abstract $temp_abstract already exists"
 		}
-			
-		# Set the temporary set to expire in 5 mins 
-		bMotion_redis_cmd expire $temp_abstract 900
 
 		set count 0
 		global bMotion_abstract_get

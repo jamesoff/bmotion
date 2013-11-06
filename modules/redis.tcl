@@ -20,7 +20,6 @@ if {[info tclversion] < 8.5} {
 } else { 
 	catch {
 		source $bMotionModules/extra/redis/redis.tcl
-		global bMotionSettings
 		set bMotion_redis [redis $bMotionSettings(redis_server) $bMotionSettings(redis_port)]
 		if {$bMotionSettings(redis_auth) != ""} {
 			$bMotion_redis auth $bMotionSettings(redis_auth)
@@ -29,6 +28,7 @@ if {[info tclversion] < 8.5} {
 		putlog "bMotion: redis enabled"
 		set bMotion_has_redis 1
 	}
+	
 }
 
 # clear the password variable so it's not sitting around for people to find

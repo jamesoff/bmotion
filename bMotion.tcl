@@ -142,7 +142,6 @@ if {$bMotion_testing == 1} {
 }
 source "$bMotionModules/variables.tcl"
 
-
 #load system functions
 if {$bMotion_testing == 1} {
   putlog "... loading system"
