@@ -58,7 +58,7 @@ while {![eof $fh]} {
 	if {$line != ""} {
 		regexp {([^,]+),([^ ]+) (.+)} $line matches type item fact
 		incr count
-		$r set "fact:$type:$item" $fact
+		$r sadd "fact:$type:$item" $fact
 		set line [gets $fh]
 	}
 }
