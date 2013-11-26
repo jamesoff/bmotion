@@ -146,6 +146,10 @@ proc bMotion_plugin_complex_karma { nick channel text } {
 	# setting to only allow a certain number of words to be grabbed?
 	# setting to limit line length when triggering?
 
+	if {![bMotion_setting_get "karma_enable"]} {
+		return 0
+	}
+  
 	global bMotion_karma
 	
 	if [regexp -nocase {\m([\w_\|\{\}\[\]^-]+)(\+\+|--)} $text matches word mode] {
