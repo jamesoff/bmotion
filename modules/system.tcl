@@ -1324,7 +1324,7 @@ proc bMotion_sufficient_gap { mingap plugin channel {nick ""} } {
 proc bMotion_auto_smiley { } {
 	bMotion_putloglev 5 * "bMotion_auto_smiley"
 
-	global bMotionLocal
+	global bMotionLocal bMotionSettings
 	set smileyfile "${bMotionLocal}/smiley"
 
 		if {[file exists $smileyfile]} {

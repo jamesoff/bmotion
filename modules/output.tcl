@@ -1059,8 +1059,15 @@ proc bMotion_get_smiley { type } {
 		set smiley_type [bMotion_setting_get "smiley_type"]
 	}
 
-	set nose_type [bMotion_setting_get "smiley_nose"]
-	set eyes_type [bMotion_setting_get "smiley_eyes"]
+	if {$smiley_type == "random"} {
+		bMotion_putloglev 1 * "smiley type is random, making some stuff up"
+		set nose_type [pickRandom [list "none" "dash" "o"]]
+		set eyes_type [pickRandom [list "colon" "equals" "default"]]
+		set smiley_type [pickRandom [list "paren" "bracket" "angle"]]
+	} else {
+		set nose_type [bMotion_setting_get "smiley_nose"]
+		set eyes_type [bMotion_setting_get "smiley_eyes"]
+	}
 
 	bMotion_putloglev d * "smiley type=$smiley_type nose=$nose_type eyes=$eyes_type"
 
