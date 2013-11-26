@@ -75,6 +75,21 @@ set bMotionSettings(kinky) 0
 set bMotionSettings(friendly) 0
 
 
+# what sort of smilies should the bot use?
+# auto = the bot will pick a style for itself (and stick with it)
+# random = the bot will pick a different style every time it uses a smiley
+# paren = the bot will use "(" and ")" for sad/happy
+# bracket = "[" and "]"
+# angle = "<" and ">"
+set bMotionSettings(smiley_type) "auto"
+
+# if you're not using "auto" or "random", you can also set these (uncomment them)
+# nose can be "o" "dash" or "none"
+# set bMotionSettings("smiley_nose") "none"
+#
+# eyes can be "colon" "equals" or "colon"
+# set bMotionSettings("smiley_eyes") "colon"
+
 
 ### BEHAVIOUR STUFF
 #
@@ -273,7 +288,7 @@ set bMotionSettings(wakeytime_minute) "30"
 
 
 
-### Stats (entirely optional!)
+### Stats (not currently used)
 #
 # bMotion can report back to me that it's installed, for my own curiosity
 # so i can see how many bots are installed (a bit like the eggdrop stats
