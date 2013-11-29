@@ -22,6 +22,8 @@
 # Adult switch will introduce norty descriptions / devices.
 #
 
+putlog "###MOO"
+
 bMotion_plugin_add_complex "scrap" "^!scrap" 100 bMotion_plugin_complex_scrap "en"
 
 proc bMotion_plugin_complex_scrap { nick host handle channel text } {
@@ -128,6 +130,8 @@ proc bMotion_plugin_complex_scrap { nick host handle channel text } {
   }
 }
 
+putlog "###MOO2"
+
 bMotion_abstract_register "scrap_qualities" {
   "broken"
   "cheap"
@@ -160,6 +164,7 @@ bMotion_abstract_register "scrap_qualities" {
 	"as-seen-on-TV"
 }
 
+putlog "###MOO3"
 bMotion_abstract_register "scrap_adjectives" {
   "broken down"
   "greasy"
@@ -215,6 +220,7 @@ bMotion_abstract_register "scrap_adjectives" {
 }
 bMotion_abstract_add_filter "scrap_adjectives" "mamoth"
 
+putlog "###MOO4"
 bMotion_abstract_register "scrap_power_adjectives" {
   "super powered"
   "steam powered"
@@ -240,6 +246,7 @@ bMotion_abstract_register "scrap_power_adjectives" {
 	"atomic"
 }
 
+putlog "###MOO5"
 bMotion_abstract_register "scrap_construction" {
   "barge"
   "submarine"
@@ -299,6 +306,8 @@ bMotion_abstract_register "scrap_construction" {
   "gyroscope"
 }
 
+putlog "###MOO6"
+
 bMotion_abstract_register "scrap_silly_qualities_t" {
   "weird"
   "strange"
@@ -312,6 +321,7 @@ bMotion_abstract_register "scrap_silly_qualities_t" {
 	"spooky"
 }
 
+putlog "###MOO7"
 bMotion_abstract_register "scrap_silly_adjectives_t" {
   "spotty"
   "funny"
@@ -335,6 +345,7 @@ bMotion_abstract_register "scrap_silly_adjectives_t" {
   "manic mining"
 }
 
+putlog "###MOO8"
 bMotion_abstract_register "scrap_silly_power_adjectives_t" {
   "lunar powered"
   "psychicly charged"
@@ -346,6 +357,7 @@ bMotion_abstract_register "scrap_silly_power_adjectives_t" {
   "plasma powered"
 }
 
+putlog "###MOO9"
 bMotion_abstract_register "scrap_silly_construction_t" {
   "blamanche"
   "fork"
@@ -399,6 +411,7 @@ bMotion_abstract_register "scrap_silly_construction_t" {
 }
 bMotion_abstract_add_filter "scrap_silly_construction_t" "coktail machine"
 
+putlog "###MOO10"
 bMotion_abstract_register "scrap_adult_qualities_t" {
   "well formed"
   "well rounded"

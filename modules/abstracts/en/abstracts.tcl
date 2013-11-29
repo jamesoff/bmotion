@@ -4163,6 +4163,7 @@ bMotion_abstract_register "sounds" {
 	"hop"
 	"bep"
 	"dong-doof"
+	"whump"
 }
 
 bMotion_abstract_register "sfx" {
