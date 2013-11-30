@@ -19,7 +19,7 @@ proc bMotion_plugin_complex_action_cracker { nick host handle channel text } {
 	# don't do this outside of dec
 	set month [clock format [clock seconds] -format "%m"]
 	if {$month != "12"} {
-#		return
+		return
 	}
 
 	bMotionDoAction $channel $nick "%VAR{cracker_boom}"
