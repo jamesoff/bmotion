@@ -466,6 +466,7 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 		}
 	}
 
+	bMotion_putloglev 2 * "final_version abstract name is $final_version"
 	if {[llength $final_version] == 0} {
 		bMotion_putloglev d * "abstract '$abstract' is empty!"
 		return ""
