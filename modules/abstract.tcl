@@ -165,7 +165,7 @@ proc bMotion_abstract_register { abstract { stuff "" } } {
   } else {
     # check that the language directory exists while we're at it
     if { ![file exists $bMotion_abstract_dir] } {
-      [file mkdir $bMotion_abstract_dir]
+      file mkdir $bMotion_abstract_dir
     }
     #file doesn't exist - create an empty one
     #create blank array for it
@@ -593,6 +593,7 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 		}
 	}
 
+	bMotion_putloglev 2 * "final_version abstract name is $final_version"
 	if {[llength $final_version] == 0} {
 		bMotion_putloglev d * "abstract '$abstract' is empty!"
 		return ""
@@ -696,7 +697,8 @@ proc bMotion_abstract_revive_language { } {
 		bMotion_putloglev d * "loading system abstracts for lang $lang"
     catch {
       source "$bMotionModules/abstracts/$lang/abstracts.tcl"
-    }
+    } err
+		putlog "Error from loading abstracts: $err"
   } else {
     bMotion_putloglev 2 * "bMotion: language default abstracts not found"
   }

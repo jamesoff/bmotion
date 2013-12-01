@@ -12,6 +12,6 @@
 
 bMotion_plugin_add_simple "commaeight" {"\*",8,1} 60 "%VAR{loadingready}" "en"
 
-set loadingready {
+bMotion_abstract_register "loadingready" {
    "SEARCHING FOR *%|LOADING%|READY."
-   }
+ }

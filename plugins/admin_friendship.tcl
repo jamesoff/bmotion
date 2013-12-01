@@ -33,7 +33,7 @@ proc bMotion_plugin_management_friends { handle { arg "" } } {
 		return 0
 	}
 
-	bMotion_putadmin "usage: friendship \[show|set\]"
+	bMotion_putadmin "usage: friendship \[show \[-all\]|set\]"
 }
 
 bMotion_plugin_add_management "friends" "^friends?(hip)?"  n       bMotion_plugin_management_friends "any"

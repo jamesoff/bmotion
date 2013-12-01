@@ -26,7 +26,7 @@ foreach bMotion_language $languages {
       source $f
     } err
 		set newcount [llength [array names bMotion_plugins_simple]]
-		if {($bMotion_testing == 0) && ($newcount == $count) && ($bMotion_noplugins == 0)} {
+		if {($err != "") && ($err != "1") && ($bMotion_testing == 0) && ($newcount == $count) && ($bMotion_noplugins == 0)} {
 			putlog "bMotion: ALERT! Loading plugins file $f did not add any plugins!"
 			putlog "Possible error: $err"
 		}
