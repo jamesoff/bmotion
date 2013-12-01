@@ -79,7 +79,7 @@ bMotion_abstract_register "cracker_joke" {
 
 bMotion_abstract_register "cracker_joke_tell" {
 	"what joke did you get?"
-	"what's the joke %{thing :}say?"
+	"what's the joke %={thing :}say?"
 }
 
 bMotion_abstract_register "cracker_boom" {
