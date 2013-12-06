@@ -11,7 +11,7 @@
 # in the modules directory.
 ###############################################################################
 
-bMotion_plugin_add_action_complex "cracker" "pulls an? ((christ|x)mas )?cracker with %botnicks" 100 bMotion_plugin_complex_action_cracker "en"
+bMotion_plugin_add_action_complex "cracker" "pulls (a|an|another) ((christ|x)mas )?cracker with %botnicks" 100 bMotion_plugin_complex_action_cracker "en"
 
 proc bMotion_plugin_complex_action_cracker { nick host handle channel text } {
 	global botnicks
