@@ -110,6 +110,12 @@ proc bMotion_facts_save { } {
 
   bMotion_putloglev 1 * "Saving facts to $bMotion_facts_file"
 
+  set factsDir [file dirname $bMotion_facts_file]
+  if { ![file exists $factsDir] } {
+    bMotion_putloglev 1 * "Creating facts directory $factsDir"
+    file mkdir $factsDir
+  }
+
   set fileHandle [open "$bMotion_facts_file" "w"]
 
   set items [array names bMotionFacts]
