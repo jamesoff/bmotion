@@ -2987,6 +2987,23 @@ bMotion_abstract_register "sucks" {
 	"%% is a pile of %VAR{prom_first}"
 }
 
+bMotion_abstract_register "affirmatives" {
+  "yes"
+  "mais oui"
+  "but of course"
+  "ja"
+  "r"
+  "yup"
+  "si"
+  "unquestionably"
+  "undoubtedly"
+  "affirmative"
+  "yep"
+  "yarp"
+  "of course"
+  "/nods"
+}
+
 bMotion_abstract_register "yeses" {
 	"Yes."
 	"yes"
@@ -3308,6 +3325,29 @@ bMotion_abstract_register "nos" {
 	"nnnk"
 	"/shakes head"
 	"*shakes head*"
+}
+
+bMotion_abstract_register "nos2" {
+  "no"
+  "nope"
+  "certainly not"
+  "don't be so silly"
+  "negative"
+}
+
+bMotion_abstract_register "nothometimes" {
+  "not yet"
+  "sure, why not"
+  "not until you've finished %VAR{jobtasks}"
+  "yes. I just called your boss and it's fine"
+  "nope, not for another %NUMBER{24} hours"
+}
+
+bMotion_abstract_register "jobtasks" {
+  "a lot of photocopying"
+  "photocopying your %VAR{bodypart:bothmixin}"
+  "making the %={tea:coffee}"
+  "all those reports"
 }
 
 bMotion_abstract_register "tech_software" {

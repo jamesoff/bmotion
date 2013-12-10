@@ -103,7 +103,19 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
        [regexp -nocase "what('?s)? (.*)\\?" $text matches s question] } {
     set term ""
 
-    if [regexp -nocase "what time" $text] {
+    if [regexp -nocase "what time( is it( where you are|where you live|for you)?)?" $text matches isit where] {
+      if {$isit != ""} {
+        if {$where != ""} {
+          # Hmm
+          # TODO: pick up Eggdrop's timezone setting, or the system one from ENV?
+          set now [clock format [clock seconds]]
+        } else {
+          set now [clock format [clock seconds] -gmt 1]
+        }
+        bMotionDoAction $channel $nick "%%: it's $now"
+        return 1
+      }
+
       bMotionDoAction $channel $nick "%VAR{answerWhens}"
       return 1
     }
@@ -315,6 +327,65 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
 
   ## How long question targeted at me
   if [regexp -nocase "^$botnicks: how long" $text] {
+    if [regexp -nocase "how long (is it )?((un)?till?|to|since) (.+)\\?" $text matches 1 direction 3 target] {
+      set targetdate [string tolower $target]
+      set direction [string tolower $direction]
+      switch $target {
+        "christmas eve" -
+        "xmas eve" {
+          set targetdate "24 Dec "
+          if {$direction == "since"} {
+            append targetdate [clock format [clock scan "1 year ago"] -format "%Y"]
+          }
+        }
+
+        "christmas" -
+        "xmas" {
+          set targetdate "25 Dec "
+          if {$direction == "since"} {
+            append targetdate [clock format [clock scan "1 year ago"] -format "%Y"]
+          }
+        }
+
+        "talk like a pirate day" {
+          set targetdate "19 Sep "
+          if {$direction == "since"} {
+            append targetdate [clock format [clock scan "1 year ago"] -format "%Y"]
+          }
+        }
+
+        default {
+          set targetdate $target
+        }
+      }
+
+      bMotion_putloglev d * "calculating how long until $targetdate"
+      set targetstamp -1
+      catch {
+        set targetstamp [clock scan $targetdate]
+      }
+
+      if {$targetstamp == -1} {
+        bMotionDoAction $channel $nick "No idea, I don't know when that is %SMILEY{sad}"
+        return 1
+      }
+
+      bMotion_putloglev d * "$targetdate converted into $targetstamp, which is [clock format $targetstamp]"
+
+      set howlongstr [howlong $targetstamp]
+      if {$howlongstr == "now"} {
+        bMotionDoAction $channel $nick "it's right now!"
+        return 1
+      }
+
+      if {[string match "*ago" $howlongstr]} {
+        bMotionDoAction $channel $nick "it was $target $howlongstr"
+      } else {
+        bMotionDoAction $channel $nick "it's $howlongstr $target"
+      }
+      return 1
+    }
+    
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerHowLongs}"
     return 1
   }
@@ -404,6 +475,47 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
   if [regexp -nocase "^$botnicks: is your" $text] {
     bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{answerIsyours}"
     return 1
+  }
+
+  if [regexp -nocase "^$botnicks: is it (.+) yet" $text] {
+
+    if [regexp -nocase "(xmas|christmas) ?eve" $text] {
+      set date [clock format [clock seconds] -format "%d%m"]
+      if {$date == "2412"} {
+        bMotionDoAction $channel $nick "%VAR{affirmatives}"
+        return 1
+      }
+
+      if {$date == "2312"} {
+        bMotionDoAction $channel $nick "%={nearly:almost:soon:not long now:just about}!"
+        return 1
+      }
+
+      bMotionDoAction $channel $nick "%VAR{nos2}"
+      return 1
+    }
+
+    if [regexp -nocase "xmas|christmas" $text] {
+      # Check if it's 25th Dec
+      set date [clock format [clock seconds] -format "%d%m"]
+      if {$date == "2512"} {
+        bMotionDoAction $channel $nick "%VAR{affirmatives}"
+        return 1
+      }
+
+      if {$date == "2412"} {
+        bMotionDoAction $channel $nick "%={nearly:almost:soon:not long now:just about}!"
+        return 1
+      }
+
+      bMotionDoAction $channel $nick "%VAR{nos2}"
+      return 1
+    }
+
+    if [regexp -nocase "hometime" $text] {
+      bMotionDoAction $channel $nick "%VAR{nothometimes}"
+      return 1
+    }
   }
 
   # ... me?
