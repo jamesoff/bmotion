@@ -28,7 +28,7 @@ proc bMotion_plugin_complex_action_cracker { nick host handle channel text } {
 		set hats 0
 	}
 
-	if [rand 2] {
+	if {[rand 3] == 0} {
 		# i won
 		bMotionDoAction $channel $nick "%VAR{cracker_win}"
 		if [rand 2] {
