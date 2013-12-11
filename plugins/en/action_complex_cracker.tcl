@@ -12,6 +12,7 @@
 ###############################################################################
 
 bMotion_plugin_add_action_complex "cracker" "pulls (a|an|another) ((christ|x)mas )?cracker with %botnicks" 100 bMotion_plugin_complex_action_cracker "en"
+bMotion_plugin_add_complex "cracker_hats" "^!hats" 100 bMotion_plugin_complex_cracker_hats "en"
 
 proc bMotion_plugin_complex_action_cracker { nick host handle channel text } {
 	global botnicks
@@ -69,6 +70,17 @@ proc bMotion_plugin_complex_action_cracker { nick host handle channel text } {
 		}
 		return 1
 	}
+}
+
+proc bMotion_plugin_complex_cracker_hats { nick host handle channel text } {
+	global botnick
+	if [regexp -nocase "^!hats (\[^ \]+)" $text matches extranick] {
+		set extranick [string trim $extranick]
+		bMotion_putloglev d * "Handling !hats for extranick $extranick"
+		return [bMotion_plugin_complex_question $nick $host $handle $channel "$botnick: how many hats is $extranick wearing?"]
+	}
+	bMotion_putloglev d * "Handling !hats for $nick"
+	return [bMotion_plugin_complex_question $nick $host $handle $channel "$botnick: how many hats am i wearing?"]
 }
 
 bMotion_abstract_register "cracker_joke" {

@@ -39,7 +39,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
   }
 
   # Rewrite nick, and nick to nick: to simplify regexps later on
-  if {[regexp -nocase "$botnicks,? (.+)" $text matches 1 2]} {
+  if {[regexp -nocase "^$botnicks,? (.+)" $text matches 1 2]} {
     global botnick
     bMotion_putloglev d * "rewriting question to use colon after my nick"
     set text "$botnick: $2"
@@ -269,6 +269,9 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
   if [regexp -nocase "^$botnicks: how ?many( (\[^ \]+))?" $text matches 1 2 3] {
     # special case for christmas cracker hats
     if [regexp -nocase "how many (xmas |cracker |christmas )?hats (am|are|do|is|have|has) (\[^ \]+) " $text matches 1 2 3] {
+			if [regexp -nocase $botnicks $text] {
+				set 3 "you"
+			}
       if {$3 == "you"} {
         set hats [bMotion_plugins_settings_get "cracker" "hats" $channel ""]
         if {($hats == "") || ($hats == 0)} {
