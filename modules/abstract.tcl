@@ -736,7 +736,7 @@ proc bMotion_abstract_check {  } {
   set lang $bMotionInfo(language)
   set dir "$bMotionModules/abstracts/$lang"
   if { ![file exists $dir] } {
-    [file mkdir $dir]
+    file mkdir $dir
   }
   set files [glob -nocomplain "$bMotionModules/abstracts/*.txt"]
   if { [llength $files] == 0} {
@@ -744,7 +744,7 @@ proc bMotion_abstract_check {  } {
   }
   foreach f $files {
     catch {
-			[file rename -force -- $f "${dir}/"]
+      [file rename -force -- $f "${dir}/"]
     }
   }
 }

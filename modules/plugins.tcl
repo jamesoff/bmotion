@@ -25,6 +25,7 @@ set BMOTION_PLUGIN_SIMPLE_MATCH 0
 set BMOTION_PLUGIN_SIMPLE_CHANCE 1
 set BMOTION_PLUGIN_SIMPLE_RESPONSE 2
 set BMOTION_PLUGIN_SIMPLE_LANGUAGE 3
+set BMOTION_PLUGIN_SIMPLE_COMPILED 4
 
 set BMOTION_PLUGIN_MANAGEMENT_MATCH 0
 set BMOTION_PLUGIN_MANAGEMENT_FLAGS 1
@@ -35,6 +36,7 @@ set BMOTION_PLUGIN_COMPLEX_MATCH 0
 set BMOTION_PLUGIN_COMPLEX_CHANCE 1
 set BMOTION_PLUGIN_COMPLEX_CALLBACK 2
 set BMOTION_PLUGIN_COMPLEX_LANGUAGE 3
+set BMOTION_PLUGIN_COMPLEX_COMPILED 4
 
 set BMOTION_PLUGIN_OUTPUT_CALLBACK 0
 set BMOTION_PLUGIN_OUTPUT_ENABLED 1
@@ -82,8 +84,8 @@ array set bMotion_plugins_management {}
 #
 # Load a simple plugin
 proc bMotion_plugin_add_simple { id match chance response language} {
-	global bMotion_plugins_simple plugins bMotion_testing bMotion_noplugins
-	global BMOTION_PLUGIN_SIMPLE_MATCH BMOTION_PLUGIN_SIMPLE_CHANCE BMOTION_PLUGIN_SIMPLE_RESPONSE BMOTION_PLUGIN_SIMPLE_LANGUAGE
+	global bMotion_plugins_simple plugins bMotion_testing bMotion_noplugins bMotionCache
+	global BMOTION_PLUGIN_SIMPLE_MATCH BMOTION_PLUGIN_SIMPLE_CHANCE BMOTION_PLUGIN_SIMPLE_RESPONSE BMOTION_PLUGIN_SIMPLE_LANGUAGE BMOTION_PLUGIN_SIMPLE_COMPILED
 
 	if {$bMotion_testing == 0} {
 		catch {
@@ -93,9 +95,10 @@ proc bMotion_plugin_add_simple { id match chance response language} {
 		}
 	}
 	if [bMotion_plugin_check_allowed "simple:$id"] {
-		set bMotion_plugins_simple($id) [list $match $chance $response $language]
+		set bMotion_plugins_simple($id) [list $match $chance $response $language ""]
 		bMotion_putloglev 2 * "bMotion: added simple plugin: $id"
 		append plugins "$id,"
+		set bMotionCache(compiled) 0
 		return 1
 	}
 	bMotion_putloglev d * "bMotion: ignoring disallowed plugin simple:$id"
@@ -107,21 +110,22 @@ proc bMotion_plugin_add_simple { id match chance response language} {
 proc bMotion_plugin_find_simple { text lang { debug 0 }} {
 	bMotion_putloglev 3 * "bMotion_plugin_find_simple: text = $text, lang = $lang"
 	global bMotion_plugins_simple botnicks
-	global BMOTION_PLUGIN_SIMPLE_MATCH BMOTION_PLUGIN_SIMPLE_CHANCE BMOTION_PLUGIN_SIMPLE_RESPONSE BMOTION_PLUGIN_SIMPLE_LANGUAGE
+	global BMOTION_PLUGIN_SIMPLE_MATCH BMOTION_PLUGIN_SIMPLE_CHANCE BMOTION_PLUGIN_SIMPLE_RESPONSE BMOTION_PLUGIN_SIMPLE_LANGUAGE BMOTION_PLUGIN_SIMPLE_COMPILED
 
 	# TODO: bias
 
 	set s [lsort [array names bMotion_plugins_simple]]
 
+	bMotion_compile_matches
+
 	foreach key $s {
 		set val $bMotion_plugins_simple($key)
-		set rexp [lindex $val $BMOTION_PLUGIN_SIMPLE_MATCH]
+		set rexp [lindex $val $BMOTION_PLUGIN_SIMPLE_COMPILED]
 		set chance [lindex $val $BMOTION_PLUGIN_SIMPLE_CHANCE]
 		set response [lindex $val $BMOTION_PLUGIN_SIMPLE_RESPONSE]
 		set language [lindex $val $BMOTION_PLUGIN_SIMPLE_LANGUAGE]
 
 		if {[string match $lang $language] || ($language == "any")} {
-			set rexp [bMotionInsertString $rexp "%botnicks" "${botnicks}"]
 			if [regexp -nocase $rexp $text] {
 				set c [rand 100]
 				if {$debug} {
@@ -155,7 +159,6 @@ proc bMotion_plugin_add_management { id match flags callback { language "" } { h
 			return 0
 		}
 		if [bMotion_plugin_check_allowed "management:$id"] {
-			#set bMotion_plugins_management($id) "${match}¦${flags}¦${callback}¦${helpcallback}"
 			set bMotion_plugins_management($id) [list $match $flags $callback $helpcallback]
 			bMotion_putloglev 2 * "bMotion: added management plugin: $id"
 			append plugins "$id,"
@@ -201,7 +204,7 @@ proc bMotion_plugin_find_management_help { name } {
 #
 # Load a complex plugin
 proc bMotion_plugin_add_complex { id match chance callback language } {
-	global bMotion_plugins_complex plugins bMotion_testing bMotion_noplugins
+	global bMotion_plugins_complex plugins bMotion_testing bMotion_noplugins bMotionCache
 	if {$bMotion_testing == 0} {
 		catch {
 			set test $bMotion_plugins_complex($id)
@@ -209,11 +212,11 @@ proc bMotion_plugin_add_complex { id match chance callback language } {
 			return 0
 		}
 		if [bMotion_plugin_check_allowed "complex:$id"] {
-			#set bMotion_plugins_complex($id) "${match}¦${chance}¦${callback}¦${language}"
-			set bMotion_plugins_complex($id) [list $match $chance $callback $language]
+			set bMotion_plugins_complex($id) [list $match $chance $callback $language ""]
 
 			bMotion_putloglev 2 * "bMotion: added complex plugin: $id"
 			append plugins "$id,"
+			set bMotionCache(compiled) 0
 			return 1
 		}
 		bMotion_putloglev d * "bMotion: ignoring disallowed plugin complex:$id"
@@ -225,7 +228,7 @@ proc bMotion_plugin_add_complex { id match chance callback language } {
 # Find a complex plugin plugin
 proc bMotion_plugin_find_complex { text lang { debug 0 }} {
 	global bMotion_plugins_complex botnicks
-	global BMOTION_PLUGIN_COMPLEX_MATCH BMOTION_PLUGIN_COMPLEX_CHANCE BMOTION_PLUGIN_COMPLEX_CALLBACK BMOTION_PLUGIN_COMPLEX_LANGUAGE
+	global BMOTION_PLUGIN_COMPLEX_MATCH BMOTION_PLUGIN_COMPLEX_CHANCE BMOTION_PLUGIN_COMPLEX_CALLBACK BMOTION_PLUGIN_COMPLEX_LANGUAGE BMOTION_PLUGIN_COMPLEX_COMPILED
 	set result [list]
 
 	bMotion_putloglev 5 * "bMotion_plugin_find_complex $text $lang $debug"
@@ -235,14 +238,15 @@ proc bMotion_plugin_find_complex { text lang { debug 0 }} {
 		set bias 1
 	}
 
+	bMotion_compile_matches
+
 	foreach key [lsort [array names bMotion_plugins_complex]] {
 		set val $bMotion_plugins_complex($key)
-		set rexp [lindex $val $BMOTION_PLUGIN_COMPLEX_MATCH]
+		set rexp [lindex $val $BMOTION_PLUGIN_COMPLEX_COMPILED]
 		set callback [lindex $val $BMOTION_PLUGIN_COMPLEX_CALLBACK]
 		set language [lindex $val $BMOTION_PLUGIN_COMPLEX_LANGUAGE]
 
 		if {[string match $lang $language] || ($language == "any") || ($language == "all")} {
-			set rexp [bMotionInsertString $rexp "%botnicks" "${botnicks}"]
 			if [regexp -nocase $rexp $text] {
 				set chance [lindex $val $BMOTION_PLUGIN_COMPLEX_CHANCE]
 				set c [rand 100]
@@ -387,19 +391,19 @@ proc bMotion_plugin_set_output_channel { id channel enabled } {
 
 ## Load a simple action plugin
 proc bMotion_plugin_add_action_simple { id match chance response language } {
-	global bMotion_plugins_action_simple plugins bMotion_testing bMotion_noplugins
+	global bMotion_plugins_action_simple plugins bMotion_testing bMotion_noplugins bMotionCache
 
 	if {$bMotion_testing == 0} {
 		catch {
 			set test $bMotion_plugins_action_simple($id)
-			bMotion_putloglev d * "bMotion: ALERT! Simple plugin $id is defined more than once"
+			bMotion_putloglev d * "bMotion: ALERT! Simple action plugin $id is defined more than once"
 			return 0
 		}
 		if [bMotion_plugin_check_allowed "action_simple:$id"] {
-			#set bMotion_plugins_action_simple($id) "${match}¦${chance}¦${response}¦$language"
-			set bMotion_plugins_action_simple($id) [list $match $chance $response $language]
+			set bMotion_plugins_action_simple($id) [list $match $chance $response $language ""]
 			bMotion_putloglev 2 * "bMotion: added simple action plugin: $id"
 			append plugins "$id,"
+			set bMotionCache(compiled) 0
 			return 1
 		}
 		bMotion_putloglev d * "bMotion: ignoring disallowed plugin action_simple:$id"
@@ -410,15 +414,16 @@ proc bMotion_plugin_add_action_simple { id match chance response language } {
 
 ## Find a simple action plugin
 proc bMotion_plugin_find_action_simple { text lang { debug 0 } } {
-	global bMotion_plugins_action_simple botnicks
-	global BMOTION_PLUGIN_SIMPLE_MATCH BMOTION_PLUGIN_SIMPLE_CHANCE BMOTION_PLUGIN_SIMPLE_RESPONSE BMOTION_PLUGIN_SIMPLE_LANGUAGE
+	global bMotion_plugins_action_simple botnicks 
+	global BMOTION_PLUGIN_SIMPLE_MATCH BMOTION_PLUGIN_SIMPLE_CHANCE BMOTION_PLUGIN_SIMPLE_RESPONSE BMOTION_PLUGIN_SIMPLE_LANGUAGE BMOTION_PLUGIN_SIMPLE_COMPILED
+
+	bMotion_compile_matches
 
 	foreach key [lsort [array names bMotion_plugins_action_simple]] {
 		set val $bMotion_plugins_action_simple($key)
 		set language [lindex $val $BMOTION_PLUGIN_SIMPLE_LANGUAGE]
 		if {[string match $lang $language] || ($language == "any")|| ($language == "all")} {
-			set rexp [lindex $val $BMOTION_PLUGIN_SIMPLE_MATCH]
-			set rexp [bMotionInsertString $rexp "%botnicks" "${botnicks}"]
+			set rexp [lindex $val $BMOTION_PLUGIN_SIMPLE_COMPILED]
 			if [regexp -nocase $rexp $text] {
 				set chance [lindex $val $BMOTION_PLUGIN_SIMPLE_CHANCE]
 				set c [rand 100]
@@ -438,7 +443,7 @@ proc bMotion_plugin_find_action_simple { text lang { debug 0 } } {
 
 ## Load a complex action plugin
 proc bMotion_plugin_add_action_complex { id match chance callback language } {
-	global bMotion_plugins_action_complex plugins bMotion_testing bMotion_noplugins
+	global bMotion_plugins_action_complex plugins bMotion_testing bMotion_noplugins bMotionCache
 	if {$bMotion_testing == 0} {
 		catch {
 			set test $bMotion_plugins_action_complex($id)
@@ -446,10 +451,10 @@ proc bMotion_plugin_add_action_complex { id match chance callback language } {
 			return 0
 		}
 		if [bMotion_plugin_check_allowed "action_complex:$id"] {
-			#set bMotion_plugins_action_complex($id) "${match}¦${chance}¦${callback}¦${language}"
-			set bMotion_plugins_action_complex($id) [list $match $chance $callback $language]
+			set bMotion_plugins_action_complex($id) [list $match $chance $callback $language ""]
 			bMotion_putloglev 2 * "bMotion: added complex action plugin: $id"
 			append plugins "$id,"
+			set bMotionCache(compiled) 0
 			return 1
 		}
 		bMotion_putloglev d * "bMotion: ignoring disallowed plugin action_complex:$id"
@@ -460,15 +465,16 @@ proc bMotion_plugin_add_action_complex { id match chance callback language } {
 ## Find a complex action plugin plugin
 proc bMotion_plugin_find_action_complex { text lang { debug 0 } } {
 	global bMotion_plugins_action_complex botnicks
-	global BMOTION_PLUGIN_COMPLEX_MATCH BMOTION_PLUGIN_COMPLEX_CHANCE BMOTION_PLUGIN_COMPLEX_CALLBACK BMOTION_PLUGIN_COMPLEX_LANGUAGE
+	global BMOTION_PLUGIN_COMPLEX_MATCH BMOTION_PLUGIN_COMPLEX_CHANCE BMOTION_PLUGIN_COMPLEX_CALLBACK BMOTION_PLUGIN_COMPLEX_LANGUAGE BMOTION_PLUGIN_COMPLEX_COMPILED
 	set result [list]
+
+	bMotion_compile_matches
 
 	foreach key [lsort [array names bMotion_plugins_action_complex]] {
 		set val $bMotion_plugins_action_complex($key)
 		set language [lindex $val $BMOTION_PLUGIN_COMPLEX_LANGUAGE]
 		if {[string match $language $lang] || ($language == "any")|| ($language == "all")} {
-			set rexp [lindex $val $BMOTION_PLUGIN_COMPLEX_MATCH]
-			set rexp [bMotionInsertString $rexp "%botnicks" "${botnicks}"]
+			set rexp [lindex $val $BMOTION_PLUGIN_COMPLEX_COMPILED]
 			if [regexp -nocase $rexp $text] {
 				set chance [lindex $val $BMOTION_PLUGIN_COMPLEX_CHANCE]
 				bMotion_putloglev 4 * "matched: $key"
@@ -562,7 +568,6 @@ proc bMotion_plugin_add_irc_event { id type match chance callback language } {
 			return 0
 		}
 		if [bMotion_plugin_check_allowed "irc:$id"] {
-			#set bMotion_plugins_irc_event($id) "$type¦${match}¦$chance¦$callback¦$language"
 			set bMotion_plugins_irc_event($id) [list $type $match $chance $callback $language]
 			bMotion_putloglev 2 * "bMotion: added IRC event plugin: $id"
 			append plugins "$id,"
@@ -670,6 +675,63 @@ proc bMotion_plugin_history_check { channel type plugin } {
 	global bMotionPluginHistory
 
 	return [expr [lsearch $bMotionPluginHistory "$channel:$type:$plugin"] + 1]
+}
+
+proc bMotion_compile_matches { } {
+	bMotion_putloglev 5 * "bMotion_compile_matches"
+
+	global bMotionCache bMotion_plugins_complex botnicks bMotion_plugins_action_complex
+	global bMotion_plugins_simple bMotion_plugins_action_simple
+	global BMOTION_PLUGIN_COMPLEX_MATCH BMOTION_PLUGIN_COMPLEX_COMPILED
+	global BMOTION_PLUGIN_SIMPLE_MATCH BMOTION_PLUGIN_SIMPLE_COMPILED
+
+	if {$bMotionCache(compiled)} {
+		return
+	}
+
+	bMotion_check_botnicks
+
+	foreach key [lsort [array names bMotion_plugins_complex]] {
+		set val $bMotion_plugins_complex($key)
+		set rexp [lindex $val $BMOTION_PLUGIN_COMPLEX_MATCH]
+
+		set compiled [bMotionInsertString $rexp "%botnicks" "${botnicks}"]
+		bMotion_putloglev 4 * "Compiled complex plugin $rexp to $compiled for $key"
+		lset val $BMOTION_PLUGIN_COMPLEX_COMPILED $compiled
+		set bMotion_plugins_complex($key) $val
+	}
+
+	foreach key [lsort [array names bMotion_plugins_action_complex]] {
+		set val $bMotion_plugins_action_complex($key)
+		set rexp [lindex $val $BMOTION_PLUGIN_COMPLEX_MATCH]
+
+		set compiled [bMotionInsertString $rexp "%botnicks" "${botnicks}"]
+		bMotion_putloglev 4 * "Compiled complex action plugin $rexp to $compiled for $key"
+		lset val $BMOTION_PLUGIN_COMPLEX_COMPILED $compiled
+		set bMotion_plugins_action_complex($key) $val
+	}
+
+	foreach key [lsort [array names bMotion_plugins_simple]] {
+		set val $bMotion_plugins_simple($key)
+		set rexp [lindex $val $BMOTION_PLUGIN_SIMPLE_MATCH]
+
+		set compiled [bMotionInsertString $rexp "%botnicks" "${botnicks}"]
+		bMotion_putloglev 4 * "Compiled simple plugin $rexp to $compiled for $key"
+		lset val $BMOTION_PLUGIN_SIMPLE_COMPILED $compiled
+		set bMotion_plugins_simple($key) $val
+	}
+
+	foreach key [lsort [array names bMotion_plugins_action_simple]] {
+		set val $bMotion_plugins_action_simple($key)
+		set rexp [lindex $val $BMOTION_PLUGIN_SIMPLE_MATCH]
+
+		set compiled [bMotionInsertString $rexp "%botnicks" "${botnicks}"]
+		bMotion_putloglev 4 * "Compiled simple action plugin $rexp to $compiled for $key"
+		lset val $BMOTION_PLUGIN_SIMPLE_COMPILED $compiled
+		set bMotion_plugins_action_simple($key) $val
+	}
+
+	set bMotionCache(compiled) 1
 }
 
 bMotion_putloglev d * "bMotion: plugins module loaded"

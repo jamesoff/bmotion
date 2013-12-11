@@ -594,7 +594,8 @@ proc bMotion_event_mode {nick host handle channel mode victim} {
 proc bMotion_event_nick { nick host handle channel newnick } {
 
 #check our global toggle
-	global bMotionGlobal
+	global bMotionGlobal bMotionCache
+
 	if {$bMotionGlobal == 0} {
 		return 0
 	}
@@ -605,6 +606,13 @@ proc bMotion_event_nick { nick host handle channel newnick } {
 
 	if [matchattr $handle J] {
 		return 0
+	}
+
+	if {[isbotnick $nick] || [isbotnick $newnick]} {
+		bMotion_putloglev d * "My nick has changed, recompiling regexps"
+		set bMotionCache(compiled) 0
+		bMotion_compile_matches
+		return
 	}
 
 	set nick [bMotion_cleanNick $nick $handle]
