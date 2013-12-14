@@ -269,7 +269,7 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
   if [regexp -nocase "^$botnicks: how ?many( (\[^ \]+))?" $text matches 1 2 3] {
     # special case for christmas cracker hats
     if [regexp -nocase "how many (xmas |cracker |christmas )?hats (am|are|do|is|have|has) (\[^ \]+) " $text matches 1 2 3] {
-			if [regexp -nocase $botnicks $text] {
+			if [regexp -nocase $botnicks $3] {
 				set 3 "you"
 			}
       if {$3 == "you"} {
