@@ -561,7 +561,9 @@ proc bMotion_abstract_revive_language { } {
     catch {
       source "$bMotionModules/abstracts/$lang/abstracts.tcl"
     } err
-		putlog "Error from loading abstracts: $err"
+		if {($err != "") && ($err != "0")} {
+			putlog "Error from loading abstracts: $err"
+		}
   } else {
     bMotion_putloglev 2 * "bMotion: language default abstracts not found"
   }
