@@ -131,6 +131,22 @@ proc bMotion_diagnostic_utimers { } {
 	}
 }
 
+
+# bMotion_diagnostic_binds
+# make sure binds we shouldn't have any more are gone
+proc bMotion_diagnostic_binds { } {
+	bMotion_putloglev d * "running level 3 diagnostic on binds"
+
+	set time_binds [binds time]
+	foreach b $time_binds {
+		if {[lindex $b 4] == "bMotion_flood_tick"} {
+			bMotion_putloglev d * "Found an old bind for bMotion_flood_tick, removing..."
+			unbind time [lindex $b 1] [lindex $b 2] bMotion_flood_tick
+		}
+	}
+}
+
+
 ### bMotion_diagnostic_plugins <<<1
 # check some plugins loaded
 proc bMotion_diagnostic_plugins { } {
@@ -400,6 +416,7 @@ if {$bMotion_testing == 0} {
 	bMotion_diagnostic_settings
 	bMotion_diagnostic_userinfo
 	bMotion_diagnostic_bitlbee
+	bMotion_diagnostic_binds
 
 	bMotion_putloglev d * "Diagnostics complete."
 }
