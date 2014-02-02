@@ -46,8 +46,17 @@ make install || exit 2
 echo -e '\E[34mBMOTION: Installing bmotion...'
 tput sgr0
 cd ../../scripts || exit 2
-git clone https://github.com/jamesoff/bmotion.git
-sudo ln -s ~/eggdrop/scripts/bmotion/tools/bmotion.py /usr/local/bin/bmotion
+git clone https://github.com/jamesoff/bmotion.git || exit 2
+[ -L /usr/local/bin/bmotion ] || sudo ln -s ~/eggdrop/scripts/bmotion/tools/bmotion.py /usr/local/bin/bmotion
+[ -d bmotion/local ] || mkdir bmotion/local
+cp bmotion/modules/settings.sample.tcl bmotion/local/settings.tcl
 
+echo -e '\E[34mBMOTION: complete'
+tput sgr0
+
+echo Use the /usr/local/bin/bmotion script to configure.
+echo You may want to check your EDITOR variable is set to something suitable.
 echo
-echo Finished. Use the /usr/local/bin/bmotion script to configure.
+echo "You need to edit eggdrop.conf and settings.tcl (bmotion edit)"
+echo "You probably want to add eggdrop to crontab to auto-start (bmotion cron)"
+
