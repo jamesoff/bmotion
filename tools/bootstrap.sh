@@ -46,6 +46,9 @@ if [ "$1" == "ec2prep" ]; then
 	echo Deleting history files...
 	sudo find /home -name .bash_history -print -delete
 
+	echo Removing crontab...
+	crontab -r
+
 	echo All done!
 	exit
 fi
