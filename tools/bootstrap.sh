@@ -71,8 +71,8 @@ if [ "$EC2" == "1" ]; then
 		echo -e '\E[34mBMOTION: Updating system and installing packages...'
 		tput sgr0
 		sudo apt-get update
-		sudo apt-get upgrade
-		sudo apt-get install git python tcl8.5-dev gcc redis-server telnet
+		sudo apt-get -y upgrade
+		sudo apt-get -y install git python tcl8.5-dev gcc telnet make
 	fi
 
 	echo -e '\E[34mBMOTION: Updating MOTD...'
