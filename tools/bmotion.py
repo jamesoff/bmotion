@@ -92,8 +92,7 @@ def cron(args):
             print "Unable to make temp file for updating cron"
             print e
             sys.exit(2)
-
-        print >> fh, "@reboot %s" % os.path.join(os.path.expanduser(args.path), "eggdrop")
+        print >> fh, "@reboot cd %s && ./eggdrop" % os.path.expanduser(args.path)
         fh.close()
 
         try:
@@ -102,7 +101,6 @@ def cron(args):
         except Exception, e:
             print "Failed to update crontab from %s" % filename
             print e
-
         try:
             os.unlink(filename)
         except:
