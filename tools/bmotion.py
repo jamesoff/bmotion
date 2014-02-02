@@ -5,6 +5,7 @@ import os.path
 import sys
 import subprocess
 import argparse
+import tempfile
 
 def main():
     parser = argparse.ArgumentParser(description='bMotion maintenance tool')
@@ -13,10 +14,10 @@ def main():
                         default="~/eggdrop")
     subparsers = parser.add_subparsers()
 
-    parser_update = subparsers.add_parser('update')
+    parser_update = subparsers.add_parser('update', help="update bmotion's code")
     parser_update.set_defaults(func=update)
 
-    parser_edit = subparsers.add_parser('edit')
+    parser_edit = subparsers.add_parser('edit', help="edit config files")
     parser_edit.add_argument("-f", "--file",
                             help="which file to edit",
                             choices=['eggdrop', 'bmotion'],
@@ -25,9 +26,16 @@ def main():
                             help="which editor to launch; default is EDITOR from env")
     parser_edit.set_defaults(func=edit)
 
+    parser_cron = subparsers.add_parser('cron', help="add bmotion to startup")
+    parser_cron.add_argument("-i", "--install",
+                            help="install @reboot crontab if needed",
+                            action="store_true", default=False)
+    parser_cron.set_defaults(func=cron)
+
     args = parser.parse_args()
     args.path = os.path.expanduser(args.path)
     args.func(args)
+
 
 def update(args):
     print "--> Attempting to update bMotion from github"
@@ -36,6 +44,7 @@ def update(args):
     except Exception, e:
         print "    Oh no :( it all broke"
         print e
+
 
 def edit(args):
     if args.file == "eggdrop":
@@ -60,6 +69,44 @@ def edit(args):
     except Exception, e:
         print "    Unable to launch editor, sorry :("
         print e
+
+
+def cron(args):
+    try:
+        cron_text = subprocess.check_output(["crontab", "-l"])
+    except:
+        cron_text = ""
+
+    if "eggdrop" in cron_text:
+        print "--> eggdrop is started by cron"
+        return
+    
+    print "--> eggdrop is not started by cron"
+
+    # Yes, I know this isn't great
+    if args.install:
+        try:
+            (fd, filename) = tempfile.mkstemp()
+            fh = os.fdopen(fd, "w")
+        except Exception, e:
+            print "Unable to make temp file for updating cron"
+            print e
+            sys.exit(2)
+
+        print >> fh, "@reboot %s" % os.path.join(os.path.expanduser(args.path), "eggdrop")
+        fh.close()
+
+        try:
+            subprocess.check_call(["crontab", filename])
+            print "--> Added eggdrop to @reboot cron" 
+        except Exception, e:
+            print "Failed to update crontab from %s" % filename
+            print e
+
+        try:
+            os.unlink(filename)
+        except:
+            print "Unable to delete temporary file %s" % filename
 
 
 if __name__ == "__main__":
