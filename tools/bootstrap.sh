@@ -47,7 +47,7 @@ echo -e '\E[34mBMOTION: Installing bmotion...'
 tput sgr0
 cd ../../scripts || exit 2
 git clone https://github.com/jamesoff/bmotion.git
-sudo ln -s ~/eggdrop/scripts/bmotion/tools/bmotion.py /usr/local/bin/bmotion
+[ -f /usr/local/bin/bmotion ] || sudo ln -s ~/eggdrop/scripts/bmotion/tools/bmotion.py /usr/local/bin/bmotion
 
 echo
 echo Finished. Use the /usr/local/bin/bmotion script to configure.
