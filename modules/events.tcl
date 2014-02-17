@@ -149,16 +149,16 @@ proc bMotion_event_onquit {nick host handle channel reason} {
 
 	bMotion_plugins_settings_set "system" "lastleft" $channel "" $nick
 
-	if {$bMotionInfo(brig) != ""} {
 	#check if that person was in the brig
-		regexp -nocase "(.+)@(.+)" $bMotionInfo(brig) pop brigNick brigChannel
-		if [string match -nocase $nick $brigNick] {
-			set bMotionInfo(brig) ""
-			bMotionDoAction $brigChannel "" "Curses! They escaped from the brig."
-			return 0
+	global bMotionChannels
+	foreach chan $bMotionChannels {
+		bMotion_putloglev 1 * "Checking $chan for $nick in the brig"
+		if {[bMotion_plugins_settings_get "complex:startrek" "brig" $chan ""] == $nick} {
+			bMotion_plugins_settings_set "complex:startrek" "brig" $chan "" ""
+			bMotionDoAction $chan "" "Curses! They escaped from the brig."
 		}
 	}
-	set result [bMotionDoEventResponse "quit" $nick $host $handle $channel $reason ]
+	return [bMotionDoEventResponse "quit" $nick $host $handle $channel $reason ]
 }
 
 ### bMotion_event_main 
@@ -615,10 +615,10 @@ proc bMotion_event_nick { nick host handle channel newnick } {
 		return
 	}
 
-	set nick [bMotion_cleanNick $nick $handle]
-	set newnick [bMotion_cleanNick $newnick $handle]
+	#set nick [bMotion_cleanNick $nick $handle]
+	#set newnick [bMotion_cleanNick $newnick $handle]
 
-	set result [bMotionDoEventResponse "nick" $nick $host $handle $channel $newnick ]
+	return [bMotionDoEventResponse "nick" $nick $host $handle $channel $newnick ]
 }
 
 bMotion_putloglev d * "bMotion: events module loaded"

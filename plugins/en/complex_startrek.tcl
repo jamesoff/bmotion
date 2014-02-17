@@ -102,9 +102,9 @@ proc bMotion_plugin_complex_startrek_courtmartial { nick host handle channel tex
 
     if {$banzai != ""} { set bMotionInfo(banzaiModeBrig) 1 } else { set bMotionInfo(banzaiModeBrig) 0 }
 
-    if {$bMotionInfo(brig) != ""} {
+    if {[bMotion_plugins_settings_get "complex:startrek" "brig" $channel ""] != ""} {
       bMotionDoAction $channel $nick "I'm sorry Sir, I already have someone in the brig - please try again later, or empty the Recycle Bin."
-			utimer [expr $bMotionInfo(brigDelay) + 10] bMotion_brig_flush
+			#utimer [expr $bMotionInfo(brigDelay) + 10] "bMotion_brig_flush $channel"
       return 1
     }
 
@@ -114,7 +114,8 @@ proc bMotion_plugin_complex_startrek_courtmartial { nick host handle channel tex
       return 1
     }
 
-    set bMotionInfo(brig) "$who@$channel"
+    bMotion_plugins_settings_set "complex:startrek" "brig" $channel "" $who
+
     if {$bMotionInfo(banzaiModeBrig) == 1} {
       bMotionDoAction $channel $who "%VAR{brigBanzais}"
       bMotionDoAction $channel $who "Rules simple. Simply decide if you think I'll find %% innocent."
@@ -124,9 +125,9 @@ proc bMotion_plugin_complex_startrek_courtmartial { nick host handle channel tex
       bMotionDoAction $channel $who "Place bets now! (\002!bet innocent\002 and \002!bet guilty\002, one bet per person)"
     }
     bMotionDoAction $channel $who "/throws %% in the brig to await charges"
-    utimer $bMotionInfo(brigDelay) bMotionDoBrig
+    utimer $bMotionInfo(brigDelay) "bMotionDoBrig $channel"
     if {$bMotionInfo(banzaiModeBrig) == 1} {
-      utimer [expr $bMotionInfo(brigDelay) / 2 + 7] bMotionBanzaiBrigMidBet
+      utimer [expr $bMotionInfo(brigDelay) / 2 + 7] "bMotionBanzaiBrigMidBet $channel"
     }
     return 1
   }
@@ -134,27 +135,29 @@ proc bMotion_plugin_complex_startrek_courtmartial { nick host handle channel tex
 
 
 ### Supporting functions
-proc bMotionBanzaiBrigMidBet {} {
+proc bMotionBanzaiBrigMidBet { channel } {
   global bMotionInfo
 
-  set brigInfo $bMotionInfo(brig)
-  if {$brigInfo == ""} { return 0 }
-  regexp -nocase "(.+)@(.+)" $brigInfo pop nick channel
+  set nick [bMotion_plugins_settings_get "complex:startrek" "brig" $channel ""]
+	if {$nick == ""} {
+		return 0
+	}
 
   bMotionDoAction $channel "" "%VAR{banzaiMidBets}"
   return 0
 }
 
-proc bMotionDoBrig {} {
+proc bMotionDoBrig { channel } {
   global bMotionInfo charges trekNouns punishments
 
-  set brigInfo $bMotionInfo(brig)
-  if {$brigInfo == ""} { return 0 }
-  regexp -nocase "(.+)@(.+)" $brigInfo pop nick channel
+  set nick [bMotion_plugins_settings_get "complex:startrek" "brig" $channel ""]
+	if {$nick == ""} {
+		return 0
+	}
 
   if {![onchan $nick $channel]} {
     putlog "bMotion: Was trying to courtmartial $nick on $channel, but they're not there no more :("
-    set bMotionInfo(brig) ""
+    bMotion_plugins_settings_set "complex:startrek" "brig" $channel "" ""
     return 0
   }
 
@@ -163,7 +166,7 @@ proc bMotionDoBrig {} {
   }
 
   bMotionDoAction $channel $nick "%%, you are charged with %VAR{charges}, and %VAR{charges}"
-  set bMotionInfo(brig) ""
+	bMotion_plugins_settings_set "complex:startrek" "brig" $channel "" ""
 
   set guilty [rand 2]
   if {$guilty} {
@@ -189,24 +192,22 @@ proc bMotionDoBrig {} {
 }
 
 # apparently we forgot someone was in the brig
-proc bMotion_brig_flush { } {
-	global bMotionInfo
+proc bMotion_brig_flush { channel } {
 
-	if {$bMotionInfo(brig) == ""} {
-		return
+  set nick [bMotion_plugins_settings_get "complex:startrek" "brig" $channel ""]
+	if {$nick == ""} {
+		return 0
 	}
 
 	bMotion_putloglev d * "Flushing brig..."
 
-  regexp -nocase "(.+)@(.+)" $bMotionInfo(brig) pop nick channel
 	bMotionDoAction $channel $nick "Whoops... I forgot %% was in the brig%|/sweeps corpse under the rug"
-	set bMotionInfo(brig) ""
+	bMotion_plugins_settings_set "complex:startrek" "brig" $channel "" ""
 }
 
 proc bMotionVoteHandler {nick host handle channel text} {
-  global bMotionInfo
-  set brigInfo $bMotionInfo(brig)
-  if {$brigInfo == ""} {
+  set nick [bMotion_plugins_settings_get "complex:startrek" "brig" $channel ""]
+	if {$nick == ""} {
     #unbind
     putlog "bMotion: Oops, need to unbind votes"
     unbind pub - "!bet" bMotionVoteHandler
@@ -235,4 +236,19 @@ proc bMotionVoteHandler {nick host handle channel text} {
     return 0
   }
   puthelp "NOTICE $nick: Syntax: !bet <guilty|innocent>"
+}
+
+bMotion_plugin_add_irc_event "brig" "nick" ".*" 100 "bMotion_plugins_complex_startrek_nick" "en"
+
+proc bMotion_plugins_complex_startrek_nick { nick host handle channel newnick } {
+	global bMotionChannels
+
+	foreach chan $bMotionChannels {
+		bMotion_putloglev 1 * "Checking $chan for $nick in the brig"
+		if {[bMotion_plugins_settings_get "complex:startrek" "brig" $chan ""] == $nick} {
+			bMotion_plugins_settings_set "complex:startrek" "brig" $chan "" $newnick
+			bMotion_putloglev d * "Tracked $nick changing to $newnick while in the brig"
+		}
+	}
+	return 0
 }

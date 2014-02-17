@@ -41,7 +41,6 @@ if {![info exists bMotionInfo]} {
   set bMotionInfo(cloaked) 0
   set bMotionInfo(warp) 0
   set bMotionInfo(impulse) 0
-  set bMotionInfo(brig) ""
   set bMotionInfo(leet) 0
   set bMotionInfo(dutch) 0
   set bMotionInfo(leetChance) 3
