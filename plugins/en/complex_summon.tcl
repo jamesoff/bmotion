@@ -19,10 +19,8 @@ proc bMotion_plugin_complex_summon { nick host handle channel text } {
 	# bMotion_putloglev d * "bMotion: (summon) entering"
 	# check to make sure we should bother
 	if { ![bMotion_interbot_me_next $channel] } {
-		# bMotion_putloglev d * "bMotion: (summon) not me"
 		return 2
 	}
-	# bMotion_putloglev d * "bMotion: (summon) cleared interbot check"
 
 	# !summon name
 	if [regexp -nocase "^!summon (.*)" $text blah name] {
@@ -38,7 +36,7 @@ proc bMotion_plugin_complex_summon { nick host handle channel text } {
 		if { $name != "" && [string tolower $name] != [string tolower $nick] } {
 			# summon the best we can
 			if { ![onchan $name $channel] } {
- 				# the botnick could be non-existant
+ 				# the botnick could be non-existent
  				if [regexp -nocase "^$botnicks\$" $name] {
  					bMotion_putloglev d * "bMotion: (summon) myself!"
  					bMotionDoAction $channel $nick "%VAR{summon_bot}"
@@ -60,7 +58,9 @@ proc bMotion_plugin_complex_summon { nick host handle channel text } {
 				}
 				bMotionDoAction $channel $name "%VAR{summon_channel_response}"
 				#set msg [pickRandom $summon_privmsg_response]
-				set msg [bMotionDoInterpolation "%VAR{summon_privmsg_response}" $nick ""]
+				set msg "%VAR{summon_privmsg_response}"
+				set msg [bMotion_process_macros $channel $msg]
+				set msg [bMotionDoInterpolation $msg $nick ""]
 				# replacements (TODO: may not be needed after doInterpolation)
 				regsub "%channel" $msg $channel msg
 				regsub "%%" $msg $nick msg
