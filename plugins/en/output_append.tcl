@@ -51,13 +51,15 @@ proc bMotion_plugin_output_append { channel line } {
 bMotion_abstract_register "preciouses"
 bMotion_abstract_reset "preciouses"
 bMotion_abstract_batchadd "preciouses" {
-	" my precious"
-	" precious"
-	" preciouses"
-	" the precious"
+	"%spacemy precious"
+	"%spaceprecious"
+	"%spacepreciouses"
+	"%spacethe precious"
 }
 
-bMotion_abstract_register "appendslist" {
+bMotion_abstract_register "appendslist"
+bMotion_abstract_reset "appendslist"
+bMotion_abstract_batchadd "appendslist" {
 	", in accordance with the prophecy"
 	", in accordance with my master's thesis on the Legend of Zelda"
 	"%spaceand you're sitting in it right now"
@@ -72,14 +74,15 @@ bMotion_abstract_register "appendslist" {
 	"%spacein the butt"
 	"%spacein a vagina"
 }
-bMotion_abstract_add_filter "appendslist" "^ "
 
+bMotion_abstract_register "narfs"
+bMotion_abstract_reset "narfs"
 bMotion_abstract_register "narfs" {
-  " zort!"
-  " narf"
-  " poit."
-  " poit!"
-  " narf!"
+	"%spacezort!"
+	"%spacenarf"
+	"%spacepoit."
+	"%spacepoit!"
+	"%spacenarf!"
 }
 
 bMotion_abstract_register "appends" {
@@ -89,9 +92,9 @@ bMotion_abstract_register "appends" {
 }
 
 bMotion_abstract_register "prepends" {
-  "basically,"
-  "well,"
-  "so, like,"
+	"basically,"
+	"well,"
+	"so, like,"
 	"r"
 }
 

@@ -1,6 +1,3 @@
-#
-#
-#
 # vim: fdm=indent fdn=1
 
 ###############################################################################
@@ -13,23 +10,26 @@
 ###############################################################################
 
 #                          name     callback                       enabled at load (1 = yes) #pri (<=10 = core)
-bMotion_plugin_add_output  "leet"   bMotion_plugin_output_leet     0 "en" 11
+bMotion_plugin_add_output "leet" bMotion_plugin_output_leet 0 "en" 11
 bMotion_plugin_add_output "pickuser" bMotion_plugin_output_pickuser 1 "en" 5
 
 if [bMotion_plugin_check_depend "complex:dutchify"] {
-  bMotion_plugin_add_output  "dutch"  bMotion_plugin_output_dutch    0 "en" 11
+	bMotion_plugin_add_output  "dutch"  bMotion_plugin_output_dutch    0 "en" 11
 }
+
 
 proc bMotion_plugin_output_leet { channel text } {
-  return [makeLeet2 $text]
+	return [makeLeet2 $text]
 }
 
+
 proc bMotion_plugin_output_dutch { channel text } {
-  catch {
-    set text [bMotion_plugin_complex_dutchify_makeDutch $text]
-  }
-  return $text
+	catch {
+		set text [bMotion_plugin_complex_dutchify_makeDutch $text]
+	}
+	return $text
 }
+
 
 # %PICKUSER isn't used any more, so don't accidentally send lines containing it to IRC
 proc bMotion_plugin_output_pickuser { channel text } {
@@ -40,4 +40,3 @@ proc bMotion_plugin_output_pickuser { channel text } {
 	}
 	return $text
 }
-

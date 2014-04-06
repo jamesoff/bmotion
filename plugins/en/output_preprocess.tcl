@@ -21,7 +21,7 @@ proc bMotion_plugin_output_preprocess { channel line } {
 	bMotion_putloglev 4 * "bMotion_plugin_output_preprocess $channel $line"
 
 	set line [string map " %pronoun [getPronoun] %himherself [getPronoun] %me $botnick %colen [bMotionGetColenChars] %hishers [getHisHers] %heshe [getHeShe] %hisher [getHisHer] %daytime [bMotion_get_daytime] " $line]
-	regsub "%space" $line " " line
+	regsub -all "%space" $line " " line
 
 	return $line
 }
