@@ -7,6 +7,7 @@
 bMotion_abstract_register "randomStuff"
 bMotion_abstract_reset "randomStuff"
 bMotion_abstract_batchadd "randomStuff" {
+	"Do these %VAR{bodypart:plural} make my %VAR{bodypart} look fat?"
 	"IQ test: %VAR{sillyThings:strip,caps} is to %VAR{sillyThings:strip,caps} as %VAR{sillyThings:strip,caps} is to ...?"
 	"/endorses %ruser for %VAR{sillyThings:strip,plural,caps}. Now it's your turn: does %me know about %VAR{sillyThings:strip,plural,caps}?"	
 	"What's all that gurgling? You call this radar!?%|%BOT[no sir, we call it Mr %VAR{foods:strip,camel}!]%|i knew that! I always have %VAR{foods:prev,lower} before I watch radar!"
