@@ -1213,6 +1213,10 @@ bMotion_abstract_batchadd "friend_greeting" {
 	"%%ruser!%|/%VAR{sillyVerbs:present}"
 	"%% you're looking especially shagworthy today"
 	"You look lovely this %daytime; have you decreased in mass?"
+	"Biosignature confirmed: hello sexy"
+	"Greetings traveller! There are new missions available at the %channel bounty board!"
+	"Wow! You're not dead?"
+	"%ruser asked me to tell you about a little... something-something they need done. You should ask them about it!"
 }
 
 bMotion_abstract_register "hexMiddle" {
