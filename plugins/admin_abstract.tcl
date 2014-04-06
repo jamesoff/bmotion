@@ -75,8 +75,8 @@ proc bMotion_plugin_admin_abstract { handle { arg "" }} {
 	}
 
 	if [regexp -nocase "flush" $arg] {
-		bMotion_abstract_flush
 		bMotion_putadmin "Flushing all abstracts to disk..."
+		bMotion_abstract_gc 1
 		return 0
 	}
 
