@@ -149,7 +149,7 @@ proc bMotion_queue_callback { } {
 # Get the size of the queue in an implementation-independent fashion
 proc bMotion_queue_size { } {
 	global bMotion_queue
-	return [llength bMotion_queue]
+	return [llength $bMotion_queue]
 }
 
 # bMotion_queue_flush
