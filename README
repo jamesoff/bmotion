@@ -23,6 +23,10 @@ HOW TO INSTALL
 Please see https://github.com/jamesoff/bmotion/wiki/Installing for 
 details on how to install bMotion.
 
+You can also launch an AWS instance with bMotion and eggdrop pre-
+installed. It's AMI ami-0d2bee7a. Fire it up and log in as 'ubuntu'.
+The MOTD has instructions.
+
 ---------------------------------------------------------------------
 FEEDBACK
 
