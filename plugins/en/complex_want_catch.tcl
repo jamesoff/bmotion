@@ -38,9 +38,13 @@ proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
 
 proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
 	global botnicks
-	if [regexp -nocase {^mm+[,.]* (.+)} $text matches item] {
+	if [regexp -nocase {^mm+[,.]* (.*)} $text matches item] {
 
 		if {![bMotion_filter_sillyThings $item]} {
+			return 0
+		}
+
+		if {[string length $item] > 20} {
 			return 0
 		}
 
