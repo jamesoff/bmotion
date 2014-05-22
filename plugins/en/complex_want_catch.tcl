@@ -21,38 +21,39 @@ bMotion_plugin_add_complex "zzz-noun-catch" {\m(?:a|an|the) ([[:alpha:]]+)} 100 
 bMotion_plugin_add_complex "karma-query" {^(!getkarma (.+))|((.+)\?\?)} 100 bMotion_plugin_complex_karma_get "en"
 
 proc bMotion_plugin_complex_want_catcher { nick host handle channel text } {
-  if [regexp -nocase "i (want|need) (?!to)(.+? )" $text matches verb item] {
-    #that's a negative lookahead ---^
+	if [regexp -nocase "i (want|need) (?!to)(.+? )" $text matches verb item] {
+		#that's a negative lookahead ---^
 		if {![bMotion_filter_sillyThings $item]} {
 			return 0
 		}
 
-    bMotion_abstract_add "sillyThings" $item
-    if {[rand 100] > 95} {
-    	bMotionDoAction $channel "" "%VAR{gotone}"
+		bMotion_abstract_add "sillyThings" $item
+		if {[rand 100] > 95} {
+			bMotionDoAction $channel "" "%VAR{gotone}"
 			return 1
-    }
+		}
 	}
 }
 
+
 proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
 	global botnicks
-  if [regexp -nocase {^mm+[,.]* (.+)} $text matches item] {
+	if [regexp -nocase {^mm+[,.]* (.+)} $text matches item] {
 
 		if {![bMotion_filter_sillyThings $item]} {
 			return 0
 		}
 
-    if [regexp -nocase "\ybmotion|$botnicks\y" $item] {
-    	bMotionDoAction $channel "" "%VAR{wins}"
-    	return 1
-    }
+		if [regexp -nocase "\ybmotion|$botnicks\y" $item] {
+			bMotionDoAction $channel "" "%VAR{wins}"
+			return 1
+		}
 
-    bMotion_abstract_add "sillyThings" $item
-	
+		bMotion_abstract_add "sillyThings" $item
+
 		if {[rand 100] > 95} {
-				bMotionDoAction $channel $item "%VAR{betters}"
-				return 1
+			bMotionDoAction $channel $item "%VAR{betters}"
+			return 1
 		}
 	}
 }
@@ -60,7 +61,7 @@ proc bMotion_plugin_complex_mmm_catcher { nick host handle channel text } {
 
 proc bMotion_plugin_complex_plusplus_catcher { nick host handle channel text } {
 	global botnicks
-  if [regexp -nocase {^(.+)\+{2}$} $text matches item] {
+	if [regexp -nocase {^(.+)\+{2}$} $text matches item] {
 
 		set retval 0
 
@@ -75,19 +76,20 @@ proc bMotion_plugin_complex_plusplus_catcher { nick host handle channel text } {
 			bMotion_abstract_add "sillyThings" $item
 		}
 
-    if [regexp -nocase "^(bmotion|$botnicks)$" $item] {
+		if [regexp -nocase "^(bmotion|$botnicks)$" $item] {
 			driftFriendship $handle 2
-    	bMotionDoAction $channel "" "%VAR{wins}"
-    	return 1
-    }
+			bMotionDoAction $channel "" "%VAR{wins}"
+			return 1
+		}
 
 		return $retval
 	}
 }
 
+
 proc bMotion_plugin_complex_minmin_catcher { nick host handle channel text } {
-  global botnicks
-  if [regexp -nocase {^(.+)-{2}$} $text matches item] {
+	global botnicks
+	if [regexp -nocase {^(.+)-{2}$} $text matches item] {
 
 		set retval 0
 
@@ -102,59 +104,65 @@ proc bMotion_plugin_complex_minmin_catcher { nick host handle channel text } {
 			bMotion_abstract_add "sillyThings" $item
 		}
 
-    if [regexp -nocase "^(bmotion|$botnicks)$" $item] {
+		if [regexp -nocase "^(bmotion|$botnicks)$" $item] {
 			driftFriendship $handle -2
-      bMotionDoAction $channel "" "%VAR{unsmiles}"
-      return 1
-    }
+			bMotionDoAction $channel "" "%VAR{unsmiles}"
+			return 1
+		}
 
 		return $retval
-  }
+	}
 }
 
 
 proc bMotion_plugin_complex_noun_catcher { nick host handle channel text } {
-  if [regexp -nocase {\m(a|an|the|some) ([[:alpha:]]+)( [[:alpha:]]+\M)?} $text matches prefix item second] {
-    set item [string tolower $item]
+	if [regexp -nocase {\m(a|an|the|some) ([[:alpha:]]+)( [[:alpha:]]+\M)?} $text matches prefix item second] {
+		set item [string tolower $item]
 
 		if {![bMotion_filter_sillyThings $item]} {
 			return 0
 		}
 
-    if [regexp "(ing|ed)$" $item] {
-      if {$second == ""} {
-        return 0
-      }
-      append item $second
-    }
+		if [regexp "(ing|ed)$" $item] {
+			if {$second == ""} {
+				return 0
+			}
+			append item $second
+		}
 
-    set prefix [string tolower $prefix]
-    if {$prefix == "the"} {
-      if {[string range $item end end] == "s"} {
-        set prefix "some"
-      } else {
-        set prefix "a"
-      }
-    }
+		set prefix [string tolower $prefix]
+		if {$prefix == "the"} {
+			if {[string range $item end end] == "s"} {
+				set prefix "some"
+			} else {
+				set prefix "a"
+			}
+		}
 
-    bMotion_abstract_add "sillyThings" "$prefix $item"
+		bMotion_abstract_add "sillyThings" "$prefix $item"
 		return 0
-  }
+	}
 }
 
+
 proc bMotion_plugin_complex_karma { nick channel text } {
-	# setting to only allow a certain number of words to be grabbed?
-	# setting to limit line length when triggering?
+# setting to only allow a certain number of words to be grabbed?
+# setting to limit line length when triggering?
 
 	if {![bMotion_setting_get "karma_enable"]} {
 		return 0
 	}
-  
+
 	global bMotion_karma
-	
+
 	if [regexp -nocase {\m([\w_\|\{\}\[\]^-]+)(\+\+|--)} $text matches word mode] {
 		set word [string tolower $word]
 		bMotion_putloglev d * "found karma mode $mode for word $word"
+		if {$word == [string tolower $nick]} {
+			bMotionDoAction $channel $nick "%VAR{karma_nicetry}"
+			return 1
+		}
+
 		set karma 0
 		catch {
 			set karma $bMotion_karma($word)
@@ -181,13 +189,14 @@ proc bMotion_plugin_complex_karma { nick channel text } {
 	return 0
 }
 
+
 proc bMotion_plugin_complex_karma_get { nick host handle channel text } {
 	global bMotion_karma
 
 	if {![bMotion_setting_get "karma_enable"]} {
 		return 0
 	}
-  
+
 	if [regexp -nocase {^(!getkarma ([\w_\|\{\}\[\]^-]+))|(([\w_\|\{\}\[\]^-]+)\?\?)} $text matches a word1 b word2] {
 		if {$a != ""} {
 			set word [string tolower $word1]
@@ -207,6 +216,7 @@ proc bMotion_plugin_complex_karma_get { nick host handle channel text } {
 		return 1
 	}
 }
+
 
 proc bMotion_plugin_complex_karma_save { } {
 	global bMotion_karma bMotionLocal
@@ -258,6 +268,8 @@ bMotion_abstract_register "gotone" [list "I've already got one%|%BOT\[are you su
 bMotion_abstract_register "betters" [list "mm%REPEAT{1:5:m}, %VAR{sillyThings:strip}" "%VAR{sillyThings:strip} > %%" "%% < %VAR{sillyThings:strip}" "%%++"]
 
 bMotion_abstract_register "karma_update" [list "karma for %% is now %2"]
+
+bMotion_abstract_register "karma_nicetry" [list "nice try" "karma for %% is now negative %NUMBER{100} billion" "no."]
 
 # initalise the storage for karma
 # this command leaves existing arrays untouched
