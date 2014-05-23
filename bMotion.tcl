@@ -74,18 +74,6 @@ proc bMotion_putloglev { level star text } {
   }
 }
 
-# needed for variables
-if {$bMotion_testing == 1} {
-  putlog "... loading plugin settings"
-}
-source "$bMotionModules/plugins_settings.tcl"
-
-# init default variables
-if {$bMotion_testing == 1} {
-  putlog "... loading variables"
-}
-source "$bMotionModules/variables.tcl"
-
 # load settings
 if {$bMotion_testing == 1} {
   putlog "... loading settings"
@@ -135,6 +123,24 @@ putlog "bMotion: loaded settings from the following files: $bMotion_loaded_setti
 if {$bMotion_loaded_settings == 0} {
 	putlog "bMotion: FATAL! Could not load from any settings file! bMotion is not going to work! :("
 }
+
+#load redis
+if {$bMotion_testing == 1} {
+	putlog "... loading redis"
+}
+source "$bMotionModules/redis.tcl"
+
+# needed for variables
+if {$bMotion_testing == 1} {
+  putlog "... loading plugin settings"
+}
+source "$bMotionModules/plugins_settings.tcl"
+
+# init default variables
+if {$bMotion_testing == 1} {
+  putlog "... loading variables"
+}
+source "$bMotionModules/variables.tcl"
 
 #load system functions
 if {$bMotion_testing == 1} {

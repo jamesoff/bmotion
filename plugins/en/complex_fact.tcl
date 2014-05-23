@@ -25,28 +25,41 @@ proc bMotion_plugin_complex_fact { nick host handle channel text } {
     }
   }
 
-#don't let trivia trigger us
+	#don't let trivia trigger us
 	if [string match "*answer was*" $text] {
 		return 0
 	}
 
   if {[string range $text end end] == "?"} { return 0 }
   if [regexp -nocase {\m([^ !"]+)[!" ]+(is|was|==?|am) ?([a-z0-9 '_/-]+)} $text matches item blah fact] {
+		putlog "moo"
     set item [string tolower $item]
-    if {([string length $fact] < 3) || ([string length $fact] > 30)} { return 0 }
-    if [regexp "(like|what|which|have|it|that|when|where|there|then|this|who|you|you|yours|why|he|she)" $item] {
+    if {([string length $fact] < 3) || ([string length $fact] > 30)} { 
+			putlog "1"
+			return 0 
+		}
+    if [regexp {\m(like|what|which|have|it|that|when|where|there|then|this|who|you|you|yours|why|he|she)\M} $item] {
+			putlog "2"
       return 0
     }
+		putlog "cows"
     if {$item == "i"} {
       set item [string tolower $nick]
     }
     regsub {\mme\M} $fact $nick fact
     set fact [string tolower [string trim $fact]]
     regsub {\mmy\M} $fact "%OWNER{$nick}" fact
-    bMotion_putloglev d * "fact: $item == $fact"
-    lappend bMotionFacts(what,$item) $fact
-    set bMotionFactTimestamps(what,$item) [clock seconds]
+		putlog "wheee"
+    bMotion_putloglev d * "learning fact: $item == $fact"
+		if [bMotion_redis_available] {
+			putlog "redis"
+			bMotion_redis_cmd sadd "fact:what:$item" $fact
+		} else {
+			lappend bMotionFacts(what,$item) $fact
+			set bMotionFactTimestamps(what,$item) [clock seconds]
+		}
   }
+	
 	#return 0 because we don't put anything to irc, so we shouldn't get in the way
   return 0
 }

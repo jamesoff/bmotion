@@ -18,6 +18,12 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 		bMotion_putloglev d * "dropping greeting for $nick on $channel as user is banned"
 		return 0
 	}
+	
+	# check if the last quit was en error - if so we don't say anything
+	if {[bMotion_redis_cmd get quits:$nick:waserror] == 1} {
+		bMotion_putloglev 2 * "last quit for $nick was an error so not greeting"
+		return 0
+	}
 
 	#has something happened since we last greeted?
 	set lasttalk [bMotion_plugins_settings_get "system:join" "lasttalk" $channel ""]
@@ -72,8 +78,6 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 		set greetings "unknown_joins"
 	}
 
-	bMotion_plugins_settings_set "system:join" "lastgreeted" $channel "" $nick
-	bMotion_plugins_settings_set "system:join" "lasttalk" $channel "" 1
 
 	if {$handle != "*"} {
 		if {![rand 10]} {
@@ -100,6 +104,13 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 		}
 	}
 
+	if {[rand 100] > 40} {
+		return 0
+	}
+
+	bMotion_plugins_settings_set "system:join" "lastgreeted" $channel "" $nick
+	bMotion_plugins_settings_set "system:join" "lasttalk" $channel "" 1
+	
 	# generic_greeting = generic greeting
 	# friend_greeting = friend greeting
 	# dislike_joins = enemy greeting
@@ -111,7 +122,7 @@ proc bMotion_plugins_irc_default_join { nick host handle channel text } {
 	return 1
 }
 
-bMotion_plugin_add_irc_event "default join" "join" ".*" 40 "bMotion_plugins_irc_default_join" "en"
+bMotion_plugin_add_irc_event "default join" "join" ".*" 100 "bMotion_plugins_irc_default_join" "en"
 
 bMotion_abstract_register "insult_joins" [list "%ruser: yeah, %% does suckOH HI %%!" "\[%%\] I'm a %VAR{PROM}%|%VAR{wrong_infoline}" "\[%%\] I love %ruser%|%VAR{wrong_infoline}" "/looks at %%%|so THAT'S where my oil-skin thong got to!" ]
 
