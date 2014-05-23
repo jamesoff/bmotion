@@ -64,15 +64,24 @@ proc bMotion_plugin_management_status { handle { args "" } } {
 	}
 
 	bMotion_putadmin "Random stuff happens at least every [bMotion_setting_get minRandomDelay]min, at most every [bMotion_setting_get maxRandomDelay]min, and not if channel quiet for more than [bMotion_setting_get maxIdleGap]min. Active channels have a line in the last [bMotion_setting_get active_idle_sec]sec."
-	if [bMotion_setting_get silence] {
+	if { [bMotion_setting_get "silence"] != "" } {
 		bMotion_putadmin "I am silent."
 	}
-	if [bMotion_setting_get "away"] {
+	if { [bMotion_setting_get "away"] != "" } {
 		bMotion_putadmin "I am away."
 	}
 
 	global bMotion_loaded_settings_from
 	bMotion_putadmin "I loaded my configuration from: $bMotion_loaded_settings_from"
+
+	if [bMotion_redis_available] {
+		bMotion_putadmin "I'm using a redis server."
+		if {$args == "redis"} {
+			bMotion_putadmin "My redis server is at [bMotion_setting_get redis_server]:[bMotion_setting_get redis_port] #[bMotion_setting_get redis_database]"
+		}
+	} else {
+		bMotion_putadmin "I'm using legacy storage."
+	}
 
 	return 0
 }
