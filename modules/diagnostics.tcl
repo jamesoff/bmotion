@@ -185,6 +185,10 @@ proc bMotion_diagnostic_settings { } {
 	if {![info exists bMotionSettings(friendly)]} {
 		putlog "bMotion: diagnostics: friendly not defined, check settings file!"
 		set errors 1
+	} else {
+		if {![string is integer $bMotionSettings(friendly)]} {
+			putlog "bMotion: diagnostics: friendly setting is supposed to be a number 0-2!"
+		}
 	}
 
 	if {![info exists bMotionSettings(melMode)]} {
