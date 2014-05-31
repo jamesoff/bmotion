@@ -18,7 +18,7 @@ proc bMotion_plugins_irc_default_quit { nick host handle channel text } {
 
 	if {$handle == "*"} {
 		if {[bMotion_setting_get "friendly"] != 1} {
-			bMotion_putloglev s * "skipping quit for $nick because handle is * and friendly != 1"
+			bMotion_putloglev 2 * "skipping quit for $nick because handle is * and friendly != 1"
 			return 0
 		}
 	}
