@@ -64,10 +64,10 @@ proc bMotion_plugin_management_status { handle { args "" } } {
 	}
 
 	bMotion_putadmin "Random stuff happens at least every [bMotion_setting_get minRandomDelay]min, at most every [bMotion_setting_get maxRandomDelay]min, and not if channel quiet for more than [bMotion_setting_get maxIdleGap]min. Active channels have a line in the last [bMotion_setting_get active_idle_sec]sec."
-	if { [bMotion_setting_get "silence"] != "" } {
+	if { [bMotion_setting_get "silence"] == 1 } {
 		bMotion_putadmin "I am silent."
 	}
-	if { [bMotion_setting_get "away"] != "" } {
+	if { [bMotion_setting_get "away"] == 1 } {
 		bMotion_putadmin "I am away."
 	}
 
