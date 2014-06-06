@@ -1,7 +1,5 @@
 ## bMotion plugins loader: admin
 #
-# $Id$
-#
 
 ###############################################################################
 # This is a bMotion plugin
@@ -15,21 +13,21 @@
 set currentlang $bMotionInfo(language)
 set languages [split $bMotionSettings(languages) ","]
 foreach bMotion_language $languages {
-  set bMotionInfo(language) $bMotion_language
-  bMotion_putloglev 2 * "bMotion: loading admin plugins language = $bMotion_language"
-  set files [glob -nocomplain "$bMotionPlugins/$bMotion_language/admin_*.tcl"]
-  foreach f $files {
+	set bMotionInfo(language) $bMotion_language
+	bMotion_log "plugins" "INFO" "loading admin plugins language = $bMotion_language"
+	set files [glob -nocomplain "$bMotionPlugins/$bMotion_language/admin_*.tcl"]
+	foreach f $files {
 		set count [llength [array names bMotion_plugins_admin]]
-    bMotion_putloglev 1 * "bMotion: loading ($bMotion_language) admin plugin file $f"
-    catch {
-      source $f
-    } err
+		bMotion_log "plugins" "DEBUG" "loading ($bMotion_language) admin plugin file $f"
+		catch {
+			source $f
+		} err
 		set newcount [llength [array names bMotion_plugins_admin]]
 		if {($bMotion_testing == 0) && ($newcount == $count)} {
-			putlog "bMotion: ALERT! admin plugin file $f added no plugins"
-			putlog "Possible error: $err"
+			bMotion_log "plugins" "ERROR" "ALERT! admin plugin file $f added no plugins"
+			bMotion_log "plugins" "DEBUG" "Possible error: $err"
 		}
-  }
+	}
 }
 set bMotionInfo(language) $currentlang
 unset currentlang
@@ -37,8 +35,8 @@ unset currentlang
 # load default admin stuff regardless
 set files [glob -nocomplain "$bMotionPlugins/admin_*.tcl"]
 foreach f $files {
-  bMotion_putloglev 1 * "bMotion: loading (generic) admin plugin file $f"
-  catch {
-    source $f
-  }
+	bMotion_putloglev 1 * "bMotion: loading (generic) admin plugin file $f"
+	catch {
+		source $f
+	}
 }

@@ -23,14 +23,14 @@ set currentlang $bMotionInfo(language)
 set files [glob -nocomplain "$bMotionPlugins/$currentlang/action_simple_*.tcl"]
 foreach f $files {
 	set count [llength [array names bMotion_plugins_action_simple]]
-  bMotion_putloglev 1 * "bMotion: loading simple action plugin file $f"
+	bMotion_log "plugins" "INFO" "loading simple action plugin file $f"
 	set bMotion_noplugins 0
-  catch {
-    source $f
-  } err
+	catch {
+		source $f
+	} err
 	set newcount [llength [array names bMotion_plugins_action_simple]]
 	if {($bMotion_testing == 0) && ($newcount == $count) && ($bMotion_noplugins == 0)} {
-		putlog "bMotion: ALERT! simple action plugin file $f added no plugins"
-		putlog "Possible error: $err"
+		bMotion_log "plugins" "ERROR" "ALERT! simple action plugin file $f added no plugins"
+		bMotion_log "plugins" "DEBUG" "Possible error: $err"
 	}
 }

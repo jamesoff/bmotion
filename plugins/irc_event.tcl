@@ -15,22 +15,22 @@
 set currentlang $bMotionInfo(language)
 set languages [split $bMotionSettings(languages) ","]
 foreach bMotion_language $languages {
-  set bMotionInfo(language) $bMotion_language
-  bMotion_putloglev 2 * "bMotion: loading irc event plugins language = $bMotion_language"
-  set files [glob -nocomplain "$bMotionPlugins/$bMotion_language/irc_*.tcl"]
-  foreach f $files {
+	set bMotionInfo(language) $bMotion_language
+	bMotion_log "plugins" "INFO" "loading irc event plugins language = $bMotion_language"
+	set files [glob -nocomplain "$bMotionPlugins/$bMotion_language/irc_*.tcl"]
+	foreach f $files {
 		set count [llength [array names bMotion_plugins_irc_event]]
-    bMotion_putloglev 1 * "bMotion: loading ($bMotion_language) irc event plugin file $f"
+		bMotion_log "plugins" "DEBUG" "bMotion: loading ($bMotion_language) irc event plugin file $f"
 		set bMotion_noplugins 0
-    catch {
-      source $f
-    } err
+		catch {
+			source $f
+		} err
 		set newcount [llength [array names bMotion_plugins_irc_event]]
 		if {($bMotion_testing == 0) && ($newcount == $count) && ($bMotion_noplugins == 0)} {
-			putlog "bMotion: ALERT! complex plugins file $f added no plugins"
-			putlog "Possible error: $err"
+			bMotion_log "plugins" "ERROR" "ALERT! irc plugins file $f added no plugins"
+			bMotion_log "plugins" "DEBUG" "Possible error: $err"
 		}
-  }
+	}
 }
 set bMotionInfo(language) $currentlang
 unset currentlang

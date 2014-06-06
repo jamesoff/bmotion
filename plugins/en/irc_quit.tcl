@@ -10,15 +10,16 @@
 ###############################################################################
 
 proc bMotion_plugins_irc_default_quit { nick host handle channel text } {
+	global BMOTION_LOG_LEVEL
 
 	if {[bMotion_setting_get "friendly"] == "2"} {
-		bMotion_putloglev 2 * "skipping quit for $nick due to friendly == 2"
+		bMotion_log "ircplugin" "DEBUG" "skipping quit for $nick due to friendly == 2"
 		return 0
 	}
 
 	if {$handle == "*"} {
 		if {[bMotion_setting_get "friendly"] != 1} {
-			bMotion_putloglev 2 * "skipping quit for $nick because handle is * and friendly != 1"
+			bMotion_log "ircplugin" "DEBUG" "skipping quit for $nick because handle is * and friendly != 1"
 			return 0
 		}
 	}
@@ -34,13 +35,13 @@ proc bMotion_plugins_irc_default_quit { nick host handle channel text } {
 
 	# note: this is 2 not 1 because this event is fired BEFORE eggdrop processes the part/quit
 	if {$count >= 2} {
-		bMotion_putloglev d * "$nick has $count matching handles in $channel, so not saying bye"
+		bMotion_log "ircplugin" "DEBUG" "$nick has $count matching handles in $channel, so not saying bye"
 		return 0
 	}
 
 	#don't do anything if it looks like an error
 	if [regexp -nocase "(k-?lined|d-?lined|ircd?\.|error|reset|timeout|closed|peer|\.net|timed|eof|lost)" $text] {
-		bMotion_putloglev d * "Looks like $nick quit due to error"
+		bMotion_log "ircplugin" "DEBUG" "Looks like $nick quit due to error"
 		bMotion_redis_cmd set quits:$nick:waserror 1 ex 1800
 		return 0
 	}
@@ -59,7 +60,7 @@ proc bMotion_plugins_irc_default_quit { nick host handle channel text } {
 	#if 1, we greeted someone last
 	#if 0, someone has said something since
 	if {$lasttalk == 1} {
-		bMotion_putloglev d * "dropping depart for $nick on $channel because it's too idle"
+		bMotion_log "ircplugin" "DEBUG" "dropping depart for $nick on $channel because it's too idle"
 		return 0
 	}
 
@@ -67,7 +68,7 @@ proc bMotion_plugins_irc_default_quit { nick host handle channel text } {
 	# everything above must trigger at 100% for us to keep track of things
 	
 	if {[rand 100] < 15} {
-		bMotion_putloglev 2 * "sending quit message for $nick to $channel"
+		bMotion_log "ircplugin" "DEBUG" "sending quit message for $nick to $channel"
 		bMotionDoAction $channel [bMotionGetRealName $nick $host] $output
 		bMotion_plugins_settings_set "system:join" "lasttalk" $channel "" 1
 		bMotion_plugins_settings_set "system:join" "lastleft" $channel "" $nick

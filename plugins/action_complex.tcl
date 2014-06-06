@@ -15,22 +15,22 @@
 set currentlang $bMotionInfo(language)
 set languages [split $bMotionSettings(languages) ","]
 foreach bMotion_language $languages {
-  set bMotionInfo(language) $bMotion_language
-  bMotion_putloglev 2 * "bMotion: loading complex action plugins language = $bMotion_language"
-  set files [glob -nocomplain "$bMotionPlugins/$bMotion_language/action_complex_*.tcl"]
-  foreach f $files {
+	set bMotionInfo(language) $bMotion_language
+	bMotion_log "plugins" "INFO" "loading complex action plugins language = $bMotion_language"
+	set files [glob -nocomplain "$bMotionPlugins/$bMotion_language/action_complex_*.tcl"]
+	foreach f $files {
 		set bMotion_noplugins 0
 		set count [llength [array names bMotion_plugins_action_complex]]
-    bMotion_putloglev 1 * "bMotion: loading ($bMotion_language) complex action plugin file $f"
-    catch {
-      source $f
-    } err
+		bMotion_log "plugins" "INFO" "loading ($bMotion_language) complex action plugin file $f"
+		catch {
+			source $f
+		} err
 		set newcount [llength [array names bMotion_plugins_action_complex]]
 		if {($bMotion_testing == 0) && ($newcount == $count) && ($bMotion_noplugins == 0)} {
-			putlog "bMotion: ALERT! complex action plugin file $f added no plugins"
-			putlog "Possible error: $err"
+			bMotion_log "plugins" "ERROR" "ALERT! complex action plugin file $f added no plugins"
+			bMotion_log "plugins" "DEBUG" "Possible error: $err"
 		}
-  }
+	}
 }
 set bMotionInfo(language) $currentlang
 unset currentlang
