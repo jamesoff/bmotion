@@ -679,6 +679,10 @@ bMotion_abstract_register "activeRandomStuff" {
 	"i've been to some conventions like that"
 	"that sure is one platonic view"
 	"uh huh, uh huh... that's whatever you were talking about for you"
+	"%ruser: There is a %VAR{scrap_adjectives} message for you: The %VAR{thing} has %VAR{sillyVerbs}ed the %VAR{sillyThings}!"
+	"i wish I had a %VAR{sillyThings} like %ruser's %SMILEY{sad}"
+	"Denny Krane!"
+	"yes, because winter is coming"
 }
 
 bMotion_abstract_register "activeRandomStuff_male" {
