@@ -24,30 +24,40 @@
 
 # Mood stuff is in mood.tcl
 
-if {![info exists got]} {
-  set got(tissues,nick) ""
-  set got(tissues,channel) ""
-  set got(coffee,nick) ""
-  set got(coffee,channel) ""
-  set got(bodyPaint,nick) ""
-  set got(bodyPaint,channel) ""
-  set got(dildo,nick) ""
-  set got(dildo,count) 0
-  set got(dildo,style) ""
+proc bMotion_safe_set_array { name key value } {
+	bMotion_putloglev 5 * "bMotion_safe_set_array $name $key $value"
+
+	global $name
+	if {![info exists $name]} {
+		bMotion_putloglev 2 * "variable $name does not exist, creating array"
+		array set $name {}
+	}
+
+	if {![info exists ${name}($key)]} {
+		bMotion_putloglev 2 * "key $key in $name does not exist, setting to $value"
+		set ${name}($key) $value
+	}
 }
 
-if {![info exists bMotionInfo]} {
-  set bMotionInfo(pokemon) "pikachu"
-  set bMotionInfo(cloaked) 0
-  set bMotionInfo(warp) 0
-  set bMotionInfo(impulse) 0
-  set bMotionInfo(leet) 0
-  set bMotionInfo(dutch) 0
-  set bMotionInfo(leetChance) 3
-  set bMotionInfo(silence) 0
-  set bMotionInfo(away) 0
-  set bMotionInfo(clothing) 5
-}
+bMotion_safe_set_array got "tissues,nick" ""
+bMotion_safe_set_array got "tissues,channel" ""
+bMotion_safe_set_array got "coffee,nick" ""
+bMotion_safe_set_array got "coffee,channel" ""
+bMotion_safe_set_array got "bodyPaint,nick" ""
+bMotion_safe_set_array got "bodyPaint,channel" ""
+bMotion_safe_set_array got "dildo,count" 0
+bMotion_safe_set_array got "dildo,style" ""
+
+bMotion_safe_set_array bMotionInfo pokemon pikachu
+bMotion_safe_set_array bMotionInfo cloaked 0
+bMotion_safe_set_array bMotionInfo warp 0
+bMotion_safe_set_array bMotionInfo impulse 0
+bMotion_safe_set_array bMotionInfo leet 0
+bMotion_safe_set_array bMotionInfo dutch 0
+bMotion_safe_set_array bMotionInfo leetChance 3
+bMotion_safe_set_array bMotionInfo silence 0
+bMotion_safe_set_array bMotionInfo away 0
+bMotion_safe_set_array bMotionInfo clothing 5
 
 set bMotionCache(away) ""
 set bMotionCache(lastGreeted) ""
