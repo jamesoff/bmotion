@@ -10,7 +10,8 @@ I do this in my spare time so if I'm not around to help, don't take
 it personally :) Perhaps a community of other people who can help
 will spring up.
 
-The official home for documentation is now http://www.bmotion.net
+The official home for documentation is now 
+https://github.com/jamesoff/bmotion/wiki
 
 Have fun!
 
@@ -24,8 +25,8 @@ Please see https://github.com/jamesoff/bmotion/wiki/Installing for
 details on how to install bMotion.
 
 You can also launch an AWS instance with bMotion and eggdrop pre-
-installed. It's AMI ami-0d2bee7a. Fire it up and log in as 'ubuntu'.
-The MOTD has instructions.
+installed. It's AMI ami-0d2bee7a in eu-west-1. Fire it up and log in
+as 'ubuntu'. The MOTD has instructions.
 
 ---------------------------------------------------------------------
 FEEDBACK
