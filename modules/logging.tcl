@@ -46,7 +46,7 @@ proc bMotion_log { category level message } {
 			if {$bMotion_log_level <= 2} {
 				putloglev d * "bMotion INFO  logging: auto-learning category $category"
 			}
-			lappend $bMotion_log_categories $category
+			lappend bMotion_log_categories $category
 		}
 		if {([llength $bMotion_log_active] == 0) || ([lsearch $bMotion_log_active $category] >= 0)} {
 			set level [bMotion_log_level_string $level]
