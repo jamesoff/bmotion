@@ -20,9 +20,6 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
-# init our counters
-#TODO: add counters
-
 #A rehash should kill the queue
 set bMotion_queue [list]
 set bMotion_queue_runny 1
