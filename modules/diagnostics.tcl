@@ -20,74 +20,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
-# Check if a channel has uppercase letters in it
-#
-proc bMotion_diagnostic_channel1 { } {
-	global bMotionInfo
 
-	#not used now
-	return 0
-
-	set err 0
-	set cleanChannels [list]
-	foreach chan $bMotionInfo(randomChannels) {
-		set chan2 [string tolower $chan]
-		if {$chan != $chan2} {
-			#case difference
-			set err 1
-		}
-		lappend cleanChannels $chan2
-	}
-	set bMotionInfo(randomChannels) $cleanChannels
-
-	if {$err == 1} {
-		putlog "Self-diagnostics indicate you have a channel with a captial letter in in your settings file."
-		putlog "	This has been fixed on the fly at load time, but you will need to edit the settings file"
-		putlog "	to prevent this reoccuring. Please use all lower-case characters for defining channels."
-	}
-}
-
-#
-# Check the bot's configured for all the channels in the list
-proc bMotion_diagnostic_channel2 { } {
-	global bMotionInfo
-
-	#not used now 
-	return 0
-
-	set notOnChans ""
-	set botChans [list]
-	foreach chan [channels] {
-		lappend botChans [string tolower $chan]
-	}
-
-	foreach chan $bMotionInfo(randomChannels) {
-		if {[lsearch -exact $botChans $chan] < 0} {
-			#configured chan the bot doesn't know about
-			append notOnChans "$chan "
-		}
-	}
-	if {$notOnChans != ""} {
-		putlog "The following channels are in the settings file, but not configured in eggdrop (typos?): $notOnChans"
-	}
-}
-
-#
-# check the channels are set in the right format
-proc bMotion_diagnostic_channel3 { } {
-	global bMotionInfo
-
-	#not used now
-	return 0
-
-	if [regexp {#[^ ]+ *#.+} [lindex $bMotionInfo(randomChannels) 0]] {
-		putlog "bMotion self-diagnostics indicate you have set your channel list in settings.tcl"
-		putlog "	incorrectly. You must have a pair of double-quotes around EACH channel, not"
-		putlog "	the entire list. bMotion WILL NOT WORK with this configuration error."
-	}
-}
-
-# bMotion_diagnostic_timers <<<1
 # make sure we only have one instance of each timer
 proc bMotion_diagnostic_timers { } {
 	bMotion_putloglev d * "running level 4 diagnostic on timers"
@@ -109,7 +42,7 @@ proc bMotion_diagnostic_timers { } {
 	}
 }
 
-# bMotion_diagnostic_utimers <<<1
+
 # make sure we have only one instance of each utimer
 proc bMotion_diagnostic_utimers { } {
 	bMotion_putloglev d * "running level 4 diagnostic on utimers"
@@ -132,7 +65,6 @@ proc bMotion_diagnostic_utimers { } {
 }
 
 
-# bMotion_diagnostic_binds
 # make sure binds we shouldn't have any more are gone
 proc bMotion_diagnostic_binds { } {
 	bMotion_putloglev d * "running level 3 diagnostic on binds"
@@ -147,7 +79,6 @@ proc bMotion_diagnostic_binds { } {
 }
 
 
-### bMotion_diagnostic_plugins <<<1
 # check some plugins loaded
 proc bMotion_diagnostic_plugins { } {
 	bMotion_putloglev 5 * "bMotion_diagnostic_plugins"
@@ -160,7 +91,7 @@ proc bMotion_diagnostic_plugins { } {
 	}
 }
 
-### bMotion_diagnostic_settings <<<1
+
 # check needed settings are defined
 proc bMotion_diagnostic_settings { } {
 	global bMotionInfo bMotionSettings
@@ -305,7 +236,7 @@ proc bMotion_diagnostic_settings { } {
 	}
 }
 
-### bMotion_diagnostic_userinfo
+
 # Check to see if the user has added IRL and GENDER to their userinfo stuff
 proc bMotion_diagnostic_userinfo { } {
 	global userinfo-fields
@@ -342,7 +273,6 @@ proc bMotion_diagnostic_eggdropsettings { } {
 }
 
 
-### bMotion_diagnostic_bitlbee
 # Check if bitlbee mode is enabled, but the bot doesn't know about #bitlbee/&bitlbee
 proc bMotion_diagnostic_bitlbee { } {
 	global bMotionSettings
@@ -365,7 +295,7 @@ proc bMotion_diagnostic_bitlbee { } {
 	}
 }
 
-### bMotion_diagnostic_parsing
+
 # Try to build every abstract we can and make sure it parses ok
 # This is not run automatically!
 # This is run as an admin plugin, so it tries to output to the admin stuff
@@ -413,21 +343,18 @@ proc bMotion_diagnostic_parsing { } {
 	}
 }
 
-### bMotion_diagnostic_auto <<<1
+
 proc bMotion_diagnostic_auto { min hr a b c } {
 	bMotion_putloglev 5 * "bMotion_diagnostic_auto"
 	putlog "bMotion: running level 4 self-diagnostic"
 	bMotion_diagnostic_timers
 	bMotion_diagnostic_utimers
 }
-#>>>
+
 
 if {$bMotion_testing == 0} {
 	bMotion_putloglev d * "Running a level 5 self-diagnostic..."
 
-	bMotion_diagnostic_channel1
-	bMotion_diagnostic_channel2
-	bMotion_diagnostic_channel3
 	bMotion_diagnostic_plugins
 	bMotion_diagnostic_settings
 	bMotion_diagnostic_userinfo
