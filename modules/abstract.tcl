@@ -65,6 +65,8 @@
 # The abstracts will be stored in ./abstracts/<language>/<abstract name>.txt in the bMotion directory. The
 # fileformat is simply one per line.
 
+bMotion_log_add_category "abstracts"
+
 # default = mixin own gender
 # reverse = mixin opposite gender
 # none = don't mixin at all
@@ -104,10 +106,10 @@ set bMotion_abstract_dir "$bMotionLocal/abstracts/$bMotionInfo(language)"
 
 
 proc bMotion_abstract_gc { { force 0 } } {
-	bMotion_putloglev 5 * "bMotion_abstract_gc"
+	bMotion_log "abstracts" "TRACE" "bMotion_abstract_gc"
 
 	if [bMotion_redis_available] {
-		bMotion_putloglev 4 * "Not garbage collecting abstracts as we're using redis"
+		bMotion_log "abstracts" "DEBUG" "Not garbage collecting abstracts as we're using redis"
 		return
 	}
 
@@ -116,7 +118,7 @@ proc bMotion_abstract_gc { { force 0 } } {
 	global bMotionInfo bMotion_abstract_languages
 	set lang $bMotionInfo(language)
 
-	bMotion_putloglev 2 * "Garbage collecting abstracts..."
+	bMotion_log "abstracts" "DEBUG" "Garbage collecting abstracts"
 
 	set abstracts [array names bMotion_abstract_contents]
 	if {$force == 1} {
@@ -140,13 +142,13 @@ proc bMotion_abstract_gc { { force 0 } } {
 	}
 
 	if {$expiredList != ""} {
-		bMotion_putloglev 1 * "expired $expiredCount abstracts: $expiredList"
+		bMotion_log "abstracts" "INFO" "gc: expired $expiredCount abstracts: $expiredList"
 	}
 }
 
 
 proc bMotion_abstract_register { abstract { stuff "" } } {
-	bMotion_putloglev 5 * "bMotion_abstract_register ($abstract)"
+	bMotion_log "abstracts" "TRACE" "bMotion_abstract_register ($abstract)"
 	if [bMotion_redis_available] {
 		if {$stuff != ""} {
 			bMotion_abstract_batchadd $abstract $stuff
@@ -177,7 +179,7 @@ proc bMotion_abstract_register { abstract { stuff "" } } {
 		#create blank array for it
 		set bMotion_abstract_contents($abstract) [list]
 		set bMotion_abstract_languages($abstract) "$lang"
-		bMotion_putloglev 1 * "Creating new abstract file for $abstract"
+		bMotion_log "abstracts" "DEBUG" "Creating new abstract file for $abstract"
 		set fileHandle [open "$bMotion_abstract_dir/${abstract}.txt" "w"]
 		puts $fileHandle " "
 	}
@@ -188,17 +190,17 @@ proc bMotion_abstract_register { abstract { stuff "" } } {
 
 	if {$stuff != ""} {
 		# batch-add at the same time
-		bMotion_putloglev 2 * "Batchadding during registration for $abstract"
+		bMotion_log "abstracts" "TRACE" "Batchadding during registration for $abstract"
 		bMotion_abstract_batchadd $abstract $stuff
 	}
 }
 
 
 proc bMotion_abstract_load { abstract } { 
-	bMotion_putloglev 5 * "bMotion_abstract_load ($abstract)" 
+	bMotion_log "abstracts" "TRACE" "bMotion_abstract_load ($abstract)" 
 
 	if [bMotion_redis_available] {
-		bMotion_putloglev 4 * "Not loading abstract $abstract as we're using redis"
+		bMotion_log "abstracts" "DEBUG" "Not loading abstract $abstract as we're using redis"
 		return
 	}
 
@@ -209,7 +211,7 @@ proc bMotion_abstract_load { abstract } {
 	global bMotion_abstract_dir
 	set lang $bMotionInfo(language)
 
-	bMotion_putloglev 2 * "Attempting to load $bMotion_abstract_dir/${abstract}.txt"
+	bMotion_log "abstracts" "INFO" "Attempting to load $bMotion_abstract_dir/${abstract}.txt"
 
 	if {![file exists "$bMotion_abstract_dir/${abstract}.txt"]} {
 		return
@@ -248,12 +250,12 @@ proc bMotion_abstract_load { abstract } {
 	set bMotion_abstract_contents($abstract) [lsort -unique $bMotion_abstract_contents($abstract)]
 	set newcount [llength $bMotion_abstract_contents($abstract)]
 	if {$newcount < $count} {
-		bMotion_putloglev d * "Shrunk abstract $abstract by [expr $count - $newcount] items by de-duping"
+		bMotion_log "abstracts" "DEBUG" "Shrunk abstract $abstract by [expr $count - $newcount] items by de-duping"
 		set needReSave 1
 	}
 
 	if {$abstract == "sillyThings"} {
-		bMotion_putloglev 1 * "Performing 'sillyThings' filtering"
+		bMotion_log "abstracts" "DEBUG" "Performing 'sillyThings' filtering"
 		set newlist [list]
 		foreach element $bMotion_abstract_contents($abstract) {
 			if {[bMotion_filter_sillyThings $element] == 1} {
@@ -272,19 +274,19 @@ proc bMotion_abstract_load { abstract } {
 		bMotion_abstract_save $abstract
 	}
 
-	bMotion_putloglev 2 * "Abstract $abstract loaded, checking for filter"
+	bMotion_log "abstracts" "DEBUG" "Abstract $abstract loaded, checking for filter"
 	bMotion_abstract_apply_filter $abstract
 }
 
 
 proc bMotion_abstract_add { abstract text {save 1} } {
-	bMotion_putloglev 5 * "bMotion_abstract_add ($abstract, $text, $save)"
+	bMotion_log "abstracts" "TRACE" "bMotion_abstract_add ($abstract, $text, $save)"
 	global bMotionInfo
 	set lang $bMotionInfo(language)
 
 	if [bMotion_redis_available] {
 		set result [bMotion_redis_cmd sadd abstract:$lang:$abstract $text]
-		bMotion_putloglev 4 * "Result of adding $text to abstract $abstract: $result"
+		bMotion_log "abstracts" "DEBUG" "Result of adding $text to abstract $abstract: $result"
 		return
 	}
 
@@ -292,10 +294,10 @@ proc bMotion_abstract_add { abstract text {save 1} } {
 	global bMotionModules bMotionInfo
 	global bMotion_abstract_dir
 
-	bMotion_putloglev 2 * "Adding '$text' to abstract '$abstract'"
+	bMotion_log "abstracts" "DEBUG" "Adding '$text' to abstract '$abstract'"
 
 	if {$bMotion_abstract_timestamps($abstract) < [expr [clock seconds] - $bMotion_abstract_max_age]} {
-		bMotion_putloglev 2 * "updating abstracts '$abstract' on disk"
+		bMotion_log "abstracts" "DEBUG" "updating abstracts '$abstract' on disk"
 		if {$save} {
 			set fileHandle [open "$bMotion_abstract_dir/${abstract}.txt" "a+"]
 			puts $fileHandle $text
@@ -307,7 +309,7 @@ proc bMotion_abstract_add { abstract text {save 1} } {
 	if {[lsearch -exact $bMotion_abstract_contents($abstract) $text] == -1} {
 		lappend bMotion_abstract_contents($abstract) $text
 		if {$save} {
-			bMotion_putloglev 2 * "updating abstracts '$abstract' on disk and in memory"
+			bMotion_log "abstracts" "DEBUG" "updating abstracts '$abstract' on disk and in memory"
 			set fileHandle [open "$bMotion_abstract_dir/${abstract}.txt" "a+"]
 			puts $fileHandle $text
 			close $fileHandle
@@ -317,10 +319,10 @@ proc bMotion_abstract_add { abstract text {save 1} } {
 
 
 proc bMotion_abstract_save { abstract } {
-	bMotion_putloglev 5 * "bMotion_abstract_save"
+	bMotion_log "abstracts" "TRACE" "bMotion_abstract_save"
 
 	if [bMotion_redis_available] {
-		bMotion_putloglev 4 * "Not saving abstract $abstract as we're using redis"
+		bMotion_log "abstracts" "DEBUG" "Not saving abstract $abstract as we're using redis"
 		return
 	}
 
@@ -332,7 +334,7 @@ proc bMotion_abstract_save { abstract } {
 	set lang $bMotionInfo(language)
 
 	if {$lang != $bMotion_abstract_languages($abstract) } {
-		bMotion_putloglev 1 * "Did not save '$abstract' to disk (wrong language)"
+		bMotion_log "abstracts" "DEBUG" "Did not save '$abstract' to disk (wrong language)"
 		return 0
 	}
 
@@ -345,18 +347,18 @@ proc bMotion_abstract_save { abstract } {
 		return 0
 	}
 
-	bMotion_putloglev 2 * "Saving abstracts '$abstract' to disk"
+	bMotion_log "abstracts" "DEBUG" "Saving abstracts '$abstract' to disk"
 
 	set fileHandle [open "$bMotion_abstract_dir/${abstract}.txt" "w"]
 	set number [llength $bMotion_abstract_contents($abstract)]
 	if {$number > $bMotion_abstract_max_number} {
-		bMotion_putloglev d * "Abstract $abstract has too many elements ($number > $bMotion_abstract_max_number), tidying up"
+		bMotion_log "abstracts" "INFO" "Abstract $abstract has too many elements ($number > $bMotion_abstract_max_number), tidying up"
 		set tidy 1
 	}
 	foreach a $bMotion_abstract_contents($abstract) {
 		if {$tidy} {
 			if {[rand 100] < 10} {
-				bMotion_putloglev 3 * "Dropped '$a' from abstract $abstract"
+				bMotion_log "abstracts" "DEBUG" "Dropped '$a' from abstract $abstract"
 				incr drop_count
 				continue
 			}
@@ -365,15 +367,15 @@ proc bMotion_abstract_save { abstract } {
 		incr count
 	}
 	if {$tidy} {
-		bMotion_putloglev d * "Abstract $abstract now has $count elements ($drop_count fewer)"
+		bMotion_log "abstracts" "INFO" "Abstract $abstract now has $count elements ($drop_count fewer)"
 	}
 	close $fileHandle
-	bMotion_putloglev 2 * "Saved abstract $abstract to disk"
+	bMotion_log "abstracts" "DEBUG" "Saved abstract $abstract to disk"
 }
 
 
 proc bMotion_abstract_all { abstract } {
-	bMotion_putloglev 5 * "bMotion_abstract_all ($abstract)"
+	bMotion_log "abstracts" "TRACE" "bMotion_abstract_all ($abstract)"
 	global bMotionInfo
 	set lang $bMotionInfo(language)
 
@@ -391,14 +393,14 @@ proc bMotion_abstract_all { abstract } {
 		return $bMotion_abstract_contents($abstract)
 	} else {
 		#abstract doesn't exist
-		bMotion_putloglev d * "bMotion_abstract_all: couldn't find abstract '$abstract' in new system"
+		bMotion_log "abstracts" "WARN" "bMotion_abstract_all: couldn't find abstract '$abstract' in new system"
 		catch {
 			global $abstract
 			set var [subst $$abstract]
 
 			return $var
 		}
-		bMotion_putloglev d * "bMotion_abstract_all: $abstract doesn't exist as a global variable either :("
+		bMotion_log "abstracts" "WARN" "bMotion_abstract_all: $abstract doesn't exist as a global variable either :("
 		return ""
 	}
 
@@ -407,7 +409,7 @@ proc bMotion_abstract_all { abstract } {
 
 # look to see if an abstract contains an item (warning: could be slow)
 proc bMotion_abstract_contains { abstract item } {
-	bMotion_putloglev 4 * "abstract: bMotion_abstract_contains $abstract $item"
+	bMotion_log "abstracts" "TRACE" "abstract: bMotion_abstract_contains $abstract $item"
 
 	global bMotionInfo
 	set lang $bMotionInfo(language)
@@ -432,7 +434,7 @@ proc bMotion_abstract_contains { abstract item } {
 
 
 proc bMotion_abstract_exists { abstract } {
-	bMotion_putloglev 5 * "bMotion_abstract_exists ($abstract)"
+	bMotion_log "abstracts" "TRACE" "bMotion_abstract_exists ($abstract)"
 	global bMotionInfo
 	set lang $bMotionInfo(language)
 
@@ -442,7 +444,7 @@ proc bMotion_abstract_exists { abstract } {
 
 	global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age bMotion_abstract_last_get
 
-	bMotion_putloglev 2 * "checking for existence of abstract $abstract"
+	bMotion_log "abstracts" "DEBUG" "checking for existence of abstract $abstract"
 
 	if {![info exists bMotion_abstract_timestamps($abstract)]} {
 		return 0
@@ -452,7 +454,7 @@ proc bMotion_abstract_exists { abstract } {
 
 
 proc bMotion_abstract_get { abstract { mixin_type 0 } } {
-	bMotion_putloglev 5 * "bMotion_abstract_get ($abstract $mixin_type)"
+	bMotion_log "abstracts" "TRACE" "bMotion_abstract_get ($abstract $mixin_type)"
 
 	global bMotionInfo
 	set lang $bMotionInfo(language)
@@ -461,12 +463,12 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 		# For now, we union these into another key temporarily
 		# Possibly we should run this logic server-side in Lua?
 		set temp_abstract "cabstract:$lang:$abstract:$mixin_type"
-		bMotion_putloglev 3 * "temporary compiled abstract will be $temp_abstract"
+		bMotion_log "abstracts" "DEBUG" "temporary compiled abstract will be $temp_abstract"
 
 		set gender $bMotionInfo(gender)
 
 		if {[bMotion_redis_cmd keys $temp_abstract] != $temp_abstract} {
-			bMotion_putloglev 1 * "compiled abstract $temp_abstract does not exist, creating"
+			bMotion_log "abstracts" "DEBUG" "compiled abstract $temp_abstract does not exist, creating"
 
 			switch $mixin_type {
 				0 {
@@ -503,7 +505,7 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 			# Set the temporary abstract to expire in 5 mins 
 			bMotion_redis_cmd expire $temp_abstract 900
 		} else {
-			bMotion_putloglev 2 * "compiled abstract $temp_abstract already exists"
+			bMotion_log "abstracts" "DEBUG" "compiled abstract $temp_abstract already exists"
 		}
 
 		set count 0
@@ -511,12 +513,12 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 		set retval [bMotion_redis_cmd srandmember $temp_abstract]
 		set last [bMotion_redis_cmd get $abstract:last]
 		while {$retval == $last} {
-			bMotion_putloglev 1 * "fetched repeat value for abstract $abstract, trying again"
-			bMotion_putloglev 1 * "this: $retval ... last: $last"
+			bMotion_log "abstracts" "INFO" "fetched repeat value for abstract $abstract, trying again"
+			bMotion_log "abstracts" "INFO" "this: $retval ... last: $last"
 			set retval [bMotion_redis_cmd srandmember $temp_abstract]
 			incr count
 			if {$count > 5} {
-				bMotion_putloglev d * "trying too hard to find non-dupe for abstract $abstract, giving up and using $retval"
+				bMotion_log "abstracts" "WARN" "trying too hard to find non-dupe for abstract $abstract, giving up and using $retval"
 				break
 			}
 		}
@@ -527,14 +529,14 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 
 	global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age bMotion_abstract_last_get bMotionInfo
 
-	bMotion_putloglev 2 * "getting abstract $abstract"
+	bMotion_log "abstracts" "DEBUG" "getting abstract $abstract"
 
 	if {![info exists bMotion_abstract_timestamps($abstract)]} {
 		return ""
 	}
 
 	if {$bMotion_abstract_timestamps($abstract) < [expr [clock seconds] - $bMotion_abstract_max_age]} {
-		bMotion_putloglev 1 * "abstract $abstract has been unloaded, reloading..."
+		bMotion_log "abstracts" "DEBUG" "abstract $abstract has been unloaded, reloading..."
 		bMotion_abstract_load $abstract
 	}
 
@@ -550,7 +552,7 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 		0 {
 			if [bMotion_abstract_exists "${abstract}_$bMotionInfo(gender)"] {
 				# mix-in the gender one with the vanilla one
-				bMotion_putloglev 1 * "mixing in $bMotionInfo(gender) version of $abstract"
+				bMotion_log "abstracts" "DEBUG" "mixing in $bMotionInfo(gender) version of $abstract"
 				set final_version [concat $final_version [bMotion_abstract_all "${abstract}_$bMotionInfo(gender)"]]
 			} else {
 				set final_version [bMotion_abstract_all $abstract]
@@ -564,7 +566,7 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 			}
 			if [bMotion_abstract_exists "${abstract}_$gender"] {
 				# mix-in the gender one with the vanilla one
-				bMotion_putloglev 1 * "mixing in $gender version of $abstract"
+				bMotion_log "abstracts" "DEBUG" "mixing in $gender version of $abstract"
 				set final_version [concat $final_version [bMotion_abstract_all "${abstract}_$gender"]]
 			} else {
 				set final_version [bMotion_abstract_all $abstract]
@@ -575,47 +577,47 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 		}
 		3 {
 			if [bMotion_abstract_exists "${abstract}_male"] {
-				bMotion_putloglev 1 * "mixing in male version of $abstract"
+				bMotion_log "abstracts" "DEBUG" "mixing in male version of $abstract"
 				set final_version [concat $final_version [bMotion_abstract_all "${abstract}_male"]]
 			}
 			if [bMotion_abstract_exists "${abstract}_female"] {
-				bMotion_putloglev 1 * "mixing in female version of $abstract"
+				bMotion_log "abstracts" "DEBUG" "mixing in female version of $abstract"
 				set final_version [concat $final_version [bMotion_abstract_all "${abstract}_female"]]
 			}
 		}
 		5 {
 			if [bMotion_abstract_exists "${abstract}_male"] {
-				bMotion_putloglev 1 * "mixing in male version of $abstract"
+				bMotion_log "abstracts" "DEBUG" "mixing in male version of $abstract"
 				set final_version [concat $final_version [bMotion_abstract_all "${abstract}_male"]]
 			}
 		}
 		4 {
 			if [bMotion_abstract_exists "${abstract}_female"] {
-				bMotion_putloglev 1 * "mixing in female version of $abstract"
+				bMotion_log "abstracts" "DEBUG" "mixing in female version of $abstract"
 				set final_version [concat $final_version [bMotion_abstract_all "${abstract}_female"]]
 			}
 		}
 
 		default {
-			putlog "bMotion ERROR: unknown mixin type $mixin_type for abstract $abstract"
+			bMotion_log "abstracts" "ERROR" "unknown mixin type $mixin_type for abstract $abstract"
 		}
 	}
 
-	bMotion_putloglev 2 * "final_version abstract name is $final_version"
+	bMotion_log "abstracts" "DEBUG" "final_version abstract name is $final_version"
 	if {[llength $final_version] == 0} {
-		bMotion_putloglev d * "abstract '$abstract' is empty!"
+		bMotion_log "abstracts" "INFO" "abstract '$abstract' is empty!"
 		return ""
 	} else {
 		set retval [lindex $final_version [rand [llength $final_version]]]
 		if {[llength $final_version] > 1} {
 			set count 0
 			while {$retval == $bMotion_abstract_last_get($abstract)} {
-				bMotion_putloglev 1 * "fetched repeat value for abstract $abstract, trying again"
-				bMotion_putloglev 1 * "this: $retval ... last: $bMotion_abstract_last_get($abstract)"
+				bMotion_log "abstracts" "INFO" "fetched repeat value for abstract $abstract, trying again"
+				bMotion_log "abstracts" "INFO" "this: $retval ... last: $bMotion_abstract_last_get($abstract)"
 				set retval [lindex $final_version [rand [llength $final_version]]]
 				incr count
 				if {$count > 5} {
-					bMotion_putloglev d * "trying too hard to find non-dupe for abstract $abstract, giving up and using $retval"
+					bMotion_log "abstracts" "WARN" "trying too hard to find non-dupe for abstract $abstract, giving up and using $retval"
 					break
 				}
 			}
@@ -623,16 +625,16 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 	}
 
 	set bMotion_abstract_last_get($abstract) $retval
-	bMotion_putloglev 5 * "successfully got '$retval' from '$abstract'"
+	bMotion_log "abstracts" "TRACE" "successfully got '$retval' from '$abstract'"
 	return $retval
 }
 
 
 proc bMotion_abstract_delete { abstract index } {
-	bMotion_putloglev 5 * "bMotion_abstract_delete ($abstract, $index)"
+	bMotion_log "abstracts" "TRACE" "bMotion_abstract_delete ($abstract, $index)"
 
 	if [bMotion_redis_available] {
-		putlog "bMotion: cannot use bMotion_abstract_delete with redis"
+		bMotion_log "abstracts" "WARN" "bMotion: cannot use bMotion_abstract_delete with redis"
 		return
 	}
 
@@ -649,7 +651,7 @@ proc bMotion_abstract_auto_gc { min hr a b c } {
 
 
 proc bMotion_abstract_batchadd { abstract stuff } {
-	bMotion_putloglev 2 * "batch-adding to $abstract"
+	bMotion_log "abstracts" "DEBUG" "batch-adding to $abstract"
 	foreach i $stuff {
 		bMotion_abstract_add $abstract $i 0
 	}
@@ -662,7 +664,7 @@ proc bMotion_abstract_batchadd { abstract stuff } {
 # for some other reason, then you might want to be sure.
 proc bMotion_abstract_flush { } {
 	if [bMotion_redis_available] {
-		bMotion_putloglev 4 * "not flushing abstracts as we're using redis"
+		bMotion_log "abstracts" "DEBUG" "not flushing abstracts as we're using redis"
 		return
 	}
 
@@ -692,7 +694,7 @@ proc bMotion_abstract_revive_language { } {
 
 	set lang $bMotionInfo(language)
 
-	bMotion_putloglev 2 * "bMotion: reviving language ($lang) abstracts"
+	bMotion_log "abstracts" "INFO" "bMotion: reviving language ($lang) abstracts"
 	set languages [split $bMotionSettings(languages) ","]
 	# just check if it's ok to use this language
 	set ok 0
@@ -702,20 +704,20 @@ proc bMotion_abstract_revive_language { } {
 		}
 	}
 	if { $ok != 1 } {
-		bMotion_putloglev 2 * "bMotion: language not found, cannot revive"
+		bMotion_log "abstracts" "ERROR" "bMotion: language not found, cannot revive"
 		return -1
 	}
 	# if the default abstracts exists, use it first
 	if { [file exists "$bMotionModules/abstracts/$lang/abstracts.tcl"] } {
-		bMotion_putloglev d * "loading system abstracts for lang $lang"
+		bMotion_log "abstracts" "INFO" "loading system abstracts for lang $lang"
 		catch {
 			source "$bMotionModules/abstracts/$lang/abstracts.tcl"
 		} err
 		if {($err != "") && ($err != "0")} {
-			putlog "Error from loading abstracts: $err"
+			bMotion_log "abstracts" "ERROR" "Error from loading abstracts: $err"
 		}
 	} else {
-		bMotion_putloglev 2 * "bMotion: language default abstracts not found"
+		bMotion_log "abstracts" "WARN" "bMotion: language default abstracts not found"
 	}
 	# then we need to load any others
 	#TODO: should this be bMotionLocal not bMotionModules?
@@ -725,7 +727,6 @@ proc bMotion_abstract_revive_language { } {
 			set pos [expr [string last "/" $f] + 1]
 			set dot [expr [string last ".txt" $f] - 1]
 			set abstract [string range $f $pos $dot]
-			bMotion_putloglev 2 * "checking $abstract"
 			set len 0
 			catch { set len [llength $bMotion_abstract_contents($abstract)] } val
 			if { $val != "$len" } {
@@ -735,9 +736,9 @@ proc bMotion_abstract_revive_language { } {
 	}
 
 	# load the local abstracts
-	bMotion_putloglev d * "looking for local abstracts..."
+	bMotion_log "abstracts" "INFO" "looking for local abstracts..."
 	if [file exists "$bMotionLocal/abstracts/$lang/abstracts.tcl"] {
-		bMotion_putloglev d * "found local abstracts.tcl for $lang, loading"
+		bMotion_log "abstracts" "DEBUG" "found local abstracts.tcl for $lang, loading"
 		catch {
 			source "$bMotionLocal/abstracts/$lang/abstracts.tcl"
 		}
@@ -769,7 +770,7 @@ proc bMotion_abstract_check {  } {
 # filter out stuff from an abstract
 proc bMotion_abstract_filter { abstract filter } {
 	if [bMotion_redis_available] {
-		putlog "Warning: bMotion_abstract_filter not currently implemented"
+		bMotion_log "abstracts" "WARN" "Warning: bMotion_abstract_filter not currently implemented"
 		return
 	}
 
@@ -787,7 +788,7 @@ proc bMotion_abstract_filter { abstract filter } {
 
 	if {[llength $contents] == 0} {
 		if {$abstract != "_all"} {
-			bMotion_putloglev d * "bMotion_abstract_filter: can't get contents for $abstract"
+			bMotion_log "abstracts" "WARN" "bMotion_abstract_filter: can't get contents for $abstract"
 		}
 		return
 	}
@@ -796,11 +797,11 @@ proc bMotion_abstract_filter { abstract filter } {
 	set initial_size [llength $contents]
 
 	foreach element $contents {
-		bMotion_putloglev 2 * "considering $element for filtering"
+		bMotion_log "abstracts" "DEBUG" "considering $element for filtering"
 		set do_filter 0
 		foreach filter_text $filter {
 			if {(!$do_filter) && [regexp $filter_text $element]} {
-				bMotion_putloglev 1 * "abstract $abstract element $element matches filter $filter_text, dropping"
+				bMotion_log "abstracts" "DEBUG" "abstract $abstract element $element matches filter $filter_text, dropping"
 				set do_filter 1
 			}
 		}
@@ -813,7 +814,7 @@ proc bMotion_abstract_filter { abstract filter } {
 	set diff [expr $initial_size - $new_size]
 
 	if {$diff > 0} {
-		bMotion_putloglev d * "abstract $abstract reduced by $diff items with filter $filter"
+		bMotion_log "abstracts" "INFO" "abstract $abstract reduced by $diff items with filter $filter"
 		set bMotion_abstract_contents($abstract) $new_contents
 		bMotion_abstract_save $abstract
 	}
@@ -823,7 +824,7 @@ proc bMotion_abstract_filter { abstract filter } {
 # apply a filter to an abstract, if it has one defined
 proc bMotion_abstract_apply_filter { abstract } {
 	if [bMotion_redis_available] {
-		putlog "Warning: bMotion_abstract_apply_filter not currently implemented"
+		bMotion_log "abstracts" "WARN" "Warning: bMotion_abstract_apply_filter not currently implemented"
 		return
 	}
 	global bMotion_abstract_filters
@@ -839,7 +840,7 @@ proc bMotion_abstract_apply_filter { abstract } {
 	bMotion_abstract_filter $abstract $filter
 	catch {
 		set filter $bMotion_abstract_filter(_all)
-		bMotion_putloglev 1 * "abstract: found an _all filter, applying to $abstract"
+		bMotion_log "abstracts" "DEBUG" "abstract: found an _all filter, applying to $abstract"
 		bMotion_abstract_filter $abstract $filter
 	}
 
@@ -849,14 +850,14 @@ proc bMotion_abstract_apply_filter { abstract } {
 # register a filter for an abstract
 proc bMotion_abstract_add_filter { abstract filter_text } {
 	if [bMotion_redis_available] {
-		putlog "Warning: bMotion_abstract_add_filter not currently implemented"
+		bMotion_log "abstracts" "WARN" "Warning: bMotion_abstract_add_filter not currently implemented"
 		return
 	}
 	global bMotion_abstract_filters
 
 	lappend bMotion_abstract_filters($abstract) $filter_text
 
-	bMotion_putloglev 1 * "registered filter /$filter_text/ for abstract $abstract"
+	bMotion_log "abstracts" "INFO" "registered filter /$filter_text/ for abstract $abstract"
 
 	# apply it now
 	bMotion_abstract_apply_filter $abstract
@@ -866,7 +867,7 @@ proc bMotion_abstract_add_filter { abstract filter_text } {
 # nuke all filters
 proc bMotion_abstract_flush_filters { } {
 	if [bMotion_redis_available] {
-		putlog "Warning: bMotion_abstract_flush_filter not currently implemented"
+		bMotion_log "abstracts" "WARN" "Warning: bMotion_abstract_flush_filter not currently implemented"
 		return
 	}
 	global bMotion_abstract_filters
@@ -879,7 +880,7 @@ proc bMotion_abstract_flush_filters { } {
 # implementation-independent way to get all filters
 proc bMotion_abstract_list_filters { } {
 	if [bMotion_redis_available] {
-		putlog "Warning: bMotion_abstract_list_filter not currently implemented"
+		bMotion_log "abstracts" "WARN" "Warning: bMotion_abstract_list_filter not currently implemented"
 		return
 	}
 	global bMotion_abstract_filters
@@ -903,13 +904,13 @@ proc bMotion_abstract_get_names { } {
 # clear an abstract (used when there have been significant changes to distribution)
 # abstract must have been registered in advance!
 proc bMotion_abstract_reset { abstract } {
+	bMotion_log "abstracts" "TRACE" "bMotion_abstract_reset $abstract"
 	if [bMotion_redis_available] {
 		global bMotionInfo
 		set lang $bMotionInfo(language)
 		bMotion_redis_cmd del abstract:$lang:$abstract
 	}
 
-	bMotion_putloglev 4 * "bMotion_abstract_reset $abstract"
 	global bMotion_abstract_contents bMotion_abstract_ondisk
 
 	set index [lsearch -exact $bMotion_abstract_ondisk $abstract]
@@ -930,4 +931,5 @@ bMotion_abstract_check
 bMotion_abstract_revive_language
 
 
-bMotion_putloglev d * "abstract module loaded"
+bMotion_log "abstracts" "INFO" "abstract module loaded"
+
