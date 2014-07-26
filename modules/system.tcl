@@ -21,7 +21,6 @@
 ###############################################################################
 
 
-
 ### Set up the binds 
 
 #General IRC events 
@@ -36,7 +35,6 @@ bind ctcp - ACTION bMotion_event_action
 #bMotion IRC events 
 bind pub - "!mood" pubm_moodhandler
 bind pub - "!bminfo" bMotionInfo
-bind pub - "!bmstats" bMotionStats
 bind msg - bmotion msg_bmotioncommand
 bind pub - !bmadmin bMotionAdminHandler
 bind pub - !bmotion bMotionAdminHandler2
@@ -51,7 +49,7 @@ bind dcc m bmhelp bMotion_dcc_help
 #bedtime
 bind time - "* * * * *" bMotion_check_tired2
 
-#
+
 # rebuilds our channel list based on which channels are +bmotion
 proc bMotion_update_chanlist { } {
 	global bMotionChannels
@@ -64,9 +62,10 @@ proc bMotion_update_chanlist { } {
 	}
 }
 
-#
+
 # Initalise some variables per channel 
 bMotion_update_chanlist
+
 
 foreach chan $bMotionChannels {
 	set bMotionLastEvent($chan) [clock seconds]
@@ -76,34 +75,7 @@ foreach chan $bMotionChannels {
 	set bMotionCache($chan,last) 0
 }
 
-# bMotionStats 
-# TODO: retire this
-proc bMotionStats {nick host handle channel text} {
-	global bMotionInfo botnicks bMotionSettings cvsinfo botnick
-	global bMotionVersion
-	if {(![regexp -nocase $botnick $text]) && ($text != "all")} { return 0 }
-	if {!([isvoice $nick] || [isop $nick]) || ($nick != "JamesOff")} { return 0 }
 
-
-	global bMotion_abstract_contents bMotion_abstract_timestamps bMotion_abstract_max_age
-	global bMotion_abstract_ondisk
-
-	set mem [llength [array names bMotion_abstract_contents]]
-	set disk [llength $bMotion_abstract_ondisk]
-	global bMotionFacts
-	set items [lsort [array names bMotionFacts]]
-	set itemcount 0
-	set factcount 0
-	foreach item $items {
-		incr itemcount
-		incr factcount [llength $bMotionFacts($item)]
-	}
-
-	putchan $channel "abstracts: [expr $mem + $disk] total, $mem loaded, $disk on disk"
-	putchan $channel "facts: $factcount facts about $itemcount items"
-}
-
-#
 # get the last event for a channel, or 0 if not available
 proc bMotion_get_last_event { channel } {
 	bMotion_putloglev 4 * "bMotion_get_last_event $channel"
@@ -131,7 +103,7 @@ proc bMotion_set_last_event { channel } {
 	set bMotionLastEvent($channel) [clock seconds]
 }
 
-#
+
 # check if a channel is active enough for randomy things
 proc bMotion_is_active_enough { channel { limit 0 } } {
 	global bMotionInfo 
@@ -160,7 +132,7 @@ proc bMotion_is_active_enough { channel { limit 0 } } {
 	return 0
 }
 
-#
+
 # check if every channel we can see is idle enough for us to go away
 proc bMotion_random_away {} {
 	global bMotionChannels bMotionInfo
@@ -224,7 +196,7 @@ proc bMotion_random_away {} {
 	return 0
 }
 
-#
+
 # periodically sprout randomness (or go /away if idle enough)
 proc doRandomStuff {} {
 	global bMotionInfo stonedRandomStuff bMotionSettings
@@ -302,7 +274,7 @@ proc doRandomStuff {} {
 	bMotion_putloglev d * "randomStuff said ($saidChannels) silent ($silentChannels)"
 }
 
-#
+
 # Output random gibberish
 proc bMotionSaySomethingRandom {channel {busy 0}} {
 	global randomStuff stonedRandomStuff bMotionInfo bMotionCache
@@ -341,7 +313,6 @@ proc bMotionSaySomethingRandom {channel {busy 0}} {
 }
 
 
-#
 #set myself away with a random message
 proc bMotionSetRandomAway {} {
 	global randomAways bMotionInfo bMotionSettings bMotionChannels
@@ -360,7 +331,7 @@ proc bMotionSetRandomAway {} {
 	bMotion_putloglev d * "bMotion: Going silent"
 }
 
-#
+
 # set myself back
 proc bMotionSetRandomBack {} {
 	#set myself back
@@ -385,7 +356,7 @@ proc bMotionSetRandomBack {} {
 	return 0
 }
 
-#
+
 # check if a line looks like it's addressed to me
 proc bMotionTalkingToMe { text } {
 	global botnicks
@@ -410,7 +381,7 @@ proc bMotionTalkingToMe { text } {
 	return 0
 }
 
-#
+
 # We need to shut up
 proc bMotionSilence {nick host channel} {
 	global bMotionInfo silenceAways bMotionSettings
@@ -430,7 +401,7 @@ proc bMotionSilence {nick host channel} {
 	set bMotionInfo(away) 1
 }
 
-#
+
 # Enough shutting up for now
 proc bMotionUnSilence {} {
 	# Timer for silence expires
@@ -441,7 +412,7 @@ proc bMotionUnSilence {} {
 	set bMotionInfo(away) 0
 }
 
-### bMotionLike 
+
 proc bMotionLike {nick { host "" }} {
 	global bMotionInfo bMotionSettings
 
@@ -509,7 +480,7 @@ proc bMotionLike {nick { host "" }} {
 	return 0
 }
 
-### bMotionGetGender 
+
 proc bMotionGetGender { nick host } {
 	set host "$nick!$host"
 	set handle [finduser $host]
@@ -520,13 +491,12 @@ proc bMotionGetGender { nick host } {
 	return [getuser $handle XTRA gender]
 }
 
-### getHour 
+
 proc getHour {} {
 	return [clock format [clock seconds] -format "%H"]
 }
 
 
-### bMotion_dcc_command 
 proc bMotion_dcc_command { handle idx arg } {
 	global bMotionInfo
 
@@ -611,15 +581,13 @@ proc bMotion_dcc_command { handle idx arg } {
 	}
 }
 
-### bMotion_dcc_help 
+
 proc bMotion_dcc_help { handle idx arg } {
 	putidx $idx "Please use .bmotion help"
 	return 0
 }
 
 
-### new admin plugins ("management")
-### bMotionAdminHandler2 
 proc bMotionAdminHandler2 {nick host handle channel text} {
 	global botnicks bMotionInfo botnick bMotionSettings
 
@@ -637,8 +605,6 @@ proc bMotionAdminHandler2 {nick host handle channel text} {
 		#not me
 		return 0
 	}
-
-	#regexp -nocase "^(($botnicks)|all) (.+)" $text matches blah blah2 blah3 cmd
 
 	bMotion_plugins_settings_set "admin" "type" "" "" "irc"
 	bMotion_plugins_settings_set "admin" "target" "" "" $channel
@@ -686,7 +652,6 @@ proc bMotionAdminHandler2 {nick host handle channel text} {
 }
 
 
-### bMotion_putadmin 
 proc bMotion_putadmin { text } {
 
 	# easier than trying to not put tabs in the help stuff ;)
@@ -711,7 +676,7 @@ proc bMotion_putadmin { text } {
 	return 0
 }
 
-### bMotionAdminHandler 
+
 #TODO: is this ever used now?
 proc bMotionAdminHandler {nick host handle channel text} {
 	global bMotionAdminFlag botnicks bMotionInfo botnick bMotionSettings
@@ -820,7 +785,7 @@ proc bMotionAdminHandler {nick host handle channel text} {
 	}
 }
 
-### msg_bmotioncommand 
+
 proc msg_bmotioncommand { nick host handle cmd } {
 	bMotion_plugins_settings_set "admin" "type" "" "" "irc"
 	bMotion_plugins_settings_set "admin" "target" "" "" $nick
@@ -863,7 +828,7 @@ proc msg_bmotioncommand { nick host handle cmd } {
 	}
 }
 
-### bMotion_get_number 
+
 proc bMotion_get_number { num } {
 	if {$num <= 0} {
 		bMotion_putloglev d * "Warning: bMotion_get_number called with invalid parameter: $num"
@@ -872,7 +837,7 @@ proc bMotion_get_number { num } {
 	return [expr [rand $num] + 1]
 }
 
-### bMotion_rand_nonzero 
+
 proc bMotion_rand_nonzero { limit } {
 	if {$limit <= 0} {
 		return 0
@@ -883,7 +848,7 @@ proc bMotion_rand_nonzero { limit } {
 	return $result
 }
 
-### bMotion_startTimers 
+
 proc bMotion_startTimers { } {
 	global mooddrifttimer
 	if	{![info exists mooddrifttimer]} {
@@ -897,7 +862,7 @@ proc bMotion_startTimers { } {
 	}
 }
 
-### bMotion_cleanNick 
+
 proc bMotion_cleanNick { nick { handle "" } } {
 	#attempt to clean []s etc out of nicks
 
@@ -921,14 +886,14 @@ proc bMotion_cleanNick { nick { handle "" } } {
 	return $nick
 }
 
-### bMotion_uncolen 
+
 # clean out $£(($ off the end
 proc bMotion_uncolen { line } {
 	regsub -all {([!\"\£\$\%\^\&\*\(\)\#\@]{3,})} $line "" line
 	return $line
 }
 
-### bMotion_setting_get 
+
 # get a setting out of the two variables that commonly hold them
 proc bMotion_setting_get { setting } {
 	global bMotionSettings
@@ -953,7 +918,8 @@ proc bMotion_setting_get { setting } {
 	bMotion_putloglev 3 * "nope, not there either, returning nothing"
 	return ""
 }
-#>>>
+
+
 proc bMotion_check_botnicks { } {
 	global botnicks bMotionSettings botnick
 
@@ -969,6 +935,7 @@ proc bMotion_check_botnicks { } {
 		}
 	}
 }
+
 
 proc bMotion_check_tired { min hour day month year } {
 	global bMotionSettings BMOTION_SLEEP
@@ -1027,10 +994,10 @@ proc bMotion_check_tired { min hour day month year } {
 
 # go to sleep
 proc bMotion_go_to_sleep { } {
-# ok this is the plan
-# 1. announce we feel tired
-# 2. ???
-# 3. sleep
+	# ok this is the plan
+	# 1. announce we feel tired
+	# 2. ???
+	# 3. sleep
 	global bMotionSettings BMOTION_SLEEP bMotionChannels
 	bMotion_update_chanlist
 
@@ -1083,7 +1050,6 @@ proc bMotion_go_to_sleep { } {
 }
 
 
-# realise we overslept
 proc bMotion_overslept { { onlychan "" } } {
 	global bMotionSettings BMOTION_SLEEP bMotionChannels
 	if {[bMotion_setting_get "asleep"] != $BMOTION_SLEEP(OVERSLEEPING)} {
@@ -1105,6 +1071,7 @@ proc bMotion_overslept { { onlychan "" } } {
 		}
 	}
 }
+
 
 proc bMotion_wake_up { } {
 	global bMotionSettings BMOTION_SLEEP bMotionChannels
@@ -1154,7 +1121,7 @@ proc bMotion_wake_up { } {
 	}
 }
 
-# check if the time is later than this
+
 proc bMotion_later_than { hour minute } {
 	set now [unixtime]
 	set target [clock scan "$hour:$minute"]
@@ -1166,7 +1133,6 @@ proc bMotion_later_than { hour minute } {
 	}
 	return 0
 }
-
 
 
 proc bMotion_check_tired2 { a b c d e } {
@@ -1221,6 +1187,7 @@ proc bMotion_sleep_next_event { when } {
 	return $ts
 }
 
+
 proc bMotion_did_i_speak_last { channel } {
 	global bMotionCache
 
@@ -1235,10 +1202,12 @@ proc bMotion_did_i_speak_last { channel } {
 	return 0
 }
 
+
 # on start up, we should be awake and the next transition will be to sleep
 if {[bMotion_setting_get "sleepy"] == 1} {
 	set bMotionSettings(sleepy_nextchange) [bMotion_sleep_next_event "$bMotionSettings(bedtime_hour):$bMotionSettings(bedtime_minute)"]
 }
+
 
 proc bMotion_get_daytime { } {
 	set hour [clock format [clock seconds] -format "%k"]
@@ -1257,6 +1226,7 @@ proc bMotion_get_daytime { } {
 
 	return "evening"
 }
+
 
 # check something aginst our stoplist before we learn it
 proc bMotion_filter_sillyThings { item } {
@@ -1294,6 +1264,7 @@ proc bMotion_filter_sillyThings { item } {
 
 	return 1
 }
+
 
 # generic time-since handler
 # mingap is in seconds
@@ -1364,8 +1335,6 @@ proc bMotion_auto_smiley { } {
 			close $fileHandle
 		}
 }
-
-
 
 
 bMotion_putloglev d * "bMotion: system module loaded"
