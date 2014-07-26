@@ -261,7 +261,7 @@ proc bMotion_plugin_find_complex { text lang { debug 0 }} {
 				set chance [expr $chance * $bias]
 				bMotion_log "plugins" "DEBUG" "matched complex:$key, chance is $chance, c is $c"
 				if {$chance > $c} {
-					bMotion_log "DEBUG" "firing complex plugin $key"
+					bMotion_log "plugins" "DEBUG" "firing complex plugin $key"
 					lappend result $callback
 				}
 			}
