@@ -20,9 +20,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
-### bMotionDoEventResponse
 proc bMotionDoEventResponse { type nick host handle channel text } {
-#check our global toggle
+	#check our global toggle
 	global bMotionGlobal bMotionInfo bMotionDebug
 	if {$bMotionGlobal == 0} {
 		return 0
@@ -75,7 +74,7 @@ proc bMotionDoEventResponse { type nick host handle channel text } {
 	return 0
 }
 
-### bMotion_event_onjoin
+
 proc bMotion_event_onjoin {nick host handle channel} {
 	#ignore me
 	if [isbotnick $nick] {
@@ -99,9 +98,9 @@ proc bMotion_event_onjoin {nick host handle channel} {
 	set result [bMotionDoEventResponse "join" $nick $host $handle $channel ""]
 }
 
-### bMotion_event_onpart
+
 proc bMotion_event_onpart {nick host handle channel {msg ""}} {
-#check our global toggle
+	#check our global toggle
 	global bMotionGlobal
 	if {$bMotionGlobal == 0} {
 		return 0
@@ -126,7 +125,7 @@ proc bMotion_event_onpart {nick host handle channel {msg ""}} {
 	set result [bMotionDoEventResponse "part" $nick $host $handle $channel $msg]
 }
 
-### bMotion_event_onquit
+
 proc bMotion_event_onquit {nick host handle channel reason} {
 	global bMotionSettings bMotionInfo
 
@@ -161,9 +160,9 @@ proc bMotion_event_onquit {nick host handle channel reason} {
 	return [bMotionDoEventResponse "quit" $nick $host $handle $channel $reason ]
 }
 
-### bMotion_event_main
+
 proc bMotion_event_main {nick host handle channel text} {
-#check our global toggle
+	#check our global toggle
 	global bMotionGlobal bMotionPluginHistory
 	if {$bMotionGlobal == 0} {
 		return 0
@@ -304,7 +303,7 @@ proc bMotion_event_main {nick host handle channel text} {
 	#Run the complex plugins
 	set response [bMotion_plugin_find_complex $text $bMotionInfo(language) $debug]
 	if {[llength $response] > 0} {
-	#set nick [bMotionGetRealName $nick $host]
+		#set nick [bMotionGetRealName $nick $host]
 		if {!$debug && [bMotion_flood_check $channel]} { return 0 }
 		bMotion_putloglev 1 * "going to run plugins: $response"
 		foreach callback $response {
@@ -351,34 +350,33 @@ proc bMotion_event_main {nick host handle channel text} {
 	#Reload config files
 	#TODO: move this into a plugin?
 	if [regexp -nocase "${botnicks},?:? re(hash|load)( your config files?)?" $text] {
-	#putlog "bMotion: $nick asked me to rehash in $channel"
 		global bMotion_testing bMotionRoot
 
 		if [matchattr $handle m] {
-		#check we're not going to die
-		catch {
-		bMotion_putloglev d * "bMotion: Testing new code..."
-		set bMotion_testing 1
-		source "$bMotionRoot/bMotion.tcl"
-		} msg
+			#check we're not going to die
+			catch {
+				bMotion_putloglev d * "bMotion: Testing new code..."
+				set bMotion_testing 1
+				source "$bMotionRoot/bMotion.tcl"
+			} msg
 
-		if {$msg != ""} {
-			putlog "bMotion: FATAL: Cannot rehash due to error: $msg"
-			putserv "NOTICE $nick :FATAL: Cannot rehash: $msg"
-			putchan $channel "A tremendous error occurred!"
-			return 0
-		} else {
-			bMotion_putloglev d * "bMotion: New code ok, rehashing..."
-			bMotion_plugins_settings_set "system" "rehash" "" "" $channel
-			set bMotion_testing 0
-			if {[matchattr $handle m]} {
-				putchan $channel [bMotion_abstract_get "rehashes"]
-				rehash
+			if {$msg != ""} {
+				putlog "bMotion: FATAL: Cannot rehash due to error: $msg"
+				putserv "NOTICE $nick :FATAL: Cannot rehash: $msg"
+				putchan $channel "A tremendous error occurred!"
 				return 0
+			} else {
+				bMotion_putloglev d * "bMotion: New code ok, rehashing..."
+				bMotion_plugins_settings_set "system" "rehash" "" "" $channel
+				set bMotion_testing 0
+				if {[matchattr $handle m]} {
+					putchan $channel [bMotion_abstract_get "rehashes"]
+					rehash
+					return 0
+				}
 			}
-		}
 		} else {
-		#don't respond here because there's no flood protection
+			#don't respond here because there's no flood protection
 			return 0
 		}
 	}
@@ -387,7 +385,7 @@ proc bMotion_event_main {nick host handle channel text} {
 	#TODO: move this into a plugin?
 	if [regexp -nocase "${botnicks}:?,? (say my names?|what'?s my name)" $text] {
 		if {($handle == "*") || ($handle == "")}	{
-		#no handle = no saving IRL
+			#no handle = no saving IRL
 			set lastnick [bMotion_plugins_settings_get "events" "last_irl_fail" $channel ""]
 			if {$lastnick == $nick} {
 				bMotion_putloglev d * "Ignoring 'say my names' from $nick because they've asked twice in a row"
@@ -431,10 +429,9 @@ proc bMotion_event_main {nick host handle channel text} {
 	}
 }
 
-### bMotion_event_action
-proc bMotion_event_action {nick host handle dest keyword text} {
 
-#check our global toggle
+proc bMotion_event_action {nick host handle dest keyword text} {
+	#check our global toggle
 	global bMotionGlobal
 	if {$bMotionGlobal == 0} {
 		return 0
@@ -499,7 +496,6 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 	#Run the complex plugins
 	set response [bMotion_plugin_find_action_complex $text $bMotionInfo(language) $debug]
 	if {[llength $response] > 0} {
-	#set nick [bMotionGetRealName $nick $host]
 		if {!$debug && [bMotion_flood_check $channel]} { return 0 }
 		bMotion_putloglev 1 * "going to run action plugins: $response"
 		foreach callback $response {
@@ -523,9 +519,9 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 	}
 }
 
-### bMotion_event_mode
+
 proc bMotion_event_mode {nick host handle channel mode victim} {
-#check our global toggle
+	#check our global toggle
 	global bMotionGlobal
 	if {$bMotionGlobal == 0} {
 		return 0
@@ -586,15 +582,11 @@ proc bMotion_event_mode {nick host handle channel mode victim} {
 		bMotion_plugins_settings_set "system" "deoptime" $channel "" [clock seconds]
 		return 0
 	}
-
-	#removed voice stuff because there is no "wasvoice" function
-
 }
 
-### bMotion_event_nick
-proc bMotion_event_nick { nick host handle channel newnick } {
 
-#check our global toggle
+proc bMotion_event_nick { nick host handle channel newnick } {
+	#check our global toggle
 	global bMotionGlobal bMotionCache
 
 	if {$bMotionGlobal == 0} {
@@ -616,10 +608,8 @@ proc bMotion_event_nick { nick host handle channel newnick } {
 		return
 	}
 
-	#set nick [bMotion_cleanNick $nick $handle]
-	#set newnick [bMotion_cleanNick $newnick $handle]
-
 	return [bMotionDoEventResponse "nick" $nick $host $handle $channel $newnick ]
 }
+
 
 bMotion_putloglev d * "bMotion: events module loaded"
