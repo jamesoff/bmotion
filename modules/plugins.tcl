@@ -51,39 +51,39 @@ set BMOTION_PLUGIN_EVENT_CHANCE 2
 set BMOTION_PLUGIN_EVENT_CALLBACK 3
 set BMOTION_PLUGIN_EVENT_LANGUAGE 4
 
-## Simple plugins
+# Simple plugins
 if [info exists bMotion_plugins_simple] { unset bMotion_plugins_simple }
 array set bMotion_plugins_simple {}
 
-## Admin plugins (.bmotion)
+# Admin plugins (.bmotion)
 if [info exists bMotion_plugins_admin] { unset bMotion_plugins_admin }
 array set bMotion_plugins_admin {}
 
-## complex plugins
+# complex plugins
 if [info exists bMotion_plugins_complex] { unset bMotion_plugins_complex }
 array set bMotion_plugins_complex {}
 
-## output plugins
+# output plugins
 if [info exists bMotion_plugins_output] { unset bMotion_plugins_output }
 array set bMotion_plugins_output {}
 
-## action simple plugins
+# action simple plugins
 if [info exists bMotion_plugins_action_simple] { unset bMotion_plugins_action_simple }
 array set bMotion_plugins_action_simple {}
 
-## action complex plugins
+# action complex plugins
 if [info exists bMotion_plugins_action_complex] { unset bMotion_plugins_action_complex }
 array set bMotion_plugins_action_complex {}
 
-## irc_event plugins
+# irc_event plugins
 if [info exists bMotion_plugins_irc_event] { unset bMotion_plugins_irc_event }
 array set bMotion_plugins_irc_event {}
 
-## management plugins
+# management plugins
 if [info exists bMotion_plugins_management] { unset bMotion_plugins_management }
 array set bMotion_plugins_management {}
 
-#
+
 # Load a simple plugin
 proc bMotion_plugin_add_simple { id match chance response language} {
 	global bMotion_plugins_simple plugins bMotion_testing bMotion_noplugins bMotionCache
@@ -108,7 +108,7 @@ proc bMotion_plugin_add_simple { id match chance response language} {
 }
 
 
-## Find a simple plugin
+# Find a simple plugin
 proc bMotion_plugin_find_simple { text lang { debug 0 }} {
 
 	bMotion_log "plugins" "TRACE" "bMotion_plugin_find_simple: text = $text, lang = $lang"
@@ -149,7 +149,7 @@ proc bMotion_plugin_find_simple { text lang { debug 0 }} {
 }
 
 
-## Load management plugin: TODO: Still generating dups?
+# Load management plugin: TODO: Still generating dups?
 proc bMotion_plugin_add_management { id match flags callback { language "" } { helpcallback "" } } {
 	global bMotion_plugins_management plugins bMotion_testing bMotion_noplugins
 
@@ -170,7 +170,8 @@ proc bMotion_plugin_add_management { id match flags callback { language "" } { h
 	}
 }
 
-## Find management plugin
+
+# Find management plugin
 proc bMotion_plugin_find_management { text } {
 	global bMotion_plugins_management
 	global BMOTION_PLUGIN_MANAGEMENT_MATCH BMOTION_PLUGIN_MANAGEMENT_FLAGS BMOTION_PLUGIN_MANAGEMENT_CALLBACK BMOTION_PLUGIN_MANAGEMENT_HELPCALLBACK
@@ -187,7 +188,8 @@ proc bMotion_plugin_find_management { text } {
 	return ""
 }
 
-#find a management plugin's help callback
+
+# Find a management plugin's help callback
 proc bMotion_plugin_find_management_help { name } {
 	global bMotion_plugins_management
 	global BMOTION_PLUGIN_MANAGEMENT_MATCH BMOTION_PLUGIN_MANAGEMENT_FLAGS BMOTION_PLUGIN_MANAGEMENT_CALLBACK BMOTION_PLUGIN_MANAGEMENT_HELPCALLBACK
@@ -202,7 +204,7 @@ proc bMotion_plugin_find_management_help { name } {
 	return ""
 }
 
-#
+
 # Load a complex plugin
 proc bMotion_plugin_add_complex { id match chance callback language } {
 	global bMotion_plugins_complex plugins bMotion_testing bMotion_noplugins bMotionCache
@@ -226,7 +228,7 @@ proc bMotion_plugin_add_complex { id match chance callback language } {
 	}
 }
 
-#
+
 # Find a complex plugin plugin
 proc bMotion_plugin_find_complex { text lang { debug 0 }} {
 	global bMotion_plugins_complex botnicks
@@ -269,7 +271,6 @@ proc bMotion_plugin_find_complex { text lang { debug 0 }} {
 }
 
 
-#
 # Load an output plugin
 proc bMotion_plugin_add_output { id callback enabled language { priority 11 } } {
 	global bMotion_plugins_output plugins bMotion_testing bMotion_noplugins
@@ -292,7 +293,7 @@ proc bMotion_plugin_add_output { id callback enabled language { priority 11 } } 
 	}
 }
 
-#
+
 # Return a list of callbacks of output plugins
 # Sorted by priority then name
 # Includes plugins only enabled for the given channel
@@ -355,7 +356,7 @@ proc bMotion_plugin_find_output { lang { channel "" } { min_priority 0} { max_pr
 	return $result2
 }
 
-#
+
 # Globally enable or disable an output plugin
 proc bMotion_plugin_set_output { id enabled } {
 	global bMotion_plugins_output
@@ -368,7 +369,7 @@ proc bMotion_plugin_set_output { id enabled } {
 	return 0
 }
 
-#
+
 # Enable or disable an output plugin on a channel
 proc bMotion_plugin_set_output_channel { id channel enabled } {
 	global bMotion_plugins_output_perchan
@@ -393,7 +394,7 @@ proc bMotion_plugin_set_output_channel { id channel enabled } {
 }
 
 
-## Load a simple action plugin
+# Load a simple action plugin
 proc bMotion_plugin_add_action_simple { id match chance response language } {
 	global bMotion_plugins_action_simple plugins bMotion_testing bMotion_noplugins bMotionCache
 
@@ -416,7 +417,7 @@ proc bMotion_plugin_add_action_simple { id match chance response language } {
 }
 
 
-## Find a simple action plugin
+# Find a simple action plugin
 proc bMotion_plugin_find_action_simple { text lang { debug 0 } } {
 	global bMotion_plugins_action_simple botnicks 
 	global BMOTION_PLUGIN_SIMPLE_MATCH BMOTION_PLUGIN_SIMPLE_CHANCE BMOTION_PLUGIN_SIMPLE_RESPONSE BMOTION_PLUGIN_SIMPLE_LANGUAGE BMOTION_PLUGIN_SIMPLE_COMPILED
@@ -445,7 +446,7 @@ proc bMotion_plugin_find_action_simple { text lang { debug 0 } } {
 }
 
 
-## Load a complex action plugin
+# Load a complex action plugin
 proc bMotion_plugin_add_action_complex { id match chance callback language } {
 	global bMotion_plugins_action_complex plugins bMotion_testing bMotion_noplugins bMotionCache
 
@@ -467,7 +468,8 @@ proc bMotion_plugin_add_action_complex { id match chance callback language } {
 	}
 }
 
-## Find a complex action plugin plugin
+
+# Find a complex action plugin plugin
 proc bMotion_plugin_find_action_complex { text lang { debug 0 } } {
 	global bMotion_plugins_action_complex botnicks
 	global BMOTION_PLUGIN_COMPLEX_MATCH BMOTION_PLUGIN_COMPLEX_CHANCE BMOTION_PLUGIN_COMPLEX_CALLBACK BMOTION_PLUGIN_COMPLEX_LANGUAGE BMOTION_PLUGIN_COMPLEX_COMPILED
@@ -499,8 +501,6 @@ proc bMotion_plugin_find_action_complex { text lang { debug 0 } } {
 }
 
 
-###############################################################################
-
 proc bMotion_plugin_check_depend { depends } {
 	#pass a string in the format "type:plugin,type:plugin,..."
 	if {$depends == ""} {
@@ -526,9 +526,6 @@ proc bMotion_plugin_check_depend { depends } {
 	return $result
 }
 
-
-
-###############################################################################
 
 proc bMotion_plugin_check_allowed { name } {
 	#pass a string in the format "type:plugin"
@@ -556,10 +553,8 @@ proc bMotion_plugin_check_allowed { name } {
 	return 1
 }
 
-################################################################################
 
-## dev: simsea
-## Load an irc event response plugin
+# Load an irc event response plugin
 proc bMotion_plugin_add_irc_event { id type match chance callback language } {
 	if {![regexp -nocase "nick|join|quit|part|split" $type]} {
 		bMotion_log "plugins" "ERROR" "bMotion: ALERT! IRC Event plugin $id has an invalid type $type"
@@ -584,7 +579,8 @@ proc bMotion_plugin_add_irc_event { id type match chance callback language } {
 	}
 }
 
-## Find an IRC Event response plugin plugin
+
+# Find an IRC Event response plugin plugin
 proc bMotion_plugin_find_irc_event { text type lang { debug 0 } } {
 	if {![regexp -nocase "nick|join|quit|part|split" $type]} {
 		bMotion_log "plugins" "ERROR" "bMotion: IRC Event search type $type is invalid"
@@ -620,39 +616,37 @@ proc bMotion_plugin_find_irc_event { text type lang { debug 0 } } {
 }
 
 
-################################################################################
-
-## Load the simple plugins
+# Load the simple plugins
 catch { source "$bMotionPlugins/simple.tcl" }
 
-## Load the admin (management) plugins
+# Load the admin (management) plugins
 catch { source "$bMotionPlugins/admin.tcl" }
 
-## Load the complex plugins
+# Load the complex plugins
 catch { source "$bMotionPlugins/complex.tcl" }
 
-## Load the output plugins
+# Load the output plugins
 catch { source "$bMotionPlugins/output.tcl" }
 
-## Load the simple action plugins
+# Load the simple action plugins
 catch { source "$bMotionPlugins/action_simple.tcl" }
 
-## Load the complex action plugins
+# Load the complex action plugins
 catch { source "$bMotionPlugins/action_complex.tcl" }
 
-## Load the irc event plugins
+# Load the irc event plugins
 catch { source "$bMotionPlugins/irc_event.tcl" }
 
-## clean this up, not used again
+# clean this up, not used again
 unset bMotion_noplugins
 
-### null plugin routine for faking plugins
+
+# null plugin routine for faking plugins
 proc bMotion_plugin_null { {a ""} {b ""} {c ""} {d ""} {e ""} } {
 	return 0
 }
 
-# bMotion_plugin_history_add
-#
+
 # adds a plugin name to the history list, keeping the list to 10 items
 # will not add the plugin if the last one is identical
 proc bMotion_plugin_history_add { channel type plugin } {
@@ -673,8 +667,7 @@ proc bMotion_plugin_history_add { channel type plugin } {
 	return 1
 }
 
-# bMotion_plugin_history_check
-#
+
 # returns 0 if the plugin hasn't fired recently in the channel
 # else returns position in list
 proc bMotion_plugin_history_check { channel type plugin } {
@@ -682,6 +675,7 @@ proc bMotion_plugin_history_check { channel type plugin } {
 
 	return [expr [lsearch $bMotionPluginHistory "$channel:$type:$plugin"] + 1]
 }
+
 
 proc bMotion_compile_matches { } {
 	bMotion_log "plugins" "TRACE" "bMotion_compile_matches"
