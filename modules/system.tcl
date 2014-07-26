@@ -52,6 +52,7 @@ bind time - "* * * * *" bMotion_check_tired2
 
 # rebuilds our channel list based on which channels are +bmotion
 proc bMotion_update_chanlist { } {
+	bMotion_log "system" "TRACE" "bMotion_update_chanlist"
 	global bMotionChannels
 	set bMotionChannels [list]
 
@@ -78,7 +79,7 @@ foreach chan $bMotionChannels {
 
 # get the last event for a channel, or 0 if not available
 proc bMotion_get_last_event { channel } {
-	bMotion_putloglev 4 * "bMotion_get_last_event $channel"
+	bMotion_log "system" "TRACE" "bMotion_get_last_event $channel"
 
 	global bMotionLastEvent
 
@@ -87,16 +88,16 @@ proc bMotion_get_last_event { channel } {
 		set last_event $bMotionLastEvent($channel)
 	}
 	if {$last_event == 0} {
-		bMotion_putloglev 1 * "last event for $channel is not available, returning 0"
+		bMotion_log "system" "DEBUG" "last event for $channel is not available, returning 0"
 	}
 
 	return $last_event
 }
 
-#
+
 # set the last event time for a channel to now
 proc bMotion_set_last_event { channel } {
-	bMotion_putloglev 4 * "bMotion_set_last_event $channel"
+	bMotion_log "system" "TRACE" "bMotion_set_last_event $channel"
 
 	global bMotionLastEvent
 
@@ -108,25 +109,25 @@ proc bMotion_set_last_event { channel } {
 proc bMotion_is_active_enough { channel { limit 0 } } {
 	global bMotionInfo 
 
-	bMotion_putloglev 4 * "bMotion_is_active_enough $channel"
+	bMotion_log "system" "TRACE" "bMotion_is_active_enough $channel"
 
 	set last_event [bMotion_get_last_event $channel]
 
 	if {$last_event == 0} {
-		bMotion_putloglev d * "last event info for $channel not available"
+		bMotion_log "system" "DEBUG" "last event info for $channel not available"
 		# force it to be now
 		bMotion_set_last_event $channel
 		# assume we're ok
 		return 1
 	}
 
-	bMotion_putloglev 3 * "last event for $channel was $last_event"
+	bMotion_log "system" "DEBUG" "last event for $channel was $last_event"
 	if {$limit == 0} {
 		set limit [expr $bMotionInfo(maxIdleGap) * 60]
 	}
 
 	if {([clock seconds] - $last_event) < $limit} {
-		bMotion_putloglev 3 * "it fits!"
+		bMotion_log "system" "DEBUG" "last event: it fits!"
 		return 1
 	}
 	return 0
@@ -137,20 +138,20 @@ proc bMotion_is_active_enough { channel { limit 0 } } {
 proc bMotion_random_away {} {
 	global bMotionChannels bMotionInfo
 
-	bMotion_putloglev 4 * "bMotion_random_away"
+	bMotion_log "system" "TRACE" "bMotion_random_away"
 
 	set timeNow [clock seconds]
 
 	# check if it's worth doing anything
 	if {[bMotion_setting_get "bitlbee"]} {
 		#never go away in bitlbee
-		bMotion_putloglev d * "going away is disabled in bitlbee mode"
+		bMotion_log "system" "INFO" "going away is disabled in bitlbee mode"
 		return 0
 	}
 
 	#override if we should never go away
 	if {[bMotion_setting_get "useAway"] != 1} {
-		bMotion_putloglev d * "going away is disabled"
+		bMotion_log "system" "INFO" "going away is disabled"
 		return 0
 	}
 
@@ -168,20 +169,20 @@ proc bMotion_random_away {} {
 	}
 
 	set gapTime [expr { int($bMotionInfo(maxIdleGap) * 10) }]
-	bMotion_putloglev 1 * "bMotion: most recent: $mostRecent .. timenow $timeNow .. gap $gapTime"
+	bMotion_log "system" "DEBUG" "bMotion: most recent: $mostRecent .. timenow $timeNow .. gap $gapTime"
 
 	if {($timeNow - $mostRecent) < $gapTime} {
 		set chance [rand 100]
 		if {$chance > [bMotion_setting_get "awaychance"]} {
-			bMotion_putloglev 1 * "most recent is busy enough, not going away"
+			bMotion_log "system" "DEBUG" "most recent is busy enough, not going away"
 			return 0
 		}
-		bMotion_putloglev 1 * "most recent is busy enough but going away anyway"
+		bMotion_log "system" "DEBUG" "most recent is busy enough but going away anyway"
 	}
 
 	if {$bMotionInfo(away) == 1} {
 		#away, don't do anything (and don't do randomstuff)
-		bMotion_putloglev d * "I'm already away, not going away again"
+		bMotion_log "system" "DEBUG" "I'm already away, not going away again"
 		return 0
 	}
 
@@ -190,7 +191,7 @@ proc bMotion_random_away {} {
 		bMotionSetRandomAway
 		return 1
 	} else {
-		bMotion_putloglev d * "All channels are idle, not going away though"
+		bMotion_log "system" "INFO" "All channels are idle, not going away though"
 	}
 
 	return 0
@@ -203,7 +204,7 @@ proc doRandomStuff {} {
 	global bMotionOriginalNick bMotionChannels
 	global BMOTION_SLEEP
 
-	bMotion_putloglev 4 * "doRandomStuff"
+	bMotion_log "system" "TRACE" "doRandomStuff"
 
 	set saidChannels [list]
 	set silentChannels [list]
@@ -218,11 +219,11 @@ proc doRandomStuff {} {
 	}
 	set temp [expr [rand $upperLimit] + $bMotionInfo(minRandomDelay)]
 	timer $temp doRandomStuff
-	bMotion_putloglev d * "randomStuff next in $temp minutes"
+	bMotion_log "system" "INFO" "randomStuff next in $temp minutes"
 
 	# don't bother if we're asleep
 	if {$bMotionSettings(asleep) != $BMOTION_SLEEP(AWAKE)} {
-		bMotion_putloglev d * "not doing randomstuff now, i'm asleep"
+		bMotion_log "system" "INFO" "not doing randomstuff now, i'm asleep"
 		# kill any away status as we don't want to come back from the shops after we've been to bed :P
 		set bMotionInfo(away) 0
 		return
@@ -230,18 +231,18 @@ proc doRandomStuff {} {
 
 	if [bMotion_random_away] {
 		# we went away, so stop here
-		bMotion_putloglev d * "we went away, returning from doRandomStuff"
+		bMotion_log "system" "DEBUG" "we went away, returning from doRandomStuff"
 		return
 	}
 
 	if {$bMotionInfo(away) == 1} {
 		#away and busy again, return
-		bMotion_putloglev d * "was away, setting myself back"
+		bMotion_log "system" "DEBUG" "was away, setting myself back"
 		bMotionSetRandomBack
 	}
 
 	if {[bMotion_setting_get "bitlbee"] == "1"} {
-		bMotion_putloglev d * "aborting randomstuff, don't do it in bitlbee mode"
+		bMotion_log "system" "WARN" "aborting randomstuff, don't do it in bitlbee mode"
 		return 0
 	}
 
@@ -271,7 +272,7 @@ proc doRandomStuff {} {
 			lappend silentChannels $channel
 		}
 	}
-	bMotion_putloglev d * "randomStuff said ($saidChannels) silent ($silentChannels)"
+	bMotion_log "system" "INFO" "randomStuff said ($saidChannels) silent ($silentChannels)"
 }
 
 
@@ -279,7 +280,7 @@ proc doRandomStuff {} {
 proc bMotionSaySomethingRandom {channel {busy 0}} {
 	global randomStuff stonedRandomStuff bMotionInfo bMotionCache
 
-	bMotion_putloglev 4 * "bMotionSaySomethingRandom $channel $busy"
+	bMotion_log "system" "TRACE" "bMotionSaySomethingRandom $channel $busy"
 
 	if {$busy} {
 		set base_abstract "activeRandomStuff"
@@ -287,24 +288,24 @@ proc bMotionSaySomethingRandom {channel {busy 0}} {
 		set base_abstract "randomStuff"
 	}
 
-	bMotion_putloglev d * "base abstract for randomness in $channel is $base_abstract"
+	bMotion_log "system" "DEBUG" "base abstract for randomness in $channel is $base_abstract"
 
 	if [rand 2] {
 		set today [clock format [clock seconds] -format "${base_abstract}_%Y_%m_%d"]
 		if [bMotion_abstract_exists $today] {
-			bMotion_putloglev d * "using abstract $today for randomstuff in $channel"
+			bMotion_log "system" "INFO" "using abstract $today for randomstuff in $channel"
 			bMotionDoAction $channel "" "%VAR{$today}"
 			return 1
 		}
 
 		set today [clock format [clock seconds] -format "${base_abstract}_%m_%d"]
 		if [bMotion_abstract_exists $today] {
-			bMotion_putloglev d * "using abstract $today for randomstuff in $channel"
+			bMotion_log "system" "INFO" "using abstract $today for randomstuff in $channel"
 			bMotionDoAction $channel "" "%VAR{$today}"
 			return 1
 		}
 
-		bMotion_putloglev 1 * "no special day abstract found for randomStuff in $channel"
+		bMotion_log "system" "DEBUG" "no special day abstract found for randomStuff in $channel"
 		bMotionDoAction $channel "" "%VAR{${base_abstract}}"
 		return 1
 	}
@@ -316,7 +317,7 @@ proc bMotionSaySomethingRandom {channel {busy 0}} {
 #set myself away with a random message
 proc bMotionSetRandomAway {} {
 	global randomAways bMotionInfo bMotionSettings bMotionChannels
-	bMotion_putloglev 4 * "bMotionSetRandomAway"
+	bMotion_log "system" "TRACE" "bMotionSetRandomAway"
 
 	set awayReason [bMotion_abstract_get "randomAways"]
 	foreach channel $bMotionChannels {
@@ -327,8 +328,8 @@ proc bMotionSetRandomAway {} {
 	putserv "AWAY :$awayReason"
 	set bMotionInfo(away) 1
 	set bMotionInfo(silence) 1
-	bMotion_putloglev d * "bMotion: Set myself away: $awayReason"
-	bMotion_putloglev d * "bMotion: Going silent"
+	bMotion_log "system" "WARN" "bMotion: Set myself away: $awayReason"
+	bMotion_log "system" "WARN" "bMotion: Going silent"
 }
 
 
@@ -336,13 +337,13 @@ proc bMotionSetRandomAway {} {
 proc bMotionSetRandomBack {} {
 	#set myself back
 	global bMotionInfo bMotionSettings bMotionChannels
-	bMotion_putloglev 4 * "bMotionSetRandomBack"
+	bMotion_log "system" "TRACE" "bMotionSetRandomBack"
 
 	bMotion_update_chanlist
 
 	set bMotionInfo(away) 0
 	set bMotionInfo(silence) 0
-	bMotion_putloglev d * "No longer silent or away"
+	bMotion_log "system" "WARN" "No longer silent or away"
 	foreach channel $bMotionChannels {
 		if {[lsearch $bMotionSettings(noAwayFor) $channel] == -1} {
 			bMotionDoAction $channel "" "/is back"
@@ -361,23 +362,23 @@ proc bMotionSetRandomBack {} {
 proc bMotionTalkingToMe { text } {
 	global botnicks
 
-	bMotion_putloglev 4 * "bMotionTalkingToMe $text"
+	bMotion_log "system" "TRACE" "bMotionTalkingToMe $text"
 
 	# look for a nick at the start of the line
 	if [regexp -nocase {^([^ :,]+)} $text matches nick] {
-		bMotion_putloglev 2 * "looks like they're talking to $nick"
+		bMotion_log "system" "DEBUG" "looks like they're talking to $nick"
 		if [regexp -nocase $botnicks $nick] {
-			bMotion_putloglev 2 * "that's me!"
+			bMotion_log "system" "DEBUG" "that's me!"
 			return 1
 		}
 	}
 
 	if [regexp -nocase "$botnicks\[!?~\]*$" $text] {
-		bMotion_putloglev 2 * "found my name at the end of the line"
+		bMotion_log "system" "DEBUG" "found my name at the end of the line"
 		return 1
 	}
 
-	bMotion_putloglev 2 * "not talking to me"
+	bMotion_log "system" "DEBUG" "not talking to me"
 	return 0
 }
 
@@ -416,10 +417,10 @@ proc bMotionUnSilence {} {
 proc bMotionLike {nick { host "" }} {
 	global bMotionInfo bMotionSettings
 
-	bMotion_putloglev 4 * "bMotionLike: $nick $host"
+	bMotion_log "system" "TRACE" "bMotionLike $nick $host"
 	
 	if {$bMotionSettings(melMode) == 1} {
-		bMotion_putloglev 3 * "like: melmode is on, i'll do anyone"
+		bMotion_log "system" "DEBUG" "like: melmode is on, i'll do anyone"
 		return 1
 	}
 
@@ -434,49 +435,49 @@ proc bMotionLike {nick { host "" }} {
 		# couldn't find a match
 		#if i'm stoned enough, i'll sleep with anyone
 		if {[bMotion_mood_get stoned] > 20} {
-			bMotion_putloglev 3 * "like: i'm sufficiently stoned to do anyone"
+			bMotion_log "system" "DEBUG" "like: i'm sufficiently stoned to do anyone"
 			return 1
 		}
 
 		#if i'm horny enough, i'll sleep with anyone
 		if {[bMotion_mood_get horny] > 10} {
-			bMotion_putloglev 3 * "like: i'm sufficiently horny to do anyone"
+			bMotion_log "system" "DEBUG" "like: i'm sufficiently horny to do anyone"
 			return 1
 		}
 		#else they can get lost
-		bMotion_putloglev 3 * "like: $host doesn't have a matching handle, so they can go away"
+		bMotion_log "system" "DEBUG" "like: $host doesn't have a matching handle, so they can go away"
 		return 0
 	}
 
 	#don't like people who aren't my friends
 	if {![bMotionIsFriend $nick]} { 
-		bMotion_putloglev 3 * "like: I don't do people I'm not friends with"
+		bMotion_log "system" "DEBUG" "like: I don't do people I'm not friends with"
 		return 0 
 	}
 
 	# we're friends, now get their gender
 	set gender [getuser $handle XTRA gender]
 	if {$gender == ""} {
-		bMotion_putloglev 3 * "like: $handle is genderless, so I'll do them. it's only 50/50 anyway. i like those odds!"
+		bMotion_log "system" "DEBUG" "like: $handle is genderless, so I'll do them. it's only 50/50 anyway. i like those odds!"
 		# they don't have a gender. let's assume we'd have sex with them too
 		return 1
 	}
 	if {$gender == $bMotionInfo(gender)} {
 		#they're my gender
 		if {($bMotionInfo(orientation) == "bi") || ($bMotionInfo(orientation) == "gay") || ($bMotionInfo(orientation) == "lesbian")} {
-			bMotion_putloglev 3 * "like: $handle is my gender and I like that"
+			bMotion_log "system" "DEBUG" "like: $handle is my gender and I like that"
 			return 1
 		}
-		bMotion_putloglev 3 * "like: $handle is my gender and that's not koo"
+		bMotion_log "system" "DEBUG" "like: $handle is my gender and that's not koo"
 		return 0
 	}
 	#they're not my gender. what now?
 	if {($bMotionInfo(orientation) == "bi") || ($bMotionInfo(orientation) == "straight")} {
-		bMotion_putloglev 3 * "like: $handle isn't my gender and that's not koo"
+		bMotion_log "system" "DEBUG" "like: $handle isn't my gender and that's not koo"
 		return 1
 	}
 	# that only leaves lesbian and gay who won't sleep with the opposite gender
-	bMotion_putloglev 3 * "like: nope, default case"
+	bMotion_log "system" "DEBUG" "like: nope, default case"
 	return 0
 }
 
@@ -520,7 +521,7 @@ proc bMotion_dcc_command { handle idx arg } {
 		return 1
 	}
 
-	bMotion_putloglev 1 * "bMotion: management callback matched, calling $callback"
+	bMotion_log "system" "INFO" "bMotion: management callback matched, calling $callback"
 
 	#strip the first command
 	regexp {[^ ]+( .+)?} $cmd {\1} arg
@@ -544,7 +545,7 @@ proc bMotion_dcc_command { handle idx arg } {
 
 	# TODO: still in use?
 
-	bMotion_putloglev 2 * "bMotion: admin command $arg from $handle"
+	bMotion_log "system" "INFO" "bMotion: admin command $arg from $handle"
 	set info [bMotion_plugin_find_admin $arg $bMotionInfo(language)]
 	if {$info == ""} {
 		putidx $idx "Unknown command (or error). Try .bmotion help"
@@ -560,7 +561,7 @@ proc bMotion_dcc_command { handle idx arg } {
 		return 1
 	}
 
-	bMotion_putloglev 1 * "bMotion: admin callback matched, calling $callback"
+	bMotion_log "system" "INFO" "bMotion: admin callback matched, calling $callback"
 
 	#strip the first command
 	regexp {[^ ]+( .+)?} $arg {\1} arg
@@ -630,7 +631,7 @@ proc bMotionAdminHandler2 {nick host handle channel text} {
 	}
 
 	putlog "bMotion: admin command from $nick on $channel: $cmd"
-	bMotion_putloglev 1 * "bMotion: management callback matched, calling $callback"
+	bMotion_log "system" "INFO" "bMotion: management callback matched, calling $callback"
 
 	#strip the first command
 	regexp {[^ ]+( .+)?} $cmd {\1} arg
@@ -806,7 +807,7 @@ proc msg_bmotioncommand { nick host handle cmd } {
 		return 1
 	}
 
-	bMotion_putloglev 1 * "bMotion: management callback matched, calling $callback"
+	bMotion_log "system" "INFO" "bMotion: management callback matched, calling $callback"
 	putlog "bMotion: admin command from $nick in query: $cmd"
 
 	#strip the first command
@@ -831,7 +832,7 @@ proc msg_bmotioncommand { nick host handle cmd } {
 
 proc bMotion_get_number { num } {
 	if {$num <= 0} {
-		bMotion_putloglev d * "Warning: bMotion_get_number called with invalid parameter: $num"
+		bMotion_log "system" "WARN" "Warning: bMotion_get_number called with invalid parameter: $num"
 		return 0
 	}
 	return [expr [rand $num] + 1]
@@ -906,7 +907,7 @@ proc bMotion_setting_get { setting } {
 		return $val
 	}
 
-	bMotion_putloglev 3 * "setting '$setting' doesn't exist in bMotionSettings, trying bMotionInfo..."
+	bMotion_log "system" "DEBUG" "setting '$setting' doesn't exist in bMotionSettings, trying bMotionInfo..."
 	catch {
 		set val $bMotionInfo($setting)
 	}
@@ -915,7 +916,7 @@ proc bMotion_setting_get { setting } {
 
 	}
 
-	bMotion_putloglev 3 * "nope, not there either, returning nothing"
+	bMotion_log "system" "DEBUG" "nope, not there either, returning nothing"
 	return ""
 }
 
@@ -940,7 +941,7 @@ proc bMotion_check_botnicks { } {
 proc bMotion_check_tired { min hour day month year } {
 	global bMotionSettings BMOTION_SLEEP
 
-	bMotion_putloglev 4 * "bMotion_check_tired $min $hour $day $month $year"
+	bMotion_log "system" "TRACE" "bMotion_check_tired $min $hour $day $month $year"
 	if {[bMotion_setting_get "sleepy"] != 1} {
 		return
 	}
@@ -948,7 +949,7 @@ proc bMotion_check_tired { min hour day month year } {
 	set past_sleepy [bMotion_later_than $bMotionSettings(bedtime_hour) $bMotionSettings(bedtime_minute)]
 	set past_wakey [bMotion_later_than $bMotionSettings(wakeytime_hour) $bMotionSettings(wakeytime_minute)]
 
-	bMotion_putloglev 3 * "past_sleepy: $past_sleepy ... past_wakey: $past_wakey"
+	bMotion_log "system" "INFO" "past_sleepy: $past_sleepy ... past_wakey: $past_wakey"
 
 	if {$bMotionSettings(asleep) < $BMOTION_SLEEP(ASLEEP)} {
 		# not asleep, so check if we should be
@@ -966,7 +967,7 @@ proc bMotion_check_tired { min hour day month year } {
 		}
 
 		if {$do_sleep} {
-			bMotion_putloglev d * "past my bedtime, going to sleep"
+			bMotion_log "system" "INFO" "past my bedtime, going to sleep"
 			bMotion_go_to_sleep
 			return
 		}
@@ -985,7 +986,7 @@ proc bMotion_check_tired { min hour day month year } {
 		}
 
 		if ($do_wake) {
-			bMotion_putloglev d * "ooh, time to wake up"
+			bMotion_log "system" "INFO" "ooh, time to wake up"
 			bMotion_wake_up
 			return
 		}
@@ -1002,26 +1003,26 @@ proc bMotion_go_to_sleep { } {
 	bMotion_update_chanlist
 
 	if {$bMotionSettings(asleep) == $BMOTION_SLEEP(AWAKE)} {
-		bMotion_putloglev 3 * "considering awake -> bedtime"
+		bMotion_log "system" "INFO" "considering awake -> bedtime"
 		if {[rand 10] > 3} {
 		# announce we're tired
 			set bMotionSettings(asleep) $BMOTION_SLEEP(BEDTIME)
 			putlog "bMotion: preparing to go to bed"
 			foreach chan $bMotionChannels {
 				if [bMotion_is_active_enough $chan] {
-					bMotion_putloglev 3 * "sending tired output to $chan"
+					bMotion_log "system" "DEBUG" "sending tired output to $chan"
 					bMotionDoAction $chan "" "%VAR{tireds}"
 				}
 			}
 			return
 		} else {
-			bMotion_putloglev d * "tired but not enough to tell anyone yet"
+			bMotion_log "system" "DEBUG" "tired but not enough to tell anyone yet"
 		}
 		return
 	}
 
 	if {$bMotionSettings(asleep) == $BMOTION_SLEEP(BEDTIME)} {
-		bMotion_putloglev 3 * "considering bedtime -> sleep"
+		bMotion_log "system" "INFO" "considering bedtime -> sleep"
 		if {[rand 10] > 3} {
 		# go to sleep
 			set hour [bMotion_setting_get "wakeytime_hour"]
@@ -1030,7 +1031,7 @@ proc bMotion_go_to_sleep { } {
 			catch {
 				foreach chan $bMotionChannels {
 					if [bMotion_did_i_speak_last $chan] {
-						bMotion_putloglev 3 * "sending sleeping output to $chan"
+						bMotion_log "system" "DEBUG" "sending sleeping output to $chan"
 						if [rand 2] {
 							bMotionDoAction $chan "" "%VAR{go_sleeps}"
 						}
@@ -1042,18 +1043,18 @@ proc bMotion_go_to_sleep { } {
 			putlog "bMotion: gone to sleep"
 			return
 		} else {
-			bMotion_putloglev 1 * "not quite tired enough to actually go to sleep yet"
+			bMotion_log "system" "DEBUG" "not quite tired enough to actually go to sleep yet"
 		}
 		return
 	}
-	bMotion_putloglev d * "What th... bMotion_go_to_sleep called but I'm already asleep!"
+	bMotion_log "system" "ERROR" "What th... bMotion_go_to_sleep called but I'm already asleep!"
 }
 
 
 proc bMotion_overslept { { onlychan "" } } {
 	global bMotionSettings BMOTION_SLEEP bMotionChannels
 	if {[bMotion_setting_get "asleep"] != $BMOTION_SLEEP(OVERSLEEPING)} {
-		bMotion_putloglev d * "overslept timer fired but I wasn't oversleeping"
+		bMotion_log "system" "TRACE" "overslept timer fired but I wasn't oversleeping"
 		return
 	}
 
@@ -1078,7 +1079,7 @@ proc bMotion_wake_up { } {
 	bMotion_update_chanlist
 
 	if {$bMotionSettings(asleep) == $BMOTION_SLEEP(ASLEEP)} {
-		bMotion_putloglev 3 * "considering asleep -> awake"
+		bMotion_log "system" "INFO" "considering asleep -> awake"
 		if {[rand 100] > 95} {
 			putlog "bMotion: really quite tired today... think I'll stay in bed a bit longer"
 			set snooze [expr [rand 120] + 30]
@@ -1106,7 +1107,7 @@ proc bMotion_wake_up { } {
 				# don't check for active enough here, as we're waking everyone up
 				# but do check we didn't speak last as that just looks dumb
 				if {![bMotion_did_i_speak_last $chan]} {
-					bMotion_putloglev 3 * "sending waking output to $chan"
+					bMotion_log "system" "DEBUG" "sending waking output to $chan"
 					if [rand 2] {
 						bMotionDoAction $chan "" "%VAR{wake_ups}"
 					}
@@ -1115,7 +1116,7 @@ proc bMotion_wake_up { } {
 			
 			return
 		} else {
-			bMotion_putloglev d * "just a few more minutes in bed..."
+			bMotion_log "system" "INFO" "just a few more minutes in bed..."
 		}
 		return
 	}
@@ -1144,26 +1145,26 @@ proc bMotion_check_tired2 { a b c d e } {
 	}
 
 	set limit [bMotion_setting_get "sleepy_nextchange"]
-	bMotion_putloglev 4 * "current time = [clock seconds], checking if we're past $limit"
+	bMotion_log "system" "DEBUG" "current time = [clock seconds], checking if we're past $limit"
 
 	if {[clock seconds] >= $limit} {
-		bMotion_putloglev d * "need to do a sleepy state change"
+		bMotion_log "system" "INFO" "need to do a sleepy state change"
 
 		set state [bMotion_setting_get "asleep"]
 		if {$state == $BMOTION_SLEEP(AWAKE)} {
-			bMotion_putloglev d * "maybe going to sleep"
+			bMotion_log "system" "INFO" "maybe going to sleep"
 			bMotion_go_to_sleep
 			return
 		}
 
 		if {$state == $BMOTION_SLEEP(BEDTIME)} {
-			bMotion_putloglev d * "maybe going to sleep"
+			bMotion_log "system" "INFO" "maybe going to sleep"
 			bMotion_go_to_sleep
 			return
 		}
 
 		if {$state == $BMOTION_SLEEP(ASLEEP)} {
-			bMotion_putloglev d * "maybe going to wake up"
+			bMotion_log "system" "INFO" "maybe going to wake up"
 			bMotion_wake_up
 			return 
 		}
@@ -1172,6 +1173,7 @@ proc bMotion_check_tired2 { a b c d e } {
 		return
 	}
 }
+
 
 proc bMotion_sleep_next_event { when } {
 	global bMotionSettings
@@ -1183,7 +1185,7 @@ proc bMotion_sleep_next_event { when } {
 		# oh, add 24h
 		incr ts 86400
 	}
-	bMotion_putloglev d * "sleepy: next state change at $ts = [clock format $ts]"
+	bMotion_log "system" "INFO" "sleepy: next state change at $ts = [clock format $ts]"
 	return $ts
 }
 
@@ -1191,10 +1193,10 @@ proc bMotion_sleep_next_event { when } {
 proc bMotion_did_i_speak_last { channel } {
 	global bMotionCache
 
-	bMotion_putloglev 1 * "Checking if I spoke last in $channel"
+	bMotion_log "system" "TRACE" "bMotion_did_i_speak_last $channel"
 	
 	catch {
-		bMotion_putloglev 1 * "Cache(last) for $channel is $bMotionCache($channel,last)"
+		bMotion_log "system" "DEBUG" "Cache(last) for $channel is $bMotionCache($channel,last)"
 		return $bMotionCache($channel,last)
 	}
 
@@ -1231,34 +1233,34 @@ proc bMotion_get_daytime { } {
 # check something aginst our stoplist before we learn it
 proc bMotion_filter_sillyThings { item } {
 	if [regexp {[^A-Za-z0-9 '-]} $item] {
-		bMotion_putloglev 2 * "sillyThing $item rejected for non-alpha chars"
+		bMotion_log "system" "DEBUG" "sillyThing $item rejected for non-alpha chars"
 		return 0
 	}
 
 	if {[string length $item] == 2} {
-		bMotion_putloglev 2 * "sillyThing $item rejected for length"
+		bMotion_log "system" "DEBUG" "sillyThing $item rejected for length"
 		return 0
 	}
 
 	if [regexp -nocase {^(for|i|but)\M} $item] {
-		bMotion_putloglev 2 * "sillyThing $item rejected for bad start"
+		bMotion_log "system" "DEBUG" "sillyThing $item rejected for bad start"
 		return 0
 	}
 
 	# -rty, -ted?
 
 	if [regexp -nocase {\m(certain|should|like|better|bigger|clever|other|rather|the|and|for|to|be|cool|dizzy|different|dry|entire|end|expensive|faster|federal|this|illegitimate|illiteracy|implicit|kind|lack|last|late|later|left|less|little|long|maybe|maybeok|meantime|mathematical|mechanical|more|most|much|multi|new|newer|next|particular|past|pure|quick|same|sheer|short|small|sort|specific|ultra|tubal|total|were|what|whole|weird|wrong)$} $item] {
-		bMotion_putloglev 2 * "sillyThing $item rejected for stoplist"
+		bMotion_log "system" "DEBUG" "sillyThing $item rejected for stoplist"
 		return 0
 	}
 
 	if [regexp -nocase {(ful|est|ly|ive| he|edible|icable|tty)$} $item] {
-		bMotion_putloglev 2 * "sillyThing $item rejected for word ending"
+		bMotion_log "system" "DEBUG" "sillyThing $item rejected for word ending"
 		return 0
 	}
 
 	if [regexp -nocase {\m(is)$} $item] {
-		bMotion_putloglev 2 * "sillyThing $item rejected for bad sentence end"
+		bMotion_log "system" "DEBUG" "sillyThing $item rejected for bad sentence end"
 		return 0
 	}
 
@@ -1273,7 +1275,7 @@ proc bMotion_filter_sillyThings { item } {
 # updates last to be now regardless
 # nick is optional for this
 proc bMotion_sufficient_gap { mingap plugin channel {nick ""} } {
-	bMotion_putloglev 5 * "bMotion_sufficient_gap: $mingap $plugin $channel $nick"
+	bMotion_log "system" "TRACE" "bMotion_sufficient_gap: $mingap $plugin $channel $nick"
 		set lasttime [bMotion_plugins_settings_get $plugin "lasttime" $channel $nick]
 		set diff [expr $mingap + 1]
 		set gap_ok 0
@@ -1281,21 +1283,21 @@ proc bMotion_sufficient_gap { mingap plugin channel {nick ""} } {
 		if {$lasttime != ""} {
 			set diff [expr [clock seconds] - $lasttime]
 		}
-		bMotion_putloglev 1 * "sufficient_gap: last=$lasttime, now=[clock seconds], gap=$diff"
+		bMotion_log "system" "DEBUG" "sufficient_gap: last=$lasttime, now=[clock seconds], gap=$diff"
 		if {$diff > $mingap} {
 			set gap_ok 1
 		} 
 		bMotion_plugins_settings_set $plugin "lasttime" $channel $nick [clock seconds]
-		bMotion_putloglev 1 * "sufficient_gap: returning $gap_ok for $plugin $channel ($nick) > $mingap"
+		bMotion_log "system" "DEBUG" "sufficient_gap: returning $gap_ok for $plugin $channel ($nick) > $mingap"
 		return $gap_ok
 }
+
 
 # automatically pick a type of smiley
 # store in local/
 # use version in local if available
-
 proc bMotion_auto_smiley { } {
-	bMotion_putloglev 5 * "bMotion_auto_smiley"
+	bMotion_log "system" "TRACE" "bMotion_auto_smiley"
 
 	global bMotionLocal bMotionSettings
 	set smileyfile "${bMotionLocal}/smiley"
@@ -1309,12 +1311,12 @@ proc bMotion_auto_smiley { } {
 				set bMotionSettings(smiley_eyes) [gets $fileHandle]
 				close $fileHandle
 
-				bMotion_putloglev d * "Loaded auto-generated smiley info"
+				bMotion_log "system" "INFO" "Loaded auto-generated smiley info"
 			} else {
-				putlog "bMotion: attempted to load smiley configuration but file is corrupt"
+				bMotion_log "system" "ERROR" "bMotion: attempted to load smiley configuration but file is corrupt"
 			}
 		} else {
-			bMotion_putloglev d * "Generating new smiley configuration"
+			bMotion_log "system" "WARN" "Generating new smiley configuration"
 			set smiley_type_list [list "paren" "bracket" "angle"]
 			set smiley_nose_list [list "none" "o" "dash"]
 			set smiley_eyes_list [list "colon" "equals"]
@@ -1337,5 +1339,5 @@ proc bMotion_auto_smiley { } {
 }
 
 
-bMotion_putloglev d * "bMotion: system module loaded"
+bMotion_log "system" "INFO" "bMotion: system module loaded"
 
