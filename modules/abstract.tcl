@@ -75,11 +75,13 @@ set BMOTION_MIXIN_BOTH 3
 set BMOTION_MIXIN_FEMALE 4
 set BMOTION_MIXIN_MALE 5
 
+
 if { [bMotion_setting_get "abstractMaxAge"] != "" } {
 	set bMotion_abstract_max_age [bMotion_setting_get "abstractMaxAge"]
 } else {
 	set bMotion_abstract_max_age 300
 }
+
 
 if { [bMotion_setting_get "abstractMaxNumber"] != "" } {
 	set bMotion_abstract_max_number [bMotion_setting_get "abstractMaxNumber"]
@@ -87,8 +89,8 @@ if { [bMotion_setting_get "abstractMaxNumber"] != "" } {
 	set bMotion_abstract_max_number 600
 }
 
-# initialise the arrays
 
+# initialise the arrays
 if {![info exists bMotion_abstract_contents]} {
 	array set bMotion_abstract_contents {}
 	array set bMotion_abstract_languages {}
@@ -99,6 +101,7 @@ if {![info exists bMotion_abstract_contents]} {
 }
 
 set bMotion_abstract_dir "$bMotionLocal/abstracts/$bMotionInfo(language)"
+
 
 proc bMotion_abstract_gc { { force 0 } } {
 	bMotion_putloglev 5 * "bMotion_abstract_gc"
@@ -141,6 +144,7 @@ proc bMotion_abstract_gc { { force 0 } } {
 	}
 }
 
+
 proc bMotion_abstract_register { abstract { stuff "" } } {
 	bMotion_putloglev 5 * "bMotion_abstract_register ($abstract)"
 	if [bMotion_redis_available] {
@@ -165,7 +169,7 @@ proc bMotion_abstract_register { abstract { stuff "" } } {
 	if [file exists "$bMotion_abstract_dir/${abstract}.txt"] {
 		bMotion_abstract_load $abstract 
 	} else {
-	# check that the language directory exists while we're at it
+		# check that the language directory exists while we're at it
 		if { ![file exists $bMotion_abstract_dir] } {
 			file mkdir $bMotion_abstract_dir
 		}
@@ -183,11 +187,12 @@ proc bMotion_abstract_register { abstract { stuff "" } } {
 	}
 
 	if {$stuff != ""} {
-	# batch-add at the same time
+		# batch-add at the same time
 		bMotion_putloglev 2 * "Batchadding during registration for $abstract"
 		bMotion_abstract_batchadd $abstract $stuff
 	}
 }
+
 
 proc bMotion_abstract_load { abstract } { 
 	bMotion_putloglev 5 * "bMotion_abstract_load ($abstract)" 
@@ -271,6 +276,7 @@ proc bMotion_abstract_load { abstract } {
 	bMotion_abstract_apply_filter $abstract
 }
 
+
 proc bMotion_abstract_add { abstract text {save 1} } {
 	bMotion_putloglev 5 * "bMotion_abstract_add ($abstract, $text, $save)"
 	global bMotionInfo
@@ -289,11 +295,6 @@ proc bMotion_abstract_add { abstract text {save 1} } {
 	bMotion_putloglev 2 * "Adding '$text' to abstract '$abstract'"
 
 	if {$bMotion_abstract_timestamps($abstract) < [expr [clock seconds] - $bMotion_abstract_max_age]} {
-	#bMotion_abstract_load $abstract
-	#new more efficient way
-	# - append it to the file regardless
-	# - it can be filtered on load
-
 		bMotion_putloglev 2 * "updating abstracts '$abstract' on disk"
 		if {$save} {
 			set fileHandle [open "$bMotion_abstract_dir/${abstract}.txt" "a+"]
@@ -313,6 +314,7 @@ proc bMotion_abstract_add { abstract text {save 1} } {
 		}
 	}
 }
+
 
 proc bMotion_abstract_save { abstract } {
 	bMotion_putloglev 5 * "bMotion_abstract_save"
@@ -369,6 +371,7 @@ proc bMotion_abstract_save { abstract } {
 	bMotion_putloglev 2 * "Saved abstract $abstract to disk"
 }
 
+
 proc bMotion_abstract_all { abstract } {
 	bMotion_putloglev 5 * "bMotion_abstract_all ($abstract)"
 	global bMotionInfo
@@ -387,7 +390,7 @@ proc bMotion_abstract_all { abstract } {
 
 		return $bMotion_abstract_contents($abstract)
 	} else {
-	#abstract doesn't exist
+		#abstract doesn't exist
 		bMotion_putloglev d * "bMotion_abstract_all: couldn't find abstract '$abstract' in new system"
 		catch {
 			global $abstract
@@ -400,6 +403,7 @@ proc bMotion_abstract_all { abstract } {
 	}
 
 }
+
 
 # look to see if an abstract contains an item (warning: could be slow)
 proc bMotion_abstract_contains { abstract item } {
@@ -426,6 +430,7 @@ proc bMotion_abstract_contains { abstract item } {
 	}
 }
 
+
 proc bMotion_abstract_exists { abstract } {
 	bMotion_putloglev 5 * "bMotion_abstract_exists ($abstract)"
 	global bMotionInfo
@@ -445,6 +450,7 @@ proc bMotion_abstract_exists { abstract } {
 	return 1
 }
 
+
 proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 	bMotion_putloglev 5 * "bMotion_abstract_get ($abstract $mixin_type)"
 
@@ -452,8 +458,8 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 	set lang $bMotionInfo(language)
 
 	if [bMotion_redis_available] {
-	# For now, we union these into another key temporarily
-	# Possibly we should run this logic server-side in Lua?
+		# For now, we union these into another key temporarily
+		# Possibly we should run this logic server-side in Lua?
 		set temp_abstract "cabstract:$lang:$abstract:$mixin_type"
 		bMotion_putloglev 3 * "temporary compiled abstract will be $temp_abstract"
 
@@ -464,11 +470,11 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 
 			switch $mixin_type {
 				0 {
-				# Mix standard abstract with gender specific one (if available)
+					# Mix standard abstract with gender specific one (if available)
 					bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract abstract:$lang:${abstract}_$gender
 				}
 				1 {
-				# Mix standard abstract with gender-flipped one (if available)
+					# Mix standard abstract with gender-flipped one (if available)
 					if {$gender == "male"} {
 						set gender "female"
 					} else {
@@ -477,19 +483,19 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 					bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract abstract:$lang:${abstract}_$gender
 				}
 				2 {
-				# Do nothing(?)
+					# Do nothing(?)
 					bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract
 				}
 				3 {
-				# Mix in both
+					# Mix in both
 					bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract abstract:$lang:${abstract}_male abstract:$lang:${abstract}_female
 				}
 				4 {
-				# Mix in male
+					# Mix in male
 					bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract abstract:$lang:${abstract}_male 
 				}
 				5 {
-				# Mix in female
+					# Mix in female
 					bMotion_redis_cmd sunionstore $temp_abstract abstract:$lang:$abstract abstract:$lang:${abstract}_female
 				}
 			}
@@ -543,7 +549,7 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 	switch $mixin_type {
 		0 {
 			if [bMotion_abstract_exists "${abstract}_$bMotionInfo(gender)"] {
-			# mix-in the gender one with the vanilla one
+				# mix-in the gender one with the vanilla one
 				bMotion_putloglev 1 * "mixing in $bMotionInfo(gender) version of $abstract"
 				set final_version [concat $final_version [bMotion_abstract_all "${abstract}_$bMotionInfo(gender)"]]
 			} else {
@@ -557,7 +563,7 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 				set gender "male"
 			}
 			if [bMotion_abstract_exists "${abstract}_$gender"] {
-			# mix-in the gender one with the vanilla one
+				# mix-in the gender one with the vanilla one
 				bMotion_putloglev 1 * "mixing in $gender version of $abstract"
 				set final_version [concat $final_version [bMotion_abstract_all "${abstract}_$gender"]]
 			} else {
@@ -565,7 +571,7 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 			}
 		}
 		2 {
-		# noop, we did it already before the switch
+			# noop, we did it already before the switch
 		}
 		3 {
 			if [bMotion_abstract_exists "${abstract}_male"] {
@@ -621,6 +627,7 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 	return $retval
 }
 
+
 proc bMotion_abstract_delete { abstract index } {
 	bMotion_putloglev 5 * "bMotion_abstract_delete ($abstract, $index)"
 
@@ -635,9 +642,11 @@ proc bMotion_abstract_delete { abstract index } {
 	bMotion_abstract_save $abstract
 }
 
+
 proc bMotion_abstract_auto_gc { min hr a b c } {
 	bMotion_abstract_gc
 }
+
 
 proc bMotion_abstract_batchadd { abstract stuff } {
 	bMotion_putloglev 2 * "batch-adding to $abstract"
@@ -646,6 +655,7 @@ proc bMotion_abstract_batchadd { abstract stuff } {
 	}
 	bMotion_abstract_save $abstract
 }
+
 
 # flush all of the abstracts to disk
 # this was created for changing languages on the fly. If you're using this
@@ -673,6 +683,7 @@ proc bMotion_abstract_flush { } {
 	array set bMotion_abstract_timestamps {}
 	set bMotion_abstract_ondisk [list]
 }
+
 
 # this loads language abstracts for the current language in bMotionInfo
 proc bMotion_abstract_revive_language { } {
@@ -733,6 +744,7 @@ proc bMotion_abstract_revive_language { } {
 	}
 }
 
+
 # this is to update people from the old abstracts to the new abstracts.
 # it only needs to be run once, and should be removed afterwards
 proc bMotion_abstract_check {  } {
@@ -752,6 +764,7 @@ proc bMotion_abstract_check {  } {
 		}
 	}
 }
+
 
 # filter out stuff from an abstract
 proc bMotion_abstract_filter { abstract filter } {
@@ -806,6 +819,7 @@ proc bMotion_abstract_filter { abstract filter } {
 	}
 }
 
+
 # apply a filter to an abstract, if it has one defined
 proc bMotion_abstract_apply_filter { abstract } {
 	if [bMotion_redis_available] {
@@ -831,6 +845,7 @@ proc bMotion_abstract_apply_filter { abstract } {
 
 }
 
+
 # register a filter for an abstract
 proc bMotion_abstract_add_filter { abstract filter_text } {
 	if [bMotion_redis_available] {
@@ -847,6 +862,7 @@ proc bMotion_abstract_add_filter { abstract filter_text } {
 	bMotion_abstract_apply_filter $abstract
 }
 
+
 # nuke all filters
 proc bMotion_abstract_flush_filters { } {
 	if [bMotion_redis_available] {
@@ -859,6 +875,7 @@ proc bMotion_abstract_flush_filters { } {
 	array set bMotion_abstract_filters {}
 }
 
+
 # implementation-independent way to get all filters
 proc bMotion_abstract_list_filters { } {
 	if [bMotion_redis_available] {
@@ -868,6 +885,7 @@ proc bMotion_abstract_list_filters { } {
 	global bMotion_abstract_filters
 	return $bMotion_abstract_filters
 }
+
 
 # implementation-independent way to get all abstract names
 proc bMotion_abstract_get_names { } {
@@ -880,6 +898,7 @@ proc bMotion_abstract_get_names { } {
 	global bMotion_abstract_contents
 	return [array names bMotion_abstract_contents]
 }
+
 
 # clear an abstract (used when there have been significant changes to distribution)
 # abstract must have been registered in advance!
@@ -901,6 +920,7 @@ proc bMotion_abstract_reset { abstract } {
 	set bMotion_abstract_contents($abstract) [list]
 	bMotion_abstract_save $abstract
 }
+
 
 bind time - "* * * * *" bMotion_abstract_auto_gc
 
