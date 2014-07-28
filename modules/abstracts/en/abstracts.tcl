@@ -113,7 +113,6 @@ bMotion_abstract_register "chocolates" {
 	"twix"
 	"toffee crisp"
 	"crunchie"
-	"%OWNER{%rbot} chocolate orange"
 	"Yorkie - it's not for girls"
 	"smarties"
 	"cadburys buttons"
@@ -3471,6 +3470,9 @@ bMotion_abstract_register "fruits" {
 	"strawberry"
 	"coconut"
 	"kiwi"
+	"tomato"
+	"avocado"
+	"cucumber"
 }
 
 bMotion_abstract_register "vegetables" {
@@ -3478,6 +3480,24 @@ bMotion_abstract_register "vegetables" {
 	"tomato"
 	"potato"
 	"runner bean"
+	"broccoli"
+	"cabbage"
+	"celery"
+	"cress"
+	"lettuce"
+	"spinach"
+	"cauliflower"
+	"courgette"
+	"pea"
+	"garlic"
+	"leek"
+	"onion"
+	"beetroot"
+	"carrot"
+	"parsnip"
+	"radish"
+	"swede"
+	"sweet potato"
 }
 
 bMotion_abstract_register "lyrics" {
@@ -4953,6 +4973,8 @@ bMotion_abstract_register "foods" {
 	"turnips"
 	"pizza"
 	"corn flakes"
+	"baked potato"
+	"bread and butter pudding"
 }
 
 bMotion_abstract_register "tube_stations" {
@@ -6023,6 +6045,24 @@ bMotion_abstract_register "energydrink_prefix" {
 
 bMotion_abstract_register "energydrink" {
 	"%VAR{energydrink_prefix} %VAR{animals:camel}"
+}
+
+bMotion_abstract_register "current_status_prefix" {
+	"%VAR{medical_types}"
+	"%VAR{pluralprefix}"
+	" "
+}
+
+bMotion_abstract_register "current_status" {
+	"%VAR{current_status_prefix} %VAR{fruits:plural}"
+	"%VAR{current_status_prefix} %VAR{vegetables}"
+	"%VAR{current_status_prefix} %VAR{foods}"
+	"%VAR{sound_short}"
+	"%VAR{current_status_prefix} %VAR{musicalinstruments}"
+	"%VAR{colours} %VAR{clothes}"
+	"%VAR{energydrink}"
+	"%VAR{current_status_prefix} %VAR{chocolates}"
+	"%VAR{answerWheres}"
 }
 
 

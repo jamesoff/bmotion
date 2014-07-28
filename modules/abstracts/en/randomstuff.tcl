@@ -7,6 +7,8 @@
 bMotion_abstract_register "randomStuff"
 bMotion_abstract_reset "randomStuff"
 bMotion_abstract_batchadd "randomStuff" {
+	"Knowledge is knowing a %VAR{fruits} is a fruit, wisdom is not putting it in a fruit salad"
+	"Knowledge is knowing a %VAR{vegetables} is a vegetable, wisdom is not putting it in a vegetable salad"
 	"Do these %VAR{bodypart:plural} make my %VAR{bodypart} look fat?"
 	"IQ test: %VAR{sillyThings:strip,caps} is to %VAR{sillyThings:strip,caps} as %VAR{sillyThings:strip,caps} is to ...?"
 	"/endorses %ruser for %VAR{sillyThings:strip,plural,caps}. Now it's your turn: does %me know about %VAR{sillyThings:strip,plural,caps}?"	
@@ -560,6 +562,7 @@ bMotion_abstract_register "randomStuff_09_19" {
 ### Used by both genders
 ### Used when the channel is 'active' (default < 300 sec since last line)
 bMotion_abstract_register "activeRandomStuff" {
+	"Current status: %VAR{current_status}"
 	"of course. i feel poor people should enjoy being hit in the face with a shovel"
 	"%VAR{sound_short}%|sound effects added to lessen tragedy"
 	"*applause* and next on cbeebies..."
