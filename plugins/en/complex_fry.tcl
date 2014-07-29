@@ -21,10 +21,8 @@ proc bMotion_plugin_complex_technically { nick host handle channel text } {
 	}
 
 	if [regexp -nocase "technically (not )?(an? )?(\[a-z\]+)\\M" $text matches a b thing] {
-		putlog "thing=$thing, a=$a, b=$b"
-
 		#check stoplist
-		if [regexp -nocase "(at)" $thing] {
+		if [regexp -nocase {\m(at|I)\M} $thing] {
 			return 0
 		}
 
