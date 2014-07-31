@@ -1,7 +1,6 @@
 # bMotion - Flood checking
 #
 
-
 ###############################################################################
 # bMotion - an 'AI' TCL script for eggdrops
 # Copyright (C) James Michael Seward 2000-2008
@@ -35,52 +34,54 @@
 # Going over 15 cuts you out completely
 
 # Message levels: 
-#   log: Flood checks
-#     d: flood ticks
-#     2: flood additions/subtractions
+#	log: Flood checks
+#	  d: flood ticks
+#	  2: flood additions/subtractions
 
 if {![info exists bMotion_flood_info]} {
-  set bMotion_flood_info(_) 0
-  set bMotion_flood_last(_) ""
-  set bMotion_flood_lasttext(_) ""
-  set bMotion_flood_note ""
-  set bMotion_flood_undo 0
+	set bMotion_flood_info(_) 0
+	set bMotion_flood_last(_) ""
+	set bMotion_flood_lasttext(_) ""
+	set bMotion_flood_note ""
+	set bMotion_flood_undo 0
 }
 
 proc bMotion_flood_tick { } { 
-  bMotion_putloglev 4 * "bMotion: flood tick"
+	bMotion_putloglev 4 * "bMotion: flood tick"
 	utimer 30 bMotion_flood_tick
-  #tick all values down one, to zero
-  global bMotion_flood_info bMotion_flood_last bMotion_flood_lasttext
-  set stats ""
-  foreach element [array names bMotion_flood_info] {
-    set val $bMotion_flood_info($element)
-    incr val -2
-    if {$val < 0} {
-      catch {
-        unset bMotion_flood_info($element)
-      }
-      catch {
-        unset bMotion_flood_last($element)
-      }
-      catch {
-        unset bMotion_flood_lasttext($element)
-      }
-      bMotion_putloglev 2 * "bMotion: flood tick: $element removed"
-    } else {
-      append stats "$element:\002$val\002 "
-      set bMotion_flood_info($element) $val
-    }
-  }
-  if {$stats != ""} {
-    bMotion_putloglev d * "bMotion: flood tick: $stats"
-  }
+	
+	#tick all values down one, to zero
+	global bMotion_flood_info bMotion_flood_last bMotion_flood_lasttext
+	set stats ""
+	foreach element [array names bMotion_flood_info] {
+		set val $bMotion_flood_info($element)
+		incr val -2
+		if {$val < 0} {
+			catch {
+				unset bMotion_flood_info($element)
+			}
+			catch {
+				unset bMotion_flood_last($element)
+			}
+			catch {
+				unset bMotion_flood_lasttext($element)
+			}
+			bMotion_putloglev 2 * "bMotion: flood tick: $element removed"
+		} else {
+			append stats "$element:\002$val\002 "
+			set bMotion_flood_info($element) $val
+		}
+	}
+	if {$stats != ""} {
+		bMotion_putloglev d * "bMotion: flood tick: $stats"
+	}
 }
 
-proc bMotion_flood_add { nick { callback "" } { text "" } } {
-  global bMotion_flood_info bMotion_flood_last bMotion_flood_lasttext bMotion_flood_last bMotion_flood_undo
 
-  set val 1
+proc bMotion_flood_add { nick { callback "" } { text "" } } {
+	global bMotion_flood_info bMotion_flood_last bMotion_flood_lasttext bMotion_flood_last bMotion_flood_undo
+
+	set val 1
 	if {[string index $nick 0] != "#"} {
 		if [validuser $nick] {
 			set handle $nick
@@ -95,110 +96,114 @@ proc bMotion_flood_add { nick { callback "" } { text "" } } {
 		bMotion_putloglev d * "Using channel $nick as flood target"
 		set handle $nick
 	}
-  set lastCallback ""
-  catch {
-    set lastCallback $bMotion_flood_last($handle)
-  }
-  if {$callback != ""} {
-    set bMotion_flood_last($handle) $callback
-    if {$lastCallback == $callback} {
-      #naughty
-      set val 3
-    }
-  }
+	set lastCallback ""
+	catch {
+		set lastCallback $bMotion_flood_last($handle)
+	}
+	if {$callback != ""} {
+		set bMotion_flood_last($handle) $callback
+		if {$lastCallback == $callback} {
+		#naughty
+			set val 3
+		}
+	}
 
-  set lastText ""
-  catch {
-    set lastText $bMotion_flood_lasttext($handle)
-  }
-  if {$text != ""} {
-    set bMotion_flood_lasttext($handle) $text
-    #putlog "now: $text, last: $lastText"
-    if {$lastText == $text} {
-      #naughty
-      incr val 2
-    }
-  }
+	set lastText ""
+	catch {
+		set lastText $bMotion_flood_lasttext($handle)
+	}
+	if {$text != ""} {
+		set bMotion_flood_lasttext($handle) $text
+		#putlog "now: $text, last: $lastText"
+		if {$lastText == $text} {
+		#naughty
+		incr val 2
+		}
+		}
 
-  set flood 0
-  catch {
-    set flood $bMotion_flood_info($handle)
-  }
-	set oldflood $flood
-  incr flood $val
-  if {$flood > 40} {
-    set flood 40
-  }
-  bMotion_putloglev 2 * "bMotion: flood $oldflood -- $val --> $flood for $nick"
+		set flood 0
+		catch {
+		set flood $bMotion_flood_info($handle)
+		}
+		set oldflood $flood
+		incr flood $val
+		if {$flood > 40} {
+		set flood 40
+	}
+	bMotion_putloglev 2 * "bMotion: flood $oldflood -- $val --> $flood for $nick"
 	bMotion_putloglev 3 * "flood was added by plugin $callback"
 
-  set bMotion_flood_info($handle) $flood
-  set bMotion_flood_undo $val
+	set bMotion_flood_info($handle) $flood
+	set bMotion_flood_undo $val
 }
+
 
 proc bMotion_flood_clear { nick } {
-  global bMotion_flood_info bMotion_flood_last
+	global bMotion_flood_info bMotion_flood_last
 	bMotion_putloglev d * "Cleared flood for $nick"
-  set bMotion_flood_info($nick) 0
-  set bMotion_flood_last($nick) ""
+	set bMotion_flood_info($nick) 0
+	set bMotion_flood_last($nick) ""
 }
+
 
 proc bMotion_flood_remove { nick } {
-  global bMotion_flood_info 
-  set val 1
-  if [validuser $nick] {
-    set handle $nick
-  } else {
-    set handle [nick2hand $nick]
-    if {$handle == "*"} {
-      set handle $nick
-    }
-  }
-  set flood 0
-  catch {
-    set flood $bMotion_flood_info($handle)
-  }
-  incr flood -1
-  if {$flood < 0} {
-    return 0
-  }
-  bMotion_putloglev 2 * "bMotion: flood removed 1 from $nick, now $flood"
-  set bMotion_flood_info($handle) $flood
+	global bMotion_flood_info 
+	set val 1
+	if [validuser $nick] {
+		set handle $nick
+	} else {
+		set handle [nick2hand $nick]
+		if {$handle == "*"} {
+			set handle $nick
+		}
+	}
+	set flood 0
+	catch {
+		set flood $bMotion_flood_info($handle)
+	}
+	incr flood -1
+	if {$flood < 0} {
+		return 0
+	}
+	bMotion_putloglev 2 * "bMotion: flood removed 1 from $nick, now $flood"
+	set bMotion_flood_info($handle) $flood
 }
+
 
 proc bMotion_flood_undo { nick } {
-  global bMotion_flood_undo bMotion_flood_info bMotion_flood_lasttext
-  set val $bMotion_flood_undo
+	global bMotion_flood_undo bMotion_flood_info bMotion_flood_lasttext
+	set val $bMotion_flood_undo
 
-  if {$val <= 1} {
-    return 0
-  }
+	if {$val <= 1} {
+		return 0
+	}
 
-  if [validuser $nick] {
-    set handle $nick
-  } else {
-    set handle [nick2hand $nick]
-    if {$handle == "*"} {
-      set handle $nick
-    }
-  }
+	if [validuser $nick] {
+		set handle $nick
+	} else {
+		set handle [nick2hand $nick]
+		if {$handle == "*"} {
+			set handle $nick
+		}
+	}
 
-  set flood 0
-  catch {
-    set flood $bMotion_flood_info($handle)
-  }
+	set flood 0
+	catch {
+		set flood $bMotion_flood_info($handle)
+	}
 	set oldflood $flood
-  incr flood [expr 0 - $val]
-  if {$flood < 0} {
-    set flood 0
-  }
+	incr flood [expr 0 - $val]
+	if {$flood < 0} {
+		set flood 0
+	}
 
-  set bMotion_flood_info($handle) $flood
-  set bMotion_flood_lasttext($handle) ""
-  set bMotion_flood_undo 1
-  bMotion_putloglev 2 * "bMotion: undid flood $oldflood -- $val --> $flood from $nick"
-  return 0
+	set bMotion_flood_info($handle) $flood
+	set bMotion_flood_lasttext($handle) ""
+	set bMotion_flood_undo 1
+	bMotion_putloglev 2 * "bMotion: undid flood $oldflood -- $val --> $flood from $nick"
+	return 0
 }
+
 
 proc bMotion_flood_get { nick } {
 	global bMotion_flood_info
@@ -216,25 +221,26 @@ proc bMotion_flood_get { nick } {
 	}
 	set flood 0
 	catch {
-    set flood $bMotion_flood_info($handle)
-  }
-  return $flood
+		set flood $bMotion_flood_info($handle)
+	}
+	return $flood
 }
 
+
 proc bMotion_flood_check { nick } {
-  if { [bMotion_setting_get "disableFloodChecks"] != "" } {
-    if { [bMotion_setting_get "disableFloodChecks"] == 1 } {
-      return 0
-    }  
-  }  
+	if { [bMotion_setting_get "disableFloodChecks"] != "" } {
+		if { [bMotion_setting_get "disableFloodChecks"] == 1 } {
+			return 0
+		}  
+	}  
 
-  if {[bMotion_setting_get "bitlbee"]} {
-    return 0
-  }
+	if {[bMotion_setting_get "bitlbee"]} {
+		return 0
+	}
 
-  bMotion_putloglev 3 * "checking flood for $nick"
-  set flood [bMotion_flood_get $nick]
-  set chance 2
+	bMotion_putloglev 3 * "checking flood for $nick"
+	set flood [bMotion_flood_get $nick]
+	set chance 2
 
 	if {[string index $nick 0] == "#"} {
 		set is_chan 1
@@ -265,8 +271,8 @@ proc bMotion_flood_check { nick } {
 			return 1
 		}
 	}
-  return 0
+	return 0
 }
 
-#bind time - "* * * * *" bMotion_flood_tick
+
 utimer 30 bMotion_flood_tick
