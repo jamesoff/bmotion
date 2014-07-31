@@ -20,6 +20,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
+bMotion_log_add_category "events"
+
 proc bMotionDoEventResponse { type nick host handle channel text } {
 	#check our global toggle
 	global bMotionGlobal bMotionInfo bMotionDebug
@@ -45,26 +47,28 @@ proc bMotionDoEventResponse { type nick host handle channel text } {
 		return 0
 	}
 
-	bMotion_putloglev 4 * "entering bMotionDoEventResponse: $type $nick $host $handle $channel $text"
 	if { ![regexp -nocase "nick|join|quit|part|split" $type] } {
+		bMotion_log "events" "WARN" "unknown event plugin type $type"
 		return 0
 	}
+
+	bMotion_log "events" "TRACE" "entering bMotionDoEventResponse: $type $nick $host $handle $channel $text"
 
 	global bMotionInfo
 	set response [bMotion_plugin_find_irc_event $text $type $bMotionInfo(language) $debug]
 	if {[llength $response] > 0} {
 		foreach callback $response {
 			if {!$debug} {
-				bMotion_putloglev 2 * "adding flood for callback $callback"
+				bMotion_log "events" "DEBUG" "adding flood for callback $callback"
 				bMotion_flood_add $nick $callback $text
 				if [bMotion_flood_check $nick] { return 0 }
 			}
 
-			bMotion_putloglev 1 * "bMotion: matched irc event plugin, running callback $callback"
+			bMotion_log "events" "INFO" "matched irc event plugin, running callback $callback"
 			set result [$callback $nick $host $handle $channel $text ]
-			bMotion_putloglev 2 * "returned from callback $callback"
+			bMotion_log "events" "DEBUG" "returned from callback $callback with result $result"
 			if {$result == 1} {
-				bMotion_putloglev 2 * "bMotion: $callback returned 1, breaking out..."
+				bMotion_log "events" "DEBUG" "$callback returned 1, breaking out..."
 				break
 			}
 			return 1
@@ -115,7 +119,7 @@ proc bMotion_event_onpart {nick host handle channel {msg ""}} {
 		return 0
 	}
 
-	bMotion_putloglev 3 * "entering bmotion_event_onpart: $nick $host $handle $channel $msg"
+	bMotion_log "events" "TRACE" "entering bmotion_event_onpart: $nick $host $handle $channel $msg"
 
 	bMotion_plugins_settings_set "system" "lastleft" $channel "" $nick
 
@@ -151,7 +155,7 @@ proc bMotion_event_onquit {nick host handle channel reason} {
 	#check if that person was in the brig
 	global bMotionChannels
 	foreach chan $bMotionChannels {
-		bMotion_putloglev 1 * "Checking $chan for $nick in the brig"
+		bMotion_log "events" "DEBUG" "Checking $chan for $nick in the brig"
 		if {[bMotion_plugins_settings_get "complex:startrek" "brig" $chan ""] == $nick} {
 			bMotion_plugins_settings_set "complex:startrek" "brig" $chan "" ""
 			bMotionDoAction $chan "" "Curses! They escaped from the brig."
@@ -192,6 +196,8 @@ proc bMotion_event_main {nick host handle channel text} {
 		return 0
 	}
 
+	bMotion_log "events" "TRACE" "entering bMotion_event_main with nick: $nick host: $host handle: $handle chan: $channel text: $text"
+
 	#don't trigger on !seen etc
 	if [regexp -nocase "^!(last)?seen" $text] {
 		return 0
@@ -201,8 +207,6 @@ proc bMotion_event_main {nick host handle channel text} {
 	if [string match ",*" $text] {
 		return 0
 	}
-
-	bMotion_putloglev 4 * "bMotion: entering bMotion_event_main with nick: $nick host: $host handle: $handle chan: $channel text: $text"
 
 	bMotion_queue_dupecheck $text $channel
 
@@ -275,7 +279,7 @@ proc bMotion_event_main {nick host handle channel text} {
 	}
 
 	if {[bMotion_setting_get "bitlbee"] == "1"} {
-		bMotion_putloglev d * "bitlbee incoming from $nick: $text"
+		bMotion_log "events" "INFO" "bitlbee incoming from $nick: $text"
 	}
 
 	#check for someone breaking the loop of lastSpoke
@@ -305,17 +309,17 @@ proc bMotion_event_main {nick host handle channel text} {
 	if {[llength $response] > 0} {
 		#set nick [bMotionGetRealName $nick $host]
 		if {!$debug && [bMotion_flood_check $channel]} { return 0 }
-		bMotion_putloglev 1 * "going to run plugins: $response"
+		bMotion_log "events" "DEBUG" "going to run plugins: $response"
 		foreach callback $response {
 			if (!$debug) {
-				bMotion_putloglev 1 * "bMotion: doing flood for $callback..."
+				bMotion_log "flood" "INFO" "doing flood for $callback..."
 				if [bMotion_flood_check $nick] { return 0 }
 			}
 
-			bMotion_putloglev 1 * "bMotion: `- running callback $callback"
+			bMotion_log "events" "INFO" "running callback $callback"
 			set result 0
 			set result [$callback $nick $host $handle $channel $text]
-			bMotion_putloglev 2 * "returned from $callback"
+			bMotion_log "events" "DEBUG" "returned from $callback with result $result"
 			set bMotionCache(lastPlugin) $callback
 			bMotion_plugin_history_add $channel "complex" $callback
 
@@ -325,11 +329,11 @@ proc bMotion_event_main {nick host handle channel text} {
 
 			if {$result > 0} {
 				if {!$debug && ($result == 1)} {
-					bMotion_putloglev 1 * "adding flood counters"
+					bMotion_log "debug" "DEBUG" "adding to flood counters"
 					bMotion_flood_add $nick $callback $text
 					bMotion_flood_add $channel $callback $text
 				}
-				bMotion_putloglev 2 * "bMotion:		 `-$callback returned $result, breaking out..."
+				bMotion_log "events" "DEBUG" "$callback returned $result, breaking out..."
 				break
 			}
 		}
@@ -355,18 +359,18 @@ proc bMotion_event_main {nick host handle channel text} {
 		if [matchattr $handle m] {
 			#check we're not going to die
 			catch {
-				bMotion_putloglev d * "bMotion: Testing new code..."
+				bMotion_log "events" "INFO" "Testing new code..."
 				set bMotion_testing 1
 				source "$bMotionRoot/bMotion.tcl"
 			} msg
 
 			if {$msg != ""} {
-				putlog "bMotion: FATAL: Cannot rehash due to error: $msg"
+				bMotion_log "events" "ERROR" "Cannot rehash due to error: $msg"
 				putserv "NOTICE $nick :FATAL: Cannot rehash: $msg"
 				putchan $channel "A tremendous error occurred!"
 				return 0
 			} else {
-				bMotion_putloglev d * "bMotion: New code ok, rehashing..."
+				bMotion_log "events" "INFO" "New code ok, rehashing..."
 				bMotion_plugins_settings_set "system" "rehash" "" "" $channel
 				set bMotion_testing 0
 				if {[matchattr $handle m]} {
@@ -388,7 +392,7 @@ proc bMotion_event_main {nick host handle channel text} {
 			#no handle = no saving IRL
 			set lastnick [bMotion_plugins_settings_get "events" "last_irl_fail" $channel ""]
 			if {$lastnick == $nick} {
-				bMotion_putloglev d * "Ignoring 'say my names' from $nick because they've asked twice in a row"
+				bMotion_log "events" "INFO" "Ignoring 'say my names' from $nick because they've asked twice in a row"
 				return 0
 			}
 			bMotion_plugins_settings_set "events" "last_irl_fail" $channel "" $nick
@@ -423,7 +427,7 @@ proc bMotion_event_main {nick host handle channel text} {
 	#catch actions in stars
 	#This is the clever bit. If the text is "*blah blah blah*" reinject it into bMotion as an action ##
 	if [regexp {^\*(.+)\*$} $text blah action] {
-		bMotion_putloglev 1 * "Unhandled *$action* by $nick in $channel... redirecting to action handler"
+		bMotion_log "events" "INFO" "Unhandled *$action* by $nick in $channel... redirecting to action handler"
 		bMotion_event_action $nick $host $handle $channel "" $action
 		return 0
 	}
@@ -454,7 +458,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 		return 0
 	}
 
-	bMotion_putloglev 4 * "bMotion: entering bMotion_event_action with $nick $host $handle $dest $keyword $text"
+	bMotion_log "events" "TRACE" "entering bMotion_event_action with $nick $host $handle $dest $keyword $text"
 
 	set nick [bMotion_cleanNick $nick $handle]
 	set channel [string tolower $channel]
@@ -487,7 +491,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 			if [bMotion_flood_check $channel] { return - }
 			bMotion_flood_add $channel "" $text
 		}
-		bMotion_putloglev 1 * "bMotion: matched simple action plugin, outputting $response..."
+		bMotion_log "events" "INFO" "matched simple action plugin, outputting $response..."
 		set nick [bMotionGetRealName $nick $host]
 		bMotionDoAction $channel $nick [pickRandom $response]
 		return 0
@@ -497,13 +501,13 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 	set response [bMotion_plugin_find_action_complex $text $bMotionInfo(language) $debug]
 	if {[llength $response] > 0} {
 		if {!$debug && [bMotion_flood_check $channel]} { return 0 }
-		bMotion_putloglev 1 * "going to run action plugins: $response"
+		bMotion_log "events" "INFO" "going to run action plugins: $response"
 		foreach callback $response {
 			if (!$debug) {
-				bMotion_putloglev 1 * "bMotion: doing flood for $callback..."
+				bMotion_log "flood" "DEBUG" "doing flood for $callback..."
 				if [bMotion_flood_check $nick] { return 0 }
 			}
-			bMotion_putloglev 1 * "bMotion: matched complex action plugin, running callback $callback"
+			bMotion_log "events" "INFO" "matched complex action plugin, running callback $callback"
 			set result 0
 			set result [$callback $nick $host $handle $channel $text]
 			if {$result > 0} {
@@ -511,7 +515,7 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 					bMotion_flood_add $nick $callback $text
 					bMotion_flood_add $channel $callback $text
 				}
-				bMotion_putloglev 2 * "bMotion:		 `-$callback returned $result, breaking out..."
+				bMotion_log "events" "DEBUG" "$callback returned $result, breaking out..."
 				break
 			}
 		}
@@ -531,7 +535,7 @@ proc bMotion_event_mode {nick host handle channel mode victim} {
 		return 0
 	}
 
-	bMotion_putloglev 4 * "bMotion: entering bMotion_event_mode with $nick $host $handle $channel $mode $victim"
+	bMotion_log "events" "TRACE" "entering bMotion_event_mode with $nick $host $handle $channel $mode $victim"
 
 	global botnick
 	if {$victim != $botnick} {return 0}
@@ -557,7 +561,7 @@ proc bMotion_event_mode {nick host handle channel mode victim} {
 				bMotionDoAction $channel $nick "%VAR{opped}"
 			}
 		} else {
-			bMotion_putloglev d * "Not responding to +o in $channel as I was only deopped $diff seconds ago"
+			bMotion_log "events" "INFO" "Not responding to +o in $channel as I was only deopped $diff seconds ago"
 		}
 		bMotion_plugins_settings_set "system" "optime" $channel "" [clock seconds]
 		return 0
@@ -577,7 +581,7 @@ proc bMotion_event_mode {nick host handle channel mode victim} {
 		if {$diff > 900} {
 			bMotionDoAction $channel $nick "%VAR{deopped}"
 		} else {
-			bMotion_putloglev d * "Not responding to -o in $channel as I was only opped $diff seconds ago"
+			bMotion_log "events" "INFO" "Not responding to -o in $channel as I was only opped $diff seconds ago"
 		}
 		bMotion_plugins_settings_set "system" "deoptime" $channel "" [clock seconds]
 		return 0
@@ -602,7 +606,7 @@ proc bMotion_event_nick { nick host handle channel newnick } {
 	}
 
 	if {[isbotnick $nick] || [isbotnick $newnick]} {
-		bMotion_putloglev d * "My nick has changed, recompiling regexps"
+		bMotion_log "events" "WARN" "My nick has changed, recompiling regexps"
 		set bMotionCache(compiled) 0
 		bMotion_compile_matches
 		return
@@ -612,4 +616,4 @@ proc bMotion_event_nick { nick host handle channel newnick } {
 }
 
 
-bMotion_putloglev d * "bMotion: events module loaded"
+bMotion_log "events" "INFO" "events module loaded"
