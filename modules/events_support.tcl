@@ -95,4 +95,4 @@ proc checkPokemon {which channel} {
 }
 
 
-bMotion_putloglev d * "bMotion: event support module loaded"
+bMotion_log "events" "INFO" "event support module loaded"
