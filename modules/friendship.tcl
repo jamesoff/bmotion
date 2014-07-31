@@ -20,13 +20,17 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
+bMotion_log_add_category "friendship"
+
 # get a nick's friendship rating, or 50 if we couldn't find them (or if they don't
 # have a friendship yet
 proc getFriendship { nick } {
+	bMotion_log "friendship" "TRACE" "getFriendship $nick"
+
 	if {![validuser $nick]} {
 		set handle [nick2hand $nick]
 		if {($handle == "*") || ($handle == "")} {
-			bMotion_putloglev 1 * "friendship: couldn't find a handle for $nick to get friendship."
+			bMotion_log "friendship" "DEBUG" "couldn't find a handle for $nick to get friendship, returning 50"
 			return 50
 		}
 	} else {
@@ -45,8 +49,11 @@ proc getFriendship { nick } {
 	return $friendship
 }
 
+#
 # get a handle's friendship, or 50 if unknown
 proc getFriendshipHandle { handle } {
+	bMotion_log "friendship" "TRACE" "getFriendshipHandle $handle"
+
 	set friendship 50
 
 	set friendship [getuser $handle XTRA friend]
@@ -57,31 +64,35 @@ proc getFriendshipHandle { handle } {
 	return $friendship
 }
 
+
 # set friendship on a handle
 proc setFriendshipHandle { handle friendship } {
+	bMotion_log "friendship" "TRACE" "setFriendshipHandle $handle $friendship"
+
 	if {$friendship > 100} {
-		bMotion_putloglev 2 * "friendship: friendship for $handle went over 100, capping back to 90"
+		bMotion_log "friendship" "DEBUG" "friendship for $handle went over 100, capping back to 90"
 		set friendship 90
 	}
 
 	if {$friendship < 1} {
-		bMotion_putloglev 2 * "friendship: friendship for $handle went under 1, capping back to 10"
+		bMotion_log "friendship" "DEBUG" "friendship for $handle went under 1, capping back to 10"
 		set friendship 10
 	}
 
 	setuser $handle XTRA friend $friendship
 }
 
+
 # set friendship on a nick, if we can find a matching handle for them
 proc setFriendship { nick friendship } {
-	bMotion_putloglev 4 * "friendship: setFriendship: nick = $nick, friendship = $friendship"
+	bMotion_log "friendship" "TRACE" "setFriendship $nick $friendship"
 
 	set handle [nick2hand $nick]
 
 	if {($handle == "*") || ($handle == "")} {
 		#perhaps it was already a handle
 		if {![validuser $nick]} {
-			bMotion_putloglev 1 * "friendship: couldn't find a handle for $nick to set friendship."
+			bMotion_log "friendship" "DEBUG" "couldn't find a handle for $nick to set friendship."
 			return 0
 		}
 		set handle $nick
@@ -90,24 +101,29 @@ proc setFriendship { nick friendship } {
 	setFriendshipHandle $handle $friendship
 }
 
+
 # drift someone's friendship by a given amount
 proc driftFriendship { nick drift } {
-	bMotion_putloglev 4 * "friendship: driftFriendship: nick = $nick, drift = $drift"
+	bMotion_log "friendship" "TRACE" "driftFriendship $nick $drift"
+
 	set handle [nick2hand $nick]
 	if {($handle == "*") || ($handle == "")} {
-		bMotion_putloglev 1 * "friendship: couldn't find a handle for $nick to drift friendship."
+		bMotion_log "friendship" "DEBUG" "couldn't find a handle for $nick to drift friendship."
 		return 50
 	}
 
 	set friendship [getFriendship $handle]
 	incr friendship $drift
 	setFriendship $nick $friendship
-	bMotion_putloglev 2 * "friendship: drifting friendship for $nick by $drift, now $friendship"
+	bMotion_log "friendship" "INFO" "drifting friendship for $nick by $drift, now $friendship"
 	return $friendship
 }
 
+
 # get all users with friendship values
 proc getFriendsList { } {
+	bMotion_log "friendship" "TRACE" "getFriendsList"
+
 	set users [userlist]
 	set r ""
 	set best(name) ""
@@ -145,27 +161,29 @@ proc getFriendsList { } {
 	return $r
 }
 
+
 # check if someone is liked enough to be a friend
 proc bMotionIsFriend { nick } {
+	bMotion_log "friendship" "TRACE" "bMotionIsFriend $nick"
+
 	set friendship [getFriendship $nick]
-	bMotion_putloglev 2 * "friendship: friendship for $nick is $friendship"
+	bMotion_log "friendship" "DEBUG" "friendship for $nick is $friendship"
 	if {$friendship <= 40} {
 		return 0
 	}
 	return 1
 }		 
 
+
 # tick everyone's friendship back a bit
 proc bMotion_friendship_tick { min hr a b c } {
-	bMotion_putloglev 3 * "friendship: bMotion_friendship_tick"
-
-	bMotion_putloglev d * "friendship tick"
+	bMotion_log "friendship" "TRACE" "bMotion_friendship_tick"
 
 	set users [userlist]
 	foreach user $users {
 		set f [getuser $user XTRA friend]
 		if {$f != ""} {
-			bMotion_putloglev 4 * "friendship: $user is $f"
+			bMotion_log "friendship" "TRACE" "$user is $f"
 			if {$f > 60} {
 				setuser $user XTRA friend [expr $f - 1]
 			}
@@ -179,4 +197,4 @@ proc bMotion_friendship_tick { min hr a b c } {
 
 bind time - "00 * * * *" bMotion_friendship_tick
 
-bMotion_putloglev d * "friendship: friendship module loaded"
+bMotion_log "friendship" "INFO" "friendship module loaded"
