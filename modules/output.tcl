@@ -149,7 +149,7 @@ proc bMotion_process_macros { channel text } {
 
 			#find the element following this %
 			set substring [string range $text $current_pos end]
-			if [regexp -nocase {%([a-z!=]+)} $substring matches macro] {
+			if [regexp -nocase {%([!=]|[a-z]+)} $substring matches macro] {
 				bMotion_putloglev 2 * "macro: found macro $macro at $current_pos"
 				set plugin [bMotion_plugin_find_output "en" "" 0 10 $macro]
 				if {[llength $plugin] == 0} {

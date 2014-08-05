@@ -18,7 +18,7 @@
 proc bMotion_plugin_output_break { channel line } {
 	bMotion_putloglev 4 * "bMotion_plugin_output_break $channel $line"
 
-	if {[regexp "(.+)%!(\{(\[0-9\]+)\})?(.+)" $line matches newline option chance rest]} {
+	if {[regexp "(.*)%!(\{(\[0-9\]+)\})?(.+)" $line matches newline option chance rest]} {
 		if {$chance == ""} {
 			set chance 50
 		}
