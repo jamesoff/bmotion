@@ -36,6 +36,7 @@ if {![array exists bMotion_moods]} {
 	array set bMotion_moods [list]
 }
 
+
 proc bMotion_mood_init { name initial min max target callback } {
 	global bMotion_moods
 
@@ -71,48 +72,52 @@ proc bMotion_mood_init { name initial min max target callback } {
 }
 
 
-## MOOD ROUTINES _________________________________________________________________________________
 proc bMotionGetHappy {} {
 	bMotion_mood_adjust happy 1
 }
+
 
 proc bMotionGetSad {} {
 	bMotion_mood_adjust happy -1
 }
 
+
 proc bMotionGetHorny {} {
 	bMotion_mood_adjust horny 1
 }
+
 
 proc bMotionGetUnHorny {} {
 	bMotion_mood_adjust horny -1
 }
 
+
 proc bMotionGetLonely {} {
 	bMotion_mood_adjust lonely 1
 }
+
 
 proc bMotionGetUnLonely {} {
 	bMotion_mood_adjust lonely -1
 }
 
-## Checkmood: checks the moods are within limits
+
 proc checkmood {nick channel} {
 	putlog "*** Call to checkmood"
 	return
 
-  global mood
-  foreach r {happy horny lonely electricity stoned} {
-    if {$r < -30} {
-      set mood($r) -30
-      bMotion_putloglev d * "bMotion: mood $r went OOB, resetting to -30"
-    }
-    if {$mood($r) > 30} {
-      bMotion_putloglev d * "bMotion: mood $r went OOB, resetting to 30"
-      set mood($r) 30
-    }
-  }
-  if {$nick == ""} {return 0}
+	global mood
+	foreach r {happy horny lonely electricity stoned} {
+		if {$r < -30} {
+			set mood($r) -30
+			bMotion_putloglev d * "bMotion: mood $r went OOB, resetting to -30"
+		}
+		if {$mood($r) > 30} {
+			bMotion_putloglev d * "bMotion: mood $r went OOB, resetting to 30"
+			set mood($r) 30
+		}
+	}
+	if {$nick == ""} {return 0}
 
 	if {($mood(happy) > 10) && ($mood(lonely) > 5) && ($mood(horny) > 5)} {
 		mee $channel "replicates some tissues"
@@ -123,43 +128,44 @@ proc checkmood {nick channel} {
 }
 
 
-## Driftmood: Drifts all moods towards 0
 proc driftmood {} {
 	putlog "*** Call to driftmood"
 	return 
 
-  set driftSummary ""
-  global mood mooddrifttimer moodtarget
-  foreach r {happy horny lonely electricity stoned} {
-    set drift 0
-    set driftString ""
-    if {$mood($r) > $moodtarget($r)} {
-      set drift -1
-      set driftString "$moodtarget($r)--($drift)-->$mood($r)"
-    }
-    if {$mood($r) < $moodtarget($r)} {
-      set drift 2
-      set driftString "$mood($r)--(+$drift)-->$moodtarget($r)"
-    }
-    if {$drift != 0} {
-      set mood($r) [expr $mood($r) + $drift]
-      set driftSummary "$driftSummary $r:($driftString) "
-    }
-  }
-  if {$driftSummary != ""} {
-    bMotion_putloglev d * "bMotion: drifted mood $driftSummary"
-  }
-  checkmood "" ""
-  set mooddrifttimer 1
+	set driftSummary ""
+	global mood mooddrifttimer moodtarget
+	foreach r {happy horny lonely electricity stoned} {
+		set drift 0
+		set driftString ""
+		if {$mood($r) > $moodtarget($r)} {
+			set drift -1
+			set driftString "$moodtarget($r)--($drift)-->$mood($r)"
+		}
+		if {$mood($r) < $moodtarget($r)} {
+			set drift 2
+			set driftString "$mood($r)--(+$drift)-->$moodtarget($r)"
+		}
+		if {$drift != 0} {
+			set mood($r) [expr $mood($r) + $drift]
+			set driftSummary "$driftSummary $r:($driftString) "
+		}
+	}
+	if {$driftSummary != ""} {
+		bMotion_putloglev d * "bMotion: drifted mood $driftSummary"
+	}
+	checkmood "" ""
+	set mooddrifttimer 1
 
-  timer 10 driftmood
-  return 0
+	timer 10 driftmood
+	return 0
 }
+
 
 proc bMotion_mood_drift_timer { } {
 	timer 10 bMotion_mood_drift_timer
 	bMotion_mood_drift
 }
+
 
 proc bMotion_mood_drift { } {
 	global bMotion_moods
@@ -230,6 +236,7 @@ proc bMotion_mood_adjust { name change } {
 	}
 }
 
+
 ## moodTimerStart: Used to start the mood drift timer when the script initialises
 ## and other timers now, too
 proc moodTimerStart {} {
@@ -243,13 +250,11 @@ proc moodTimerStart {} {
 }
 
 
-## moodHander: DCC .mood
 proc moodhandler {handle idx arg} {
   putidx $idx "Please use .bmotion mood"
 }
 
 
-## pubm_moodHandler: !mood
 proc pubm_moodhandler {nick host handle channel text} {
   if {![matchattr $handle n]} {
     return 0
@@ -261,7 +266,7 @@ proc pubm_moodhandler {nick host handle channel text} {
   return 0
 }
 
-# management command
+
 proc bMotion_mood_admin { handle { arg "" } } {
 	global bMotion_moods
 	global BMOTION_MOOD_VALUE BMOTION_MOOD_MIN BMOTION_MOOD_MAX BMOTION_MOOD_TARGET BMOTION_MOOD_CALLBACK
@@ -330,6 +335,7 @@ proc bMotion_mood_admin { handle { arg "" } } {
 	return 0
 }
 
+
 proc bMotion_mood_set { name newvalue } {
 	global bMotion_moods
 	global BMOTION_MOOD_VALUE BMOTION_MOOD_MIN BMOTION_MOOD_MAX BMOTION_MOOD_TARGET BMOTION_MOOD_CALLBACK
@@ -345,6 +351,7 @@ proc bMotion_mood_set { name newvalue } {
 	return [lindex $bMotion_moods($name) $BMOTION_MOOD_VALUE]
 }
 
+
 proc bMotion_mood_get { name } {
 	global bMotion_moods
 	global BMOTION_MOOD_VALUE BMOTION_MOOD_MIN BMOTION_MOOD_MAX BMOTION_MOOD_TARGET BMOTION_MOOD_CALLBACK
@@ -356,7 +363,7 @@ proc bMotion_mood_get { name } {
 	return [lindex $bMotion_moods($name) $BMOTION_MOOD_VALUE]
 }
 
-# management help callback
+
 proc bMotion_mood_admin_help { } {
 	bMotion_putadmin "Controls the mood system:"
 	bMotion_putadmin "  .bmotion mood [status]"
@@ -369,14 +376,16 @@ proc bMotion_mood_admin_help { } {
 	bMotion_putadmin "    Shows internal mood configuration"
 }
 
+
 if {$bMotion_testing == 0} {
 	bMotion_plugin_add_management "mood" "^mood" n bMotion_mood_admin "any" bMotion_mood_admin_help
 }
 
-bMotion_mood_init happy 0 -30 30 0 bMotion_mood_change_happy
-bMotion_mood_init horny 0 -30 30 0 bMotion_mood_change_horny
-bMotion_mood_init lonely 0 -30 30 5 bMotion_mood_change_lonely
-bMotion_mood_init electricity 0 -30 30 2 bMotion_mood_change_electricity
-bMotion_mood_init stoned 0 -30 30 0 bMotion_mood_change_stoned
+bMotion_mood_init 	happy 			0 	-30 	30 	0 	bMotion_mood_change_happy
+bMotion_mood_init 	horny 			0 	-30 	30 	0 	bMotion_mood_change_horny
+bMotion_mood_init 	lonely 			0 	-30 	30 	5 	bMotion_mood_change_lonely
+bMotion_mood_init 	electricity 	0 	-30 	30 	2 	bMotion_mood_change_electricity
+bMotion_mood_init 	stoned 			0 	-30 	30 	0 	bMotion_mood_change_stoned
+
 
 bMotion_putloglev d * "bMotion: mood module loaded"
