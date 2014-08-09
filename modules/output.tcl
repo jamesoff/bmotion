@@ -22,14 +22,14 @@
 
 set bMotion_output_delay 0
 
-#
+
 # pick a random element from a list
 proc pickRandom { list } {
 	bMotion_putloglev 5 * "pickRandom ($list)"
 	return [lindex $list [rand [llength $list]]]
 }
 
-#
+
 # get the pronoun for our gender
 proc getPronoun {} {
 	bMotion_putloglev 5 * "getPronoun"
@@ -48,7 +48,7 @@ proc getPronoun {} {
 	}
 }
 
-#
+
 # get "his" or "hers" for our gender
 proc getHisHers {} {
 	bMotion_putloglev 5 * "getHisHers"
@@ -68,7 +68,7 @@ proc getHisHers {} {
 	}
 }
 
-#
+
 # get "her" or "her" for our gender
 proc getHisHer {} {
 	bMotion_putloglev 5 * "getHisHer"
@@ -88,7 +88,7 @@ proc getHisHer {} {
 	}
 }
 
-#
+
 # get "he" or "she" for our gender
 proc getHeShe {} {
 	bMotion_putloglev 5 * "getHeShe"
@@ -108,7 +108,7 @@ proc getHeShe {} {
 	}
 }
 
-#
+
 # do a /me action
 proc mee {channel action {urgent 0} } {
 	bMotion_putloglev 5 * "mee ($channel, $action, $urgent)"
@@ -127,6 +127,7 @@ proc mee {channel action {urgent 0} } {
 	}
 }
 
+
 proc bMotion_process_macros { channel text } {
 
 	set done 0
@@ -135,13 +136,13 @@ proc bMotion_process_macros { channel text } {
 		bMotion_putloglev 1 * "macro: starting loop with $text and current pos=$current_pos"
 		set current_pos [string first "%" $text $current_pos]
 		if {$current_pos == -1} {
-		# no more matches
+			# no more matches
 			set done 1
 			continue
 		} 
 		bMotion_putloglev 2 * "macro: found a % at $current_pos"
 		if {$current_pos < [string length $text]} {
-		# this isn't a % at the end of the line
+			# this isn't a % at the end of the line
 			if {[string index $text [expr $current_pos + 1]] == "|"} {
 				set current_pos [expr $current_pos + 2]
 				continue
@@ -158,7 +159,7 @@ proc bMotion_process_macros { channel text } {
 				}
 
 				if {[llength $plugin] == 1} {
-				# call plugin
+					# call plugin
 					bMotion_putloglev 2 * "macro: found matching plugin for macro [lindex $plugin 0]"
 					set result ""
 					catch {
@@ -202,11 +203,10 @@ proc bMotion_process_macros { channel text } {
 		bMotion_putloglev d * "macro: got to end of macro loop o_O"
 		incr current_pos
 	}
-
 	return $text
 }
 
-#
+
 # our magic output function
 proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 	bMotion_putloglev 5 * "bMotionDoAction($channel,$nick,$text,$moreText,$noTypo,$urgent)"
@@ -252,7 +252,6 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 	}
 
 	# Process macros
-
 	set original_line $text
 	set done 0
 	while {$done == 0} {
@@ -336,7 +335,7 @@ proc bMotion_add_typofix { fix } {
 	lappend bMotion_typos $fix
 }
 
-# 
+ 
 # replace things on lines
 proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 	bMotion_putloglev 5 * "bMotionDoInterpolation: line = $line, nick = $nick, moreText = $moreText, channel = $channel"
@@ -351,7 +350,7 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 	return $line
 }
 
-#
+
 # more replacements in a line
 # TODO: why was this separate?
 proc bMotionInterpolation2 { line } {
@@ -360,7 +359,7 @@ proc bMotionInterpolation2 { line } {
 	return $line
 }
 
-#
+
 # Process a line
 # TODO: why is this separate or at least such a mess :)
 proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
@@ -376,7 +375,7 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 		set condition ""
 		set dobreak 0
 		if {$botcmd == "bot"} {
-		#random
+			#random
 			bMotion_putloglev 1 * "bMotion: %bot detected"
 			regexp {%bot\[([[:digit:]]+),(@[^,]+,)?(.+)\]} $line matches chance condition cmd
 			bMotion_putloglev 1 * "bMotion: %bot chance is $chance"
@@ -388,7 +387,7 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 				set line ""
 			}
 		} else {
-		#non-random
+			#non-random
 			regexp {%BOT\[(@[^,]+,)?(.+)\]} $line matches condition cmd
 		}
 
@@ -460,7 +459,7 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 	global bMotion_output_delay
 
 	if [regexp "^/" $line] {
-	#it's an action
+		#it's an action
 		mee $channel [string range $line 1 end] $urgent
 	} else {
 		if {$urgent} {
@@ -490,7 +489,7 @@ proc bMotionInsertString {line swapout toInsert} {
 	return $line
 }
 
-#
+
 # Get random chars as would be made by shift-numberkeys
 proc bMotionGetColenChars {} {
 	bMotion_putloglev 5 * "bMotionGetColenChars"
@@ -513,7 +512,7 @@ proc bMotionGetColenChars {} {
 	return $line
 }
 
-#
+
 # make a smiley representing our mood
 # TOOD: still used?
 proc makeSmiley { mood } {
@@ -536,7 +535,7 @@ proc makeSmiley { mood } {
 	return ":?"
 }
 
-#
+
 # Attempt to clean a nickname up to a proper name
 proc bMotionWashNick { nick } {
 	bMotion_putloglev 5 * "bMotionWashNick ($nick)"
@@ -549,7 +548,7 @@ proc bMotionWashNick { nick } {
 	return $nick
 }
 
-#
+
 # replace a nick with one of someone's IRL names
 # TODO: no longer used? if not, delete
 proc OLDbMotionGetRealName { nick { host "" }} {
@@ -570,7 +569,7 @@ proc OLDbMotionGetRealName { nick { host "" }} {
 
 		set handle [finduser $host]
 		if {$handle == "*"} {
-		#not in bot
+			#not in bot
 			bMotion_putloglev 2 * "bMotion: no match, washing nick"
 			return [bMotionWashNick $nick]
 		}
@@ -590,7 +589,7 @@ proc OLDbMotionGetRealName { nick { host "" }} {
 	return [pickRandom $realname]
 }
 
-#
+
 # replace a nick with one of someone's IRL names
 proc bMotionGetRealName { nick { host "" }} {
 	bMotion_putloglev 5 * "bMotion: bMotionGetRealName($nick,$host)"
@@ -605,13 +604,13 @@ proc bMotionGetRealName { nick { host "" }} {
 	}
 
 	if [validuser $nick] {
-	#it's a handle already
+		#it's a handle already
 		set handle $nick
 	} else {
-	#try to figure it out
+		#try to figure it out
 		set handle [nick2hand $nick]
 		if {($handle == "") ||($handle == "*")} {
-		#not in bot
+			#not in bot
 			bMotion_putloglev 2 * "bMotion: no match, using nick"
 			return $nick
 		}
@@ -622,7 +621,7 @@ proc bMotionGetRealName { nick { host "" }} {
 	# found a user, now get their real name
 	set realname [getuser $handle XTRA irl]
 	if {$realname == ""} {
-	#not set
+		#not set
 		bMotion_putloglev 2 * "no IRL set, using nick"
 		return $nick
 	}
@@ -638,8 +637,7 @@ proc bMotionGetRealName { nick { host "" }} {
 	return $chosen_realname
 }
 
-#
-#
+
 proc bMotionTransformNick { target nick {host ""} } {
 	bMotion_putloglev 5 * "bMotionTransformNick($target, $nick, $host)"
 	set newTarget [bMotionTransformTarget $target $host]
@@ -649,8 +647,7 @@ proc bMotionTransformNick { target nick {host ""} } {
 	return $newTarget
 }
 
-#
-#
+
 proc bMotionTransformTarget { target {host ""} } {
 	bMotion_putloglev 5 * "bMotionTransformTarget($target, $host)"
 	global botnicks
@@ -670,6 +667,7 @@ proc bMotionTransformTarget { target {host ""} } {
 	}
 	return $target
 }
+
 
 # bMotion_choose_random_user
 #
@@ -837,7 +835,7 @@ proc bMotion_choose_random_user { channel bot condition } {
 	}
 }
 
-#
+
 # turn a name into the posessive form
 proc bMotionMakePossessive { text { altMode 0 }} {
 	bMotion_putloglev 5 * "bMotionMakePossessive ($text, $altMode)"
@@ -865,7 +863,7 @@ proc bMotionMakePossessive { text { altMode 0 }} {
 	return "$text's"
 }
 
-#
+
 # Function which powers %REPEAT
 proc bMotionMakeRepeat { text } {
 	bMotion_putloglev 5 * "bMotionMakeRepeat ($text)"
@@ -884,7 +882,7 @@ proc bMotionMakeRepeat { text } {
 	return ""
 }
 
-#
+
 # remove preceeding fluff from a noun
 proc bMotion_strip_article { text } {
 	bMotion_putloglev 5 * "bMotion_strip_article ($text)"
@@ -892,7 +890,7 @@ proc bMotion_strip_article { text } {
 	return $text
 }
 
-#
+
 # verbs a noun (like that)
 proc bMotionMakeVerb { text } {
 	bMotion_putloglev 5 * "bMotionMakeVerb ($text)"
@@ -910,7 +908,7 @@ proc bMotionMakeVerb { text } {
 	return $text
 }
 
-#
+
 # makes a word past tense... probably best only use it on verbs :P
 proc bMotion_make_past_tense { word } {
 
@@ -976,7 +974,7 @@ proc bMotion_make_past_tense { word } {
 	return "${newverb}$extra"
 }
 
-#
+
 # makes a word into present participle
 proc bMotion_make_present_participle { word } {
 
@@ -995,7 +993,7 @@ proc bMotion_make_present_participle { word } {
 	return "${verb}ing$extra"
 }
 
-#
+
 # makes a work into the simple present
 proc bMotion_make_simple_present { word } {
 
@@ -1006,7 +1004,7 @@ proc bMotion_make_simple_present { word } {
 	return "${verb}s$extra"
 }
 
-#
+
 # not sure!
 proc chr c {
 	if {[string length $c] > 1 } { error "chr: arg should be a single char"}
@@ -1016,7 +1014,7 @@ proc chr c {
 	return $v
 }
 
-#
+
 # pluralise a noun by the simple rules of English
 proc bMotionMakePlural { text } {
 	bMotion_putloglev 5 * "bMotionMakePlural ($text)"
@@ -1048,7 +1046,7 @@ proc bMotionMakePlural { text } {
 
 }
 
-#
+
 # get a smiley
 proc bMotion_get_smiley { type } {
 	set smiley_type [bMotion_setting_get "smiley_type"]
@@ -1173,10 +1171,6 @@ proc bMotion_get_smiley { type } {
 
 	return "${smile}${nose}${eyes}"
 }
-
-
-
-
 
 
 bMotion_putloglev d * "bMotion: output module loaded"
