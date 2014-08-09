@@ -149,7 +149,7 @@ proc bMotion_mood_drift { } {
 		}
 
 		set mood_info [lreplace $mood_info $BMOTION_MOOD_VALUE $BMOTION_MOOD_VALUE $value]
-		bMotion_log "mood" "INFO" "mood $mood is now $mood_info"
+		bMotion_log "mood" "DEBUG" "mood $mood is now $mood_info"
 		set bMotion_moods($mood) $mood_info 
 	}
 }
