@@ -20,19 +20,22 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
+bMotion_log_add_category "output"
+
+
 set bMotion_output_delay 0
 
 
 # pick a random element from a list
 proc pickRandom { list } {
-	bMotion_putloglev 5 * "pickRandom ($list)"
+	bMotion_log "output" "TRACE" "pickRandom $list"
 	return [lindex $list [rand [llength $list]]]
 }
 
 
 # get the pronoun for our gender
 proc getPronoun {} {
-	bMotion_putloglev 5 * "getPronoun"
+	bMotion_log "output" "TRACE" "getPronoun"
 	set gender [bMotion_setting_get "gender"]
 
 	switch $gender {
@@ -51,7 +54,7 @@ proc getPronoun {} {
 
 # get "his" or "hers" for our gender
 proc getHisHers {} {
-	bMotion_putloglev 5 * "getHisHers"
+	bMotion_log "output" "TRACE" "getHisHers"
 
 	set gender [bMotion_setting_get "gender"]
 
@@ -71,7 +74,7 @@ proc getHisHers {} {
 
 # get "her" or "her" for our gender
 proc getHisHer {} {
-	bMotion_putloglev 5 * "getHisHer"
+	bMotion_log "output" "TRACE" "getHisHer"
 
 	set gender [bMotion_setting_get "gender"]
 
@@ -91,7 +94,7 @@ proc getHisHer {} {
 
 # get "he" or "she" for our gender
 proc getHeShe {} {
-	bMotion_putloglev 5 * "getHeShe"
+	bMotion_log "output" "TRACE" "getHeShe"
 
 	set gender [bMotion_setting_get "gender"]
 
@@ -111,7 +114,7 @@ proc getHeShe {} {
 
 # do a /me action
 proc mee {channel action {urgent 0} } {
-	bMotion_putloglev 5 * "mee ($channel, $action, $urgent)"
+	bMotion_log "output" "TRACE" "mee $channel $action $urgent"
 	set channel [chandname2name $channel]
 	regsub "^\"(.+)\"?$" $action {\1} action
 	if {([string index $action 0] != ".") && (![regexp -nocase "^is" $action]) && ([rand 10] == 0)} {
@@ -129,18 +132,18 @@ proc mee {channel action {urgent 0} } {
 
 
 proc bMotion_process_macros { channel text } {
-
+	bMotion_log "output" "TRACE" "bMotion_process_macros $channel $text"
 	set done 0
 	set current_pos 0
 	while {$done == 0} {
-		bMotion_putloglev 1 * "macro: starting loop with $text and current pos=$current_pos"
+		bMotion_log "output" "TRACE" "macro: starting loop with $text and current pos=$current_pos"
 		set current_pos [string first "%" $text $current_pos]
 		if {$current_pos == -1} {
 			# no more matches
 			set done 1
 			continue
 		} 
-		bMotion_putloglev 2 * "macro: found a % at $current_pos"
+		bMotion_log "output" "TRACE" "macro: found a % at $current_pos"
 		if {$current_pos < [string length $text]} {
 			# this isn't a % at the end of the line
 			if {[string index $text [expr $current_pos + 1]] == "|"} {
@@ -151,21 +154,21 @@ proc bMotion_process_macros { channel text } {
 			#find the element following this %
 			set substring [string range $text $current_pos end]
 			if [regexp -nocase {%([!=]|[a-z]+)} $substring matches macro] {
-				bMotion_putloglev 2 * "macro: found macro $macro at $current_pos"
+				bMotion_log "output" "DEBUG" "macro: found macro $macro at $current_pos"
 				set plugin [bMotion_plugin_find_output "en" "" 0 10 $macro]
 				if {[llength $plugin] == 0} {
 					# oh no
-					bMotion_putloglev d * "macro: didn't get any plugins for $macro"
+					bMotion_log "output" "DEBUG" "macro: didn't get any plugins for $macro"
 				}
 
 				if {[llength $plugin] == 1} {
 					# call plugin
-					bMotion_putloglev 2 * "macro: found matching plugin for macro [lindex $plugin 0]"
+					bMotion_log "output" "DEBUG" "macro: found matching plugin for macro [lindex $plugin 0]"
 					set result ""
 					catch {
 						set result [[lindex $plugin 0] $channel $text]
 						if {$result == ""} {
-							bMotion_putloglev 2 * "macro: [lindex $plugin 0] returned nothing, aborting output"
+							bMotion_log "output" "WARN" "macro: [lindex $plugin 0] returned nothing, aborting output"
 							return ""
 						}
 					}
@@ -181,10 +184,10 @@ proc bMotion_process_macros { channel text } {
 						set current_pos 0
 						continue
 					} else {
-						bMotion_putloglev 1 * "macro: [lindex $plugin 0] did nothing at position $current_pos in output $text"
+						bMotion_log "output" "DEBUG" "macro: [lindex $plugin 0] did nothing at position $current_pos in output $text"
 					}
 				} else {
-					bMotion_putloglev d * "macro: unexpectly got too many matching plugins back: $plugin"
+					bMotion_log "output" "DEBUG" "macro: unexpectly got [llength $plugin] matching plugins back: $plugin"
 					incr current_pos
 					continue
 				}
@@ -192,7 +195,7 @@ proc bMotion_process_macros { channel text } {
 				incr current_pos
 				continue
 			} else {
-				bMotion_putloglev d * "macro: couldn't find a macro in $substring"
+				bMotion_log "output" "DEBUG" "macro: couldn't find a macro in $substring"
 				# skip it
 				incr current_pos
 				continue
@@ -200,7 +203,7 @@ proc bMotion_process_macros { channel text } {
 		}
 
 		# hmm
-		bMotion_putloglev d * "macro: got to end of macro loop o_O"
+		bMotion_log "output" "WARN" "macro: got to end of macro loop o_O"
 		incr current_pos
 	}
 	return $text
@@ -209,7 +212,7 @@ proc bMotion_process_macros { channel text } {
 
 # our magic output function
 proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
-	bMotion_putloglev 5 * "bMotionDoAction($channel,$nick,$text,$moreText,$noTypo,$urgent)"
+	bMotion_log "output" "TRACE" "bMotionDoAction $channel $nick $text $moreText $noTypo $urgent"
 	global bMotionInfo bMotionCache bMotionOriginalInput
 	global bMotion_output_delay bMotionSettings BMOTION_SLEEP
 
@@ -218,6 +221,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 	#check our global toggle
 	global bMotionGlobal
 	if {$bMotionGlobal == 0} {
+		bMotion_log "output" "DEBUG" "bMotionGlobal is 0, skipping output"
 		return 0
 	}
 
@@ -225,22 +229,25 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 
 	# check if we're asleep
 	if {[bMotion_setting_get "asleep"] == $BMOTION_SLEEP(ASLEEP)} {
+		bMotion_log "output" "DEBUG" "i'm asleep, skipping output"
 		return 0
 	}
 
 	if [regexp "^\[#!\].+" $channel] {
 		set channel [string tolower $channel]
 		if {![channel get $channel bmotion]} {
-			bMotion_putloglev d * "bMotion: aborting bMotionDoAction ... $channel not allowed"
+			bMotion_log "output" "DEBUG" "$channel isn't allowed, skipping output"
 			return 0
 		}
 	}
 
 	if {[bMotion_setting_get "silence"] == 1} { 
+		bMotion_log "output" "DEBUG" "silent on $channel, skipping output"
 		return 0 
 	}
 	catch {
 		if {$bMotionInfo(adminSilence,$channel) == 1} { 
+			bMotion_log "output" "DEBUG" "silent (admin) on $channel, skipping output"
 			return 0 
 		}
 	}
@@ -263,7 +270,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 			set done 1
 		} else {
 			set original_line $text
-			bMotion_putloglev 1 * "output: going round macro loop again"
+			bMotion_log "output" "TRACE" "going round macro loop again"
 		}
 	}
 
@@ -272,12 +279,12 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 		set plugins [bMotion_plugin_find_output $bMotionInfo(language) $channel 11]
 		if {[llength $plugins] > 0} {
 			foreach callback $plugins {
-				bMotion_putloglev 1 * "bMotion: output plugin: $callback..."
+				bMotion_log "output" "DEBUG" "running output plugin: $callback..."
 				set result ""
 				catch {
 					set result [$callback $channel $text]
 				} err
-				bMotion_putloglev 3 * "bMotion: returned from output $callback ($result)"
+				bMotion_log "output" "TRACE" "returned from output $callback ($result)"
 				if {$result == ""} {
 					return 0
 				}
@@ -285,7 +292,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 			}
 		}
 	} else {
-		bMotion_putloglev 1 * "skipped plugin processing on $text due to noTypo being set"
+		bMotion_log "output" "DEBUG" "skipped plugin processing on $text due to noTypo being set"
 	}
 
 	# clear this in case a plugin ended up not using it in an abstract
@@ -305,7 +312,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 	foreach lineIn $lines {
 		set temp [bMotionSayLine $channel $nick $lineIn $moreText $noTypo $urgent]
 		if {$temp == 1} {
-			bMotion_putloglev 1 * "bMotion: bMotionSayLine returned 1, skipping rest of output"
+			bMotion_log "output" "DEBUG" "bMotion: bMotionSayLine returned 1, skipping rest of output"
 			#1 stops continuation after a failed %bot[n,]
 			break
 		}
@@ -327,6 +334,7 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 
 proc bMotion_add_typofix { fix } {
 	global bMotion_typos bMotion_typo_mutex
+	bMotion_log "output" "TRACE" "bMotion_add_typofix $fix"
 
 	if {$bMotion_typo_mutex != ""} {
 		return
@@ -338,15 +346,13 @@ proc bMotion_add_typofix { fix } {
  
 # replace things on lines
 proc bMotionDoInterpolation { line nick moreText { channel "" } } {
-	bMotion_putloglev 5 * "bMotionDoInterpolation: line = $line, nick = $nick, moreText = $moreText, channel = $channel"
+	bMotion_log "output" "TRACE" "bMotionDoInterpolation $line $nick $moreText $channel"
 	global botnick bMotionCache
 
-	bMotion_putloglev 4 * "doing misc interpolation processing for $line"
 	set line [bMotionInsertString $line "%%" $nick]
 	set line [bMotionInsertString $line "%2" $moreText]
 	set line [bMotionInsertString $line "%percent" "%"]
 
-	bMotion_putloglev 4 * "bMotionDoInterpolation returning: $line"
 	return $line
 }
 
@@ -354,7 +360,7 @@ proc bMotionDoInterpolation { line nick moreText { channel "" } } {
 # more replacements in a line
 # TODO: why was this separate?
 proc bMotionInterpolation2 { line } {
-	bMotion_putloglev 5 * "bMotionInterpolation2 ($line)"
+	bMotion_log "output" "ERROR" "call to bMotionInterpolation2 ($line)"
 
 	return $line
 }
@@ -363,7 +369,7 @@ proc bMotionInterpolation2 { line } {
 # Process a line
 # TODO: why is this separate or at least such a mess :)
 proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
-	bMotion_putloglev 5 * "bMotionSayLine: channel = $channel, nick = $nick, line = $line, moreText = $moreText, noTypo = $noTypo"
+	bMotion_log "output" "TRACE" "bMotionSayLine $channel $nick $line $moreText $noTypo"
 	global botnick bMotionInfo bMotionCache bMotionOriginalInput
 	global bMotion_output_delay
 
@@ -376,9 +382,9 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 		set dobreak 0
 		if {$botcmd == "bot"} {
 			#random
-			bMotion_putloglev 1 * "bMotion: %bot detected"
+			bMotion_log "output" "DEBUG" "%bot detected"
 			regexp {%bot\[([[:digit:]]+),(@[^,]+,)?(.+)\]} $line matches chance condition cmd
-			bMotion_putloglev 1 * "bMotion: %bot chance is $chance"
+			bMotion_log "output" "DEBUG" "%bot chance is $chance"
 			set dobreak 1
 			if {[rand 100] < $chance} {
 				set line "%BOT\[$cmd\]"
@@ -402,7 +408,7 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 
 		if {$line != ""} {
 			set bot [bMotion_choose_random_user $channel 1 $condition]
-			bMotion_putloglev 1 * "bMotion: queuing botcommand !$cmd! for output to $bot"
+			bMotion_log "output" "DEBUG" "queuing botcommand !$cmd! for output to $bot"
 			bMotion_queue_add $channel "@${bot}@$cmd"
 		}
 
@@ -420,7 +426,7 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 
 	if [regexp {%DELAY\{([0-9]+)\}} $line matches delay] {
 		set bMotion_output_delay $delay
-		bMotion_putloglev d * "Changing output delay to $delay"
+		bMotion_log "output" "DEBUG" "Changing output delay to $delay"
 		set line ""
 	}
 
@@ -441,7 +447,7 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 	#check if this line matches the last line said on IRC
 	global bMotionThisText
 	if [string match -nocase $bMotionThisText $line] {
-		bMotion_putloglev 1 * "bMotion: my output matches the trigger, dropping"
+		bMotion_log "output" "WARN" "my output matches the trigger, dropping"
 		return 0
 	}
 
@@ -449,7 +455,7 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 	#we try an admin plugin
 	if [info exists bMotionOriginalInput] {
 		if [string match -nocase $bMotionOriginalInput $line] {
-			bMotion_putloglev 1 * "my output matches the trigger, dropping"
+			bMotion_log "output" "WARN" "my output matches the trigger, dropping"
 			return 0
 		}
 	}
@@ -474,14 +480,14 @@ proc bMotionSayLine {channel nick line {moreText ""} {noTypo 0} {urgent 0} } {
 #
 # Helper function to swap one thing (like a macro) for another
 proc bMotionInsertString {line swapout toInsert} {
-	bMotion_putloglev 5 * "bMotionInsertString ($line, $swapout, $toInsert)"
+	bMotion_log "output" "TRACE" "bMotionInsertString $line $swapout $toInsert"
 	set loops 0
 	set inputLine $line
 	while {[regexp $swapout $line]} {
 		regsub $swapout $line $toInsert line
 		incr loops
 		if {$loops > 10} {
-			putlog "bMotion: ALERT! Bailed in bMotionInsertString with $inputLine (created $line) (was changing $swapout for $toInsert)"
+			bMotion_log "output" "ERROR" "bailed in bMotionInsertString with $inputLine (created $line) (was changing $swapout for $toInsert)"
 			set line "/has a tremendous failure :("
 			return $line
 		}
@@ -492,7 +498,7 @@ proc bMotionInsertString {line swapout toInsert} {
 
 # Get random chars as would be made by shift-numberkeys
 proc bMotionGetColenChars {} {
-	bMotion_putloglev 5 * "bMotionGetColenChars"
+	bMotion_log "output" "TRACE" "bMotionGetColenChars"
 	set randomChar "!£$%^*@#~"
 
 	set randomChars [split $randomChar {}]
@@ -514,9 +520,10 @@ proc bMotionGetColenChars {} {
 
 
 # make a smiley representing our mood
-# TOOD: still used?
+# TODO: still used?
+# TODO: use the new smiley stuff
 proc makeSmiley { mood } {
-	bMotion_putloglev 5 * "makeSmiley"
+	bMotion_log "output" "TRACE" "makeSmiley $mood"
 	if {$mood > 30} {
 		return ":D"
 	}
@@ -538,7 +545,7 @@ proc makeSmiley { mood } {
 
 # Attempt to clean a nickname up to a proper name
 proc bMotionWashNick { nick } {
-	bMotion_putloglev 5 * "bMotionWashNick ($nick)"
+	bMotion_log "output" "TRACE" "bMotionWashNick $nick"
 	#remove leading
 	regsub {^[|`_\[]+} $nick "" nick
 
@@ -552,7 +559,7 @@ proc bMotionWashNick { nick } {
 # replace a nick with one of someone's IRL names
 # TODO: no longer used? if not, delete
 proc OLDbMotionGetRealName { nick { host "" }} {
-	bMotion_putloglev 5 * "bMotion: OLDbMotionGetRealName($nick,$host)"
+	bMotion_log "output" "ERROR" "OLDbMotionGetRealName $nick $host"
 
 	#is it me?
 	global botnicks
@@ -564,20 +571,20 @@ proc OLDbMotionGetRealName { nick { host "" }} {
 
 	#first see if we've got a handle
 	if {![validuser $nick]} {
-		bMotion_putloglev 2 * "bMotion: getRealName not given a handle, assuming $nick!$host"
+		bMotion_log "output" "DEBUG" "getRealName not given a handle, assuming $nick!$host"
 		set host "$nick!$host"
 
 		set handle [finduser $host]
 		if {$handle == "*"} {
 			#not in bot
-			bMotion_putloglev 2 * "bMotion: no match, washing nick"
+			bMotion_log "output" "DEBUG" "no match, washing nick"
 			return [bMotionWashNick $nick]
 		}
 	} else {
 		set handle $nick
 	}
 
-	bMotion_putloglev 2 * "bMotion: getRealName looking for handle $handle"
+	bMotion_log "output" "DEBUG" "getRealName looking for handle $handle"
 
 	# found a user, now get their real name
 	set realname [getuser $handle XTRA irl]
@@ -585,14 +592,14 @@ proc OLDbMotionGetRealName { nick { host "" }} {
 	#not set
 		return [bMotionWashNick $nick]
 	}
-	bMotion_putloglev 2 * "bMotion: found $handle, IRLs are $realname"
+	bMotion_log "output" "DEBUG" "found $handle, IRLs are $realname"
 	return [pickRandom $realname]
 }
 
 
 # replace a nick with one of someone's IRL names
 proc bMotionGetRealName { nick { host "" }} {
-	bMotion_putloglev 5 * "bMotion: bMotionGetRealName($nick,$host)"
+	bMotion_log "output" "TRACE" "bMotionGetRealName $nick $host"
 
 	if {$nick == ""} {
 		return ""
@@ -611,27 +618,27 @@ proc bMotionGetRealName { nick { host "" }} {
 		set handle [nick2hand $nick]
 		if {($handle == "") ||($handle == "*")} {
 			#not in bot
-			bMotion_putloglev 2 * "bMotion: no match, using nick"
+			bMotion_log "output" "DEBUG" "no match, using nick"
 			return $nick
 		}
 	}
 
-	bMotion_putloglev 2 * "bMotion: $nick is handle $handle"
+	bMotion_log "output" "DEBUG" "$nick is handle $handle"
 
 	# found a user, now get their real name
 	set realname [getuser $handle XTRA irl]
 	if {$realname == ""} {
 		#not set
-		bMotion_putloglev 2 * "no IRL set, using nick"
+		bMotion_log "output" "DEBUG" "no IRL set, using nick"
 		return $nick
 	}
 	
-	bMotion_putloglev 2 * "bMotion: IRLs for $handle are $realname"
+	bMotion_log "output" "DEBUG" "IRLs for $handle are $realname"
 	
 	set chosen_realname [pickRandom $realname]
 
 	if {[string first "%" $chosen_realname] > -1} {
-		bMotion_putloglev d * "not using $chosen_realname for $handle as it has a macro"
+		bMotion_log "output" "DEBUG" "not using $chosen_realname for $handle as it has a macro"
 		set chosen_realname $handle
 	}
 	return $chosen_realname
@@ -639,7 +646,7 @@ proc bMotionGetRealName { nick { host "" }} {
 
 
 proc bMotionTransformNick { target nick {host ""} } {
-	bMotion_putloglev 5 * "bMotionTransformNick($target, $nick, $host)"
+	bMotion_log "output" "TRACE" "bMotionTransformNick $target $nick $host"
 	set newTarget [bMotionTransformTarget $target $host]
 	if {$newTarget == "me"} {
 		set newTarget $nick
@@ -649,11 +656,11 @@ proc bMotionTransformNick { target nick {host ""} } {
 
 
 proc bMotionTransformTarget { target {host ""} } {
-	bMotion_putloglev 5 * "bMotionTransformTarget($target, $host)"
+	bMotion_log "output" "TRACE" "bMotionTransformTarget $target $host"
 	global botnicks
 	if {$target != "me"} {
 		set t [bMotionGetRealName $target $host]
-		bMotion_putloglev 2 * "bMotion: bMotionGetName in bMotionTransformTarget returned $t"
+		bMotion_log "output" "DEBUG" "bMotionGetName in bMotionTransformTarget returned $t"
 		if {$t != "me"} {
 			set target $t
 		}
@@ -669,8 +676,6 @@ proc bMotionTransformTarget { target {host ""} } {
 }
 
 
-# bMotion_choose_random_user
-#
 # selects a random user or bot from a channel
 # bot = 0 if you want a user, = 1 if you want a bot
 # condition is one of:
@@ -680,7 +685,7 @@ proc bMotionTransformTarget { target {host ""} } {
 #		* friend, enemy - pick by if we're friends
 #		* prev - return previously chosen user/bot
 proc bMotion_choose_random_user { channel bot condition } {
-	bMotion_putloglev 5 * "ruser: bMotion_choose_random_user ($channel, $bot, $condition)"
+	bMotion_log "output" "TRACE" "bMotion_choose_random_user $channel $bot $condition"
 	global bMotionCache
 	set users [chanlist $channel]
 	set acceptable [list]
@@ -688,7 +693,7 @@ proc bMotion_choose_random_user { channel bot condition } {
 	set skip_nick [bMotion_plugins_settings_get "system" "ruser_skip" $channel ""]
 	bMotion_plugins_settings_set "system" "ruser_skip" $channel "" ""
 	if {$skip_nick != ""} {
-		bMotion_putloglev d * "ruser skipping $skip_nick"
+		bMotion_log "output" "DEBUG" "skipping $skip_nick"
 	}
 
 	#check if we want the previous ruser
@@ -697,48 +702,48 @@ proc bMotion_choose_random_user { channel bot condition } {
 		catch {
 			set what [array get bMotionCache "lastruser$bot"]
 		}
-		bMotion_putloglev 4 * "ruser: accept: prev ($what)"
+		bMotion_log "output" "DEBUG" "accept: prev ($what)"
 		return [lindex $what 1]
 	}
 
 	foreach user $users {
-		bMotion_putloglev 4 * "ruser: eval user $user"
+		bMotion_log "output" "TRACE" "eval user $user"
 		#is it me?
 		if [isbotnick $user] { 
-			bMotion_putloglev 4 * "ruser:  that's me"
+			bMotion_log "output" "TRACE" "that's me"
 			continue 
 		}
 
 		if {([bMotion_setting_get "bitlbee"] == "1") && ($user == "root")} {
-			bMotion_putloglev 4 * "ruser:  reject: bitlbee root user"
+			bMotion_log "output" "TRACE" "reject: bitlbee root user"
 			continue
 		}
 
 		if {$user == $skip_nick} {
-			bMotion_putloglev 4 * "ruser:  reject: $user is skip_user"
+			bMotion_log "output" "TRACE" "reject: $user is skip_user"
 			continue
 		}
 
 		#get their handle
 		set handle [nick2hand $user $channel]
-		bMotion_putloglev 4 * "ruser:  handle: $handle"
+		bMotion_log "output" "TRACE" "handle: $handle"
 
 		# some people don't like interacting with the bot
 		if [matchattr $handle J] {
-			bMotion_putloglev 4 * "ruser:  reject: user is +J"
+			bMotion_log "output" "TRACE" "reject: user is +J"
 			continue
 		}
 
 		#unless we're looking for any old user, we'll need handle
 		if {(($handle == "") || ($handle == "*")) && ($condition != "")} {
-			bMotion_putloglev 4 * "ruser:  reject: no handle"
+			bMotion_log "output" "TRACE" "reject: no handle"
 			continue
 		}
 
 		#else, if we're accepting anyone and they don't have a handle, and
 		#we don't want a bot, then use nick
 		if {(($handle == "") || ($handle == "*")) && ($condition == "") && ($bot == 0)} {
-			bMotion_putloglev 4 * "ruser:  accept: $user (no handle)"
+			bMotion_log "output" "TRACE" "accept: $user (no handle)"
 			lappend acceptable $user
 			continue
 		}
@@ -746,90 +751,90 @@ proc bMotion_choose_random_user { channel bot condition } {
 		#if we're looking for a bot, drop this entry if it's not one
 		if {$bot == 1} {
 			if {![matchattr $handle b]} {
-				bMotion_putloglev 4 * "ruser:  reject: not a bot"
+				bMotion_log "output" "TRACE" "reject: not a bot"
 				continue
 			}
 			#check we can talk to this bot
 			global bMotion_interbot_otherbots
 			if {[lsearch [array names bMotion_interbot_otherbots] $handle] == -1} {
-				bMotion_putloglev 4 * "ruser:  reject: not a bmotion bot"
+				bMotion_log "output" "TRACE" "reject: not a bmotion bot"
 				continue
 			}
 			#else add them
 			lappend acceptable $user
-			bMotion_putloglev 4 * "ruser:  accept: bmotion bot"
+			bMotion_log "output" "TRACE" "accept: bmotion bot"
 			continue
 		}
 
 		#conversely if we're looking for a user...
 		if {($bot == 0) && [matchattr $handle b]} {
-			bMotion_putloglev 4 * "ruser:  reject: not a user"
+			bMotion_log "output" "TRACE" "reject: not a user"
 			continue
 		}
 
 		switch $condition {
 			"" {
-				bMotion_putloglev 4 * "ruser:  accept: any"
+				bMotion_log "output" "TRACE" "accept: any"
 				lappend acceptable $handle
 				continue
 			}
 			"male" {
 				if {[getuser $handle XTRA gender] == "male"} {
-					bMotion_putloglev 4 * "ruser:  accept: male"
+					bMotion_log "output" "TRACE" "accept: male"
 					lappend acceptable $handle
 					continue
 				}
 			}
 			"female" {
 				if {[getuser $handle XTRA gender] == "female"} {
-					bMotion_putloglev 4 * "ruser:  accept: female"
+					bMotion_log "output" "TRACE" "accept: female"
 					lappend acceptable $handle
 					continue
 				}
 			}
 			"like" {
 				if {[bMotionLike $user [getchanhost $user]]} {
-					bMotion_putloglev 4 * "ruser:  accept: like"
+					bMotion_log "output" "TRACE" "accept: like"
 					lappend acceptable $handle
 					continue
 				}
 			}
 			"dislike" {
 				if {![bMotionLike $user [getchanhost $user]]} {
-					bMotion_putloglev 4 * "ruser:  accept: dislike"
+					bMotion_log "output" "TRACE" "accept: dislike"
 					lappend acceptable $handle
 					continue
 				}
 			}
 			"friend" {
 				if {[getFriendshipHandle $handle] >= 50} {
-					bMotion_putloglev 4 * "ruser:  accept: friend"
+					bMotion_log "output" "TRACE" "accept: friend"
 					lappend acceptable $handle
 					continue
 				}
 			}
 			"enemy" {
 				if {[getFriendshipHandle $handle] < 50} {
-					bMotion_putloglev 4 * "ruser:  accept: enemy"
+					bMotion_log "output" "TRACE" "accept: enemy"
 					lappend acceptable $handle
 					continue
 				}
 			}
 		}
 	}
-	bMotion_putloglev 4 * "ruser: acceptable users: $acceptable"
+	bMotion_log "output" "DEBUG" "acceptable users: $acceptable"
 	if {[llength $acceptable] > 0} {
 		set user [pickRandom $acceptable]
 		set index "lastruser$bot"
 		set bMotionCache($index) $user
 		return $user
 	} else {
-		bMotion_putloglev 4 * "ruser: no acceptable users found"
+		bMotion_log "output" "DEBUG" "no acceptable users found"
 		if {$condition != ""} {
-			bMotion_putloglev 4 * "ruser: picking a random user"
+			bMotion_log "output" "DEBUG" "picking a random user"
 			return [bMotion_choose_random_user $channel $bot ""]
 		} else {
-			bMotion_putloglev 4 * "ruser: unable to find a user, returning nothing"
+			bMotion_log "output" "DEBUG" "unable to find a user, returning nothing"
 			return ""
 		}
 	}
@@ -838,7 +843,7 @@ proc bMotion_choose_random_user { channel bot condition } {
 
 # turn a name into the posessive form
 proc bMotionMakePossessive { text { altMode 0 }} {
-	bMotion_putloglev 5 * "bMotionMakePossessive ($text, $altMode)"
+	bMotion_log "output" "TRACE" "bMotionMakePossessive $text $altMode"
 	if {$text == ""} {
 		return "someone's"
 	}
@@ -866,9 +871,8 @@ proc bMotionMakePossessive { text { altMode 0 }} {
 
 # Function which powers %REPEAT
 proc bMotionMakeRepeat { text } {
-	bMotion_putloglev 5 * "bMotionMakeRepeat ($text)"
+	bMotion_log "output" "TRACE" "bMotionMakeRepeat $text"
 	if [regexp {([0-9]+):([0-9]+):(.+)} $text matches min max repeat] {
-		bMotion_putloglev 4 * "bMotionMakeRepeat: min = $min, max = $max, text = $repeat"
 		set diff [expr $max - $min]
 		if {$diff < 1} {
 			set diff 1
@@ -878,14 +882,14 @@ proc bMotionMakeRepeat { text } {
 		append repstring [string repeat $repeat $min]
 		return $repstring
 	}
-	bMotion_putloglev 4 * "bMotionMakeRepeat: no match (!), returning nothing"
+	bMotion_log "output" "WARN" "bMotionMakeRepeat: no match (!), returning nothing"
 	return ""
 }
 
 
 # remove preceeding fluff from a noun
 proc bMotion_strip_article { text } {
-	bMotion_putloglev 5 * "bMotion_strip_article ($text)"
+	bMotion_log "output" "TRACE" "bMotion_strip_article ($text)"
 	regsub "(an?|the|some|his|her|their) " $text "" text
 	return $text
 }
@@ -893,7 +897,7 @@ proc bMotion_strip_article { text } {
 
 # verbs a noun (like that)
 proc bMotionMakeVerb { text } {
-	bMotion_putloglev 5 * "bMotionMakeVerb ($text)"
+	bMotion_log "output" "TRACE" "bMotionMakeVerb $text"
 	if [regexp -nocase "(s|x)$" $text matches letter] {
 		return $text
 	}
@@ -911,6 +915,7 @@ proc bMotionMakeVerb { text } {
 
 # makes a word past tense... probably best only use it on verbs :P
 proc bMotion_make_past_tense { word } {
+	bMotion_log "output" "TRACE" "bMotion_make_past_tense $word"
 
 	# check if we got passed a multi-part verb (sit on)
 	set extra ""
@@ -977,6 +982,7 @@ proc bMotion_make_past_tense { word } {
 
 # makes a word into present participle
 proc bMotion_make_present_participle { word } {
+	bMotion_log "output" "TRACE" "bMotion_make_present_participle $word"
 
 	# check if we got passed a multi-part verb (sit on)
 	set extra ""
@@ -996,6 +1002,7 @@ proc bMotion_make_present_participle { word } {
 
 # makes a work into the simple present
 proc bMotion_make_simple_present { word } {
+	bMotion_log "output" "TRACE" "bMotion_make_simple_present $word"
 
 	# check if we got passed a multi-part verb (sit on)
 	set extra ""
@@ -1007,6 +1014,7 @@ proc bMotion_make_simple_present { word } {
 
 # not sure!
 proc chr c {
+	bMotion_log "output" "ERROR" "chr $c"
 	if {[string length $c] > 1 } { error "chr: arg should be a single char"}
 	#		set c [ string range $c 0 0]
 	set v 0
@@ -1017,7 +1025,7 @@ proc chr c {
 
 # pluralise a noun by the simple rules of English
 proc bMotionMakePlural { text } {
-	bMotion_putloglev 5 * "bMotionMakePlural ($text)"
+	bMotion_log "output" "TRACE" "bMotionMakePlural $text"
 
 	if [regexp -nocase "(ss|us|is|x|ch|sh)$" $text] {
 		append text "es"
@@ -1049,6 +1057,7 @@ proc bMotionMakePlural { text } {
 
 # get a smiley
 proc bMotion_get_smiley { type } {
+	bMotion_log "output" "TRACE" "bMotion_get_smiley $type"
 	set smiley_type [bMotion_setting_get "smiley_type"]
 
 	if {($smiley_type == "") || ($smiley_type == "auto")} {
@@ -1058,7 +1067,7 @@ proc bMotion_get_smiley { type } {
 	}
 
 	if {$smiley_type == "random"} {
-		bMotion_putloglev 1 * "smiley type is random, making some stuff up"
+		bMotion_log "output" "DEBUG" "smiley type is random, making some stuff up"
 		set nose_type [pickRandom [list "none" "dash" "o"]]
 		set eyes_type [pickRandom [list "colon" "equals" "default"]]
 		set smiley_type [pickRandom [list "paren" "bracket" "angle"]]
@@ -1067,7 +1076,7 @@ proc bMotion_get_smiley { type } {
 		set eyes_type [bMotion_setting_get "smiley_eyes"]
 	}
 
-	bMotion_putloglev d * "smiley type=$smiley_type nose=$nose_type eyes=$eyes_type"
+	bMotion_log "output" "DEBUG" "smiley type=$smiley_type nose=$nose_type eyes=$eyes_type"
 
 	switch $nose_type {
 		none {
@@ -1109,28 +1118,28 @@ proc bMotion_get_smiley { type } {
 	# uneasy, embarrassed, cry, cat, yum
 	switch $smiley_type {
 		paren {
-			bMotion_putloglev d * "using paren"
+			bMotion_log "output" "DEBUG" "using paren"
 			set smileys {)D(CDoO/x(39}
 		}
 
 		bracket {
-			bMotion_putloglev d * "using bracket"
+			bMotion_log "output" "DEBUG" "using bracket"
 			set smileys {]D[CDoO/x[39}
 		}
 
 		angle {
-			bMotion_putloglev d * "using angle"
+			bMotion_log "output" "DEBUG" "using angle"
 			set nose ""
 			set smileys {>D<CDoO/x<39}
 		}
 
 		default {
-			bMotion_putloglev d * "using default"
+			bMotion_log "output" "DEBUG" "using default"
 			set smileys {)D(CDoO/x(39}
 		}
 	}
 	
-	bMotion_putloglev d * "smiley list is $smileys"
+	bMotion_log "output" "DEBUG" "smiley list is $smileys"
 
 	if {$type == "auto"} {
 		set happy [bMotion_mood_get happy]
@@ -1143,7 +1152,7 @@ proc bMotion_get_smiley { type } {
 		} else {
 			set type bigsmile
 		}
-		bMotion_putloglev d * "auto smiley picked $type"
+		bMotion_log "output" "DEBUG" "auto smiley picked $type"
 	}
 
 	set reverse 0
@@ -1151,7 +1160,7 @@ proc bMotion_get_smiley { type } {
 	set termlist [list "smile" "bigsmile" "sad" "bigsad" "horror" "surprise" "bigsurprise" "uneasy" "embarrassed" "cry" "cat" "yum"]
 	set index [lsearch $termlist $type]
 	if {$index == -1} {
-		bMotion_putloglev d * "Unable to determine smiley type for $type"
+		bMotion_log "output" "WARN" "Unable to determine smiley type for $type"
 		return ""
 	}
 
@@ -1173,4 +1182,4 @@ proc bMotion_get_smiley { type } {
 }
 
 
-bMotion_putloglev d * "bMotion: output module loaded"
+bMotion_log "output" "INFO" "output module loaded"
