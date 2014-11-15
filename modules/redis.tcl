@@ -1,6 +1,8 @@
 set bMotion_has_redis 0
 set bMotion_redis ""
 
+bMotion_log_add_category "redis"
+
 proc bMotion_redis_available { } {
 	global bMotion_has_redis
 	return $bMotion_has_redis
@@ -16,7 +18,7 @@ proc bMotion_redis_cmd args {
 }
 
 if {[info tclversion] < 8.5} {
-	putlog "bMotion: redis support requires TCL 8.5 or higher"
+	bMotion_log "redis" "ERROR" "redis support requires TCL 8.5 or higher"
 } else { 
 	catch {
 		if {$bMotionSettings(redis_server) != ""} {
