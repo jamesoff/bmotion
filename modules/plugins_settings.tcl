@@ -20,6 +20,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
+bMotion_log_add_category "pluginsettings"
+
 if {![info exists bMotion_plugins_settings]} {
 	set bMotion_plugins_settings(dummy,setting,channel,nick) "dummy"
 }
@@ -29,11 +31,11 @@ proc bMotion_plugins_settings_set { plugin setting channel nick val {timeout 0}}
 	if {$nick == ""} { set nick "_" }
 	if {$channel == ""} { set channel "_" }
 	if {$setting == ""} { 
-		bMotion_putloglev d * "bMotion: $plugin tried to save without giving a setting name"
+		bMotion_log "pluginsettings" "WARN" "$plugin tried to save without giving a setting name"
 		return 0
 	}
 	if {$plugin == ""} { 
-		bMotion_putloglev d * "bMotion: Unknown plugin trying to save a setting"
+		bMotion_log "pluginsettings" "WARN" "Unknown plugin trying to save a setting"
 		return 0
 	}
 
@@ -46,7 +48,7 @@ proc bMotion_plugins_settings_set { plugin setting channel nick val {timeout 0}}
 		return ""
 	}
 
-	bMotion_putloglev 2 * "bMotion: Saving plugin setting $setting,$channel,$nick -> $val (from plugin $plugin)"
+	bMotion_log "pluginsettings" "DEBUG" "Saving plugin setting $setting,$channel,$nick -> $val (from plugin $plugin)"
 	if [bMotion_redis_available] {
 		if {$timeout > 0} {
 			bMotion_redis_cmd set psettings:$plugin:$setting:$channel:$nick $val EX $timeout
@@ -65,11 +67,11 @@ proc bMotion_plugins_settings_get { plugin setting channel nick } {
 	if {$nick == ""} { set nick "_" }
 	if {$channel == ""} { set channel "_" }
 	if {$setting == ""} { 
-		bMotion_putloglev d * "bMotion: $plugin tried to get without giving a setting name"
+		bMotion_log "pluginsettings" "WARN" "$plugin tried to get without giving a setting name"
 		return 0
 	}
 	if {$plugin == ""} { 
-		bMotion_putloglev d * "bMotion: Unknown plugin trying to get a setting"
+		bMotion_log "pluginsettings" "WARN" "Unknown plugin trying to get a setting"
 		return 0
 	}
 
@@ -91,6 +93,6 @@ proc bMotion_plugins_settings_get { plugin setting channel nick } {
 		return $bMotion_plugins_settings($plugin,$setting,$channel,$nick)
 	}
 
-	bMotion_putloglev 1 * "bMotion: plugin $plugin tried to get non-existent value $setting,$channel,$nick"
+	bMotion_log "pluginsettings" "INFO" "plugin $plugin tried to get non-existent value $setting,$channel,$nick"
 	return ""
 }
