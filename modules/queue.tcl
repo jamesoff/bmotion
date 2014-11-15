@@ -20,6 +20,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
+bMotion_log_add_category "queue"
+
 #A rehash should kill the queue
 set bMotion_queue [list]
 set bMotion_queue_runny 1
@@ -39,19 +41,19 @@ set bMotion_queue_runny 1
 proc bMotion_queue_run { {force 0} } {
 	global bMotion_queue bMotion_queue_runny
 
-	bMotion_putloglev 4 * "bMotion_queue_run $force"
+	bMotion_log "queue" "DEBUG" "bMotion_queue_run $force"
 
 	if {$bMotion_queue_runny == 0} {
 		if {$force == 0} {
 		#queue is frozen
 			return 0
 		} else {
-			bMotion_putloglev d * "Running queue once while frozen"
+			bMotion_log "queue" "DEBUG" "Running queue once while frozen"
 		}
 	}
 
 	set tempqueue [list]
-	bMotion_putloglev 3 * "Running output queue..."
+	bMotion_log "queue" "DEBUG" "Running output queue..."
 	foreach item $bMotion_queue {
 		set sec [lindex $item 0]
 		incr sec -1
@@ -59,10 +61,10 @@ proc bMotion_queue_run { {force 0} } {
 		set content [lindex $item 2]
 		if {$sec < 1} {
 		#time to output this
-			bMotion_putloglev 4 * "queue: NOW $target :$content"
+			bMotion_log "queue" "DEBUG" "NOW $target :$content"
 			if [regexp {^@([^@]+)?@(.+)} $content matches bot text] {
 				if {$bot == ""} {
-					bMotion_putloglev d * "bMotion: WARNING - tried to send text to a null bot o_O"
+					bMotion_log "queue" "ERROR" "bMotion: WARNING - tried to send text to a null bot o_O"
 				} else {
 					bMotionSendSayChan $target $text $bot
 				}
@@ -78,7 +80,7 @@ proc bMotion_queue_run { {force 0} } {
 							set content "$bMotionOriginalNick: $content"
 						}
 						set bMotionOriginalNick ""
-						bMotion_putloglev d * "bitlbee outgoing: $content"
+						bMotion_log "queue" "DEBUG" "bitlbee outgoing: $content"
 					}
 					if {[bMotion_setting_get "outputpriority"] == 1} {
 						putserv "PRIVMSG $target :$content"
@@ -90,7 +92,7 @@ proc bMotion_queue_run { {force 0} } {
 			}
 		} else {
 		#put it back into queue
-		bMotion_putloglev 4 * "queue: ${sec}s: $target :$content"
+			bMotion_log "queue" "TRACE" "${sec}s: $target :$content"
 			lappend tempqueue [list $sec $target $content]
 		}
 	}
@@ -114,7 +116,7 @@ proc bMotion_queue_add { target content {delay 0} } {
 
 	#calculate line delay
 	set delay [expr $delay == 0 ? [bMotion_queue_get_delay] : $delay]
-	bMotion_putloglev 1 * "queuing output '$content' for '$target' with ${delay}s delay"
+	bMotion_log "queue" "DEBUG" "queuing output '$content' for '$target' with ${delay}s delay"
 	lappend bMotion_queue [list $delay $target $content]
 }
 
@@ -126,7 +128,7 @@ proc bMotion_queue_add_now { target content } {
 
 	#no delay
 	set delay 0
-	bMotion_putloglev 1 * "queuing output '$content' for '$target' with 0s delay"
+	bMotion_log "queue" "DEBUG" "queuing output '$content' for '$target' with 0s delay"
 	lappend bMotion_queue [list $delay $target $content]
 }
 
@@ -164,20 +166,20 @@ proc bMotion_queue_freeze { } {
 	global bMotion_queue_runny
 
 	set bMotion_queue_runny 0
-	bMotion_putloglev d * "Freezing output queue"
+	bMotion_log "queue" "INFO" "Freezing output queue"
 }
 
 proc bMotion_queue_thaw { } {
 	global bMotion_queue_runny
 
 	set bMotion_queue_runny 1
-	bMotion_putloglev d * "Thawing output queue"
+	bMotion_log "queue" "INFO" "Thawing output queue"
 }
 
 proc bMotion_queue_dupecheck { text channel } {
 	global bMotion_queue
 
-	bMotion_putloglev 4 * "bMotion_queue_dupecheck $text"
+	bMotion_log "queue" "TRACE" "bMotion_queue_dupecheck $text"
 
 	set text [string tolower $text]
 
@@ -195,9 +197,8 @@ proc bMotion_queue_dupecheck { text channel } {
 
 		if {$content == $text} {
 			# delete this entry by setting it to nothing; the next queue run will remove it
-			#set item [lreplace $item 2 2 ""]
-			bMotion_putloglev 2 * "queue: removed item '$content' as it's similar to text '$text'"
-			continue
+			set item [lreplace $item 2 2 ""]
+			bMotion_log "queue" "INFO" "removed item '$content' as it's similar to text '$text'"
 		}
 
 		lappend tempqueue $item
