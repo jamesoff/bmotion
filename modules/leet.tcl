@@ -20,6 +20,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
+bMotion_log_add_category "leet"
+
 #load alphaset transforms
 source "$bMotionModules/leet_settings.tcl"
 
@@ -117,7 +119,7 @@ proc leetPrivate {nick host handle arg} {
 	}
 	if [regexp {(\[#!\]\w+) (.+)} $arg ming channel param] {
 		set val [makeLeet2 $param]
-		putlog "bMotion: $nick asked !$param! to be leeted to !$channel!"
+		bMotion_log "leet" "INFO" "$nick asked !$param! to be leeted to !$channel!"
 		if {![botonchan $channel]} {
 			puthelp "PRIVMSG $nick :Sorry, I'm not on $channel"
 			return 0
@@ -125,14 +127,13 @@ proc leetPrivate {nick host handle arg} {
 		if {![onchan $nick $channel]} {
 			set name [bMotionTransformNick $nick $nick $host]
 			puthelp "PRIVMSG $nick :I'm sorry $name, I can't do that."
-			putlog "bMotion: ALERT! $nick failed query leet to $channel ($param)."
+			bMotion_log "leet" "WARN" "$nick failed query leet to $channel ($param)."
 			return 0
 		}
 		puthelp "PRIVMSG [chandname2name $channel] :\[\002$nick\002\] $val"
 		return 0
 	}
 
-	putlog "bMotion: $nick asked !$arg! to be leeted"
 	puthelp "PRIVMSG $nick :[makeLeet2 $arg]"
 	return 0
 }
