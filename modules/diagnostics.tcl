@@ -319,7 +319,7 @@ proc bMotion_diagnostic_parsing { } {
 			bMotion_putadmin "Processing abstract $i: $abstract..."
 		}
 		set abstract_contents [bMotion_abstract_all $abstract]
-		bMotion_putloglev d * "Processing [llength $abstract_contents] items for abstract $abstract"
+		bMotion_log "diagnostics" "TRACE" "Processing [llength $abstract_contents] items for abstract $abstract"
 		incr count_abstract
 		foreach content $abstract_contents {
 			incr count_lines
