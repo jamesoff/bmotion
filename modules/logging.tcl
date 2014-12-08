@@ -85,10 +85,8 @@ proc bMotion_log_add_category { category } {
 
 	set category [string tolower $category]
 	if {[lsearch $bMotion_log_categories $category] == -1} {
+		set bMotion_log_categories [lsort [lappend bMotion_log_categories $category]]
 		bMotion_log "logging" "DEBUG" "adding category $category"
-		putlog $bMotion_log_categories
-		lappend bMotion_log_categories $category
-		putlog $bMotion_log_categories
 	} else {
 		bMotion_log "logging" "DEBUG" "not adding already known category $category"
 	}
