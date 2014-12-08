@@ -20,6 +20,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 ###############################################################################
 
+bMotion_log_add_category "system"
 
 ### Set up the binds 
 
