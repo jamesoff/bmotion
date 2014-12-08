@@ -25,16 +25,16 @@
 # Mood stuff is in mood.tcl
 
 proc bMotion_safe_set_array { name key value } {
-	bMotion_putloglev 5 * "bMotion_safe_set_array $name $key $value"
+	bMotion_log "variables" "TRACE" "bMotion_safe_set_array $name $key $value"
 
 	global $name
 	if {![info exists $name]} {
-		bMotion_putloglev 2 * "variable $name does not exist, creating array"
+		bMotion_log "variables" "DEBUG" "variable $name does not exist, creating array"
 		array set $name {}
 	}
 
 	if {![info exists ${name}($key)]} {
-		bMotion_putloglev 2 * "key $key in $name does not exist, setting to $value"
+		bMotion_log "variables" "DEBUG" "key $key in $name does not exist, setting to $value"
 		set ${name}($key) $value
 	}
 }
@@ -111,3 +111,4 @@ set bMotionTiredness 0
 
 set bMotionDebug [list]
 
+bMotion_log_add_category "variables"
