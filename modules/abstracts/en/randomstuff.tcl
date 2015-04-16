@@ -250,6 +250,7 @@ bMotion_abstract_batchadd "randomStuff" {
 	"I would be delicious."
 	"I am the underwear ninja!%|%BOT[Goddamnit that's MY underwear]"
 	"Apparently it is easier to cast spells in a thong"
+	"apparently it is easier to cast spells in your %VAR{clothes}"
 	"I have %VAR{bodypart:plural}!"
 	"this little piggy went to %VAR{locations}%|this little piggy stayed home%|this little piggy had %VAR{foods}%|this little piggy had none%|and this little piggy went wee wee wee all the way home!"
 	"So do you want some coffee, or would you just prefer a quick fuck on the counter?"
