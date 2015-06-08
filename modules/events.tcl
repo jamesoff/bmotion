@@ -556,7 +556,7 @@ proc bMotion_event_mode {nick host handle channel mode victim} {
 		if {$diff > 900} {
 			if [bMotion_interbot_is_bmotion $handle] {
 				bMotionDoAction $channel $nick "%VAR{thanks}"
-				bMotionDoAction $channel $nick "%BOT[@$handle,VAR{welcomes}"
+				bMotionDoAction $channel $nick "%BOT[@$handle,VAR{welcomes}]"
 			} else {
 				bMotionDoAction $channel $nick "%VAR{opped}"
 			}
