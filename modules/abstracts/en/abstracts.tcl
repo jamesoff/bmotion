@@ -511,11 +511,12 @@ bMotion_abstract_register "cheesecakeFires" {
 bMotion_abstract_register "torpedoFires" {
 	"/fires a volley of torpedos at %%"
 	"/breaks into a roll and fires torpedos from dorsal and ventral launchers in sequence"
-	"/breaks into a roll and ties itself in a knot%|Damn.%|%bot\[50,¬VAR{ruins}\]"
+	"/breaks into a roll and ties %himherself in a knot%|Damn.%|%bot\[50,¬VAR{ruins}\]"
 	"System failure: TSC error"
 	"/flies past %% and fires a full spread of torpedos from the aft launchers"
 	"/heads directly for %%, firing a full spread of torpedos from the forward lauchers%|/flies out through the wreakage"
 }
+bMotion_abstract_add_filter "torpedoFires" "itself"
 
 bMotion_abstract_register "everythingFires" {
 	"/opens the cargo hold and ejects some plastic drums at %%"
