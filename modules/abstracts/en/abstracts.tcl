@@ -4783,6 +4783,7 @@ bMotion_abstract_register "wake_ups" {
 	"Today, I will be mostly wearing... my %VAR{clothes} and my %VAR{clothes}"
 	"/puts on %VAR{clothes}%|Important meeting today, got to look my best %VAR{smiles}"
 	"/wakes up with a %VAR{medical_types} case of %VAR{illness} %SMILEY{sad}"
+	"Hello, victims"
 }
 
 # originally this was wrong
