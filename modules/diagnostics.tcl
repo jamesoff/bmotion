@@ -330,6 +330,18 @@ proc bMotion_diagnostic_userinfo { } {
 	return
 }
 
+
+proc bMotion_diagnostic_eggdropsettings { } {
+
+	global answer-ctcp
+
+	if {${answer-ctcp} == 0} {
+		putlog "bMotion: you have 'answer-ctcp' set to 0 in your eggdrop config."
+		putlog "         This bot will not be able to respond to actions (/me)!"
+	}
+}
+
+
 ### bMotion_diagnostic_bitlbee
 # Check if bitlbee mode is enabled, but the bot doesn't know about #bitlbee/&bitlbee
 proc bMotion_diagnostic_bitlbee { } {
@@ -421,6 +433,7 @@ if {$bMotion_testing == 0} {
 	bMotion_diagnostic_userinfo
 	bMotion_diagnostic_bitlbee
 	bMotion_diagnostic_binds
+	bMotion_diagnostic_eggdropsettings
 
 	bMotion_putloglev d * "Diagnostics complete."
 }
