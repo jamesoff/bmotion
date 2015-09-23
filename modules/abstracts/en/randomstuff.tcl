@@ -305,6 +305,7 @@ bMotion_abstract_batchadd "randomStuff" {
 	"It's a %VAR{sillyThings}, it's a plane, no... it's a bird."
 	"It tasted like butter."
 	"Oh good, Captain Adventure has arrived."
+	"Oh good, Captain Misadventure has arrived."
 	"I'm running off with the mailman."
 	"You are SO fired."
 	"Please stay seated until the ride has stopped."
