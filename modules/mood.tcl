@@ -125,35 +125,8 @@ proc checkmood {nick channel} {
 
 ## Driftmood: Drifts all moods towards 0
 proc driftmood {} {
-	putlog "*** Call to driftmood"
-	return 
-
-  set driftSummary ""
-  global mood mooddrifttimer moodtarget
-  foreach r {happy horny lonely electricity stoned} {
-    set drift 0
-    set driftString ""
-    if {$mood($r) > $moodtarget($r)} {
-      set drift -1
-      set driftString "$moodtarget($r)--($drift)-->$mood($r)"
-    }
-    if {$mood($r) < $moodtarget($r)} {
-      set drift 2
-      set driftString "$mood($r)--(+$drift)-->$moodtarget($r)"
-    }
-    if {$drift != 0} {
-      set mood($r) [expr $mood($r) + $drift]
-      set driftSummary "$driftSummary $r:($driftString) "
-    }
-  }
-  if {$driftSummary != ""} {
-    bMotion_putloglev d * "bMotion: drifted mood $driftSummary"
-  }
-  checkmood "" ""
-  set mooddrifttimer 1
-
-  timer 10 driftmood
-  return 0
+	bMotion_putloglev d * "call to driftmood :("
+	return
 }
 
 proc bMotion_mood_drift_timer { } {
@@ -228,18 +201,6 @@ proc bMotion_mood_adjust { name change } {
 			$callback
 		}
 	}
-}
-
-## moodTimerStart: Used to start the mood drift timer when the script initialises
-## and other timers now, too
-proc moodTimerStart {} {
-  global mooddrifttimer
-	if  {![info exists mooddrifttimer]} {
-		timer 10 driftmood
-    timer [expr [rand 30] + 3] doRandomStuff
-		set mooddrifttimer 1
-	}
-	timer 10 bMotion_mood_drift_timer
 }
 
 

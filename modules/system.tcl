@@ -224,6 +224,20 @@ proc bMotion_random_away {} {
 	return 0
 }
 
+
+proc bMotion_set_randomstuff_timer {} {
+	global bMotionInfo
+
+	set upperLimit [expr $bMotionInfo(maxRandomDelay) - $bMotionInfo(minRandomDelay)]
+	if {$upperLimit < 1} {
+		set upperLimit 1
+	}
+	set temp [expr [rand $upperLimit] + $bMotionInfo(minRandomDelay)]
+	timer $temp doRandomStuff
+	bMotion_putloglev d * "randomStuff next in $temp minutes"
+}
+
+
 #
 # periodically sprout randomness (or go /away if idle enough)
 proc doRandomStuff {} {
@@ -239,14 +253,7 @@ proc doRandomStuff {} {
 
 	bMotion_update_chanlist
 
-	# choose new time to check
-	set upperLimit [expr $bMotionInfo(maxRandomDelay) - $bMotionInfo(minRandomDelay)]
-	if {$upperLimit < 1} {
-		set upperLimit 1
-	}
-	set temp [expr [rand $upperLimit] + $bMotionInfo(minRandomDelay)]
-	timer $temp doRandomStuff
-	bMotion_putloglev d * "randomStuff next in $temp minutes"
+	bMotion_set_randomstuff_timer
 
 	# don't bother if we're asleep
 	if {$bMotionSettings(asleep) != $BMOTION_SLEEP(AWAKE)} {
@@ -885,16 +892,11 @@ proc bMotion_rand_nonzero { limit } {
 
 ### bMotion_startTimers 
 proc bMotion_startTimers { } {
-	global mooddrifttimer
-	if	{![info exists mooddrifttimer]} {
-		timer 10 driftmood
-		#utimer 5 loldec
-		timer [expr [rand 30] + 3] doRandomStuff
-		set mooddrifttimer 1
-		set delay [expr [rand 200] + 1700]
-		utimer $delay bMotion_interbot_next_elect
-		timer 10 bMotion_mood_drift_timer
-	}
+	bMotion_set_randomstuff_timer
+
+	set delay [expr [rand 200] + 1700]
+	utimer $delay bMotion_interbot_next_elect
+	timer 10 bMotion_mood_drift_timer
 }
 
 ### bMotion_cleanNick 
