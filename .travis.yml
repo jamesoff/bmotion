@@ -1,0 +1,8 @@
+# no tcl support, pick something else
+language: ruby
+
+addons:
+  apt:
+    packages:
+    - tcl-dev
+install: ./tests/build-eggdrop.sh
