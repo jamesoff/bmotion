@@ -5879,6 +5879,7 @@ bMotion_abstract_add_filter "sillyVerbs" {^..?$}
 
 
 bMotion_abstract_register "animals" {
+	"meerkats"
 	"cow"
 	"goat"
 	"sheep"
