@@ -10,3 +10,6 @@ make config
 make
 make install
 
+cd ~/eggdrop/scripts
+ln -s ../.. bmotion
+

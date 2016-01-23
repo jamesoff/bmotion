@@ -6,3 +6,4 @@ addons:
     packages:
     - tcl-dev
 install: ./tests/build-eggdrop.sh
+script: ./tests/test-script.sh
