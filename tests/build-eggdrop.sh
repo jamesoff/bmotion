@@ -12,4 +12,4 @@ make install
 
 cd ~/eggdrop/scripts
 ln -s ../.. bmotion
-
+cp ../../tests/eggdrop-test.conf .
