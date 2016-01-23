@@ -11,5 +11,5 @@ make
 make install
 
 cd ~/eggdrop/scripts
-ln -s ../.. bmotion
-cp ../../tests/eggdrop-test.conf .
+ln -s ~/jamesoff/bmotion bmotion
+cp ~/jamesoff/bmotion/tests/eggdrop-test.conf .
