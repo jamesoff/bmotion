@@ -11,5 +11,6 @@ make
 make install
 
 cd ~/eggdrop/scripts
-ln -s ~/jamesoff/bmotion bmotion
-cp ~/jamesoff/bmotion/tests/eggdrop-test.conf .
+ln -s $TRAVIS_BUILD_DIR bmotion
+cd ~/eggdrop
+cp $TRAVIS_BUILD_DIR/tests/eggdrop-test.conf .
