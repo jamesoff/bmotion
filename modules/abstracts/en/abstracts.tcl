@@ -5896,6 +5896,7 @@ bMotion_abstract_register "animals" {
 	"bear"
 	"zebra"
 	"horse"
+	"rare Peruvian spectacled bear"
 }
 
 bMotion_abstract_register "theRs"
