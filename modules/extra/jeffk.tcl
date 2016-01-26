@@ -11,22 +11,22 @@
 ###############################################################################
 
 proc bMotion_module_extra_jeffk { line } {
-  set line [string map -nocase {"hello" "helko" "n\'t" "ant" "sy" "sey" "is" "si"} $line]
-  set line [string map -nocase {"like" "liek" "you" "yuo" "site" "siet" "body" "bodey"} $line]
-  set line [string map -nocase {"taken" "taken" "ter" "tar" "make" "maek" "number" "%VAR{jeffk_number}"} $line]
-  set line [string map -nocase {"name" "naem" "ll" "l" "ly" "ley"} $line]
-  set line [string map -nocase {"ble" "bal" "word" "wrod" "inter" "intar" "lay" "alay" "luck" "luick" "here" "hear"} $line]
+	set line [string map -nocase { "hello" "helko" "n\'t" "ant" "sy" "sey" "is" "si" } $line]
+	set line [string map -nocase { "like" "liek" "you" "yuo" "site" "siet" "body" "bodey" } $line]
+	set line [string map -nocase { "taken" "taken" "ter" "tar" "make" "maek" "number" "%VAR{jeffk_number}" } $line]
+	set line [string map -nocase { "name" "naem" "ll" "l" "ly" "ley" } $line]
+	set line [string map -nocase { "ble" "bal" "word" "wrod" "inter" "intar" "lay" "alay" "luck" "luick" "here" "hear" } $line]
 
 	# broken!
-  #set line [string map {"!" "%REPEAT{2:5:!}"} $line]
-  #set line [string map {"?" "%REPEAT{2:5:?}"} $line]
+	#set line [string map {"!" "%REPEAT{2:5:!}"} $line]
+	#set line [string map {"?" "%REPEAT{2:5:?}"} $line]
 
-  if {![rand 8]} {
-    append line " %VAR{jeffk_ends}"
-  }
+	if {![rand 8]} {
+		append line " %VAR{jeffk_ends}"
+	}
 
-  set line [bMotionDoInterpolation $line "" "" ""]
-  set line [bMotionInterpolation2 $line]
+	set line [bMotionDoInterpolation $line "" "" ""]
+	set line [bMotionInterpolation2 $line]
 
 	if {![rand 6]} {
 		set line [string toupper $line]
@@ -63,12 +63,12 @@ proc bMotion_module_extra_jeffk { line } {
 		set line $newline
 	}
 
-  if {![rand 10]} {
-    append line " %VAR{jeffk_ends}"
-  }
+	if {![rand 10]} {
+		append line " %VAR{jeffk_ends}"
+	}
 
 	set line [bMotionDoInterpolation $line "" "" ""]
-  return $line
+	return $line
 }
 
 bMotion_abstract_add "jeffk_number" { "numbar" "number" }
