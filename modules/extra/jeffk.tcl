@@ -71,7 +71,7 @@ proc bMotion_module_extra_jeffk { line } {
   return $line
 }
 
-set jeffk_number { "numbar" "number" }
-set jeffk_ends {"wtf" "lol" "omg" "omg lol" "lol wtf" "faggot" "fagott" "hairy"}
-set jeffk_ur { "you''re" "your" "you're" }
-set jeffk_thr { "their" "there" "they're" "they''re" "theyre" }
+bMotion_abstract_add "jeffk_number" { "numbar" "number" }
+bMotion_abstract_add "jeffk_ends" { "wtf" "lol" "omg" "omg lol" "lol wtf" "faggot" "fagott" "hairy" }
+bMotion_abstract_add "jeffk_ur" { "you''re" "your" "you're" }
+bMotion_abstract_add "jeffk_thr" { "their" "there" "they're" "they''re" "theyre" }
