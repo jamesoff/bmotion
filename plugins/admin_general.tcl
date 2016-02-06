@@ -347,7 +347,7 @@ proc bMotion_plugin_management_away { handle { text "" } } {
 	if {$text == "off"} {
 		bMotion_putadmin "Coming back from being away."
 		set bMotionInfo(away) 0
-		set bMotionInfo(silent) 0
+		set bMotionInfo(silence) 0
 		return
 	}
 
