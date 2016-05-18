@@ -18,7 +18,7 @@ bMotion_plugin_add_action_complex "hands_dildo" "^sfkjhkjhdfkhdsf__¬$" 0 bMotion
 
 #### DILDO (oh god :)
 proc bMotion_plugin_complex_action_hands_dildo { channel nick item item2 } {
-  global bMotionInfo mood
+  global bMotionInfo
   set host [getchanhost $nick]
   bMotion_putloglev 1 * "bMotion: ... ah ha, a dildo ($item2)"
   driftFriendship $nick 2
@@ -38,7 +38,7 @@ proc bMotion_plugin_complex_action_hands_dildo { channel nick item item2 } {
     }
 
     #not horny enough
-    if {$mood(horny) < 3} {
+    if {[bMotion_mood_get horny] < 3} {
       bMotion_putloglev 1 * "bMotion: but not horny enough (!), they'll have to do better (they'll never learn otherwise)"
       bMotionDoAction $channel $nick "I'm not in the mood for that. Haven't you heard of foreplay?"
       bMotionGetUnLonely
@@ -109,7 +109,7 @@ proc bMotion_plugin_complex_action_hands_dildo { channel nick item item2 } {
     }
 
     #not horny enough
-    if {$mood(horny) < 3} {
+    if {[bMotion_mood_get horny] < 3} {
       bMotion_putloglev 1 * "bMotion: but not horny enough (!), they'll have to do better (they'll never learn otherwise)"
       bMotionDoAction $channel $nick "I'm not in the mood for that. Haven't you heard of foreplay?"
       bMotionGetUnLonely
