@@ -32,7 +32,7 @@ proc bMotion_plugin_output_append { channel line } {
 			}
 		} else {
 			bMotion_putloglev 2 * "output_append: prepending"
-			if {[regexp {[:;=/]} $line]} {
+			if {[regexp {[:;=/?]} $line]} {
 				# don't do this for /me type lines and smilies
 				return $line
 			}
@@ -73,6 +73,7 @@ bMotion_abstract_batchadd "appendslist" {
 	"%spaceor something totally different perhaps"
 	"%spacein the butt"
 	"%spacein a vagina"
+	", due to explosions"
 }
 
 bMotion_abstract_register "narfs"
