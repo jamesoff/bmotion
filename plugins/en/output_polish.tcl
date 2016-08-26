@@ -32,12 +32,11 @@ proc bMotion_plugin_output_polish { channel line } {
         }
 
         # words ending with "s" get "with a z" added
-        # TODO: punctuation
-        if {![regexp -nocase {([sS])$} $word m a]} {
+        if {[regexp -nocase {([sS])([,.?!]?)$} $word m a b]} {
             if {$a == 's'} {
-                append newline "$word with a z "
+                append newline "$word with a z$b "
             } else {
-                append newline "$word WITH A Z "
+                append newline "$word WITH A Z$b "
             }
             continue
         }
