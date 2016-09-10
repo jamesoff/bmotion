@@ -37,7 +37,7 @@ if {![info exists bMotionFacts]} {
 
 proc bMotion_facts_load { } {
 	if [bMotion_redis_available] {
-		bMotion_putloglev 4 * "Not running bMotion_facts_load as we're using redis"
+		bMotion_log "facts" "INFO" "Not running bMotion_facts_load as we're using redis"
 		return
 	}
 
@@ -48,10 +48,10 @@ proc bMotion_facts_load { } {
 		return 0
 	}
 
-	bMotion_putloglev 1 * "Attempting to load $bMotion_facts_file"
+	bMotion_log "facts" "DEBUG" "Attempting to load $bMotion_facts_file"
 
 	if {![file exists "$bMotion_facts_file"]} {
-		bMotion_putloglev d * "facts file $bMotion_facts_file doesn't exist"
+		bMotion_log "facts" "WARN" "facts file $bMotion_facts_file doesn't exist"
 		return
 	}
 
@@ -72,7 +72,7 @@ proc bMotion_facts_load { } {
 			incr count
 
 			if {[expr $count % 1000] == 0} {
-				bMotion_putloglev d * "  still loading facts: $count ..."
+				bMotion_log "facts" "DEBUG" "still loading facts: $count ..."
 			}
 		}
 		set line [gets $fileHandle]
@@ -85,7 +85,7 @@ proc bMotion_facts_load { } {
 		set bMotionFacts($node) [lsort -unique $bMotionFacts($node)]
 		set newcount [llength $bMotionFacts($node)]
 		if {$newcount < $count} {
-			bMotion_putloglev 3 * "saved [expr $count - $newcount] items from $node"
+			bMotion_log "facts" "DEBUG" "saved [expr $count - $newcount] items from $node"
 		}
 	}
 
@@ -100,7 +100,7 @@ proc bMotion_facts_load { } {
 
 proc bMotion_facts_save { } {
 	if [bMotion_redis_available] {
-		putloglev 4 * "not running bMotion_facts_save as we're using redis"
+		bMotion_log "facts" "INFO" "not running bMotion_facts_save as we're using redis"
 		return
 	}
 
@@ -112,11 +112,11 @@ proc bMotion_facts_save { } {
 	set tidyfact 0
 	set count 0
 
-	bMotion_putloglev 1 * "Saving facts to $bMotion_facts_file"
+	bMotion_log "facts" "INFO" "Saving facts to $bMotion_facts_file"
 
 	set factsDir [file dirname $bMotion_facts_file]
 	if { ![file exists $factsDir] } {
-		bMotion_putloglev 1 * "Creating facts directory $factsDir"
+		bMotion_log "facts" "WARN" "Creating facts directory $factsDir"
 		file mkdir $factsDir
 	}
 
@@ -124,7 +124,7 @@ proc bMotion_facts_save { } {
 
 	set items [array names bMotionFacts]
 	if {[llength $items] > $bMotion_facts_max_items} {
-		bMotion_putloglev d * "Too many items are known ([llength $items] > $bMotion_facts_max_items), tidying up"
+		bMotion_log "facts" "WARN" "Too many items are known ([llength $items] > $bMotion_facts_max_items), tidying up"
 		set tidy 1
 	}
 	foreach item $items {
@@ -155,7 +155,7 @@ proc bMotion_facts_save { } {
 		}
 	}
 	if {$tidy} {
-		bMotion_putloglev d * "$count facts have been forgo.. los... delet... thingy *dribbles*"
+		bMotion_log "facts" "INFO" "$count facts have been forgo.. los... delet... thingy *dribbles*"
 	}
 	close $fileHandle
 }
@@ -164,7 +164,7 @@ proc bMotion_facts_auto_save { min hr a b c } {
 	if [bMotion_redis_available] {
 		return
 	}
-	putlog "bMotion: autosaving facts..."
+	bMotion_log "facts" "INFO" "bMotion: autosaving facts..."
 	bMotion_facts_save
 }
 
@@ -188,7 +188,7 @@ bind time - "01 * * * *" bMotion_facts_auto_save
 # load facts at startup
 catch {
 	if {$bMotion_loading == 1} {
-		bMotion_putloglev d * "autoloading facts..."
+		bMotion_log "facts" "DEBUG" "autoloading facts..."
 		bMotion_facts_load
 	}
 }
