@@ -14,19 +14,19 @@
 
 set languages [split $bMotionSettings(languages) ","]
 foreach bMotion_language $languages {
-	bMotion_putloglev 2 * "bMotion: loading output plugins language = $bMotion_language"
+	bMotion_log "plugins" "INFO" "loading output plugins language = $bMotion_language"
 	set files [glob -nocomplain "$bMotionPlugins/$bMotion_language/output_*.tcl"]
 	foreach f $files {
 		set count [llength [array names bMotion_plugins_output]]
-		bMotion_putloglev 1 * "bMotion: loading ($bMotion_language) output plugin file $f"
+		bMotion_log "plugins" "DEBUG" "bMotion: loading ($bMotion_language) output plugin file $f"
 		set bMotion_noplugins 0
 		catch {
 			source $f
 		} err
 		set newcount [llength [array names bMotion_plugins_output]]
 		if {($bMotion_testing == 0) && ($newcount == $count) && ($bMotion_noplugins == 0)} {
-			putlog "bMotion: ALERT! output plugin file $f added no plugins"
-			putlog "Possible error: $err"
+			bMotion_log "plugins" "WARN" "ALERT! output plugin file $f added no plugins"
+			bMotion_log "plugins" "WARN" "Possible error: $err"
 		}
 	}
 }
@@ -41,14 +41,14 @@ set output_preenables [split [bMotion_setting_get "output_preenables"] ","]
 foreach output_preenable $output_preenables {
 	if {[string range $output_preenable end-1 end] == ":1"} {
 		set plugin [string range $output_preenable 0 [expr [string last ":1" $output_preenable] - 1]]
-		bMotion_putloglev d * "Globally enabling output plugin $plugin from settings file"
+		bMotion_log "plugins" "INFO" "Globally enabling output plugin $plugin from settings file"
 		bMotion_plugin_set_output $plugin 1
 		continue
 	}
 
 	if {[string range $output_preenable end-1 end] == ":0"} {
 		set plugin [string range $output_preenable 0 [expr [string last ":1" $output_preenable] - 1]]
-		bMotion_putloglev d * "Globally disabling output plugin $plugin from settings file"
+		bMotion_log "plugins" "INFO" "Globally disabling output plugin $plugin from settings file"
 		bMotion_plugin_set_output $plugin 0
 		continue
 	}
@@ -56,11 +56,11 @@ foreach output_preenable $output_preenables {
 	if [string match "*=*" $output_preenable] {
 		set plugin [string range $output_preenable 0 [expr [string last "=" $output_preenable] - 1]]
 		set chan [string range $output_preenable [expr [string last "=" $output_preenable] + 1] end]
-		bMotion_putloglev d * "Enabling output plugin $plugin on channel $chan from settings file"
+		bMotion_log "plugins" "INFO" "Enabling output plugin $plugin on channel $chan from settings file"
 		bMotion_plugin_set_output_channel $plugin $chan 1
 		continue
 	}
 
-	putlog "bMotion: ERROR parsing output_preenables: not sure what to do with $output_preenable"
+	bMotion_log "plugins" "ERROR" "error parsing output_preenables: not sure what to do with $output_preenable"
 }
 
