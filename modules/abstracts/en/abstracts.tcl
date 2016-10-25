@@ -1,6 +1,5 @@
 # Responses
 # $Id$
-# vim: foldmethod=indent syntax=OFF
 # This file is syntax=OFF for vim because a) it doesn't really need it and b) it makes vim sloooow
 #
 ###############################################################################
@@ -1763,6 +1762,7 @@ bMotion_abstract_register "goodnights" {
 	"nn %%"
 	"don't have really bad dreams about a nasty man coming to strangle you in your bed"
 	"sleep well %%"
+	"good night%|and big balls."
 }
 
 bMotion_abstract_register "afro_1" {
@@ -4746,6 +4746,7 @@ bMotion_abstract_register "go_sleeps" {
 	"/hits the sack"
 	"/hits the hay"
 	"/hits the hay%|ow, my hay%|wait, what?%|must be bedtime"
+	"goodnight%|and big balls."
 }
 
 bMotion_abstract_register "go_sleeps_male" {
