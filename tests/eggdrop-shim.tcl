@@ -2,6 +2,31 @@ puts "eggdrop shim loading"
 
 set SHIM "\[SHIM\]"
 
+set shim_utimers [list]
+set shim_timers [list]
+
+proc shim_check_for_timer { type callback } {
+  if {$type == "timer"} {
+    foreach entry $::shim_timers {
+      if {[lindex $entry 1] == $callback} {
+	return 1
+      }
+    }
+    return 0
+  }
+
+  if {$type == "utimer"} {
+    foreach entry $::shim_utimers {
+      if {[lindex $entry 1] == $callback} {
+	return 1
+      }
+    }
+    return 0
+  }
+
+  return 0
+}
+
 proc shim_print { text } {
   puts "\[\033\[01;32mSHIM\033\[0m\] $text"
 }
@@ -29,7 +54,6 @@ proc putloglev { level star msg } {
 }
 
 proc putlog { msg } {
-  #puts "$::SHIM putlog $msg"
   shim_print_log $msg
 }
 
@@ -55,10 +79,12 @@ proc rand { max } {
 
 proc utimer { t method } {
   shim_print "utimer: $t $method"
+  set ::shim_utimers [lappend ::shim_utimers [list $t $method ]]
 }
 
 proc timer { t method } {
   shim_print "timer: $t $method"
+  set ::shim_timers [lappend ::shim_timers [list $t $method ]]
 }
 
 proc utimers { } {
