@@ -12,7 +12,9 @@
 
 
 ### Set some important variables
-set bMotionRoot "scripts/bmotion"
+if {![info exists bMotionRoot]} {
+  set bMotionRoot "scripts/bmotion"
+}
 set bMotionModules "$bMotionRoot/modules"
 set bMotionPlugins "$bMotionRoot/plugins"
 set bMotionLocal "$bMotionRoot/local"

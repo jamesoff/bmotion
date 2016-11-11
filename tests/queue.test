@@ -1,0 +1,30 @@
+# vim: ft=tcl
+source "tests/eggdrop-shim.tcl"
+
+set botnick "NoTopic"
+set bMotionRoot "."
+
+source "bMotion.tcl"
+
+package require tcltest
+namespace import ::tcltest::*
+
+eval ::tcltest::configure $argv
+
+test empty_queue-1 "queue should start empty" -body {
+	bMotion_queue_size
+} -result 0
+
+test add_queue-1 "queue an entry up with no delay" -body {
+	bMotion_queue_add #test "blah"
+
+	lindex $::bMotion_queue 0
+} -result {2 #test blah}
+
+test add_queue-2 "queue an entry up with specified delay" {
+	bMotion_queue_add #test "blah2" 10
+
+	lindex $::bMotion_queue 1
+} {10 #test blah2}
+
+cleanupTests

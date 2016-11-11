@@ -5,4 +5,4 @@ addons:
   apt:
     packages:
     - tcl-dev
-install: ./tests/build-eggdrop.sh
+install: tclsh tests/run-tests.tcl

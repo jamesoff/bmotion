@@ -1,4 +1,4 @@
-puts "eggdrop shim"
+puts "eggdrop shim loading"
 
 set SHIM "\[SHIM\]"
 
@@ -23,7 +23,9 @@ proc setudef { a b } {
 }
 
 proc putloglev { level star msg } {
-  shim_print_log "($level) $msg"
+  if {$level == "d"} {
+    shim_print_log "($level) $msg"
+  }
 }
 
 proc putlog { msg } {
