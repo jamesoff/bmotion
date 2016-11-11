@@ -27,4 +27,36 @@ test add_queue-2 "queue an entry up with specified delay" {
 	lindex $::bMotion_queue 1
 } {10 #test blah2}
 
+test freeze_queue-1 "freeze the queue" -body {
+	bMotion_queue_freeze
+
+	return $::bMotion_queue_runny
+} -result {0}
+
+test freeze-queue-2 "frozen queue doesn't run" -body {
+	bMotion_queue_run
+
+	return [llength $::bMotion_queue]
+} -result {2}
+
+test thaw_queue-1 "thaw the queue" -body {
+	bMotion_queue_thaw
+
+	return $::bMotion_queue_runny
+} -result {1}
+
+test get_queue_delay-1 "check queue delay" -body {
+	return [bMotion_queue_get_delay]
+} -result {4}
+
+test add_queue_head-1 "queue an entry to the head of the queue" -body {
+	bMotion_queue_add_now #test "blah-now"
+
+	lindex $::bMotion_queue 2
+} -result {0 #test blah-now}
+
+test queue_timer-1 "queue timer was added" -body {
+	shim_check_for_timer utimer bMotion_queue_callback
+} -result {1}
+
 cleanupTests
