@@ -6,6 +6,10 @@ logfile=tests/output.txt
 
 rm -f "$logfile"
 
+# check if we need to copy the sample config file over
+mkdir -p local
+[ -f local/settings.tcl ] || cp modules/settings.sample.tcl local/settings.tcl
+
 # tcltest doesn't know how to do exit codes, sigh
 tclsh tests/run-tests.tcl | tee "$logfile"
 
