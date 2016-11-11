@@ -5,4 +5,4 @@ addons:
   apt:
     packages:
     - tcl-dev
-script: tclsh tests/run-tests.tcl
+script: tests/tests-wrapper.sh
