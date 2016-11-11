@@ -5,4 +5,4 @@ addons:
   apt:
     packages:
     - tcl-dev
-install: tclsh tests/run-tests.tcl
+script: tclsh tests/run-tests.tcl
