@@ -1,8 +1,9 @@
-source "scripts/bmotion/eggdrop-shim.tcl"
+source "tests/eggdrop-shim.tcl"
 
 set botnick "NoTopic"
+set bMotionRoot "."
 
-source "scripts/bmotion/bMotion.tcl"
+source "bMotion.tcl"
 
 proc q { } {
   bMotion_queue_run
