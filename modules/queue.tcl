@@ -181,7 +181,7 @@ proc bMotion_queue_dupecheck { text channel } {
 	global bMotion_queue
 
 	bMotion_putloglev 4 * "bMotion_queue_dupecheck $text"
-	
+
 	set text [string tolower $text]
 
 	# TODO: maybe remove some punctuation, but not things like :)
@@ -189,7 +189,7 @@ proc bMotion_queue_dupecheck { text channel } {
 	set tempqueue [list]
 
 	foreach item $bMotion_queue {
-		if {$channel == [lindex $item 1]} {
+		if {$channel != [lindex $item 1]} {
 			lappend tempqueue $item
 			continue
 		}
@@ -198,8 +198,9 @@ proc bMotion_queue_dupecheck { text channel } {
 
 		if {$content == $text} {
 			# delete this entry by setting it to nothing; the next queue run will remove it
-			set item [lreplace $item 2 2 ""]
+			#set item [lreplace $item 2 2 ""]
 			bMotion_putloglev 2 * "queue: removed item '$content' as it's similar to text '$text'"
+			continue
 		}
 
 		lappend tempqueue $item
