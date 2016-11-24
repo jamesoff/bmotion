@@ -120,3 +120,37 @@ proc putserv { msg } {
   shim_print_serv $msg
 }
 
+proc isbotnick { nick } {
+  shim_print "isbotnick $nick"
+  if { $nick == $::botnick } {
+    return 1
+  }
+  return 0
+}
+
+proc ischanban { nick channel } {
+  shim_print "ischanban $nick $channel"
+  if { $nick == "banned" } {
+    return 1
+  }
+  return 0
+}
+
+proc chanlist { channel } {
+  shim_print "chanlist $channel"
+  return [list "jms" "jamesoff" ]
+}
+
+proc nick2hand { nick $channel } {
+  shim_print "nick2hand $nick"
+  return $nick
+}
+
+proc getuser { handle type key } {
+  shim_print "getuser $handle $type $key"
+  if {$type == "XTRA"} {
+    if {$key == "friend"} {
+      return 50
+    }
+  }
+}

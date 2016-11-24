@@ -1,0 +1,19 @@
+# vim: ft=tcl
+source "tests/eggdrop-shim.tcl"
+
+set botnick "NoTopic"
+set bMotionRoot "."
+
+source "bMotion.tcl"
+
+package require tcltest
+namespace import ::tcltest::*
+
+eval ::tcltest::configure $argv
+
+test onjoin-1 "onjoin handles event" -body {
+  bMotion_event_onjoin jms jms!jms@localhost jms #molsoft
+} -result { }
+
+
+cleanupTests
