@@ -120,11 +120,14 @@ catch {
   }
 }
 
-putlog "bMotion: loaded settings from the following files: $bMotion_loaded_settings_from"
-
 if {$bMotion_loaded_settings == 0} {
 	putlog "bMotion: FATAL! Could not load from any settings file! bMotion is not going to work! :("
+	putlog "bMotion: Aborting script startup"
+	putlog "bMotion: Hint: mkdir -p local && cp modules/settings.sample.tcl local/settings.tcl"
+	return
 }
+
+putlog "bMotion: loaded settings from the following files: $bMotion_loaded_settings_from"
 
 #load redis
 if {$bMotion_testing == 1} {
