@@ -15,6 +15,10 @@ test empty_queue-1 "queue should start empty" -body {
 	bMotion_queue_size
 } -result 0
 
+test empty_queue-2 "queue should not be frozen" -body {
+	return $::bMotion_queue_runny
+} -result 1
+
 test add_queue-1 "queue an entry up with no delay" -body {
 	bMotion_queue_add #test "blah"
 
@@ -57,6 +61,27 @@ test add_queue_head-1 "queue an entry to the head of the queue" -body {
 
 test queue_timer-1 "queue timer was added" -body {
 	shim_check_for_timer utimer bMotion_queue_callback
+} -result {1}
+
+test queue_dupecheck-1 "queue dupecheck should remove duplicate entry" -body {
+	set ::bMotion_queue [list { 0 "#test" "testing" }]
+	bMotion_queue_dupecheck "testing" "#test"
+
+	llength $::bMotion_queue
+} -result {0}
+
+test queue_dupecheck-2 "queue dupecheck should leave non-duplicate entry" -body {
+	set ::bMotion_queue [list { 0 "#test" "testing" }]
+	bMotion_queue_dupecheck "hello" "#test"
+
+	llength $::bMotion_queue
+} -result {1}
+
+test queue_dupecheck-3 "queue dupecheck should leave other channel's entry" -body {
+	set ::bMotion_queue [list { 0 "#test" "testing" }]
+	bMotion_queue_dupecheck "testing" "#molsoft"
+
+	llength $::bMotion_queue
 } -result {1}
 
 cleanupTests
