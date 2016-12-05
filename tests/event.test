@@ -12,8 +12,11 @@ namespace import ::tcltest::*
 eval ::tcltest::configure $argv
 
 test onjoin-1 "onjoin handles event" -body {
-  bMotion_event_onjoin jms jms!jms@localhost jms #molsoft
-} -result { }
+  set result [bMotion_event_onjoin jms jms!jms@localhost jms #molsoft]
+  if {($result == 0) || ($result == 1)} {
+    return 1
+  }
+} -result 1
 
 
 cleanupTests
