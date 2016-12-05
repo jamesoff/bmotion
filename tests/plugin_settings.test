@@ -1,0 +1,51 @@
+# vim: ft=tcl
+source "tests/eggdrop-shim.tcl"
+
+set botnick "NoTopic"
+set bMotionRoot "."
+
+source "bMotion.tcl"
+
+package require tcltest
+namespace import ::tcltest::*
+
+eval ::tcltest::configure $argv
+
+test settings_set-1 "plugins settings saved with sensible values" -body {
+  bMotion_plugins_settings_set "test" "test-setting" "test-channel" "test-nick" "moo"
+
+  return $::bMotion_plugins_settings(test,test-setting,test-channel,test-nick)
+} -result {moo}
+
+test settings_set-2 "plugins settings saved with missing nick" -body {
+  bMotion_plugins_settings_set "test" "test-setting" "test-channel" "" "moo2"
+
+  return $::bMotion_plugins_settings(test,test-setting,test-channel,_)
+} -result {moo2}
+
+test settings_set-3 "plugins settings saved with missing channel" -body {
+  bMotion_plugins_settings_set "test" "test-setting" "" "test-nick" "moo3"
+
+  return $::bMotion_plugins_settings(test,test-setting,_,test-nick)
+} -result {moo3}
+
+test settings_set-4 "plugins settings saved with missing setting" -body {
+  return [bMotion_plugins_settings_set "test" "" "test-channel" "test-nick" "moo"]
+} -result {0}
+
+test settings_get-1 "plugins settings fetched with given values" -body {
+  return [bMotion_plugins_settings_get "test" "test-setting" "test-channel" "test-nick"]
+} -result {moo}
+
+test settings_get-2 "plugins settings fetched with given values" -body {
+  return [bMotion_plugins_settings_get "test" "test-setting" "test-channel" "_"]
+} -result {moo2}
+
+test settings_get-3 "plugins settings fetched with given values" -body {
+    return [bMotion_plugins_settings_get "test" "test-setting" "_" "test-nick"]
+} -result {moo3}
+
+
+# TODO: redis
+
+cleanupTests
