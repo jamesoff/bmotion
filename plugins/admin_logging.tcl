@@ -32,7 +32,7 @@ proc bMotion_plugin_management_logging { handle { args "" } } {
 		}
 		return
 	}
-	
+
 	if {[regexp -nocase {categor(y|ies)( .+)?} $args matches skip categories]} {
 		global bMotion_log_categories bMotion_log_active
 		if {$categories == ""} {
@@ -81,11 +81,11 @@ proc bMotion_plugin_management_logging { handle { args "" } } {
 				bMotion_putadmin "Unknown category '$cat_name'"
 			} else {
 				switch $first_char {
-					"+" { 
-						lappend $new_categories $cat_name
+					"+" {
+						lappend new_categories $cat_name
 						set new_categories [lsort -unique $new_categories]
 					}
-					"-" { 
+					"-" {
 						if {[llength $new_categories] == 0} {
 							set new_categories $bMotion_log_categories
 						}
@@ -94,7 +94,7 @@ proc bMotion_plugin_management_logging { handle { args "" } } {
 							set new_categories [lreplace $new_categories $index $index]
 						}
 					}
-					default { 
+					default {
 						set all_ok 0
 						bMotion_putadmin "Unknown category operator $first_char"
 					}
