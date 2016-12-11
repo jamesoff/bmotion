@@ -275,10 +275,10 @@ proc bMotion_mood_admin { handle { arg "" } } {
 	if {[regexp -nocase {set ([^ ]+) (-?[0-9]+)} $arg matches moodname moodval]} {
 		if {$moodval < -30} {
 			set moodval -30
-			bMotion_putloglev d * "bMotion: mood $moodname went OOB, resetting to -30"
+			bMotion_log "mood" "INFO" "mood $moodname went OOB, resetting to -30"
 		}
 		if {$moodval > 30} {
-			bMotion_putloglev d * "bMotion: mood $moodname went OOB, resetting to 30"
+			bMotion_log "mood" "INFO" "mood $moodname went OOB, resetting to 30"
 			set moodval 30
 		}
 
