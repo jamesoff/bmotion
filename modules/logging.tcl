@@ -25,7 +25,7 @@ set BMOTION_LOG_LEVEL(DEBUG) 3
 set BMOTION_LOG_LEVEL(TRACE) 4
 
 if {![info exists bMotion_log_level]} {
-	set bMotion_log_level "WARN"
+	set bMotion_log_level 1
 }
 
 
