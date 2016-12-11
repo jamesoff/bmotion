@@ -302,46 +302,6 @@ set bMotionSettings(wakeytime_minute) "30"
 #set bMotionSettings(redis_auth) ""
 
 
-### Stats (not currently used)
-#
-# bMotion can report back to me that it's installed, for my own curiosity
-# so i can see how many bots are installed (a bit like the eggdrop stats
-# module). It can also check for updates, not that there've been any for
-# years, but I intend to fix that.
-# 
-# If you'd like to enable this, set the first setting below to 1 and then
-# toggle the others to change exactly what info your bot shares with me.
-#
-# If you only want to check for updates, leave the first setting as 0 and
-# just set the 2nd one to 1.
-#
-# See the comments in modules/extra/stats.tcl for more information.
-# You can see the stats at http://www.bmotion.net/stats
-
-# Send stats? [important]
-set bMotion_stats_enabled 0
-
-# Check for new versions (independent from stats)
-set bMotion_stats_version 0
-
-# What can we send (if stats_enabled is 1)
-# Set these to 0 to disable sending that bit of
-# info.
-
-# this is the bot's nick
-set bMotion_stats_send(botnick) 1
-
-# the admin info ('admin' in eggdrop config)
-set bMotion_stats_send(admin) 1
-
-# the network name ('network' in eggdrop config)
-set bMotion_stats_send(network) 1
-
-# bmotion's gender/orientation
-set bMotion_stats_send(bminfo) 1
-
-
-
 ### Copyright info
 #
 # set this to 0 to stop showing the copyright
