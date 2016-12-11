@@ -197,8 +197,9 @@ proc bMotion_queue_dupecheck { text channel } {
 
 		if {$content == $text} {
 			# delete this entry by setting it to nothing; the next queue run will remove it
-			set item [lreplace $item 2 2 ""]
+			#set item [lreplace $item 2 2 ""]
 			bMotion_log "queue" "INFO" "removed item '$content' as it's similar to text '$text'"
+			continue
 		}
 
 		lappend tempqueue $item
