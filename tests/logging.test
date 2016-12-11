@@ -1,0 +1,134 @@
+# vim: ft=tcl
+source "tests/eggdrop-shim.tcl"
+
+set botnick "NoTopic"
+set bMotionRoot "."
+
+source "bMotion.tcl"
+
+package require tcltest
+namespace import ::tcltest::*
+
+eval ::tcltest::configure $argv
+
+test logging-level-1 "level to int correct for ERROR" -body {
+  return [bMotion_log_level_int ERROR]
+} -result 0
+
+test logging-level-2 "level to int correct for WARN" -body {
+  return [bMotion_log_level_int WARN]
+} -result 1
+
+test logging-level-3 "level to int correct for INFO" -body {
+  return [bMotion_log_level_int INFO]
+} -result 2
+
+test logging-level-4 "level to int correct for DEBUG" -body {
+  return [bMotion_log_level_int DEBUG]
+} -result 3
+
+test logging-level-5 "level to int correct for TRACE" -body {
+  return [bMotion_log_level_int TRACE]
+} -result 4
+
+test logging-level-6 "level to int correct for unknown level" -body {
+  return [bMotion_log_level_int moo]
+} -result 0
+
+
+test logging-text-1 "int to level correct for ERROR" -body {
+  return [bMotion_log_level_string 0]
+} -result ERROR
+
+test logging-text-2 "int to level correct for WARN" -body {
+  return [bMotion_log_level_string 1]
+} -result "WARN "
+
+test logging-text-3 "int to level correct for INFO" -body {
+  return [bMotion_log_level_string 2]
+} -result "INFO "
+
+test logging-text-4 "int to level correct for DEBUG" -body {
+  return [bMotion_log_level_string 3]
+} -result DEBUG
+
+test logging-text-5 "int to level correct for TRACE" -body {
+  return [bMotion_log_level_string 4]
+} -result TRACE
+
+
+test logging-init-1 "at startup, log level should be WARN" -body {
+  return $::bMotion_log_level
+} -result 1
+
+test logging-add-category-1 "adding a new category succeeds" -body {
+  bMotion_log_add_category "test"
+  return [expr [lsearch $::bMotion_log_categories "test"] > -1]
+} -result 1
+
+test logging-add-category-2 "adding a duplicate category has no effect" -body {
+  set l [llength $::bMotion_log_categories]
+  bMotion_log_add_category "test"
+  return [expr $l == [llength $::bMotion_log_categories]]
+} -result 1
+
+
+test logging-setlevel-1 "admin level command sets level" -setup {
+  set ::bMotion_log_level 0
+} -body {
+  bMotion_plugin_management_logging jms "level TRACE"
+  return $::bMotion_log_level
+} -result 4
+
+test logging-setlevel-2 "admin level with invalid level does nothing" -setup {
+  set ::bMotion_log_level 0
+} -body {
+  bMotion_plugin_management_logging jms "level MOO"
+  return $::bMotion_log_level
+} -result 0
+
+test logging-setcategories-1 "admin categories command all sets to all" -setup {
+  set ::bMotion_log_active [list hello]
+} -body {
+  bMotion_plugin_management_logging jms "categories all"
+  return $::bMotion_log_active
+} -result [list]
+
+test logging-setcategories-2 "admin categories command events sets to events" -setup {
+  set ::bMotion_log_active [list]
+} -body {
+  bMotion_plugin_management_logging jms "categories events"
+  puts $::bMotion_log_active
+  return $::bMotion_log_active
+} -result {events}
+
+test logging-setcategories-3 "admin categories command +system adds system to events" -setup {
+  set ::bMotion_log_active [list "events"]
+} -body {
+  bMotion_plugin_management_logging jms "categories +system"
+  return $::bMotion_log_active
+} -result {events system}
+
+test logging-setcategories-4 "admin categories command -system removes system from logging" -setup {
+  set ::bMotion_log_active [list "events" "system"]
+} -body {
+  bMotion_plugin_management_logging jms "categories -system"
+  return $::bMotion_log_active
+} -result {events}
+
+test logging-setcategories-5 "admin categories command +system,+flood adds system and flood categories" -setup {
+  set ::bMotion_log_active [list "events"]
+} -body {
+  bMotion_plugin_management_logging jms "categories +system,+flood"
+  return $::bMotion_log_active
+} -result {events flood system}
+
+test logging-setcategories-6 "admin categories command -system,-events removes system and events from logging" -setup {
+  set ::bMotion_log_active [list "events" "system" "flood"]
+} -body {
+  bMotion_plugin_management_logging jms "categories -system,-events"
+  return $::bMotion_log_active
+} -result {flood}
+
+
+cleanupTests
