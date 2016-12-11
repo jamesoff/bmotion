@@ -13,7 +13,7 @@
 ###############################################################################
 
 proc bMotion_question_where { nick channel host } {
-	bMotion_putloglev 2 * "$nick where question"
+	bMotion_log "plugin" "TRACE" "bMotion_question_where $nick $channel $host"
 	if {[getFriendship $nick] < 40} {
 		bMotionDoAction $channel [bMotionGetRealName $nick $host] "%VAR{upyourbums}"
 	} else {
@@ -23,7 +23,7 @@ proc bMotion_question_where { nick channel host } {
 
 proc bMotion_question_wellbeing { nick channel host } {
 	##boring code, replaced
-	bMotion_putloglev 2 * "$nick wellbeing question"
+	bMotion_log "plugin" "TRACE" "bMotion_question_wellbeing $nick $channel $host"
 
 	driftFriendship $nick 2
 
