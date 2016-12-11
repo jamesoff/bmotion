@@ -1,7 +1,5 @@
 puts "eggdrop shim loading"
 
-set SHIM "\[SHIM\]"
-
 set shim_utimers [list]
 set shim_timers [list]
 
@@ -48,6 +46,7 @@ proc setudef { a b } {
 }
 
 proc putloglev { level star msg } {
+  return
   if {$level == "d"} {
     shim_print_log "($level) $msg"
   }
