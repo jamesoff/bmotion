@@ -18,19 +18,19 @@
 proc bMotion_plugin_output_NUMBER { channel line } {
     bMotion_log "output" "TRACE" "bMotion_plugin_output_NUMBER $channel $line"
 
-	set padding 0
-	if {[regexp "%NUMBER\{(\[0-9\]+)\}(\{(\[0-9\]+)\})?" $line matches numberString paddingOpt padding]} {
-		set var [bMotion_rand_nonzero $numberString]
-		if {$padding > 0} {
-			set fmt "%0$padding"
-			append fmt "u"
-			set var [format $fmt $var]
-		}
-		regsub "%NUMBER\\{$numberString\\}(\\{\[0-9\]+\\})?" $line $var line
-		set padding 0
-	}
+    set padding 0
+    if {[regexp "%NUMBER\{(\[0-9\]+)\}(\{(\[0-9\]+)\})?" $line matches numberString paddingOpt padding]} {
+        set var [bMotion_rand_nonzero $numberString]
+        if {$padding > 0} {
+            set fmt "%0$padding"
+            append fmt "u"
+            set var [format $fmt $var]
+        }
+        regsub "%NUMBER\\{$numberString\\}(\\{\[0-9\]+\\})?" $line $var line
+        set padding 0
+    }
 
-	return $line
+    return $line
 }
 
 bMotion_plugin_add_output "NUMBER" bMotion_plugin_output_NUMBER 1 "en" 5
