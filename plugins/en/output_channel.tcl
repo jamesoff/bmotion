@@ -18,9 +18,9 @@
 proc bMotion_plugin_output_channel { channel line } {
     bMotion_log "output" "TRACE" "bMotion_plugin_output_channel $channel $line"
 
-	regsub "%channel" $line $channel line
+    regsub "%channel" $line $channel line
 
-	return $line
+    return $line
 }
 
 bMotion_plugin_add_output "channel" bMotion_plugin_output_channel 1 "en" 11
