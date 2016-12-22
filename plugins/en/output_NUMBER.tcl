@@ -16,7 +16,7 @@
 # %NUMBER{x}{y} --> a number between 0 and y padded with 0s to make it y chars
 
 proc bMotion_plugin_output_NUMBER { channel line } {
-	bMotion_putloglev 4 * "bMotion_plugin_output_NUMBER $channel $line"
+    bMotion_log "output" "TRACE" "bMotion_plugin_output_NUMBER $channel $line"
 
 	set padding 0
 	if {[regexp "%NUMBER\{(\[0-9\]+)\}(\{(\[0-9\]+)\})?" $line matches numberString paddingOpt padding]} {
