@@ -15,4 +15,76 @@ test mood-log-1 "mood log category exists" -body {
     return [bMotion_log_category_exists "mood"]
 } -result {1}
 
+
+test mood-init-1 "mood init creates mood" -setup {
+    bMotion_mood_init "test1" 5 0 10 5 "testmood"
+} -body {
+    return $::bMotion_moods(test1)
+} -result {5 0 10 5 testmood}
+
+test mood-init-2 "mood init requires initial > min" -setup {
+    bMotion_mood_init "test2" -1 0 10 5 "testmood"
+} -body {
+    return [llength [array get ::bMotion_moods test2]]
+} -result 0
+
+test mood-init-3 "mood init requires initial < max" -setup {
+    bMotion_mood_init "test3" 11 0 10 5 "testmood"
+} -body {
+    return [llength [array get ::bMotion_moods test3]]
+} -result 0
+
+test mood-init-4 "mood init requires target > min" -setup {
+    bMotion_mood_init "test4" 5 0 10 -1 "testmood"
+} -body {
+    return [llength [array get ::bMotion_moods test4]]
+} -result 0
+
+test mood-init-5 "mood init requires target < max" -setup {
+    bMotion_mood_init "test5" 5 0 10 15 "testmood"
+} -body {
+    return [llength [array get ::bMotion_moods test5]]
+} -result 0
+
+test mood-init-6 "mood init won't accept dupes" -setup {
+    # same mood name but different initial value
+    bMotion_mood_init "test1" 6 0 10 15 "testmood"
+} -body {
+    # shouldn't have changed though
+    return $::bMotion_moods(test1)
+} -result {5 0 10 5 testmood}
+
+test mood-init-7 "mood init requires min < max" -setup {
+    bMotion_mood_init "test6" 5 10 0 5 "testmood"
+} -body {
+    return [llength [array get ::bMotion_moods test6]]
+} -result 0
+
+test mood-init-8 "mood init requires a name" -setup {
+    bMotion_mood_init "" 5 0 10 5 "testmood"
+} -body {
+    return [llength [array get ::bMotion_moods ""]]
+} -result 0
+
+test mood-init-9 "mood init creates happy mood" -body {
+    return $::bMotion_moods(happy)
+} -result {0 -30 30 0 bMotion_mood_change_happy}
+
+test mood-init-10 "mood init creates horny mood" -body {
+    return $::bMotion_moods(horny)
+} -result {0 -30 30 0 bMotion_mood_change_horny}
+
+test mood-init-11 "mood init creates lonely mood" -body {
+    return $::bMotion_moods(lonely)
+} -result {0 -30 30 5 bMotion_mood_change_lonely}
+
+test mood-init-12 "mood init creates electricity mood" -body {
+    return $::bMotion_moods(electricity)
+} -result {0 -30 30 2 bMotion_mood_change_electricity}
+
+test mood-init-13 "mood init creates stoned mood" -body {
+    return $::bMotion_moods(stoned)
+} -result {0 -30 30 0 bMotion_mood_change_stoned}
+
+
 cleanupTests

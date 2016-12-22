@@ -113,7 +113,7 @@ proc checkmood {nick channel} {
 
 proc driftmood {} {
 	bMotion_log "mood" "ERROR" "call to driftmood"
-	return 
+	return
 }
 
 
@@ -150,7 +150,7 @@ proc bMotion_mood_drift { } {
 
 		set mood_info [lreplace $mood_info $BMOTION_MOOD_VALUE $BMOTION_MOOD_VALUE $value]
 		bMotion_log "mood" "DEBUG" "mood $mood is now $mood_info"
-		set bMotion_moods($mood) $mood_info 
+		set bMotion_moods($mood) $mood_info
 	}
 }
 
