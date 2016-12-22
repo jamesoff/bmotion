@@ -12,7 +12,7 @@
 
 
 proc bMotion_plugin_output_rbot { channel line } {
-	bMotion_putloglev 4 * "bMotion_plugin_output_rbot $channel $line"
+    bMotion_log "output" "TRACE" "bMotion_plugin_output_rbot $channel $line"
 
 	if {[regexp "%rbot(\{(\[^\}\]+)\})?" $line matches param condition]} {
 		set ruser [bMotionGetRealName [bMotion_choose_random_user $channel 1 $condition] ""]
