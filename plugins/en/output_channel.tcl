@@ -16,7 +16,7 @@
 # syntax: %channel
 
 proc bMotion_plugin_output_channel { channel line } {
-	bMotion_putloglev 4 * "bMotion_plugin_output_channel $channel $line"
+    bMotion_log "output" "TRACE" "bMotion_plugin_output_channel $channel $line"
 
 	regsub "%channel" $line $channel line
 
