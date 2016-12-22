@@ -16,34 +16,35 @@
 proc bMotion_plugin_output_append { channel line } {
 	set length [string length $line]
 	set n [rand 100]
-	bMotion_putloglev 1 * "output_append: length=$length, n=$n"
+    bMotion_log "output" "TRACE" "bMotion_plugin_output_append $channel $line"
+    bMotion_log "output" "TRACE" "length=$length, n=$n"
 	if {($length > 10) && ($n > 90)} {
-		bMotion_putloglev 1 * "output_append: doing!"
+        bMotion_log "output" "DEBUG" "append: doing it"
 		set line [string trim $line]
 		# make sure the line ends with a letter (other than D)
 		# this is so we don't make ourselves look dumb(er) by adding
 		# on the end of a line with a smiley
 		if [rand 2] {
-			bMotion_putloglev 2 * "output_append: appending"
+            bMotion_log "output" "DEBUG" "append: elected to append"
 			if [regexp -nocase {[a-ce-z]$} $line] {
 				append line "%VAR{appends}"
 			} else {
-				bMotion_putloglev d * "output_append: not appending to this line as it may end in a smiley"
+                bMotion_log "output" "DEBUG" "append: not appending to this line as it may end in a smiley"
 			}
 		} else {
-			bMotion_putloglev 2 * "output_append: prepending"
+            bMotion_log "output" "DEBUG" "append: elected to prepend"
 			if {[regexp {[:;=/?]} $line]} {
 				# don't do this for /me type lines and smilies
 				return $line
 			}
 			set line "%VAR{prepends} $line"
 		}
-		bMotion_putloglev 1 * "output_append: preprocessed line is $line"
+        bMotion_log "output" "DEBUG" "output_append: preprocessed line is $line"
 
 		set line [bMotion_process_macros $channel $line]
 		regsub -all "%space" $line " " line
 
-		bMotion_putloglev 1 * "output_append: postprocessed line is $line"
+        bMotion_log "output" "DEBUG" "output_append: postprocessed line is $line"
 	}
 	return $line
 }
