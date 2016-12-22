@@ -19,7 +19,7 @@
 #      too because loading two plugins to simulate typing errors is meaningless (mostly)
 
 proc bMotion_plugin_output_typos_do { line } {
-	bMotion_putloglev 4 * "bMotion_plugin_output_typos_do $line"
+	bMotion_log "output" "TRACE" "bMotion_plugin_output_typos_do $line"
 	global bMotionSettings
 
   set typochance $bMotionSettings(typos)
@@ -122,7 +122,7 @@ proc bMotion_plugin_output_typos_do { line } {
     #else...
     append newLine $char
   }
-	bMotion_putloglev 4 * "returning $newLine"
+	bMotion_log "output" "DEBUG" "typos: returning $newLine"
   return $newLine
 }
 
@@ -130,7 +130,7 @@ proc bMotion_plugin_output_typos_do { line } {
 #    Attempt to make typos similar to human typing errors
 #
 proc bMotion_plugin_output_typos { channel line } {
-	bMotion_putloglev 4 * "bMotion_plugin_output_typos $channel $line"
+	bMotion_log "output" "TRACE" "bMotion_plugin_output_typos $channel $line"
   global bMotionSettings
 
   set typochance $bMotionSettings(typos)
@@ -138,7 +138,7 @@ proc bMotion_plugin_output_typos { channel line } {
 
 	if {[rand 100] > $typochance} {
 		#don't typo at all
-		bMotion_putloglev 2 * "Not doing typos for $line"
+		bMotion_log "output" "DEBUG" "Not doing typos for $line"
 		return $line
 	}
 
@@ -147,15 +147,15 @@ proc bMotion_plugin_output_typos { channel line } {
   bMotion_plugins_settings_set "output:typos" "typosDone" "" "" ""
 
   set newLine ""
-	
+
   #split words
 	set line [string trim $line]
   set words [split $line " "]
 
   #typo words
-	bMotion_putloglev 4 * "words list is: $words"
+	bMotion_log "output" "DEBUG" "words list is: $words"
   foreach word $words {
-		bMotion_putloglev 4 * "typo_do'ing $word"
+		bMotion_log "output" "TRACE" "typo_do'ing $word"
     append newLine [bMotion_plugin_output_typos_do $word]
 		append newLine " "
   }
@@ -166,13 +166,13 @@ proc bMotion_plugin_output_typos { channel line } {
     set tmpchar [pickRandom {"#" "]"}]
     append line $tmpchar
     bMotion_plugin_output_typos_adderror "" "-$tmpchar"
-		bMotion_putloglev 1 * "typoing a character onto the end of the line"
+		bMotion_log "output" "DEBUG" "typoing a character onto the end of the line"
   }
 
   if {[rand 100] < $typochance} {
     set line [string toupper $line]
     bMotion_plugin_output_typos_adderror "" "-caps"
-		bMotion_putloglev 1 * "typoing in all caps"
+		bMotion_log "output" "DEBUG" "typoing in all caps"
   }
 
   if {[string trim $oldLine] != [string trim $line]} {
