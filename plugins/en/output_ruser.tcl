@@ -1,6 +1,3 @@
-# vim: fdm=indent fdn=1
-#
-
 ###############################################################################
 # This is a bMotion plugin
 # Copyright (C) James Michael Seward 2000-2009
@@ -16,16 +13,16 @@
 # %ruser{:owner}
 
 proc bMotion_plugin_output_ruser { channel line } {
-	bMotion_putloglev 4 * "bMotion_plugin_output_ruser $channel $line"
+    bMotion_log "output" "TRACE" "bMotion_plugin_output_ruser $channel $line"
 
 	if [regexp "%ruser(\{(\[a-z\]*)?(:(\[a-z,\]+))?\})?" $line matches allopts filter optstring options] {
-		bMotion_putloglev 1 * "found %ruser with filter=$filter and options=$options"
+        bMotion_log "output" "DEBUG" "found %ruser with filter=$filter and options=$options"
 
 		set ruser [bMotionGetRealName [bMotion_choose_random_user $channel 0 $filter] ""]
-		
+
 		set options_list [split $options ","]
 		foreach option $options_list {
-			bMotion_putloglev 1 * "working on option $option"
+            bMotion_log "output" "DEBUG" "working on option $option"
 			switch $option {
 				"owner" {
 					set ruser [bMotionMakePossessive $ruser]
@@ -34,7 +31,7 @@ proc bMotion_plugin_output_ruser { channel line } {
 					set ruser [string toupper $ruser]
 				}
 				default {
-					putlog "bMotion: unexpected option $option in $matches"
+					bMotion_log "output" "ERROR" "unexpected %ruser option $option in $matches"
 				}
 			}
 		}
