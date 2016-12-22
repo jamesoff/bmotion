@@ -39,4 +39,18 @@ test output-mood-2 "mood plugin adjusts mood down" -setup {
 } -result {-1}
 
 
+test output-number-1 "number plugin with single param outputs a number" -setup {
+    shim_load_rng [list 5]
+} -body {
+    return [bMotion_plugin_output_NUMBER "#molsoft" "a %NUMBER{10} b"]
+} -result {a 6 b}
+
+
+test output-number-2 "number plugin with double param outputs a number with padding" -setup {
+    shim_load_rng [list 4]
+} -body {
+    return [bMotion_plugin_output_NUMBER "#molsoft" "a %NUMBER{10}{3} b"]
+} -result {a 005 b}
+
+
 cleanupTests
