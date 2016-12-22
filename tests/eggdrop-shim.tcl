@@ -2,6 +2,7 @@ puts "eggdrop shim loading"
 
 set shim_utimers [list]
 set shim_timers [list]
+set shim_rng [list]
 
 proc shim_check_for_timer { type callback } {
   if {$type == "timer"} {
@@ -95,7 +96,17 @@ proc channel { method channel property } {
   }
 }
 
+proc shim_load_rng { values } {
+    set ::shim_rng $values
+}
+
 proc rand { max } {
+  if {[llength $::shim_rng] > 0} {
+    set r [lindex $::shim_rng 0]
+    shim_print "rand (list) = $r"
+    set ::shim_rng [lreplace $::shim_rng 0 0]
+    return $r
+  }
   shim_print "rand"
   return [expr { int(rand() * $max) }]
 }
