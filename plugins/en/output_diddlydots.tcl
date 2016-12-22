@@ -14,31 +14,31 @@
 bMotion_plugin_add_output "diddlydots" bMotion_plugin_output_diddlydots 1 "en" 13
 
 proc bMotion_plugin_output_diddlydots { channel line } {
-	if [regexp "^/" $line] { return $line }
-	set words [split $line " "]
+    if [regexp "^/" $line] { return $line }
+    set words [split $line " "]
 
-	set done 0
-	set newline ""
-	
-	foreach word $words {
+    set done 0
+    set newline ""
+
+    foreach word $words {
         bMotion_log "output" "TRACE" "diddlydots: considering word $word"
-		if {$done < 3} {
-			if {[string length $word] > 4} {
+        if {$done < 3} {
+            if {[string length $word] > 4} {
                 bMotion_log "output" "DEBUG" "diddlydots: $word is long enough"
-				if [regexp -nocase {^[a-z]+$} $word] {
-					if {![regexp -nocase "(which|about|these|those|their|there)" $word]} {
-						if {[rand 100] > 97} {
+                if [regexp -nocase {^[a-z]+$} $word] {
+                    if {![regexp -nocase "(which|about|these|those|their|there)" $word]} {
+                        if {[rand 100] > 97} {
                             bMotion_log "output" "DEBUG" "adding quotes"
-							set word "\"$word\""
-							incr done
-						}
-					}
-				}
-			}
-		}
-		append newline "$word "
-	}
-	set line [string trim $newline]
+                            set word "\"$word\""
+                            incr done
+                        }
+                    }
+                }
+            }
+        }
+        append newline "$word "
+    }
+    set line [string trim $newline]
 
-  return $line
+    return $line
 }
