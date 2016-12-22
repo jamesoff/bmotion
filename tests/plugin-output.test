@@ -1,0 +1,42 @@
+# vim: ft=tcl
+source "tests/eggdrop-shim.tcl"
+
+set botnick "NoTopic"
+set bMotionRoot "."
+
+source "bMotion.tcl"
+
+package require tcltest
+namespace import ::tcltest::*
+
+eval ::tcltest::configure $argv
+
+test output-mood-1 "mood plugin adjusts mood up" -setup {
+    bMotion_mood_set happy 0
+} -body {
+    set line "test1 %MOOD{happy:1} test2"
+    set line [bMotion_plugin_output_MOOD "#molsoft" $line]
+    return [bMotion_mood_get happy]
+} -result {1}
+
+
+test output-mood-2 "mood plugin removes matching text from output" -setup {
+    bMotion_mood_set happy 0
+} -body {
+    set line "test1 %MOOD{happy:1} test2"
+    set line [bMotion_plugin_output_MOOD "#molsoft" $line]
+    return $line
+} -result {test1  test2}
+
+
+
+test output-mood-2 "mood plugin adjusts mood down" -setup {
+    bMotion_mood_set happy 0
+} -body {
+    set line "test1 %MOOD{happy:-1} test2"
+    set line [bMotion_plugin_output_MOOD "#molsoft" $line]
+    return [bMotion_mood_get happy]
+} -result {-1}
+
+
+cleanupTests
