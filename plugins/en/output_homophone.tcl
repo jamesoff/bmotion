@@ -13,8 +13,6 @@
 
 bMotion_plugin_add_output "homophone" bMotion_plugin_output_homophone 1 "en" 98
 
-
-#
 # sometimes replace words with their homophones
 # code mostly stolen from output_colloquial.tcl
 #
@@ -31,14 +29,14 @@ proc bMotion_plugin_output_homophone { channel line } {
   foreach word $words {
     if {[bMotion_plugin_output_homophone_chance $homophone_rate]} {
 
-      bMotion_putloglev 1 * "trying to trigger homophone on $word"
+      bMotion_log "output" "TRACE" "trying to trigger homophone on $word"
 
       # we might want to replace this word. iterate through all homophone sets.
 
       foreach homSet $homList {
         set homItems [split $homSet ":"]
 
-        bMotion_putloglev 1 * "working with $homSet"
+        bMotion_log "output" "TRACE" "working with $homSet"
 
         set haveReplaced 0
 
@@ -50,7 +48,7 @@ proc bMotion_plugin_output_homophone { channel line } {
 
               # found a match! replace with a random word from the list
 
-              bMotion_putloglev 1 * "$word matches $item, cleanWord is $cleanWord"
+              bMotion_log "output" "DEBUG" "$word matches $item, cleanWord is $cleanWord"
 
               set newWord [pickRandom $homItems]
               while { [string equal -nocase $cleanWord $newWord] } {
@@ -62,7 +60,7 @@ proc bMotion_plugin_output_homophone { channel line } {
               # now just change the word and it will be output below
               regsub -all -nocase "\\\w\+" $word $newWord word
 
-              bMotion_putloglev 1 * "leaving with $word"
+              bMotion_log "output" "TRACE" "leaving with $word"
             }
           }
         }
