@@ -26,7 +26,7 @@ proc bMotion_plugin_output_english { channel line } {
   # me __[^s] --> I
 
   if [regexp -nocase {^me ([^ ]+) (.+)} $line matches first rest] {
-    bMotion_putloglev 2 * "bMotion: output:english detected a me* line"
+    bMotion_log "output" "TRACE" "output:english detected a me* line"
     if [regexp -nocase "s$" $first] {
       #use /me
       set line "/$first $rest"
