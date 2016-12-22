@@ -94,4 +94,29 @@ test mood-init-15 "doRandomStuff timer is created" -body {
     return [shim_check_for_timer timer doRandomStuff]
 } -result {1}
 
+test mood-timer-1 "timer handler runs and recreates timer" -setup {
+    shim_remove_timer timer bMotion_mood_drift_timer
+} -body {
+    bMotion_mood_drift_timer
+    return [shim_check_for_timer timer bMotion_mood_drift_timer]
+} -result {1}
+
+test mood-set-1 "mood set sets mood value" -setup {
+    bMotion_mood_set happy 5
+} -body {
+    return $::bMotion_moods(happy)
+} -result {5 -30 30 0 bMotion_mood_change_happy}
+
+test mood-set-2 "mood set won't set below min" -setup {
+    bMotion_mood_set happy -31
+} -body {
+    return $::bMotion_moods(happy)
+} -result {5 -30 30 0 bMotion_mood_change_happy}
+
+test mood-set-3 "mood set won't set above max" -setup {
+    bMotion_mood_set happy 31
+} -body {
+    return $::bMotion_moods(happy)
+} -result {5 -30 30 0 bMotion_mood_change_happy}
+
 cleanupTests
