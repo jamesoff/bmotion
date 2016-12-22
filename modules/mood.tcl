@@ -308,6 +308,18 @@ proc bMotion_mood_set { name newvalue } {
 	}
 
 	set mood_info $bMotion_moods($name)
+    set min [lindex $mood_info $BMOTION_MOOD_MIN]
+    if {$newvalue < $min} {
+        bMotion_log "mood" "ERROR" "refusing to set mood $name to too-low value $newvalue"
+        return ""
+    }
+
+    set max [lindex $mood_info $BMOTION_MOOD_MAX]
+    if {$newvalue > $max} {
+        bMotion_log "mood" "ERROR" "refusing to set mood $name to too-high value $newvalue"
+        return ""
+    }
+
 	set mood_info [lreplace $mood_info $BMOTION_MOOD_VALUE $BMOTION_MOOD_VALUE $newvalue]
 	set bMotion_moods($name) $mood_info
 
