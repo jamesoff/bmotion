@@ -175,4 +175,17 @@ test mood-adjust-4 "mood adjust down at limit caps" -setup {
 } -result {-30}
 
 
+test mood-drift-1 "mood drift adjusts values" -setup {
+    # drift down
+    bMotion_mood_set happy 1
+    # drift up
+    bMotion_mood_set horny -1
+    # already at target
+    bMotion_mood_set stoned 0
+    bMotion_mood_drift
+} -body {
+    return [list [bMotion_mood_get happy] [bMotion_mood_get horny] [bMotion_mood_get stoned]]
+} -result {0 0 0}
+
+
 cleanupTests
