@@ -86,5 +86,12 @@ test mood-init-13 "mood init creates stoned mood" -body {
     return $::bMotion_moods(stoned)
 } -result {0 -30 30 0 bMotion_mood_change_stoned}
 
+test mood-init-14 "mood drift timer is created" -body {
+    return [shim_check_for_timer timer bMotion_mood_drift_timer]
+} -result {1}
+
+test mood-init-15 "doRandomStuff timer is created" -body {
+    return [shim_check_for_timer timer doRandomStuff]
+} -result {1}
 
 cleanupTests
