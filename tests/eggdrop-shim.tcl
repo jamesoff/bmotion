@@ -25,6 +25,30 @@ proc shim_check_for_timer { type callback } {
   return 0
 }
 
+proc shim_remove_timer { type name } {
+    set new_timers [list]
+    if {$type == "timer"} {
+        foreach entry $::shim_utimers {
+            if {[lindex $entry 1] == $name} {
+                continue
+            }
+            lappend new_timers entry
+        }
+        set ::shim_utimers $new_timers
+    }
+
+    if {$type == "utimer"} {
+        foreach entry $::shim_timers {
+            if {[lindex $entry 1] == $name} {
+                continue
+            }
+            lappend new_timers entry
+        }
+        set ::shim_timers $new_timers
+    }
+}
+
+
 proc shim_print { text } {
   puts "\[\033\[01;32mSHIM\033\[0m\] $text"
 }
