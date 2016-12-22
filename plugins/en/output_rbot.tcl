@@ -1,6 +1,3 @@
-# vim: fdm=indent fdn=1
-#
-
 ###############################################################################
 # This is a bMotion plugin
 # Copyright (C) James Michael Seward 2000-2009
@@ -14,17 +11,17 @@
 proc bMotion_plugin_output_rbot { channel line } {
     bMotion_log "output" "TRACE" "bMotion_plugin_output_rbot $channel $line"
 
-	if {[regexp "%rbot(\{(\[^\}\]+)\})?" $line matches param condition]} {
-		set ruser [bMotionGetRealName [bMotion_choose_random_user $channel 1 $condition] ""]
-		if {$condition == ""} {
-			set findString "%rbot"
-		} else {
-			set findString "%rbot$param"
-		}
-		regsub $findString $line $ruser line
-	}
+    if {[regexp "%rbot(\{(\[^\}\]+)\})?" $line matches param condition]} {
+        set ruser [bMotionGetRealName [bMotion_choose_random_user $channel 1 $condition] ""]
+        if {$condition == ""} {
+            set findString "%rbot"
+        } else {
+            set findString "%rbot$param"
+        }
+        regsub $findString $line $ruser line
+    }
 
-	return $line
+    return $line
 }
 
 bMotion_plugin_add_output "rbot" bMotion_plugin_output_rbot 1 "en" 3
