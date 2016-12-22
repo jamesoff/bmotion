@@ -1,0 +1,18 @@
+# vim: ft=tcl
+source "tests/eggdrop-shim.tcl"
+
+set botnick "NoTopic"
+set bMotionRoot "."
+
+source "bMotion.tcl"
+
+package require tcltest
+namespace import ::tcltest::*
+
+eval ::tcltest::configure $argv
+
+test mood-log-1 "mood log category exists" -body {
+    return [bMotion_log_category_exists "mood"]
+} -result {1}
+
+cleanupTests
