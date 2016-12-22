@@ -16,26 +16,26 @@
 #         N is a percent chance of stopping output
 
 proc bMotion_plugin_output_break { channel line } {
-	bMotion_putloglev 4 * "bMotion_plugin_output_break $channel $line"
+	bMotion_log "output" "TRACE" "bMotion_plugin_output_break $channel $line"
 
 	if {[regexp "(.*)%!(\{(\[0-9\]+)\})?(.+)" $line matches newline option chance rest]} {
 		if {$chance == ""} {
 			set chance 50
 		}
-		bMotion_putloglev 1 * "found %BREAK with chance of $chance"
+		bMotion_log "output" "DEBUG" "found %BREAK with chance of $chance"
 
 		set n [rand 100]
-		bMotion_putloglev 1 * "%BREAK n is $n"
+		bMotion_log "output" "DEBUG" "%BREAK n is $n"
 		if {$n < $chance} {
-			bMotion_putloglev 1 * "nuking output from %BREAK marker in $line"
+			bMotion_log "output" "DEBUG" "nuking output from %BREAK marker in $line"
 			set line $newline
-			bMotion_putloglev 1 * "post-nuke output is $newline"
+			bMotion_log "output" "DEBUG" "post-nuke output is $newline"
 		} else {
-			bMotion_putloglev 1 * "keeping entire line"
+			bMotion_log "output" "DEBUG" "keeping entire line"
 			set line "${newline}${rest}"
 		}
 	}
 	return $line
 }
-	
+
 bMotion_plugin_add_output "!" bMotion_plugin_output_break 1 "en" 1

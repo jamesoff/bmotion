@@ -22,7 +22,7 @@
 # Not all combinations of options are a good idea
 
 proc bMotion_plugin_output_VAR { channel line } {
-	bMotion_putloglev 4 * "bMotion_plugin_output_VAR $channel $line"
+	bMotion_log "output" "TRACE" "bMotion_plugin_output_VAR $channel $line"
 	global BMOTION_MIXIN_NONE BMOTION_MIXIN_REVERSE BMOTION_MIXIN_DEFAULT BMOTION_MIXIN_BOTH
 	global BMOTION_MIXIN_MALE BMOTION_MIXIN_FEMALE
 	
@@ -34,7 +34,7 @@ proc bMotion_plugin_output_VAR { channel line } {
 	if {[regexp -nocase {(%VAR\{([^\}:]+)(:([^\}]+))?\}(\{strip\})?)} $line matches whole_thing abstract 1 options clean]} {
 		global $abstract
 
-		bMotion_putloglev 1 * "options for $abstract are $options"
+		bMotion_log "output" "DEBUG" "options for $abstract are $options"
 
 		# check options
 		if {$options != ""} {
@@ -42,7 +42,7 @@ proc bMotion_plugin_output_VAR { channel line } {
 		} else {
 			set options_list [list]
 		}
-		bMotion_putloglev 1 * "options list is $options_list"
+		bMotion_log "output" "DEBUG" "options list is $options_list"
 
 		if {$clean == "{strip}"} {
 			lappend options_list "clean"
@@ -51,19 +51,19 @@ proc bMotion_plugin_output_VAR { channel line } {
 		set mixin_type $BMOTION_MIXIN_DEFAULT
 
 		if {[lsearch $options_list "revmixin"] > -1} {
-			bMotion_putloglev 1 * "mixin type for $abstract is reverse"
+			bMotion_log "output" "DEBUG" "mixin type for $abstract is reverse"
 			set mixin_type $BMOTION_MIXIN_REVERSE
 		} elseif {[lsearch $options_list "nomixin"] > -1} {
-			bMotion_putloglev 1 * "mixin type for $abstract is none"
+			bMotion_log "output" "DEBUG" "mixin type for $abstract is none"
 			set mixin_type $BMOTION_MIXIN_NONE
 		} elseif {[lsearch $options_list "bothmixin"] > -1} {
-			bMotion_putloglev 1 * "mixin type for $abstract is both"
+			bMotion_log "output" "DEBUG" "mixin type for $abstract is both"
 			set mixin_type $BMOTION_MIXIN_BOTH
 		} elseif {[lsearch $options_list "malemixin"] > -1} {
-			bMotion_putloglev 1 * "mixin type for $abstract is male"
+			bMotion_log "output" "DEBUG" "mixin type for $abstract is male"
 			set mixin_type $BMOTION_MIXIN_MALE
 		} elseif {[lsearch $options_list "femalemixin"] > -1} {
-			bMotion_putloglev 1 * "mixin type for $abstract is female"
+			bMotion_log "output" "DEBUG" "mixin type for $abstract is female"
 			set mixin_type $BMOTION_MIXIN_FEMALE
 		}
 
@@ -71,13 +71,13 @@ proc bMotion_plugin_output_VAR { channel line } {
 		set newText [bMotion_abstract_get $abstract $mixin_type]
 		set replacement ""
 		if {$newText == ""} {
-			bMotion_putloglev d * "abstract '$abstract' doesn't exist in new abstracts system!"
+			bMotion_log "output" "WARN" "abstract '$abstract' doesn't exist in new abstracts system!"
 			#insert old style
 			if [catch {
 				set var [subst $$abstract]
 				set replacement [pickRandom $var]
 			}] {
-				bMotion_putloglev d * "Unable to handle %VAR{$abstract}"
+				bMotion_log "output" "ERROR" "Unable to handle %VAR{$abstract}"
 				return ""
 			}
 		} else {
@@ -135,7 +135,7 @@ proc bMotion_plugin_output_VAR { channel line } {
 					set replacement [bMotion_make_simple_present $replacement]
 				}
 				"plural" {
-					bMotion_putloglev 1 * "pluralising $replacement"
+					bMotion_log "output" "DEBUG" "pluralising $replacement"
 					set replacement [bMotionMakePlural $replacement]
 					if {[rand 100] > 90} {
 						set replacement [bMotion_strip_article $replacement]
@@ -146,7 +146,7 @@ proc bMotion_plugin_output_VAR { channel line } {
 					set replacement [string totitle $replacement]
 				}
 				"camel" {
-					bMotion_putloglev 3 * "camelising $replacement"
+					bMotion_log "output" "DEBUG" "camelising $replacement"
 					set newreplacement ""
 					foreach word $replacement {
 						set word [string totitle $word]
@@ -154,7 +154,7 @@ proc bMotion_plugin_output_VAR { channel line } {
 						if {[string range $word 0 3] == "%var"} {
 							set word [string replace $word 0 3 "%VAR"]
 						}
-						bMotion_putloglev 4 * "camelise: adding $word to output"
+						bMotion_log "output" "DEBUG" "camelise: adding $word to output"
 						append newreplacement "$word "
 					}
 					set replacement [string trim $newreplacement]
@@ -181,18 +181,18 @@ proc bMotion_plugin_output_VAR { channel line } {
 					set replacement $temp
 				}
 				"like" {
-					bMotion_putloglev d * "Learning to like $replacement during %VAR expansion"
+					bMotion_log "output" "DEBUG" "Learning to like $replacement during %VAR expansion"
 					bMotion_abstract_add "_bmotion_like" $replacement
 				}
 				"dislike" {
-					bMotion_putloglev d * "Learning to dislike $replacement during %VAR expansion"
+					bMotion_log "output" "DEBUG" "Learning to dislike $replacement during %VAR expansion"
 					bMotion_abstract_add "_bmotion_dislike" $replacement
 				}
 				"lower" {
 					set replacement [string tolower $replacement]
 				}
 			}
-			bMotion_putloglev 1 * "current replacement is $replacement"
+			bMotion_log "output" "DEBUG" "current replacement is $replacement"
 		}
 
 		set location [string first $whole_thing $line]

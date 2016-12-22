@@ -16,9 +16,9 @@ set bMotion_plugin_output_synonym_enabled 0
 catch {
 	package require sqlite
 
-	bMotion_putloglev 2 * "synonym: sqlite3 loaded"
+	bMotion_log "output" "INFO" "synonym: sqlite3 loaded"
 	sqlite3 bMotion_syn_db $bMotionLocal/bmotion_thes.db
-	bMotion_putloglev 2 * "synonym: sqlite db opened"
+	bMotion_log "output" "INFO" "synonym: sqlite db opened"
 	set bMotion_plugin_output_synonym_enabled 1
 }
 

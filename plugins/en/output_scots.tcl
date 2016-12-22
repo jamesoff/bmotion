@@ -20,12 +20,12 @@
 bMotion_plugin_add_output "scots" bMotion_plugin_output_scots 100 "en" 11
 
 proc bMotion_plugin_output_scots { channel line } {
-	bMotion_putloglev 4 * "bMotion_plugin_output_scots $channel $line"
-	
+	bMotion_log "output" "TRACE" "bMotion_plugin_output_scots $channel $line"
+
 	set newLine ""
 	set line [string trim $line]
 	set words [split $line " "]
-	
+
 	foreach word $words {
 		# partials
 		regsub -nocase "ing$" $word "in'" word

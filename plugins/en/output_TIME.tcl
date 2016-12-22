@@ -14,15 +14,15 @@
 # built-in processing, %TIME
 
 proc bMotion_plugin_output_TIME { channel line } {
-	bMotion_putloglev 4 * "bMotion_plugin_output_TIME $channel $line"
+	bMotion_log "output" "TRACE" "bMotion_plugin_output_TIME $channel $line"
 
 	if {[regexp "%TIME\{(\[a-zA-Z0-9 -\]+)\}" $line matches timeString]} {
-		bMotion_putloglev 2 * "found timestring $timeString"
+		bMotion_log "output" "DEBUG" "found timestring $timeString"
 		set origtime $timeString
 		regsub -nocase {^-([0-9]) minutes?$} $timeString "\\1 minutes ago" timeString
 		set var [clock scan $timeString]
 		set var [clock format $var -format "%I:%M %p"]
-		bMotion_putloglev 2 * "using time $var"
+		bMotion_log "output" "DEBUG" "using time $var"
 		set line [bMotionInsertString $line "%TIME\\{$origtime\\}" $var]
 	}
 
