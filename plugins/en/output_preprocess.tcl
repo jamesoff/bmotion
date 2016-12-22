@@ -16,14 +16,14 @@
 # built-in processing, simple things
 
 proc bMotion_plugin_output_preprocess { channel line } {
-	global botnick
+    global botnick
 
     bMotion_log "output" "TRACE" "bMotion_plugin_output_preprocess $channel $line"
 
-	set line [string map " %pronoun [getPronoun] %himherself [getPronoun] %me $botnick %colen [bMotionGetColenChars] %hishers [getHisHers] %heshe [getHeShe] %hisher [getHisHer] %daytime [bMotion_get_daytime] " $line]
-	regsub -all "%space" $line " " line
+    set line [string map " %pronoun [getPronoun] %himherself [getPronoun] %me $botnick %colen [bMotionGetColenChars] %hishers [getHisHers] %heshe [getHeShe] %hisher [getHisHer] %daytime [bMotion_get_daytime] " $line]
+    regsub -all "%space" $line " " line
 
-	return $line
+    return $line
 }
 
 bMotion_plugin_add_output "preprocess" bMotion_plugin_output_preprocess 1 "en" 13
