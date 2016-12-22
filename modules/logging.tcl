@@ -92,4 +92,15 @@ proc bMotion_log_add_category { category } {
 	}
 }
 
+
+proc bMotion_log_category_exists { category } {
+    global bMotion_log_categories
+
+    if {[lsearch $bMotion_log_categories $category] == -1} {
+        return 0
+    } else {
+        return 1
+    }
+}
+
 bMotion_log_add_category "logging"

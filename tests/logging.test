@@ -130,5 +130,12 @@ test logging-setcategories-6 "admin categories command -system,-events removes s
   return $::bMotion_log_active
 } -result {flood}
 
+test logging-category-exists-1 "testing for an existant category returns 1" -body {
+    return [bMotion_log_category_exists "logging"]
+} -result {1}
+
+test logging-category-exists-2 "testing for a nonexistant category returns 0" -body {
+    return [bMotion_log_category_exists "logging2"]
+} -result {0}
 
 cleanupTests
