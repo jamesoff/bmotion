@@ -22,11 +22,13 @@ test mood-init-1 "mood init creates mood" -setup {
     return $::bMotion_moods(test1)
 } -result {5 0 10 5 testmood}
 
+
 test mood-init-2 "mood init requires initial > min" -setup {
     bMotion_mood_init "test2" -1 0 10 5 "testmood"
 } -body {
     return [llength [array get ::bMotion_moods test2]]
 } -result 0
+
 
 test mood-init-3 "mood init requires initial < max" -setup {
     bMotion_mood_init "test3" 11 0 10 5 "testmood"
@@ -34,17 +36,20 @@ test mood-init-3 "mood init requires initial < max" -setup {
     return [llength [array get ::bMotion_moods test3]]
 } -result 0
 
+
 test mood-init-4 "mood init requires target > min" -setup {
     bMotion_mood_init "test4" 5 0 10 -1 "testmood"
 } -body {
     return [llength [array get ::bMotion_moods test4]]
 } -result 0
 
+
 test mood-init-5 "mood init requires target < max" -setup {
     bMotion_mood_init "test5" 5 0 10 15 "testmood"
 } -body {
     return [llength [array get ::bMotion_moods test5]]
 } -result 0
+
 
 test mood-init-6 "mood init won't accept dupes" -setup {
     # same mood name but different initial value
@@ -54,11 +59,13 @@ test mood-init-6 "mood init won't accept dupes" -setup {
     return $::bMotion_moods(test1)
 } -result {5 0 10 5 testmood}
 
+
 test mood-init-7 "mood init requires min < max" -setup {
     bMotion_mood_init "test6" 5 10 0 5 "testmood"
 } -body {
     return [llength [array get ::bMotion_moods test6]]
 } -result 0
+
 
 test mood-init-8 "mood init requires a name" -setup {
     bMotion_mood_init "" 5 0 10 5 "testmood"
@@ -66,33 +73,41 @@ test mood-init-8 "mood init requires a name" -setup {
     return [llength [array get ::bMotion_moods ""]]
 } -result 0
 
+
 test mood-init-9 "mood init creates happy mood" -body {
     return $::bMotion_moods(happy)
 } -result {0 -30 30 0 bMotion_mood_change_happy}
+
 
 test mood-init-10 "mood init creates horny mood" -body {
     return $::bMotion_moods(horny)
 } -result {0 -30 30 0 bMotion_mood_change_horny}
 
+
 test mood-init-11 "mood init creates lonely mood" -body {
     return $::bMotion_moods(lonely)
 } -result {0 -30 30 5 bMotion_mood_change_lonely}
+
 
 test mood-init-12 "mood init creates electricity mood" -body {
     return $::bMotion_moods(electricity)
 } -result {0 -30 30 2 bMotion_mood_change_electricity}
 
+
 test mood-init-13 "mood init creates stoned mood" -body {
     return $::bMotion_moods(stoned)
 } -result {0 -30 30 0 bMotion_mood_change_stoned}
+
 
 test mood-init-14 "mood drift timer is created" -body {
     return [shim_check_for_timer timer bMotion_mood_drift_timer]
 } -result {1}
 
+
 test mood-init-15 "doRandomStuff timer is created" -body {
     return [shim_check_for_timer timer doRandomStuff]
 } -result {1}
+
 
 test mood-timer-1 "timer handler runs and recreates timer" -setup {
     shim_remove_timer timer bMotion_mood_drift_timer
@@ -101,11 +116,13 @@ test mood-timer-1 "timer handler runs and recreates timer" -setup {
     return [shim_check_for_timer timer bMotion_mood_drift_timer]
 } -result {1}
 
+
 test mood-set-1 "mood set sets mood value" -setup {
     bMotion_mood_set happy 5
 } -body {
     return $::bMotion_moods(happy)
 } -result {5 -30 30 0 bMotion_mood_change_happy}
+
 
 test mood-set-2 "mood set won't set below min" -setup {
     bMotion_mood_set happy -31
@@ -113,10 +130,49 @@ test mood-set-2 "mood set won't set below min" -setup {
     return $::bMotion_moods(happy)
 } -result {5 -30 30 0 bMotion_mood_change_happy}
 
+
 test mood-set-3 "mood set won't set above max" -setup {
     bMotion_mood_set happy 31
 } -body {
     return $::bMotion_moods(happy)
 } -result {5 -30 30 0 bMotion_mood_change_happy}
+
+
+test mood-get-1 "mood get returns mood value" -body {
+    return [bMotion_mood_get happy]
+} -result {5}
+
+
+test mood-adjust-1 "mood adjust up works" -setup {
+    bMotion_mood_set happy 5
+    bMotion_mood_adjust happy 1
+} -body {
+    return [bMotion_mood_get happy]
+} -result {6}
+
+
+test mood-adjust-2 "mood adjust down works" -setup {
+    bMotion_mood_set happy 5
+    bMotion_mood_adjust happy -1
+} -body {
+    return [bMotion_mood_get happy]
+} -result {4}
+
+
+test mood-adjust-3 "mood adjust up at limit caps" -setup {
+    bMotion_mood_set happy 30
+    bMotion_mood_adjust happy 1
+} -body {
+    return [bMotion_mood_get happy]
+} -result {30}
+
+
+test mood-adjust-4 "mood adjust down at limit caps" -setup {
+    bMotion_mood_set happy -30
+    bMotion_mood_adjust happy -1
+} -body {
+    return [bMotion_mood_get happy]
+} -result {-30}
+
 
 cleanupTests
