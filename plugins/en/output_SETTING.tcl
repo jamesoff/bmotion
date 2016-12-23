@@ -22,7 +22,7 @@ proc bMotion_plugin_output_SETTING { channel line } {
             set var [bMotion_plugins_settings_get $plugin $setting $ch $ni]
         }
         if {$var == ""} {
-            putlog "bMotion: ALERT! couldn't find setting $settingString (dropping output)"
+            bMotion_log "output" "ERROR" "couldn't find setting $settingString (dropping output)"
             return ""
         }
         set line [bMotionInsertString $line "%SETTING{$settingString}" $var]
