@@ -22,9 +22,6 @@
 proc bMotion_plugin_output_SMILEY { channel line } {
     bMotion_log "output" "TRACE" "bMotion_plugin_output_SMILEY $channel $line"
 
-    set smiley_type [bMotion_setting_get "smileytype"]
-    set smiley_nose_type [bMotion_setting_get "smileynosetype"]
-
     if {[regexp {(%SMILEY?\{([^\}:]+)(:([^\}])+)?\})} $line matches whole_thing type options]} {
         bMotion_log "output" "TRACE" "output_smiley: type=$type options=$options"
 
