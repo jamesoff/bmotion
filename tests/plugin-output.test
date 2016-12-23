@@ -53,4 +53,38 @@ test output-number-2 "number plugin with double param outputs a number with padd
 } -result {a 005 b}
 
 
+test output-owner-1 "owner plugin works" -body {
+    return [bMotion_plugin_output_OWNER "#molsoft" "a %OWNER{test} b"]
+} -result {a test's b}
+
+
+test output-plural-1 "plural plugin works" -body {
+    return [bMotion_plugin_output_PLURAL "#molsoft" "a %PLURAL{test} b"]
+} -result {a tests b}
+
+
+test output-repeat-1 "repeat plugin works" -setup {
+    shim_load_rng [list 3]
+} -body {
+    return [bMotion_plugin_output_REPEAT "#molsoft" "a %REPEAT{1:5:a} b"]
+} -result {a aaaa b}
+
+
+test output-setting-1 "setting plugin works" -setup {
+    bMotion_plugins_settings_set "complex:test" "test-setting" "test-channel" "test-nick" "moo"
+} -body {
+    return [bMotion_plugin_output_SETTING "#molsoft" "a %SETTING{complex:test:test-setting:test-channel:test-nick} b"]
+} -result {a moo b}
+
+
+test output-setting-2 "setting plugin kills output with malformated request" -body {
+    return [bMotion_plugin_output_SETTING "#molsoft" "a %SETTING{blah} b"]
+} -result {}
+
+
+test output-setting-3 "setting plugin kills output with missing setting" -body {
+    return [bMotion_plugin_output_SETTING "#molsoft" "a %SETTING{complex:test:test-setting:test-fail:test-nick} b"]
+} -result {}
+
+
 cleanupTests
