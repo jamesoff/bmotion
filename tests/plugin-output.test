@@ -87,4 +87,18 @@ test output-setting-3 "setting plugin kills output with missing setting" -body {
 } -result {}
 
 
+test output-smiley-1 "smiley plugin works with SMILEY" -setup {
+    set ::bMotionSettings(smiley_type) "paren"
+} -body {
+    return [bMotion_plugin_output_SMILEY "#molsoft" "a %SMILEY{smile} b"]
+} -result {a :) b}
+
+
+test output-smiley-2 "smiley plugin works with SMILE" -setup {
+    set ::bMotionSettings(smiley_type) "paren"
+} -body {
+    return [bMotion_plugin_output_SMILEY "#molsoft" "a %SMILE{smile} b"]
+} -result {a :) b}
+
+
 cleanupTests
