@@ -16,7 +16,7 @@
 proc bMotion_plugin_output_TIME { channel line } {
 	bMotion_log "output" "TRACE" "bMotion_plugin_output_TIME $channel $line"
 
-	if {[regexp "%TIME\{(\[a-zA-Z0-9 -\]+)\}" $line matches timeString]} {
+	if {[regexp "%TIME\{(\[a-zA-Z0-9 /:-\]+)\}" $line matches timeString]} {
 		bMotion_log "output" "DEBUG" "found timestring $timeString"
 		set origtime $timeString
 		regsub -nocase {^-([0-9]) minutes?$} $timeString "\\1 minutes ago" timeString
