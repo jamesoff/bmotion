@@ -25,7 +25,7 @@ proc bMotion_plugin_output_VAR { channel line } {
 	bMotion_log "output" "TRACE" "bMotion_plugin_output_VAR $channel $line"
 	global BMOTION_MIXIN_NONE BMOTION_MIXIN_REVERSE BMOTION_MIXIN_DEFAULT BMOTION_MIXIN_BOTH
 	global BMOTION_MIXIN_MALE BMOTION_MIXIN_FEMALE
-	
+
 	set line [string map { "%noun" "%VAR{sillyThings}" } $line]
 
 	# transform %VAR{abstract}{strip} to new form
