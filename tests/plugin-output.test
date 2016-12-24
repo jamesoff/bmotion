@@ -252,4 +252,248 @@ test output-var-12 "VAR plugin female mixin works" -setup {
 } -result "test-female"
 
 
+test output-var-13 "VAR plugin prev works" -setup {
+    bMotion_plugins_settings_set "output:VAR" "last" "#molsoft" "test" "prev-test"
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_batchadd "test" [list "test1" "test2"]
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:prev}"]
+} -result "prev-test"
+
+
+test output-var-14 "VAR plugin prevtriplet works" -setup {
+    bMotion_plugins_settings_set "output:VAR" "last:pretriplet" "#molsoft" "test" "123"
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_batchadd "test" [list "test1" "test2"]
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:prevtriplet}"]
+} -result "123"
+
+
+test output-var-15 "VAR plugin strip works" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "a test"
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_reset "test_female"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:strip}"]
+} -result "test"
+
+
+test output-var-16 "VAR plugin verb works" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "test"
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_reset "test_female"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:verb}"]
+} -result "tests"
+
+
+test output-var-17 "VAR plugin past works" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "test"
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_reset "test_female"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:past}"]
+} -result "tested"
+
+
+test output-var-18 "VAR plugin presentpart works" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "test"
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_reset "test_female"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:presentpart}"]
+} -result "testing"
+
+
+test output-var-19 "VAR plugin present works" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "test"
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_reset "test_female"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:present}"]
+} -result "tests"
+
+
+test output-var-20 "VAR plugin plural works" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "test"
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_reset "test_female"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:plural}"]
+} -result "tests"
+
+
+test output-var-21 "VAR plugin title works" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "test"
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_reset "test_female"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:title}"]
+} -result "Test"
+
+
+test output-var-22 "VAR plugin camel works" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "test test test"
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_reset "test_female"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:camel}"]
+} -result "Test Test Test"
+
+
+test output-var-23 "VAR plugin camel works with %VAR" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "test test test %VAR{sillyThings}"
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_reset "test_female"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:camel}"]
+    #TODO: is lowering the abstract name correct?
+} -result "Test Test Test %VAR{sillythings}"
+
+
+test output-var-24 "VAR plugin owner works" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "test"
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_reset "test_female"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:owner}"]
+} -result "test's"
+
+
+test output-var-25 "VAR plugin removeowner works with s" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "test's"
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_reset "test_female"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:removeowner}"]
+} -result "test"
+
+
+test output-var-26 "VAR plugin removeowner works without s" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "test'"
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_reset "test_female"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:removeowner}"]
+} -result "test"
+
+
+test output-var-27 "VAR plugin underscore works" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "test test test"
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_reset "test_female"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:underscore}"]
+} -result "test_test_test"
+
+test output-var-28 "VAR plugin triplet works" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "test test test"
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_reset "test_female"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:triplet}"]
+} -result "tes"
+
+
+test output-var-29 "VAR plugin like works" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "test1"
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_reset "test_female"
+    bMotion_abstract_reset "_bmotion_like"
+} -body {
+    bMotion_plugin_output_VAR "#molsoft" "%VAR{test:like}"
+    return [bMotion_abstract_contains "_bmotion_like" "test1"]
+} -result {1}
+
+
+test output-var-30 "VAR plugin dislike works" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "test1"
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_reset "test_female"
+} -body {
+    bMotion_plugin_output_VAR "#molsoft" "%VAR{test:dislike}"
+    return [bMotion_abstract_contains "_bmotion_dislike" "test1"]
+} -result {1}
+
+
+test output-var-31 "VAR plugin lower works" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "Test"
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_reset "test_female"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:lower}"]
+} -result "test"
+
+
 cleanupTests
