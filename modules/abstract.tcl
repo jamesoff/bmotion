@@ -548,18 +548,19 @@ proc bMotion_abstract_get { abstract { mixin_type 0 } } {
 
 	# look for male and female versions, and merge in if needed
 	set final_version [bMotion_abstract_all $abstract]
+    set gender [bMotion_setting_get "gender"]
 	switch $mixin_type {
 		0 {
-			if [bMotion_abstract_exists "${abstract}_$bMotionInfo(gender)"] {
+			if [bMotion_abstract_exists "${abstract}_$gender"] {
 				# mix-in the gender one with the vanilla one
-				bMotion_log "abstracts" "DEBUG" "mixing in $bMotionInfo(gender) version of $abstract"
-				set final_version [concat $final_version [bMotion_abstract_all "${abstract}_$bMotionInfo(gender)"]]
+				bMotion_log "abstracts" "DEBUG" "mixing in $gender version of $abstract"
+				set final_version [concat $final_version [bMotion_abstract_all "${abstract}_$gender"]]
 			} else {
 				set final_version [bMotion_abstract_all $abstract]
 			}
 		}
 		1 {
-			if {[bMotion_setting_get "gender"] == "male"} {
+			if {$gender == "male"} {
 				set gender "female"
 			} else {
 				set gender "male"
