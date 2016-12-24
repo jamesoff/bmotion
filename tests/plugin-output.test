@@ -101,4 +101,79 @@ test output-smiley-2 "smiley plugin works with SMILE" -setup {
 } -result {a :) b}
 
 
+test output-time-1 "time plugin works" -body {
+    return [bMotion_plugin_output_TIME "#molsoft" "a %TIME{10:00:00 01/01/1980} b"]
+} -result {a 10:00 AM b}
+
+
+test output-var-1 "VAR plugin works" -setup {
+    bMotion_abstract_register "test"
+    bMotion_abstract_reset "test"
+    bMotion_abstract_add "test" "hello"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test}"]
+} -result {hello}
+
+
+test output-var-2 "VAR plugin understands %noun" -setup {
+    bMotion_abstract_reset "sillyThings"
+    bMotion_abstract_add "sillyThings" "sillythings test"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%noun"]
+} -result {sillythings test}
+
+
+test output-var-3 "VAR plugin understands old {strip}" -setup {
+    bMotion_abstract_register "test2" [list "a test"]
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test2}{strip}"]
+} -result {test}
+
+
+test output-var-4 "VAR plugin revmixin works with male bot" -setup {
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_female"
+    bMotion_abstract_add "test_female" "test-female"
+    bMotion_abstract_reset "test"
+    set ::bMotionSettings(gender) "male"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:revmixin}"]
+} -result "test-female"
+
+
+test output-var-5 "VAR plugin revmixin works with female bot" -setup {
+    set ::bMotion_log_level 5
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_add "test_male" "test-male"
+    bMotion_abstract_reset "test"
+    set ::bMotionSettings(gender) "female"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test:revmixin}"]
+} -result "test-male"
+
+
+
+test output-var-6 "VAR plugin default mixin works with female bot" -setup {
+    bMotion_abstract_register "test_female"
+    bMotion_abstract_reset "test_female"
+    bMotion_abstract_add "test_female" "test-female"
+    bMotion_abstract_reset "test"
+    set ::bMotionSettings(gender) "female"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test}"]
+} -result "test-female"
+
+
+test output-var-7 "VAR plugin default mixin works with male bot" -setup {
+    bMotion_abstract_register "test_male"
+    bMotion_abstract_reset "test_male"
+    bMotion_abstract_add "test_male" "test-male"
+    bMotion_abstract_reset "test"
+    set ::bMotionSettings(gender) "male"
+} -body {
+    return [bMotion_plugin_output_VAR "#molsoft" "%VAR{test}"]
+} -result "test-male"
+
+
 cleanupTests
