@@ -95,17 +95,34 @@ proc putlog { msg } {
 
 proc bind { args } {
   shim_print "bind $args"
+  lappend ::shim_binds $args
 }
 
 proc channels { } {
-  return [list "#bmotion"]
+  return [list "#bmotion" "#molsoft" "#inactive"]
 }
 
 proc channel { method channel property } {
-  shim_print "channel method $method"
-  if {$method == "get"} {
-    return 1
-  }
+    shim_print "channel method $method"
+    if {$method == "get"} {
+        if {$property == "bmotion"} {
+            if {$channel == "#bmotion"} {
+                return 1
+            }
+            if {$channel == "#molsoft"} {
+                return 0
+            }
+            if {$channel == "#inactive"} {
+                return 1
+            }
+        }
+        if {$property == "inactive"} {
+            if {$channel == "#inactive"} {
+                return 1
+            }
+            return 0
+        }
+    }
 }
 
 proc shim_load_rng { values } {
