@@ -22,9 +22,9 @@
 
 bMotion_log_add_category "system"
 
-### Set up the binds 
+### Set up the binds
 
-#General IRC events 
+#General IRC events
 bind join - *!*@* bMotion_event_onjoin
 bind mode - * bMotion_event_mode
 bind pubm - * bMotion_event_main
@@ -33,7 +33,7 @@ bind nick - * bMotion_event_nick
 bind part - * bMotion_event_onpart
 bind ctcp - ACTION bMotion_event_action
 
-#bMotion IRC events 
+#bMotion IRC events
 bind pub - "!mood" pubm_moodhandler
 bind pub - "!bminfo" bMotionInfo
 bind msg - bmotion msg_bmotioncommand
@@ -41,7 +41,7 @@ bind pub - !bmadmin bMotionAdminHandler
 bind pub - !bmotion bMotionAdminHandler2
 bind pub - .bmotion bMotionAdminHandler2
 
-#DCC commands 
+#DCC commands
 bind dcc m mood moodhandler
 bind dcc m bmotion* bMotion_dcc_command
 bind dcc m bmadmin* bMotion_dcc_command
@@ -65,7 +65,7 @@ proc bMotion_update_chanlist { } {
 }
 
 
-# Initalise some variables per channel 
+# Initalise some variables per channel
 bMotion_update_chanlist
 
 
@@ -108,7 +108,7 @@ proc bMotion_set_last_event { channel } {
 
 # check if a channel is active enough for randomy things
 proc bMotion_is_active_enough { channel { limit 0 } } {
-	global bMotionInfo 
+	global bMotionInfo
 
 	bMotion_log "system" "TRACE" "bMotion_is_active_enough $channel"
 
@@ -169,10 +169,11 @@ proc bMotion_random_away {} {
 		}
 	}
 
-	set gapTime [expr { int($bMotionInfo(maxIdleGap) * 10) }]
-	bMotion_log "system" "DEBUG" "bMotion: most recent: $mostRecent .. timenow $timeNow .. gap $gapTime"
+	set gapTime [expr { int($bMotionInfo(maxIdleGap) * 60) }]
+    set diff [expr $timeNow - $mostRecent]
+	bMotion_log "system" "DEBUG" "bMotion: most recent: $mostRecent .. timenow $timeNow .. gap $gapTime, diff $diff"
 
-	if {($timeNow - $mostRecent) < $gapTime} {
+	if {$diff < $gapTime} {
 		set chance [rand 100]
 		if {$chance > [bMotion_setting_get "awaychance"]} {
 			bMotion_log "system" "DEBUG" "most recent is busy enough, not going away"
@@ -419,7 +420,7 @@ proc bMotionLike {nick { host "" }} {
 	global bMotionInfo bMotionSettings
 
 	bMotion_log "system" "TRACE" "bMotionLike $nick $host"
-	
+
 	if {$bMotionSettings(melMode) == 1} {
 		bMotion_log "system" "DEBUG" "like: melmode is on, i'll do anyone"
 		return 1
@@ -451,9 +452,9 @@ proc bMotionLike {nick { host "" }} {
 	}
 
 	#don't like people who aren't my friends
-	if {![bMotionIsFriend $nick]} { 
+	if {![bMotionIsFriend $nick]} {
 		bMotion_log "system" "DEBUG" "like: I don't do people I'm not friends with"
-		return 0 
+		return 0
 	}
 
 	# we're friends, now get their gender
@@ -1114,7 +1115,7 @@ proc bMotion_wake_up { } {
 					}
 				}
 			}
-			
+
 			return
 		} else {
 			bMotion_log "system" "INFO" "just a few more minutes in bed..."
@@ -1167,7 +1168,7 @@ proc bMotion_check_tired2 { a b c d e } {
 		if {$state == $BMOTION_SLEEP(ASLEEP)} {
 			bMotion_log "system" "INFO" "maybe going to wake up"
 			bMotion_wake_up
-			return 
+			return
 		}
 
 		putlog "Whoops! Tried to do a sleepy state change but I'm not sure if I'm asleep or not :( ($state)"
@@ -1195,7 +1196,7 @@ proc bMotion_did_i_speak_last { channel } {
 	global bMotionCache
 
 	bMotion_log "system" "TRACE" "bMotion_did_i_speak_last $channel"
-	
+
 	catch {
 		bMotion_log "system" "DEBUG" "Cache(last) for $channel is $bMotionCache($channel,last)"
 		return $bMotionCache($channel,last)
@@ -1287,7 +1288,7 @@ proc bMotion_sufficient_gap { mingap plugin channel {nick ""} } {
 		bMotion_log "system" "DEBUG" "sufficient_gap: last=$lasttime, now=[clock seconds], gap=$diff"
 		if {$diff > $mingap} {
 			set gap_ok 1
-		} 
+		}
 		bMotion_plugins_settings_set $plugin "lasttime" $channel $nick [clock seconds]
 		bMotion_log "system" "DEBUG" "sufficient_gap: returning $gap_ok for $plugin $channel ($nick) > $mingap"
 		return $gap_ok
