@@ -3,6 +3,18 @@ puts "eggdrop shim loading"
 set shim_utimers [list]
 set shim_timers [list]
 set shim_rng [list]
+set shim_binds [list]
+
+proc shim_check_for_bind { type callback } {
+    foreach entry $::shim_binds {
+        # puts "type: [lindex $entry 0], callback: [lindex $entry 3]"
+        if {([lindex $entry 0] == $type) && ([lindex $entry 3] == $callback)} {
+            return 1
+        }
+    }
+    return 0
+}
+
 
 proc shim_check_for_timer { type callback } {
   if {$type == "timer"} {
