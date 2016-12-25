@@ -1,0 +1,178 @@
+# vim: ft=tcl
+source "tests/eggdrop-shim.tcl"
+
+set botnick "NoTopic"
+set bMotionRoot "."
+
+source "bMotion.tcl"
+
+package require tcltest
+namespace import ::tcltest::*
+
+eval ::tcltest::configure $argv
+
+test binds-1 "check the join event is bound" -body {
+    return [shim_check_for_bind join bMotion_event_onjoin]
+} -result {1}
+
+test binds-2 "check the mode event is bound" -body {
+    return [shim_check_for_bind mode bMotion_event_mode]
+} -result {1}
+
+test binds-3 "check the pubm event is bound" -body {
+    return [shim_check_for_bind pubm bMotion_event_main]
+} -result {1}
+
+test binds-4 "check the quit event is bound" -body {
+    return [shim_check_for_bind sign bMotion_event_onquit]
+} -result {1}
+
+test binds-5 "check the nick event is bound" -body {
+    return [shim_check_for_bind nick bMotion_event_nick]
+} -result {1}
+
+test binds-6 "check the part event is bound" -body {
+    return [shim_check_for_bind part bMotion_event_onpart]
+} -result {1}
+
+test binds-7 "check the ctcp event is bound" -body {
+    return [shim_check_for_bind ctcp bMotion_event_action]
+} -result {1}
+
+test binds-8 "check the msg event is bound" -body {
+    return [shim_check_for_bind msg msg_bmotioncommand]
+} -result {1}
+
+test binds-9 "check the pub admin event is bound 1" -body {
+    return [shim_check_for_bind pub bMotionAdminHandler]
+} -result {1}
+
+test binds-10 "check the pub admin event is bound 2" -body {
+    return [shim_check_for_bind pub bMotionAdminHandler2]
+} -result {1}
+
+test binds-11 "check the dcc admin event is bound" -body {
+    return [shim_check_for_bind dcc bMotion_dcc_command]
+} -result {1}
+
+test binds-12 "check the bedtime event is bound" -body {
+    return [shim_check_for_bind time bMotion_check_tired2]
+} -result {1}
+
+test system-log-1 "system log category exists" -body {
+    return [bMotion_log_category_exists "system"]
+} -result {1}
+
+test system-update-chanlist-1 "update chanlist works" -setup {
+    bMotion_update_chanlist
+} -body {
+    return $::bMotionChannels
+} -result [list #bmotion]
+
+test system-init-chanvars-1 "last event value is set for #bmotion" -body {
+    return [info exists ::bMotionLastEvent(#bmotion)]
+} -result {1}
+
+test system-init-chanvars-2 "admin silence value is cleared for #bmotion" -body {
+    return $::bMotionInfo(adminSilence,#bmotion)
+} -result {0}
+
+test system-init-chanvars-3 "last value is cleared for #bmotion" -body {
+    return $::bMotionCache(#bmotion,last)
+} -result {0}
+
+test system-last-event-1 "last event set works" -setup {
+    set testval [bMotion_set_last_event #bmotion]
+} -body {
+    return [expr $::bMotionLastEvent(#bmotion) == $testval]
+} -result {1}
+
+test system-last-event-2 "last event get works" -setup {
+    set ::bMotionLastEvent(#bmotion) 5
+} -body {
+    return [bMotion_get_last_event #bmotion]
+} -result {5}
+
+test system-active-enough-1 "active enough handles missing data" -setup {
+    unset ::bMotionLastEvent(#bmotion)
+} -body {
+    return [bMotion_is_active_enough #bmotion]
+} -result {1}
+
+test system-active-enough-2 "active enough returns 1 for time within limit" -setup {
+    set ::bMotionInfo(maxIdleGap) 1
+    set ::bMotionLastEvent(#bmotion) [expr [clock seconds] - 10]
+} -body {
+    return [bMotion_is_active_enough #bmotion]
+} -result {1}
+
+test system-active-enough-3 "active enough returns 0 for time outside limit" -setup {
+    set ::bMotionInfo(maxIdleGap) 1
+    set ::bMotionLastEvent(#bmotion) [expr [clock seconds] - 70]
+} -body {
+    return [bMotion_is_active_enough #bmotion]
+} -result {0}
+
+test system-random-away-1 "random away doesn't work in bitlbee mode" -setup {
+    set ::bMotionSettings(bitlbee) 1
+} -body {
+    return [bMotion_random_away]
+} -cleanup {
+    set ::bMotionSettings(bitlbee) 0
+} -result {0}
+
+test system-random-away-2 "random away doesn't work if useAway is 0" -setup {
+    set ::bMotionSettings(useAway) 0
+} -body {
+    return [bMotion_random_away]
+} -cleanup {
+    set ::bMotionSettings(useAway) 1
+} -result {0}
+
+test system-random-away-3 "random away doesn't fire if channels are too idle" -setup {
+    set ::bMotionLastEvent(#bmotion) [expr [clock seconds] - 62]
+    set ::bMotionInfo(maxIdleGap) 1
+    # set ::bMotion_log_level 5
+    # set ::bMotion_log_categories [list system]
+} -body {
+    return [bMotion_random_away]
+} -result {0}
+
+test system-random-away-4 "random away does fire if channels are not idle" -setup {
+    set ::bMotionLastEvent(#bmotion) [expr [clock seconds] - 58]
+    set ::bMotionInfo(maxIdleGap) 1
+    set ::bMotion_log_level 5
+    set ::bMotion_log_categories [list system]
+    set ::bMotionSettings(awaychance) 50
+    set ::bMotionInfo(away) 0
+    shim_load_rng [list 40 0]
+} -body {
+    return [bMotion_random_away]
+} -result {1}
+
+test system-random-away-5 "random away does not fire if chance is too high" -setup {
+    set ::bMotionLastEvent(#bmotion) [expr [clock seconds] - 58]
+    set ::bMotionInfo(maxIdleGap) 1
+    set ::bMotion_log_level 5
+    set ::bMotion_log_categories [list system]
+    set ::bMotionSettings(awaychance) 50
+    set ::bMotionInfo(away) 0
+    shim_load_rng [list 60 0]
+} -body {
+    return [bMotion_random_away]
+} -result {0}
+
+test system-random-away-5 "random away does not fire if already away" -setup {
+    set ::bMotionLastEvent(#bmotion) [expr [clock seconds] - 58]
+    set ::bMotionInfo(maxIdleGap) 1
+    set ::bMotion_log_level 5
+    set ::bMotion_log_categories [list system]
+    set ::bMotionSettings(awaychance) 50
+    set ::bMotionInfo(away) 1
+    shim_load_rng [list 40 0]
+} -body {
+    return [bMotion_random_away]
+} -result {0}
+
+
+cleanupTests
