@@ -115,6 +115,7 @@ test system-active-enough-3 "active enough returns 0 for time outside limit" -se
 
 test system-random-away-1 "random away doesn't work in bitlbee mode" -setup {
     set ::bMotionSettings(bitlbee) 1
+    set ::bMotionInfo(away) 0
 } -body {
     return [bMotion_random_away]
 } -cleanup {
@@ -123,6 +124,7 @@ test system-random-away-1 "random away doesn't work in bitlbee mode" -setup {
 
 test system-random-away-2 "random away doesn't work if useAway is 0" -setup {
     set ::bMotionSettings(useAway) 0
+    set ::bMotionInfo(away) 0
 } -body {
     return [bMotion_random_away]
 } -cleanup {
@@ -132,8 +134,7 @@ test system-random-away-2 "random away doesn't work if useAway is 0" -setup {
 test system-random-away-3 "random away doesn't fire if channels are too idle" -setup {
     set ::bMotionLastEvent(#bmotion) [expr [clock seconds] - 62]
     set ::bMotionInfo(maxIdleGap) 1
-    # set ::bMotion_log_level 5
-    # set ::bMotion_log_categories [list system]
+    set ::bMotionInfo(away) 0
 } -body {
     return [bMotion_random_away]
 } -result {0}
@@ -141,8 +142,6 @@ test system-random-away-3 "random away doesn't fire if channels are too idle" -s
 test system-random-away-4 "random away does fire if channels are not idle" -setup {
     set ::bMotionLastEvent(#bmotion) [expr [clock seconds] - 58]
     set ::bMotionInfo(maxIdleGap) 1
-    set ::bMotion_log_level 5
-    set ::bMotion_log_categories [list system]
     set ::bMotionSettings(awaychance) 50
     set ::bMotionInfo(away) 0
     shim_load_rng [list 40 0]
@@ -153,8 +152,6 @@ test system-random-away-4 "random away does fire if channels are not idle" -setu
 test system-random-away-5 "random away does not fire if chance is too high" -setup {
     set ::bMotionLastEvent(#bmotion) [expr [clock seconds] - 58]
     set ::bMotionInfo(maxIdleGap) 1
-    set ::bMotion_log_level 5
-    set ::bMotion_log_categories [list system]
     set ::bMotionSettings(awaychance) 50
     set ::bMotionInfo(away) 0
     shim_load_rng [list 60 0]
@@ -165,8 +162,6 @@ test system-random-away-5 "random away does not fire if chance is too high" -set
 test system-random-away-5 "random away does not fire if already away" -setup {
     set ::bMotionLastEvent(#bmotion) [expr [clock seconds] - 58]
     set ::bMotionInfo(maxIdleGap) 1
-    set ::bMotion_log_level 5
-    set ::bMotion_log_categories [list system]
     set ::bMotionSettings(awaychance) 50
     set ::bMotionInfo(away) 1
     shim_load_rng [list 40 0]
@@ -174,5 +169,14 @@ test system-random-away-5 "random away does not fire if already away" -setup {
     return [bMotion_random_away]
 } -result {0}
 
+#TODO: test doRandomStuff
+
+test system-set-away-1 "set random away sets us away" -setup {
+    set ::bMotionInfo(away) 0
+    set ::bMotionInfo(silence) 0
+} -body {
+    bMotionSetRandomAway
+    return [expr ($::bMotionInfo(away) == 1) && ($::bMotionInfo(silence) == 1)]
+} -result {1} -output {*] AWAY :*} -match glob
 
 cleanupTests
