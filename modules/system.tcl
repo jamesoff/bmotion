@@ -141,6 +141,12 @@ proc bMotion_random_away {} {
 
 	bMotion_log "system" "TRACE" "bMotion_random_away"
 
+	if {$bMotionInfo(away) == 1} {
+		#away, don't do anything (and don't do randomstuff)
+		bMotion_log "system" "DEBUG" "I'm already away, not going away again"
+		return 0
+	}
+
 	set timeNow [clock seconds]
 
 	# check if it's worth doing anything
@@ -182,11 +188,6 @@ proc bMotion_random_away {} {
 		bMotion_log "system" "DEBUG" "most recent is busy enough but going away anyway"
 	}
 
-	if {$bMotionInfo(away) == 1} {
-		#away, don't do anything (and don't do randomstuff)
-		bMotion_log "system" "DEBUG" "I'm already away, not going away again"
-		return 0
-	}
 
 	if {[rand 3] == 0} {
 		putlog "bMotion: All channels are idle, going away"
