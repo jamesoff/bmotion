@@ -186,18 +186,11 @@ proc bMotion_random_away {} {
 			return 0
 		}
 		bMotion_log "system" "DEBUG" "most recent is busy enough but going away anyway"
+        putlog "bMotion: All channels are idle, going away"
+        bMotionSetRandomAway
+        return 1
 	}
-
-
-	if {[rand 3] == 0} {
-		putlog "bMotion: All channels are idle, going away"
-		bMotionSetRandomAway
-		return 1
-	} else {
-		bMotion_log "system" "INFO" "All channels are idle, not going away though"
-	}
-
-	return 0
+    return 0
 }
 
 
