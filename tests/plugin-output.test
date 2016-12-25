@@ -120,7 +120,7 @@ test output-var-2 "VAR plugin understands %noun" -setup {
     bMotion_abstract_add "sillyThings" "sillythings test"
 } -body {
     return [bMotion_plugin_output_VAR "#molsoft" "%noun"]
-} -result {sillythings test}
+} -result {sillythings test$} -match regexp
 
 
 test output-var-3 "VAR plugin understands old {strip}" -setup {
