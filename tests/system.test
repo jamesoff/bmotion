@@ -212,5 +212,44 @@ test system-set-back-2 "set back sends output to channels" -setup {
     return [expr ($::bMotionInfo(away) == 0) && ($::bMotionInfo(silence) == 0)]
 } -result {1} -output {*] PRIVMSG #bmotion :*ACTION is back*} -match glob
 
+# set ::bMotion_log_level 5
+# set ::bMotion_log_categories [list "system"]
+
+test system-talking-to-me-1 "nick at start of line means talking to the bot" -body {
+    return [bMotionTalkingToMe "NoTopic: hello there"]
+} -result {1}
+
+test system-talking-to-me-2 "nick at start of line means talking to the bot" -body {
+    return [bMotionTalkingToMe "NoTopic, hello there"]
+} -result {1}
+
+test system-talking-to-me-3 "nick at start of line means talking to the bot" -body {
+    return [bMotionTalkingToMe "NoTopic hello there"]
+} -result {1}
+
+test system-talking-to-me-4 "nick at end of line means talking to the bot" -body {
+    return [bMotionTalkingToMe "hello there NoTopic"]
+} -result {1}
+
+test system-talking-to-me-5 "nick at end of line means talking to the bot" -body {
+    return [bMotionTalkingToMe "hello there NoTopic!"]
+} -result {1}
+
+test system-talking-to-me-6 "nick at end of line means talking to the bot" -body {
+    return [bMotionTalkingToMe "hello there NoTopic?"]
+} -result {1}
+
+test system-talking-to-me-7 "nick at end of line means talking to the bot" -body {
+    return [bMotionTalkingToMe "hello there NoTopic~"]
+} -result {1}
+
+test system-talking-to-me-8 "wrong nick at start of line doesn't mean talking to me" -body {
+    return [bMotionTalkingToMe "MonicaOff: hello there"]
+} -result {0}
+
+test system-talking-to-me-9 "no nick in line doesn't mean talking to me" -body {
+    return [bMotionTalkingToMe "hello there"]
+} -result {0}
+
 
 cleanupTests

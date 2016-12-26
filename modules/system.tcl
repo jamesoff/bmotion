@@ -358,6 +358,10 @@ proc bMotionSetRandomBack {} {
 proc bMotionTalkingToMe { text } {
 	global botnicks
 
+    if {$botnicks == ""} {
+        bMotion_check_botnicks
+    }
+
 	bMotion_log "system" "TRACE" "bMotionTalkingToMe $text"
 
 	# look for a nick at the start of the line
