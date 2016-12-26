@@ -5,6 +5,33 @@ set shim_timers [list]
 set shim_rng [list]
 set shim_binds [list]
 
+
+proc shim_no_match_glob { expected actual } {
+    # shim_print "Checking noglob: expected = $expected; actual = $actual"
+    # shim_print "---"
+    if {$expected == ""} { return 0 }
+    if {[string match $expected $actual]} {
+        # shim_print "expected and actual match"
+        return 0
+    }
+    # shim_print "expected and actual do not match"
+    return 1
+}
+
+
+proc shim_run_all_queue { } {
+    if {[llength $::bMotion_queue] > 0} {
+        shim_print "Running queue..."
+        while {[llength $::bMotion_queue]} {
+            bMotion_queue_run
+        }
+        shim_print "Queue is now empty."
+    } else {
+        shim_print "Nothing in queue to run."
+    }
+}
+
+
 proc shim_check_for_bind { type callback } {
     foreach entry $::shim_binds {
         # puts "type: [lindex $entry 0], callback: [lindex $entry 3]"
