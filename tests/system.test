@@ -251,5 +251,46 @@ test system-talking-to-me-9 "no nick in line doesn't mean talking to me" -body {
     return [bMotionTalkingToMe "hello there"]
 } -result {0}
 
+test system-silence-1 "setting silence sets the bot away" -setup {
+    set ::bMotionInfo(silence) 0
+    set ::bMotionInfo(away) 0
+} -body {
+    bMotionSilence jms jms!jms@thing #bmotion
+    return [expr ($::bMotionInfo(away) == 1) && ($::bMotionInfo(silence) == 1)]
+} -result {1}
+
+test system-silence-2 "setting silence sets the bot away on irc" -setup {
+    set ::bMotionInfo(silence) 0
+    set ::bMotionInfo(away) 0
+} -body {
+    bMotionSilence jms jms!jms@thing #bmotion
+} -output {*] AWAY :afk (jms #bmotion)*} -match glob -result {1}
+
+test system-silence-3 "setting silence responds to the channel" -setup {
+    set ::bMotionInfo(silence) 0
+    set ::bMotionInfo(away) 0
+    bMotion_abstract_register "silenceAways"
+    bMotion_abstract_reset "silenceAways"
+    bMotion_abstract_add "silenceAways" "test"
+    bMotion_queue_flush
+} -body {
+    bMotionSilence jms jms!jms@thing #bmotion
+    shim_run_all_queue
+} -output {*] PRIVMSG #bmotion :test*} -match glob
+
+test system-silence-4 "setting silence sets a timer to come back" -setup {
+    set ::bMotionInfo(silence) 0
+    set ::bMotionInfo(away) 0
+} -body {
+    bMotionSilence jms jms!jms@thing #bmotion
+    shim_check_for_timer timer bMotionUnSilence
+} -result {1}
+
+test system-silence-5 "setting silence ignores if it's already done" -setup {
+    set ::bMotionInfo(silence) 1
+    set ::bMotionInfo(away) 1
+} -body {
+    return [bMotionSilence jms jms!jms@thing #bmotion]
+} -output {*] NOTICE jms :I already am*} -match glob -result {0}
 
 cleanupTests
