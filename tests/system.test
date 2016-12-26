@@ -11,6 +11,8 @@ namespace import ::tcltest::*
 
 eval ::tcltest::configure $argv
 
+::tcltest::customMatch noglob shim_no_match_glob
+
 test binds-1 "check the join event is bound" -body {
     return [shim_check_for_bind join bMotion_event_onjoin]
 } -result {1}
@@ -178,5 +180,37 @@ test system-set-away-1 "set random away sets us away" -setup {
     bMotionSetRandomAway
     return [expr ($::bMotionInfo(away) == 1) && ($::bMotionInfo(silence) == 1)]
 } -result {1} -output {*] AWAY :*} -match glob
+
+
+test system-set-away-2 "set random away sends output to channels" -setup {
+    set ::bMotionInfo(away) 0
+    set ::bMotionInfo(silence) 0
+    bMotion_queue_flush
+} -body {
+    bMotionSetRandomAway
+    shim_run_all_queue
+} -output {*] PRIVMSG #bmotion :*ACTION is away:*} -match glob
+
+#TODO: test negative case
+
+
+test system-set-back-1 "set back sets us back on the server" -setup {
+    set ::bMotionInfo(away) 0
+    set ::bMotionInfo(silence) 0
+} -body {
+    bMotionSetRandomBack
+    return [expr ($::bMotionInfo(away) == 0) && ($::bMotionInfo(silence) == 0)]
+} -result {1} -output {*] AWAY*} -match glob
+
+
+test system-set-back-2 "set back sends output to channels" -setup {
+    set ::bMotionInfo(away) 0
+    set ::bMotionInfo(silence) 0
+} -body {
+    bMotionSetRandomBack
+    shim_run_all_queue
+    return [expr ($::bMotionInfo(away) == 0) && ($::bMotionInfo(silence) == 0)]
+} -result {1} -output {*] PRIVMSG #bmotion :*ACTION is back*} -match glob
+
 
 cleanupTests
