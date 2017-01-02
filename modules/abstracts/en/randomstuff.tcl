@@ -7,6 +7,7 @@
 bMotion_abstract_register "randomStuff"
 bMotion_abstract_reset "randomStuff"
 bMotion_abstract_batchadd "randomStuff" {
+    "%VAR{lifehack}"
 	"Those delightful birds with their chirp chirp chirp and their tweet tweet tweet%! %VAR{sound_short}"
 	"Knowledge is knowing a %VAR{fruits} is a fruit, wisdom is not putting it in a fruit salad"
 	"Knowledge is knowing a %VAR{vegetables} is a vegetable, wisdom is not putting it in a vegetable salad"

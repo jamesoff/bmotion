@@ -6103,6 +6103,49 @@ bMotion_abstract_register "wowcher_final" {
   "a large electronic steel %VAR{sillyThings:strip}"
 }
 
+bMotion_abstract_register "lifehack" {
+    "Lifehack: %={did you know you can:you can:Try this!} %VAR{lifehack_first} to %VAR{lifehack_second}"
+    "Lifehack: if you want to %VAR{lifehack_second}, %VAR{lifehack_first}"
+    "Clickbait: %NUMBER{10} new features of %VAR{lifehack_thing} which will change they way you %VAR{sillyVerbs}"
+}
+
+bMotion_abstract_register "lifehack_first" {
+    "use a breadclip"
+    "don't pack more clothes than you need"
+    "use throw pillows"
+    "use %VAR{sillyThings}"
+    "barter"
+    "drink water again and again"
+    "exfoliate your skin"
+    "refrain from dairy products"
+    "wash your face"
+    "%VAR{sillyVerbs} %VAR{sillyThings}"
+    "ask for free %VAR{sillyThings:strip,plural}"
+    "pack a survival kit"
+    "label everything"
+}
+
+bMotion_abstract_register "lifehack_second" {
+    "increase battery life"
+    "build a website"
+    "get more social media attention"
+    "get more %VAR{sillyThings:strip}"
+    "raise your spiritual and emotional intelligence"
+    "boost your productivity"
+    "fund your start up"
+    "improve the condition of your skin"
+    "fake your own success"
+    "not live with regrets"
+    "%VAR{sillyVerbs} your startup"
+    "beat post-holiday blues"
+}
+
+bMotion_abstract_register "lifehack_thing" {
+    "OS X"
+    "iOS"
+    "Android"
+}
+
 bMotion_abstract_add_filter "_all" "\{strip\}\}"
 bMotion_abstract_add_filter "_all" "\}\{strip\}"
 
