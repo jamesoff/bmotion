@@ -4785,6 +4785,7 @@ bMotion_abstract_register "wake_ups" {
 	"/puts on %VAR{clothes}%|Important meeting today, got to look my best %VAR{smiles}"
 	"/wakes up with a %VAR{medical_types} case of %VAR{illness} %SMILEY{sad}"
 	"Hello, victims"
+    "%={Sky:The BBFC} has rated this channel %={U:PG:12:15:18:R}. It contains %={flashing images:nudity} and %={extreme:} %={violence:swearing}%!, and %VAR{sillyThings}"
 }
 
 # originally this was wrong
