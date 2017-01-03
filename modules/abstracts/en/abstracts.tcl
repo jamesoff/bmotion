@@ -6106,12 +6106,13 @@ bMotion_abstract_register "wowcher_final" {
 bMotion_abstract_register "lifehack" {
     "Lifehack: %={did you know you can:you can:Try this!} %VAR{lifehack_first} to %VAR{lifehack_second}"
     "Lifehack: if you want to %VAR{lifehack_second}, %VAR{lifehack_first}"
-    "Clickbait: %NUMBER{10} new features of %VAR{lifehack_thing} which will change they way you %VAR{sillyVerbs}"
+    "Clickbait: %NUMBER{10} new features of %VAR{lifehack_thing} which will change the way you %VAR{sillyVerbs}"
 }
+bMotion_abstract_add_filter "lifehack" "change they way"
 
 bMotion_abstract_register "lifehack_first" {
     "use a breadclip"
-    "don't pack more clothes than you need"
+    "pack the right amount of clothes"
     "use throw pillows"
     "use %VAR{sillyThings}"
     "barter"
@@ -6124,6 +6125,7 @@ bMotion_abstract_register "lifehack_first" {
     "pack a survival kit"
     "label everything"
 }
+bMotion_abstract_add_filter "lifehack_first" "don't pack"
 
 bMotion_abstract_register "lifehack_second" {
     "increase battery life"
