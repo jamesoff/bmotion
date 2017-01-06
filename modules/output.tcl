@@ -258,6 +258,10 @@ proc bMotionDoAction {channel nick text {moreText ""} {noTypo 0} {urgent 0} } {
 		2 { set nick "[string range $nick 0 0][string tolower [string range $nick 1 end]]" }
 	}
 
+    if {[info exists ::bMotion_test_harness]} {
+        set noTypo 1
+    }
+
 	# Process macros
 	set original_line $text
 	set done 0

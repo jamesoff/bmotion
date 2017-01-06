@@ -13,6 +13,9 @@ eval ::tcltest::configure $argv
 
 ::tcltest::customMatch noglob shim_no_match_glob
 
+# disable things like typos
+set bMotion_test_harness 1
+
 test binds-1 "check the join event is bound" -body {
     return [shim_check_for_bind join bMotion_event_onjoin]
 } -result {1}
