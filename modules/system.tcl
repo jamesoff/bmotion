@@ -494,11 +494,6 @@ proc bMotionGetGender { nick host } {
 }
 
 
-proc getHour {} {
-	return [clock format [clock seconds] -format "%H"]
-}
-
-
 proc bMotion_dcc_command { handle idx arg } {
 	global bMotionInfo
 
