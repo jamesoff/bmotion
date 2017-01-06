@@ -105,6 +105,10 @@ proc shim_print_log { text } {
   puts "\[\033\[01;33mLOG\033\[0m\] $text"
 }
 
+proc shim_print_idx { idx text } {
+  puts "\[\033\[01;33mDCC\033\[0m\] ($idx) $text"
+}
+
 proc setudef { a b } {
   shim_print "setudef"
 }
@@ -265,4 +269,8 @@ proc finduser { hostmask } {
         }
     }
     return "badhostmask"
+}
+
+proc putidx { idx text } {
+    shim_print_idx $idx $text
 }

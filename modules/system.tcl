@@ -728,16 +728,10 @@ proc bMotion_rand_nonzero { limit } {
 
 
 proc bMotion_startTimers { } {
-	global mooddrifttimer
-	if	{![info exists mooddrifttimer]} {
-		timer 10 driftmood
-		#utimer 5 loldec
-		timer [expr [rand 30] + 3] doRandomStuff
-		set mooddrifttimer 1
-		set delay [expr [rand 200] + 1700]
-		utimer $delay bMotion_interbot_next_elect
-		timer 10 bMotion_mood_drift_timer
-	}
+    timer [expr [rand 30] + 3] doRandomStuff
+    set delay [expr [rand 200] + 1700]
+    utimer $delay bMotion_interbot_next_elect
+    timer 10 bMotion_mood_drift_timer
 }
 
 
