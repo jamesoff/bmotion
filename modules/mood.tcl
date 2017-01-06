@@ -196,19 +196,6 @@ proc bMotion_mood_adjust { name change } {
 }
 
 
-## moodTimerStart: Used to start the mood drift timer when the script initialises
-## and other timers now, too
-proc moodTimerStart {} {
-	bMotion_log "mood" "TRACE" "moodTimerStart"
-	global mooddrifttimer
-	if  {![info exists mooddrifttimer]} {
-		timer [expr [rand 30] + 3] doRandomStuff
-		set mooddrifttimer 1
-	}
-	timer 10 bMotion_mood_drift_timer
-}
-
-
 proc moodhandler {handle idx arg} {
 	bMotion_log "mood" "ERROR" "moodhandler"
 	putidx $idx "Please use .bmotion mood"
