@@ -341,4 +341,10 @@ test system-putadmin-3 "putadmin changes tabs to spaces" -setup {
     bMotion_putadmin "\ttest to irc"
 } -output {*HELP*] PRIVMSG #output :  test to irc*} -match glob -result {0}
 
+#TODO test bMotion_dcc_command
+
+test system-dcc-help-1 "bMotion_dcc_help returns redirect message" -body {
+    bMotion_dcc_help test 1 arg
+} -output {*] (1) Please use .bmotion help*} -match glob -result {0}
+
 cleanupTests
