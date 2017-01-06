@@ -293,4 +293,17 @@ test system-silence-5 "setting silence ignores if it's already done" -setup {
     return [bMotionSilence jms jms!jms@thing #bmotion]
 } -output {*] NOTICE jms :I already am*} -match glob -result {0}
 
+test system-unsilence-1 "unsilence sets us back on IRC" -body {
+    bMotionUnSilence
+} -output {*] AWAY*} -match glob -result {0}
+
+test system-unsilence-2 "unsilence clears silence and away vars" -setup {
+    set ::bMotionInfo(silence) 1
+    set ::bMotionInfo(away) 1
+} -body {
+    bMotionUnSilence
+    return [expr ($::bMotionInfo(away) == 0) && ($::bMotionInfo(silence) == 0)]
+} -result {1}
+
+
 cleanupTests
