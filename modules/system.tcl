@@ -37,7 +37,6 @@ bind ctcp - ACTION bMotion_event_action
 bind pub - "!mood" pubm_moodhandler
 bind pub - "!bminfo" bMotionInfo
 bind msg - bmotion msg_bmotioncommand
-bind pub - !bmadmin bMotionAdminHandler
 bind pub - !bmotion bMotionAdminHandler2
 bind pub - .bmotion bMotionAdminHandler2
 
@@ -671,115 +670,6 @@ proc bMotion_putadmin { text } {
 		return 0
 	}
 	return 0
-}
-
-
-#TODO: is this ever used now?
-proc bMotionAdminHandler {nick host handle channel text} {
-	global bMotionAdminFlag botnicks bMotionInfo botnick bMotionSettings
-
-	if {![matchattr $handle $bMotionAdminFlag $channel]} {
-		return 0
-	}
-
-	#first, check botnicks (this is to get round empty-nick-on-startup
-	if {$botnicks == ""} {
-		# need to set this
-		set botnicks "($botnick|$bMotionSettings(botnicks)) ?"
-	}
-
-	if [regexp -nocase "$botnicks (shut up|silence|quiet)" $text] {
-		set bMotionInfo(adminSilence,$channel) 1
-		puthelp "NOTICE $nick :OK, silent in $channel until told otherwise"
-		return 1
-	}
-
-	if [regexp -nocase "$botnicks (end|cancel|stop) (shut up|silence|quiet)" $text] {
-		set bMotionInfo(adminSilence,$channel) 0
-		puthelp "NOTICE $nick :No longer silent in $channel"
-		return 1
-	}
-
-	if [regexp -nocase "$botnicks washnick (.+)" $text matches bn nick2] {
-		bMotionDoAction $channel $nick "%%: %2" [bMotionWashNick $nick2]
-		return 1
-	}
-
-	if [regexp -nocase "$botnicks global (shut up|silence|quiet)" $text] {
-		set bMotionInfo(silence) 1
-		set bMotionInfo(away) 1
-		puthelp "NOTICE $nick :Now globally silent"
-		putserv "AWAY :Global silence requested by $nick"
-		return 1
-	}
-
-	if [regexp -nocase "$botnicks (end|cancel|stop) global (shut up|silence|quiet)" $text] {
-		set bMotionInfo(silence) 0
-		set bMotionInfo(away) 0
-		puthelp "NOTICE $nick :No longer globally silent"
-		putserv "AWAY"
-		return 1
-	}
-
-	if [regexp -nocase "$botnicks leet (on|off)" $text blah pop toggle] {
-
-		if {$toggle == "off"} {
-			putlog "bMotion: Leet mode off by $nick"
-			set bMotionInfo(leet) 0
-			bMotionDoAction $channel $nick "/stops talking like a retard."
-			return 0
-		}
-
-		if {$toggle == "on"} {
-			putlog "bMotion: Leet mode on by $nick"
-			set bMotionInfo(leet) 1
-			bMotionDoAction $channel $nick "Leet mode on ... fear my skills!"
-		}
-		return 1
-	}
-
-	if [regexp -nocase "$botnicks dutch (on|off)" $text blah pop toggle] {
-
-		if {$toggle == "off"} {
-			putlog "bMotion: Dutch mode off by $nick"
-			set bMotionInfo(dutch) 0
-			bMotionDoAction $channel $nick "/stops talking like a European."
-			return 0
-		}
-
-		if {$toggle == "on"} {
-			putlog "bMotion: Dutch mode on by $nick"
-			bMotionDoAction $channel $nick "/snapt wel nederlands"
-			set bMotionInfo(dutch) 1
-		}
-		return 1
-	}
-
-
-	if [regexp -nocase "$botnicks leetchance (.+)" $text blah pop value] {
-		set bMotionInfo(leetChance) $value
-		puthelp "NOTICE $nick :Ok"
-		return 1
-	}
-
-	if [regexp -nocase "$botnicks reload" $text blah pop value] {
-		puthelp "NOTICE $nick :Reloading random stuff lists"
-		source scripts/bMotionRandoms.tcl
-		putlog "bMotion: Reloaded bMotion randoms ($nick)"
-		return 1
-	}
-
-	if [regexp -nocase "$botnicks parse (.+)" $text matches bot txt] {
-		bMotionDoAction $channel $nick $txt
-		putlog "bMotion: Parsed text for $nick"
-		return 1
-	}
-
-	if [regexp -nocase "$botnicks su (.+?) (.+)" $text matches bot nick2 txt] {
-		bMotion_event_main $nick2 [getchanhost $nick2 $channel] [nick2hand $nick2] $channel $txt
-		putlog "bMotion: su to $nick2 by $nick on $channel: $txt"
-		return 1
-	}
 }
 
 

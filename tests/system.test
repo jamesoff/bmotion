@@ -48,11 +48,11 @@ test binds-8 "check the msg event is bound" -body {
     return [shim_check_for_bind msg msg_bmotioncommand]
 } -result {1}
 
-test binds-9 "check the pub admin event is bound 1" -body {
+test binds-9 "check the out pub admin event is not bound" -body {
     return [shim_check_for_bind pub bMotionAdminHandler]
-} -result {1}
+} -result {0}
 
-test binds-10 "check the pub admin event is bound 2" -body {
+test binds-10 "check the pub admin event is bound" -body {
     return [shim_check_for_bind pub bMotionAdminHandler2]
 } -result {1}
 
