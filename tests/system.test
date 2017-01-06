@@ -308,5 +308,37 @@ test system-unsilence-2 "unsilence clears silence and away vars" -setup {
     return [expr ($::bMotionInfo(away) == 0) && ($::bMotionInfo(silence) == 0)]
 } -result {1}
 
+test system-getgender-1 "male user gender returned correctly" -body {
+    return [bMotionGetGender "male" "host"]
+} -result {male}
+
+test system-getgender-2 "female user gender returned correctly" -body {
+    return [bMotionGetGender "female" "host"]
+} -result {female}
+
+test system-getgender-3 "unknown user gender returned correctly" -body {
+    return [bMotionGetGender "unknown" "host"]
+} -result {unknown}
+
+test system-putadmin-1 "putadmin to dcc works" -setup {
+    bMotion_plugins_settings_set "admin" "idx" "" "" "1"
+    bMotion_plugins_settings_set "admin" "type" "" "" "dcc"
+} -body {
+    bMotion_putadmin "test to dcc"
+} -output {*DCC*] (1) test to dcc*} -match glob -result {0}
+
+test system-putadmin-2 "putadmin to irc works" -setup {
+    bMotion_plugins_settings_set "admin" "target" "" "" "#output"
+    bMotion_plugins_settings_set "admin" "type" "" "" "irc"
+} -body {
+    bMotion_putadmin "test to irc"
+} -output {*HELP*] PRIVMSG #output :test to irc*} -match glob -result {0}
+
+test system-putadmin-3 "putadmin changes tabs to spaces" -setup {
+    bMotion_plugins_settings_set "admin" "target" "" "" "#output"
+    bMotion_plugins_settings_set "admin" "type" "" "" "irc"
+} -body {
+    bMotion_putadmin "\ttest to irc"
+} -output {*HELP*] PRIVMSG #output :  test to irc*} -match glob -result {0}
 
 cleanupTests
