@@ -385,14 +385,18 @@ proc bMotionTalkingToMe { text } {
 
 # We need to shut up
 proc bMotionSilence {nick host channel} {
-	global bMotionInfo silenceAways bMotionSettings
+	global bMotionInfo
     if {$bMotionInfo(silence) == 1} {
         #I already am :P
         putserv "NOTICE $nick :I already am silent :P"
         return 0
     }
-	timer $bMotionSettings(silenceTime) bMotionUnSilence
-	bMotion_log "system" "INFO" "Was told to be silent for $bMotionSettings(silenceTime) minutes by $nick in $channel"
+    set silenceTime [bMotion_setting_get "silenceTime"]
+    if {$silenceTime == 0} {
+        set silenceTime 10
+    }
+	timer $silenceTime bMotionUnSilence
+	bMotion_log "system" "INFO" "Was told to be silent for $$silenceTime minutes by $nick in $channel"
 	bMotion_plugins_settings_set "system" "ruser_skip" $channel "" $nick
 	bMotionDoAction $channel $nick "%VAR{silenceAways}"
 	putserv "AWAY :afk ($nick $channel)"
