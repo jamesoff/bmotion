@@ -242,5 +242,27 @@ proc getuser { handle type key } {
     if {$key == "friend"} {
       return 50
     }
+    if {$key == "gender"} {
+        if {$handle == "male"} {
+            return "male"
+        }
+        if {$handle == "female"} {
+            return "female"
+        }
+        return "unknown"
+    }
   }
+}
+
+proc finduser { hostmask } {
+    # return the nick as a handle, unless it's "unknown", then return "*"
+    shim_print "finduser $hostmask"
+    if [regexp "^(.+)!.+$" $hostmask matches nick] {
+        if {$nick == "unknown"} {
+            return "*"
+        } else {
+            return [string tolower $nick]
+        }
+    }
+    return "badhostmask"
 }
