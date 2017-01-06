@@ -409,10 +409,9 @@ proc bMotionSilence {nick host channel} {
 proc bMotionUnSilence {} {
 	# Timer for silence expires
 	putserv "AWAY"
-	putlog "bMotion: No longer silent."
-	global bMotionInfo
-	set bMotionInfo(silence) 0
-	set bMotionInfo(away) 0
+	bMotion_log "system" "INFO" "No longer silent."
+	set ::bMotionInfo(silence) 0
+	set ::bMotionInfo(away) 0
 }
 
 
