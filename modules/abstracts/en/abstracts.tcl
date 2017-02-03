@@ -4941,6 +4941,7 @@ bMotion_abstract_register "noun_prefix" {
 	"nice"
 	"horrible"
 	"%VAR{noun_swearing}"
+	"cyber"
 }
 
 bMotion_abstract_register "noun_swearing" {
