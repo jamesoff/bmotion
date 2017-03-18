@@ -46,6 +46,11 @@ proc bMotion_plugin_complex_question { nick host handle channel text } {
     bMotion_putloglev 1 * "question is now: $text"
   }
 
+  #TODO: change multiple ?s to one
+
+  # Rewrite to remove space(s) before the ?
+  regsub { +\?$} $text {?} text
+
   # END OF PREPROCESSING
 
 
