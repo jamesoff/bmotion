@@ -25,8 +25,12 @@ proc bMotion_plugin_complex_swisstoni { nick host handle channel text } {
 		set diff [expr $now - $last_time]
 
 		if {$diff > [expr [rand 10000] + 40000]} {
-			bMotionDoAction $channel $nick "You know %%, $verb $middle $noun is much like making love to a beautiful woman%|You've got to %VAR{sillyVerbs} the %VAR{sillyThings:strip}%|%VAR{sillyVerbs} the %VAR{sillyThings:strip}%|and finally %VAR{sillyVerbs} the %VAR{sillyThings:strip}."
 			bMotion_plugins_settings_set "complex:swisstoni" "last" $channel "" $now
+			if {[string tolower $verb] == "during"} {
+				# happy to burn a "use" without replying as this plugin can fire quite frequently anyway
+				return 0
+			}
+			bMotionDoAction $channel $nick "You know %%, $verb $middle $noun is much like making love to a beautiful woman%|You've got to %VAR{sillyVerbs} the %VAR{sillyThings:strip}%|%VAR{sillyVerbs} the %VAR{sillyThings:strip}%|and finally %VAR{sillyVerbs} the %VAR{sillyThings:strip}."
 			return 1
 		}
 	}
