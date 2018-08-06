@@ -75,6 +75,7 @@ bMotion_abstract_batchadd "appendslist" {
 	"%spacein a vagina"
 	", due to explosions"
     ", especially not in an airport toilet with %NUMBER{10} kilos of cocaine"
+    ", but with boobs"
 }
 
 bMotion_abstract_register "narfs"
