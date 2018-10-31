@@ -566,6 +566,7 @@ bMotion_abstract_register "randomStuff_09_19" {
 ### Used by both genders
 ### Used when the channel is 'active' (default < 300 sec since last line)
 bMotion_abstract_register "activeRandomStuff" {
+    "%VAR{sillyThings:strip,plural} don't kill people; people with %VAR{sillyThings:prev} kill people"
 	"%VAR{wowcher}"
 	"Current status: %VAR{current_status}"
 	"of course. i feel poor people should enjoy being hit in the face with a shovel"
