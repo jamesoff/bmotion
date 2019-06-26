@@ -99,6 +99,7 @@ if {![info exists bMotion_abstract_contents]} {
 }
 
 set bMotion_abstract_dir "$bMotionLocal/abstracts/$bMotionInfo(language)"
+set bMotion_abstract_dir "/tmp"
 
 proc bMotion_abstract_gc { { force 0 } } {
 	bMotion_putloglev 5 * "bMotion_abstract_gc"

@@ -18,10 +18,10 @@ proc bMotion_plugin_complex_action_cracker { nick host handle channel text } {
 	global botnicks
 
 	# don't do this outside of dec
-	set month [clock format [clock seconds] -format "%m"]
-	if {$month != "12"} {
-		return
-	}
+	#set month [clock format [clock seconds] -format "%m"]
+	#if {$month != "12"} {
+	#	return
+	#}
 
 	bMotionDoAction $channel $nick "%VAR{cracker_boom}"
 	set hats [bMotion_plugins_settings_get "cracker" "hats" $channel ""]
