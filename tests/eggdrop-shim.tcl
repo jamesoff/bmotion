@@ -72,6 +72,11 @@ proc channel { method channel property } {
   }
 }
 
+proc channame2dname { channel } {
+  shim_print "channame2dname $channel"
+  return $channel
+}
+
 proc rand { max } {
   shim_print "rand"
   return [expr { int(rand() * $max) }]
@@ -141,7 +146,7 @@ proc chanlist { channel } {
   return [list "jms" "jamesoff" ]
 }
 
-proc nick2hand { nick $channel } {
+proc nick2hand { nick { channel "" } } {
   shim_print "nick2hand $nick"
   return $nick
 }
@@ -153,4 +158,8 @@ proc getuser { handle type key } {
       return 50
     }
   }
+}
+
+proc setuser { handle type key value } {
+  shim_print "setuser $handle $type $key"
 }
