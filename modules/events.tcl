@@ -116,6 +116,8 @@ proc bMotion_event_onpart {nick host handle channel {msg ""}} {
 		return 0
 	}
 
+	regsub -all {(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])} $reason "" reason
+
 	bMotion_putloglev 3 * "entering bmotion_event_onpart: $nick $host $handle $channel $msg"
 
 	bMotion_plugins_settings_set "system" "lastleft" $channel "" $nick
@@ -144,6 +146,8 @@ proc bMotion_event_onquit {nick host handle channel reason} {
 	if {![channel get $channel bmotion]} {
 		return 0
 	}
+
+	regsub -all {(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])} $reason "" reason
 
 	set nick [bMotion_cleanNick $nick $handle]
 
@@ -461,6 +465,8 @@ proc bMotion_event_action {nick host handle dest keyword text} {
 	if {![channel get $channel bmotion]} {
 		return 0
 	}
+
+	regsub -all {(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])} $text "" text
 
 	bMotion_putloglev 4 * "bMotion: entering bMotion_event_action with $nick $host $handle $dest $keyword $text"
 
