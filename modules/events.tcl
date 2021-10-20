@@ -193,6 +193,11 @@ proc bMotion_event_main {nick host handle channel text} {
 		return 0
 	}
 
+	# filter out emoji and other unicode stuff
+	# seems to be the cause of a crash: https://github.com/jamesoff/bmotion/issues/43
+	# doing this here before $text is used at all to protect eggdrop as much as possible
+	regsub -all {(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])} $text "" text
+
 	#don't trigger on !seen etc
 	if [regexp -nocase "^!(last)?seen" $text] {
 		return 0
