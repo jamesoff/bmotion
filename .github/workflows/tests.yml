@@ -1,0 +1,16 @@
+name: tests
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: install TCL
+        run: sudo apt install -y tcl
+
+      - name: run tests
+        run: ./tests/tests-wrapper.sh
