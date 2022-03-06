@@ -12,11 +12,17 @@ namespace import ::tcltest::*
 eval ::tcltest::configure $argv
 
 test onjoin-1 "onjoin handles event" -body {
-  set result [bMotion_event_onjoin jms jms!jms@localhost jms #molsoft]
-  if {($result == 0) || ($result == 1)} {
-    return 1
-  }
+    set result [bMotion_event_onjoin jms jms!jms@localhost jms #molsoft]
+    if {($result == 0) || ($result == 1)} {
+        return 1
+    }
 } -result 1
 
+test onpart-1 "onpart handles event" -body {
+    set result [bMotion_event_onpart jms jms!jms@localhost jms #molsoft "some reason"]
+    if {($result == 0) || ($result == 1)} {
+        return 1
+    }
+} -result 1
 
 cleanupTests

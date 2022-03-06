@@ -116,7 +116,7 @@ proc bMotion_event_onpart {nick host handle channel {msg ""}} {
 		return 0
 	}
 
-	regsub -all {(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])} $reason "" reason
+	regsub -all {(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])} $msg "" msg
 
 	bMotion_putloglev 3 * "entering bmotion_event_onpart: $nick $host $handle $channel $msg"
 
